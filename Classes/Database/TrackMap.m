@@ -86,7 +86,7 @@
 		[view FillRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
 		
 		[view SetLineWidth:2];
-		[view SetBGColour:lineColour];
+		[view SetFGColour:lineColour];
 		[view LineRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
 		
 		if ( name != nil )
