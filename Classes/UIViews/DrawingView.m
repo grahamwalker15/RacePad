@@ -199,6 +199,44 @@ static bool fonts_initialised_ = false;
 	return [[UIColor alloc] initWithRed:(CGFloat)r/255.0 green:(CGFloat)g/255.0 blue:(CGFloat)b/255.0 alpha:(CGFloat)a];
 }
 
+- (UIColor *)CreateHighlightColourFromColour:(UIColor *)source
+{
+	int component_count = CGColorGetNumberOfComponents ([source CGColor]);
+
+	if(component_count < 3)
+	{
+		[source retain];
+		return source;
+	}
+	
+	const CGFloat *components = CGColorGetComponents([source CGColor]);
+	
+	float rh = components[0] * 1.2; if(rh > 1.0) rh = 1.0;
+	float gh = components[1] * 1.2; if(gh > 1.0) gh = 1.0;
+	float bh = components[2] * 1.2; if(bh > 1.0) bh = 1.0;
+	float a = component_count >= 4 ? components[3] : 1.0;
+	return [[UIColor alloc] initWithRed:(CGFloat)rh green:(CGFloat)gh blue:(CGFloat)bh alpha:(CGFloat)a];
+}
+
+- (UIColor *)CreateShadowColourFromColour:(UIColor *)source
+{
+	int component_count = CGColorGetNumberOfComponents ([source CGColor]);
+	
+	if(component_count < 3)
+	{
+		[source retain];
+		return source;
+	}
+	
+	const CGFloat *components = CGColorGetComponents([source CGColor]);
+	
+	float rs = components[0] * 0.7;
+	float gs = components[1] * 0.7;
+	float bs = components[2] * 0.7;
+	float a = component_count >= 4 ? components[3] : 1.0;
+	return [[UIColor alloc] initWithRed:(CGFloat)rs green:(CGFloat)gs blue:(CGFloat)bs alpha:(CGFloat)a];
+}
+
 // Basic utilities
 
 - (CGSize)InqSize
@@ -293,7 +331,7 @@ static bool fonts_initialised_ = false;
 	if(current_context_)
 		CGContextSetShadow (current_context_, CGSizeMake((CGFloat)xoffset, (CGFloat)yoffset), (CGFloat)blur);
 }
- 
+
 - (void)LineX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
 {
 	if(current_context_)
@@ -327,6 +365,38 @@ static bool fonts_initialised_ = false;
 	}
 }
 
+- (void)FillShadedRectangle:(CGRect)rect
+{
+	if(current_context_)
+	{
+		// Vertical gradient based on current background colour
+		UIColor * highlight = [self CreateHighlightColourFromColour:bg_];
+		UIColor * shadow = [self CreateShadowColourFromColour:bg_];
+
+		CGContextSaveGState(current_context_);
+		CGContextClipToRect(current_context_, rect);
+		
+		CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+		CGColorRef colors[] = {[highlight CGColor], [bg_ CGColor], [shadow CGColor]};
+		CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 3, &kCFTypeArrayCallBacks);
+		
+		CGGradientRef gradient = CGGradientCreateWithColors(colorspace, colorsArray, NULL);
+		CGPoint start_point = rect.origin;
+		CGPoint end_point = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+		CGContextDrawLinearGradient(current_context_, gradient, start_point, end_point, 0);
+		
+		CFRelease(colorsArray);
+		CGGradientRelease(gradient);
+		CGColorSpaceRelease(colorspace);
+		
+		[highlight release];
+		[shadow release];
+		
+		CGContextRestoreGState(current_context_);
+		
+	}
+}
+
 - (void)LineRectangle:(CGRect)rect
 {
 	if(current_context_)
@@ -339,6 +409,11 @@ static bool fonts_initialised_ = false;
 - (void)FillRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
 {
 	[self FillRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
+}
+
+- (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
+{
+	[self FillShadedRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
 }
 
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
@@ -414,6 +489,11 @@ static bool fonts_initialised_ = false;
 - (void) DrawImage:(UIImage *)image InRect:(CGRect)rect WithAlpha:(float)alpha
 {
 	[image drawInRect:rect blendMode:kCGBlendModeNormal alpha:alpha];
+}
+
+- (void) DrawPattern:(UIImage *)image InRect:(CGRect)rect
+{
+	[image drawAsPatternInRect:rect];
 }
 
 //

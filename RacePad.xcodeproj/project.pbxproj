@@ -11,6 +11,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		7F067EBE126DA4B800C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067EBD126DA4B800C9EE5D /* Metal.png */; };
+		7F067EC0126DA4C600C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067EBF126DA4C600C9EE5D /* Parchment.png */; };
 		7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */; };
 		7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; };
 		7F3276F3126379B000BD1627 /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F0126379B000BD1627 /* TableData.m */; };
@@ -57,6 +59,8 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7F067EBD126DA4B800C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
+		7F067EBF126DA4C600C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
 		7F32763012634AB000BD1627 /* RacePadCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadCoordinator.h; sourceTree = "<group>"; };
 		7F32763112634AB000BD1627 /* RacePadCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadCoordinator.m; sourceTree = "<group>"; };
 		7F3276E1126375F400BD1627 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F067EBF126DA4C600C9EE5D /* Parchment.png */,
+				7F067EBD126DA4B800C9EE5D /* Metal.png */,
 				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
 				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
@@ -359,6 +365,8 @@
 				7FB1C59112673E7F008A6C94 /* ThirdView.xib in Resources */,
 				7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */,
 				7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */,
+				7F067EBE126DA4B800C9EE5D /* Metal.png in Resources */,
+				7F067EC0126DA4C600C9EE5D /* Parchment.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

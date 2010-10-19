@@ -403,7 +403,10 @@
 				[self SetBGColour:background_colour_];
 				[self SetFGColour:text_colour_];
 				
-				[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+				if(heading)
+					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+				else
+					[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 				
 				if(if_large_font_)
 					[self UseMediumBoldFont];

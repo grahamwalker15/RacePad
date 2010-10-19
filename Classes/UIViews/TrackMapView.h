@@ -16,5 +16,7 @@
 
 }
 
+- (void)InitialiseImages;
+
 @end
 

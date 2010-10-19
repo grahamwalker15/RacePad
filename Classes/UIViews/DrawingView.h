@@ -46,6 +46,9 @@
 - (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b;
 - (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b Alpha:(int)a;
 
+- (UIColor *)CreateHighlightColourFromColour:(UIColor *)source;
+- (UIColor *)CreateShadowColourFromColour:(UIColor *)source;
+
 // Basic utilities
 - (CGSize)InqSize;
 
@@ -84,8 +87,10 @@
 - (void)LinePoint0:(CGPoint)p0 Point1:(CGPoint)p1;
 
 - (void)FillRectangle:(CGRect)rect;
+- (void)FillShadedRectangle:(CGRect)rect;
 - (void)LineRectangle:(CGRect)rect;
 - (void)FillRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
+- (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 
 - (void)EtchRectangle:(CGRect)rect EtchIn:(bool)etch_in;
@@ -104,6 +109,8 @@
 
 - (void) DrawImage:(UIImage *)image InRect:(CGRect)rect;
 - (void) DrawImage:(UIImage *)image InRect:(CGRect)rect WithAlpha:(float)alpha;
+
+- (void) DrawPattern:(UIImage *)image InRect:(CGRect)rect;
 
 //
 // Text Drawing

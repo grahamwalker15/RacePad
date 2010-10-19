@@ -227,14 +227,12 @@
 
 - (void) drawTrack : (TrackMapView *) view Scale: (float) scale
 {
-	if ( [inner count] > 1
-	  && [outer count] > 1 )
+	if ( [inner count] > 1  && [outer count] > 1 )
 	{
-		[view SetLineWidth:2 / scale];
-		[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
-		[view LinePolygonPoints:[inner count] XCoords:[inner x] YCoords:[inner y]];
+		[view SetLineWidth:3 / scale];
+		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
 		
-		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
+		[view LinePolygonPoints:[inner count] XCoords:[inner x] YCoords:[inner y]];
 		[view LinePolygonPoints:[outer count] XCoords:[outer x] YCoords:[outer y]];
 	}
 }
@@ -242,6 +240,7 @@
 - (void) drawCars : (TrackMapView *) view Scale: (float) scale
 {
 	[view UseRegularFont];
+	
 	for ( int i = 0; i < carCount; i++ )
 		[[cars objectAtIndex:i] draw:view Scale:scale];
 }

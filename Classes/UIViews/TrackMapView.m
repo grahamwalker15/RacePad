@@ -13,6 +13,10 @@
 
 @implementation TrackMapView
 
+static UIImage * screen_bg_image_ = nil;
+static UIImage * map_bg_image_ = nil;
+
+static bool images_initialised_ = false;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +28,7 @@
 {    
     if ((self = [super initWithCoder:coder]))
     {
-		// Put any class specific initialisation here
+		[self InitialiseImages];
 	}
 	
     return self;
@@ -46,7 +50,8 @@
 
 - (void)dealloc
 {
-	// Put any class specific releasing here
+	[screen_bg_image_ release];
+	[map_bg_image_ release];
 	
     [super dealloc];
 }
@@ -56,6 +61,17 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Methods for this class 
 
+
+- (void)InitialiseImages
+{
+	if(!images_initialised_)
+	{
+		images_initialised_ = true;
+		
+		screen_bg_image_ = [[UIImage imageNamed:@"Parchment.png"] retain];
+		map_bg_image_ = [[UIImage imageNamed:@"Metal.png"] retain];
+	}
+}
 
 - (void) drawTrack
 {
@@ -71,9 +87,19 @@
 - (void)Draw:(CGRect) rect
 {
 	[self SetBGColour:[UIColor colorWithRed:0.00 green:0.0 blue:0.0 alpha:1.0]];
-	[self FillRectangle:current_bounds_];
 	
-	[self drawTrack];	
+	[self SaveGraphicsState];
+	[self DrawPattern:screen_bg_image_ InRect:current_bounds_];
+	
+	[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
+	CGRect map_rect = CGRectInset(current_bounds_, 30, 30);
+	[self DrawPattern:map_bg_image_ InRect:map_rect];
+	
+	[self SetDropShadowXOffset:5.0 YOffset:5.0 Blur:3.0];
+
+	[self drawTrack];
+	
+	[self RestoreGraphicsState];
 }
 
 @end
