@@ -39,7 +39,7 @@
 	
 	[driver_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
-	[driver_list_view_ SetRowHeight:30];
+	[driver_list_view_ SetRowHeight:28];
 	[driver_list_view_ SetHeading:true];
 	
     [super viewDidLoad];
