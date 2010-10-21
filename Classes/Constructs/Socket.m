@@ -9,6 +9,8 @@
 #import "Socket.h"
 #import <netinet/in.h>
 #import <arpa/inet.h>
+#import "DataHandler.h"
+#import "DataStream.h"
 
 
 @implementation Socket
@@ -32,6 +34,8 @@
 	disconnection_timer_ = 0;
 	
 	new_transfer_ = true;
+	
+	transferData = [self constructDataHandler];
 	
 	return self;
 }
@@ -119,7 +123,7 @@
 				
 				transfer_size_ = ntohl(*long_ptr++);
 				transfer_size_received_ = 0;
-				transfer_buffer_ = (UInt8 *) malloc ( sizeof (UInt8) * transfer_size_ );
+				[transferData newTransfer:transfer_size_];
 				new_transfer_ = false;
 			}
 			else 
@@ -136,18 +140,16 @@
 			if ( size_required > data_size )
 				size_required = data_size;
 			
-			memcpy ( transfer_buffer_ + transfer_size_received_, byte_ptr, size_required );
+			// memcpy ( transfer_buffer_ + transfer_size_received_, byte_ptr, size_required );
+			memcpy ( [[transferData getStream] inqBuffer] + transfer_size_received_, byte_ptr, size_required );
 			transfer_size_received_ += size_required;
 			data_size -= size_required;
 			byte_ptr += size_required;
 			
 			if ( transfer_size_received_ >= transfer_size_ )
 			{
-				buffer_index_ = 4; // to skip the size
-				int command = [self PopInt];
-				[self HandleCommand:command];
-				free (transfer_buffer_);
-				
+				[[transferData getStream] PopInt]; // Remove the size
+				[transferData handleCommand];
 				new_transfer_ = true;
 			}
 			else
@@ -160,63 +162,9 @@
 	}
 }
 
-- (bool)PopBool
-{
-	bool t = transfer_buffer_[buffer_index_] > 0;
-	buffer_index_ += 1;
-	
-	return t;
-}
-
-- (unsigned char)PopUnsignedChar 
-{
-	int t = (unsigned char) transfer_buffer_[buffer_index_];
-	buffer_index_ += 1;
-	
-	return t;
-}
-
-- (int)PopInt 
-{
-	int *buf = (int *)(transfer_buffer_ + buffer_index_);
-	int t = ntohl ( *buf );
-	buffer_index_ += sizeof ( int );
-	
-	return t;
-}
-
-- (float)PopFloat
-{
-	float *buf = (float *)(transfer_buffer_ + buffer_index_);
-	unsigned int *ip = (unsigned int *)(transfer_buffer_ + buffer_index_);
-	*ip = ntohl ( *ip);
-	float t = ( *buf );
-	buffer_index_ += sizeof ( float );
-	
-	return t;
-}
-
-- (NSString *)PopString
-{
-	int size = [self PopInt];
-	char *s = malloc ( size + 1 );
-	memcpy ( s, transfer_buffer_ + buffer_index_, size );
-	buffer_index_ += size;
-	s[size] = 0;
-	NSString *t = [NSString stringWithUTF8String:s];
-	free ( s );
-	return t;
-}
-
-- (void) PopBuffer: (unsigned char *)buffer Length:(int)length
-{
-	memcpy ( buffer, transfer_buffer_ + buffer_index_, length );
-	buffer_index_ += length;
-}
-
-- (void)HandleCommand : (int) command
-{
-	// Override me
+- (DataHandler *) constructDataHandler {
+	DataHandler *handler = [[DataHandler alloc] init];
+	return handler;
 }
 
 - (void) Connected

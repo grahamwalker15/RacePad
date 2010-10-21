@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RacePadClientSocket;
+@class DataStream;
 @class TrackMapView;
 
 @interface TrackCar : NSObject
@@ -25,7 +25,7 @@
 
 -(id) init;
 
-- (void) load : (RacePadClientSocket *) socket;
+- (void) load : (DataStream *) stream;
 - (void) draw : (TrackMapView *) view Scale: (float) scale;
 
 @end
@@ -46,7 +46,7 @@
 - (float *)x;
 - (float *)y;
 
-- (void) loadShape : (RacePadClientSocket *) socket;
+- (void) loadShape : (DataStream *) stream;
 
 @end
 
@@ -61,8 +61,8 @@
 - (id) init;
 - (void) dealloc;
 
-- (void) loadTrack : (RacePadClientSocket *) socket;
-- (void) updateCars : (RacePadClientSocket *) socket;
+- (void) loadTrack : (DataStream *) stream;
+- (void) updateCars : (DataStream *) stream;
 
 - (void) draw:(TrackMapView *)view;
 

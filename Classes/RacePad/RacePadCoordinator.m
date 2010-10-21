@@ -8,7 +8,8 @@
 
 #import "RacePadCoordinator.h"
 #import "RacePadClientSocket.h"
-
+#import "RacePadDataHandler.h"
+#import "ElapsedTime.h"
 
 @implementation RacePadCoordinator
 
@@ -40,7 +41,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) SetServerAddress : (NSString *) server
 {
-	[socket_ ConnectSocket:[server cString] Port:6021];
+	[socket_ ConnectSocket:[server UTF8String] Port:6021];
 }
 
 - (void) Connected
@@ -90,8 +91,7 @@ static RacePadCoordinator * instance_ = nil;
 		// If it is, just set the type
 		[existing_view SetDisplayed:true];
 		
-		if ( [socket_ InqStatus] == SOCKET_OK_ )
-		{
+		if ( [socket_ InqStatus] == SOCKET_OK_ ) {
 			[socket_ SetReferenceTime:53400];
 			if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ )
 			{
@@ -100,6 +100,15 @@ static RacePadCoordinator * instance_ = nil;
 			else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ )
 			{
 				[socket_ StreamCars];
+			}
+		}
+		else {
+			if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ ) {
+				dataHandler = [[RacePadDataHandler alloc] initWithPath:@"/sample.rpf"];
+				[dataHandler setTime:51760000];
+				baseTime = [dataHandler inqTime];
+				currentTime = [[ElapsedTime alloc] init];
+				updateTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
 			}
 		}
 	}
@@ -114,6 +123,16 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		// If it is, just set the type
 		[existing_view SetDisplayed:false];
+
+		// Stop the repeating timer
+		[updateTimer invalidate];
+		updateTimer = nil;
+		[currentTime release];
+		currentTime = nil;
+		
+		// Release the data handler
+		[dataHandler release];
+		dataHandler = nil;
 	}
 }
 
@@ -179,6 +198,10 @@ static RacePadCoordinator * instance_ = nil;
 	
 	// Reach here if the view wasn't found
 	return nil;
+}
+
+- (void) timerUpdate: (NSTimer *)theTimer {
+	[dataHandler update:baseTime + [currentTime value] * 1000];
 }
 
 - (void)dealloc

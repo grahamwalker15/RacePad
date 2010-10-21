@@ -31,11 +31,18 @@ enum ViewTypes
 @end
 
 @class RacePadClientSocket;
+@class RacePadDataHandler;
+@class ElapsedTime;
 
 @interface RacePadCoordinator : NSObject
 {
 	NSMutableArray * views_;
 	RacePadClientSocket * socket_;
+	
+	NSTimer *updateTimer;
+	RacePadDataHandler *dataHandler;
+	int baseTime;
+	ElapsedTime *currentTime;
 }
 
 +(RacePadCoordinator *)Instance;
@@ -53,5 +60,7 @@ enum ViewTypes
 
 -(RacePadView *)FindView:(id)view;
 -(RacePadView *)FindView:(id)view WithIndexReturned:(int *)index;
+
+- (void) timerUpdate: (NSTimer *)theTimer;
 
 @end

@@ -23,6 +23,8 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 
 // NOTE - NO SUPPORT IN HERE YET FOR ATTEMPTING TO RECONNECT ON FAILURE OR LOSS OF NETWORK
 
+@class DataHandler;
+
 @interface Socket : NSObject
 {
 	
@@ -44,10 +46,9 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 	CFRunLoopSourceRef run_loop_source_;
 	
 	bool new_transfer_;
-	UInt8 *transfer_buffer_;
+	DataHandler *transferData;
 	int transfer_size_; // How much we're supposed to get
 	int transfer_size_received_; // How much we've got so far
-	int buffer_index_; // How much we've read from our buffer
 	
 }
 
@@ -61,13 +62,6 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 
 - (int)InqStatus;
 - (void)Connected;
-- (void)HandleCommand:(int)command;
-
-- (bool) PopBool;
-- (unsigned char) PopUnsignedChar;
-- (int) PopInt;
-- (float) PopFloat;
-- (NSString *) PopString;
-- (void) PopBuffer: (unsigned char *)buffer Length:(int)length;
+- (DataHandler *) constructDataHandler;
 
 @end

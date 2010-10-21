@@ -7,7 +7,7 @@
 //
 
 #import "ImageListStore.h"
-#import "RacePadClientSocket.h"
+#import "DataStream.h"
 
 @implementation ImageList
 
@@ -23,13 +23,11 @@
 	[super dealloc];
 }
 
-- (void) loadItem: (RacePadClientSocket *)socket
+- (void) loadItem: (DataStream *)stream
 {
-	NSString *itemName = [[socket PopString] retain];
-	int size = [socket PopInt];
-	unsigned char *buffer = malloc(size);
-	[socket PopBuffer:buffer Length:size];
-	NSData *data = [NSData dataWithBytesNoCopy:buffer length:size];
+	NSString *itemName = [[stream PopString] retain];
+	int size = [stream PopInt];
+	NSData *data = [stream PopData:size];
 	
 	UIImage *item = [[UIImage alloc] initWithData:data];
 	
@@ -60,9 +58,9 @@
 	[super dealloc];
 }
 
-- (void) loadItem: (RacePadClientSocket *)socket
+- (void) loadItem: (DataStream *)stream
 {
-	NSString *listName = [[socket PopString] retain];
+	NSString *listName = [[stream PopString] retain];
 	
 	ImageList *list = [dictionary objectForKey:listName];
 	if ( list == nil )
@@ -72,7 +70,7 @@
 		[list autorelease];
 	}
 	
-	[list loadItem:socket];
+	[list loadItem:stream];
 	[listName release];
 }
 

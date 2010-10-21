@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RacePadClientSocket;
+@class DataStream;
 
 @interface ImageList : NSObject {
 	
@@ -16,7 +16,7 @@
 	
 }
 
-- (void) loadItem: (RacePadClientSocket *)socket;
+- (void) loadItem: (DataStream *)stream;
 - (UIImage *) findItem: (NSString *)key;
 
 @end
@@ -27,7 +27,7 @@
 	
 }
 
-- (void) loadItem: (RacePadClientSocket *)socket;
+- (void) loadItem: (DataStream *)stream;
 - (ImageList *) findList: (NSString *) key;
 
 @end

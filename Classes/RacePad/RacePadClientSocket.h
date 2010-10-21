@@ -12,8 +12,8 @@
 {
 }
 
-- (UIColor *)PopRGB;
-- (UIColor *)PopRGBA;
+- (DataHandler *)constructDataHandler;
+
 - (void) RequestEvent;
 - (void) RequestTrackMap;
 - (void) SetReferenceTime:(float)reference_time;

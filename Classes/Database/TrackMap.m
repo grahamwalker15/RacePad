@@ -7,7 +7,7 @@
 //
 
 #import "TrackMap.h"
-#import "RacePadClientSocket.h"
+#import "DataStream.h"
 #import "TrackMapView.h"
 
 @implementation TrackCar
@@ -34,7 +34,7 @@
 	[super dealloc];
 }
 
-- (void) load:(RacePadClientSocket *)socket
+- (void) load:(DataStream *)stream
 {
 	[pointColour release];
 	[fillColour release];
@@ -48,19 +48,19 @@
 	textColour = nil;
 	name = nil;
 
-	pointColour = [[socket PopRGBA] retain];
-	x = [socket PopFloat];
-	y = [socket PopFloat];
-	dotSize = [socket PopInt];
-	moving = [socket PopBool];
+	pointColour = [[stream PopRGBA] retain];
+	x = [stream PopFloat];
+	y = [stream PopFloat];
+	dotSize = [stream PopInt];
+	moving = [stream PopBool];
 	
 	if ( moving )
 	{
-		fillColour = [[socket PopRGBA] retain];
-		lineColour = [[socket PopRGBA] retain];
-		textColour = [[socket PopRGBA] retain];
+		fillColour = [[stream PopRGBA] retain];
+		lineColour = [[stream PopRGBA] retain];
+		textColour = [[stream PopRGBA] retain];
 		
-		name = [[socket PopString] retain];
+		name = [[stream PopString] retain];
 	}
 }
 
@@ -147,15 +147,15 @@
 	return y;
 }
 
--(void) loadShape:(RacePadClientSocket *)socket
+-(void) loadShape:(DataStream *)stream
 {
-	count = [socket PopInt];
+	count = [stream PopInt];
 	x = malloc(sizeof(float) * count);
 	y = malloc(sizeof(float) * count);
 	
 	for (int i = 0; i < count; i++ ) {
-		x[i] = [socket PopFloat];
-		y[i] = -[socket PopFloat];
+		x[i] = [stream PopFloat];
+		y[i] = -[stream PopFloat];
 	}
 	
 }
@@ -199,28 +199,28 @@
 	return outer;
 }
 
-- (void) loadTrack : (RacePadClientSocket *) socket
+- (void) loadTrack : (DataStream *) stream
 {
 	[inner clear];
 	[outer clear];
-	int count = [socket PopInt];
+	int count = [stream PopInt];
 	if ( count == 2 )
 	{
-		[inner loadShape:socket];
-		[outer loadShape:socket];
+		[inner loadShape:stream];
+		[outer loadShape:stream];
 	}
 }
 
-- (void) updateCars : (RacePadClientSocket *) socket
+- (void) updateCars : (DataStream *) stream
 {
 	carCount = 0;
 	
 	while (true) {
-		int carNum = [socket PopInt];
+		int carNum = [stream PopInt];
 		if ( carNum < 0 )
 			break;
 		
-		[[cars objectAtIndex:carCount] load:socket];
+		[[cars objectAtIndex:carCount] load:stream];
 		carCount++;
 	}
 }

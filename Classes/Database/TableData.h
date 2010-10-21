@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RacePadClientSocket;
+@class DataStream;
 
 enum DLC_TEXT_ALIGNMENT {
 	TEXT_LEFT,
@@ -46,8 +46,8 @@ enum TD_USE_FOR {
 @property (retain) UIColor *bg;
 @property unsigned char alignment;
 
-- (TableCell *)initWithSocket:(RacePadClientSocket*)socket;
-- (void)updateFromSocket:(RacePadClientSocket*)socket;
+- (TableCell *)initWithStream:(DataStream*)stream;
+- (void)updateFromStream:(DataStream*)stream;
 
 @end
 
@@ -66,7 +66,7 @@ enum TD_USE_FOR {
 @property (readonly) unsigned char columnContent;
 @property (readonly, retain) NSString * imageListName;
 
-- (TableHeader *)initHWithSocket:(RacePadClientSocket*)socket;
+- (TableHeader *)initHWithStream:(DataStream*)stream;
 
 @end
 
@@ -82,7 +82,7 @@ enum TD_USE_FOR {
 - (TableHeader *) columnHeader : (int) col;
 - (TableCell *) cell : (int) row Col : (int) col;
 
-- (void) loadData : (RacePadClientSocket *) socket;
-- (void) updateData : (RacePadClientSocket *) socket;
+- (void) loadData : (DataStream *) stream;
+- (void) updateData : (DataStream *) stream;
 
 @end

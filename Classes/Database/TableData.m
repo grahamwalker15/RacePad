@@ -7,7 +7,7 @@
 //
 
 #import "TableData.h"
-#import "RacePadClientSocket.h"
+#import "DataStream.h"
 
 @implementation TableCell
 
@@ -25,27 +25,27 @@
 	[super dealloc];
 }
 
-- (TableCell *) initWithSocket : (RacePadClientSocket *) socket
+- (TableCell *) initWithStream : (DataStream *) stream
 {
 	string = nil;
 	fg = nil;
 	bg = nil;
 	
-	[self updateFromSocket:socket];
+	[self updateFromStream:stream];
 	
 	return self;
 }
 
-- (void) updateFromSocket : (RacePadClientSocket *) socket
+- (void) updateFromStream : (DataStream *) stream
 {
 	[string release];
 	[fg release];
 	[bg release];
 	
-	string = [[socket PopString] retain];
-	fg = [[socket PopRGB] retain];
-	bg = [[socket PopRGB] retain];
-	alignment = [socket PopUnsignedChar];
+	string = [[stream PopString] retain];
+	fg = [[stream PopRGB] retain];
+	bg = [[stream PopRGB] retain];
+	alignment = [stream PopUnsignedChar];
 }
 
 @end
@@ -58,15 +58,15 @@
 @synthesize columnContent;
 @synthesize imageListName;
 
-- (TableHeader *) initHWithSocket : (RacePadClientSocket *) socket
+- (TableHeader *) initHWithStream : (DataStream *) stream
 {
-	width = [socket PopInt];
-	[super initWithSocket:socket];
-	columnUse = [socket PopUnsignedChar];
-	columnType = [socket PopUnsignedChar];
-	columnContent = [socket PopUnsignedChar];
+	width = [stream PopInt];
+	[super initWithStream:stream];
+	columnUse = [stream PopUnsignedChar];
+	columnType = [stream PopUnsignedChar];
+	columnContent = [stream PopUnsignedChar];
 	if ( columnContent == TD_IMAGES )
-		imageListName = [[socket PopString] retain];
+		imageListName = [[stream PopString] retain];
 	else
 		imageListName = nil;
 
@@ -130,38 +130,38 @@
 	return nil;
 }
 
-- (void) loadData : (RacePadClientSocket *) socket
+- (void) loadData : (DataStream *) stream
 {
 	[columnHeaders removeAllObjects];
 	[cells removeAllObjects];
 	
-	cols = [socket PopInt];
+	cols = [stream PopInt];
 	for ( int i = 0; i < cols; i++ )
 	{
-		TableHeader *header = [[TableHeader alloc] initHWithSocket:socket];
+		TableHeader *header = [[TableHeader alloc] initHWithStream:stream];
 		[columnHeaders addObject:header];
 	}
 	
-	rows = [socket PopInt];
+	rows = [stream PopInt];
 	for ( int r = 0; r < rows; r++ )
 		for ( int i = 0; i < cols; i++ )
 		{
-			TableCell *cell = [[TableCell alloc] initWithSocket:socket];
+			TableCell *cell = [[TableCell alloc] initWithStream:stream];
 			[cells addObject:cell];
 		}
 }
 
-- (void) updateData : (RacePadClientSocket *) socket
+- (void) updateData : (DataStream *) stream
 {
 	while ( true ) {
-		int row = [socket PopInt];
+		int row = [stream PopInt];
 		if ( row < 0 )
 			break;
 		
-		int col = [socket PopInt];
+		int col = [stream PopInt];
 		TableCell *cell = [self cell:row Col:col];
 		if ( cell != nil )
-			[cell updateFromSocket:socket];
+			[cell updateFromStream:stream];
 	}
 }
 
