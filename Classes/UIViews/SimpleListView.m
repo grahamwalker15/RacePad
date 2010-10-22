@@ -609,6 +609,8 @@
 	
 	*row_return = row;
 	*col_return = col;
+	
+	return true;
 }
 
 

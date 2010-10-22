@@ -45,7 +45,7 @@
 // Initialisation
 - (void)InitialiseDrawingViewMembers;
 - (void)InitialiseImageDrawing;
-- (void)InitialiseFonts;
+- (void)InitialiseStatics;
 
 - (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b;
 - (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b Alpha:(int)a;
@@ -59,6 +59,8 @@
 - (bool)CreateBitmapContext;
 - (CGImageRef)GetImageFromBitmapContext;
 - (void)DestroyBitmapContext;
+
+- (void)SetBGToShadowColour;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;

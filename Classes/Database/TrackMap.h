@@ -17,6 +17,7 @@
 	UIColor *fillColour;
 	UIColor *lineColour;
 	UIColor *textColour;
+	
 	float x, y;
 	int dotSize;
 	NSString *name;

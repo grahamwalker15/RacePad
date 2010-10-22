@@ -18,6 +18,7 @@
 	fillColour = nil;
 	lineColour = nil;
 	textColour = nil;
+	
 	name = nil;
 	
 	return [super init];
@@ -83,17 +84,19 @@
 	
 	if ( moving )
 	{
-		[view SetBGColour:fillColour];
-		[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
-		
 		float x0 = px + 5;
 		float y0 = py + 2;
 		float x1 = x0 + boxWidth;
 		float y1 = y0 - boxHeight;
+		
+		// Shadow
+		[view SetBGToShadowColour];		
+		[view FillRectangleX0:x0+5 Y0:y0+5 X1:x1+5 Y1:y1+5];
+
+		// Box
+		[view SetBGColour:fillColour];
 		[view FillRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
 		
-		[view ResetDropShadow];
-
 		[view SetLineWidth:2];
 		[view SetFGColour:lineColour];
 		[view LineRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
@@ -330,14 +333,13 @@
 		// Draw inner and outer track in 3 point white with drop shadow
 		[view SaveGraphicsState];
 		
-		[view SetLineWidth:3 / scale];
-		[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
+		[view SetLineWidth:2 / scale];
+		//[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
 		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
 		
 		[view BeginPath];
 		[view LoadPath:inner_path];
 		[view LoadPath:outer_path];
-		
 		[view LinePath];
 		
 		[view RestoreGraphicsState];

@@ -53,6 +53,7 @@ static bool images_initialised_ = false;
 	[screen_bg_image_ release];
 	[map_bg_image_ release];
 	
+	
     [super dealloc];
 }
 
@@ -60,7 +61,6 @@ static bool images_initialised_ = false;
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Methods for this class 
-
 
 - (void)InitialiseImages
 {
@@ -70,6 +70,51 @@ static bool images_initialised_ = false;
 		
 		screen_bg_image_ = [[UIImage imageNamed:@"Parchment.png"] retain];
 		map_bg_image_ = [[UIImage imageNamed:@"Metal.png"] retain];
+		
+		background_image_ = nil;
+		background_image_w_ = 0;
+		background_image_h_ = 0;
+	}
+}
+
+- (void)CheckBackground
+{
+	int current_width = current_size_.width;
+	int current_height = current_size_.height;
+	
+	if(!background_image_ || background_image_w_ != current_width || background_image_h_ != current_height)
+	{
+		// Free any existing image
+		if(background_image_)
+		{
+			CGImageRelease(background_image_);
+			background_image_ = nil;
+			background_image_w_ = 0;
+			background_image_h_ = 0;
+		}
+		
+		// Make a new image context
+		if([self CreateBitmapContext])
+		{
+			// Draw the background
+			[self SaveGraphicsState];
+			
+			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
+			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
+			
+			CGRect map_rect = CGRectInset(current_bounds_, 30, 30);
+			[self DrawPattern:map_bg_image_ InRect:map_rect];	
+
+			[self RestoreGraphicsState];
+			
+			// Get the background image from the bitmap context
+			background_image_ = [self GetImageFromBitmapContext];
+			background_image_w_ = current_width;
+			background_image_h_ = current_height;
+			
+			// Restore the old context
+			[self DestroyBitmapContext];
+		}
 	}
 }
 
@@ -84,22 +129,21 @@ static bool images_initialised_ = false;
 	}
 }
 
+
+
 - (void)Draw:(CGRect) rect
 {
 	[self SetBGColour:[UIColor colorWithRed:0.00 green:0.0 blue:0.0 alpha:1.0]];
 	
-	[self SaveGraphicsState];
-	[self DrawPattern:screen_bg_image_ InRect:current_bounds_];
+	[self ClearScreen];
 	
-	[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
-	CGRect map_rect = CGRectInset(current_bounds_, 30, 30);
-	[self DrawPattern:map_bg_image_ InRect:map_rect];
+	[self CheckBackground];
 	
-	[self SetDropShadowXOffset:5.0 YOffset:5.0 Blur:3.0];
-
+	if(background_image_)
+		CGContextDrawImage (current_context_, current_bounds_, background_image_);
+	
 	[self drawTrack];
 	
-	[self RestoreGraphicsState];
 }
 
 @end

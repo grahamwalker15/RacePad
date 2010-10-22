@@ -12,14 +12,16 @@
 #import "ESRenderer.h"
 
 @class TrackMapView;
+@class TableDataView;
 
 @interface TrackMapViewController : DrawingViewController
 {
 	
 	TrackMapView *track_map_view_;
 	
+	IBOutlet TableDataView *timing_view_;
+	
 }
 
-- (void)RequestRedraw;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "TrackMapViewController.h"
 #import "RacePadCoordinator.h"
+#import "RacePadDatabase.h"
+#import "TableDataView.h"
 #import "TrackMapView.h"
 
 @implementation TrackMapViewController
@@ -24,6 +26,7 @@
 - (void)RequestRedraw
 {
 	[track_map_view_ RequestRedraw];
+	//[timing_view_ RequestRedraw];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -31,7 +34,11 @@
 {
 	track_map_view_ = (TrackMapView *)[self view];
 
-    [super viewDidLoad];
+ 	//[timing_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+	//[timing_view_ SetRowHeight:28];
+	//[timing_view_ SetHeading:true];
+	
+	[super viewDidLoad];
 	[[RacePadCoordinator Instance] AddView:self WithType:RPC_TRACK_MAP_VIEW_];
 }
 

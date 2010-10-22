@@ -23,7 +23,9 @@ static UIFont * bold_font_ = nil;
 static UIFont * medium_bold_font_ = nil;
 static UIFont * regular_font_ = nil;
 
-static bool fonts_initialised_ = false;
+static UIColor * shadow_colour_;
+
+static bool statics_initialised_ = false;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +158,7 @@ static bool fonts_initialised_ = false;
 	 
 - (void)InitialiseDrawingViewMembers
 {
-	[self InitialiseFonts];
+	[self InitialiseStatics];
 	
 	fg_ = [self CreateColourRed:255 Green:255 Blue:255]; // White
 	bg_ = [self CreateColourRed:0 Green:0 Blue:0]; // Black
@@ -180,11 +182,11 @@ static bool fonts_initialised_ = false;
 {
 }
 
-- (void)InitialiseFonts
+- (void)InitialiseStatics
 {
-	if(!fonts_initialised_)
+	if(!statics_initialised_)
 	{
-		fonts_initialised_ = true;
+		statics_initialised_ = true;
 
 		title_font_ = [UIFont boldSystemFontOfSize:36.0];
 		big_font_ = [UIFont boldSystemFontOfSize:32.0];
@@ -192,6 +194,8 @@ static bool fonts_initialised_ = false;
 		bold_font_ = [UIFont boldSystemFontOfSize:20.0];
 		medium_bold_font_ = [UIFont boldSystemFontOfSize:28.0];
 		regular_font_ = [UIFont boldSystemFontOfSize:20.0];
+		
+		shadow_colour_ = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3];
 	}
 }
 
@@ -307,6 +311,11 @@ static bool fonts_initialised_ = false;
 		bitmap_context_data_ = nil;		
 	}
 	
+}
+						  
+- (void)SetBGToShadowColour
+{
+	[self SetBGColour:shadow_colour_];
 }
 
 // View drawing

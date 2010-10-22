@@ -13,7 +13,9 @@
 
 @interface TrackMapView : DrawingView
 {
-
+	CGImageRef background_image_;
+	int background_image_w_;
+	int background_image_h_;
 }
 
 - (void)InitialiseImages;
