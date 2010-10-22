@@ -23,43 +23,67 @@
 	bool moving;
 }
 
--(id) init;
+- (id) init;
 
 - (void) load : (DataStream *) stream;
-- (void) draw : (TrackMapView *) view Scale: (float) scale;
+- (void) draw : (TrackMapView *)view Scale:(float)scale;
 
 @end
 
 
-@interface TrackShape : NSObject {
+@interface TrackShape : NSObject
+{
 
 	float *x;
 	float *y;
 	int count;
 	
+	float min_x;
+	float max_x;
+	float min_y;
+	float max_y;
+	
+	float width;
+	float height;
 }
 
-- (id) init;
-- (void) dealloc;
+@property (readonly) float min_x;
+@property (readonly) float max_x;
+@property (readonly) float min_y;
+@property (readonly) float max_y;
+@property (readonly) float width;
+@property (readonly) float height;
 
 - (int) count;
 - (float *)x;
 - (float *)y;
 
+- (float)width;
+- (float)height;
+
 - (void) loadShape : (DataStream *) stream;
 
 @end
 
-@interface TrackMap : NSObject {
+@interface TrackMap : NSObject
+{
 	
 	TrackShape *inner;
 	TrackShape *outer;
+	
+	CGMutablePathRef inner_path;
+	CGMutablePathRef outer_path;
+	
+	float x_centre;
+	float y_centre;
+	
+	float width;
+	float height;
+
 	NSMutableArray *cars;
+	
 	int carCount;
 }
-
-- (id) init;
-- (void) dealloc;
 
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;
