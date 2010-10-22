@@ -18,7 +18,53 @@
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OrientationChange:) name:@"UIDeviceOrientationDidChangeNotification"  object:nil];
 	
-    [super viewDidLoad];
+    //	Create and configure the gesture recognizers. Add each to the controlled view as a gesture recognizer.
+
+    UIGestureRecognizer *recognizer;
+    
+    //	Tap recognizer
+	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Double Tap recognizer
+	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDoubleTapFrom:)];
+	[(UITapGestureRecognizer *)recognizer setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Long press recognizer
+	recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLongPressFrom:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Pinch recognizer
+	recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePinchFrom:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Rotation recognizer
+	recognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRotationFrom:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Right Swipe recognizer
+	recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Left Swipe recognizer
+	recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLeftSwipeFrom:)];
+	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Pan recognizer
+	recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePanFrom:)];
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+	[super viewDidLoad];
 }
 
 - (void)dealloc
@@ -26,7 +72,10 @@
     [super dealloc];
 }
 
-// Action callbacks
+- (void)RequestRedraw
+{
+	// Should be overridden by derived classes
+}
 
 // orientation view swapping logic
 - (void) OrientationChange:(NSNotification *)notification
@@ -35,21 +84,91 @@
 	[self.view setNeedsDisplay];
 }
 
-- (IBAction) OnTouchDownX:(float)x Y:(float)y
+// Gesture recognizer callbacks
+
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	CGPoint point = [gestureRecognizer locationInView:self.view];
+	[self OnGestureTapAtX:point.x Y:point.y];
+}
+
+- (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	CGPoint point = [gestureRecognizer locationInView:self.view];
+	[self OnGestureDoubleTapAtX:point.x Y:point.y];
+}
+
+- (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	CGPoint point = [gestureRecognizer locationInView:self.view];
+	[self OnGestureLongPressAtX:point.x Y:point.y];
+}
+
+- (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	CGPoint point = [gestureRecognizer locationInView:self.view];
+	float scale = [(UIPinchGestureRecognizer *)gestureRecognizer scale];
+	float speed = [(UIPinchGestureRecognizer *)gestureRecognizer velocity];
+	[self OnGesturePinchAtX:point.x Y:point.y Scale:scale Speed:speed];
+}
+
+- (void)HandleRotationFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	CGPoint point = [gestureRecognizer locationInView:self.view];
+	float angle = [(UIRotationGestureRecognizer *)gestureRecognizer rotation];
+	float speed = [(UIRotationGestureRecognizer *)gestureRecognizer velocity];
+	[self OnGestureRotationAtX:point.x Y:point.y Angle:angle Speed:speed];
+}
+
+- (void)HandleRightSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	[self OnGestureRightSwipe];
+}
+
+- (void)HandleLeftSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	[self OnGestureLeftSwipe];
+}
+
+- (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
+	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.view];
+	[self OnGesturePanByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y];
+}
+
+// Action callbacks - these should be overridden if you want any action
+
+- (void) OnGestureTapAtX:(float)x Y:(float)y
 {
 }
 
-- (IBAction) OnTouchUpX:(float)x Y:(float)y
+- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
 {
 }
 
-- (IBAction) OnTouchMoveX:(float)x Y:(float)y
+- (void) OnGestureLongPressAtX:(float)x Y:(float)y
 {
 }
 
-- (IBAction) OnTouchCancelledX:(float)x Y:(float)y
+- (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
 }
 
+- (void) OnGestureRotationAtX:(float)x Y:(float)y Speed:(float)speed
+{
+}
+
+- (void) OnGestureRightSwipe
+{
+}
+
+- (void) OnGestureLeftSwipe
+{
+}
+
+- (void) OnGesturePanByX:(float)x Y:(float)y Speed:(float)speed
+{
+}
 
 @end
