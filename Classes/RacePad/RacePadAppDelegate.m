@@ -32,7 +32,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
 	
 	// Create the co-ordinator
-	[RacePadCoordinator Instance];
+	[[RacePadCoordinator Instance] onStartUp];
 	
     // Add the tab bar controller's current view as a subview of the window
     [window addSubview:tabBarController.view];

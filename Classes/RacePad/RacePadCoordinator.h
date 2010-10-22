@@ -39,6 +39,8 @@ enum ViewTypes
 	NSMutableArray * views_;
 	RacePadClientSocket * socket_;
 	
+	NSString *sessionFolder;
+	
 	NSTimer *updateTimer;
 	RacePadDataHandler *dataHandler;
 	int baseTime;
@@ -46,6 +48,8 @@ enum ViewTypes
 }
 
 +(RacePadCoordinator *)Instance;
+
+- (void) onStartUp;
 
 -(void)AddView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;
@@ -61,6 +65,7 @@ enum ViewTypes
 -(RacePadView *)FindView:(id)view;
 -(RacePadView *)FindView:(id)view WithIndexReturned:(int *)index;
 
+- (void) playRPF: (NSString *)file;
 - (void) timerUpdate: (NSTimer *)theTimer;
 
 @end

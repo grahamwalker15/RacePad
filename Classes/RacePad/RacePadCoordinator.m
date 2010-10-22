@@ -33,6 +33,35 @@ static RacePadCoordinator * instance_ = nil;
 	return self;
 }
 
+- (void) loadRPF: (NSString *)file {
+	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:file];
+	[handler setTime:[handler inqTime]];
+}
+
+- (void) playRPF: (NSString *)file {
+	NSString *fileName = [sessionFolder stringByAppendingString:file];
+	dataHandler = [[RacePadDataHandler alloc] initWithPath:fileName];
+	[dataHandler setTime:[dataHandler inqTime] + 60 * 15 * 1000];
+	baseTime = [dataHandler inqTime];
+	currentTime = [[ElapsedTime alloc] init];
+	updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
+}
+
+- (void) loadSession: (NSString *)event Session: (NSString *)session {
+	[self loadRPF: @"/race_pad.rpf"];
+	
+	NSString *eventFile = [event stringByAppendingString:@"/event.rpf"];
+	[self loadRPF:eventFile];
+	
+	sessionFolder = [[event stringByAppendingString:session] retain];
+	NSString *sessionFile = [event stringByAppendingString:@"/session.rpf"];
+	[self loadRPF:sessionFile];
+}
+
+- (void) onStartUp {
+	[self loadSession:@"/07_25Hok" Session:@"/Race"];
+}
+
 - (void) ConnectSocket
 {
 	// Create the socket
@@ -104,11 +133,10 @@ static RacePadCoordinator * instance_ = nil;
 		}
 		else {
 			if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ ) {
-				dataHandler = [[RacePadDataHandler alloc] initWithPath:@"/sample.rpf"];
-				[dataHandler setTime:51760000];
-				baseTime = [dataHandler inqTime];
-				currentTime = [[ElapsedTime alloc] init];
-				updateTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
+				[self playRPF:@"/timing.rpf"];
+			}
+			else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ ) {
+				[self playRPF:@"/cars.rpf"];
 			}
 		}
 	}
@@ -209,6 +237,7 @@ static RacePadCoordinator * instance_ = nil;
 	[socket_ release];
 	[views_ removeAllObjects];
 	[views_ release];
+	[sessionFolder release];
     [super dealloc];
 }
 

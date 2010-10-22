@@ -27,6 +27,8 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
 	NSString *fileName = [folder stringByAppendingString:path];
+	
+	fprintf ( stderr, "Looking for: %s\n", [fileName UTF8String] );
 	[super initWithPath:fileName];
 	
 	saveFile = nil;
@@ -39,7 +41,7 @@
 		nextTime = 0;
 	}
 	
-	NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@"_index.rpf"];
+	NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
 	FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
 	indexSize = 0;
 	if ( indexFile != nil ) {
@@ -168,17 +170,24 @@
 			[imageListStore loadItem:stream];
 			break;
 		}
-		case 9: // Timing File start
+		case 9: // Project File start
 		{
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-			NSString *folder = [paths objectAtIndex:0];
-			NSString *fileName = [folder stringByAppendingString:@"/sample.rpf"];
+			NSString *docsFolder = [paths objectAtIndex:0];
+			
+			NSString *folder = [stream PopString];
+			NSString *name = [stream PopString];
+			NSString *fileName = [docsFolder stringByAppendingString:@"/"];
+			fileName = [fileName stringByAppendingString:folder];
+			fileName = [fileName stringByAppendingString:@"/"];
+			fileName = [fileName stringByAppendingString:name];
+			
 			saveFile = fopen ( [fileName UTF8String], "wb" );
 			saveChunks = [stream PopInt];
 			nextChunk = 0;
 			break;
 		}
-		case 10: // Timing File chunk
+		case 10: // Project File chunk
 		{
 			int chunk = [stream PopInt];
 			assert ( chunk == nextChunk );
@@ -195,7 +204,7 @@
 			}
 			break;
 		}
-		case 11: // Timing File complete
+		case 11: // Project File complete
 		{
 			assert ( nextChunk == saveChunks );
 			if ( saveFile != nil )
@@ -203,19 +212,30 @@
 			saveFile = nil;
 			break;
 		}
-		case 12: // Timing Index
+		case 12: // Project Folder
 		{
+			NSString *folder = [stream PopString];
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-			NSString *folder = [paths objectAtIndex:0];
-			NSString *fileName = [folder stringByAppendingString:@"/sample_index.rpf"];
-			int size = [stream PopInt];
-			NSData *data = [stream PopData:size];
-			[data writeToFile:fileName atomically:false];
+			NSString *docsFolder = [paths objectAtIndex:0];
+			NSString *fileName = [docsFolder stringByAppendingString:@"/"];
+			fileName = [fileName stringByAppendingString:folder];
+			
+			NSFileManager *fm = [[NSFileManager alloc]init];
+			[fm setDelegate:self];
+			BOOL ok = [fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
 			break;
 		}
 		default:
 			break;
 	}
+}
+
+-  (BOOL)fileManager:(NSFileManager *)fileManager shouldRemoveItemAtPath:(NSString *)path {
+	return YES;
+}
+
+- (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtPath:(NSString *)path {
+	return NO;
 }
 
 @end
