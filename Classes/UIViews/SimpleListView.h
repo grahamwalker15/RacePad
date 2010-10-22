@@ -162,13 +162,6 @@ enum ColumnPriority {
 - (bool) IsColSelected:(int)index;
 - (int) InqSelectedColIndex;
 
-- (bool) HandleSelectHeading:(bool)double_click;
-- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click;
-
-- (bool) HandleSelectCol:(int)col;
-
-- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click;
-
 - (void) DrawRow:(int)row AtY:(float)y;
 - (void) Draw:(CGRect)region;
 - (void) DrawBase;
@@ -193,6 +186,6 @@ enum ColumnPriority {
 
 - (void) InitialiseSimpleListViewMembers;
 
-- (void) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row ColReturn:(int *)col;
+- (bool) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row_return ColReturn:(int *)col_return;
 
 @end

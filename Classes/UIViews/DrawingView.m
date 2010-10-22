@@ -54,11 +54,10 @@ static bool fonts_initialised_ = false;
     return self;
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
 	current_context_ = UIGraphicsGetCurrentContext();
+	
 	current_bounds_ = [self bounds];
 	
 	current_size_ = current_bounds_.size;
@@ -77,6 +76,7 @@ static bool fonts_initialised_ = false;
 
 // Responding to Touch Events
 
+/*
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch * touch = (UITouch *)[touches anyObject]; // We assume only one touch since multi-touch is not switched on?
@@ -136,6 +136,7 @@ static bool fonts_initialised_ = false;
 		[delegate OnTouchCancelledX:x Y:y];
 	}
 }
+*/
 
 // Destruction
 - (void)dealloc
@@ -161,7 +162,12 @@ static bool fonts_initialised_ = false;
 	bg_ = [self CreateColourRed:0 Green:0 Blue:0]; // Black
 	
 	current_font_ = regular_font_;
+	
 	current_context_ = nil;
+	bitmap_context_ = nil;
+	bitmap_context_data_ = nil;
+	
+	current_matrix_ = CGAffineTransformIdentity;
 	
 	entered_ = false;
 	
@@ -242,6 +248,65 @@ static bool fonts_initialised_ = false;
 - (CGSize)InqSize
 {
 	return current_size_;
+}
+
+- (bool)CreateBitmapContext
+{
+	if(bitmap_context_)
+		[self DestroyBitmapContext];
+	
+	int current_width = current_size_.width;
+	int current_height = current_size_.height;
+	
+	// Make a new image context
+	CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+	bitmap_context_data_ = malloc(current_width * current_height * 4);
+	memset(bitmap_context_data_, 0, current_width * current_height * 4);
+	bitmap_context_ = CGBitmapContextCreate ( bitmap_context_data_, current_width, current_height, 8, current_width * 4, colorspace, kCGImageAlphaPremultipliedLast );
+	CGColorSpaceRelease(colorspace);
+	
+	if(bitmap_context_)
+	{
+		// Set this to be the current context
+		UIGraphicsPushContext (bitmap_context_);
+		current_context_ = UIGraphicsGetCurrentContext();
+		
+		return true;		
+	}
+	else
+	{
+		free(bitmap_context_data_);
+		bitmap_context_data_ = nil;
+		return false;
+	}
+
+	
+}
+
+- (CGImageRef)GetImageFromBitmapContext
+{
+	if(bitmap_context_)
+		return CGBitmapContextCreateImage (bitmap_context_);
+	else
+		return nil;
+
+}
+
+- (void)DestroyBitmapContext
+{
+	if(bitmap_context_)
+	{
+		// Restore the old context
+		UIGraphicsPopContext ();
+		current_context_ = UIGraphicsGetCurrentContext();
+		
+		CGContextRelease (bitmap_context_);
+		bitmap_context_ = nil;
+		
+		free(bitmap_context_data_);
+		bitmap_context_data_ = nil;		
+	}
+	
 }
 
 // View drawing
@@ -330,6 +395,12 @@ static bool fonts_initialised_ = false;
 {
 	if(current_context_)
 		CGContextSetShadow (current_context_, CGSizeMake((CGFloat)xoffset, (CGFloat)yoffset), (CGFloat)blur);
+}
+
+- (void)ResetDropShadow
+{
+	if(current_context_)
+		CGContextSetShadowWithColor(current_context_, CGSizeMake(0, 0), 0, NULL);
 }
 
 - (void)LineX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
@@ -463,6 +534,56 @@ static bool fonts_initialised_ = false;
 	}
 }
  
++ (CGMutablePathRef)CreatePathPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y
+{
+	if(point_count < 2)
+		return nil;
+	
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	CGPathMoveToPoint (path, nil, (CGFloat)x[0], (CGFloat)y[0]);
+	
+	for ( int i = 1 ; i < point_count ; i++)
+	{
+		CGPathAddLineToPoint (path, nil, (CGFloat)x[i], (CGFloat)y[i]);
+	}
+	
+	return path;
+}
+
+- (void)BeginPath
+{
+	if(current_context_)
+		CGContextBeginPath (current_context_);
+}
+
+- (void)LoadPath:(CGMutablePathRef)path
+{
+	if(current_context_)
+	{
+		CGContextAddPath(current_context_, path);
+		CGContextClosePath(current_context_);
+	}
+}
+
+- (void)FillPath
+{
+	if(current_context_)
+	{
+		[bg_ set];
+		CGContextFillPath (current_context_);
+	}
+}
+
+- (void)LinePath
+{
+	if(current_context_)
+	{
+		[fg_ set];
+		CGContextStrokePath (current_context_);
+	}
+}
+
 - (void)SetXorLines:(bool)set
 {
 }
@@ -567,6 +688,22 @@ static bool fonts_initialised_ = false;
 		CGContextTranslateCTM(current_context_, x, y);
 }
  
+- (void)StoreTransformMatrix
+{
+	if(current_context_)
+		current_matrix_ = CGContextGetCTM(current_context_);
+}
+
+- (void)ResetTransformMatrix
+{
+	current_matrix_ = CGAffineTransformIdentity;
+}
+
+- (CGPoint)TransformPoint:(CGPoint)point
+{
+	return CGPointApplyAffineTransform (point, current_matrix_);	
+}
+
 // Scrolling support
 
 - (void)SetContentWidth:(float)width AndHeight:(float)height

@@ -24,8 +24,12 @@
 	
 		CGPoint current_scroll_offset_;
 	
-	
 		CGContextRef current_context_;
+		CGContextRef bitmap_context_;
+	
+		char * bitmap_context_data_;
+
+		CGAffineTransform current_matrix_;
 		
 		bool entered_;
 				
@@ -51,6 +55,10 @@
 
 // Basic utilities
 - (CGSize)InqSize;
+
+- (bool)CreateBitmapContext;
+- (CGImageRef)GetImageFromBitmapContext;
+- (void)DestroyBitmapContext;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;
@@ -82,6 +90,7 @@
 - (void)SetDashedLine;
 
 - (void)SetDropShadowXOffset:(float)xoffset YOffset:(float)yoffset Blur:(float)blur; // N.B. Need a save/restore around it to switch off
+- (void)ResetDropShadow;
 
 - (void)LineX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)LinePoint0:(CGPoint)p0 Point1:(CGPoint)p1;
@@ -95,10 +104,20 @@
 
 - (void)EtchRectangle:(CGRect)rect EtchIn:(bool)etch_in;
 
+- (void)SetXorLines:(bool)set;
+
+// Polygon / Path drawing
+
 - (void)FillPolygonPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
 - (void)LinePolygonPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
 
-- (void)SetXorLines:(bool)set;
++ (CGMutablePathRef)CreatePathPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
+
+- (void)BeginPath;
+- (void)LoadPath:(CGMutablePathRef)path;
+
+- (void)FillPath;
+- (void)LinePath;
 
 //
 // Image Drawing
@@ -132,6 +151,9 @@
 // Matrix manipulation
 - (void)SetScale:(float) scale;
 - (void)SetTranslateX:(float)x Y:(float)y;
+- (void)StoreTransformMatrix;
+- (void)ResetTransformMatrix;
+- (CGPoint)TransformPoint:(CGPoint)point;
 
 
 // Scrolling support

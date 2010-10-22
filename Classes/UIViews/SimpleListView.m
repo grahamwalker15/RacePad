@@ -321,26 +321,6 @@
 	return selected_col_ ;
 }
 
-- (bool) HandleSelectHeading:(bool)double_click
-{
-	return false;
-}
-
-- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click
-{
-	return false;
-}
-
-- (bool) HandleSelectCol:(int)col
-{
-	return false;
-}
-
-- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click
-{
-	return false;
-}
-
 - (void) DrawRow:(int)row AtY:(float)y
 {
 	// y is the top of the row
@@ -405,36 +385,33 @@
 				
 				if(heading)
 					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
-				else
+				else if([self isOpaque] || [text length] > 0)
 					[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
-				
-				if(if_large_font_)
-					[self UseMediumBoldFont];
-				else
-					[self UseBoldFont];
-				
-				float w, h;
-				[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
-				
-				float text_y = y + row_height_ - text_baseline_ - 4 - h;
-				
-				float xpos ;
-				float text_offset = 3;
-				
-				if(alignment_ == SLV_TEXT_LEFT_)
-					xpos = x_draw + text_offset ;
-				else if(alignment_ == SLV_TEXT_RIGHT_)
-					xpos = x_draw + column_width - w - text_offset ;
-				else
-					xpos = x_draw + (column_width / 2) - (w / 2) ;
-				
-				if (xpos < x_draw + text_offset)
-					xpos = x_draw + text_offset;
-				
-				float max_width = column_width - (xpos - x_draw) ;
-				[self DrawClippedString:text AtX:xpos Y:text_y MaxWidth:max_width];
-				[self UseRegularFont];
-				
+
+				if([text length] > 0)
+				{				
+					float w, h;
+					[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
+					
+					float text_y = y + row_height_ - text_baseline_ - 4 - h;
+					
+					float xpos ;
+					float text_offset = 3;
+					
+					if(alignment_ == SLV_TEXT_LEFT_)
+						xpos = x_draw + text_offset ;
+					else if(alignment_ == SLV_TEXT_RIGHT_)
+						xpos = x_draw + column_width - w - text_offset ;
+					else
+						xpos = x_draw + (column_width / 2) - (w / 2) ;
+					
+					if (xpos < x_draw + text_offset)
+						xpos = x_draw + text_offset;
+					
+					float max_width = column_width - (xpos - x_draw) ;
+					[self DrawClippedString:text AtX:xpos Y:text_y MaxWidth:max_width];
+					[self UseRegularFont];
+				}
 				[text release];
 			}
 			else
@@ -478,6 +455,11 @@
 	[self SetContentWidth:table_width AndHeight:table_height];
 	CGPoint offset = [self contentOffset];
 		
+	if(if_large_font_)
+		[self UseMediumBoldFont];
+	else
+		[self UseBoldFont];
+	
 	[self ClearScreen];
 	
 	// If there is a heading, we'll draw it at the end at the origin - leave space for it
@@ -598,8 +580,35 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 // User interaction routines
 
-- (void) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row ColReturn:(int *)col
+- (bool) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row_return ColReturn:(int *)col_return
 {
+	int row_count = [self RowCount];
+	int row_height = [self RowHeight];
+	
+	float table_height = row_count * [self RowHeight ];
+	float table_width = [self TableWidth];
+	
+	if(x < 0 || y < 0 || x > table_width || y > table_height)
+	{
+		return false;
+	}
+
+	int row = (int)(x / (float) row_height);
+	
+	int w = 0;
+	int col = 0;
+	for ( int i = 0 ; i < [self ColumnCount] ; i++)
+	{
+		w += [self ColumnWidth:i];
+		if(w >= x)
+		{
+			col = i;
+			break;
+		}
+	}
+	
+	*row_return = row;
+	*col_return = col;
 }
 
 
