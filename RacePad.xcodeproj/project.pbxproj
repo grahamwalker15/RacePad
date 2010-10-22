@@ -17,8 +17,15 @@
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
 		4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
-		7F067EBE126DA4B800C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067EBD126DA4B800C9EE5D /* Metal.png */; };
-		7F067EC0126DA4C600C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067EBF126DA4C600C9EE5D /* Parchment.png */; };
+		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
+		7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
+		7F06812A126DDA6800C9EE5D /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068125126DDA6800C9EE5D /* clock.png */; };
+		7F06812B126DDA6800C9EE5D /* monitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068126126DDA6800C9EE5D /* monitor.png */; };
+		7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068127126DDA6800C9EE5D /* newspaper.png */; };
+		7F06812D126DDA6800C9EE5D /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068128126DDA6800C9EE5D /* preferences.png */; };
+		7F06812E126DDA6800C9EE5D /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068129126DDA6800C9EE5D /* world.png */; };
+		7F31CA691270892700F26C7B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F31CA681270892700F26C7B /* SettingsView.xib */; };
+		7F31CC1D12709CA300F26C7B /* SimpleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */; };
 		7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */; };
 		7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; };
 		7F3276F3126379B000BD1627 /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F0126379B000BD1627 /* TableData.m */; };
@@ -77,8 +84,16 @@
 		4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDataHandler.m; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
-		7F067EBD126DA4B800C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
-		7F067EBF126DA4C600C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
+		7F067F4B126DAE1700C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
+		7F067F4C126DAE1700C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
+		7F068125126DDA6800C9EE5D /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clock.png; path = Images/clock.png; sourceTree = "<group>"; };
+		7F068126126DDA6800C9EE5D /* monitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = monitor.png; path = Images/monitor.png; sourceTree = "<group>"; };
+		7F068127126DDA6800C9EE5D /* newspaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newspaper.png; path = Images/newspaper.png; sourceTree = "<group>"; };
+		7F068128126DDA6800C9EE5D /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = preferences.png; path = Images/preferences.png; sourceTree = "<group>"; };
+		7F068129126DDA6800C9EE5D /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world.png; path = Images/world.png; sourceTree = "<group>"; };
+		7F31CA681270892700F26C7B /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsView.xib; path = ResourceFiles/SettingsView.xib; sourceTree = "<group>"; };
+		7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListViewController.h; sourceTree = "<group>"; };
+		7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListViewController.m; sourceTree = "<group>"; };
 		7F32763012634AB000BD1627 /* RacePadCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadCoordinator.h; sourceTree = "<group>"; };
 		7F32763112634AB000BD1627 /* RacePadCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadCoordinator.m; sourceTree = "<group>"; };
 		7F3276E1126375F400BD1627 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -206,8 +221,14 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7F067EBF126DA4C600C9EE5D /* Parchment.png */,
-				7F067EBD126DA4B800C9EE5D /* Metal.png */,
+				7F31CA681270892700F26C7B /* SettingsView.xib */,
+				7F068125126DDA6800C9EE5D /* clock.png */,
+				7F068126126DDA6800C9EE5D /* monitor.png */,
+				7F068127126DDA6800C9EE5D /* newspaper.png */,
+				7F068128126DDA6800C9EE5D /* preferences.png */,
+				7F068129126DDA6800C9EE5D /* world.png */,
+				7F067F4B126DAE1700C9EE5D /* Metal.png */,
+				7F067F4C126DAE1700C9EE5D /* Parchment.png */,
 				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
 				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
@@ -331,6 +352,8 @@
 		7F9C1B75125CA10A00770746 /* UISupport */ = {
 			isa = PBXGroup;
 			children = (
+				7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */,
+				7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */,
 				7FBDF8FB12648507009D37FA /* DrawingViewController.h */,
 				7FBDF8FC12648507009D37FA /* DrawingViewController.m */,
 			);
@@ -395,8 +418,14 @@
 				7FB1C59112673E7F008A6C94 /* ThirdView.xib in Resources */,
 				7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */,
 				7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */,
-				7F067EBE126DA4B800C9EE5D /* Metal.png in Resources */,
-				7F067EC0126DA4C600C9EE5D /* Parchment.png in Resources */,
+				7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */,
+				7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */,
+				7F06812A126DDA6800C9EE5D /* clock.png in Resources */,
+				7F06812B126DDA6800C9EE5D /* monitor.png in Resources */,
+				7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */,
+				7F06812D126DDA6800C9EE5D /* preferences.png in Resources */,
+				7F06812E126DDA6800C9EE5D /* world.png in Resources */,
+				7F31CA691270892700F26C7B /* SettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +460,7 @@
 				7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */,
 				7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */,
 				7FB1C59A12673E9F008A6C94 /* ImageListStore.m in Sources */,
+				7F31CC1D12709CA300F26C7B /* SimpleListViewController.m in Sources */,
 				4DB3904E126DFEB0009DA232 /* Socket.m in Sources */,
 				4D757B00126EF45000E32C41 /* ElapsedTime.m in Sources */,
 				4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */,
