@@ -106,7 +106,7 @@
 	}
 	else
 	{
-		double pulse = [self Value] / (interval_ * 2.0);
+		double pulse = [self value] / (interval_ * 2.0);
 		return ((pulse - floor(pulse)) < 0.5) ;
 	}
 }
@@ -142,7 +142,7 @@
 	}
 	else
 	{
-		double value = [self Value] / interval_ ;
+		double value = [self value] / interval_ ;
 		double cycles = floor(value);
 		value -= cycles ;
 		
@@ -186,7 +186,7 @@
 	}
 	else
 	{
-		double value = [self Value] / interval_ ;
+		double value = [self value] / interval_ ;
 		int cycles = (int)floor(value);
 		value -= (double)cycles ;
 		
