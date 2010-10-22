@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DrawingViewController.h"
+#import "SimpleListViewController.h"
 #import "TableDataView.h"
 
 
-@interface DriverListController : DrawingViewController
+@interface DriverListController : SimpleListViewController
 {
 	TableDataView * driver_list_view_;
 }
 
-- (void) RequestRedraw;
 
 @end

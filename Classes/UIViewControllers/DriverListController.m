@@ -93,6 +93,13 @@
     [super dealloc];
 }
 
+// Action callbacks
+
+- (IBAction) OnTouchUpX:(float)x Y:(float)y
+{
+}
+
+
 
 @end
 
