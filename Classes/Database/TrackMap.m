@@ -51,7 +51,7 @@
 
 	pointColour = [[stream PopRGBA] retain];
 	x = [stream PopFloat];
-	y = [stream PopFloat];
+	y = -[stream PopFloat];
 	dotSize = [stream PopInt];
 	moving = [stream PopBool];
 	
