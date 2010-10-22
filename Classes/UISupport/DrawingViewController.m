@@ -38,6 +38,8 @@
     [self.view addGestureRecognizer:recognizer];
     [recognizer release];
 	
+	/* Take other recognizers out for the moment - they interfere with scrolling
+	 
     //	Pinch recognizer
 	recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePinchFrom:)];
     [self.view addGestureRecognizer:recognizer];
@@ -63,6 +65,8 @@
 	recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePanFrom:)];
     [self.view addGestureRecognizer:recognizer];
     [recognizer release];
+	 
+	 */
 	
 	[super viewDidLoad];
 }
@@ -155,7 +159,7 @@
 {
 }
 
-- (void) OnGestureRotationAtX:(float)x Y:(float)y Speed:(float)speed
+- (void) OnGestureRotationAtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed
 {
 }
 
@@ -167,7 +171,7 @@
 {
 }
 
-- (void) OnGesturePanByX:(float)x Y:(float)y Speed:(float)speed
+- (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
 {
 }
 
