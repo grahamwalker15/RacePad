@@ -89,6 +89,8 @@
 {
 	[columnHeaders release];
 	[cells release];
+
+	[titleFields release];
 	
 	[super dealloc];
 }
@@ -98,6 +100,8 @@
 	columnHeaders = [[NSMutableArray alloc] init];
 	cells = [[NSMutableArray alloc] init];
 	
+	titleFields = [[NSMutableDictionary alloc] init];
+
 	rows = 0;
 	cols = 0;
 	
@@ -130,10 +134,24 @@
 	return nil;
 }
 
+- (NSString *)titleField:(NSString *)name {
+	return [titleFields objectForKey:name];
+}
+
 - (void) loadData : (DataStream *) stream
 {
 	[columnHeaders removeAllObjects];
 	[cells removeAllObjects];
+	
+	int titleCount = [stream PopInt];
+	[titleFields removeAllObjects];
+	for ( int t = 0; t < titleCount; t++ ) {
+		NSString *key = [[stream PopString] retain];
+		NSString *value = [[stream PopString] retain];
+		[titleFields setObject:value forKey: key];
+		[key release];
+		[value release];
+	}
 	
 	cols = [stream PopInt];
 	for ( int i = 0; i < cols; i++ )

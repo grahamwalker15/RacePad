@@ -21,5 +21,7 @@
 - (void) StreamTimingPage;
 - (void) StreamCars;
 - (void) RequestDriverHelmets;
+- (void) requestDriverView :(NSString *) driver;
+- (void) acceptPushData :(BOOL) send;
 
 @end

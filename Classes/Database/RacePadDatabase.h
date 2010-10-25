@@ -15,6 +15,7 @@
 {
 	NSString *eventName;
 	TableData *driverListData;
+	TableData *driverData;
 	TrackMap *trackMap;
 	ImageListStore *imageListStore;
 }
@@ -24,6 +25,7 @@
 + (RacePadDatabase *)Instance;
 
 - (TableData *) driverListData;
+- (TableData *) driverData;
 - (TrackMap *) trackMap;
 - (ImageListStore *) imageListStore;
 

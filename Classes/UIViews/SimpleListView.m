@@ -593,7 +593,7 @@
 		return false;
 	}
 
-	int row = (int)(x / (float) row_height);
+	int row = (int)(y / (float) row_height);
 	
 	int w = 0;
 	int col = 0;

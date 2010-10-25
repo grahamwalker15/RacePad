@@ -58,6 +58,12 @@ enum ViewTypes
 -(void)RequestRedraw:(id)view;
 -(void)RequestRedrawType:(int)type;
 
+-(void) requestDriverView:(NSString *) driver;
+-(void) nextDriverView:(NSString *) driver;
+-(void) prevDriverView:(NSString *) driver;
+
+-(void) acceptPushData:(NSString *)event Session:(NSString *)session;
+
 -(void)SetServerAddress:(NSString *)server;
 -(void)ConnectSocket;
 -(void)Connected;

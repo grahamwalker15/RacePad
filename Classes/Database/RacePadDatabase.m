@@ -26,6 +26,7 @@ static RacePadDatabase *instance = nil;
 - (RacePadDatabase *)init
 {
 	driverListData = [[TableData alloc] init];
+	driverData = [[TableData alloc] init];
 	trackMap = [[TrackMap alloc] init];
 	imageListStore = [[ImageListStore alloc] init];
 	
@@ -35,6 +36,7 @@ static RacePadDatabase *instance = nil;
 - (void) dealloc
 {
 	[driverListData release];
+	[driverData release];
 	[trackMap release];
 	[imageListStore release];
 	
@@ -44,6 +46,11 @@ static RacePadDatabase *instance = nil;
 - (TableData *)driverListData
 {
 	return driverListData;
+}
+
+- (TableData *)driverData
+{
+	return driverData;
 }
 
 - (TrackMap	*)trackMap

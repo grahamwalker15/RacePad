@@ -95,8 +95,23 @@
 
 // Action callbacks
 
-- (IBAction) OnTouchUpX:(float)x Y:(float)y
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click
 {
+	TableData *driverListData = [[RacePadDatabase Instance] driverListData];
+
+	// TESTING MR
+	// Look at our view's data to see if this is a DriverListView, or a DriverView
+	TableData *viewData = [driver_list_view_ TableData];
+	if ( viewData == driverListData ) {
+		TableCell *cell = [driverListData cell:row Col:0];
+		NSString *driver = [cell string];
+		
+		[[RacePadCoordinator Instance] requestDriverView:driver];
+	} else {
+		[[RacePadCoordinator Instance] requestDriverView:[viewData titleField:@"Next"]];
+	}
+
+	return true;
 }
 
 

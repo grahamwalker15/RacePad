@@ -72,6 +72,7 @@ enum TD_USE_FOR {
 
 @interface TableData : NSObject
 {
+	NSMutableDictionary *titleFields;
 	int rows, cols;
 	NSMutableArray *columnHeaders;
 	NSMutableArray *cells;
@@ -79,6 +80,7 @@ enum TD_USE_FOR {
 
 - (int)rows;
 - (int)cols;
+- (NSString *)titleField: (NSString *)name;
 - (TableHeader *) columnHeader : (int) col;
 - (TableCell *) cell : (int) row Col : (int) col;
 

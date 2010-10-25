@@ -28,46 +28,46 @@
 	NSString *folder = [paths objectAtIndex:0];
 	NSString *fileName = [folder stringByAppendingString:path];
 	
-	fprintf ( stderr, "Looking for: %s\n", [fileName UTF8String] );
-	[super initWithPath:fileName];
+	if ( [super initWithPath:fileName] == self ) {
 	
-	saveFile = nil;
-	index = nil;
+		saveFile = nil;
+		index = nil;
 
-	if ( [stream canPop:4] ) {
-		nextTime = [stream PopInt];
-	}
-	else {
-		nextTime = 0;
-	}
-	
-	NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
-	FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
-	indexSize = 0;
-	if ( indexFile != nil ) {
-		int t;
-		fread(&t, 1, sizeof(int), indexFile);
-		indexBase = htonl ( t );
-
-		fread(&t, 1, sizeof(int), indexFile);
-		indexStep = htonl ( t );
-
-		fread(&t, 1, sizeof(int), indexFile);
-		int indexSizeHint = htonl ( t );
-		
-		index = (int *)malloc(indexSizeHint * sizeof(int));
-		
-		int i = 0;
-		while (!feof(indexFile)) {
-			fread(&t, 1, sizeof(int), indexFile);
-			if (i >= indexSizeHint) {
-				indexSizeHint += indexSizeHint * 0.1;
-				index = (int *)realloc(index, indexSizeHint * sizeof(int));
-			}
-			index[i++] = htonl ( t );
-			indexSize = i;
+		if ( [stream canPop:4] ) {
+			nextTime = [stream PopInt];
 		}
-		fclose(indexFile);
+		else {
+			nextTime = 0;
+		}
+		
+		NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
+		FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
+		indexSize = 0;
+		if ( indexFile != nil ) {
+			int t;
+			fread(&t, 1, sizeof(int), indexFile);
+			indexBase = htonl ( t );
+
+			fread(&t, 1, sizeof(int), indexFile);
+			indexStep = htonl ( t );
+
+			fread(&t, 1, sizeof(int), indexFile);
+			int indexSizeHint = htonl ( t );
+			
+			index = (int *)malloc(indexSizeHint * sizeof(int));
+			
+			int i = 0;
+			while (!feof(indexFile)) {
+				fread(&t, 1, sizeof(int), indexFile);
+				if (i >= indexSizeHint) {
+					indexSizeHint += indexSizeHint * 0.1;
+					index = (int *)realloc(index, indexSizeHint * sizeof(int));
+				}
+				index[i++] = htonl ( t );
+				indexSize = i;
+			}
+			fclose(indexFile);
+		}
 	}
 	
 	return self;
@@ -222,7 +222,26 @@
 			
 			NSFileManager *fm = [[NSFileManager alloc]init];
 			[fm setDelegate:self];
-			BOOL ok = [fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
+			[fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
+			break;
+		}
+		case 13: // Driver view
+		{
+			
+			TableData *driver = [[RacePadDatabase Instance] driverData];
+			[driver loadData:stream];
+			
+			// TESTING MR
+			// Redraw the timing view
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
+			// TESTING END
+			break;
+		}
+		case 14: // Accept Push Data
+		{
+			NSString *event = [stream PopString];
+			NSString *session = [stream PopString];
+			[[RacePadCoordinator Instance] acceptPushData:event Session:session];
 			break;
 		}
 		default:

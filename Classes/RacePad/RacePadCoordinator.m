@@ -10,6 +10,8 @@
 #import "RacePadClientSocket.h"
 #import "RacePadDataHandler.h"
 #import "ElapsedTime.h"
+#import "TableDataView.h"
+#import "RacePadDatabase.h"
 
 @implementation RacePadCoordinator
 
@@ -36,6 +38,7 @@ static RacePadCoordinator * instance_ = nil;
 - (void) loadRPF: (NSString *)file {
 	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:file];
 	[handler setTime:[handler inqTime]];
+	[handler release];
 }
 
 - (void) playRPF: (NSString *)file {
@@ -45,6 +48,13 @@ static RacePadCoordinator * instance_ = nil;
 	baseTime = [dataHandler inqTime];
 	currentTime = [[ElapsedTime alloc] init];
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
+}
+
+- (void) showRPF: (NSString *)file {
+	NSString *fileName = [sessionFolder stringByAppendingString:file];
+	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:fileName];
+	[handler setTime:[handler inqTime]];
+	[handler release];
 }
 
 - (void) loadSession: (NSString *)event Session: (NSString *)session {
@@ -119,6 +129,16 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		// If it is, just set the type
 		[existing_view SetDisplayed:true];
+
+		// TESTING MR
+		// Explicity force the DriverListView back to showing the DriverListData
+		if( [existing_view Type] == RPC_DRIVER_LIST_VIEW_)
+		{
+			TableDataView *table_data_view = (TableDataView *)[[existing_view View] view];
+			if ( table_data_view != nil )
+				[table_data_view SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+		}
+		// TESTING END
 		
 		if ( [socket_ InqStatus] == SOCKET_OK_ ) {
 			[socket_ SetReferenceTime:53400];
@@ -140,6 +160,42 @@ static RacePadCoordinator * instance_ = nil;
 			}
 		}
 	}
+}
+
+-(void) requestDriverView:(NSString *)driver {
+	if ( [driver length] > 0 )
+	{
+		// TESTING MR
+		// I set the view's data to be the DriverView,
+		// It gets set back in SetViewDisplayed
+		int view_count = [views_ count];
+		for ( int i = 0; i < view_count; i++)
+		{
+			RacePadView * existing_view = [views_ objectAtIndex:i];
+			if( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ && [existing_view Displayed])
+			{
+				TableDataView *table_data_view = (TableDataView *)[[existing_view View] view];
+				if ( table_data_view != nil )
+					[table_data_view SetTableDataClass:[[RacePadDatabase Instance] driverData]];
+				break;
+			}
+		}
+		// TESTING END
+
+		if ( [socket_ InqStatus] == SOCKET_OK_ ) {
+			[socket_ requestDriverView:driver];
+		} else {
+			NSString *s1 = @"/driver_";
+			NSString *s2 = [s1 stringByAppendingString:driver];
+			NSString *s3 = [s2 stringByAppendingString:@".rpf"];
+			[self showRPF:s3];
+		}
+	}
+}
+
+-(void) acceptPushData:(NSString *)event Session:(NSString *)session {
+	// For now we'll always accept
+	[socket_ acceptPushData:YES]; // Even if we don't want it, we should tell the server, so it can stop waiting
 }
 
 -(void)SetViewHidden:(id)view
