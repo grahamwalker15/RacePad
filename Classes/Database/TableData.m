@@ -25,26 +25,34 @@
 	[super dealloc];
 }
 
-- (TableCell *) initWithStream : (DataStream *) stream
+- (TableCell *) initWithStream : (DataStream *) stream Colours: (UIColor **)colours ColoursCount: (int)coloursCount
 {
 	string = nil;
 	fg = nil;
 	bg = nil;
 	
-	[self updateFromStream:stream];
+	[self updateFromStream:stream Colours:colours ColoursCount:coloursCount];
 	
 	return self;
 }
 
-- (void) updateFromStream : (DataStream *) stream
+- (void) updateFromStream : (DataStream *) stream Colours: (UIColor **)colours ColoursCount: (int)coloursCount
 {
 	[string release];
 	[fg release];
 	[bg release];
 	
 	string = [[stream PopString] retain];
-	fg = [[stream PopRGB] retain];
-	bg = [[stream PopRGB] retain];
+	unsigned char index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		fg = [colours[index] retain];
+	else
+		fg = nil;
+	index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		bg = [colours[index] retain];
+	else
+		bg = nil;
 	alignment = [stream PopUnsignedChar];
 }
 
@@ -58,10 +66,10 @@
 @synthesize columnContent;
 @synthesize imageListName;
 
-- (TableHeader *) initHWithStream : (DataStream *) stream
+- (TableHeader *) initHWithStream : (DataStream *) stream Colours: (UIColor **)colours ColoursCount: (int)colourCount
 {
 	width = [stream PopInt];
-	[super initWithStream:stream];
+	[super initWithStream:stream Colours:colours ColoursCount:colourCount];
 	columnUse = [stream PopUnsignedChar];
 	columnType = [stream PopUnsignedChar];
 	columnContent = [stream PopUnsignedChar];
@@ -92,6 +100,13 @@
 
 	[titleFields release];
 	
+	if ( colours )
+	{
+		for ( int c = 0; c < coloursCount; c++ )
+			[colours[c] release];
+		free ( colours );
+	}
+
 	[super dealloc];
 }
 
@@ -142,7 +157,7 @@
 {
 	[columnHeaders removeAllObjects];
 	[cells removeAllObjects];
-	
+		
 	int titleCount = [stream PopInt];
 	[titleFields removeAllObjects];
 	for ( int t = 0; t < titleCount; t++ ) {
@@ -153,10 +168,31 @@
 		[value release];
 	}
 	
+	int c;
+	if ( colours )
+	{
+		for ( c = 0; c < coloursCount; c++ )
+			[colours[c] release];
+		free ( colours );
+	}
+	
+	coloursCount = [stream PopInt];
+	colours = malloc ( sizeof (UIColor *) * coloursCount );
+	for ( c = 0; c < coloursCount; c++ )
+		colours[c] = NULL;
+	for ( c = 0; c < coloursCount; c++ ) {
+		unsigned char index = [stream PopUnsignedChar];
+		UIColor *colour = [[stream PopRGB] retain];
+		if ( index < coloursCount )
+			colours[index] = colour;
+		else
+			[colour release];
+	}
+
 	cols = [stream PopInt];
 	for ( int i = 0; i < cols; i++ )
 	{
-		TableHeader *header = [[TableHeader alloc] initHWithStream:stream];
+		TableHeader *header = [[TableHeader alloc] initHWithStream:stream Colours:colours ColoursCount:coloursCount];
 		[columnHeaders addObject:header];
 	}
 	
@@ -164,7 +200,7 @@
 	for ( int r = 0; r < rows; r++ )
 		for ( int i = 0; i < cols; i++ )
 		{
-			TableCell *cell = [[TableCell alloc] initWithStream:stream];
+			TableCell *cell = [[TableCell alloc] initWithStream:stream Colours:colours ColoursCount:coloursCount];
 			[cells addObject:cell];
 		}
 }
@@ -179,7 +215,7 @@
 		int col = [stream PopInt];
 		TableCell *cell = [self cell:row Col:col];
 		if ( cell != nil )
-			[cell updateFromStream:stream];
+			[cell updateFromStream:stream Colours:colours ColoursCount:coloursCount];
 	}
 }
 

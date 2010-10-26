@@ -9,7 +9,7 @@
 
 #import "DataHandler.h"
 
-#define RACE_PAD_INTERFACE_VERSION 5
+#define RACE_PAD_INTERFACE_VERSION 6
 
 @interface RacePadDataHandler : DataHandler
 {

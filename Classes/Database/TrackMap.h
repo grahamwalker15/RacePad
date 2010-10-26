@@ -26,7 +26,7 @@
 
 - (id) init;
 
-- (void) load : (DataStream *) stream;
+- (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
 - (void) draw : (TrackMapView *)view Scale:(float)scale;
 
 @end
@@ -82,6 +82,8 @@
 	float height;
 
 	NSMutableArray *cars;
+	UIColor **colours;
+	int coloursCount;
 	
 	int carCount;
 }

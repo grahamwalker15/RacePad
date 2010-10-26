@@ -46,8 +46,8 @@ enum TD_USE_FOR {
 @property (retain) UIColor *bg;
 @property unsigned char alignment;
 
-- (TableCell *)initWithStream:(DataStream*)stream;
-- (void)updateFromStream:(DataStream*)stream;
+- (TableCell *)initWithStream:(DataStream*)stream Colours: (UIColor **)colours ColoursCount: (int)colourCount;
+- (void)updateFromStream:(DataStream*)stream Colours: (UIColor **)colours ColoursCount: (int)colourCount;
 
 @end
 
@@ -66,13 +66,15 @@ enum TD_USE_FOR {
 @property (readonly) unsigned char columnContent;
 @property (readonly, retain) NSString * imageListName;
 
-- (TableHeader *)initHWithStream:(DataStream*)stream;
+- (TableHeader *)initHWithStream:(DataStream*)stream Colours: (UIColor **)colours ColoursCount: (int)colourCount;
 
 @end
 
 @interface TableData : NSObject
 {
 	NSMutableDictionary *titleFields;
+	int coloursCount;
+	UIColor **colours;
 	int rows, cols;
 	NSMutableArray *columnHeaders;
 	NSMutableArray *cells;

@@ -35,7 +35,16 @@
 	[super dealloc];
 }
 
-- (void) load:(DataStream *)stream
+- (UIColor *) loadColour: (DataStream *)stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount
+{
+	unsigned char index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		return [colours[index] retain];
+	
+	return nil;
+}
+
+- (void) load:(DataStream *)stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount
 {
 	[pointColour release];
 	[fillColour release];
@@ -50,7 +59,7 @@
 	name = nil;
 
 
-	pointColour = [[stream PopRGBA] retain];
+	pointColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 	x = [stream PopFloat];
 	y = -[stream PopFloat];
 	dotSize = [stream PopInt];
@@ -58,9 +67,9 @@
 	
 	if ( moving )
 	{
-		fillColour = [[stream PopRGBA] retain];
-		lineColour = [[stream PopRGBA] retain];
-		textColour = [[stream PopRGBA] retain];
+		fillColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
+		lineColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
+		textColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 		
 		name = [[stream PopString] retain];
 	}
@@ -256,6 +265,15 @@
 	[inner release];
 	[outer release];
 	[cars release];
+
+	int c;
+	if ( colours )
+	{
+		for ( c = 0; c < coloursCount; c++ )
+			[colours[c] release];
+		free ( colours );
+	}
+	
 	
 	CGPathRelease(inner_path);
 	CGPathRelease(outer_path);
@@ -283,6 +301,27 @@
 	
 	x_centre = 0.0;
 	y_centre = 0.0;
+	
+	int c;
+	if ( colours )
+	{
+		for ( c = 0; c < coloursCount; c++ )
+			[colours[c] release];
+		free ( colours );
+	}
+	
+	coloursCount = [stream PopInt];
+	colours = malloc ( sizeof (UIColor *) * coloursCount );
+	for ( c = 0; c < coloursCount; c++ )
+		colours[c] = NULL;
+	for ( c = 0; c < coloursCount; c++ ) {
+		unsigned char index = [stream PopUnsignedChar];
+		UIColor *colour = [[stream PopRGBA] retain];
+		if ( index < coloursCount )
+			colours[index] = colour;
+		else
+			[colour release];
+	}
 	
 	int count = [stream PopInt];
 
@@ -321,7 +360,7 @@
 		if ( carNum < 0 )
 			break;
 		
-		[[cars objectAtIndex:carCount] load:stream];
+		[[cars objectAtIndex:carCount] load:stream Colours:colours ColoursCount:coloursCount];
 		carCount++;
 	}
 }
