@@ -28,6 +28,10 @@
 	[super dealloc];
 }
 
+- (void) closeStream {
+	[stream closeStream];
+}
+
 - (void) newTransfer:(int)size {
 	[stream release];
 	stream = [[BufferedDataStream alloc] initWithSize:size];

@@ -72,6 +72,19 @@ static RacePadCoordinator * instance_ = nil;
 	[self loadSession:@"/07_25Hok" Session:@"/Race"];
 }
 
+- (void) serverConnected:(BOOL) ok {
+	if ( ok ) {
+		[socket_ RequestEvent];
+		[socket_ SetReferenceTime:53400];
+		[socket_ RequestTrackMap];
+		[socket_ RequestDriverHelmets];
+	} else {
+		[socket_ release];
+		socket_ = nil;
+	}
+	// FIXME - would be nice to let the user know one way or the other
+}
+
 - (void) ConnectSocket
 {
 	// Create the socket
@@ -85,10 +98,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) Connected
 {
-	[socket_ RequestEvent];
-	[socket_ SetReferenceTime:53400];
-	[socket_ RequestTrackMap];
-	[socket_ RequestDriverHelmets];
+	[socket_ RequestVersion];
 }
 
 -(void)AddView:(id)view WithType:(int)type

@@ -50,6 +50,7 @@ enum ViewTypes
 +(RacePadCoordinator *)Instance;
 
 - (void) onStartUp;
+- (void) serverConnected:(BOOL)ok;
 
 -(void)AddView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;

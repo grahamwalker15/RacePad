@@ -18,8 +18,15 @@
 }
 
 - (void) dealloc {
-	fclose ( file );
+	if ( file )
+		fclose ( file );
 	[super dealloc];
+}
+
+- (void) closeStream {
+	if ( file )
+		fclose(file);
+	file = nil;
 }
 
 - (void *)inqBuffer {

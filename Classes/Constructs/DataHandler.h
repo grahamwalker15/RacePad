@@ -19,6 +19,7 @@
 
 - (id)init;
 - (id)initWithPath: (NSString *)path;
+- (void)closeStream;
 
 - (DataStream *) getStream;
 

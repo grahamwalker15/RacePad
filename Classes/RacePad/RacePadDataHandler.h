@@ -9,9 +9,12 @@
 
 #import "DataHandler.h"
 
+#define RACE_PAD_INTERFACE_VERSION 5
+
 @interface RacePadDataHandler : DataHandler
 {
 	
+	int versionNumber;
 	int nextTime;
 	
 	FILE *saveFile;

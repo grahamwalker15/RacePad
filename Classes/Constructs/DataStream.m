@@ -29,6 +29,10 @@
 	// Do nothing
 }
 
+- (void) closeStream {
+	// Override me
+}
+
 - (bool) canPop: (int)size {
 	return false;
 }

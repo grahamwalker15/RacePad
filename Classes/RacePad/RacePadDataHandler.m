@@ -28,45 +28,64 @@
 	NSString *folder = [paths objectAtIndex:0];
 	NSString *fileName = [folder stringByAppendingString:path];
 	
-	if ( [super initWithPath:fileName] == self ) {
-	
+	if ( [super initWithPath:fileName] == self )
+	{
 		saveFile = nil;
 		index = nil;
 
-		if ( [stream canPop:4] ) {
-			nextTime = [stream PopInt];
-		}
-		else {
-			nextTime = 0;
-		}
+		versionNumber = 0;
+		nextTime = 0;
 		
-		NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
-		FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
-		indexSize = 0;
-		if ( indexFile != nil ) {
-			int t;
-			fread(&t, 1, sizeof(int), indexFile);
-			indexBase = htonl ( t );
-
-			fread(&t, 1, sizeof(int), indexFile);
-			indexStep = htonl ( t );
-
-			fread(&t, 1, sizeof(int), indexFile);
-			int indexSizeHint = htonl ( t );
+		if ( [stream canPop:4] )
+		{
+			versionNumber = [stream PopInt];
 			
-			index = (int *)malloc(indexSizeHint * sizeof(int));
+			if ( versionNumber != RACE_PAD_INTERFACE_VERSION )
+				[self closeStream];
+			else
+			{
+				if ( [stream canPop:4] )
+				{
+					nextTime = [stream PopInt];
 			
-			int i = 0;
-			while (!feof(indexFile)) {
-				fread(&t, 1, sizeof(int), indexFile);
-				if (i >= indexSizeHint) {
-					indexSizeHint += indexSizeHint * 0.1;
-					index = (int *)realloc(index, indexSizeHint * sizeof(int));
+					NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
+					FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
+					indexSize = 0;
+					if ( indexFile != nil )
+					{
+						int t;
+						fread(&t, 1, sizeof(int), indexFile);
+						int indexVersion = htonl ( t );
+						if ( indexVersion == versionNumber )
+						{
+							fread(&t, 1, sizeof(int), indexFile);
+							indexBase = htonl ( t );
+
+							fread(&t, 1, sizeof(int), indexFile);
+							indexStep = htonl ( t );
+
+							fread(&t, 1, sizeof(int), indexFile);
+							int indexSizeHint = htonl ( t );
+							
+							index = (int *)malloc(indexSizeHint * sizeof(int));
+							
+							int i = 0;
+							while (!feof(indexFile))
+							{
+								fread(&t, 1, sizeof(int), indexFile);
+								if (i >= indexSizeHint)
+								{
+									indexSizeHint += indexSizeHint * 0.1;
+									index = (int *)realloc(index, indexSizeHint * sizeof(int));
+								}
+								index[i++] = htonl ( t );
+								indexSize = i;
+							}
+						}
+						fclose(indexFile);
+					}
 				}
-				index[i++] = htonl ( t );
-				indexSize = i;
 			}
-			fclose(indexFile);
 		}
 	}
 	
@@ -84,7 +103,7 @@
 }
 
 - (void) setTime: (int) time {
-	int filePos = 0;
+	int filePos = sizeof ( int ); // To skip the version number
 	if ( indexSize > 0 )
 	{
 		int secsOffset = time / 1000 - indexBase;
@@ -121,6 +140,11 @@
 	switch (command)
 	{
 		case 1:
+			versionNumber = [stream PopInt];
+			if ( versionNumber == RACE_PAD_INTERFACE_VERSION )
+				[[RacePadCoordinator Instance] serverConnected:YES];
+			else
+				[[RacePadCoordinator Instance] serverConnected:NO];
 			break;
 		
 		case 2:

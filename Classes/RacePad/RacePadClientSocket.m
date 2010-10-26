@@ -29,6 +29,11 @@
 	CFRelease(data);
 }
 
+- (void)RequestVersion
+{
+	[self SimpleCommand:1];
+}
+
 - (void)RequestEvent
 {
 	[self SimpleCommand:2];

@@ -20,6 +20,7 @@
 - (int) inqIndex;
 - (void *) inqBuffer;
 - (void) setPos: (int) pos;
+- (void) closeStream;
 
 - (bool) canPop: (int)size;
 - (bool) PopBool;
