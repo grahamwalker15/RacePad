@@ -124,7 +124,9 @@
 }
 
 - (void) update: (int) time {
-	while (nextTime > 0 && time >= nextTime) {
+	// add a fraction onto the time, so we end up with aliasing
+	time += 0.02;
+	while (nextTime > 0 && time >= nextTime ) {
 		[self handleCommand];
 		if ( [stream canPop:4] ) {
 			nextTime = [stream PopInt];
