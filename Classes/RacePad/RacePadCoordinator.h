@@ -33,10 +33,12 @@ enum ConnectionTypes
 {
 	id view_;
 	int type_;
+	NSString * parameter_;
 	bool displayed_;
 }
 
 @property (nonatomic, retain, setter=SetView, getter=View) id view_;
+@property (nonatomic, retain, setter=SetParameter, getter=Parameter) NSString * parameter_;
 @property (nonatomic, setter=SetType, getter=Type) int type_;
 @property (nonatomic, setter=SetDisplayed, getter=Displayed) bool displayed_;
 
@@ -134,10 +136,10 @@ enum ConnectionTypes
 -(void)RemoveView:(id)view;
 -(void)SetViewDisplayed:(id)view;
 -(void)SetViewHidden:(id)view;
+-(void)SetParameter:(NSString *)parameter ForView:(id)view;
 -(void)RequestRedraw:(id)view;
 -(void)RequestRedrawType:(int)type;
-
--(void) requestDriverView:(NSString *) driver;
+-(void)RequestViewControllerRefresh;
 
 -(RPCView *)FindView:(id)view;
 -(RPCView *)FindView:(id)view WithIndexReturned:(int *)index;
@@ -145,7 +147,7 @@ enum ConnectionTypes
 -(int)DisplayedViewCount;
 
 
--(void)AddDataSourceWithType:(int)type;
+-(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter;
 -(void)RemoveDataSourceWithType:(int)type;
 
 -(void)CreateDataSources;

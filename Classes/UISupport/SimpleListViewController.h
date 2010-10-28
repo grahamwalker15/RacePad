@@ -17,8 +17,8 @@
 }
 
 - (bool) HandleSelectHeading;
-- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click;
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press;
 - (bool) HandleSelectCol:(int)col;
-- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click;
+- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press;
 
 @end

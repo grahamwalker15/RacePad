@@ -103,44 +103,51 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click
+- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
-	TableData *driverListData = [[RacePadDatabase Instance] driverListData];
-
-	// TESTING MR
-	// Look at our view's data to see if this is a DriverListView, or a DriverView
-	TableData *viewData = [driver_list_view_ TableData];
-	if ( viewData == driverListData )
+	// On long tap,or selection in name area, show lap list
+	if(double_click || long_press || col < 4)
 	{
+		TableData * driverListData = [[RacePadDatabase Instance] driverListData];
 		TableCell *cell = [driverListData cell:row Col:0];
 		NSString *driver = [cell string];
-		
-		[[RacePadCoordinator Instance] requestDriverView:driver];
+		[self ShowDriverLapList:driver];
+		return true;
 	}
-	else
-	{
-		[[RacePadCoordinator Instance] requestDriverView:[viewData titleField:@"Next"]];
-	}
+	
+	return false;
+}
 
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	// On single tap, invoke or remove the time controller
+	if(!double_click && !long_press)
+	{
+		RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+		if(![time_controller displayed])
+			[time_controller displayInViewController:self];
+		else
+			[time_controller hide];
+		
+		return true;
+	}
+	
 	return true;
 }
 
 - (bool) HandleSelectHeading
 {
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	if(![time_controller displayed])
-		[time_controller displayInViewController:self];
-	else
-		[time_controller hide];
-	
-	return true;
+	return false;
 }
 
-- (void)ShowDriverLapList
+- (void)ShowDriverLapList:(NSString *)driver
 {
 	if(driver_lap_list_controller_)
 	{
+		// Set the driver we want displayed
+		[driver_lap_list_controller_ SetDriver:driver];
+		
 		// Set the style for its presentation
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];

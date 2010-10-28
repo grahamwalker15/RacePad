@@ -102,13 +102,26 @@
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	CGPoint point = [gestureRecognizer locationInView:self.view];
-	[self OnGestureDoubleTapAtX:point.x Y:point.y];
+	
+	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
+	UIView * hit_view = [self.view hitTest:point withEvent:nil];
+	
+	if(hit_view == self.view)
+	{
+		[self OnGestureDoubleTapAtX:point.x Y:point.y];
+	}
 }
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	CGPoint point = [gestureRecognizer locationInView:self.view];
-	[self OnGestureLongPressAtX:point.x Y:point.y];
+	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
+	UIView * hit_view = [self.view hitTest:point withEvent:nil];
+	
+	if(hit_view == self.view)
+	{
+		[self OnGestureLongPressAtX:point.x Y:point.y];
+	}
 }
 
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer

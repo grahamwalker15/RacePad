@@ -21,7 +21,11 @@
 	IBOutlet UIBarButtonItem * title_;
 	IBOutlet UIBarButtonItem * previous_button_;
 	IBOutlet UIBarButtonItem * next_button_;
+	
+	NSString * driver_;
 }
+
+- (void)SetDriver:(NSString *)driver;
 
 - (IBAction)BackButton:(id)sender;
 - (IBAction)PreviousButton:(id)sender;

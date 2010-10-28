@@ -21,7 +21,7 @@
 	bool driver_lap_list_controller_displayed_;
 }
 
-- (void)ShowDriverLapList;
+- (void)ShowDriverLapList:(NSString *)driver;
 - (void)HideDriverLapList;
 
 @end

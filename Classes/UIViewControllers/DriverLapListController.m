@@ -20,10 +20,12 @@
  {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
 	{
-		 // This view is always displayed as a subview
-		 // Set the style for its presentation
-		 [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-		 [self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		// This view is always displayed as a subview
+		// Set the style for its presentation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		driver_ = nil;
  }
     return self;
 }
@@ -39,7 +41,7 @@
 - (void)viewDidLoad
 {
  	// Set up the table data for SimpleListView
-	[lap_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+	[lap_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverData]];
 	
 	[lap_list_view_ SetRowHeight:28];
 	[lap_list_view_ SetHeading:true];
@@ -47,13 +49,15 @@
 	[super viewDidLoad];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
-	[[RacePadCoordinator Instance] AddView:lap_list_view_ WithType:RPC_DRIVER_LIST_VIEW_];
+	[[RacePadCoordinator Instance] AddView:lap_list_view_ WithType:RPC_LAP_LIST_VIEW_];
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
 	[[RacePadCoordinator Instance] RegisterViewController:self];
+	[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
+	[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -61,14 +65,11 @@
 	[[RacePadCoordinator Instance] SetViewHidden:lap_list_view_];
 }
 
-
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Overriden to allow any orientation.
     return YES;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -89,11 +90,20 @@
 
 - (void)dealloc
 {
+	[driver_ release];
     [super dealloc];
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (void)SetDriver:(NSString *)driver
+{
+	if(driver_ && driver_ != driver)
+		[driver_ release];
+	
+	driver_ = [driver retain];
+}
 
 - (IBAction)BackButton:(id)sender
 {
@@ -102,12 +112,28 @@
 
 - (IBAction)PreviousButton:(id)sender
 {
-	[[self parentViewController] HideDriverLapList];
+	NSString * new_driver = [[lap_list_view_ TableData] titleField:@"Prev"];
+	if(new_driver && [new_driver length] > 0)
+	{
+		[self SetDriver:new_driver];
+		[[RacePadCoordinator Instance] SetViewHidden:lap_list_view_];
+		[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
+		[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
+		[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
+	}
 }
 
 - (IBAction)NextButton:(id)sender
 {
-	[[self parentViewController] HideDriverLapList];
+	NSString * new_driver = [[lap_list_view_ TableData] titleField:@"Next"];
+	if(new_driver && [new_driver length] > 0)
+	{
+		[self SetDriver:new_driver];
+		[[RacePadCoordinator Instance] SetViewHidden:lap_list_view_];
+		[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
+		[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
+		[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
+	}
 }
 
 @end

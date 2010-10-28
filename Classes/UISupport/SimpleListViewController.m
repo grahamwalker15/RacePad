@@ -72,7 +72,7 @@
 	return false;
 }
 
-- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
 	return false;
 }
@@ -82,7 +82,7 @@
 	return false;
 }
 
-- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click
+- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
 	return false;
 }
@@ -112,9 +112,77 @@
 				if(if_heading)
 					row --;
 				
-				if(![self HandleSelectCellRow:row Col:col DoubleClick:false])
+				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
 				{
-					[self HandleSelectRow:row DoubleClick:false];
+					[self HandleSelectRow:row DoubleClick:false LongPress:false];
+				}
+			}
+		}
+	}
+}
+
+- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
+{
+	int row = -1;
+	int col = -1;
+	
+	id controlled_view = [self view];
+	
+	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
+	{
+		if([controlled_view FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		{
+			bool if_heading = [controlled_view IfHeading];
+			
+			if(if_heading && row == 0)
+			{
+				if(![self HandleSelectCol:col])
+				{
+					[self HandleSelectHeading];
+				}
+			}
+			else
+			{
+				if(if_heading)
+					row --;
+				
+				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
+				{
+					[self HandleSelectRow:row DoubleClick:true LongPress:false];
+				}
+			}
+		}
+	}
+}
+
+- (void) OnGestureLongPressAtX:(float)x Y:(float)y
+{
+	int row = -1;
+	int col = -1;
+	
+	id controlled_view = [self view];
+	
+	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
+	{
+		if([controlled_view FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		{
+			bool if_heading = [controlled_view IfHeading];
+			
+			if(if_heading && row == 0)
+			{
+				if(![self HandleSelectCol:col])
+				{
+					[self HandleSelectHeading];
+				}
+			}
+			else
+			{
+				if(if_heading)
+					row --;
+				
+				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
+				{
+					[self HandleSelectRow:row DoubleClick:false LongPress:true];
 				}
 			}
 		}

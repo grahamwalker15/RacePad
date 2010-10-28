@@ -301,15 +301,19 @@ static RacePadCoordinator * instance_ = nil;
 			RPCView * existing_view = [views objectAtIndex:i];
 			if([existing_view Displayed])
 			{
-				if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ )
+				if([existing_view Type] == RPC_DRIVER_LIST_VIEW_)
 				{
 					[socket_ StreamTimingPage];
 				}
-				else if ( [existing_view Type] == RPC_LAP_LIST_VIEW_ )
+				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
-					[socket_ StreamTimingPage];
+					NSString * driver = [existing_view Parameter];					
+					if([driver length] > 0)
+					{
+						[socket_ requestDriverView:driver];
+					}
 				}
-				else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ )
+				else if([existing_view Type] == RPC_TRACK_MAP_VIEW_)
 				{
 					[socket_ StreamCars];
 				}
@@ -331,15 +335,19 @@ static RacePadCoordinator * instance_ = nil;
 			RPCView * existing_view = [views objectAtIndex:i];
 			if([existing_view Displayed])
 			{
-				if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ )
+				if([existing_view Type] == RPC_DRIVER_LIST_VIEW_)
 				{
 					[socket_ StreamTimingPage];
 				}
-				else if ( [existing_view Type] == RPC_LAP_LIST_VIEW_ )
+				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
-					[socket_ StreamTimingPage];
+					NSString * driver = [existing_view Parameter];					
+					if([driver length] > 0)
+					{
+						[socket_ requestDriverView:driver];
+					}
 				}
-				else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ )
+				else if([existing_view Type] == RPC_TRACK_MAP_VIEW_)
 				{
 					[socket_ StreamCars];
 				}
@@ -362,6 +370,24 @@ static RacePadCoordinator * instance_ = nil;
 		if([time_controller displayed])
 			[time_controller displayInViewController:view_controller];
 	}
+}
+
+-(void)AddView:(id)view WithParameter:(NSString *)parameter AndType:(int)type
+{
+	// First make sure that this view is not already in the list
+	RPCView * existing_view = [self FindView:view];
+	
+	if(existing_view)
+	{
+		// If it is, just set the type
+		[existing_view SetType:type];
+		return;
+	}
+	
+	// Reach here if the view wasn't found - so we'll add a new one
+	RPCView * new_view = [[RPCView alloc] initWithView:view AndType:type];
+	[views addObject:new_view];
+	[new_view release];
 }
 
 -(void)AddView:(id)view WithType:(int)type
@@ -402,23 +428,13 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[existing_view SetDisplayed:true];
 
-		// TESTING MR
-		// Explicity force the DriverListView back to showing the DriverListData
-		if( [existing_view Type] == RPC_DRIVER_LIST_VIEW_)
-		{
-			TableDataView *table_data_view = (TableDataView *)[existing_view View];
-			if ( table_data_view != nil )
-				[table_data_view SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
-		}
-		// TESTING END
-		
 		needsPlayRestart = (needsPlayRestart || playing);
 		
 		if(playing)
 			[self pausePlay];
 		
 		if (connectionType == RPC_ARCHIVE_CONNECTION_)
-			[self AddDataSourceWithType:[existing_view Type]];
+			[self AddDataSourceWithType:[existing_view Type] AndParameter:[existing_view Parameter]];
 			
 		if(needsPlayRestart)
 		{
@@ -458,47 +474,14 @@ static RacePadCoordinator * instance_ = nil;
 	}
 }
 
--(void) requestDriverView:(NSString *)driver
+-(void)SetParameter:(NSString *)parameter ForView:(id)view
 {
-	if ( [driver length] > 0 )
+	RPCView * existing_view = [self FindView:view];
+	
+	if(existing_view)
 	{
-		// TESTING MR
-		// I set the view's data to be the DriverView,
-		// It gets set back in SetViewDisplayed
-		int view_count = [views count];
-		for ( int i = 0; i < view_count; i++)
-		{
-			RPCView * existing_view = [views objectAtIndex:i];
-			if( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ && [existing_view Displayed])
-			{
-				TableDataView *table_data_view = (TableDataView *)[existing_view View];
-				if ( table_data_view != nil )
-					[table_data_view SetTableDataClass:[[RacePadDatabase Instance] driverData]];
-				break;
-			}
-		}
-		// TESTING END
-		
-		if ( [socket_ InqStatus] == SOCKET_OK_ )
-		{
-			[socket_ requestDriverView:driver];
-		}
-		else
-		{
-			NSString *s1 = @"/driver_";
-			NSString *s2 = [s1 stringByAppendingString:driver];
-			NSString *s3 = [s2 stringByAppendingString:@".rpf"];
-			[self showSnapshotRPF:s3];
-		}
+		[existing_view SetParameter:parameter];
 	}
-}
-
--(void) nextDriverView:(NSString *) driver
-{
-}
-
--(void) prevDriverView:(NSString *) driver
-{
 }
 
 -(void) acceptPushData:(NSString *)event Session:(NSString *)session
@@ -596,7 +579,7 @@ static RacePadCoordinator * instance_ = nil;
 // Registration etc. of data handlers for archive play
 ////////////////////////////////////////////////////////////////////////////////////////
 
--(void)AddDataSourceWithType:(int)type
+-(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
 {
 	// First make sure that this handler is not already in the list
 	RPCDataSource * existing_source = [self FindDataSourceWithType:type];
@@ -608,7 +591,7 @@ static RacePadCoordinator * instance_ = nil;
 		return;
 	}
 	
-	// Reach here it wasn't found - so we'll add a new one
+	// Reach here if it wasn't found - so we'll add a new one
 	NSString * file;
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
@@ -616,7 +599,12 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
-		file = @"/timing.rpf";
+		if(parameter && [parameter length] > 0 )
+		{
+			NSString *s1 = @"/driver_";
+			NSString *s2 = [s1 stringByAppendingString:parameter];
+			file = [s2 stringByAppendingString:@".rpf"];
+		}
 	}
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
@@ -655,7 +643,7 @@ static RacePadCoordinator * instance_ = nil;
 			RPCView * existing_view = [views objectAtIndex:i];
 			if([existing_view Displayed])
 			{
-				[self AddDataSourceWithType:[existing_view Type]];
+				[self AddDataSourceWithType:[existing_view Type] AndParameter:[existing_view Parameter]];
 			}
 		}
 	}
@@ -720,6 +708,7 @@ static RacePadCoordinator * instance_ = nil;
 @implementation RPCView
 
 @synthesize view_;
+@synthesize parameter_;
 @synthesize type_;
 @synthesize displayed_;
 
@@ -728,6 +717,7 @@ static RacePadCoordinator * instance_ = nil;
 	if(self = [super init])
 	{
 		view_ = [view retain];
+		parameter_ = nil;
 		type_ = type;
 		displayed_ = false;
 	}
@@ -735,6 +725,19 @@ static RacePadCoordinator * instance_ = nil;
 	return self;
 }
 	   
+-(id)initWithView:(id)view Parameter:(NSString *)parameter AndType:(int)type;
+{
+	if(self = [super init])
+	{
+		view_ = [view retain];
+		parameter_ = [parameter retain];
+		type_ = type;
+		displayed_ = false;
+	}
+	
+	return self;
+}
+
 - (void)dealloc
 {
 	[view_ release];

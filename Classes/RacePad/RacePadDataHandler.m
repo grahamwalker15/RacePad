@@ -269,14 +269,9 @@
 		}
 		case RPSC_DRIVER_VIEW_: // Driver view
 		{
-			
 			TableData *driver = [[RacePadDatabase Instance] driverData];
 			[driver loadData:stream];
-			
-			// TESTING MR
-			// Redraw the timing view
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
-			// TESTING END
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LAP_LIST_VIEW_];
 			break;
 		}
 		case RPSC_ACCEPT_PUSH_DATA_: // Accept Push Data
