@@ -160,7 +160,7 @@
 	int command = [stream PopInt];
 	switch (command)
 	{
-		case 1:
+		case RPSC_VERSION_:
 			versionNumber = [stream PopInt];
 			if ( versionNumber == RACE_PAD_INTERFACE_VERSION )
 				[[RacePadCoordinator Instance] serverConnected:YES];
@@ -168,24 +168,21 @@
 				[[RacePadCoordinator Instance] serverConnected:NO];
 			break;
 		
-		case 2:
+		case RPSC_EVENT_:
 		{
 			RacePadDatabase *database = [RacePadDatabase Instance];
 			NSString *string = [stream PopString];
 			[ database setEventName:string];
 			break;
 		}
-		case 3: // Track Map
+		case RPSC_TRACK_MAP_: // Track Map
 		{
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];
 			[track_map loadTrack:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
 			break;
 		}
-		case 4: 
-			break;
-			
-		case 5: // Timing Page 1 (whole page)
+		case RPSC_WHOLE_TIMING_PAGE_: // Timing Page 1 (whole page)
 		{
 			
 			TableData *driver_list = [[RacePadDatabase Instance] driverListData];
@@ -193,7 +190,7 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
 			break;
 		}
-		case 6: // Timing Page 1 (updates)
+		case RPSC_UPDATE_TIMING_PAGE_: // Timing Page 1 (updates)
 		{
 			TableData *driver_list = [[RacePadDatabase Instance] driverListData];
 			[driver_list updateData:stream];
@@ -201,7 +198,7 @@
 			break;
 		}
 			
-		case 7: // Track Map Cars
+		case RPSC_CARS_: // Track Map Cars
 		{
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];
 			[track_map updateCars:stream];
@@ -209,13 +206,13 @@
 			break;
 		}
 			
-		case 8:
+		case RPSC_IMAGE_LIST_ITEM_:
 		{
 			ImageListStore *imageListStore = [[RacePadDatabase Instance] imageListStore];
 			[imageListStore loadItem:stream];
 			break;
 		}
-		case 9: // Project File start
+		case RPSC_FILE_START_: // Project File start
 		{
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 			NSString *docsFolder = [paths objectAtIndex:0];
@@ -232,7 +229,7 @@
 			nextChunk = 0;
 			break;
 		}
-		case 10: // Project File chunk
+		case RPSC_FILE_CHUNK_: // Project File chunk
 		{
 			int chunk = [stream PopInt];
 			assert ( chunk == nextChunk );
@@ -249,7 +246,7 @@
 			}
 			break;
 		}
-		case 11: // Project File complete
+		case RPSC_FILE_END_: // Project File complete
 		{
 			assert ( nextChunk == saveChunks );
 			if ( saveFile != nil )
@@ -257,7 +254,7 @@
 			saveFile = nil;
 			break;
 		}
-		case 12: // Project Folder
+		case RPSC_PROJECT_START_: // Project Folder
 		{
 			NSString *folder = [stream PopString];
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -270,7 +267,7 @@
 			[fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
 			break;
 		}
-		case 13: // Driver view
+		case RPSC_DRIVER_VIEW_: // Driver view
 		{
 			
 			TableData *driver = [[RacePadDatabase Instance] driverData];
@@ -282,7 +279,7 @@
 			// TESTING END
 			break;
 		}
-		case 14: // Accept Push Data
+		case RPSC_ACCEPT_PUSH_DATA_: // Accept Push Data
 		{
 			NSString *event = [stream PopString];
 			NSString *session = [stream PopString];

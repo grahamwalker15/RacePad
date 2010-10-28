@@ -31,24 +31,24 @@
 
 - (void)RequestVersion
 {
-	[self SimpleCommand:1];
+	[self SimpleCommand:RPCS_REQUEST_VERSION];
 }
 
 - (void)RequestEvent
 {
-	[self SimpleCommand:2];
+	[self SimpleCommand:RPCS_REQUEST_EVENT];
 }
 
 - (void)RequestTrackMap
 {
-	[self SimpleCommand:3];
+	[self SimpleCommand:RPCS_REQUEST_TRACK_MAP];
 }
 
 - (void)SetReferenceTime :(float) reference_time;
 {
 	uint32_t int_data[3];
 	int_data[0] =  htonl(12);
-	int_data[1] =  htonl(4);
+	int_data[1] =  htonl(RPCS_SET_REFERENCE_TIME);
 	float *t = (float *)int_data + 2;
 	*t = reference_time;
 	int_data[2] = htonl(int_data[2]);
@@ -59,22 +59,27 @@
 
 - (void)RequestTimingPage
 {
-	[self SimpleCommand:5];
+	[self SimpleCommand:RPCS_REQUEST_TIMING_PAGE];
 }
 
 - (void)StreamTimingPage
 {
-	[self SimpleCommand:6];
+	[self SimpleCommand:RPCS_STREAM_TIMING_PAGE];
+}
+
+- (void)RequestCars
+{
+	[self SimpleCommand:RPCS_REQUEST_CARS];
 }
 
 - (void)StreamCars
 {
-	[self SimpleCommand:7];
+	[self SimpleCommand:RPCS_STREAM_CARS];
 }
 
 - (void)RequestDriverHelmets
 {
-	[self SimpleCommand:8];
+	[self SimpleCommand:RPCS_REQUEST_DRIVER_HELMETS];
 }
 
 - (void) requestDriverView :(NSString *) driver
@@ -84,7 +89,7 @@
 	int *iData = (int *)buf;
 	
 	iData[0] = htonl(messageLength);
-	iData[1] = htonl(13);
+	iData[1] = htonl(RPCS_REQUEST_DRIVER_VIEW);
 	iData[2] = htonl([driver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
@@ -100,7 +105,7 @@
 	int *iData = (int *)buf;
 	
 	iData[0] = htonl(messageLength);
-	iData[1] = htonl(14);
+	iData[1] = htonl(RPCS_ACCEPT_PUSH_DATA);
 	buf [sizeof(uint32_t) * 2] = send == YES?1:0;
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	CFSocketSendData (socket_ref_, nil, data, 0);
