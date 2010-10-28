@@ -15,7 +15,8 @@
 
 @implementation RacePadDataHandler
 
-- (id) init {
+- (id) init
+{
 	[super init];
 	
 	saveFile = nil;
@@ -23,7 +24,8 @@
 	return self;
 }
 
-- (id) initWithPath: (NSString *)path {
+- (id) initWithPath: (NSString *)path
+{
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
 	NSString *fileName = [folder stringByAppendingString:path];
@@ -41,7 +43,9 @@
 			versionNumber = [stream PopInt];
 			
 			if ( versionNumber != RACE_PAD_INTERFACE_VERSION )
+			{
 				[self closeStream];
+			}
 			else
 			{
 				if ( [stream canPop:4] )
@@ -56,6 +60,7 @@
 						int t;
 						fread(&t, 1, sizeof(int), indexFile);
 						int indexVersion = htonl ( t );
+						
 						if ( indexVersion == versionNumber )
 						{
 							fread(&t, 1, sizeof(int), indexFile);
@@ -82,6 +87,7 @@
 								indexSize = i;
 							}
 						}
+						
 						fclose(indexFile);
 					}
 				}
@@ -92,17 +98,21 @@
 	return self;
 }
 
-- (void) dealloc {
+- (void) dealloc
+{
 	if ( index )
 		free ( index );
+	
 	[super dealloc];
 }
 
-- (int) inqTime {
+- (int) inqTime
+{
 	return nextTime;
 }
 
-- (void) setTime: (int) time {
+- (void) setTime: (int) time
+{
 	int filePos = sizeof ( int ); // To skip the version number
 	if ( indexSize > 0 )
 	{
@@ -114,23 +124,32 @@
 	}
 	
 	[self setStreamPos: filePos];
-	if ( [stream canPop:4] ) {
+	if ( [stream canPop:4] )
+	{
 		nextTime = [stream PopInt];
-	} else {
+	}
+	else
+	{
 		nextTime = 0;
 	}
 	
 	[self update:time];
 }
 
-- (void) update: (int) time {
+- (void) update:(int)time
+{
 	// add a fraction onto the time, so we end up with aliasing
 	time += 0.02;
-	while (nextTime > 0 && time >= nextTime ) {
+	
+	while (nextTime > 0 && time >= nextTime)
+	{
 		[self handleCommand];
-		if ( [stream canPop:4] ) {
+		if ( [stream canPop:4] )
+		{
 			nextTime = [stream PopInt];
-		} else {
+		}
+		else
+		{
 			nextTime = 0;
 		}
 	}
@@ -275,11 +294,13 @@
 	}
 }
 
--  (BOOL)fileManager:(NSFileManager *)fileManager shouldRemoveItemAtPath:(NSString *)path {
+-  (BOOL)fileManager:(NSFileManager *)fileManager shouldRemoveItemAtPath:(NSString *)path
+{
 	return YES;
 }
 
-- (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtPath:(NSString *)path {
+- (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtPath:(NSString *)path
+{
 	return NO;
 }
 
