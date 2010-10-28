@@ -75,6 +75,27 @@ static RacePadCoordinator * instance_ = nil;
 // Play control management
 ////////////////////////////////////////////////////////////////////////////////////////
 
+- (void) setTimer: (float)thisTime
+{
+	[updateTimer release];
+	updateTimer = nil;
+	
+	float eventTime = 0;
+	int data_source_count = [dataSources count];
+	
+	for ( int i = 0 ; i < data_source_count ; i++)
+	{
+		RPCDataSource * source = [dataSources objectAtIndex:i];
+		float nextTime = [[source dataHandler] inqTime] / 1000.0;
+		if ( eventTime == 0
+		  || nextTime < eventTime )
+			eventTime = nextTime;
+	}
+	
+	if ( eventTime > 0 )
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:eventTime - thisTime target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
+}
+
 -(void)startPlay
 {
 	if(playing)
@@ -86,8 +107,9 @@ static RacePadCoordinator * instance_ = nil;
 	elapsedTime = [[ElapsedTime alloc] init];
 	
 	if(connectionType == RPC_ARCHIVE_CONNECTION_)
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerUpdate:) userInfo:nil repeats:YES];
-	
+	{
+		[self setTimer:currentTime];
+	}
 }
 
 -(void)stopPlay
@@ -98,6 +120,7 @@ static RacePadCoordinator * instance_ = nil;
 	if(updateTimer)
 	{
 		[updateTimer invalidate];
+		[updateTimer release];
 		updateTimer = nil;
 	}
 	
@@ -182,11 +205,13 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if(data_source_count > 0)
 	{
+		float elapsed = [elapsedTime value];
 		for ( int i = 0 ; i < data_source_count ; i++)
 		{
 			RPCDataSource * source = [dataSources objectAtIndex:i];
-			[[source dataHandler] update:baseTime + [elapsedTime value] * 1000];
+			[[source dataHandler] update:baseTime + elapsed * 1000];
 		}
+		[self setTimer:currentTime + elapsed];
 	}
 }
 

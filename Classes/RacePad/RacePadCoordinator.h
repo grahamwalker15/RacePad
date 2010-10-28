@@ -126,8 +126,6 @@ enum ConnectionTypes
 -(void)RequestRedrawType:(int)type;
 
 -(void) requestDriverView:(NSString *) driver;
--(void) nextDriverView:(NSString *) driver;
--(void) prevDriverView:(NSString *) driver;
 
 -(RPCView *)FindView:(id)view;
 -(RPCView *)FindView:(id)view WithIndexReturned:(int *)index;
