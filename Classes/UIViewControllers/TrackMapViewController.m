@@ -38,8 +38,9 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
+	[[RacePadCoordinator Instance] RegisterViewController:self];
 	[[RacePadCoordinator Instance] SetViewDisplayed:track_map_view_];
 	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
 }

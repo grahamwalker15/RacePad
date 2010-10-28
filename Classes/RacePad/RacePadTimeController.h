@@ -13,7 +13,11 @@
 @interface RacePadTimeController : NSObject
 {
 	TimeViewController * timeController;
+	
+	bool displayed;
 }
+
+@property(nonatomic) bool displayed;
 
 +(RacePadTimeController *)Instance;
 
@@ -22,6 +26,13 @@
 - (void) displayInViewController:(UIViewController *)viewController;
 - (void) hide;
 
-- (IBAction)TestPressed:(id)sender;
+- (void) setSliderMin:(float)startTime Max:(float)endTime;
+
+- (void) updateTime:(float)time;
+- (void) updateSlider:(float)time;
+- (void) updateClock:(float)time;
+
+- (IBAction)PlayPressed:(id)sender;
+- (IBAction)SliderChanged:(id)sender;
 
 @end

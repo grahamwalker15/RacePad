@@ -11,9 +11,13 @@
 
 @interface TimeViewController : UIViewController
 {
-	IBOutlet UIBarButtonItem * testButton;
+	IBOutlet UIBarButtonItem * playButton;
+	IBOutlet UIButton * clock;
+	IBOutlet UISlider * timeSlider;
 }
 
-@property (readonly, retain) UIBarButtonItem * testButton;
+@property (readonly, retain) UIBarButtonItem * playButton;
+@property (readonly, retain) UISlider * timeSlider;
+@property (readonly, retain) UIButton * clock;
 
 @end

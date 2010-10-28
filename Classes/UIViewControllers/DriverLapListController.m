@@ -52,6 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
+	[[RacePadCoordinator Instance] RegisterViewController:self];
 	[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
 }
 

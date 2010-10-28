@@ -7,6 +7,7 @@
 //
 
 #import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
 #import "RacePadClientSocket.h"
 #import "RacePadDataHandler.h"
 #import "ElapsedTime.h"
@@ -19,7 +20,7 @@
 @synthesize currentTime;
 @synthesize startTime;
 @synthesize endTime;
-@synthesize shouldPlay;
+@synthesize needsPlayRestart;
 @synthesize playing;
 
 static RacePadCoordinator * instance_ = nil;
@@ -40,10 +41,11 @@ static RacePadCoordinator * instance_ = nil;
 		startTime = 14 * 3600 + 0 * 60 + 0;
 		endTime = 16 * 3600 + 0 * 60 + 0;
 		
-		shouldPlay = true;
+		needsPlayRestart = true;
 		playing = false;
 		
 		updateTimer = nil;
+		elapsedTime = nil;
 		
 		views = [[NSMutableArray alloc] init];
 		dataSources = [[NSMutableArray alloc] init];
@@ -75,33 +77,13 @@ static RacePadCoordinator * instance_ = nil;
 // Play control management
 ////////////////////////////////////////////////////////////////////////////////////////
 
-- (void) setTimer: (float)thisTime
-{
-	// Assume that the timer has been stopped (by stopPlay), or has fired, and has therefore invalidated itself.
-	// i.e. we don't need to invalidate it here, we can just make a new one.
-	
-	float eventTime = 0;
-	int data_source_count = [dataSources count];
-	
-	for ( int i = 0 ; i < data_source_count ; i++)
-	{
-		RPCDataSource * source = [dataSources objectAtIndex:i];
-		float nextTime = [[source dataHandler] inqTime] / 1000.0;
-		if ( eventTime == 0
-		  || nextTime < eventTime )
-			eventTime = nextTime;
-	}
-	
-	if ( eventTime > 0 )
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval:eventTime - thisTime target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
-}
-
 -(void)startPlay
 {
 	if(playing)
 		return;
 	
 	playing = true;
+	needsPlayRestart = false;
 	
 	baseTime = (int)(currentTime * 1000.0);
 	elapsedTime = [[ElapsedTime alloc] init];
@@ -112,7 +94,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 }
 
--(void)stopPlay
+-(void)pausePlay
 {
 	if(!playing)
 		return;
@@ -125,9 +107,23 @@ static RacePadCoordinator * instance_ = nil;
 	
 	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
 	[elapsedTime release];
+	elapsedTime = nil;
 	
 	playing = false;
+}
+
+-(void)stopPlay
+{
+	[self pausePlay];
+	needsPlayRestart = false;
+}
+
+-(void)jumpToTime:(float)time
+{
+	[self stopPlay];
+	currentTime = time;
 	
+	[self showSnapshot];
 }
 
 -(void)setConnectionType:(int)type
@@ -144,6 +140,59 @@ static RacePadCoordinator * instance_ = nil;
 		[self CreateDataSources];
 	
 	connectionType = type;
+}
+
+-(void)prepareToPlay
+{
+	if (connectionType == RPC_SOCKET_CONNECTION_)
+		[self prepareToPlayFromSocket];
+	else if(connectionType == RPC_ARCHIVE_CONNECTION_)
+		[self prepareToPlayArchives];
+}
+
+-(void)showSnapshot
+{
+	if (connectionType == RPC_SOCKET_CONNECTION_)
+		[self showSnapshotFromSocket];
+	else if(connectionType == RPC_ARCHIVE_CONNECTION_)
+		[self showSnapshotOfArchives];
+}
+
+- (void) setTimer: (float)thisTime
+{
+	// Assume that the timer has been stopped (by stopPlay), or has fired, and has therefore invalidated itself.
+	// i.e. we don't need to invalidate it here, we can just make a new one.
+	
+	float eventTime = 0;
+	int data_source_count = [dataSources count];
+	
+	for ( int i = 0 ; i < data_source_count ; i++)
+	{
+		RPCDataSource * source = [dataSources objectAtIndex:i];
+		float nextTime = [[source dataHandler] inqTime] / 1000.0;
+		if ( eventTime == 0
+			|| nextTime < eventTime )
+			eventTime = nextTime;
+	}
+	
+	if ( eventTime > 0 )
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:eventTime - thisTime target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
+}
+
+- (void) timerUpdate: (NSTimer *)theTimer
+{
+	int data_source_count = [dataSources count];
+	
+	if(data_source_count > 0)
+	{
+		float elapsed = [elapsedTime value];
+		for ( int i = 0 ; i < data_source_count ; i++)
+		{
+			RPCDataSource * source = [dataSources objectAtIndex:i];
+			[[source dataHandler] update:baseTime + elapsed * 1000];
+		}
+		[self setTimer:currentTime + elapsed];
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -198,22 +247,6 @@ static RacePadCoordinator * instance_ = nil;
 	[self loadRPF:sessionFile];
 }
 
-- (void) timerUpdate: (NSTimer *)theTimer
-{
-	int data_source_count = [dataSources count];
-	
-	if(data_source_count > 0)
-	{
-		float elapsed = [elapsedTime value];
-		for ( int i = 0 ; i < data_source_count ; i++)
-		{
-			RPCDataSource * source = [dataSources objectAtIndex:i];
-			[[source dataHandler] update:baseTime + elapsed * 1000];
-		}
-		[self setTimer:currentTime + elapsed];
-	}
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////
 // Socket management
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -255,9 +288,81 @@ static RacePadCoordinator * instance_ = nil;
 	[socket_ RequestVersion];
 }
 
+-(void)prepareToPlayFromSocket
+{
+	[socket_ SetReferenceTime:currentTime];
+
+	int view_count = [views count];
+	
+	if(view_count > 0)
+	{
+		for ( int i = 0 ; i < view_count ; i++)
+		{
+			RPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view Displayed])
+			{
+				if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ )
+				{
+					[socket_ StreamTimingPage];
+				}
+				else if ( [existing_view Type] == RPC_LAP_LIST_VIEW_ )
+				{
+					[socket_ StreamTimingPage];
+				}
+				else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ )
+				{
+					[socket_ StreamCars];
+				}
+			}
+		}
+	}
+}
+
+-(void)showSnapshotFromSocket
+{
+	[socket_ SetReferenceTime:currentTime];
+	
+	int view_count = [views count];
+	
+	if(view_count > 0)
+	{
+		for ( int i = 0 ; i < view_count ; i++)
+		{
+			RPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view Displayed])
+			{
+				if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ )
+				{
+					[socket_ StreamTimingPage];
+				}
+				else if ( [existing_view Type] == RPC_LAP_LIST_VIEW_ )
+				{
+					[socket_ StreamTimingPage];
+				}
+				else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ )
+				{
+					[socket_ StreamCars];
+				}
+			}
+		}
+	}
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // Registration etc. of "interested" views - used to tell the server what data to send
 ////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)RegisterViewController:(UIViewController *)view_controller
+{
+	if(view_controller)
+	{
+		RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+		if([time_controller displayed])
+			[time_controller displayInViewController:view_controller];
+	}
+}
 
 -(void)AddView:(id)view WithType:(int)type
 {
@@ -295,10 +400,6 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if(existing_view)
 	{
-		// Get the displayed count before we start in order to check whether this is the first displayed
-		int prior_displayed_count = [self DisplayedViewCount];
-		
-		// Now set this to displayed
 		[existing_view SetDisplayed:true];
 
 		// TESTING MR
@@ -311,41 +412,23 @@ static RacePadCoordinator * instance_ = nil;
 		}
 		// TESTING END
 		
-		bool was_playing = playing;
+		needsPlayRestart = (needsPlayRestart || playing);
 		
 		if(playing)
-			[self stopPlay];
+			[self pausePlay];
 		
-		if (connectionType == RPC_SOCKET_CONNECTION_)
-		{
-			[socket_ SetReferenceTime:currentTime];
-			
-			if ( [existing_view Type] == RPC_DRIVER_LIST_VIEW_ )
-			{
-				[socket_ StreamTimingPage];
-			}
-			else if ( [existing_view Type] == RPC_LAP_LIST_VIEW_ )
-			{
-				[socket_ StreamTimingPage];
-			}
-			else if ( [existing_view Type] == RPC_TRACK_MAP_VIEW_ )
-			{
-				[socket_ StreamCars];
-			}
-		}
-		else if (connectionType == RPC_ARCHIVE_CONNECTION_)
-		{
+		if (connectionType == RPC_ARCHIVE_CONNECTION_)
 			[self AddDataSourceWithType:[existing_view Type]];
 			
-			if(was_playing)
-				[self prepareToPlayArchives];
-			else
-				[self showSnapshotOfArchives];
-			
-		}
-		
-		if(was_playing || shouldPlay)
+		if(needsPlayRestart)
+		{
+			[self prepareToPlay];
 			[self startPlay];
+		}
+		else
+		{
+			[self showSnapshot];
+		}
 			
 	}
 }
@@ -359,9 +442,13 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[existing_view SetDisplayed:false];
 		
-		// If this was the last displayed view, stop the play timers
-		if([self DisplayedViewCount] <= 0)
+		// If this was the last displayed view, stop the play timers, but record the fact
+		// that we are playing so that it will restart when the next view is loaded
+		if(playing && [self DisplayedViewCount] <= 0)
+		{
 			[self stopPlay];
+			needsPlayRestart = true;
+		}
 		
 		// Release the data handler
 		if(connectionType == RPC_ARCHIVE_CONNECTION_)

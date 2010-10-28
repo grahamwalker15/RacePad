@@ -30,7 +30,7 @@
 	NSString *folder = [paths objectAtIndex:0];
 	NSString *fileName = [folder stringByAppendingString:path];
 	
-	if ( [super initWithPath:fileName] == self )
+	if ( self = [super initWithPath:fileName] )
 	{
 		saveFile = nil;
 		index = nil;

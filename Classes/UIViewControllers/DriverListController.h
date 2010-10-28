@@ -24,6 +24,4 @@
 - (void)ShowDriverLapList;
 - (void)HideDriverLapList;
 
-- (IBAction)TestPressed:(id)sender;
-
 @end

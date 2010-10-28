@@ -86,7 +86,7 @@ enum ConnectionTypes
 	float endTime;
 	
 	bool playing;
-	bool shouldPlay;
+	bool needsPlayRestart;
 }
 
 @property (nonatomic) int connectionType;
@@ -94,19 +94,28 @@ enum ConnectionTypes
 @property (nonatomic) float startTime;
 @property (nonatomic) float endTime;
 @property (nonatomic) bool playing;
-@property (nonatomic) bool shouldPlay;
+@property (nonatomic) bool needsPlayRestart;
 
 +(RacePadCoordinator *)Instance;
 
 -(void)onStartUp;
 
 -(void)startPlay;
+-(void)pausePlay;
 -(void)stopPlay;
+
+-(void)prepareToPlay;
+-(void)showSnapshot;
+
+-(void)jumpToTime:(float)time;
 
 -(void)serverConnected:(BOOL)ok;
 -(void)SetServerAddress:(NSString *)server;
 -(void)ConnectSocket;
 -(void)Connected;
+
+-(void) prepareToPlayFromSocket;
+-(void) showSnapshotFromSocket;
 
 -(void) acceptPushData:(NSString *)event Session:(NSString *)session;
 
@@ -116,7 +125,10 @@ enum ConnectionTypes
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;
 
+-(void)setTimer: (float)thisTime;
 -(void)timerUpdate: (NSTimer *)theTimer;
+
+-(void)RegisterViewController:(UIViewController *)view_controller;
 
 -(void)AddView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;

@@ -60,6 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
+	[[RacePadCoordinator Instance] RegisterViewController:self];
 	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 }
 
@@ -126,7 +127,13 @@
 
 - (bool) HandleSelectHeading
 {
-	[[RacePadTimeController Instance] displayInViewController:self];
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	if(![time_controller displayed])
+		[time_controller displayInViewController:self];
+	else
+		[time_controller hide];
+	
 	return true;
 }
 
@@ -156,13 +163,6 @@
 		driver_lap_list_controller_displayed_ = false;
 	}
 }
-
-
-- (IBAction)TestPressed:(id)sender
-{
-	int x = 0;
-}
-
 
 @end
 
