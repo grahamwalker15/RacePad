@@ -102,7 +102,7 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUIToolbar" ref="235295983"/>
 					</object>
-					<object class="IBUIBarButtonItem" id="324746423">
+					<object class="IBUIBarButtonItem" id="991767604">
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUIToolbar" ref="235295983"/>
 						<int key="IBUISystemItemIdentifier">5</int>
@@ -112,7 +112,7 @@
 						<reference key="IBUICustomView" ref="296489588"/>
 						<reference key="IBUIToolbar" ref="235295983"/>
 					</object>
-					<object class="IBUIBarButtonItem" id="288572115">
+					<object class="IBUIBarButtonItem" id="61700575">
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUIToolbar" ref="235295983"/>
 						<int key="IBUISystemItemIdentifier">5</int>
@@ -189,8 +189,8 @@
 							<reference ref="286321629"/>
 							<reference ref="220259579"/>
 							<reference ref="542221634"/>
-							<reference ref="324746423"/>
-							<reference ref="288572115"/>
+							<reference ref="991767604"/>
+							<reference ref="61700575"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -229,12 +229,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
-						<reference key="object" ref="324746423"/>
+						<reference key="object" ref="991767604"/>
 						<reference key="parent" ref="235295983"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">11</int>
-						<reference key="object" ref="288572115"/>
+						<reference key="object" ref="61700575"/>
 						<reference key="parent" ref="235295983"/>
 					</object>
 				</object>
