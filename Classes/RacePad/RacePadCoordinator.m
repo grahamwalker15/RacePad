@@ -77,8 +77,8 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) setTimer: (float)thisTime
 {
-	[updateTimer release];
-	updateTimer = nil;
+	// Assume that the timer has been stopped (by stopPlay), or has fired, and has therefore invalidated itself.
+	// i.e. we don't need to invalidate it here, we can just make a new one.
 	
 	float eventTime = 0;
 	int data_source_count = [dataSources count];
@@ -120,7 +120,6 @@ static RacePadCoordinator * instance_ = nil;
 	if(updateTimer)
 	{
 		[updateTimer invalidate];
-		[updateTimer release];
 		updateTimer = nil;
 	}
 	
