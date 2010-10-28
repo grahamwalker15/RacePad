@@ -368,7 +368,7 @@ static RacePadCoordinator * instance_ = nil;
 		RacePadTimeController * time_controller = [RacePadTimeController Instance];
 		
 		if([time_controller displayed])
-			[time_controller displayInViewController:view_controller];
+			[time_controller displayInViewController:view_controller Animated:false];
 	}
 }
 

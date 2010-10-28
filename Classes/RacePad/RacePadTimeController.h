@@ -14,6 +14,8 @@
 {
 	TimeViewController * timeController;
 	
+	NSTimer *hideTimer;
+
 	bool displayed;
 }
 
@@ -23,8 +25,12 @@
 
 - (void) onStartUp;
 
-- (void) displayInViewController:(UIViewController *)viewController;
+- (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated;
 - (void) hide;
+- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) setHideTimer;
+- (void) hideTimerExpired:(NSTimer *)theTimer;
+
 
 - (void) setSliderMin:(float)startTime Max:(float)endTime;
 

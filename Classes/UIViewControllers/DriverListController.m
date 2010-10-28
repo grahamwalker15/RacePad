@@ -126,7 +126,7 @@
 		RacePadTimeController * time_controller = [RacePadTimeController Instance];
 		
 		if(![time_controller displayed])
-			[time_controller displayInViewController:self];
+			[time_controller displayInViewController:self Animated:true];
 		else
 			[time_controller hide];
 		

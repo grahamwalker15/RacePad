@@ -30,6 +30,7 @@ static RacePadTimeController * instance_ = nil;
 	{	
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
 		displayed = false;
+		hideTimer = nil;
 	}
 	
 	return self;
@@ -48,7 +49,7 @@ static RacePadTimeController * instance_ = nil;
 {
 }
 
-- (void) displayInViewController:(UIViewController *)viewController
+- (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated
 {
 	//[viewController presentModalViewController:timeController animated:true];
 
@@ -58,10 +59,20 @@ static RacePadTimeController * instance_ = nil;
 	CGRect frame = CGRectMake(super_bounds.origin.x, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height, super_bounds.size.width, time_controller_bounds.size.height);
 	[timeController.view setFrame:frame];
 
-	UIBarButtonItem * play_button = [timeController playButton];
-
+	if(animated)
+		[timeController.view setAlpha:0.0];
+	
 	[viewController.view addSubview:timeController.view];
 	
+	if(animated)
+	{
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:0.75];
+		[timeController.view setAlpha:1.0];
+		[UIView commitAnimations];
+	}
+	
+	UIBarButtonItem * play_button = [timeController playButton];	
 	[play_button setTarget:instance_];
 	[play_button setAction:@selector(PlayPressed:)];
 	
@@ -76,12 +87,43 @@ static RacePadTimeController * instance_ = nil;
 	[self updateTime:current_time];
 	
 	displayed = true;
+	[self setHideTimer];
+	
 }
 
 - (void) hide
 {
-	[timeController.view removeFromSuperview];
-	displayed = false;
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:1.0];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	[timeController.view setAlpha:0.0];
+	[UIView commitAnimations];
+}
+
+- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[timeController.view removeFromSuperview];
+		displayed = false;
+	}
+}
+
+- (void) setHideTimer
+{
+	// Timer to hide the controls if they're not touched for 10 seconds
+	if(hideTimer)
+		[hideTimer invalidate];
+	
+	hideTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
+	
+}
+
+- (void) hideTimerExpired:(NSTimer *)theTimer
+{
+	[self hide];
+	hideTimer = nil;
 }
 
 - (void) updateTime:(float)time
@@ -126,6 +168,8 @@ static RacePadTimeController * instance_ = nil;
 		[coordinator stopPlay];
 	else
 		[coordinator startPlay];
+	
+	[self setHideTimer];
 }
 
 - (IBAction)SliderChanged:(id)sender
@@ -134,6 +178,7 @@ static RacePadTimeController * instance_ = nil;
 	float time = [slider value];
 	[[RacePadCoordinator Instance] jumpToTime:time];
 	[self updateClock:time];
+	[self setHideTimer];
 }
 
 @end
