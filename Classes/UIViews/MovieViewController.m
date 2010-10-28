@@ -59,7 +59,7 @@
 	MPMoviePlayerController *player = [aNotification object];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
 	[player stop];
-	[self.view removeFromSuperView];
+	[self.view removeFromSuperview];
 	[player autorelease];    
 }
 

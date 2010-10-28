@@ -7,7 +7,10 @@
 //
 
 #import "DriverListController.h"
+#import "DriverLapListController.h"
+
 #import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
 
@@ -35,8 +38,10 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	// Get a pointer to the associated view
 	driver_list_view_ = (TableDataView *)[self view];
 	
+	// Set up the table data for SimpleListView
 	[driver_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
 	[driver_list_view_ SetRowHeight:28];
@@ -44,22 +49,24 @@
 	
     [super viewDidLoad];
 	
-	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_LIST_VIEW_];
-}
+	// Tell the RacePadCoordinator that we're interested in data for this view
+	[[RacePadCoordinator Instance] AddView:driver_list_view_ WithType:RPC_DRIVER_LIST_VIEW_];
+	
+	// Create a view controller for the driver lap times which may be displayed as an overlay
+	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
+	driver_lap_list_controller_displayed_ = false;
 
-- (void)RequestRedraw
-{
-	[driver_list_view_ RequestRedraw];
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	[[RacePadCoordinator Instance] SetViewDisplayed:self];
+	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
 {
-	[[RacePadCoordinator Instance] SetViewHidden:self];
+	[self HideDriverLapList];
+	[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -93,7 +100,7 @@
     [super dealloc];
 }
 
-// Action callbacks
+////////////////////////////////////////////////////////////////////////////////
 
 - (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click
 {
@@ -102,18 +109,59 @@
 	// TESTING MR
 	// Look at our view's data to see if this is a DriverListView, or a DriverView
 	TableData *viewData = [driver_list_view_ TableData];
-	if ( viewData == driverListData ) {
+	if ( viewData == driverListData )
+	{
 		TableCell *cell = [driverListData cell:row Col:0];
 		NSString *driver = [cell string];
 		
 		[[RacePadCoordinator Instance] requestDriverView:driver];
-	} else {
+	}
+	else
+	{
 		[[RacePadCoordinator Instance] requestDriverView:[viewData titleField:@"Next"]];
 	}
 
 	return true;
 }
 
+- (bool) HandleSelectHeading
+{
+	[[RacePadTimeController Instance] displayInViewController:self];
+	return true;
+}
+
+- (void)ShowDriverLapList
+{
+	if(driver_lap_list_controller_)
+	{
+		// Set the style for its presentation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		// And present it
+		[self presentModalViewController:driver_lap_list_controller_ animated:true];
+		driver_lap_list_controller_displayed_ = true;
+	}
+}
+
+- (void)HideDriverLapList
+{
+	if(driver_lap_list_controller_displayed_)
+	{
+		// Set the style for its animation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		
+		// And dismiss it
+		[self dismissModalViewControllerAnimated:true];
+		driver_lap_list_controller_displayed_ = false;
+	}
+}
+
+
+- (IBAction)TestPressed:(id)sender
+{
+	int x = 0;
+}
 
 
 @end

@@ -12,8 +12,6 @@
 {
 }
 
-- (DataHandler *)constructDataHandler;
-
 - (void) RequestVersion;
 - (void) RequestEvent;
 - (void) RequestTrackMap;

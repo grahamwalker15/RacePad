@@ -8,14 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
+
+@class RacePadClientSocket;
+@class RacePadDataHandler;
+@class ElapsedTime;
+
 // View types
 enum ViewTypes
 {
 	RPC_DRIVER_LIST_VIEW_,
+	RPC_LAP_LIST_VIEW_,
 	RPC_TRACK_MAP_VIEW_
 } ;
 
-@interface RacePadView : NSObject
+// Connection types
+enum ConnectionTypes
+{
+	RPC_NO_CONNECTION_,
+	RPC_SOCKET_CONNECTION_,
+	RPC_ARCHIVE_CONNECTION_
+} ;
+
+@interface RPCView : NSObject
 {
 	id view_;
 	int type_;
@@ -30,27 +44,79 @@ enum ViewTypes
 
 @end
 
-@class RacePadClientSocket;
-@class RacePadDataHandler;
-@class ElapsedTime;
+@interface RPCDataSource : NSObject
+{
+	RacePadDataHandler * dataHandler;
+	NSString * fileName;
+	int archiveType;
+	int referenceCount;
+}
+
+@property (nonatomic, retain) RacePadDataHandler * dataHandler;;
+@property (nonatomic, retain) NSString * fileName;
+@property (nonatomic) int archiveType;
+@property (nonatomic, readonly) int referenceCount;
+
+-(id)initWithDataHandler:(RacePadDataHandler *)handler Type:(int)type Filename:(NSString *)name;
+
+-(void)incrementReferenceCount;
+-(void)decrementReferenceCount;
+
+@end
+
 
 @interface RacePadCoordinator : NSObject
 {
-	NSMutableArray * views_;
+	int connectionType;
+	
+	NSMutableArray * views;		// RPCView *
+	NSMutableArray * dataSources;	// RPCDataSource *
+	
 	RacePadClientSocket * socket_;
 	
 	NSString *sessionFolder;
 	
 	NSTimer *updateTimer;
-	RacePadDataHandler *dataHandler;
+	
 	int baseTime;
-	ElapsedTime *currentTime;
+	ElapsedTime * elapsedTime;
+	
+	float currentTime;
+	float startTime;
+	float endTime;
+	
+	bool playing;
+	bool shouldPlay;
 }
+
+@property (nonatomic) int connectionType;
+@property (nonatomic) float currentTime;
+@property (nonatomic) float startTime;
+@property (nonatomic) float endTime;
+@property (nonatomic) bool playing;
+@property (nonatomic) bool shouldPlay;
 
 +(RacePadCoordinator *)Instance;
 
-- (void) onStartUp;
-- (void) serverConnected:(BOOL)ok;
+-(void)onStartUp;
+
+-(void)startPlay;
+-(void)stopPlay;
+
+-(void)serverConnected:(BOOL)ok;
+-(void)SetServerAddress:(NSString *)server;
+-(void)ConnectSocket;
+-(void)Connected;
+
+-(void) acceptPushData:(NSString *)event Session:(NSString *)session;
+
+-(void)loadRPF: (NSString *)file;
+-(void)loadSession: (NSString *)event Session: (NSString *)session;
+
+-(void) prepareToPlayArchives;
+-(void) showSnapshotOfArchives;
+
+-(void)timerUpdate: (NSTimer *)theTimer;
 
 -(void)AddView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;
@@ -63,16 +129,19 @@ enum ViewTypes
 -(void) nextDriverView:(NSString *) driver;
 -(void) prevDriverView:(NSString *) driver;
 
--(void) acceptPushData:(NSString *)event Session:(NSString *)session;
+-(RPCView *)FindView:(id)view;
+-(RPCView *)FindView:(id)view WithIndexReturned:(int *)index;
 
--(void)SetServerAddress:(NSString *)server;
--(void)ConnectSocket;
--(void)Connected;
+-(int)DisplayedViewCount;
 
--(RacePadView *)FindView:(id)view;
--(RacePadView *)FindView:(id)view WithIndexReturned:(int *)index;
 
-- (void) playRPF: (NSString *)file;
-- (void) timerUpdate: (NSTimer *)theTimer;
+-(void)AddDataSourceWithType:(int)type;
+-(void)RemoveDataSourceWithType:(int)type;
+
+-(void)CreateDataSources;
+-(void)DestroyDataSources;
+
+-(RPCDataSource *)FindDataSourceWithType:(int)type;
+-(RPCDataSource *)FindDataSourceWithType:(int)type WithIndexReturned:(int *)index;
 
 @end

@@ -9,6 +9,7 @@
 #import "RacePadAppDelegate.h"
 #import "RacePadClientSocket.h"
 #import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
 
 
 @implementation RacePadAppDelegate
@@ -25,14 +26,11 @@
     
     // Override point for customization after app launch.
 	
-	// Switch off iPad status bar
-	if([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden: withAnimation:)])
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    else 
-        [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
-	
 	// Create the co-ordinator
 	[[RacePadCoordinator Instance] onStartUp];
+	
+	// Create the time controller
+	[[RacePadTimeController Instance] onStartUp];
 	
     // Add the tab bar controller's current view as a subview of the window
     [window addSubview:tabBarController.view];

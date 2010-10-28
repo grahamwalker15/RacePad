@@ -20,5 +20,8 @@
 
 - (void)InitialiseImages;
 
+
+- (void)ReleaseBackground;
+
 @end
 

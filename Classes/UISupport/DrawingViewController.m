@@ -24,6 +24,7 @@
     
     //	Tap recognizer
 	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
+	[recognizer setCancelsTouchesInView:false];
     [self.view addGestureRecognizer:recognizer];
     [recognizer release];
 	
@@ -76,11 +77,6 @@
     [super dealloc];
 }
 
-- (void)RequestRedraw
-{
-	// Should be overridden by derived classes
-}
-
 // orientation view swapping logic
 - (void) OrientationChange:(NSNotification *)notification
 {
@@ -93,7 +89,14 @@
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	CGPoint point = [gestureRecognizer locationInView:self.view];
-	[self OnGestureTapAtX:point.x Y:point.y];
+	
+	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
+	UIView * hit_view = [self.view hitTest:point withEvent:nil];
+	
+	if(hit_view == self.view)
+	{
+		[self OnGestureTapAtX:point.x Y:point.y];
+	}
 }
 
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer

@@ -162,7 +162,8 @@
 	}
 }
 
-- (DataHandler *) constructDataHandler {
+- (DataHandler *) constructDataHandler
+{
 	DataHandler *handler = [[DataHandler alloc] init];
 	return handler;
 }

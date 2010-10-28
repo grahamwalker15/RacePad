@@ -8,8 +8,8 @@
 
 #import "RacePadClientSocket.h"
 #import "RacePadDataHandler.h"
-#include "RacePadCoordinator.h"
-#include "RacePadDatabase.h"
+#import "RacePadCoordinator.h"
+#import "RacePadDatabase.h"
 #import "TrackMap.h"
 
 @implementation RacePadClientSocket
@@ -108,7 +108,8 @@
 	free (buf);
 }
 
-- (DataHandler *) constructDataHandler {
+- (DataHandler *) constructDataHandler
+{
 	return [[RacePadDataHandler alloc] init];
 }
 

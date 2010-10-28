@@ -74,6 +74,7 @@ static bool statics_initialised_ = false;
 
 - (void)layoutSubviews
 {
+	[super layoutSubviews];
 }
 
 // Responding to Touch Events

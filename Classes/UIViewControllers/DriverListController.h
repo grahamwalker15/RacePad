@@ -11,11 +11,19 @@
 #import "SimpleListViewController.h"
 #import "TableDataView.h"
 
+@class DriverLapListController;
 
 @interface DriverListController : SimpleListViewController
 {
 	TableDataView * driver_list_view_;
+	DriverLapListController * driver_lap_list_controller_;
+	
+	bool driver_lap_list_controller_displayed_;
 }
 
+- (void)ShowDriverLapList;
+- (void)HideDriverLapList;
+
+- (IBAction)TestPressed:(id)sender;
 
 @end

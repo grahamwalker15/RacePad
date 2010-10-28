@@ -369,11 +369,11 @@
 {
 	if ( inner_path  && outer_path )
 	{
-		// Draw inner and outer track in 3 point white with drop shadow
+		// Draw inner and outer track in 2 point white with drop shadow
 		[view SaveGraphicsState];
 		
 		[view SetLineWidth:2 / scale];
-		//[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
+		[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
 		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
 		
 		[view BeginPath];

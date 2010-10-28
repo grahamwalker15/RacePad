@@ -23,12 +23,6 @@
 	return self;
 }
 
-- (void)RequestRedraw
-{
-	[track_map_view_ RequestRedraw];
-	//[timing_view_ RequestRedraw];
-}
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -39,19 +33,24 @@
 	//[timing_view_ SetHeading:true];
 	
 	[super viewDidLoad];
-	[[RacePadCoordinator Instance] AddView:self WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:track_map_view_ WithType:RPC_TRACK_MAP_VIEW_];
+	//[[RacePadCoordinator Instance] AddView:timing_view_ WithType:RPC_DRIVER_LIST_VIEW_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidAppear:(BOOL)animated
 {
-	[[RacePadCoordinator Instance] SetViewDisplayed:self];
+	[[RacePadCoordinator Instance] SetViewDisplayed:track_map_view_];
+	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[[RacePadCoordinator Instance] SetViewHidden:self];
+	[[RacePadCoordinator Instance] SetViewHidden:track_map_view_];
+	//[[RacePadCoordinator Instance] SetViewHidden:timing_view_];
+	
+	[track_map_view_ ReleaseBackground];
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -68,11 +67,12 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-/*
+
 - (void)viewDidUnload
 {	
+    [super viewDidUnload];
 }
- */
+
 
 
 - (void)dealloc

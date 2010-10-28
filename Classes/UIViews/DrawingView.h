@@ -157,7 +157,6 @@
 - (void)ResetTransformMatrix;
 - (CGPoint)TransformPoint:(CGPoint)point;
 
-
 // Scrolling support
 
 - (void)SetContentWidth:(float)width AndHeight:(float)height;

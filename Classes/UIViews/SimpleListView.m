@@ -46,6 +46,7 @@
 
 - (void)layoutSubviews
 {
+	[super layoutSubviews];
 }
 
 - (void)dealloc

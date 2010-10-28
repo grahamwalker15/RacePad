@@ -8,12 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface DrawingViewController : UIViewController
 {
 }
-
-- (void)RequestRedraw;
 
 // Gesture recognizer callbacks
 

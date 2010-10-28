@@ -46,6 +46,7 @@ static bool images_initialised_ = false;
 
 - (void)layoutSubviews
 {
+	[super layoutSubviews];
 }
 
 - (void)dealloc
@@ -104,7 +105,7 @@ static bool images_initialised_ = false;
 			
 			CGRect map_rect = CGRectInset(current_bounds_, 30, 30);
 			[self DrawPattern:map_bg_image_ InRect:map_rect];	
-
+			
 			[self RestoreGraphicsState];
 			
 			// Get the background image from the bitmap context
@@ -116,6 +117,18 @@ static bool images_initialised_ = false;
 			[self DestroyBitmapContext];
 		}
 	}
+}
+
+- (void)ReleaseBackground
+{
+	if(background_image_)
+	{
+		CGImageRelease(background_image_);
+		background_image_ = nil;
+	}
+			
+	background_image_w_ = 0;
+	background_image_h_ = 0;
 }
 
 - (void) drawTrack
