@@ -8,6 +8,7 @@
 
 #import "TrackMapViewController.h"
 #import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
 #import "RacePadDatabase.h"
 #import "TableDataView.h"
 #import "TrackMapView.h"
@@ -21,6 +22,13 @@
 	}
 	
 	return self;
+}
+
+
+
+- (void)dealloc
+{
+    [super dealloc];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -40,7 +48,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	[[RacePadCoordinator Instance] RegisterViewController:self];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:track_map_view_];
 	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
 }
@@ -50,6 +58,7 @@
 {
 	[[RacePadCoordinator Instance] SetViewHidden:track_map_view_];
 	//[[RacePadCoordinator Instance] SetViewHidden:timing_view_];
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[track_map_view_ ReleaseBackground];
 }
@@ -75,10 +84,15 @@
 }
 
 
-
-- (void)dealloc
+- (void) OnGestureTapAtX:(float)x Y:(float)y
 {
-    [super dealloc];
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	if(![time_controller displayed])
+		[time_controller displayInViewController:self Animated:true];
+	else
+		[time_controller hide];
 }
+
 
 @end

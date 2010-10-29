@@ -101,6 +101,7 @@
 		{
 			[self SetTextColour:[cell fg]];
 			[self SetBackgroundColour:[cell	bg]];
+			[self SetAlignment:[cell alignment]];
 			return [cell string];
 		}
 	}
@@ -177,6 +178,7 @@
 		{
 			[self SetTextColour:[columnHeader fg]];
 			[self SetBackgroundColour:[columnHeader	bg]];
+			[self SetAlignment:[columnHeader alignment]];
 			return [columnHeader string];
 		}
 	}

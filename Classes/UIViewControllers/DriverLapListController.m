@@ -54,15 +54,15 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	[[RacePadCoordinator Instance] RegisterViewController:self];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_LIST_VIEW_];
 	[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
-	[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
 {
 	[[RacePadCoordinator Instance] SetViewHidden:lap_list_view_];
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -119,7 +119,6 @@
 		[[RacePadCoordinator Instance] SetViewHidden:lap_list_view_];
 		[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
 		[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
-		[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
 	}
 }
 
@@ -132,8 +131,13 @@
 		[[RacePadCoordinator Instance] SetViewHidden:lap_list_view_];
 		[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
 		[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
-		[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
 	}
 }
+
+- (void) RequestRedrawForType:(int)type
+{
+	[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
+}
+
 
 @end

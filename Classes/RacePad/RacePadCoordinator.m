@@ -50,6 +50,9 @@ static RacePadCoordinator * instance_ = nil;
 		views = [[NSMutableArray alloc] init];
 		dataSources = [[NSMutableArray alloc] init];
 		
+		registeredViewController = nil;
+		registeredViewControllerTypeMask = 0;
+		
 		connectionType = RPC_ARCHIVE_CONNECTION_; //RPC_NO_CONNECTION_;
 		[self ConnectSocket];
 	}
@@ -64,6 +67,7 @@ static RacePadCoordinator * instance_ = nil;
 	[views release];
 	[dataSources removeAllObjects];
 	[dataSources release];
+	[registeredViewController release];
 	[sessionFolder release];
     [super dealloc];
 }
@@ -340,7 +344,7 @@ static RacePadCoordinator * instance_ = nil;
 			{
 				if([existing_view Type] == RPC_DRIVER_LIST_VIEW_)
 				{
-					[socket_ StreamTimingPage];
+					[socket_ RequestTimingPage];
 				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
@@ -352,7 +356,7 @@ static RacePadCoordinator * instance_ = nil;
 				}
 				else if([existing_view Type] == RPC_TRACK_MAP_VIEW_)
 				{
-					[socket_ StreamCars];
+					[socket_ RequestCars];
 				}
 			}
 		}
@@ -364,17 +368,41 @@ static RacePadCoordinator * instance_ = nil;
 // Registration etc. of "interested" views - used to tell the server what data to send
 ////////////////////////////////////////////////////////////////////////////////////////
 
--(void)RegisterViewController:(UIViewController *)view_controller
+-(void)RegisterViewController:(UIViewController *)view_controller WithTypeMask:(int)mask
 {
-	if(view_controller)
+	// If nil is passed, just release any existing one
+	if(!view_controller)
 	{
-		RacePadTimeController * time_controller = [RacePadTimeController Instance];
-		
-		if([time_controller displayed])
-			[time_controller displayInViewController:view_controller Animated:false];
+		[registeredViewController release];
+		registeredViewController = nil;
+		registeredViewControllerTypeMask = 0;
+		return;
 	}
+		
+	id old_registered_view_controller = registeredViewController;
+	
+	registeredViewController = [view_controller retain];
+	registeredViewControllerTypeMask = mask;
+	
+	if(old_registered_view_controller)
+		[old_registered_view_controller release];
+	
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+	if([time_controller displayed])
+		[time_controller displayInViewController:view_controller Animated:false];
 }
 
+-(void)ReleaseViewController:(UIViewController *)view_controller
+{
+	if(registeredViewController == view_controller)
+	{
+		[registeredViewController release];
+		registeredViewController = nil;
+		registeredViewControllerTypeMask = 0;
+	}
+}
+	
 -(void)AddView:(id)view WithParameter:(NSString *)parameter AndType:(int)type
 {
 	// First make sure that this view is not already in the list
@@ -512,6 +540,9 @@ static RacePadCoordinator * instance_ = nil;
 			}
 		}
 	}
+	
+	if(registeredViewController && (registeredViewControllerTypeMask & type) > 0)
+		[registeredViewController RequestRedrawForType:type];
 }
 
 -(RPCView *)FindView:(id)view

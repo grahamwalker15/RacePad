@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RacePadViewController.h"
 
-@interface DrawingViewController : UIViewController
+@interface DrawingViewController : RacePadViewController
 {
 }
 

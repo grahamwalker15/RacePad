@@ -409,7 +409,7 @@
 					if (xpos < x_draw + text_offset)
 						xpos = x_draw + text_offset;
 					
-					float max_width = column_width - (xpos - x_draw) ;
+					float max_width = column_width - (xpos - x_draw) ;					
 					[self DrawClippedString:text AtX:xpos Y:text_y MaxWidth:max_width];
 					[self UseRegularFont];
 				}

@@ -165,9 +165,14 @@ static RacePadTimeController * instance_ = nil;
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	if([coordinator playing])
+	{
 		[coordinator stopPlay];
+	}
 	else
+	{
+		[coordinator prepareToPlay];
 		[coordinator startPlay];
+	}
 	
 	[self setHideTimer];
 }

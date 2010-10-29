@@ -60,7 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	[[RacePadCoordinator Instance] RegisterViewController:self];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_DRIVER_LIST_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 }
 
@@ -68,6 +68,7 @@
 {
 	[self HideDriverLapList];
 	[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

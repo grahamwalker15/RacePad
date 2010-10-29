@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RacePadViewController.h"
 
 
 @class RacePadClientSocket;
@@ -16,9 +17,9 @@
 // View types
 enum ViewTypes
 {
-	RPC_DRIVER_LIST_VIEW_,
-	RPC_LAP_LIST_VIEW_,
-	RPC_TRACK_MAP_VIEW_
+	RPC_DRIVER_LIST_VIEW_ = 0x1,
+	RPC_LAP_LIST_VIEW_ = 0x2,
+	RPC_TRACK_MAP_VIEW_ = 0x4
 } ;
 
 // Connection types
@@ -73,6 +74,9 @@ enum ConnectionTypes
 	
 	NSMutableArray * views;		// RPCView *
 	NSMutableArray * dataSources;	// RPCDataSource *
+	
+	RacePadViewController * registeredViewController;
+	int registeredViewControllerTypeMask;
 	
 	RacePadClientSocket * socket_;
 	
@@ -130,7 +134,8 @@ enum ConnectionTypes
 -(void)setTimer: (float)thisTime;
 -(void)timerUpdate: (NSTimer *)theTimer;
 
--(void)RegisterViewController:(UIViewController *)view_controller;
+-(void)RegisterViewController:(UIViewController *)view_controller WithTypeMask:(int)mask;
+-(void)ReleaseViewController:(UIViewController *)view_controller;
 
 -(void)AddView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;
@@ -139,13 +144,11 @@ enum ConnectionTypes
 -(void)SetParameter:(NSString *)parameter ForView:(id)view;
 -(void)RequestRedraw:(id)view;
 -(void)RequestRedrawType:(int)type;
--(void)RequestViewControllerRefresh;
 
 -(RPCView *)FindView:(id)view;
 -(RPCView *)FindView:(id)view WithIndexReturned:(int *)index;
 
 -(int)DisplayedViewCount;
-
 
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter;
 -(void)RemoveDataSourceWithType:(int)type;
