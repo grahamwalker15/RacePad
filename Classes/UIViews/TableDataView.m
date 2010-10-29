@@ -147,6 +147,27 @@
 
 }
 
+- (UIImage *) GetCellClientImageAtRow:(int)row Col:(int)col
+{
+	if(table_data_)
+	{
+		[self SetBackgroundColour:black_];
+		
+		TableHeader *columnHeader = [table_data_ columnHeader:col];
+		TableCell *cell = [table_data_ cell:row Col:col];
+		
+		if (cell && columnHeader)
+		{
+			[self SetBackgroundColour:[cell	bg]];
+			
+			return [UIImage imageNamed:[cell string]];
+		}
+	}
+	
+	return nil;
+	
+}
+
 - (NSString *) GetHeadingAtCol:(int)col
 {
 	if(table_data_)

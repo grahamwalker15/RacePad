@@ -415,9 +415,24 @@
 				}
 				[text release];
 			}
-			else
+			else if (cell_type  == SLV_IMAGE_CELL_)
 			{
 				UIImage * image = [[self GetCellImageAtRow:row_index Col:col] retain];
+				
+				[self SetBGColour:background_colour_];
+				
+				[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+				
+				if(image)
+				{
+					[self DrawImage:image AtX:x_draw Y:y];
+					[image release];
+				}
+				
+			}
+			else
+			{
+				UIImage * image = [[self GetCellClientImageAtRow:row_index Col:col] retain];
 				
 				[self SetBGColour:background_colour_];
 				
@@ -567,6 +582,11 @@
 }
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
+{
+	return nil;
+}
+
+- (UIImage *) GetCellClientImageAtRow:(int)row Col:(int)col
 {
 	return nil;
 }

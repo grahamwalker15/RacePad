@@ -301,7 +301,7 @@
 		outer = [[TrackShape alloc] init];
 		cars = [[NSMutableArray alloc] init];
 		
-		for ( int i = 0; i < 40; i++ )
+		for ( int i = 0; i < 30; i++ )
 		{
 			TrackCar *car = [[TrackCar alloc]  init];
 			[cars addObject:car];
@@ -455,7 +455,7 @@
 				[view LoadPath:[inner segmentPaths][index]];
 			if ( index < [outer segmentCount] )
 				[view LoadPath:[outer segmentPaths][index]];
-			if ( [[segmentStates objectAtIndex:i] state] == 1 )
+			if ( [(SegmentState *)[segmentStates objectAtIndex:i] state] == 1 )
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
 			else
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];

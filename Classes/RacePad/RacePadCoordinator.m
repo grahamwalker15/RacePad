@@ -70,7 +70,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) onStartUp
 {
-	[self loadSession:@"/09_12Mza" Session:@"/Race"];
+	[self loadSession:@"/08_29Spa" Session:@"/Race"];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////

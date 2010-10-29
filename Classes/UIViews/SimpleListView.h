@@ -11,7 +11,8 @@
 // Cell types
 enum CellTypes {
 	SLV_TEXT_CELL_,			
-	SLV_IMAGE_CELL_		
+	SLV_IMAGE_CELL_,
+	SLV_CLIENT_IMAGE_,
 } ;
 
 // Text align types

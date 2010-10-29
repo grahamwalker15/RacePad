@@ -82,8 +82,6 @@
 @property (readonly) int index;
 @property (readonly) unsigned char state;
 
-- (id) initWithStream : (DataStream *)stream;
-
 @end
 
 
