@@ -114,6 +114,7 @@
 - (void)LinePolygonPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
 
 + (CGMutablePathRef)CreatePathPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
++ (CGMutablePathRef)CreatePathPoints:(int)p0 P1:(int)p1 XCoords:(float *)x YCoords:(float *)y Count:(int) count;
 
 - (void)BeginPath;
 - (void)LoadPath:(CGMutablePathRef)path;

@@ -113,6 +113,11 @@
 	free (buf);
 }
 
+- (void) stopStreams
+{
+	[self SimpleCommand:RPCS_STOP_STREAMS];
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[RacePadDataHandler alloc] init];

@@ -105,6 +105,9 @@ static RacePadCoordinator * instance_ = nil;
 		updateTimer = nil;
 	}
 	
+	if (connectionType == RPC_SOCKET_CONNECTION_)
+		[socket_ stopStreams];
+	
 	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
 	[elapsedTime release];
 	elapsedTime = nil;

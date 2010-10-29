@@ -129,6 +129,9 @@
 @synthesize max_x;
 @synthesize min_y;
 @synthesize max_y;
+@synthesize path;
+@synthesize segmentCount;
+@synthesize segmentPaths;
 
 - (id) init
 {
@@ -136,6 +139,7 @@
 	{
 		x = NULL;
 		y = NULL;
+		path = nil;
 		count = 0;
 		
 		min_x = 0.0;
@@ -150,17 +154,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	if ( x )
-		free ( x );
-	
-	if ( y )
-		free ( y );
-	
-	[super dealloc];
-}
-
 - (void) clear
 {
 	if ( x )
@@ -172,6 +165,28 @@
 	y = NULL;
 	
 	count = 0;
+	
+	CGPathRelease(path);
+	path = NULL;
+	
+	segmentCount = 0;
+	int i;
+	if ( segmentPaths )
+	{
+		for ( i = 0; i < segmentCount; i++ )
+			CGPathRelease(segmentPaths[i]);
+		free (segmentPaths);
+	}
+	
+	segmentPaths = NULL;
+	
+}
+
+- (void) dealloc
+{
+	[self clear];
+	
+	[super dealloc];
 }
 
 - (int) count
@@ -191,6 +206,8 @@
 
 -(void) loadShape:(DataStream *)stream
 {
+	// Assume we've been cleared
+	
 	count = [stream PopInt];
 	x = malloc(sizeof(float) * count);
 	y = malloc(sizeof(float) * count);
@@ -203,7 +220,8 @@
 	width = 0.0;
 	height = 0.0;
 	
-	for (int i = 0; i < count; i++ )
+	int i;
+	for ( i = 0; i < count; i++ )
 	{
 		x[i] = [stream PopFloat];
 		y[i] = -[stream PopFloat];
@@ -225,9 +243,53 @@
 	width = max_x - min_x;
 	height = max_y - min_y;
 	
+	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
+	
+	segmentCount = [stream PopInt];
+	
+	if ( segmentCount )
+	{
+		int *segments = malloc ( segmentCount * sizeof ( int ) );
+		for ( i = 0; i < segmentCount; i++ )
+			segments[i] = [stream PopInt];
+		
+		segmentPaths = malloc ( sizeof (CGMutablePathRef) * segmentCount );
+		for ( i = 0; i < segmentCount; i++ )
+		{
+			int p0 = segments[i];
+			int p1;
+			if ( i < segmentCount - 1 )
+				p1 = segments[i+1];
+			else
+				p1 = segments[0];
+			
+			segmentPaths[i] = [DrawingView CreatePathPoints:p0 P1:p1 XCoords:x YCoords:y Count:count];
+		}
+		
+		free ( segments );
+	}
 }
 
 @end
+
+@implementation SegmentState
+
+@synthesize index;
+@synthesize state;
+
+- (id) init: (int) inIndex State: (unsigned char)inState
+{
+	if ( [super init] == self )
+	{
+		index = inIndex;
+		state = inState;
+	}
+	
+	return self;
+}
+
+@end
+
 
 @implementation TrackMap
 
@@ -239,16 +301,15 @@
 		outer = [[TrackShape alloc] init];
 		cars = [[NSMutableArray alloc] init];
 		
-		inner_path = nil;
-		outer_path = nil;
-		
-		for ( int i = 0; i < 30; i++ )
+		for ( int i = 0; i < 40; i++ )
 		{
 			TrackCar *car = [[TrackCar alloc]  init];
 			[cars addObject:car];
 		}
 		
 		carCount = 0;
+		
+		segmentStates = [[NSMutableArray arrayWithCapacity:30] retain];
 		
 		x_centre = 0.0;
 		y_centre = 0.0;
@@ -265,6 +326,8 @@
 	[inner release];
 	[outer release];
 	[cars release];
+	[segmentStates removeAllObjects];
+	[segmentStates release];
 
 	int c;
 	if ( colours )
@@ -274,10 +337,6 @@
 		free ( colours );
 	}
 	
-	
-	CGPathRelease(inner_path);
-	CGPathRelease(outer_path);
-
 	[super dealloc];
 }
 
@@ -342,12 +401,6 @@
 	x_centre = (min_x + max_x) * 0.5;
 	y_centre = (min_y + max_y) * 0.5;
 	
-	CGPathRelease(inner_path);
-	CGPathRelease(outer_path);
-	
-	inner_path = [DrawingView CreatePathPoints:[inner count] XCoords:[inner x] YCoords:[inner y]];
-	outer_path = [DrawingView CreatePathPoints:[outer count] XCoords:[outer x] YCoords:[outer y]];
-	
 }
 
 - (void) updateCars : (DataStream *) stream
@@ -363,11 +416,22 @@
 		[[cars objectAtIndex:carCount] load:stream Colours:colours ColoursCount:coloursCount];
 		carCount++;
 	}
+	
+	[segmentStates removeAllObjects];
+	while (true)
+	{
+		int segNum = [stream PopInt];
+		if ( segNum < 0 )
+			break;
+		
+		unsigned char state = [stream PopUnsignedChar];
+		[segmentStates addObject:[[SegmentState alloc] init:segNum State:state]];
+	}
 }
 
 - (void) drawTrack : (TrackMapView *) view Scale: (float) scale
 {
-	if ( inner_path  && outer_path )
+	if ( [inner path]  && [outer path] )
 	{
 		// Draw inner and outer track in 2 point white with drop shadow
 		[view SaveGraphicsState];
@@ -377,9 +441,26 @@
 		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
 		
 		[view BeginPath];
-		[view LoadPath:inner_path];
-		[view LoadPath:outer_path];
+		[view LoadPath:[inner path]];
+		[view LoadPath:[outer path]];
 		[view LinePath];
+		
+		// Now overlay any red/yellow segments
+		int count = [segmentStates count];
+		for (int i = 0; i < count; i++)
+		{
+			[view BeginPath];
+			int index = [[segmentStates objectAtIndex:i] index];
+			if ( index < [inner segmentCount] )
+				[view LoadPath:[inner segmentPaths][index]];
+			if ( index < [outer segmentCount] )
+				[view LoadPath:[outer segmentPaths][index]];
+			if ( [[segmentStates objectAtIndex:i] state] == 1 )
+				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
+			else
+				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
+			[view LinePath];
+		}
 		
 		[view RestoreGraphicsState];
 	}

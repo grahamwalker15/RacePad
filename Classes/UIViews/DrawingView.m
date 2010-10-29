@@ -561,6 +561,27 @@ static bool statics_initialised_ = false;
 	return path;
 }
 
++ (CGMutablePathRef)CreatePathPoints:(int)p0 P1:(int)p1 XCoords:(float *)x YCoords:(float *)y Count:(int) count
+{
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	CGPathMoveToPoint (path, nil, (CGFloat)x[p0], (CGFloat)y[p0]);
+	
+	int p = p0;
+	while (true )
+	{
+		p++;
+		if ( p >= count )
+			p = 0;
+		CGPathAddLineToPoint (path, nil, (CGFloat)x[p], (CGFloat)y[p]);
+		if ( p == p1 )
+			break;
+	}
+	
+	return path;
+}
+
+
 - (void)BeginPath
 {
 	if(current_context_)
@@ -572,7 +593,7 @@ static bool statics_initialised_ = false;
 	if(current_context_)
 	{
 		CGContextAddPath(current_context_, path);
-		CGContextClosePath(current_context_);
+		// CGContextClosePath(current_context_);
 	}
 }
 

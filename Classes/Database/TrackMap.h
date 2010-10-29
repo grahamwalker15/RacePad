@@ -46,6 +46,10 @@
 	
 	float width;
 	float height;
+	
+	CGMutablePathRef path;
+	int segmentCount;
+	CGMutablePathRef *segmentPaths;
 }
 
 @property (readonly) float min_x;
@@ -54,6 +58,9 @@
 @property (readonly) float max_y;
 @property (readonly) float width;
 @property (readonly) float height;
+@property (readonly) CGMutablePathRef path;
+@property (readonly) CGMutablePathRef *segmentPaths;
+@property (readonly) int segmentCount;
 
 - (int) count;
 - (float *)x;
@@ -66,14 +73,25 @@
 
 @end
 
+@interface SegmentState : NSObject
+{
+	int index;
+	unsigned char state;
+}
+
+@property (readonly) int index;
+@property (readonly) unsigned char state;
+
+- (id) initWithStream : (DataStream *)stream;
+
+@end
+
+
 @interface TrackMap : NSObject
 {
 	
 	TrackShape *inner;
 	TrackShape *outer;
-	
-	CGMutablePathRef inner_path;
-	CGMutablePathRef outer_path;
 	
 	float x_centre;
 	float y_centre;
@@ -86,6 +104,8 @@
 	int coloursCount;
 	
 	int carCount;
+	
+	NSMutableArray *segmentStates;
 }
 
 - (void) loadTrack : (DataStream *) stream;
