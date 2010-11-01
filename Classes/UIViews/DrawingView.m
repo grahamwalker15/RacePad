@@ -193,7 +193,7 @@ static bool statics_initialised_ = false;
 		big_font_ = [UIFont boldSystemFontOfSize:32.0];
 		control_font_ = [UIFont boldSystemFontOfSize:12.0];
 		bold_font_ = [UIFont boldSystemFontOfSize:20.0];
-		medium_bold_font_ = [UIFont boldSystemFontOfSize:28.0];
+		medium_bold_font_ = [UIFont boldSystemFontOfSize:16.0];
 		regular_font_ = [UIFont boldSystemFontOfSize:20.0];
 		
 		shadow_colour_ = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3];

@@ -11,6 +11,15 @@
 @class DataStream;
 @class TrackMapView;
 
+enum TrackMapLineType {
+	TM_L_INKNOWN,
+	TM_L_MARSHALL_POST,
+	TM_L_TURN_NUMBER,
+	TM_L_SC_LINE,
+	TM_L_PIT_LINE,
+	TM_L_TIMING_LINE
+};
+
 @interface TrackCar : NSObject
 {
 	UIColor *pointColour;
@@ -34,11 +43,6 @@
 
 @interface TrackShape : NSObject
 {
-
-	float *x;
-	float *y;
-	int count;
-	
 	float min_x;
 	float max_x;
 	float min_y;
@@ -62,14 +66,46 @@
 @property (readonly) CGMutablePathRef *segmentPaths;
 @property (readonly) int segmentCount;
 
-- (int) count;
-- (float *)x;
-- (float *)y;
-
 - (float)width;
 - (float)height;
 
 - (void) loadShape : (DataStream *) stream;
+
+@end
+
+@interface TrackLine : NSObject
+{
+	
+	CGMutablePathRef path;
+	UIColor *colour;
+	unsigned char lineType;
+}
+
+@property (readonly) CGMutablePathRef path;
+@property (readonly) UIColor *colour;
+@property (readonly) unsigned char lineType;
+
+- (void) loadShape : (DataStream *) stream Count: (int) count;
+
+@end
+
+@interface TrackLabel : NSObject
+{
+	
+	CGMutablePathRef path;
+	UIColor *colour;
+	unsigned char labelType;
+	float x0, y0, x1, y1;
+	NSString *label;
+}
+
+@property (readonly) CGMutablePathRef path;
+@property (readonly) UIColor *colour;
+@property (readonly) unsigned char lineType;
+@property (readonly) NSString * label;
+
+- (void) loadShape : (DataStream *) stream Count: (int) count;
+- (void) labelPoint : (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
 
 @end
 
@@ -96,6 +132,9 @@
 	
 	float width;
 	float height;
+	
+	NSMutableArray *lines;
+	NSMutableArray *labels;
 
 	NSMutableArray *cars;
 	UIColor **colours;

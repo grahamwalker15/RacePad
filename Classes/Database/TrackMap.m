@@ -137,10 +137,7 @@
 {
 	if(self = [super init])
 	{
-		x = NULL;
-		y = NULL;
 		path = nil;
-		count = 0;
 		
 		min_x = 0.0;
 		max_x = 0.0;
@@ -156,16 +153,6 @@
 
 - (void) clear
 {
-	if ( x )
-		free ( x );
-	x = NULL;
-	
-	if ( y )
-		free ( y );
-	y = NULL;
-	
-	count = 0;
-	
 	CGPathRelease(path);
 	path = NULL;
 	
@@ -189,28 +176,13 @@
 	[super dealloc];
 }
 
-- (int) count
-{
-	return count;
-}
-
-- (float *) x
-{
-	return x;
-}
-
-- (float *) y
-{
-	return y;
-}
-
 -(void) loadShape:(DataStream *)stream
 {
 	// Assume we've been cleared
 	
-	count = [stream PopInt];
-	x = malloc(sizeof(float) * count);
-	y = malloc(sizeof(float) * count);
+	int count = [stream PopInt];
+	float *x = malloc(sizeof(float) * count);
+	float *y = malloc(sizeof(float) * count);
 	
 	min_x = 1.0;
 	max_x = 0.0;
@@ -268,6 +240,160 @@
 		
 		free ( segments );
 	}
+	
+	free ( x );
+	free ( y );
+}
+
+@end
+
+@implementation TrackLine
+
+@synthesize path;
+@synthesize colour;
+@synthesize lineType;
+
+- (id) init
+{
+	if(self = [super init])
+	{
+		path = nil;
+		colour = nil;
+	}
+	
+	return self;
+}
+
+- (void) clear
+{
+	CGPathRelease(path);
+	[colour release];
+	path = NULL;
+}
+
+- (void) dealloc
+{
+	[self clear];
+	
+	[super dealloc];
+}
+
+-(void) loadShape:(DataStream *)stream Count:(int)count
+{
+	float *x = malloc(sizeof(float) * count);
+	float *y = malloc(sizeof(float) * count);
+	
+	int i;
+	for ( i = 0; i < count; i++ )
+	{
+		x[i] = [stream PopFloat];
+		y[i] = -[stream PopFloat];
+	}
+	
+	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
+	
+	free ( x );
+	free ( y );
+
+	colour = [[stream PopRGB]retain];
+	lineType = [stream PopUnsignedChar];
+}
+
+@end
+
+@implementation TrackLabel
+
+@synthesize path;
+@synthesize colour;
+@synthesize lineType;
+@synthesize label;
+
+- (id) init
+{
+	if(self = [super init])
+	{
+		path = nil;
+		colour = nil;
+	}
+	
+	return self;
+}
+
+- (void) clear
+{
+	CGPathRelease(path);
+	[colour release];
+	[label release];
+	path = NULL;
+}
+
+- (void) dealloc
+{
+	[self clear];
+	
+	[super dealloc];
+}
+
+-(void) loadShape:(DataStream *)stream Count:(int)count
+{
+	assert ( count == 2 );
+	
+	float *x = malloc(sizeof(float) * count);
+	float *y = malloc(sizeof(float) * count);
+	
+	int i;
+	for ( i = 0; i < count; i++ )
+	{
+		x[i] = [stream PopFloat];
+		y[i] = -[stream PopFloat];
+	}
+	
+	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
+	
+	x0 = x[0];
+	y0 = y[0];
+	x1 = x[1];
+	y1 = y[1];
+	
+	free ( x );
+	free ( y );
+	
+	colour = [[stream PopRGB]retain];
+	lineType = [stream PopUnsignedChar];
+	label = [[stream PopString] retain];
+}
+
+-(void) labelPoint: (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
+{
+	float w, h;
+	[view GetStringBox:label WidthReturn: &w HeightReturn: &h];
+	double a_rad = atan2 ( y0 - y1, x0 - x1 );
+	double a = a_rad *  180 / M_PI;
+	if ( a < 0 )
+		a += 360;
+	double x_off, y_off;
+	double dsr2 = 1.0 / sqrt(2);
+	if ( a < 45 || a > 315 )
+	{
+		x_off = 0;
+		y_off = sin(a_rad) * h * dsr2 - h * 0.5;
+	}
+	else if ( a > 45 && a <= 135 )
+	{
+		x_off = cos(a_rad) * w * dsr2 - w * 0.5;
+	}
+	else if ( a > 135 && a <= 255 )
+	{
+		x_off = -w;
+		y_off = sin(a_rad) * h * dsr2 - h * 0.5;
+	}
+	else // ( a >= 135 && a < 315 )
+	{
+		x_off = cos (a_rad) * w * dsr2 - w * 0.5;
+		y_off = -h;
+	}
+	*x = x0 + x_off / scale;
+	*y = y0 + y_off / scale;
 }
 
 @end
@@ -300,6 +426,8 @@
 		inner = [[TrackShape alloc] init];
 		outer = [[TrackShape alloc] init];
 		cars = [[NSMutableArray alloc] init];
+		lines = [[NSMutableArray alloc] init];
+		labels = [[NSMutableArray alloc] init];
 		
 		for ( int i = 0; i < 30; i++ )
 		{
@@ -326,6 +454,8 @@
 	[inner release];
 	[outer release];
 	[cars release];
+	[lines release];
+	[labels release];
 	[segmentStates removeAllObjects];
 	[segmentStates release];
 
@@ -354,6 +484,7 @@
 {
 	[inner clear];
 	[outer clear];
+	[lines removeAllObjects];
 	
 	width = 0.0;
 	height = 0.0;
@@ -388,6 +519,26 @@
 	{
 		[inner loadShape:stream];
 		[outer loadShape:stream];
+	}
+	
+	while ( true )
+	{
+		int count = [stream PopInt];
+		if ( count < 0 )
+			break;
+		TrackLine *line = [[TrackLine alloc] init];
+		[line loadShape:stream Count:count];
+		[lines addObject:line];
+	}
+	
+	while ( true )
+	{
+		int count = [stream PopInt];
+		if ( count < 0 )
+			break;
+		TrackLabel *label = [[TrackLabel alloc] init];
+		[label loadShape:stream Count:count];
+		[labels addObject:label];
 	}
 	
 	width = [inner width] > [outer width] ? [inner width] : [outer width];
@@ -445,9 +596,28 @@
 		[view LoadPath:[outer path]];
 		[view LinePath];
 		
+		[view ResetDropShadow];
+
+		int i;
+		// Now draw the other lines
+		int count = [lines count];
+		for ( i = 0; i < count; i++)
+		{
+			[view BeginPath];
+			TrackLine *line = [lines objectAtIndex:i];
+			[view LoadPath:[line path]];
+			if ( [line lineType] == TM_L_PIT_LINE )
+				[view SetLineWidth:1 / scale];
+			else
+				[view SetLineWidth:2 / scale];
+			[view SetFGColour:[line colour]];
+			[view LinePath];
+		}
+		
+		count = [segmentStates count];
 		// Now overlay any red/yellow segments
-		int count = [segmentStates count];
-		for (int i = 0; i < count; i++)
+		[view SetLineWidth:2 / scale];
+		for ( i = 0; i < count; i++)
 		{
 			[view BeginPath];
 			int index = [[segmentStates objectAtIndex:i] index];
@@ -462,7 +632,48 @@
 			[view LinePath];
 		}
 		
+		// Finally draw the label line
+		[view SetLineWidth:1 / scale];
+		count = [labels count];
+		for ( i = 0; i < count; i++)
+		{
+			[view BeginPath];
+			TrackLabel *label = [labels objectAtIndex:i];
+			[view LoadPath:[label path]];
+			[view SetFGColour:[label colour]];
+			[view LinePath];
+		}
+		
 		[view RestoreGraphicsState];
+	}
+}
+
+- (void) drawTrackLabels : (TrackMapView *) view Scale:(float)scale
+{
+	// Now draw the labels themselves
+	CGSize size = [view bounds].size;
+	
+	int count = [labels count];
+	for ( int i = 0; i < count; i++)
+	{
+		TrackLabel *label = [labels objectAtIndex:i];
+
+		if ( [label lineType] == TM_L_TIMING_LINE )
+			[view UseBoldFont];
+		else
+			[view UseMediumBoldFont];
+		
+		float x, y;
+		[label labelPoint:view Scale: scale X:&x Y:&y];
+		CGPoint p = CGPointMake(x, y);
+		CGPoint tp = [view TransformPoint:p];
+		
+		float px = tp.x;
+		float py = size.height - tp.y;
+
+		[view SetFGColour:[label colour]];
+
+		[view DrawString:[label label] AtX:px Y:py];
 	}
 }
 
@@ -507,6 +718,7 @@
 	
 	[view RestoreGraphicsState];
 	
+	[self drawTrackLabels:view Scale:scale];
 	[self drawCars:view Scale:scale];
 
 }
