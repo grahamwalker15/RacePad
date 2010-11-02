@@ -135,7 +135,7 @@ static RacePadTimeController * instance_ = nil;
 - (void) updateSlider:(float)time
 {
 	UISlider * slider = [timeController timeSlider];
-	[slider setValue:time animated:false];
+	[slider setValue:time animated:true];
 }
 
 - (void) updateClock:(float)time

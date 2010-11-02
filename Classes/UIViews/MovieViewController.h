@@ -25,6 +25,7 @@
 - (void) moviePlay;
 - (void) movieStop;
 - (void) movieGotoTime:(float)time;
+- (void) moviePrepareToPlay;
 
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
 

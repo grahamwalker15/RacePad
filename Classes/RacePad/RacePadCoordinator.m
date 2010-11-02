@@ -13,6 +13,7 @@
 #import "ElapsedTime.h"
 #import "TableDataView.h"
 #import "RacePadDatabase.h"
+#import "MovieViewController.h"
 
 @implementation RacePadCoordinator
 
@@ -120,7 +121,9 @@ static RacePadCoordinator * instance_ = nil;
 	[elapsedTime release];
 	elapsedTime = nil;
 	
-	playing = false;
+	[[RacePadTimeController Instance] updateTime:currentTime];
+
+	playing = false;	
 }
 
 -(void)stopPlay
@@ -235,8 +238,8 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, prepare it to play
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		[registeredViewController movieGotoTime:currentTime];
-		[registeredViewController moviePrepareToPlay];
+		[(MovieViewController *)registeredViewController movieGotoTime:currentTime];
+		[(MovieViewController *)registeredViewController moviePrepareToPlay];
 	}
 }
 
@@ -256,7 +259,7 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, cue this too
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		[registeredViewController movieGotoTime:currentTime];
+		[(MovieViewController *)registeredViewController movieGotoTime:currentTime];
 	}
 }
 
