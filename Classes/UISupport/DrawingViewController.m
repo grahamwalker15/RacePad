@@ -26,19 +26,19 @@
     //	Tap recognizer
 	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
 	[recognizer setCancelsTouchesInView:false];
-    [self.view addGestureRecognizer:recognizer];
+    [drawingView addGestureRecognizer:recognizer];
     [recognizer release];
 	
     //	Double Tap recognizer
 	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDoubleTapFrom:)];
 	[(UITapGestureRecognizer *)recognizer setNumberOfTapsRequired:2];
-    [self.view addGestureRecognizer:recognizer];
+    [drawingView addGestureRecognizer:recognizer];
     [recognizer release];
 	
     //	Long press recognizer
 	recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLongPressFrom:)];
  	[recognizer setCancelsTouchesInView:false];
-	[self.view addGestureRecognizer:recognizer];
+	[drawingView addGestureRecognizer:recognizer];
     [recognizer release];
 	
 	/* Take other recognizers out for the moment - they interfere with scrolling
@@ -90,44 +90,20 @@
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint parent_point = [gestureRecognizer locationInView:self.view];
-	
-	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
-	UIView * hit_view = [self.view hitTest:parent_point withEvent:nil];
-	
-	if(hit_view == self.drawingView)
-	{
-		CGPoint point = [gestureRecognizer locationInView:self.drawingView];
-		[self OnGestureTapAtX:point.x Y:point.y];
-	}
+	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	[self OnGestureTapAtX:point.x Y:point.y];
 }
 
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint parent_point = [gestureRecognizer locationInView:self.view];
-	
-	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
-	UIView * hit_view = [self.view hitTest:parent_point withEvent:nil];
-	
-	if(hit_view == self.drawingView)
-	{
-		CGPoint point = [gestureRecognizer locationInView:self.drawingView];
-		[self OnGestureDoubleTapAtX:point.x Y:point.y];
-	}
+	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	[self OnGestureDoubleTapAtX:point.x Y:point.y];
 }
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint parent_point = [gestureRecognizer locationInView:self.view];
-	
-	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
-	UIView * hit_view = [self.view hitTest:parent_point withEvent:nil];
-	
-	if(hit_view == self.drawingView)
-	{
-		CGPoint point = [gestureRecognizer locationInView:self.drawingView];
-		[self OnGestureLongPressAtX:point.x Y:point.y];
-	}
+	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	[self OnGestureLongPressAtX:point.x Y:point.y];
 }
 
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer

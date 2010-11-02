@@ -8,6 +8,7 @@
 
 #import "MovieViewController.h"
 #import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
 
 @implementation MovieViewController
 
@@ -40,8 +41,16 @@
 	moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];
 	[moviePlayer setShouldAutoplay:false];
 	[moviePlayer setControlStyle:MPMovieControlStyleNone];
+	[[moviePlayer view] setUserInteractionEnabled:true];
 	
 	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	
+    //	Add tap recognizer to bring up time controls
+	// This is added to the transparent overlay view which goes above all drawing
+	UIGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
+	[recognizer setCancelsTouchesInView:false];
+	[overlayView addGestureRecognizer:recognizer];
+    [recognizer release];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
@@ -64,16 +73,15 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	[[moviePlayer view] setFrame:[movieView bounds]];
+	[[moviePlayer view] setFrame:CGRectInset([movieView bounds], 20, 20)];
 	[movieView addSubview:[moviePlayer view]];
+	[self.view bringSubviewToFront:overlayView];
 	
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
 
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
-	
-	[moviePlayer play];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -105,6 +113,14 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.75];
+	[[moviePlayer view] setFrame:[movieView bounds]];	
+	[UIView commitAnimations];
 }
 
 - (void)dealloc
@@ -145,11 +161,10 @@
 - (void) movieGotoTime:(float)time
 {
 	NSTimeInterval movie_time = time - startTime;
-	[moviePlayer setInitialPlaybackTime:movie_time];
 	[moviePlayer setCurrentPlaybackTime:movie_time];
+	[moviePlayer setInitialPlaybackTime:movie_time];
 	
-	NSTimeInterval start = [moviePlayer initialPlaybackTime];
-	NSTimeInterval current = [moviePlayer currentPlaybackTime];
+	float current = [moviePlayer currentPlaybackTime];
 	int x = 0;
 }
 
@@ -164,6 +179,16 @@
 
 - (void) RequestRedrawForType:(int)type
 {
+}
+
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	if(![time_controller displayed])
+		[time_controller displayInViewController:self Animated:true];
+	else
+		[time_controller hide];
 }
 
 @end

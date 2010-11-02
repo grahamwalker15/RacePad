@@ -15,8 +15,13 @@
 @interface MovieViewController : RacePadViewController
 {
 	IBOutlet MovieView * movieView;
+	IBOutlet UIView * overlayView;
+	
 	MPMoviePlayerController * moviePlayer;
 	float startTime;
+	
+	bool requiresReposition;
+	float lastPosition;
 }
 
 - (void) movieLoad:(NSString *)movie_name;
@@ -28,5 +33,6 @@
 - (void) moviePrepareToPlay;
 
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

@@ -84,6 +84,7 @@ enum ConnectionTypes
 	NSString *sessionFolder;
 	
 	NSTimer *updateTimer;
+	NSTimer *timeControllerTimer;
 	
 	int baseTime;
 	ElapsedTime * elapsedTime;

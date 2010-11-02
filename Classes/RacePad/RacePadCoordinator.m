@@ -95,9 +95,11 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if(connectionType == RPC_ARCHIVE_CONNECTION_)
 		[self setTimer:currentTime];
+		
+	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
 
 	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[registeredViewController moviePlay];	
+		[(MovieViewController *)registeredViewController moviePlay];	
 }
 
 -(void)pausePlay
@@ -111,11 +113,17 @@ static RacePadCoordinator * instance_ = nil;
 		updateTimer = nil;
 	}
 	
+	if(timeControllerTimer)
+	{
+		[timeControllerTimer invalidate];
+		timeControllerTimer = nil;
+	}
+	
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[socket_ stopStreams];	
 	
 	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[registeredViewController movieStop];
+		[(MovieViewController *)registeredViewController movieStop];
 
 	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
 	[elapsedTime release];
@@ -184,8 +192,7 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		RPCDataSource * source = [dataSources objectAtIndex:i];
 		float nextTime = [[source dataHandler] inqTime] / 1000.0;
-		if ( eventTime == 0
-			|| nextTime < eventTime )
+		if ( eventTime == 0 || nextTime < eventTime )
 			eventTime = nextTime;
 	}
 	
@@ -195,18 +202,26 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) timerUpdate: (NSTimer *)theTimer
 {
-	int data_source_count = [dataSources count];
+	float elapsed = [elapsedTime value];
 	
+	int data_source_count = [dataSources count];
 	if(data_source_count > 0)
 	{
-		float elapsed = [elapsedTime value];
 		for ( int i = 0 ; i < data_source_count ; i++)
 		{
 			RPCDataSource * source = [dataSources objectAtIndex:i];
 			[[source dataHandler] update:baseTime + elapsed * 1000];
 		}
-		[self setTimer:currentTime + elapsed];
 	}
+	
+	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
+	[self setTimer:currentTime + elapsed];
+}
+
+- (void) timeControllerTimerUpdate: (NSTimer *)theTimer
+{
+	float elapsed = [elapsedTime value];
+	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -238,8 +253,8 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, prepare it to play
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		[(MovieViewController *)registeredViewController movieGotoTime:currentTime];
-		[(MovieViewController *)registeredViewController moviePrepareToPlay];
+		//[(MovieViewController *)registeredViewController movieGotoTime:currentTime];
+		//[(MovieViewController *)registeredViewController moviePrepareToPlay];
 	}
 }
 
