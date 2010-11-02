@@ -35,6 +35,8 @@
 	
 	new_transfer_ = true;
 	
+	sizeBytesReceived = 0;
+	
 	transferData = [self constructDataHandler];
 	
 	return self;
@@ -117,18 +119,29 @@
 	{
 		if ( new_transfer_ )
 		{
-			if ( data_size >= sizeof(int) )
+			int sizeBytesRequired = sizeof(int) - sizeBytesReceived;
+			int sizeBytesToCopy = data_size;
+			if ( sizeBytesToCopy > sizeBytesRequired )
+				sizeBytesToCopy = sizeBytesRequired;
+			memcpy(sizeBytes + sizeBytesReceived, byte_ptr, sizeBytesToCopy);
+			sizeBytesReceived += sizeBytesToCopy;
+			byte_ptr += sizeBytesToCopy;
+			data_size -= sizeBytesToCopy;
+			
+			if ( sizeBytesReceived >= sizeof(int) )
 			{
-				int *long_ptr = (int *)byte_ptr;
+				int *long_ptr = (int *)sizeBytes;
 				
-				transfer_size_ = ntohl(*long_ptr++);
+				transfer_size_ = ntohl(*long_ptr++) - sizeof(int);
 				transfer_size_received_ = 0;
 				[transferData newTransfer:transfer_size_];
 				new_transfer_ = false;
+				
+				sizeBytesReceived = 0;
 			}
 			else 
 			{
-				assert ( false );
+				new_transfer_ = true;
 				break;
 			}
 
@@ -148,7 +161,6 @@
 			
 			if ( transfer_size_received_ >= transfer_size_ )
 			{
-				[[transferData getStream] PopInt]; // Remove the size
 				[transferData handleCommand];
 				new_transfer_ = true;
 			}

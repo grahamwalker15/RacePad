@@ -50,6 +50,10 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 	int transfer_size_; // How much we're supposed to get
 	int transfer_size_received_; // How much we've got so far
 	
+	// The message size
+	int sizeBytesReceived;
+	unsigned char sizeBytes[4];
+	
 }
 
 
