@@ -34,7 +34,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	track_map_view_ = (TrackMapView *)[self view];
+	track_map_view_ = (TrackMapView *)[self drawingView];
 
  	//[timing_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	//[timing_view_ SetRowHeight:28];

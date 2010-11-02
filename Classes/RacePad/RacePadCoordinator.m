@@ -93,9 +93,10 @@ static RacePadCoordinator * instance_ = nil;
 	elapsedTime = [[ElapsedTime alloc] init];
 	
 	if(connectionType == RPC_ARCHIVE_CONNECTION_)
-	{
 		[self setTimer:currentTime];
-	}
+
+	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+		[registeredViewController moviePlay];	
 }
 
 -(void)pausePlay
@@ -110,8 +111,11 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	if (connectionType == RPC_SOCKET_CONNECTION_)
-		[socket_ stopStreams];
+		[socket_ stopStreams];	
 	
+	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+		[registeredViewController movieStop];
+
 	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
 	[elapsedTime release];
 	elapsedTime = nil;
@@ -216,6 +220,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) prepareToPlayArchives
 {
+	// Load up the prepared data sources 
 	int data_source_count = [dataSources count];
 	
 	if(data_source_count > 0)
@@ -225,6 +230,13 @@ static RacePadCoordinator * instance_ = nil;
 			RPCDataSource * source = [dataSources objectAtIndex:i];
 			[[source dataHandler] setTime:(int)(currentTime * 1000.0)];
 		}
+	}
+	
+	// If the registered view controller is interested in video, prepare it to play
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+	{
+		[registeredViewController movieGotoTime:currentTime];
+		[registeredViewController moviePrepareToPlay];
 	}
 }
 
@@ -240,6 +252,12 @@ static RacePadCoordinator * instance_ = nil;
 			[[source dataHandler] setTime:(int)(currentTime * 1000.0)];
 		}
 	}
+	
+	// If the registered view controller is interested in video, cue this too
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+	{
+		[registeredViewController movieGotoTime:currentTime];
+	}
 }
 
 - (void) loadSession: (NSString *)event Session: (NSString *)session
@@ -252,6 +270,36 @@ static RacePadCoordinator * instance_ = nil;
 	sessionFolder = [[event stringByAppendingString:session] retain];
 	NSString *sessionFile = [event stringByAppendingString:@"/session.rpf"];
 	[self loadRPF:sessionFile];
+}
+
+-(NSString *)getVideoArchiveName
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *rootFolder = [paths objectAtIndex:0];
+	NSString *folder = [rootFolder stringByAppendingString:sessionFolder];
+
+	// Try first with m4v extension
+	NSString *fileName = [folder stringByAppendingString:@"/video.m4v"];
+	
+	// check whether it exists
+	FILE * f;
+	if(f = fopen ( [fileName UTF8String], "rb" ))
+	{
+	   fclose(f);
+	   return fileName;
+	}
+	
+	// If this fails, try with mp4 extension
+	fileName = [folder stringByAppendingString:@"/video.mp4"];
+	if(f = fopen ( [fileName UTF8String], "rb" ))
+	{
+	   fclose(f);
+	   return fileName;
+	}
+	
+	// If neither is present, return nil
+	return nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -615,6 +663,10 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
 {
+	// There are no data sources for video types, so ignore calls with this type
+	if(type == RPC_VIDEO_VIEW_)
+		return;
+	
 	// First make sure that this handler is not already in the list
 	RPCDataSource * existing_source = [self FindDataSourceWithType:type];
 	

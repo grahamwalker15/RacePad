@@ -1,4 +1,4 @@
-    //
+//
 //  DriverListController.m
 //  RacePad
 //
@@ -39,12 +39,12 @@
 - (void)viewDidLoad
 {
 	// Get a pointer to the associated view
-	driver_list_view_ = (TableDataView *)[self view];
+	driver_list_view_ = (TableDataView *)[self drawingView];
 	
 	// Set up the table data for SimpleListView
 	[driver_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
-	[driver_list_view_ SetRowHeight:28];
+	[driver_list_view_ SetRowHeight:26];
 	[driver_list_view_ SetHeading:true];
 	
     [super viewDidLoad];

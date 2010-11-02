@@ -742,4 +742,38 @@ static bool statics_initialised_ = false;
 	[self setContentSize:CGSizeMake(width, height)];
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+//  User Interaction
+//////////////////////////////////////////////////////////////////////////
+
+/*
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	if([touches count] > 0)
+	{
+		// Get the first touch object
+		NSEnumerator *enumerator = [mySet objectEnumerator];
+		UITouch * touch;
+	
+		if(touch = [enumerator nextObject])
+		{
+			
+		}
+	}
+}
+
+– touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
+– touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
+– touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+*/
+
 @end

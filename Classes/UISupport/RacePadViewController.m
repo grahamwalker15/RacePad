@@ -41,6 +41,11 @@
     [super dealloc];
 }
 
+- (UIView *) baseView
+{
+	return [self view];
+}
+
 - (void) RequestRedrawForType:(int)type
 {
 }

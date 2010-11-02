@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "RacePadViewController.h"
+#import "DrawingView.h"
 
 @interface DrawingViewController : RacePadViewController
 {
+	IBOutlet DrawingView * drawingView;
 }
+
+@property (readonly) DrawingView * drawingView;
 
 // Gesture recognizer callbacks
 

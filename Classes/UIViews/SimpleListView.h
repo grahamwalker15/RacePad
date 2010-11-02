@@ -183,6 +183,7 @@ enum ColumnPriority {
 - (int) InqCellTypeAtRow:(int)row Col:(int)col;
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col;
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col;
+- (UIImage *) GetCellClientImageAtRow:(int)row Col:(int)col;
 - (NSString *) GetHeadingAtCol:(int)col;
 
 - (void) InitialiseSimpleListViewMembers;

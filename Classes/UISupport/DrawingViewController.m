@@ -8,8 +8,9 @@
 
 #import "DrawingViewController.h"
 
-
 @implementation DrawingViewController
+
+@synthesize drawingView;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -36,7 +37,8 @@
 	
     //	Long press recognizer
 	recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLongPressFrom:)];
-    [self.view addGestureRecognizer:recognizer];
+ 	[recognizer setCancelsTouchesInView:false];
+	[self.view addGestureRecognizer:recognizer];
     [recognizer release];
 	
 	/* Take other recognizers out for the moment - they interfere with scrolling
@@ -88,45 +90,49 @@
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.view];
+	CGPoint parent_point = [gestureRecognizer locationInView:self.view];
 	
 	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
-	UIView * hit_view = [self.view hitTest:point withEvent:nil];
+	UIView * hit_view = [self.view hitTest:parent_point withEvent:nil];
 	
-	if(hit_view == self.view)
+	if(hit_view == self.drawingView)
 	{
+		CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 		[self OnGestureTapAtX:point.x Y:point.y];
 	}
 }
 
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.view];
+	CGPoint parent_point = [gestureRecognizer locationInView:self.view];
 	
 	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
-	UIView * hit_view = [self.view hitTest:point withEvent:nil];
+	UIView * hit_view = [self.view hitTest:parent_point withEvent:nil];
 	
-	if(hit_view == self.view)
+	if(hit_view == self.drawingView)
 	{
+		CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 		[self OnGestureDoubleTapAtX:point.x Y:point.y];
 	}
 }
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.view];
-	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
-	UIView * hit_view = [self.view hitTest:point withEvent:nil];
+	CGPoint parent_point = [gestureRecognizer locationInView:self.view];
 	
-	if(hit_view == self.view)
+	// For tap events in windows with subviews, we will ignore the gesture so that the event can be passed on to the subview
+	UIView * hit_view = [self.view hitTest:parent_point withEvent:nil];
+	
+	if(hit_view == self.drawingView)
 	{
+		CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 		[self OnGestureLongPressAtX:point.x Y:point.y];
 	}
 }
 
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.view];
+	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 	float scale = [(UIPinchGestureRecognizer *)gestureRecognizer scale];
 	float speed = [(UIPinchGestureRecognizer *)gestureRecognizer velocity];
 	[self OnGesturePinchAtX:point.x Y:point.y Scale:scale Speed:speed];
@@ -134,7 +140,7 @@
 
 - (void)HandleRotationFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.view];
+	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 	float angle = [(UIRotationGestureRecognizer *)gestureRecognizer rotation];
 	float speed = [(UIRotationGestureRecognizer *)gestureRecognizer velocity];
 	[self OnGestureRotationAtX:point.x Y:point.y Angle:angle Speed:speed];
@@ -152,8 +158,8 @@
 
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
-	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.view];
+	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.drawingView];
+	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.drawingView];
 	[self OnGesturePanByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y];
 }
 

@@ -92,7 +92,7 @@
 	int row = -1;
 	int col = -1;
 	
-	id controlled_view = [self view];
+	id controlled_view = [self drawingView];
 	
 	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
 	{
@@ -126,7 +126,7 @@
 	int row = -1;
 	int col = -1;
 	
-	id controlled_view = [self view];
+	id controlled_view = [self drawingView];
 	
 	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
 	{
@@ -160,7 +160,7 @@
 	int row = -1;
 	int col = -1;
 	
-	id controlled_view = [self view];
+	id controlled_view = [self drawingView];
 	
 	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
 	{

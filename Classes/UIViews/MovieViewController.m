@@ -1,4 +1,4 @@
-    //
+//
 //  MovieViewController.m
 //  RacePad
 //
@@ -7,7 +7,7 @@
 //
 
 #import "MovieViewController.h"
-
+#import "RacePadCoordinator.h"
 
 @implementation MovieViewController
 
@@ -28,14 +28,23 @@
 */
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	NSString *url = [[NSBundle mainBundle] pathForResource:@"Movie on 2010-10-04 at 16.26" ofType:@"mov"];
+	// Get the video archive file name from RacePadCoordinator
+	NSString *url = [[RacePadCoordinator Instance] getVideoArchiveName];
 	
-	MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];
-    
-	[super presentMoviePlayerViewControllerAnimated:playerViewController];
+	// Use a default bundled video if it can't be found
+	if(!url)
+		url = [[NSBundle mainBundle] pathForResource:@"Movie on 2010-10-04 at 16.26" ofType:@"mov"];
+
+	moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];
+	[moviePlayer setShouldAutoplay:false];
+	[moviePlayer setControlStyle:MPMovieControlStyleNone];
+	
+	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	
+	// Tell the RacePadCoordinator that we will be interested in data for this view
+	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	
 	/*
 	 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)
@@ -52,7 +61,97 @@
 	[super viewDidLoad];
 }
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewWillAppear:(BOOL)animated
+{
+	[[moviePlayer view] setFrame:[movieView bounds]];
+	[movieView addSubview:[moviePlayer view]];
+	
+	float time_of_day = [[RacePadCoordinator Instance] currentTime];
+	[self movieGotoTime:time_of_day];
 
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_VIDEO_VIEW_];
+	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
+	
+	[moviePlayer play];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[[RacePadCoordinator Instance] SetViewHidden:movieView];
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
+	
+	[moviePlayer stop];
+	[[moviePlayer view] removeFromSuperview];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Overriden to allow any orientation.
+    return YES;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc
+{
+	[moviePlayer release];
+    [super dealloc];
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Play controls
+////////////////////////////////////////////////////////////////////////////
+
+
+- (void) movieLoad:(NSString *)movie_name
+{
+}
+
+- (void) movieSetStartTime:(float)time
+{
+	startTime = time;
+}
+
+- (void) moviePrepareToPlay
+{
+	[moviePlayer prepareToPlay];
+}
+
+- (void) moviePlay
+{
+	[moviePlayer play];
+}
+
+- (void) movieStop
+{
+	[moviePlayer pause];	
+}
+
+- (void) movieGotoTime:(float)time
+{
+	NSTimeInterval movie_time = time - startTime;
+	[moviePlayer setInitialPlaybackTime:movie_time];
+	[moviePlayer setCurrentPlaybackTime:movie_time];
+	
+	NSTimeInterval start = [moviePlayer initialPlaybackTime];
+	NSTimeInterval current = [moviePlayer currentPlaybackTime];
+	int x = 0;
+}
 
 - (void) movieFinishedCallback:(NSNotification*) aNotification
 {
@@ -63,30 +162,8 @@
 	[player autorelease];    
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Overriden to allow any orientation.
-    return YES;
+- (void) RequestRedrawForType:(int)type
+{
 }
-
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 @end

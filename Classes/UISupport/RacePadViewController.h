@@ -15,6 +15,8 @@
 
 }
 
+- (UIView *) baseView;
+
 - (void) RequestRedrawForType:(int)type;
 
 @end

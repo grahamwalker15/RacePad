@@ -19,7 +19,8 @@ enum ViewTypes
 {
 	RPC_DRIVER_LIST_VIEW_ = 0x1,
 	RPC_LAP_LIST_VIEW_ = 0x2,
-	RPC_TRACK_MAP_VIEW_ = 0x4
+	RPC_TRACK_MAP_VIEW_ = 0x4,
+	RPC_VIDEO_VIEW_ = 0x8
 } ;
 
 // Connection types
@@ -125,8 +126,9 @@ enum ConnectionTypes
 
 -(void) acceptPushData:(NSString *)event Session:(NSString *)session;
 
--(void)loadRPF: (NSString *)file;
--(void)loadSession: (NSString *)event Session: (NSString *)session;
+-(void)loadRPF:(NSString *)file;
+-(void)loadSession:(NSString *)event Session: (NSString *)session;
+-(NSString *)getVideoArchiveName;
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;

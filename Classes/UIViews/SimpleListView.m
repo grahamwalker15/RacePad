@@ -394,7 +394,7 @@
 					float w, h;
 					[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
 					
-					float text_y = y + row_height_ - text_baseline_ - 4 - h;
+					float text_y = y + row_height_ - text_baseline_ - 2 - h;
 					
 					float xpos ;
 					float text_offset = 3;
