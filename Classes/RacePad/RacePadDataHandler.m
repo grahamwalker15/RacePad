@@ -225,6 +225,7 @@
 			fileName = [fileName stringByAppendingString:name];
 			
 			saveFile = fopen ( [fileName UTF8String], "wb" );
+			saveFileName = [fileName retain];
 			saveChunks = [stream PopInt];
 			nextChunk = 0;
 			break;
@@ -250,7 +251,11 @@
 		{
 			assert ( nextChunk == saveChunks );
 			if ( saveFile != nil )
+			{
 				fclose(saveFile);
+				[saveFileName release];
+				saveFileName = nil;
+			}
 			saveFile = nil;
 			break;
 		}
@@ -265,6 +270,7 @@
 			NSFileManager *fm = [[NSFileManager alloc]init];
 			[fm setDelegate:self];
 			[fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
+			[fm release];
 			break;
 		}
 		case RPSC_DRIVER_VIEW_: // Driver view
@@ -279,6 +285,21 @@
 			NSString *event = [stream PopString];
 			NSString *session = [stream PopString];
 			[[RacePadCoordinator Instance] acceptPushData:event Session:session];
+			break;
+		}
+		case RPSC_CANCEL_PUSH_DATA_: // Cancel Project Send
+		{
+			if ( saveFile != nil )
+			{
+				fclose(saveFile);
+				NSFileManager *fm = [[NSFileManager alloc]init];
+				[fm setDelegate:self];
+				[fm removeItemAtPath:saveFileName error:NULL];
+				[fm release];
+				[saveFileName release];
+				saveFileName = nil;
+			}
+			saveFile = nil;
 			break;
 		}
 		default:

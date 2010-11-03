@@ -25,6 +25,7 @@ enum ServerCommands {
 	RPSC_PROJECT_START_, // 12
 	RPSC_DRIVER_VIEW_, // 13
 	RPSC_ACCEPT_PUSH_DATA_, // 14
+	RPSC_CANCEL_PUSH_DATA_, // 15
 };
 
 @interface RacePadDataHandler : DataHandler
@@ -34,6 +35,7 @@ enum ServerCommands {
 	int nextTime;
 	
 	FILE *saveFile;
+	NSString *saveFileName;
 	int saveChunks;
 	int nextChunk;
 	
