@@ -154,8 +154,10 @@
 // Matrix manipulation
 - (void)SetScale:(float) scale;
 - (void)SetTranslateX:(float)x Y:(float)y;
+
 - (void)StoreTransformMatrix;
 - (void)ResetTransformMatrix;
+
 - (CGPoint)TransformPoint:(CGPoint)point;
 
 // Scrolling support

@@ -13,6 +13,12 @@
 @interface DrawingViewController : RacePadViewController
 {
 	IBOutlet DrawingView * drawingView;
+	
+	// Gesture recognizer state stores
+	float lastGestureScale;
+	float lastGestureAngle;
+	float lastGesturePanX;
+	float lastGesturePanY;
 }
 
 @property (readonly) DrawingView * drawingView;

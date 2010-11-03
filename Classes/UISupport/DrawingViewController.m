@@ -21,7 +21,12 @@
 	
     //	Create and configure the gesture recognizers. Add each to the controlled view as a gesture recognizer.
 
-    UIGestureRecognizer *recognizer;
+ 	lastGestureScale = 1.0;
+	lastGestureAngle = 0.0;
+	lastGesturePanX = 0.0;
+	lastGesturePanY = 0.0;
+
+	UIGestureRecognizer *recognizer;
     
     //	Tap recognizer
 	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
@@ -108,18 +113,41 @@
 
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	if([(UIPinchGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateEnded)
+	{
+		lastGestureScale = 1.0;
+		return;
+	}
+	
 	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 	float scale = [(UIPinchGestureRecognizer *)gestureRecognizer scale];
 	float speed = [(UIPinchGestureRecognizer *)gestureRecognizer velocity];
-	[self OnGesturePinchAtX:point.x Y:point.y Scale:scale Speed:speed];
+	
+	if(lastGestureScale > 0.0)
+	{
+		float thisGestureScale = scale;
+		scale = scale / lastGestureScale;
+		[self OnGesturePinchAtX:point.x Y:point.y Scale:scale Speed:speed];
+		lastGestureScale = thisGestureScale;
+	}
 }
 
 - (void)HandleRotationFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	if([(UIRotationGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateEnded)
+	{
+		lastGestureAngle = 0.0;
+		return;
+	}
+	
 	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 	float angle = [(UIRotationGestureRecognizer *)gestureRecognizer rotation];
 	float speed = [(UIRotationGestureRecognizer *)gestureRecognizer velocity];
+	
+	float thisGestureAngle = angle;
+	angle -= lastGestureAngle;
 	[self OnGestureRotationAtX:point.x Y:point.y Angle:angle Speed:speed];
+	lastGestureAngle = thisGestureAngle;
 }
 
 - (void)HandleRightSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -134,9 +162,23 @@
 
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	if([(UIPanGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateEnded)
+	{
+		lastGesturePanX = 0.0;
+		lastGesturePanY = 0.0;
+		return;
+	}
+	
 	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.drawingView];
 	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.drawingView];
+
+	float thisGesturePanX = pan.x;
+	float thisGesturePanY = pan.y;
+	pan.x = pan.x - lastGesturePanX;
+	pan.y = pan.y - lastGesturePanY;
 	[self OnGesturePanByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y];
+	lastGesturePanX = thisGesturePanX;
+	lastGesturePanY = thisGesturePanY;
 }
 
 // Action callbacks - these should be overridden if you want any action

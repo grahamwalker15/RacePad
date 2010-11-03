@@ -419,6 +419,13 @@
 
 @implementation TrackMap
 
+@synthesize userXOffset;
+@synthesize userYOffset;
+@synthesize userScale;
+@synthesize mapXOffset;
+@synthesize mapYOffset;
+@synthesize mapScale;
+
 - (id) init
 {
 	if(self = [super init])
@@ -439,11 +446,15 @@
 		
 		segmentStates = [[NSMutableArray arrayWithCapacity:30] retain];
 		
-		x_centre = 0.0;
-		y_centre = 0.0;
+		xCentre = 0.0;
+		yCentre = 0.0;
 		
 		width = 0.0;
 		height = 0.0;
+		
+		userScale = 1.0;
+		userXOffset = 0.0;
+		userYOffset = 0.0;
 	}
 	
 	return self;
@@ -489,8 +500,8 @@
 	width = 0.0;
 	height = 0.0;
 	
-	x_centre = 0.0;
-	y_centre = 0.0;
+	xCentre = 0.0;
+	yCentre = 0.0;
 	
 	int c;
 	if ( colours )
@@ -502,9 +513,12 @@
 	
 	coloursCount = [stream PopInt];
 	colours = malloc ( sizeof (UIColor *) * coloursCount );
+	
 	for ( c = 0; c < coloursCount; c++ )
 		colours[c] = NULL;
-	for ( c = 0; c < coloursCount; c++ ) {
+	
+	for ( c = 0; c < coloursCount; c++ )
+	{
 		unsigned char index = [stream PopUnsignedChar];
 		UIColor *colour = [[stream PopRGBA] retain];
 		if ( index < coloursCount )
@@ -549,8 +563,8 @@
 	float max_x = [inner max_x] > [outer max_x] ? [inner max_x] : [outer max_x];
 	float max_y = [inner max_y] > [outer max_y] ? [inner max_y] : [outer max_y];
 	
-	x_centre = (min_x + max_x) * 0.5;
-	y_centre = (min_y + max_y) * 0.5;
+	xCentre = (min_x + max_x) * 0.5;
+	yCentre = (min_y + max_y) * 0.5;
 	
 }
 
@@ -687,6 +701,24 @@
 
 - (void) draw : (TrackMapView *) view
 {
+	[view SaveGraphicsState];
+	
+	[self constructTransformMatrix:view];
+	
+	float scale = mapScale * userScale;
+	[self drawTrack:view Scale:scale];
+	
+	[view RestoreGraphicsState];
+	
+	[self drawTrackLabels:view Scale:scale];
+	[self drawCars:view Scale:scale];
+
+}
+
+- (void) constructTransformMatrix : (TrackMapView *) view
+{
+	// Constructs the transform matrix, stores it, and leaves it current
+	
 	// Get dimensions of current view
 	CGRect bounds = [view bounds];
 	
@@ -696,32 +728,26 @@
 	CGPoint origin = map_rect.origin;
 	CGSize size = map_rect.size;
 	
-	[view SaveGraphicsState];
-	
 	// Centre the map as big as possible in the rectangle
 	float x_scale = (width > 0.0) ? size.width / width : size.width;
 	float y_scale = (height > 0.0) ? size.height / height : size.height;
 	
-	float scale = (x_scale < y_scale) ? x_scale : y_scale;
+	mapScale = (x_scale < y_scale) ? x_scale : y_scale;
 	
-	scale = scale * 0.9;
+	mapScale = mapScale * 0.9;
 	
-	float x_top_left = origin.x + size.width * 0.5 - x_centre * scale  ;
-	float y_top_left = bounds.size.height - (origin.y + size.height * 0.5 - y_centre * scale)  ;
+	mapXOffset = origin.x + size.width * 0.5 - xCentre * mapScale  ;
+	mapYOffset = bounds.size.height - (origin.y + size.height * 0.5 - yCentre * mapScale)  ;
 	
-	[view SetTranslateX:x_top_left Y:y_top_left];
+	float scale = mapScale * userScale;
+	
+	[view ResetTransformMatrix];
+	[view SetTranslateX:userXOffset Y:userYOffset];
+	[view SetTranslateX:mapXOffset Y:mapYOffset];
 	[view SetScale:scale];
-	
-	[self drawTrack:view Scale:scale];
-	
-	[view StoreTransformMatrix];
-	
-	[view RestoreGraphicsState];
-	
-	[self drawTrackLabels:view Scale:scale];
-	[self drawCars:view Scale:scale];
-
+	[view StoreTransformMatrix];	
 }
+
 
 @end
 

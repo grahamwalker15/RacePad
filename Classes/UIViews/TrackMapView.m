@@ -142,8 +142,6 @@ static bool images_initialised_ = false;
 	}
 }
 
-
-
 - (void)Draw:(CGRect) rect
 {
 	[self SetBGColour:[UIColor colorWithRed:0.00 green:0.0 blue:0.0 alpha:1.0]];

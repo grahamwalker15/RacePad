@@ -127,11 +127,19 @@ enum TrackMapLineType {
 	TrackShape *inner;
 	TrackShape *outer;
 	
-	float x_centre;
-	float y_centre;
+	float xCentre;
+	float yCentre;
 	
 	float width;
 	float height;
+	
+	float userXOffset;
+	float userYOffset;	
+	float userScale;
+	
+	float mapXOffset;
+	float mapYOffset;	
+	float mapScale;
 	
 	NSMutableArray *lines;
 	NSMutableArray *labels;
@@ -145,9 +153,19 @@ enum TrackMapLineType {
 	NSMutableArray *segmentStates;
 }
 
+@property (nonatomic) float userXOffset;
+@property (nonatomic) float userYOffset;
+@property (nonatomic) float userScale;
+
+@property (nonatomic) float mapXOffset;
+@property (nonatomic) float mapYOffset;
+@property (nonatomic) float mapScale;
+
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;
 
 - (void) draw:(TrackMapView *)view;
+
+- (void) constructTransformMatrix : (TrackMapView *) view;
 
 @end

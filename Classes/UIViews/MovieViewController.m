@@ -73,7 +73,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	[[moviePlayer view] setFrame:CGRectInset([movieView bounds], 20, 20)];
+	[[moviePlayer view] setFrame:[movieView bounds]];
 	[movieView addSubview:[moviePlayer view]];
 	[self.view bringSubviewToFront:overlayView];
 	
@@ -163,9 +163,6 @@
 	NSTimeInterval movie_time = time - startTime;
 	[moviePlayer setCurrentPlaybackTime:movie_time];
 	[moviePlayer setInitialPlaybackTime:movie_time];
-	
-	float current = [moviePlayer currentPlaybackTime];
-	int x = 0;
 }
 
 - (void) movieFinishedCallback:(NSNotification*) aNotification
