@@ -21,6 +21,8 @@
 	
     //	Create and configure the gesture recognizers. Add each to the controlled view as a gesture recognizer.
 
+	doubleTapTimer = nil;
+
  	lastGestureScale = 1.0;
 	lastGestureAngle = 0.0;
 	lastGesturePanX = 0.0;
@@ -95,8 +97,9 @@
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	UIView * gestureView = [gestureRecognizer view];
+	tapPoint = [gestureRecognizer locationInView:gestureView];
 	doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
-	tapPoint = [gestureRecognizer locationInView:self.drawingView];
 }
 
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -106,7 +109,9 @@
 		[doubleTapTimer invalidate];
 		doubleTapTimer = nil;
 	}
-	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	
+	UIView * gestureView = [gestureRecognizer view];
+	CGPoint point = [gestureRecognizer locationInView:gestureView];
 	[self OnGestureDoubleTapAtX:point.x Y:point.y];
 }
 
@@ -118,7 +123,8 @@
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	UIView * gestureView = [gestureRecognizer view];
+	CGPoint point = [gestureRecognizer locationInView:gestureView];
 	[self OnGestureLongPressAtX:point.x Y:point.y];
 }
 
@@ -130,7 +136,8 @@
 		return;
 	}
 	
-	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	UIView * gestureView = [gestureRecognizer view];
+	CGPoint point = [gestureRecognizer locationInView:gestureView];
 	float scale = [(UIPinchGestureRecognizer *)gestureRecognizer scale];
 	float speed = [(UIPinchGestureRecognizer *)gestureRecognizer velocity];
 	
@@ -151,7 +158,8 @@
 		return;
 	}
 	
-	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
+	UIView * gestureView = [gestureRecognizer view];
+	CGPoint point = [gestureRecognizer locationInView:gestureView];
 	float angle = [(UIRotationGestureRecognizer *)gestureRecognizer rotation];
 	float speed = [(UIRotationGestureRecognizer *)gestureRecognizer velocity];
 	
@@ -180,8 +188,9 @@
 		return;
 	}
 	
-	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.drawingView];
-	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.drawingView];
+	UIView * gestureView = [gestureRecognizer view];
+	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureView];
+	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
 
 	float thisGesturePanX = pan.x;
 	float thisGesturePanY = pan.y;

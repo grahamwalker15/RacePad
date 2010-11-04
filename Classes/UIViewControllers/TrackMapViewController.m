@@ -43,12 +43,18 @@
 	
 	UIGestureRecognizer * recognizer;
 	
-    //	Pinch recognizer
+    //	Tap recognizer for background
+	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
+	[recognizer setCancelsTouchesInView:false];
+    [background_view_ addGestureRecognizer:recognizer];
+    [recognizer release];
+	
+    //	Pinch recognizer for map
 	recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePinchFrom:)];
     [track_map_view_ addGestureRecognizer:recognizer];
     [recognizer release];
 		
-    // Pan recognizer
+    // Pan recognizer for map
 	recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePanFrom:)];
     [track_map_view_ addGestureRecognizer:recognizer];
     [recognizer release];
@@ -61,6 +67,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
+	[background_view_ RequestRedraw];
+	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:track_map_view_];
 	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
@@ -73,13 +81,18 @@
 	//[[RacePadCoordinator Instance] SetViewHidden:timing_view_];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
-	[track_map_view_ ReleaseBackground];
+	[background_view_ ReleaseBackground];
 }
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[background_view_ RequestRedraw];
 }
 
 - (void)didReceiveMemoryWarning

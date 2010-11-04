@@ -10,8 +10,7 @@
 
 #import "DrawingView.h"
 
-
-@interface TrackMapView : DrawingView
+@interface TrackMapBackgroundView : DrawingView
 {
 	CGImageRef background_image_;
 	int background_image_w_;
@@ -20,8 +19,14 @@
 
 - (void)InitialiseImages;
 
-
 - (void)ReleaseBackground;
+
+@end
+
+@interface TrackMapView : DrawingView
+{
+
+}
 
 @end
 

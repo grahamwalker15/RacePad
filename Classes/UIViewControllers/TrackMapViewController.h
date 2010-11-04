@@ -18,7 +18,7 @@
 {
 	
 	TrackMapView *track_map_view_;
-	
+	IBOutlet DrawingView *background_view_;
 	IBOutlet TableDataView *timing_view_;
 	
 }
