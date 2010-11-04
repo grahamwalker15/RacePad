@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RacePadViewController.h"
 
-@interface SettingsViewController : UIViewController
+
+@interface SettingsViewController : RacePadViewController
 {
 	IBOutlet id ip_address_edit_;
 }

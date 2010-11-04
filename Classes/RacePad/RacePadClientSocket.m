@@ -118,6 +118,11 @@
 	[self SimpleCommand:RPCS_STOP_STREAMS];
 }
 
+- (void) cancelDownload
+{
+	[self SimpleCommand:RPCS_CANCEL_DOWNLOAD];
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[RacePadDataHandler alloc] init];

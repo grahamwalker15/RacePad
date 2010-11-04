@@ -15,6 +15,8 @@
 		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
 		4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; };
+		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
+		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
 		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
 		7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
@@ -89,6 +91,9 @@
 		4D757B80126F028900E32C41 /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
 		4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDataHandler.h; sourceTree = "<group>"; };
 		4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDataHandler.m; sourceTree = "<group>"; };
+		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
+		4D8A66831282635500E9E19D /* DownloadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgress.m; sourceTree = "<group>"; };
+		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
 		7F067F4B126DAE1700C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
@@ -244,28 +249,29 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */,
-				7F6FB6BB127577FE00EF2B8C /* RightArrow.png */,
-				7F31CA681270892700F26C7B /* SettingsView.xib */,
+				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
 				7F068125126DDA6800C9EE5D /* clock.png */,
-				7F068126126DDA6800C9EE5D /* monitor.png */,
-				7F068127126DDA6800C9EE5D /* newspaper.png */,
-				7F068128126DDA6800C9EE5D /* preferences.png */,
-				7F068129126DDA6800C9EE5D /* world.png */,
-				7F067F4B126DAE1700C9EE5D /* Metal.png */,
-				7F067F4C126DAE1700C9EE5D /* Parchment.png */,
-				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
 				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
+				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
+				7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */,
 				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
+				7F067F4B126DAE1700C9EE5D /* Metal.png */,
+				7F068126126DDA6800C9EE5D /* monitor.png */,
+				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
+				7F068127126DDA6800C9EE5D /* newspaper.png */,
+				7F067F4C126DAE1700C9EE5D /* Parchment.png */,
+				7F068128126DDA6800C9EE5D /* preferences.png */,
+				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+				7F6FB6BB127577FE00EF2B8C /* RightArrow.png */,
 				7FB1C58712673E7F008A6C94 /* SecondView.xib */,
+				7F31CA681270892700F26C7B /* SettingsView.xib */,
 				7FB1C58812673E7F008A6C94 /* TestTextView.xib */,
 				7FB1C58912673E7F008A6C94 /* ThirdView.xib */,
 				7F6FB8981275F11400EF2B8C /* TimeControlView.xib */,
 				7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
-				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
-				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+				7F068129126DDA6800C9EE5D /* world.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -303,6 +309,8 @@
 		7F9C10D71255E68B00770746 /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D8A66821282635500E9E19D /* DownloadProgress.h */,
+				4D8A66831282635500E9E19D /* DownloadProgress.m */,
 				7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */,
 				7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */,
 				7F88203D12632EB40010785D /* DriverListController.h */,
@@ -467,6 +475,7 @@
 				7F6FB6BC127577FE00EF2B8C /* LeftArrow.png in Resources */,
 				7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */,
 				7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */,
+				4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +522,7 @@
 				7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */,
 				7F62357C127B2018009A9D4F /* RacePadViewController.m in Sources */,
 				7F6239D7127E089F009A9D4F /* MovieView.m in Sources */,
+				4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,7 +577,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -575,7 +585,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.2;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

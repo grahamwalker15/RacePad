@@ -13,6 +13,7 @@
 @class RacePadClientSocket;
 @class RacePadDataHandler;
 @class ElapsedTime;
+@class DownloadProgress;
 
 // View types
 enum ViewTypes
@@ -20,7 +21,8 @@ enum ViewTypes
 	RPC_DRIVER_LIST_VIEW_ = 0x1,
 	RPC_LAP_LIST_VIEW_ = 0x2,
 	RPC_TRACK_MAP_VIEW_ = 0x4,
-	RPC_VIDEO_VIEW_ = 0x8
+	RPC_VIDEO_VIEW_ = 0x8,
+	RPC_SETTINGS_VIEW_ = 0x16,
 } ;
 
 // Connection types
@@ -79,6 +81,8 @@ enum ConnectionTypes
 	RacePadViewController * registeredViewController;
 	int registeredViewControllerTypeMask;
 	
+	DownloadProgress *downloadProgress;
+	
 	RacePadClientSocket * socket_;
 	
 	NSString *sessionFolder;
@@ -126,6 +130,11 @@ enum ConnectionTypes
 -(void) showSnapshotFromSocket;
 
 -(void) acceptPushData:(NSString *)event Session:(NSString *)session;
+-(void) projectDownloadStarting:(NSString *)event SessionName:(NSString *)session SizeInMB:(int) sizeInMB;
+-(void) projectDownloadCancelled;
+-(void)	projectDownloadComplete;
+-(void) projectDownloadProgress:(int) sizeInMB;
+-(void) cancelDownload;
 
 -(void)loadRPF:(NSString *)file;
 -(void)loadSession:(NSString *)event Session: (NSString *)session;

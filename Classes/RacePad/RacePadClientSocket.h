@@ -21,6 +21,7 @@ enum ClientCommands {
 	RPCS_REQUEST_DRIVER_VIEW = 13,
 	RPCS_ACCEPT_PUSH_DATA, // 14
 	RPCS_STOP_STREAMS, // 15
+	RPCS_CANCEL_DOWNLOAD, // 16
 };
 
 @interface RacePadClientSocket : Socket
@@ -39,5 +40,6 @@ enum ClientCommands {
 - (void) requestDriverView :(NSString *) driver;
 - (void) acceptPushData :(BOOL) send;
 - (void) stopStreams;
+- (void) cancelDownload;
 
 @end

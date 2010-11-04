@@ -245,6 +245,8 @@
 					fwrite(buffer, 1, size, saveFile);
 				free ( buffer );
 			}
+			sizeDownloaded += size / (1024 * 1024.0);
+			[[RacePadCoordinator Instance] projectDownloadProgress:(int)sizeDownloaded];
 			break;
 		}
 		case RPSC_FILE_END_: // Project File complete
@@ -262,6 +264,10 @@
 		case RPSC_PROJECT_START_: // Project Folder
 		{
 			NSString *folder = [stream PopString];
+			NSString *eventName = [stream PopString];
+			NSString *sessionName = [stream PopString];
+			int sizeInMB = [stream PopInt];
+			
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 			NSString *docsFolder = [paths objectAtIndex:0];
 			NSString *fileName = [docsFolder stringByAppendingString:@"/"];
@@ -271,6 +277,9 @@
 			[fm setDelegate:self];
 			[fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
 			[fm release];
+			[[RacePadCoordinator Instance] projectDownloadStarting:eventName SessionName:sessionName SizeInMB:sizeInMB];
+			
+			sizeDownloaded = 0;
 			break;
 		}
 		case RPSC_DRIVER_VIEW_: // Driver view
@@ -287,7 +296,7 @@
 			[[RacePadCoordinator Instance] acceptPushData:event Session:session];
 			break;
 		}
-		case RPSC_CANCEL_PUSH_DATA_: // Cancel Project Send
+		case RPSC_CANCEL_PROJECT_: // Cancel Project Send
 		{
 			if ( saveFile != nil )
 			{
@@ -300,6 +309,12 @@
 				saveFileName = nil;
 			}
 			saveFile = nil;
+			[[RacePadCoordinator Instance] projectDownloadCancelled];
+			break;
+		}
+		case RPSC_COMPLETE_PROJECT_: // Cancel Project Send
+		{
+			[[RacePadCoordinator Instance] projectDownloadComplete];
 			break;
 		}
 		default:

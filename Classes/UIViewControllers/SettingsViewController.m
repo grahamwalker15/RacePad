@@ -29,14 +29,24 @@
 }
 */
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	[[RacePadCoordinator Instance] AddView:[self view] WithType:RPC_SETTINGS_VIEW_];
 }
-*/
 
+
+- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
+{
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_SETTINGS_VIEW_];
+	[[RacePadCoordinator Instance] SetViewDisplayed:[self view]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
+{
+	[[RacePadCoordinator Instance] SetViewHidden:[self view]];
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

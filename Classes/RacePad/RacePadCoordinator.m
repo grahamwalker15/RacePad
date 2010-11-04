@@ -14,6 +14,7 @@
 #import "TableDataView.h"
 #import "RacePadDatabase.h"
 #import "MovieViewController.h"
+#import "DownloadProgress.h"
 
 @implementation RacePadCoordinator
 
@@ -70,6 +71,7 @@ static RacePadCoordinator * instance_ = nil;
 	[dataSources release];
 	[registeredViewController release];
 	[sessionFolder release];
+	[downloadProgress release];
     [super dealloc];
 }
 
@@ -559,15 +561,13 @@ static RacePadCoordinator * instance_ = nil;
 		// that we are playing so that it will restart when the next view is loaded
 		if(playing && [self DisplayedViewCount] <= 0)
 		{
-			[self stopPlay];
+			[self stopPlay]; // This will stop the server streaming
 			needsPlayRestart = true;
 		}
 		
 		// Release the data handler
 		if(connectionType == RPC_ARCHIVE_CONNECTION_)
 			[self RemoveDataSourceWithType:[existing_view Type]];
-		
-		// DON'T WE NEED TO STOP THE SERVER STREAMING HERE??
 	}
 }
 
@@ -585,6 +585,56 @@ static RacePadCoordinator * instance_ = nil;
 {
 	// For now we'll always accept
 	[socket_ acceptPushData:YES]; // Even if we don't want it, we should tell the server, so it can stop waiting
+}
+
+-(void) projectDownloadStarting:(NSString *) eventName SessionName:(NSString *)sessionName SizeInMB:(int) sizeInMB
+{
+	if ( downloadProgress == nil )
+		downloadProgress = [[DownloadProgress alloc] initWithNibName:@"DownloadProgress" bundle:nil];
+
+	if(playing)
+	{
+		[self stopPlay]; // This will stop the server streaming
+		needsPlayRestart = true;
+	}
+
+	// Make sure we don't have any sources open - just in case we're going to overwrite them
+	if(connectionType == RPC_ARCHIVE_CONNECTION_)
+		[self DestroyDataSources];
+
+	[downloadProgress setProject:eventName SessionName:sessionName SizeInMB:sizeInMB];
+	[registeredViewController presentModalViewController:downloadProgress animated:YES];
+}
+
+-(void) projectDownloadCancelled
+{
+	if(connectionType == RPC_ARCHIVE_CONNECTION_)
+		[self CreateDataSources];
+
+	[downloadProgress dismissModalViewControllerAnimated:YES];
+	
+	// Dismissing the view will make the playing restart if required.
+}
+
+-(void) projectDownloadComplete
+{
+	if(connectionType == RPC_ARCHIVE_CONNECTION_)
+		[self CreateDataSources];
+	
+	[downloadProgress dismissModalViewControllerAnimated:YES];
+	
+	// Dismissing the view will make the playing restart if required.
+}
+
+-(void) projectDownloadProgress:(int) sizeInMB
+{
+	[downloadProgress setProgress:sizeInMB];
+}
+
+-(void) cancelDownload
+{
+	[socket_ cancelDownload];
+	// We will get a projectDownloadCancelled later
 }
 
 -(void)RequestRedraw:(id)view
@@ -681,8 +731,9 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
 {
-	// There are no data sources for video types, so ignore calls with this type
-	if(type == RPC_VIDEO_VIEW_)
+	// There are no data sources for video or settings types, so ignore calls with this type
+	if(type == RPC_VIDEO_VIEW_
+	  || type == RPC_SETTINGS_VIEW_)
 		return;
 	
 	// First make sure that this handler is not already in the list
