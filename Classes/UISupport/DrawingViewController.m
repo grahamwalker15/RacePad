@@ -95,14 +95,25 @@
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
-	[self OnGestureTapAtX:point.x Y:point.y];
+	doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
+	tapPoint = [gestureRecognizer locationInView:self.drawingView];
 }
 
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	if(doubleTapTimer)
+	{
+		[doubleTapTimer invalidate];
+		doubleTapTimer = nil;
+	}
 	CGPoint point = [gestureRecognizer locationInView:self.drawingView];
 	[self OnGestureDoubleTapAtX:point.x Y:point.y];
+}
+
+- (void) doubleTapTimerExpired: (NSTimer *)theTimer
+{
+	[self OnGestureTapAtX:tapPoint.x Y:tapPoint.y];
+	doubleTapTimer = nil;
 }
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer

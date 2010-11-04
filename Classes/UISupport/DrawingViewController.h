@@ -19,6 +19,9 @@
 	float lastGestureAngle;
 	float lastGesturePanX;
 	float lastGesturePanY;
+	
+	NSTimer *doubleTapTimer;
+	CGPoint tapPoint;
 }
 
 @property (readonly) DrawingView * drawingView;
