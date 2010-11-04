@@ -47,10 +47,7 @@
 	
     //	Add tap recognizer to bring up time controls
 	// This is added to the transparent overlay view which goes above all drawing
-	UIGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
-	[recognizer setCancelsTouchesInView:false];
-	[overlayView addGestureRecognizer:recognizer];
-    [recognizer release];
+	[self addTapRecognizerToView:overlayView];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
@@ -178,7 +175,7 @@
 {
 }
 
-- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+- (void) OnGestureTapAtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	

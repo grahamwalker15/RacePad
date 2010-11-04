@@ -34,6 +34,5 @@
 - (void) moviePrepareToPlay;
 
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
-- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

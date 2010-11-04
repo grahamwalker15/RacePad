@@ -9,6 +9,10 @@
 #import "CompositeViewController.h"
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadDatabase.h"
+#import "TableDataView.h"
+#import "TrackMapView.h"
+#import "TrackMap.h"
 
 @implementation CompositeViewController
 
@@ -46,25 +50,10 @@
 	
 	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
 	
-	//  Add extra gesture recognizers
-	
-	UIGestureRecognizer * recognizer;
-	
-    //	Tap recognizer for map
-	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
-	[recognizer setCancelsTouchesInView:false];
-    [trackMapView addGestureRecognizer:recognizer];
-    [recognizer release];
-	
-    //	Pinch recognizer for map
-	recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePinchFrom:)];
-    [trackMapView addGestureRecognizer:recognizer];
-    [recognizer release];
-	
-    // Pan recognizer for map
-	recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePanFrom:)];
-    [trackMapView addGestureRecognizer:recognizer];
-    [recognizer release];
+	// Tap,pan and pinch recognizers for map
+	[self addTapRecognizerToView:trackMapView];
+	[self addPanRecognizerToView:trackMapView];
+	[self addPinchRecognizerToView:trackMapView];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
@@ -195,7 +184,7 @@
 {
 }
 
-- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+- (void) OnGestureTapAtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	
@@ -205,4 +194,65 @@
 		[time_controller hide];
 }
 
+- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
+{
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];
+	
+	[trackMap setUserXOffset:0.0];
+	[trackMap setUserYOffset:0.0];
+	[trackMap setUserScale:1.0];
+	
+	[trackMapView RequestRedraw];
+}
+
+- (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+{
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];
+	
+	float currentUserPanX = [trackMap userXOffset];
+	float currentUserPanY = [trackMap userYOffset];
+	float currentUserScale = [trackMap userScale];
+	float currentMapPanX = [trackMap mapXOffset];
+	float currentMapPanY = [trackMap mapYOffset];
+	float currentMapScale = [trackMap mapScale];
+	float currentScale = currentUserScale * currentMapScale;
+	
+	if(abs(currentScale) < 0.001 || abs(scale) < 0.001)
+		return;
+	
+	// Calculate where the centre point is in the untransformed map
+	float x_in_map = (x - currentUserPanX - currentMapPanX) / currentScale; 
+	float y_in_map = (y - currentUserPanY - currentMapPanY) / currentScale;
+	
+	// Now work out the new scale	
+	float newScale = currentScale * scale;
+	float newUserScale = currentUserScale * scale;
+	
+	// Now work out where that point in the map would go now
+	float new_x = (x_in_map) * newScale + currentMapPanX;
+	float new_y = (y_in_map) * newScale + currentMapPanY;
+	
+	// Andset the user pan to put it back where it was on the screen
+	float newPanX = x - new_x ;
+	float newPanY = y - new_y ;
+	
+	[trackMap setUserXOffset:newPanX];
+	[trackMap setUserYOffset:newPanY];
+	[trackMap setUserScale:newUserScale];
+	
+	[trackMapView RequestRedraw];
+}
+
+- (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+{
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];
+	
+	[trackMap setUserXOffset:[trackMap userXOffset] + x];
+	[trackMap setUserYOffset:[trackMap userYOffset] + y];
+	
+	[trackMapView RequestRedraw];
+}
 @end

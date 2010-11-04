@@ -33,34 +33,23 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	track_map_view_ = (TrackMapView *)[self drawingView];
+	trackMapView = (TrackMapView *)[self drawingView];
 
  	//[timing_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	//[timing_view_ SetRowHeight:28];
 	//[timing_view_ SetHeading:true];
 	
 	//  Add extra gesture recognizers
+ 
+	//	Tap recognizer for background
+	[self addTapRecognizerToView:background_view_];
 	
-	UIGestureRecognizer * recognizer;
-	
-    //	Tap recognizer for background
-	recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
-	[recognizer setCancelsTouchesInView:false];
-    [background_view_ addGestureRecognizer:recognizer];
-    [recognizer release];
-	
-    //	Pinch recognizer for map
-	recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePinchFrom:)];
-    [track_map_view_ addGestureRecognizer:recognizer];
-    [recognizer release];
-		
-    // Pan recognizer for map
-	recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandlePanFrom:)];
-    [track_map_view_ addGestureRecognizer:recognizer];
-    [recognizer release];
+    //	Pinch and pan recognizers for map
+	[self addPinchRecognizerToView:trackMapView];
+	[self addPanRecognizerToView:trackMapView];
 
 	[super viewDidLoad];
-	[[RacePadCoordinator Instance] AddView:track_map_view_ WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	//[[RacePadCoordinator Instance] AddView:timing_view_ WithType:RPC_DRIVER_LIST_VIEW_];
 }
 
@@ -70,14 +59,14 @@
 	[background_view_ RequestRedraw];
 	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_TRACK_MAP_VIEW_];
-	[[RacePadCoordinator Instance] SetViewDisplayed:track_map_view_];
+	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[[RacePadCoordinator Instance] SetViewHidden:track_map_view_];
+	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	//[[RacePadCoordinator Instance] SetViewHidden:timing_view_];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
@@ -127,7 +116,7 @@
 	[trackMap setUserYOffset:0.0];
 	[trackMap setUserScale:1.0];
 	
-	[track_map_view_ RequestRedraw];
+	[trackMapView RequestRedraw];
 }
 
 - (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
@@ -166,7 +155,7 @@
 	[trackMap setUserYOffset:newPanY];
 	[trackMap setUserScale:newUserScale];
 	
-	[track_map_view_ RequestRedraw];
+	[trackMapView RequestRedraw];
 }
 
 - (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
@@ -177,7 +166,7 @@
 	[trackMap setUserXOffset:[trackMap userXOffset] + x];
 	[trackMap setUserYOffset:[trackMap userYOffset] + y];
 	
-	[track_map_view_ RequestRedraw];
+	[trackMapView RequestRedraw];
 }
 
 @end
