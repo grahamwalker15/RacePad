@@ -584,6 +584,7 @@
 	}
 	
 	[segmentStates removeAllObjects];
+	overallTrackState = TM_TRACK_GREEN;
 	while (true)
 	{
 		int segNum = [stream PopInt];
@@ -591,7 +592,10 @@
 			break;
 		
 		unsigned char state = [stream PopUnsignedChar];
-		[segmentStates addObject:[[SegmentState alloc] init:segNum State:state]];
+		if ( segNum > 1000 )
+			overallTrackState = state;
+		else
+			[segmentStates addObject:[[SegmentState alloc] init:segNum State:state]];
 	}
 }
 
@@ -634,13 +638,13 @@
 		[view SetLineWidth:2 / scale];
 		for ( i = 0; i < count; i++)
 		{
-			[view BeginPath];
 			int index = [[segmentStates objectAtIndex:i] index];
+			[view BeginPath];
 			if ( index < [inner segmentCount] )
 				[view LoadPath:[inner segmentPaths][index]];
 			if ( index < [outer segmentCount] )
 				[view LoadPath:[outer segmentPaths][index]];
-			if ( [(SegmentState *)[segmentStates objectAtIndex:i] state] == 1 )
+			if ( [(SegmentState *)[segmentStates objectAtIndex:i] state] == TM_TRACK_YELLOW )
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
 			else
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
@@ -714,6 +718,9 @@
 	[self drawTrackLabels:view Scale:scale];
 	[self drawCars:view Scale:scale];
 
+	int t = [self getTrackState];
+	[view UseRegularFont];
+	
 }
 
 - (void) constructTransformMatrix : (TrackMapView *) view
@@ -749,6 +756,9 @@
 	[view StoreTransformMatrix];	
 }
 
-
+- (int) getTrackState
+{	
+	return overallTrackState;
+}
 @end
 

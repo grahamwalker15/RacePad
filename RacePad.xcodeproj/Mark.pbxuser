@@ -396,6 +396,17 @@
 			4D82FCDE12842A0200F93A2B /* PBXTextBookmark */ = 4D82FCDE12842A0200F93A2B /* PBXTextBookmark */;
 			4D82FCDF12842A0200F93A2B /* PBXTextBookmark */ = 4D82FCDF12842A0200F93A2B /* PBXTextBookmark */;
 			4D82FCE712842A9200F93A2B /* PBXTextBookmark */ = 4D82FCE712842A9200F93A2B /* PBXTextBookmark */;
+			4D82FCFB128430DF00F93A2B /* PBXTextBookmark */ = 4D82FCFB128430DF00F93A2B /* PBXTextBookmark */;
+			4D82FCFC128430DF00F93A2B /* PBXBookmark */ = 4D82FCFC128430DF00F93A2B /* PBXBookmark */;
+			4D82FCFD128430DF00F93A2B /* PBXTextBookmark */ = 4D82FCFD128430DF00F93A2B /* PBXTextBookmark */;
+			4D82FCFE128430DF00F93A2B /* PBXTextBookmark */ = 4D82FCFE128430DF00F93A2B /* PBXTextBookmark */;
+			4D82FCFF128430DF00F93A2B /* PBXTextBookmark */ = 4D82FCFF128430DF00F93A2B /* PBXTextBookmark */;
+			4D82FD051284321F00F93A2B /* PBXTextBookmark */ = 4D82FD051284321F00F93A2B /* PBXTextBookmark */;
+			4D82FD061284321F00F93A2B /* PBXTextBookmark */ = 4D82FD061284321F00F93A2B /* PBXTextBookmark */;
+			4D82FD141284367B00F93A2B /* PBXTextBookmark */ = 4D82FD141284367B00F93A2B /* PBXTextBookmark */;
+			4D82FD151284367B00F93A2B /* PBXTextBookmark */ = 4D82FD151284367B00F93A2B /* PBXTextBookmark */;
+			4D82FD161284367B00F93A2B /* PBXTextBookmark */ = 4D82FD161284367B00F93A2B /* PBXTextBookmark */;
+			4D82FD171284367B00F93A2B /* PBXTextBookmark */ = 4D82FD171284367B00F93A2B /* PBXTextBookmark */;
 			4D8596C0127B097800D26E7F = 4D8596C0127B097800D26E7F /* PBXTextBookmark */;
 			4D8596C2127B097800D26E7F = 4D8596C2127B097800D26E7F /* PBXBookmark */;
 			4D8596C3127B097800D26E7F = 4D8596C3127B097800D26E7F /* PBXBookmark */;
@@ -554,16 +565,16 @@
 	4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1045, 780}}";
-			sepNavSelRange = "{1014, 24}";
-			sepNavVisRange = "{411, 633}";
+			sepNavSelRange = "{216, 0}";
+			sepNavVisRange = "{69, 810}";
 			sepNavWindowFrame = "{{38, 150}, {1110, 702}}";
 		};
 	};
 	4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 4459}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1045, 4472}}";
 			sepNavSelRange = "{390, 0}";
-			sepNavVisRange = "{187, 798}";
+			sepNavVisRange = "{360, 947}";
 			sepNavWindowFrame = "{{84, 108}, {1110, 702}}";
 		};
 	};
@@ -756,7 +767,7 @@
 		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
 		name = "TrackMap.m: 670";
 		rLen = 0;
-		rLoc = 12474;
+		rLoc = 12586;
 		rType = 0;
 		vrLen = 1124;
 		vrLoc = 13333;
@@ -1980,9 +1991,9 @@
 	};
 	4D82FB3E1283F80C00F93A2B /* WorkOffline.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {806, 2821}}";
-			sepNavSelRange = "{2801, 0}";
-			sepNavVisRange = "{1629, 871}";
+			sepNavIntBoundsRect = "{{0, 0}, {1146, 2743}}";
+			sepNavSelRange = "{2173, 0}";
+			sepNavVisRange = "{1498, 1002}";
 		};
 	};
 	4D82FB4B1284015300F93A2B /* PBXTextBookmark */ = {
@@ -3554,6 +3565,110 @@
 		vrLen = 1062;
 		vrLoc = 10523;
 	};
+	4D82FCFB128430DF00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */;
+		name = "RacePadCoordinator.m: 446";
+		rLen = 0;
+		rLoc = 11174;
+		rType = 0;
+		vrLen = 1095;
+		vrLoc = 10523;
+	};
+	4D82FCFC128430DF00F93A2B /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 4D807C0E1283061500FDE400 /* GPSGreen.png */;
+	};
+	4D82FCFD128430DF00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67381265F50000F2FFEC /* TrackMap.h */;
+		name = "TrackMap.h: 165";
+		rLen = 0;
+		rLoc = 2880;
+		rType = 0;
+		vrLen = 768;
+		vrLoc = 2573;
+	};
+	4D82FCFE128430DF00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
+		name = "TrackMap.m: 723";
+		rLen = 0;
+		rLoc = 13608;
+		rType = 0;
+		vrLen = 1095;
+		vrLoc = 13612;
+	};
+	4D82FCFF128430DF00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
+		name = "TrackMap.m: 738";
+		rLen = 0;
+		rLoc = 13987;
+		rType = 0;
+		vrLen = 847;
+		vrLoc = 13072;
+	};
+	4D82FD051284321F00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
+		name = "TrackMap.m: 738";
+		rLen = 0;
+		rLoc = 13987;
+		rType = 0;
+		vrLen = 881;
+		vrLoc = 13075;
+	};
+	4D82FD061284321F00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
+		name = "TrackMap.m: 738";
+		rLen = 0;
+		rLoc = 13987;
+		rType = 0;
+		vrLen = 881;
+		vrLoc = 13075;
+	};
+	4D82FD141284367B00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
+		name = "TrackMap.m: 738";
+		rLen = 0;
+		rLoc = 13987;
+		rType = 0;
+		vrLen = 913;
+		vrLoc = 13075;
+	};
+	4D82FD151284367B00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */;
+		name = "RacePadDataHandler.h: 12";
+		rLen = 0;
+		rLoc = 216;
+		rType = 0;
+		vrLen = 810;
+		vrLoc = 69;
+	};
+	4D82FD161284367B00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 23";
+		rLen = 0;
+		rLoc = 390;
+		rType = 0;
+		vrLen = 949;
+		vrLoc = 358;
+	};
+	4D82FD171284367B00F93A2B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 23";
+		rLen = 0;
+		rLoc = 390;
+		rType = 0;
+		vrLen = 947;
+		vrLoc = 360;
+	};
 	4D8596C0127B097800D26E7F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 7F9C12BE12560D0300770746 /* ESRenderer.m */;
@@ -3703,7 +3818,7 @@
 		fRef = 7F9C67381265F50000F2FFEC /* TrackMap.h */;
 		name = "TrackMap.h: 108";
 		rLen = 0;
-		rLoc = 2085;
+		rLoc = 2242;
 		rType = 0;
 		vrLen = 830;
 		vrLoc = 1573;
@@ -3917,7 +4032,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1045, 13988}}";
 			sepNavSelRange = "{11174, 0}";
-			sepNavVisRange = "{10523, 1062}";
+			sepNavVisRange = "{10523, 1059}";
 			sepNavWindowFrame = "{{130, 66}, {1110, 702}}";
 		};
 	};
@@ -4148,16 +4263,16 @@
 	};
 	7F9C67381265F50000F2FFEC /* TrackMap.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 1976}}";
-			sepNavSelRange = "{2085, 0}";
-			sepNavVisRange = "{1573, 830}";
+			sepNavIntBoundsRect = "{{0, 0}, {1045, 2353}}";
+			sepNavSelRange = "{2880, 0}";
+			sepNavVisRange = "{2573, 768}";
 		};
 	};
 	7F9C67391265F50000F2FFEC /* TrackMap.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 10192}}";
-			sepNavSelRange = "{8314, 0}";
-			sepNavVisRange = "{8121, 698}";
+			sepNavIntBoundsRect = "{{0, 0}, {1045, 9542}}";
+			sepNavSelRange = "{13987, 0}";
+			sepNavVisRange = "{13075, 913}";
 			sepNavWindowFrame = "{{38, 150}, {1110, 702}}";
 		};
 	};

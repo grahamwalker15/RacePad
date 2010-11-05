@@ -20,6 +20,17 @@ enum TrackMapLineType {
 	TM_L_TIMING_LINE
 };
 
+enum TrackState {
+	TM_TRACK_GREEN,
+	TM_TRACK_YELLOW,
+	TM_TRACK_SC,
+	TM_TRACK_SCSTBY,
+	TM_TRACK_SCIM,
+	TM_TRACK_RED,
+	TM_TRACK_GRID,
+	TM_TRACK_CHEQUERED,
+};
+
 @interface TrackCar : NSObject
 {
 	UIColor *pointColour;
@@ -151,6 +162,7 @@ enum TrackMapLineType {
 	int carCount;
 	
 	NSMutableArray *segmentStates;
+	int overallTrackState;
 }
 
 @property (nonatomic) float userXOffset;
@@ -167,5 +179,7 @@ enum TrackMapLineType {
 - (void) draw:(TrackMapView *)view;
 
 - (void) constructTransformMatrix : (TrackMapView *) view;
+
+- (int) getTrackState;
 
 @end
