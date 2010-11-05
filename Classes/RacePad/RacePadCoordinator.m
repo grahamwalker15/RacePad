@@ -421,16 +421,20 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) SetServerAddress : (NSString *) server ShowWindow:(BOOL)showWindow
 {
-	[socket_ release];
-	socket_ = [[RacePadClientSocket alloc] CreateSocket];
-	[socket_ ConnectSocket:[server UTF8String] Port:6021];
-	[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
-
-	if ( showWindow )
+	if ( server && [server length] )
 	{
-		// Slightly delay popping up the connect window, just in case we connect really quickly
-		// Which can mean that the window won't pop down
-		[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.2];
+		[socket_ release];
+		socket_ = [[RacePadClientSocket alloc] CreateSocket];
+		
+		[socket_ ConnectSocket:[server UTF8String] Port:6021];
+		[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
+
+		if ( showWindow )
+		{
+			// Slightly delay popping up the connect window, just in case we connect really quickly
+			// Which can mean that the window won't pop down
+			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.2];
+		}
 	}
 }
 
