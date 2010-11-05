@@ -9,6 +9,7 @@
 #import "TrackMapViewController.h"
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadTitleBarController.h"
 #import "RacePadDatabase.h"
 #import "TableDataView.h"
 #import "TrackMapView.h"
@@ -56,8 +57,13 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
+	// Grab the title bar
+	[[RacePadTitleBarController Instance] displayInViewController:self];
+	
+	// Force background refresh
 	[background_view_ RequestRedraw];
 	
+	// Register the views
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
@@ -82,6 +88,7 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[background_view_ RequestRedraw];
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)didReceiveMemoryWarning

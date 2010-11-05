@@ -12,13 +12,14 @@
 #import "ESRenderer.h"
 
 @class TrackMapView;
+@class TrackMapBackgroundView;
 @class TableDataView;
 
 @interface TrackMapViewController : DrawingViewController
 {
 	
 	TrackMapView *trackMapView;
-	IBOutlet DrawingView *background_view_;
+	IBOutlet TrackMapBackgroundView *background_view_;
 	IBOutlet TableDataView *timing_view_;
 	
 }

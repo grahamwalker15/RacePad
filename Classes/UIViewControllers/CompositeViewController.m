@@ -127,6 +127,8 @@
 	[UIView setAnimationDuration:0.75];
 	[[moviePlayer view] setFrame:[movieView bounds]];	
 	[UIView commitAnimations];
+	
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)dealloc

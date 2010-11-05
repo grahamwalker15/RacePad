@@ -11,6 +11,7 @@
 
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadTitleBarController.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
 
@@ -60,6 +61,10 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
+	// Grab the title bar
+	[[RacePadTitleBarController Instance] displayInViewController:self];
+	
+	// Register view
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_DRIVER_LIST_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 }
@@ -77,7 +82,6 @@
     return YES;
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -85,7 +89,6 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-
 
 - (void)viewDidUnload
 {
@@ -95,7 +98,6 @@
 
 	[[RacePadCoordinator Instance] RemoveView:self];
 }
-
 
 - (void)dealloc
 {

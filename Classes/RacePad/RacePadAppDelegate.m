@@ -10,6 +10,7 @@
 #import "RacePadClientSocket.h"
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadTitleBarController.h"
 #import "RacePadPrefs.h"
 
 @implementation RacePadAppDelegate
@@ -29,8 +30,9 @@
 	// Create the co-ordinator
 	[[RacePadCoordinator Instance] onStartUp];
 	
-	// Create the time controller
+	// Create the time controller and title bar controller
 	[[RacePadTimeController Instance] onStartUp];
+	[[RacePadTitleBarController Instance] onStartUp];
 	
 	// Load the prefs
 	[RacePadPrefs Instance];

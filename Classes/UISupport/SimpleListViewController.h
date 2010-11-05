@@ -13,7 +13,6 @@
 
 @interface SimpleListViewController : DrawingViewController
 {
-
 }
 
 - (bool) HandleSelectHeading;

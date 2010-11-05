@@ -9,6 +9,7 @@
 #import "MovieViewController.h"
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadTitleBarController.h"
 
 @implementation MovieViewController
 
@@ -70,13 +71,19 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
+	// Grab the title bar
+	[[RacePadTitleBarController Instance] displayInViewController:self];
+		
+	// Position the movie player
 	[[moviePlayer view] setFrame:[movieView bounds]];
 	[movieView addSubview:[moviePlayer view]];
 	[self.view bringSubviewToFront:overlayView];
 	
+	// Set the play time
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
 
+	// Register the view
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 }
@@ -118,6 +125,8 @@
 	[UIView setAnimationDuration:0.75];
 	[[moviePlayer view] setFrame:[movieView bounds]];	
 	[UIView commitAnimations];
+	
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)dealloc

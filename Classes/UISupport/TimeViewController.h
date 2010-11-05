@@ -16,8 +16,8 @@
 	IBOutlet UISlider * timeSlider;
 }
 
-@property (readonly, retain) UIBarButtonItem * playButton;
-@property (readonly, retain) UISlider * timeSlider;
-@property (readonly, retain) UIButton * clock;
+@property (readonly) UIBarButtonItem * playButton;
+@property (readonly) UISlider * timeSlider;
+@property (readonly) UIButton * clock;
 
 @end

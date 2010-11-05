@@ -59,6 +59,10 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{	
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
 
 - (void)dealloc
 {
