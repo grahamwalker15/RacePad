@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "RacePadViewController.h"
+#import "SettingsViewController.h"
 
 
 @class RacePadClientSocket;
 @class RacePadDataHandler;
 @class ElapsedTime;
 @class DownloadProgress;
+@class ServerConnect;
+@class WorkOffline;
 
 // View types
 enum ViewTypes
@@ -82,6 +85,10 @@ enum ConnectionTypes
 	int registeredViewControllerTypeMask;
 	
 	DownloadProgress *downloadProgress;
+	ServerConnect *serverConnect;
+	WorkOffline *workOffline;
+	SettingsViewController *settingsViewController;
+	bool firstView;
 	
 	RacePadClientSocket * socket_;
 	
@@ -107,6 +114,7 @@ enum ConnectionTypes
 @property (nonatomic) float endTime;
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
+@property (retain) SettingsViewController *settingsViewController;
 
 +(RacePadCoordinator *)Instance;
 
@@ -122,9 +130,14 @@ enum ConnectionTypes
 -(void)jumpToTime:(float)time;
 
 -(void)serverConnected:(BOOL)ok;
--(void)SetServerAddress:(NSString *)server;
--(void)ConnectSocket;
+-(BOOL)serverConnected;
+-(void)SetServerAddress:(NSString *)server ShowWindow:(BOOL)showWindow;
 -(void)Connected;
+-(void)Disconnected;
+-(void) connectionTimeout;
+
+-(void) goOffline;
+-(void) setArchive:(NSString *)event Session:(NSString *)session;
 
 -(void) prepareToPlayFromSocket;
 -(void) showSnapshotFromSocket;

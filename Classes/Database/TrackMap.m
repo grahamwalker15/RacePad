@@ -496,6 +496,7 @@
 	[inner clear];
 	[outer clear];
 	[lines removeAllObjects];
+	[labels removeAllObjects];
 	
 	width = 0.0;
 	height = 0.0;

@@ -17,7 +17,7 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		[self setModalPresentationStyle:UIModalPresentationFormSheet];
     }
     return self;
 }

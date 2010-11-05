@@ -19,6 +19,11 @@
 	[[RacePadCoordinator Instance] Connected];
 }
 
+- (void) Disconnected 
+{
+	[[RacePadCoordinator Instance] Disconnected];
+}
+
 - (void) SimpleCommand: (int) command
 {
 	uint32_t int_data[2];

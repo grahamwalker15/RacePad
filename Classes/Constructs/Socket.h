@@ -63,9 +63,11 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 
 - (void)OnConnect:(CFSocketRef) socket_ref Error:(CFSocketError) error;
 - (void)OnReceive:(CFSocketRef) socket_ref Data:(CFDataRef)data;
+- (void)OnDisconnect;
 
 - (int)InqStatus;
 - (void)Connected;
+- (void)Disconnected;
 - (DataHandler *) constructDataHandler;
 
 @end

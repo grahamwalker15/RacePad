@@ -10,7 +10,7 @@
 #import "RacePadClientSocket.h"
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
-
+#import "RacePadPrefs.h"
 
 @implementation RacePadAppDelegate
 
@@ -31,6 +31,9 @@
 	
 	// Create the time controller
 	[[RacePadTimeController Instance] onStartUp];
+	
+	// Load the prefs
+	[RacePadPrefs Instance];
 	
     // Add the tab bar controller's current view as a subview of the window
     [window addSubview:tabBarController.view];
@@ -56,12 +59,9 @@
      */
 }
 
-
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    /*
-     Called when the application is about to terminate.
-     */
+	[[RacePadPrefs Instance] save];
 }
 
 

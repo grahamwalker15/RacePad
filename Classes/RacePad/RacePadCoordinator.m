@@ -15,6 +15,9 @@
 #import "RacePadDatabase.h"
 #import "MovieViewController.h"
 #import "DownloadProgress.h"
+#import "ServerConnect.h"
+#import "WorkOffline.h"
+#import "RacePadPrefs.h"
 
 @implementation RacePadCoordinator
 
@@ -24,6 +27,7 @@
 @synthesize endTime;
 @synthesize needsPlayRestart;
 @synthesize playing;
+@synthesize settingsViewController;
 
 static RacePadCoordinator * instance_ = nil;
 
@@ -55,8 +59,9 @@ static RacePadCoordinator * instance_ = nil;
 		registeredViewController = nil;
 		registeredViewControllerTypeMask = 0;
 		
-		connectionType = RPC_ARCHIVE_CONNECTION_; //RPC_NO_CONNECTION_;
-		[self ConnectSocket];
+		connectionType = RPC_NO_CONNECTION_;
+		
+		firstView = true;
 	}
 	
 	return self;
@@ -72,12 +77,27 @@ static RacePadCoordinator * instance_ = nil;
 	[registeredViewController release];
 	[sessionFolder release];
 	[downloadProgress release];
+	[serverConnect release];
+	[WorkOffline release];
+	[settingsViewController release];
     [super dealloc];
 }
 
 - (void) onStartUp
 {
-	[self loadSession:@"/08_29Spa" Session:@"/Race"];
+}
+
+- (void) onDisplayFirstView
+{
+	NSNumber *ctype= [[RacePadPrefs Instance] getPref:@"connectionType"];
+	if ( [ctype intValue] == RPC_SOCKET_CONNECTION_ )
+	{
+		NSString *address = [[RacePadPrefs Instance] getPref:@"preferredServerAddress"];
+		if ( [address length] > 0 )
+			[self SetServerAddress: address ShowWindow:YES];
+	}
+	else
+		[self goOffline];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -156,6 +176,9 @@ static RacePadCoordinator * instance_ = nil;
 	if(connectionType == type)
 		return;
 	
+	bool play = playing || needsPlayRestart;
+	[self stopPlay];
+	
 	// If we're moving to archive, make the data handlers
 	// If we're moving away from archive, delete them
 	if(connectionType == RPC_ARCHIVE_CONNECTION_)
@@ -164,6 +187,20 @@ static RacePadCoordinator * instance_ = nil;
 		[self CreateDataSources];
 	
 	connectionType = type;
+	
+	if ( play )
+	{
+		if ( connectionType == RPC_NO_CONNECTION_ )
+			needsPlayRestart = true;
+		else
+		{
+			[self prepareToPlay];
+			[self startPlay];
+		}
+	}
+	
+	[settingsViewController updateConnectionType];
+	[[RacePadPrefs Instance]setPref:@"connectionType" Value:[NSNumber numberWithInt: connectionType]];
 }
 
 -(void)prepareToPlay
@@ -282,14 +319,20 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) loadSession: (NSString *)event Session: (NSString *)session
 {
-	[self loadRPF: @"/race_pad.rpf"];
+	[self setConnectionType:RPC_NO_CONNECTION_];
+	[self loadRPF: @"race_pad.rpf"];
 	
-	NSString *eventFile = [event stringByAppendingString:@"/event.rpf"];
+	NSString *eventFile = [event stringByAppendingPathComponent:@"event.rpf"];
 	[self loadRPF:eventFile];
 	
-	sessionFolder = [[event stringByAppendingString:session] retain];
-	NSString *sessionFile = [event stringByAppendingString:@"/session.rpf"];
+	sessionFolder = [[event stringByAppendingPathComponent:session] retain];
+	NSString *sessionFile = [event stringByAppendingPathComponent:@"session.rpf"];
 	[self loadRPF:sessionFile];
+	
+	[[RacePadPrefs Instance] setPref:@"preferredEvent" Value:event ];
+	[[RacePadPrefs Instance] setPref:@"preferredSession" Value:session];
+	
+	[self setConnectionType:RPC_ARCHIVE_CONNECTION_];
 }
 
 -(NSString *)getVideoArchiveName
@@ -297,10 +340,10 @@ static RacePadCoordinator * instance_ = nil;
 	// Get base folder
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *rootFolder = [paths objectAtIndex:0];
-	NSString *folder = [rootFolder stringByAppendingString:sessionFolder];
+	NSString *folder = [rootFolder stringByAppendingPathComponent:sessionFolder];
 
 	// Try first with m4v extension
-	NSString *fileName = [folder stringByAppendingString:@"/video.m4v"];
+	NSString *fileName = [folder stringByAppendingPathComponent:@"video.m4v"];
 	
 	// check whether it exists
 	FILE * f;
@@ -311,7 +354,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	// If this fails, try with mp4 extension
-	fileName = [folder stringByAppendingString:@"/video.mp4"];
+	fileName = [folder stringByAppendingPathComponent:@"video.mp4"];
 	if(f = fopen ( [fileName UTF8String], "rb" ))
 	{
 	   fclose(f);
@@ -336,31 +379,82 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ RequestDriverHelmets];
 		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
+
+		[serverConnect popDown];
 	}
 	else
 	{
 		[socket_ release];
 		socket_ = nil;
 		
-		[self setConnectionType:RPC_SOCKET_CONNECTION_];
+		[self setConnectionType:RPC_NO_CONNECTION_];
+		
+		[serverConnect badVersion];
 	}
-	// FIXME - would be nice to let the user know one way or the other
+	[settingsViewController updateServerState];
 }
 
-- (void) ConnectSocket
+- (void) connectionTimeout
 {
-	// Create the socket
+	[socket_ release];
+	socket_ = nil;
+	
+	[self setConnectionType:RPC_NO_CONNECTION_];
+	[settingsViewController updateServerState];
+}
+
+-(BOOL) serverConnected
+{
+	return socket_ != nil;
+}
+
+- (void) showConnecting
+{
+	if ( socket_ != nil
+	  && connectionType != RPC_SOCKET_CONNECTION_ )
+	{
+		if ( serverConnect == nil )
+			serverConnect = [[ServerConnect alloc] initWithNibName:@"ServerConnect" bundle:nil];
+		[registeredViewController presentModalViewController:serverConnect animated:YES];
+	}
+}
+
+- (void) SetServerAddress : (NSString *) server ShowWindow:(BOOL)showWindow
+{
+	[socket_ release];
 	socket_ = [[RacePadClientSocket alloc] CreateSocket];
+	[socket_ ConnectSocket:[server UTF8String] Port:6021];
+	[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
+
+	if ( showWindow )
+	{
+		// Slightly delay popping up the connect window, just in case we connect really quickly
+		// Which can mean that the window won't pop down
+		[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.2];
+	}
 }
 
-- (void) SetServerAddress : (NSString *) server
-{
-	[socket_ ConnectSocket:[server UTF8String] Port:6021];
-}
 
 - (void) Connected
 {
 	[socket_ RequestVersion];
+}
+
+- (void) Disconnected
+{
+	[socket_ release];
+	socket_ = nil;
+	
+	[self setConnectionType:RPC_NO_CONNECTION_];
+	[self SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+	[settingsViewController updateServerState];
+}
+
+- (void) goOffline
+{
+	if ( workOffline == nil )
+		workOffline = [[WorkOffline alloc] initWithNibName:@"WorkOffline" bundle:nil];
+	[registeredViewController presentModalViewController:workOffline animated:YES];
 }
 
 -(void)prepareToPlayFromSocket
@@ -459,6 +553,13 @@ static RacePadCoordinator * instance_ = nil;
 		
 	if([time_controller displayed])
 		[time_controller displayInViewController:view_controller Animated:false];
+	
+	// The first time a viewController becomes active, we can use it to display the re-connect modal dialog
+	if ( firstView )
+	{
+		firstView = false;
+		[self onDisplayFirstView];
+	}
 }
 
 -(void)ReleaseViewController:(UIViewController *)view_controller
@@ -750,23 +851,23 @@ static RacePadCoordinator * instance_ = nil;
 	NSString * file;
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
-		file = @"/timing.rpf";
+		file = @"timing.rpf";
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
 		if(parameter && [parameter length] > 0 )
 		{
-			NSString *s1 = @"/driver_";
+			NSString *s1 = @"driver_";
 			NSString *s2 = [s1 stringByAppendingString:parameter];
 			file = [s2 stringByAppendingString:@".rpf"];
 		}
 	}
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
-		file = @"/cars.rpf";
+		file = @"cars.rpf";
 	}
 	
-	NSString *fileName = [sessionFolder stringByAppendingString:file];
+	NSString *fileName = [sessionFolder stringByAppendingPathComponent:file];
 	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName];
 	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
 	[dataSources addObject:rpc_source];

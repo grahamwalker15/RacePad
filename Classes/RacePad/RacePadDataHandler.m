@@ -28,7 +28,7 @@
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
-	NSString *fileName = [folder stringByAppendingString:path];
+	NSString *fileName = [folder stringByAppendingPathComponent:path];
 	
 	if ( self = [super initWithPath:fileName] )
 	{
@@ -219,10 +219,8 @@
 			
 			NSString *folder = [stream PopString];
 			NSString *name = [stream PopString];
-			NSString *fileName = [docsFolder stringByAppendingString:@"/"];
-			fileName = [fileName stringByAppendingString:folder];
-			fileName = [fileName stringByAppendingString:@"/"];
-			fileName = [fileName stringByAppendingString:name];
+			NSString *fileName = [docsFolder stringByAppendingPathComponent:folder];
+			fileName = [fileName stringByAppendingPathComponent:name];
 			
 			saveFile = fopen ( [fileName UTF8String], "wb" );
 			saveFileName = [fileName retain];
@@ -270,8 +268,7 @@
 			
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 			NSString *docsFolder = [paths objectAtIndex:0];
-			NSString *fileName = [docsFolder stringByAppendingString:@"/"];
-			fileName = [fileName stringByAppendingString:folder];
+			NSString *fileName = [docsFolder stringByAppendingPathComponent:folder];
 			
 			NSFileManager *fm = [[NSFileManager alloc]init];
 			[fm setDelegate:self];

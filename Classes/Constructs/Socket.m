@@ -49,7 +49,9 @@
 		CFRunLoopRemoveSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
 	}
 	
-	CFRelease(run_loop_source_);
+	if ( run_loop_source_ )
+		CFRelease(run_loop_source_);
+	CFSocketInvalidate(socket_ref_);
 	CFRelease(socket_ref_);
 	//KillReconnectTimer();
 }
@@ -82,7 +84,7 @@
 
 		CFDataRef cf_server_address = CFDataCreate (NULL, (const UInt8 *) &socket_address, sizeof(struct sockaddr_in));
 		if(cf_server_address)
-		{								
+		{
 			CFSocketError error = CFSocketConnectToAddress (socket_ref_, cf_server_address, -1);
 			
 			if(error == kCFSocketSuccess)
@@ -93,6 +95,11 @@
 					CFRunLoopAddSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
 				}
 			}
+			else
+			{
+				[self OnDisconnect];
+			}
+
 		}
 													
 		CFRelease(cf_server_address);
@@ -109,11 +116,23 @@
 	}
 }
 
+- (void)OnDisconnect
+{
+	status_ = SOCKET_ERROR_;
+	[self Disconnected];
+}
+
 - (void)OnReceive: (CFSocketRef) socket_ref Data:(CFDataRef)data
 {
 	// Get size of data
 	CFIndex data_size = CFDataGetLength(data);
 	UInt8 * byte_ptr = (UInt8 *)CFDataGetBytePtr(data);
+	
+	if ( data_size == 0 )
+	{
+		[self OnDisconnect];
+		return;
+	}
 	
 	while ( data_size > 0 )
 	{
@@ -185,6 +204,11 @@
 	// Override me
 }
 
+- (void) Disconnected
+{
+	// Override me
+}
+
 - (int) InqStatus
 {
 	return status_;
@@ -210,33 +234,40 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 		return;
 	
 	Socket *owner = (Socket *)info;
-		
-	switch (callbackType)
-	{
-		case kCFSocketNoCallBack:
-			break;
-		case kCFSocketReadCallBack:
-			break;
-		case kCFSocketAcceptCallBack:
-			break;
-		case kCFSocketDataCallBack:
-			{				
-				// Pass on to owner of socket
-				[owner OnReceive:s Data:data];
-			}
-			break;
-		case kCFSocketConnectCallBack:
-			{
-				// Get error code from data
-				CFSocketError error = (SInt32)data;
-				
-				// Pass on to owner of socket
-				[owner OnConnect:s Error:error];
-			}
-			break;
-		case kCFSocketWriteCallBack:
-			break;
-		default:
-			break;
-    }
+
+	if ( CFSocketIsValid(s) )
+	{		
+		switch (callbackType)
+		{
+			case kCFSocketNoCallBack:
+				break;
+			case kCFSocketReadCallBack:
+				break;
+			case kCFSocketAcceptCallBack:
+				break;
+			case kCFSocketDataCallBack:
+				{				
+					// Pass on to owner of socket
+					[owner OnReceive:s Data:data];
+				}
+				break;
+			case kCFSocketConnectCallBack:
+				{
+					// Get error code from data
+					CFSocketError error = (SInt32)data;
+					
+					// Pass on to owner of socket
+					[owner OnConnect:s Error:error];
+				}
+				break;
+			case kCFSocketWriteCallBack:
+				break;
+			default:
+				break;
+		}
+	}
+	else {
+		[owner OnDisconnect];
+	}
+
 }
