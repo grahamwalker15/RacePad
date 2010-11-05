@@ -46,6 +46,7 @@
 		7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246A21284471E009A9D4F /* MGPLogo.png */; };
 		7F6246A612844742009A9D4F /* RacePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */; };
 		7F6246A912844762009A9D4F /* TitleBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A812844762009A9D4F /* TitleBarViewController.m */; };
+		7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246DC12844D6F009A9D4F /* TitleBarView.xib */; };
 		7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; };
 		7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; };
 		7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
@@ -150,6 +151,7 @@
 		7F6246A512844742009A9D4F /* RacePadTitleBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTitleBarController.m; sourceTree = "<group>"; };
 		7F6246A712844762009A9D4F /* TitleBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleBarViewController.h; sourceTree = "<group>"; };
 		7F6246A812844762009A9D4F /* TitleBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleBarViewController.m; sourceTree = "<group>"; };
+		7F6246DC12844D6F009A9D4F /* TitleBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TitleBarView.xib; path = ResourceFiles/TitleBarView.xib; sourceTree = "<group>"; };
 		7F6E7D941276ED540073A644 /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
 		7F6E7D951276ED540073A644 /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverLapListController.h; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
 				7F6246A21284471E009A9D4F /* MGPLogo.png */,
 				7F068125126DDA6800C9EE5D /* clock.png */,
 				7F6244F21282EFB5009A9D4F /* CompositeView.xib */,
@@ -530,6 +533,7 @@
 				4D807CF512832B3400FDE400 /* ServerConnect.xib in Resources */,
 				4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */,
 				7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */,
+				7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
