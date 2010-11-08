@@ -13,6 +13,7 @@
 
 	IBOutlet UILabel *eventName;
 	IBOutlet UILabel *sessionName;
+	IBOutlet UILabel *progressValue;
 	IBOutlet UIProgressView *progressView;
 	IBOutlet UIButton * cancelButton;
 	
