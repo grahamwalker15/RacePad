@@ -421,20 +421,20 @@
 		7F9C1AD4125B7B6B00770746 /* RacePad */ = {
 			isa = PBXGroup;
 			children = (
-				7F6246A412844742009A9D4F /* RacePadTitleBarController.h */,
-				7F6246A512844742009A9D4F /* RacePadTitleBarController.m */,
-				4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */,
-				4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */,
 				7F9C1ADE125B7BD000770746 /* RacePadAppDelegate.h */,
 				7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */,
 				7F9C1AF2125B7D5900770746 /* RacePadClientSocket.h */,
 				7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */,
 				7F32763012634AB000BD1627 /* RacePadCoordinator.h */,
 				7F32763112634AB000BD1627 /* RacePadCoordinator.m */,
-				7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */,
-				7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */,
+				4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */,
+				4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */,
 				4D807C6012831A8100FDE400 /* RacePadPrefs.h */,
 				4D807C6112831A8100FDE400 /* RacePadPrefs.m */,
+				7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */,
+				7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */,
+				7F6246A412844742009A9D4F /* RacePadTitleBarController.h */,
+				7F6246A512844742009A9D4F /* RacePadTitleBarController.m */,
 			);
 			path = RacePad;
 			sourceTree = "<group>";
@@ -442,16 +442,16 @@
 		7F9C1B75125CA10A00770746 /* UISupport */ = {
 			isa = PBXGroup;
 			children = (
-				7F6246A712844762009A9D4F /* TitleBarViewController.h */,
-				7F6246A812844762009A9D4F /* TitleBarViewController.m */,
-				7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */,
-				7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */,
 				7FBDF8FB12648507009D37FA /* DrawingViewController.h */,
 				7FBDF8FC12648507009D37FA /* DrawingViewController.m */,
-				7F6E7D941276ED540073A644 /* TimeViewController.h */,
-				7F6E7D951276ED540073A644 /* TimeViewController.m */,
 				7F62357A127B2018009A9D4F /* RacePadViewController.h */,
 				7F62357B127B2018009A9D4F /* RacePadViewController.m */,
+				7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */,
+				7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */,
+				7F6E7D941276ED540073A644 /* TimeViewController.h */,
+				7F6E7D951276ED540073A644 /* TimeViewController.m */,
+				7F6246A712844762009A9D4F /* TitleBarViewController.h */,
+				7F6246A812844762009A9D4F /* TitleBarViewController.m */,
 			);
 			path = UISupport;
 			sourceTree = "<group>";

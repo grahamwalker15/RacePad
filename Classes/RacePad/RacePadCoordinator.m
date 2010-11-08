@@ -326,7 +326,7 @@ static RacePadCoordinator * instance_ = nil;
 	[self loadRPF:eventFile];
 	
 	sessionFolder = [[event stringByAppendingPathComponent:session] retain];
-	NSString *sessionFile = [event stringByAppendingPathComponent:@"session.rpf"];
+	NSString *sessionFile = [sessionFolder stringByAppendingPathComponent:@"session.rpf"];
 	[self loadRPF:sessionFile];
 	
 	[[RacePadPrefs Instance] setPref:@"preferredEvent" Value:event ];

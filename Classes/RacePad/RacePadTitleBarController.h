@@ -22,5 +22,6 @@
 - (void) hide;
 
 - (void) updateClock:(float)time;
+- (void) setEventName: (NSString *)event;
 
 @end

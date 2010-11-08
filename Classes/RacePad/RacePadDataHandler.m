@@ -11,6 +11,7 @@
 #import "DataStream.h"
 #include "RacePadCoordinator.h"
 #include "RacePadDatabase.h"
+#include "RacePadTitleBarController.h"
 #import "TrackMap.h"
 
 @implementation RacePadDataHandler
@@ -173,6 +174,7 @@
 			RacePadDatabase *database = [RacePadDatabase Instance];
 			NSString *string = [stream PopString];
 			[ database setEventName:string];
+			[[RacePadTitleBarController Instance] setEventName:string];
 			break;
 		}
 		case RPSC_TRACK_MAP_: // Track Map

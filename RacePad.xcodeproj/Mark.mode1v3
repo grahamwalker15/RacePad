@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -271,21 +269,21 @@
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>7F3276EE126379B000BD1627</string>
 								<string>7F9C1AD4125B7B6B00770746</string>
-								<string>7F9C10D71255E68B00770746</string>
-								<string>29B97317FDCFA39411CA2CEA</string>
+								<string>7F9C1B75125CA10A00770746</string>
 								<string>1C37FABC05509CD000000102</string>
 								<string>E2644B35053B69B200211256</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>60</integer>
-									<integer>59</integer>
+									<integer>18</integer>
+									<integer>12</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 411}, {285, 682}}</string>
+							<string>{{0, 0}, {285, 682}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -317,12 +315,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>DownloadProgress.m</string>
+								<string>RacePadCoordinator.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -330,17 +330,16 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>DownloadProgress.m</string>
+										<string>RacePadCoordinator.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4DA8E3FD128843B100610129</string>
+										<string>4DA8E44512884F5500610129</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
 											<string>4DB39011126DE057009DA232</string>
 											<string>4DB39012126DE057009DA232</string>
-											<string>4D757E80127055D800E32C41</string>
 											<string>4D549CEF1271ADE200CA6087</string>
 											<string>4D549D441271C29600CA6087</string>
 											<string>4D549D66127203E000CA6087</string>
@@ -412,13 +411,18 @@
 											<string>4DA8E3C21288087E00610129</string>
 											<string>4DA8E3C41288087E00610129</string>
 											<string>4DA8E3DA128828E100610129</string>
-											<string>4DA8E3DB128828E100610129</string>
 											<string>4DA8E3DC128828E100610129</string>
 											<string>4DA8E3DD128828E100610129</string>
-											<string>4DA8E3DE128828E100610129</string>
 											<string>4DA8E3DF128828E100610129</string>
 											<string>4DA8E3F41288420200610129</string>
-											<string>4DA8E3F51288420200610129</string>
+											<string>4DA8E404128844C800610129</string>
+											<string>4DA8E405128844C800610129</string>
+											<string>4DA8E408128844C800610129</string>
+											<string>4DA8E41B128846DD00610129</string>
+											<string>4DA8E43A12884EB900610129</string>
+											<string>4DA8E43B12884EB900610129</string>
+											<string>4DA8E44312884F5500610129</string>
+											<string>4DA8E44412884F5500610129</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -616,6 +620,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>4DA8E44612884F5500610129</string>
 		<string>4DA8E3901287FC1400610129</string>
 		<string>4DA8E3921287FC1400610129</string>
 		<string>1C78EAAD065D492600B07095</string>
@@ -838,7 +843,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
