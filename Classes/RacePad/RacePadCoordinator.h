@@ -137,7 +137,6 @@ enum ConnectionTypes
 -(void) connectionTimeout;
 
 -(void) goOffline;
--(void) setArchive:(NSString *)event Session:(NSString *)session;
 
 -(void) prepareToPlayFromSocket;
 -(void) showSnapshotFromSocket;

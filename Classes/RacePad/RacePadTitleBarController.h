@@ -12,6 +12,8 @@
 @interface RacePadTitleBarController : NSObject
 {
 	TitleBarViewController * titleBarController;
+	
+	int lapCount;
 }
 
 + (RacePadTitleBarController *)Instance;
@@ -23,5 +25,7 @@
 
 - (void) updateClock:(float)time;
 - (void) setEventName: (NSString *)event;
+- (void) setLapCount: (int)count;
+- (void) setCurrentLap: (int)lap;
 
 @end

@@ -224,8 +224,6 @@
 			NSString *fileName = [docsFolder stringByAppendingPathComponent:folder];
 			fileName = [fileName stringByAppendingPathComponent:name];
 			
-			fprintf ( logFile, "File download %s\n", [fileName UTF8String] );
-
 			saveFile = fopen ( [fileName UTF8String], "wb" );
 			saveFileName = [fileName retain];
 			saveChunks = [stream PopInt];
@@ -261,8 +259,6 @@
 				saveFileName = nil;
 			}
 			saveFile = nil;
-			fprintf ( logFile, "File complete\n" );
-			fflush(logFile);
 			break;
 		}
 		case RPSC_PROJECT_START_: // Project Folder
@@ -275,11 +271,6 @@
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 			NSString *docsFolder = [paths objectAtIndex:0];
 			NSString *fileName = [docsFolder stringByAppendingPathComponent:folder];
-			
-			NSString *logFileName = [docsFolder stringByAppendingPathComponent:@"Log.txt"];
-			logFile = fopen([logFileName UTF8String], "wt" );
-			fprintf ( logFile, "Starting project download %s\n", [fileName UTF8String] );
-			fflush(logFile);
 			
 			NSFileManager *fm = [[NSFileManager alloc]init];
 			[fm setDelegate:self];
@@ -306,8 +297,6 @@
 		}
 		case RPSC_CANCEL_PROJECT_: // Cancel Project Send
 		{
-			fprintf ( logFile, "File cancelled\n" );
-			fclose(logFile);
 			if ( saveFile != nil )
 			{
 				fclose(saveFile);
@@ -324,9 +313,19 @@
 		}
 		case RPSC_COMPLETE_PROJECT_: // Cancel Project Send
 		{
-			fprintf ( logFile, "Project complete\n" );
-			fclose(logFile);
 			[[RacePadCoordinator Instance] projectDownloadComplete];
+			break;
+		}
+		case RPSC_LAP_COUNT_:
+		{
+			int count = [stream PopInt];
+			[[RacePadTitleBarController Instance] setLapCount:count];
+			break;
+		}
+		case RPSC_LAP_COUNTER_:
+		{
+			int lap = [stream PopInt];
+			[[RacePadTitleBarController Instance] setCurrentLap:lap];
 			break;
 		}
 		default:

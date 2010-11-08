@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="16"/>
+			<integer value="42"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -76,7 +76,7 @@
 					<object class="IBUIButton" id="326770635">
 						<reference key="NSNextResponder" ref="869578354"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{205, 5}, {388, 35}}</string>
+						<string key="NSFrame">{{193, 5}, {288, 35}}</string>
 						<reference key="NSSuperview" ref="869578354"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -94,6 +94,25 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
+					</object>
+					<object class="IBUIButton" id="855333708">
+						<reference key="NSNextResponder" ref="869578354"/>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{518, 10}, {114, 25}}</string>
+						<reference key="NSSuperview" ref="869578354"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIFont" ref="673861892"/>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Lap 77 of 95</string>
+						<reference key="IBUIHighlightedTitleColor" ref="550262507"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="625505119"/>
 					</object>
 					<object class="IBUIButton" id="299696869">
 						<reference key="NSNextResponder" ref="869578354"/>
@@ -144,6 +163,11 @@
 						<reference key="IBUIToolbar" ref="869578354"/>
 						<int key="IBUISystemItemIdentifier">5</int>
 					</object>
+					<object class="IBUIBarButtonItem" id="1064470173">
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<reference key="IBUICustomView" ref="855333708"/>
+						<reference key="IBUIToolbar" ref="869578354"/>
+					</object>
 					<object class="IBUIBarButtonItem" id="887977418">
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUICustomView" ref="299696869"/>
@@ -187,6 +211,14 @@
 					</object>
 					<int key="connectionID">36</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lapCounter</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="855333708"/>
+					</object>
+					<int key="connectionID">44</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -218,6 +250,7 @@
 							<reference ref="678082182"/>
 							<reference ref="887977418"/>
 							<reference ref="577520824"/>
+							<reference ref="1064470173"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -273,6 +306,20 @@
 						<reference key="object" ref="577520824"/>
 						<reference key="parent" ref="869578354"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">42</int>
+						<reference key="object" ref="1064470173"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="855333708"/>
+						</object>
+						<reference key="parent" ref="869578354"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">43</int>
+						<reference key="object" ref="855333708"/>
+						<reference key="parent" ref="1064470173"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -286,9 +333,11 @@
 					<string>16.IBViewBoundsToFrameTransform</string>
 					<string>25.IBPluginDependency</string>
 					<string>27.IBPluginDependency</string>
+					<string>27.IBViewBoundsToFrameTransform</string>
 					<string>29.IBPluginDependency</string>
 					<string>30.IBPluginDependency</string>
 					<string>32.IBPluginDependency</string>
+					<string>43.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -300,6 +349,10 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwigAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUN6AABAoAAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -322,7 +375,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">44</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -336,10 +389,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>clock</string>
 							<string>eventName</string>
+							<string>lapCounter</string>
 							<string>sponsorButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -351,6 +406,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>clock</string>
 							<string>eventName</string>
+							<string>lapCounter</string>
 							<string>sponsorButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -361,6 +417,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">eventName</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">lapCounter</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -646,7 +706,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">MGPLogo.png</string>
-			<string key="NS.object.0">{229, 47}</string>
+			<string key="NS.object.0">{147, 32}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">123</string>
 	</data>

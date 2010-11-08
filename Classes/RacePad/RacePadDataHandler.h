@@ -27,6 +27,8 @@ enum ServerCommands {
 	RPSC_ACCEPT_PUSH_DATA_, // 14
 	RPSC_CANCEL_PROJECT_, // 15
 	RPSC_COMPLETE_PROJECT_, // 16
+	RPSC_LAP_COUNT_, // 17
+	RPSC_LAP_COUNTER_, // 18
 };
 
 @interface RacePadDataHandler : DataHandler
@@ -45,8 +47,6 @@ enum ServerCommands {
 	int indexSize;
 	int indexBase;
 	int indexStep;
-	
-	FILE *logFile;
 	
 }
 

@@ -13,10 +13,12 @@
 	IBOutlet UIButton * sponsorButton;
 	IBOutlet UIButton * clock;
 	IBOutlet UIButton * eventName;
+	IBOutlet UIButton * lapCounter;
 }
 
 @property (readonly) UIButton * sponsorButton;
 @property (readonly) UIButton * clock;
 @property (readonly) UIButton * eventName;
+@property (readonly) UIButton * lapCounter;
 
 @end

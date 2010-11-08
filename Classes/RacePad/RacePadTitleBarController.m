@@ -27,6 +27,8 @@ static RacePadTitleBarController * instance_ = nil;
 	if(self = [super init])
 	{	
 		titleBarController = [[TitleBarViewController alloc] initWithNibName:@"TitleBarView" bundle:nil];
+		
+		lapCount = 0;
 	}
 	
 	return self;
@@ -81,6 +83,30 @@ static RacePadTitleBarController * instance_ = nil;
 {
 	[[titleBarController eventName] setTitle:event forState:UIControlStateNormal];
 }
+
+- (void) setLapCount: (int)count
+{
+	lapCount = count;
+	[[titleBarController lapCounter] setHidden:YES];
+}
+
+- (void) setCurrentLap: (int)count
+{
+	if (lapCount )
+	{
+		NSNumber *i = [NSNumber numberWithInt:count];
+		NSNumber *c = [NSNumber	numberWithInt:lapCount];
+		NSString *s = @"Lap ";
+		s = [s stringByAppendingString:[i stringValue]];
+		s = [s stringByAppendingString:@" of "];
+		s = [s stringByAppendingString:[c stringValue]];
+		[[titleBarController lapCounter] setTitle:s forState:UIControlStateNormal];
+		[[titleBarController lapCounter] setHidden:NO];
+	}
+	else
+		[[titleBarController lapCounter] setHidden:YES];
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////
 // Actions

@@ -834,6 +834,15 @@ static RacePadCoordinator * instance_ = nil;
 // Registration etc. of data handlers for archive play
 ////////////////////////////////////////////////////////////////////////////////////////
 
+-(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
+{
+	NSString *fileName = [sessionFolder stringByAppendingPathComponent:file];
+	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName];
+	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
+	[dataSources addObject:rpc_source];
+	[rpc_source release];
+}
+
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
 {
 	// There are no data sources for video or settings types, so ignore calls with this type
@@ -852,30 +861,26 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	// Reach here if it wasn't found - so we'll add a new one
-	NSString * file;
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
-		file = @"timing.rpf";
+		[self AddDataSourceWithType:type AndFile: @"timing.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"lap_count.rpf"];
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
 		if(parameter && [parameter length] > 0 )
 		{
-			NSString *s1 = @"driver_";
-			NSString *s2 = [s1 stringByAppendingString:parameter];
-			file = [s2 stringByAppendingString:@".rpf"];
+			NSString *s = @"driver_";
+			s = [s stringByAppendingString:parameter];
+			s = [s stringByAppendingString:@".rpf"];
+			[self AddDataSourceWithType:type AndFile: s];
 		}
 	}
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
-		file = @"cars.rpf";
+		[self AddDataSourceWithType:type AndFile: @"cars.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"lap_count.rpf"];
 	}
-	
-	NSString *fileName = [sessionFolder stringByAppendingPathComponent:file];
-	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName];
-	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
-	[dataSources addObject:rpc_source];
-	[rpc_source release];
 }
 
 -(void)RemoveDataSourceWithType:(int)type
