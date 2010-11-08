@@ -86,6 +86,9 @@
 	// Register the view
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
+
+	// We disable the screen locking - because that seems to close the socket
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -96,6 +99,9 @@
 	
 	[moviePlayer stop];
 	[[moviePlayer view] removeFromSuperview];
+
+	// re-enable the screen locking
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

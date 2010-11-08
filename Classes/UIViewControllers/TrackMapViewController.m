@@ -67,6 +67,9 @@
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	//[[RacePadCoordinator Instance] SetViewDisplayed:timing_view_];
+
+	// We disable the screen locking - because that seems to close the socket
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -77,6 +80,9 @@
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[background_view_ ReleaseBackground];
+
+	// re-enable the screen locking
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 // Override to allow orientations other than the default portrait orientation.

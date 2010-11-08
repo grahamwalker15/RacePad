@@ -46,6 +46,8 @@ enum ServerCommands {
 	int indexBase;
 	int indexStep;
 	
+	FILE *logFile;
+	
 }
 
 - (id) init;

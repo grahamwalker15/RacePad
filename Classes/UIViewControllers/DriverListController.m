@@ -67,6 +67,9 @@
 	// Register view
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_DRIVER_LIST_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
+	
+	// We disable the screen locking - because that seems to close the socket
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -74,6 +77,9 @@
 	[self HideDriverLapList];
 	[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
+	
+	// re-enable the screen locking
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

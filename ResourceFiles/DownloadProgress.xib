@@ -131,6 +131,22 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 					</object>
+					<object class="IBUILabel" id="323763820">
+						<reference key="NSNextResponder" ref="970943354"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{189, 113}, {42, 21}}</string>
+						<reference key="NSSuperview" ref="970943354"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<string key="IBUIText">25%</string>
+						<reference key="IBUITextColor" ref="313220797"/>
+						<reference key="IBUIHighlightedColor" ref="825523081"/>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<float key="IBUIMinimumFontSize">10</float>
+					</object>
 				</object>
 				<string key="NSFrameSize">{419, 220}</string>
 				<reference key="NSSuperview"/>
@@ -196,6 +212,14 @@
 					</object>
 					<int key="connectionID">25</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">progressValue</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="323763820"/>
+					</object>
+					<int key="connectionID">27</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -227,6 +251,7 @@
 							<reference ref="455605506"/>
 							<reference ref="252652166"/>
 							<reference ref="584232406"/>
+							<reference ref="323763820"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -255,6 +280,11 @@
 						<reference key="object" ref="584232406"/>
 						<reference key="parent" ref="970943354"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">26</int>
+						<reference key="object" ref="323763820"/>
+						<reference key="parent" ref="970943354"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -275,6 +305,7 @@
 					<string>18.IBViewBoundsToFrameTransform</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.IBViewBoundsToFrameTransform</string>
+					<string>26.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -302,6 +333,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDlgAAw58AAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -320,7 +352,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -345,12 +377,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cancelButton</string>
 							<string>eventName</string>
+							<string>progressValue</string>
 							<string>progressView</string>
 							<string>sessionName</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
+							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIProgressView</string>
 							<string>UILabel</string>
@@ -362,6 +396,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cancelButton</string>
 							<string>eventName</string>
+							<string>progressValue</string>
 							<string>progressView</string>
 							<string>sessionName</string>
 						</object>
@@ -373,6 +408,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">eventName</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">progressValue</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
