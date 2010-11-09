@@ -25,8 +25,9 @@
 
 @interface TrackMapView : DrawingView
 {
-
 }
+
+- (void)InitialiseImages;
 
 @end
 

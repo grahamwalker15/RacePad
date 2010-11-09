@@ -7,6 +7,7 @@
 //
 
 #import "SimpleListView.h"
+#import "TableData.h"
 
 
 @implementation SimpleListView
@@ -207,9 +208,22 @@
 
 - (int) TableWidth
 {
+	// Get the device orientation
+	UIDeviceOrientation orientation = [self inqDeviceOrientation];
+	portraitMode = (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown);
+
+	// Work out width
 	int w = 0;
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
+	{
+		// Do we count this column?
+		if(portraitMode && [self ColumnUse:i] == TD_USE_FOR_LANDSCAPE)
+			continue;
+		else if(!portraitMode && [self ColumnUse:i] == TD_USE_FOR_PORTRAIT)
+			continue;
+		
 		w += [self ColumnWidth:i];
+	}
 	
 	return w;
 }
@@ -265,13 +279,6 @@
 	return if_heading_ ;
 }
 
-- (void) CheckWindowSize
-{
-	int row_height = [self RowHeight];
-	int row_count = [self RowCount];
-	
-	int visible_count = current_size_.height / row_height;
-}
 
 - (void) SetDefaultFormatting:(bool)if_heading
 {
@@ -333,9 +340,7 @@
 		[self PrepareRow:row];
 	
 	bool selected = [self IsRowSelected:row];
-	bool focus = false;
 	
-	int maximum_width = current_size_.width;	
 	int column_count = [self ColumnCount];
 	
 	float row_height = [self RowHeight];
@@ -350,6 +355,12 @@
 	{
 		// Skip headings on child columns
 		if(heading && [self ColumnType:col] == SLV_COL_CHILD_)
+			continue;
+		
+		// Do we draw this column
+		if(portraitMode && [self ColumnUse:col] == TD_USE_FOR_LANDSCAPE)
+			continue;
+		else if(!portraitMode && [self ColumnUse:col] == TD_USE_FOR_PORTRAIT)
 			continue;
 		
 		// Get column width (including children if we're on a heading)
@@ -455,11 +466,14 @@
 
 - (void) Draw:(CGRect)region
 {
+	// Get the device orientation
+	UIDeviceOrientation orientation = [self inqDeviceOrientation];
+	portraitMode = (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown);
+
 	// Prepare any data specific to a derived class
 	[self PrepareData];
 	
 	// Then draw row by row
-	[self CheckWindowSize];
 	[self BeginDrawing];
 	
 	int row_count = [self RowCount];
@@ -469,7 +483,6 @@
 	float table_width = [self TableWidth];
 	
 	[self SetContentWidth:table_width AndHeight:table_height];
-	CGPoint offset = [self contentOffset];
 		
 	if(if_large_font_)
 		[self UseMediumBoldFont];
@@ -549,10 +562,12 @@
 
 - (int) ColumnType:(int)col;
 {
-	if(col >= 0 && col < column_count_)
-		return column_type_[col];
-	else
-		return SLV_COL_STANDALONE_;	// Sensible default even though it should never be called
+	return SLV_COL_STANDALONE_;
+}
+
+- (int) ColumnUse:(int)col;
+{
+	return TD_USE_FOR_BOTH;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////

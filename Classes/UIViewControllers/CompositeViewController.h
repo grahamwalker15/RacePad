@@ -16,13 +16,13 @@
 @interface CompositeViewController : RacePadViewController
 {
 	IBOutlet MovieView * movieView;
+	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
 	
 	MPMoviePlayerController * moviePlayer;
+	CGSize movieSize;
+	CGRect movieRect;
 	float startTime;
-	
-	bool requiresReposition;
-	float lastPosition;
 }
 
 - (void) movieLoad:(NSString *)movie_name;
@@ -33,6 +33,9 @@
 - (void) movieGotoTime:(float)time;
 - (void) moviePrepareToPlay;
 
+- (void) positionOverlays;
+
+- (void) movieSizeCallback:(NSNotification*) aNotification;
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
 
 @end

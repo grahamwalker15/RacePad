@@ -34,7 +34,7 @@
 		bool entered_;
 				
 		int last_x_, last_y_;
-		
+	
 }
 	
 // Properties for synthesizing
@@ -54,6 +54,7 @@
 - (UIColor *)CreateShadowColourFromColour:(UIColor *)source;
 
 // Basic utilities
+- (UIDeviceOrientation)inqDeviceOrientation;
 - (CGSize)InqSize;
 
 - (bool)CreateBitmapContext;

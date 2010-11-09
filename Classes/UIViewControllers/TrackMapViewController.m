@@ -145,7 +145,7 @@
 	float currentMapScale = [trackMap mapScale];
 	float currentScale = currentUserScale * currentMapScale;
 	
-	if(abs(currentScale) < 0.001 || abs(scale) < 0.001)
+	if(fabs(currentScale) < 0.001 || fabs(scale) < 0.001)
 		return;
 	
 	// Calculate where the centre point is in the untransformed map

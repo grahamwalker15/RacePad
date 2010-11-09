@@ -47,6 +47,12 @@
 		7F6246A612844742009A9D4F /* RacePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */; };
 		7F6246A912844762009A9D4F /* TitleBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A812844762009A9D4F /* TitleBarViewController.m */; };
 		7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246DC12844D6F009A9D4F /* TitleBarView.xib */; };
+		7F62476112851255009A9D4F /* ChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475B12851255009A9D4F /* ChequeredFlag.png */; };
+		7F62476212851255009A9D4F /* GreenFlag in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475C12851255009A9D4F /* GreenFlag */; };
+		7F62476312851255009A9D4F /* RedFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475D12851255009A9D4F /* RedFlag.png */; };
+		7F62476412851255009A9D4F /* SCFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475E12851255009A9D4F /* SCFlag.png */; };
+		7F62476512851255009A9D4F /* SCInFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475F12851255009A9D4F /* SCInFlag.png */; };
+		7F62476612851255009A9D4F /* YellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62476012851255009A9D4F /* YellowFlag.png */; };
 		7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; };
 		7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; };
 		7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
@@ -54,6 +60,12 @@
 		7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BB127577FE00EF2B8C /* RightArrow.png */; };
 		7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB8981275F11400EF2B8C /* TimeControlView.xib */; };
 		7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */; };
+		7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A15128776B600F13CB6 /* Icon-72.png */; };
+		7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A16128776B600F13CB6 /* Icon-Small-50.png */; };
+		7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A17128776B600F13CB6 /* Icon-Small.png */; };
+		7F865A1D128776B600F13CB6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A18128776B600F13CB6 /* Icon.png */; };
+		7F865A1E128776B600F13CB6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A19128776B600F13CB6 /* Icon@2x.png */; };
+		7F865A7612880EBF00F13CB6 /* ListIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A7512880EBF00F13CB6 /* ListIcon.png */; };
 		7F88203F12632EB40010785D /* DriverListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F88203E12632EB40010785D /* DriverListController.m */; };
 		7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10D91255E68B00770746 /* FirstViewController.m */; };
 		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
@@ -152,6 +164,12 @@
 		7F6246A712844762009A9D4F /* TitleBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleBarViewController.h; sourceTree = "<group>"; };
 		7F6246A812844762009A9D4F /* TitleBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleBarViewController.m; sourceTree = "<group>"; };
 		7F6246DC12844D6F009A9D4F /* TitleBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TitleBarView.xib; path = ResourceFiles/TitleBarView.xib; sourceTree = "<group>"; };
+		7F62475B12851255009A9D4F /* ChequeredFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ChequeredFlag.png; path = Images/ChequeredFlag.png; sourceTree = "<group>"; };
+		7F62475C12851255009A9D4F /* GreenFlag */ = {isa = PBXFileReference; lastKnownFileType = file; name = GreenFlag; path = Images/GreenFlag; sourceTree = "<group>"; };
+		7F62475D12851255009A9D4F /* RedFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedFlag.png; path = Images/RedFlag.png; sourceTree = "<group>"; };
+		7F62475E12851255009A9D4F /* SCFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCFlag.png; path = Images/SCFlag.png; sourceTree = "<group>"; };
+		7F62475F12851255009A9D4F /* SCInFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCInFlag.png; path = Images/SCInFlag.png; sourceTree = "<group>"; };
+		7F62476012851255009A9D4F /* YellowFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = YellowFlag.png; path = Images/YellowFlag.png; sourceTree = "<group>"; };
 		7F6E7D941276ED540073A644 /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
 		7F6E7D951276ED540073A644 /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverLapListController.h; sourceTree = "<group>"; };
@@ -162,6 +180,12 @@
 		7F6FB8981275F11400EF2B8C /* TimeControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
 		7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadTimeController.h; sourceTree = "<group>"; };
 		7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTimeController.m; sourceTree = "<group>"; };
+		7F865A15128776B600F13CB6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
+		7F865A16128776B600F13CB6 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images/Icon-Small-50.png"; sourceTree = "<group>"; };
+		7F865A17128776B600F13CB6 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images/Icon-Small.png"; sourceTree = "<group>"; };
+		7F865A18128776B600F13CB6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
+		7F865A19128776B600F13CB6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Images/Icon@2x.png"; sourceTree = "<group>"; };
+		7F865A7512880EBF00F13CB6 /* ListIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ListIcon.png; path = Images/ListIcon.png; sourceTree = "<group>"; };
 		7F88203D12632EB40010785D /* DriverListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverListController.h; sourceTree = "<group>"; };
 		7F88203E12632EB40010785D /* DriverListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverListController.m; sourceTree = "<group>"; };
 		7F9C10D81255E68B00770746 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
@@ -281,6 +305,18 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F865A7512880EBF00F13CB6 /* ListIcon.png */,
+				7F865A15128776B600F13CB6 /* Icon-72.png */,
+				7F865A16128776B600F13CB6 /* Icon-Small-50.png */,
+				7F865A17128776B600F13CB6 /* Icon-Small.png */,
+				7F865A18128776B600F13CB6 /* Icon.png */,
+				7F865A19128776B600F13CB6 /* Icon@2x.png */,
+				7F62475B12851255009A9D4F /* ChequeredFlag.png */,
+				7F62475C12851255009A9D4F /* GreenFlag */,
+				7F62475D12851255009A9D4F /* RedFlag.png */,
+				7F62475E12851255009A9D4F /* SCFlag.png */,
+				7F62475F12851255009A9D4F /* SCInFlag.png */,
+				7F62476012851255009A9D4F /* YellowFlag.png */,
 				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
 				7F6246A21284471E009A9D4F /* MGPLogo.png */,
 				7F068125126DDA6800C9EE5D /* clock.png */,
@@ -534,6 +570,18 @@
 				4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */,
 				7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */,
 				7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */,
+				7F62476112851255009A9D4F /* ChequeredFlag.png in Resources */,
+				7F62476212851255009A9D4F /* GreenFlag in Resources */,
+				7F62476312851255009A9D4F /* RedFlag.png in Resources */,
+				7F62476412851255009A9D4F /* SCFlag.png in Resources */,
+				7F62476512851255009A9D4F /* SCInFlag.png in Resources */,
+				7F62476612851255009A9D4F /* YellowFlag.png in Resources */,
+				7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */,
+				7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */,
+				7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */,
+				7F865A1D128776B600F13CB6 /* Icon.png in Resources */,
+				7F865A1E128776B600F13CB6 /* Icon@2x.png in Resources */,
+				7F865A7612880EBF00F13CB6 /* ListIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

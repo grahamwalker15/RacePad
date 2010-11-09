@@ -98,6 +98,8 @@ enum ColumnPriority {
 	UIColor * background_colour_;
 	
 	int alignment_;
+	
+	bool portraitMode;;
 		
 }
 
@@ -146,8 +148,6 @@ enum ColumnPriority {
 - (void) ClearRows;
 - (bool) IfHeading;
 
-- (void) CheckWindowSize;
-
 - (void) SetDefaultFormatting:(bool)if_heading;
 - (void) SetTextColour:(UIColor *)colour;
 - (void) SetBackgroundColour:(UIColor *)colour;
@@ -174,6 +174,7 @@ enum ColumnPriority {
 - (int) RowHeight;
 - (int) ColumnWidth:(int)col;
 - (int) ColumnType:(int)col;
+- (int) ColumnUse:(int)col;
 
 // Functions that CAN be overridden for customised content (defaults do nothing)
 - (void) PrepareData;

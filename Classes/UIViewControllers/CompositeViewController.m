@@ -48,6 +48,11 @@
 	[moviePlayer setControlStyle:MPMovieControlStyleNone];
 	[[moviePlayer view] setUserInteractionEnabled:true];
 	
+	// We'll get notification when we know the movie size - set itto zero for now
+	movieSize = CGSizeMake(0, 0);
+	movieRect = CGRectMake(0, 0, 0, 0);
+	
+	// Hard code start time for the moment
 	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
 	
 	// Tap,pan and pinch recognizers for map
@@ -55,6 +60,9 @@
 	[self addPanRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	
+	// Add tap recognizer to overlay in order to catch taps outside map
+	[self addTapRecognizerToView:overlayView];
+
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
@@ -79,7 +87,13 @@
 {
 	[[moviePlayer view] setFrame:[movieView bounds]];
 	[movieView addSubview:[moviePlayer view]];
+	[self.view bringSubviewToFront:overlayView];
 	[self.view bringSubviewToFront:trackMapView];
+	
+	// Get notification when we know the movie size
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieSizeCallback:)
+												 name:MPMovieNaturalSizeAvailableNotification
+											   object:moviePlayer];
 	
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
@@ -127,7 +141,9 @@
 	[UIView setAnimationDuration:0.75];
 	[[moviePlayer view] setFrame:[movieView bounds]];	
 	[UIView commitAnimations];
-	
+		
+	[self positionOverlays];
+
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
@@ -173,6 +189,15 @@
 	[moviePlayer setInitialPlaybackTime:movie_time];
 }
 
+- (void) movieSizeCallback:(NSNotification*) aNotification
+{
+	MPMoviePlayerController *player = [aNotification object];
+	movieSize = [player naturalSize];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieNaturalSizeAvailableNotification object:player];
+    
+	[self positionOverlays];
+}
+
 - (void) movieFinishedCallback:(NSNotification*) aNotification
 {
 	MPMoviePlayerController *player = [aNotification object];
@@ -180,6 +205,36 @@
 	[player stop];
 	[self.view removeFromSuperview];
 	[player autorelease];    
+}
+
+- (void) positionOverlays
+{
+	// Work out movie position
+	CGRect movieViewBounds = [movieView bounds];
+	CGSize  movieViewSize = movieViewBounds.size;
+	
+	if(movieViewSize.width < 1 || movieViewSize.height < 1 || movieSize.width < 1 || movieSize.height < 1)
+		return;
+	
+	float wScale = movieViewSize.width / movieSize.width;
+	float hScale = movieViewSize.height / movieSize.height;
+	
+	if(wScale < hScale)
+	{
+		// It's width limited - work out height centred on view
+		float newHeight = movieSize.height * wScale;
+		float yOrigin = (movieViewSize.height - newHeight) / 2;
+		movieRect = CGRectMake(0, yOrigin, movieViewSize.width, newHeight);
+	}
+	else
+	{
+		// It's height limited - work out height centred on view
+		float newWidth = movieSize.width * hScale;
+		float xOrigin = (movieViewSize.width - newWidth) / 2;
+		movieRect = CGRectMake(xOrigin, 0, newWidth, movieViewSize.height);
+	}
+	
+	[trackMapView setFrame:movieRect];
 }
 
 - (void) RequestRedrawForType:(int)type
@@ -221,7 +276,7 @@
 	float currentMapScale = [trackMap mapScale];
 	float currentScale = currentUserScale * currentMapScale;
 	
-	if(abs(currentScale) < 0.001 || abs(scale) < 0.001)
+	if(fabs(currentScale) < 0.001 || fabs(scale) < 0.001)
 		return;
 	
 	// Calculate where the centre point is in the untransformed map

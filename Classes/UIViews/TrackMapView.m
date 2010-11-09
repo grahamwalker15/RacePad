@@ -13,72 +13,14 @@
 
 @implementation TrackMapView
 
-///////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-//  Super class overrides
+static UIImage * greenFlagImage = nil;
+static UIImage * yellowFlagImage = nil;
+static UIImage * redFlagImage = nil;
+static UIImage * chequeredFlagImage = nil;
+static UIImage * scFlagImage = nil;
+static UIImage * scinFlagImage = nil;
 
-//If the view is stored in the nib file,when it's unarchived it's sent -initWithCoder:
-
-- (id)initWithCoder:(NSCoder*)coder
-{    
-    if ((self = [super initWithCoder:coder]))
-    {
-	}
-	
-    return self;
-}
-
-//If we create it ourselves, we use -initWithFrame:
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self = [super initWithFrame:frame]))
-	{
-		// Put any class specific initialisation here
-    }
-    return self;
-}
-
-- (void)layoutSubviews
-{
-	[super layoutSubviews];
-}
-
-- (void)dealloc
-{
-    [super dealloc];
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-//  Methods for this class 
-
-- (void) drawTrack
-{
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];
-	
-	if ( trackMap )
-	{
-		[trackMap draw:self];
-	}
-}
-
-- (void)Draw:(CGRect) rect
-{
-	[self ClearScreen];
-	[self drawTrack];	
-}
-
-@end
-
-
-@implementation TrackMapBackgroundView
-
-static UIImage * screen_bg_image_ = nil;
-static UIImage * map_bg_image_ = nil;
-
-static bool images_initialised_ = false;
+static bool flag_images_initialised_ = false;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +43,7 @@ static bool images_initialised_ = false;
 {
     if ((self = [super initWithFrame:frame]))
 	{
-		// Put any class specific initialisation here
+		[self InitialiseImages];
     }
     return self;
 }
@@ -113,8 +55,12 @@ static bool images_initialised_ = false;
 
 - (void)dealloc
 {
-	[screen_bg_image_ release];
-	[map_bg_image_ release];
+	[greenFlagImage release];
+	[yellowFlagImage release];
+	[redFlagImage release];
+	[chequeredFlagImage release];
+	[scFlagImage release];
+	[scinFlagImage release];
 	
     [super dealloc];
 }
@@ -126,9 +72,118 @@ static bool images_initialised_ = false;
 
 - (void)InitialiseImages
 {
-	if(!images_initialised_)
+	if(!flag_images_initialised_)
 	{
-		images_initialised_ = true;
+		flag_images_initialised_ = true;
+		
+		greenFlagImage = [[UIImage imageNamed:@"GreenFlag.png"] retain];
+		yellowFlagImage = [[UIImage imageNamed:@"YellowFlag.png"] retain];
+		redFlagImage = [[UIImage imageNamed:@"RedFlag.png"] retain];
+		chequeredFlagImage = [[UIImage imageNamed:@"ChequeredFlag.png"] retain];
+		scFlagImage = [[UIImage imageNamed:@"SCFlag.png"] retain];
+		scinFlagImage = [[UIImage imageNamed:@"SCInFlag.png"] retain];
+	}
+	else
+	{
+		[greenFlagImage retain];
+		[yellowFlagImage retain];
+		[redFlagImage retain];
+		[chequeredFlagImage retain];
+		[scFlagImage retain];
+		[scinFlagImage retain];
+	}
+
+}
+
+- (void) drawTrack
+{
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];
+	
+	if ( trackMap )
+	{
+		[trackMap draw:self];
+		
+		int track_state = [trackMap getTrackState];
+		
+		CGPoint flagPos = CGPointMake(current_origin_.x + current_size_.width - 90, current_origin_.y + 40);
+		if(track_state == TM_TRACK_YELLOW)
+			[yellowFlagImage drawAtPoint:flagPos];
+		else if(track_state == TM_TRACK_RED)
+			[redFlagImage drawAtPoint:flagPos];
+		else if(track_state == TM_TRACK_CHEQUERED)
+			[chequeredFlagImage drawAtPoint:flagPos];
+		else if(track_state == TM_TRACK_SC)
+			[scFlagImage drawAtPoint:flagPos];
+		else if(track_state == TM_TRACK_SCIN)
+			[scinFlagImage drawAtPoint:flagPos];
+	}
+}
+
+- (void)Draw:(CGRect) rect
+{
+	[self ClearScreen];
+	[self drawTrack];	
+}
+
+@end
+
+
+@implementation TrackMapBackgroundView
+
+static UIImage * screen_bg_image_ = nil;
+static UIImage * map_bg_image_ = nil;
+
+static bool bg_images_initialised_ = false;
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+//  Super class overrides
+
+//If the view is stored in the nib file,when it's unarchived it's sent -initWithCoder:
+
+- (id)initWithCoder:(NSCoder*)coder
+{    
+    if ((self = [super initWithCoder:coder]))
+    {
+		[self InitialiseImages];
+	}
+	
+    return self;
+}
+
+//If we create it ourselves, we use -initWithFrame:
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+	{
+ 		[self InitialiseImages];
+   }
+    return self;
+}
+
+- (void)layoutSubviews
+{
+	[super layoutSubviews];
+}
+
+- (void)dealloc
+{	
+	[screen_bg_image_ release];
+	[map_bg_image_ release];
+    [super dealloc];
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+//  Methods for this class 
+
+- (void)InitialiseImages
+{
+	if(!bg_images_initialised_)
+	{
+		bg_images_initialised_ = true;
 		
 		screen_bg_image_ = [[UIImage imageNamed:@"Parchment.png"] retain];
 		map_bg_image_ = [[UIImage imageNamed:@"Metal.png"] retain];
@@ -137,6 +192,14 @@ static bool images_initialised_ = false;
 		background_image_w_ = 0;
 		background_image_h_ = 0;
 	}
+	else
+	{
+		[screen_bg_image_ retain];
+		[map_bg_image_ retain];
+	}
+
+	
+	[screen_bg_image_ retain];
 }
 
 - (void)CheckBackground

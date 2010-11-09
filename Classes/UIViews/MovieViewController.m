@@ -44,6 +44,10 @@
 	[moviePlayer setControlStyle:MPMovieControlStyleNone];
 	[[moviePlayer view] setUserInteractionEnabled:true];
 	
+	// We'll get notification when we know the movie size - set itto zero for now
+	movieSize = CGSizeMake(0, 0);
+	
+	// Hard code start time for the moment
 	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
 	
     //	Add tap recognizer to bring up time controls
@@ -78,6 +82,11 @@
 	[[moviePlayer view] setFrame:[movieView bounds]];
 	[movieView addSubview:[moviePlayer view]];
 	[self.view bringSubviewToFront:overlayView];
+	
+	// Get notification when we know the movie size
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieSizeCallback:)
+										  name:MPMovieNaturalSizeAvailableNotification
+										  object:moviePlayer];
 	
 	// Set the play time
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
@@ -175,6 +184,39 @@
 	NSTimeInterval movie_time = time - startTime;
 	[moviePlayer setCurrentPlaybackTime:movie_time];
 	[moviePlayer setInitialPlaybackTime:movie_time];
+}
+
+- (void) movieSizeCallback:(NSNotification*) aNotification
+{
+	MPMoviePlayerController *player = [aNotification object];
+	movieSize = [player naturalSize];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieNaturalSizeAvailableNotification object:player];
+    
+	// Work out movie position
+	CGRect movieViewBounds = [movieView bounds];
+	CGSize  movieViewSize = movieViewBounds.size;
+	
+	if(movieViewSize.width < 1 || movieViewSize.height < 1 || movieSize.width < 1 || movieSize.height < 1)
+		return;
+	
+	float wScale = movieViewSize.width / movieSize.width;
+	float hScale = movieViewSize.height / movieSize.height;
+	
+	CGRect movieRect;
+	if(wScale < hScale)
+	{
+		// It's width limited - work out height centred on view
+		float newHeight = movieSize.height * wScale;
+		float yOrigin = (movieViewSize.height - newHeight) / 2;
+		movieRect = CGRectMake(0, yOrigin, movieViewSize.width, newHeight);
+	}
+	else
+	{
+		// It's height limited - work out height centred on view
+		float newWidth = movieSize.width * hScale;
+		float xOrigin = (movieViewSize.width - newWidth) / 2;
+		movieRect = CGRectMake(xOrigin, 0, newWidth, movieViewSize.height);
+	}		
 }
 
 - (void) movieFinishedCallback:(NSNotification*) aNotification

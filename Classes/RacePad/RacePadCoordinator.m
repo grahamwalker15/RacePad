@@ -100,6 +100,16 @@ static RacePadCoordinator * instance_ = nil;
 		[self goOffline];
 }
 
+-(int) deviceOrientation
+{
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	
+	if(orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown)
+		return RPC_ORIENTATION_PORTRAIT_;
+	else
+		return RPC_ORIENTATION_LANDSCAPE_;	
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // Play control management
 ////////////////////////////////////////////////////////////////////////////////////////

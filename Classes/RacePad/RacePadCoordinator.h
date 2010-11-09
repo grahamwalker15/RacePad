@@ -36,6 +36,13 @@ enum ConnectionTypes
 	RPC_ARCHIVE_CONNECTION_
 } ;
 
+// Orientation types
+enum OrientationTypes
+{
+	RPC_ORIENTATION_PORTRAIT_,
+	RPC_ORIENTATION_LANDSCAPE_
+} ;
+
 @interface RPCView : NSObject
 {
 	id view_;
@@ -119,6 +126,8 @@ enum ConnectionTypes
 +(RacePadCoordinator *)Instance;
 
 -(void)onStartUp;
+
+-(int) deviceOrientation;
 
 -(void)startPlay;
 -(void)pausePlay;

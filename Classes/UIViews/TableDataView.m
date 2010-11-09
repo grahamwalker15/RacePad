@@ -68,9 +68,24 @@
 			return [columnHeader columnType];
 		}
 	}
-		
+	
 	// Reach here if data could not be found in table
 	return SLV_COL_STANDALONE_;
+}
+
+- (int) ColumnUse:(int)col;
+{
+	if(table_data_)
+	{
+		TableHeader *columnHeader = [table_data_ columnHeader:col];
+		if (columnHeader)
+		{
+			return [columnHeader columnUse];
+		}
+	}
+	
+	// Reach here if data could not be found in table
+	return TD_USE_FOR_BOTH;
 }
 
 - (int) InqCellTypeAtRow:(int)row Col:(int)col

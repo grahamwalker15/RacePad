@@ -18,10 +18,8 @@
 	IBOutlet UIView * overlayView;
 	
 	MPMoviePlayerController * moviePlayer;
+	CGSize movieSize;
 	float startTime;
-	
-	bool requiresReposition;
-	float lastPosition;
 }
 
 - (void) movieLoad:(NSString *)movie_name;

@@ -176,7 +176,7 @@ static bool statics_initialised_ = false;
 	
 	last_x_ = 0;
 	last_y_ = 0;
-		
+	
 }
 
 - (void)InitialiseImageDrawing
@@ -253,6 +253,11 @@ static bool statics_initialised_ = false;
 - (CGSize)InqSize
 {
 	return current_size_;
+}
+
+- (UIDeviceOrientation)inqDeviceOrientation
+{
+	return [[UIDevice currentDevice] orientation];
 }
 
 - (bool)CreateBitmapContext
