@@ -231,7 +231,7 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		RPCDataSource * source = [dataSources objectAtIndex:i];
 		float nextTime = [[source dataHandler] inqTime] / 1000.0;
-		if ( eventTime == 0 || nextTime < eventTime )
+		if ( eventTime == 0 || (nextTime != 0 && nextTime < eventTime) )
 			eventTime = nextTime;
 	}
 	
