@@ -208,6 +208,12 @@
 			4D134B1D128AE32300A6E375 /* PBXTextBookmark */ = 4D134B1D128AE32300A6E375 /* PBXTextBookmark */;
 			4D134B22128AE33900A6E375 /* PBXTextBookmark */ = 4D134B22128AE33900A6E375 /* PBXTextBookmark */;
 			4D134B26128AE36900A6E375 /* PBXTextBookmark */ = 4D134B26128AE36900A6E375 /* PBXTextBookmark */;
+			4D134B3D128AE7AA00A6E375 /* PBXTextBookmark */ = 4D134B3D128AE7AA00A6E375 /* PBXTextBookmark */;
+			4D134B3E128AE7AA00A6E375 /* PBXTextBookmark */ = 4D134B3E128AE7AA00A6E375 /* PBXTextBookmark */;
+			4D134B3F128AE7AA00A6E375 /* PBXTextBookmark */ = 4D134B3F128AE7AA00A6E375 /* PBXTextBookmark */;
+			4D134B40128AE7AA00A6E375 /* PBXTextBookmark */ = 4D134B40128AE7AA00A6E375 /* PBXTextBookmark */;
+			4D134B44128AE7DB00A6E375 /* PBXTextBookmark */ = 4D134B44128AE7DB00A6E375 /* PBXTextBookmark */;
+			4D134B46128AE80100A6E375 /* PBXTextBookmark */ = 4D134B46128AE80100A6E375 /* PBXTextBookmark */;
 			4D15640B12898FE0000E959D = 4D15640B12898FE0000E959D /* PBXTextBookmark */;
 			4D15640C12898FE0000E959D = 4D15640C12898FE0000E959D /* PBXTextBookmark */;
 			4D15640D12898FE0000E959D = 4D15640D12898FE0000E959D /* PBXTextBookmark */;
@@ -736,7 +742,7 @@
 		rLen = 0;
 		rLoc = 2907;
 		rType = 0;
-		vrLen = 628;
+		vrLen = 567;
 		vrLoc = 2599;
 	};
 	4D134A76128ABEC900A6E375 /* PBXTextBookmark */ = {
@@ -1103,7 +1109,7 @@
 		ignoreCount = 0;
 		lineNumber = 147;
 		location = RacePad;
-		modificationTime = 311092025.841512;
+		modificationTime = 311093212.255768;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1296,6 +1302,66 @@
 		rType = 0;
 		vrLen = 1035;
 		vrLoc = 846;
+	};
+	4D134B3D128AE7AA00A6E375 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C684F12671CD200F2FFEC /* HTMLViewController.m */;
+		name = "HTMLViewController.m: 47";
+		rLen = 0;
+		rLoc = 1460;
+		rType = 0;
+		vrLen = 1128;
+		vrLoc = 730;
+	};
+	4D134B3E128AE7AA00A6E375 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D82FB3E1283F80C00F93A2B /* WorkOffline.m */;
+		name = "WorkOffline.m: 131";
+		rLen = 0;
+		rLoc = 3867;
+		rType = 0;
+		vrLen = 1219;
+		vrLoc = 2893;
+	};
+	4D134B3F128AE7AA00A6E375 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 136";
+		rLen = 0;
+		rLoc = 2943;
+		rType = 0;
+		vrLen = 789;
+		vrLoc = 2368;
+	};
+	4D134B40128AE7AA00A6E375 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 136";
+		rLen = 0;
+		rLoc = 2943;
+		rType = 0;
+		vrLen = 789;
+		vrLoc = 2368;
+	};
+	4D134B44128AE7DB00A6E375 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 119";
+		rLen = 0;
+		rLoc = 2738;
+		rType = 0;
+		vrLen = 782;
+		vrLoc = 2243;
+	};
+	4D134B46128AE80100A6E375 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 119";
+		rLen = 0;
+		rLoc = 2738;
+		rType = 0;
+		vrLen = 699;
+		vrLoc = 2462;
 	};
 	4D1563F112898CD0000E959D /* PitWindowView.h */ = {
 		uiCtxt = {
@@ -1912,9 +1978,9 @@
 	};
 	4D82FB3E1283F80C00F93A2B /* WorkOffline.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1146, 2899}}";
-			sepNavSelRange = "{5741, 0}";
-			sepNavVisRange = "{5152, 723}";
+			sepNavIntBoundsRect = "{{0, 0}, {1045, 2847}}";
+			sepNavSelRange = "{3867, 0}";
+			sepNavVisRange = "{2893, 1219}";
 		};
 	};
 	4D82FBE412840BAA00F93A2B /* PBXTextBookmark */ = {
@@ -1992,7 +2058,7 @@
 		fRef = 4D82FB3E1283F80C00F93A2B /* WorkOffline.m */;
 		name = "WorkOffline.m: 142";
 		rLen = 0;
-		rLoc = 4180;
+		rLoc = 4324;
 		rType = 0;
 		vrLen = 1170;
 		vrLoc = 1333;
@@ -2508,9 +2574,9 @@
 	};
 	7F6246A512844742009A9D4F /* RacePadTitleBarController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {806, 1911}}";
-			sepNavSelRange = "{2688, 0}";
-			sepNavVisRange = "{2548, 382}";
+			sepNavIntBoundsRect = "{{0, 0}, {1045, 1820}}";
+			sepNavSelRange = "{2738, 0}";
+			sepNavVisRange = "{2462, 699}";
 		};
 	};
 	7F6246A712844762009A9D4F /* TitleBarViewController.h */ = {
@@ -2724,9 +2790,9 @@
 	};
 	7F9C684F12671CD200F2FFEC /* HTMLViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1146, 1040}}";
-			sepNavSelRange = "{1460, 0}";
-			sepNavVisRange = "{846, 1035}";
+			sepNavIntBoundsRect = "{{0, 0}, {1146, 975}}";
+			sepNavSelRange = "{1074, 0}";
+			sepNavVisRange = "{727, 772}";
 		};
 	};
 	7FB1C59812673E9F008A6C94 /* ImageListStore.h */ = {

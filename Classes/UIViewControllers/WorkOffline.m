@@ -61,6 +61,10 @@
 - (void) updateSessions: (int) row
 {
 	[sessions removeAllObjects];
+	
+	if ( row < 0 || row >= [events count] )
+		return;
+	
 	NSFileManager *fm =	[[NSFileManager alloc]init];
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
