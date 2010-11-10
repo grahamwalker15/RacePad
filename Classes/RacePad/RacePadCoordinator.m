@@ -198,6 +198,7 @@ static RacePadCoordinator * instance_ = nil;
 	[self stopPlay];
 	currentTime = time;
 	
+	[[RacePadTimeController Instance] updatePlayButton];
 	[self showSnapshot];
 }
 

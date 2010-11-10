@@ -10,17 +10,20 @@
 
 @implementation AlertViewController
 
-/*
+@synthesize parentPopover;
+
+
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
 	{
         // Custom initialization
+		parentPopover = nil;
     }
     return self;
 }
-*/
+
 
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -66,6 +69,17 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+//////////////////////////////////////////////////////////////////////
+//  Methods for this class
+
+- (IBAction) closePressed:(id)sender
+{
+	if(parentPopover)
+	{
+		[parentPopover dismissPopoverAnimated:true];
+	}
 }
 
 @end

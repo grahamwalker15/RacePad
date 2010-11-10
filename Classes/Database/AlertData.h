@@ -13,16 +13,19 @@
 {
 	int type;
 	int focus;
+	int lap;
 	float time_stamp;
 	NSString * description;	
 }
 
 @property (nonatomic) int type;
 @property (nonatomic) int focus;
+@property (nonatomic) int lap;
 @property (nonatomic) float timeStamp;
 @property (nonatomic, retain) NSString * description;	
 
-- (id) initWithType:(int)typeIn TimeStamp:(float)timeStampIn Focus:(int)focusIn Description:(NSString *)descriptionIn;
+- (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(int)focusIn Description:(NSString *)descriptionIn;
+- (id) initWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(int)focusIn Description:(NSString *)descriptionIn;
 
 @end
 

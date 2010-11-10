@@ -32,6 +32,8 @@ static RacePadTimeController * instance_ = nil;
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
 		alertController = [[AlertViewController alloc] initWithNibName:@"AlertControlView" bundle:nil];
 		alertPopover = [[UIPopoverController alloc] initWithContentViewController:alertController];
+		[alertController setParentPopover:alertPopover];
+		
 		displayed = false;
 		hideTimer = nil;
 	}
@@ -107,6 +109,8 @@ static RacePadTimeController * instance_ = nil;
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];
 	[UIView commitAnimations];
+	
+	[alertPopover dismissPopoverAnimated:true];
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context

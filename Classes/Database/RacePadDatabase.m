@@ -22,6 +22,12 @@ static RacePadDatabase *instance = nil;
 }
 
 @synthesize eventName;
+@synthesize driverListData;
+@synthesize driverData;
+@synthesize trackMap;
+@synthesize imageListStore;
+@synthesize pitWindow;
+@synthesize alertData;
 
 - (RacePadDatabase *)init
 {
@@ -30,6 +36,7 @@ static RacePadDatabase *instance = nil;
 	trackMap = [[TrackMap alloc] init];
 	imageListStore = [[ImageListStore alloc] init];
 	pitWindow = [[PitWindow alloc] init];
+	alertData = [[AlertData alloc] init];
 	
 	return self;
 }
@@ -43,31 +50,6 @@ static RacePadDatabase *instance = nil;
 	[pitWindow release];
 	
 	[super dealloc];
-}
-
-- (TableData *)driverListData
-{
-	return driverListData;
-}
-
-- (TableData *)driverData
-{
-	return driverData;
-}
-
-- (TrackMap	*)trackMap
-{
-	return trackMap;
-}
-
-- (ImageListStore *)imageListStore
-{
-	return imageListStore;
-}
-
-- (PitWindow *)pitWindow
-{
-	return pitWindow;
 }
 
 @end

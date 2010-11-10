@@ -8,12 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RacePadViewController.h"
 #import "AlertView.h"
 
-
-@interface AlertViewController : UIViewController
+@interface AlertViewController : RacePadViewController
 {
 	IBOutlet AlertView * alertView;
+	IBOutlet UIBarButtonItem * closeButton;
+	
+	UIPopoverController * parentPopover;
 }
+
+@property (nonatomic, retain) UIPopoverController * parentPopover;
+
+- (IBAction) closePressed:(id)sender;
 
 @end

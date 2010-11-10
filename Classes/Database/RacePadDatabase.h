@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TableData.h"
+#import "AlertData.h"
 #import "TrackMap.h"
 #import "ImageListStore.h"
 #import "PitWindow.h"
@@ -20,16 +21,17 @@
 	TrackMap *trackMap;
 	ImageListStore *imageListStore;
 	PitWindow *pitWindow;
+	AlertData * alertData;
 }
 
 @property (retain) NSString *eventName;
+@property (readonly) TableData *driverListData;
+@property (readonly) TableData *driverData;
+@property (readonly) TrackMap *trackMap;
+@property (readonly) ImageListStore *imageListStore;
+@property (readonly) PitWindow *pitWindow;
+@property (readonly) AlertData * alertData;
 
 + (RacePadDatabase *)Instance;
-
-- (TableData *) driverListData;
-- (TableData *) driverData;
-- (TrackMap *) trackMap;
-- (ImageListStore *) imageListStore;
-- (PitWindow *) pitWindow;
 
 @end
