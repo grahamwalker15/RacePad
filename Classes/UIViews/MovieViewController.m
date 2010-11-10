@@ -47,8 +47,26 @@
 	// We'll get notification when we know the movie size - set itto zero for now
 	movieSize = CGSizeMake(0, 0);
 	
-	// Hard code start time for the moment
-	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	startTime = -1;
+	
+	// Try to find a meta file
+	NSString *metaFileName = [url stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
+	metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
+	FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
+	if ( metaFile )
+	{
+		char keyword[128];
+		int value;
+		if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
+			if ( strcmp ( keyword, "VideoStartTime" ) == 0 )
+				startTime = value;
+	}
+	
+	if ( startTime == -1 )
+	{
+		// Default to hard coded start time
+		startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	}
 	
     //	Add tap recognizer to bring up time controls
 	// This is added to the transparent overlay view which goes above all drawing

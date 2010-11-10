@@ -53,8 +53,26 @@
 	movieSize = CGSizeMake(0, 0);
 	movieRect = CGRectMake(0, 0, 0, 0);
 	
-	// Hard code start time for the moment
-	startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	startTime = -1;
+	
+	// Try to find a meta file
+	NSString *metaFileName = [url stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
+	metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
+	FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
+	if ( metaFile )
+	{
+		char keyword[128];
+		int value;
+		if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
+			if ( strcmp ( keyword, "VideoStartTime" ) == 0 )
+				startTime = value;
+	}
+	
+	if ( startTime == -1 )
+	{
+		// Default to hard coded start time
+		startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	}
 	
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
