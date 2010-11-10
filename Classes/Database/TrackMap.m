@@ -728,11 +728,8 @@
 	// Constructs the transform matrix, stores it, and leaves it current
 	
 	// Get dimensions of current view
-	CGRect bounds = [view bounds];
-	
-	// Map is drawn within a reduced rectangle in this view
-	CGRect map_rect = CGRectInset(bounds, 30, 30);
-	
+	CGRect map_rect = [view bounds];
+		
 	CGPoint origin = map_rect.origin;
 	CGSize size = map_rect.size;
 	
@@ -745,12 +742,12 @@
 	mapScale = mapScale * 0.9;
 	
 	mapXOffset = origin.x + size.width * 0.5 - xCentre * mapScale  ;
-	mapYOffset = bounds.size.height - (origin.y + size.height * 0.5 - yCentre * mapScale)  ;
+	mapYOffset = map_rect.size.height - (origin.y + size.height * 0.5 - yCentre * mapScale)  ;
 	
 	float scale = mapScale * userScale;
 	
 	[view ResetTransformMatrix];
-	[view SetTranslateX:userXOffset Y:userYOffset];
+	[view SetTranslateX:userXOffset * size.width Y:userYOffset * size.height];
 	[view SetTranslateX:mapXOffset Y:mapYOffset];
 	[view SetScale:scale];
 	[view StoreTransformMatrix];	

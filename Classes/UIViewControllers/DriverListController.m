@@ -61,7 +61,7 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	// Grab the title bar
+	// Grab the title bar and mark it as displayed
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Register view
@@ -76,6 +76,7 @@
 {
 	[self HideDriverLapList];
 	[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
+	[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	// re-enable the screen locking
@@ -148,6 +149,24 @@
 - (bool) HandleSelectHeading
 {
 	return false;
+}
+
+- (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	// On single tap, invoke or remove the time controller
+	if(!double_click && !long_press)
+	{
+		RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+		if(![time_controller displayed])
+			[time_controller displayInViewController:self Animated:true];
+		else
+			[time_controller hide];
+		
+		return true;
+	}
+	
+	return true;
 }
 
 - (void)ShowDriverLapList:(NSString *)driver

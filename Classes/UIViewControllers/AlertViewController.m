@@ -1,20 +1,14 @@
     //
-//  TimeViewController.m
+//  AlertViewController.m
 //  RacePad
 //
-//  Created by Gareth Griffith on 10/26/10.
+//  Created by Gareth Griffith on 11/10/10.
 //  Copyright 2010 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "TimeViewController.h"
+#import "AlertViewController.h"
 
-
-@implementation TimeViewController
-
-@synthesize playButton;
-@synthesize alertButton;
-@synthesize timeSlider;
-@synthesize clock;
+@implementation AlertViewController
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -35,11 +29,14 @@
 }
 */
 
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[alertView SetHeading:false];
     [super viewDidLoad];
 }
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -8,6 +8,7 @@
 
 #import "CompositeViewController.h"
 #import "RacePadCoordinator.h"
+#import "RacePadTitleBarController.h"
 #import "RacePadTimeController.h"
 #import "RacePadDatabase.h"
 #import "TableDataView.h"
@@ -57,6 +58,7 @@
 	
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
+	[self addDoubleTapRecognizerToView:trackMapView];
 	[self addPanRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	
@@ -67,33 +69,28 @@
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	
-	/*
-	 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)
-	 name:MPMoviePlayerPlaybackDidFinishNotification
-	 object:[playerViewController moviePlayer]];
-	 
-	 [self.view addSubview:playerViewController.view];
-	 
-	 //---play movie---
-	 MPMoviePlayerController *player = [playerViewController moviePlayer];
-	 [player play];
-	 */
-	
 	[super viewDidLoad];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
+	// Grab the title bar
+	[[RacePadTitleBarController Instance] displayInViewController:self];
+	
+	// Position the movie and order the overlays
 	[[moviePlayer view] setFrame:[movieView bounds]];
 	[movieView addSubview:[moviePlayer view]];
-	[self.view bringSubviewToFront:overlayView];
-	[self.view bringSubviewToFront:trackMapView];
+	
+	[self positionOverlays];
+	
+	[movieView bringSubviewToFront:overlayView];
+	[movieView bringSubviewToFront:trackMapView];
 	
 	// Get notification when we know the movie size
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieSizeCallback:)
-												 name:MPMovieNaturalSizeAvailableNotification
-											   object:moviePlayer];
+													name:MPMovieNaturalSizeAvailableNotification
+													object:moviePlayer];
 	
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
@@ -108,6 +105,7 @@
 {
 	[[RacePadCoordinator Instance] SetViewHidden:movieView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+	[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[moviePlayer stop];
@@ -135,15 +133,21 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self hideOverlays];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.75];
-	[[moviePlayer view] setFrame:[movieView bounds]];	
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	[[moviePlayer view] setFrame:[movieView bounds]];
 	[UIView commitAnimations];
-		
-	[self positionOverlays];
-
+	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
@@ -189,22 +193,20 @@
 	[moviePlayer setInitialPlaybackTime:movie_time];
 }
 
-- (void) movieSizeCallback:(NSNotification*) aNotification
+- (void) showOverlays
 {
-	MPMoviePlayerController *player = [aNotification object];
-	movieSize = [player naturalSize];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieNaturalSizeAvailableNotification object:player];
-    
-	[self positionOverlays];
+ 	[trackMapView setAlpha:0.0];
+ 	[trackMapView setHidden:false];
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+  	[trackMapView setAlpha:1.0];
+	[UIView commitAnimations];
 }
 
-- (void) movieFinishedCallback:(NSNotification*) aNotification
+- (void) hideOverlays
 {
-	MPMoviePlayerController *player = [aNotification object];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
-	[player stop];
-	[self.view removeFromSuperview];
-	[player autorelease];    
+	[trackMapView setHidden:true];
 }
 
 - (void) positionOverlays
@@ -223,15 +225,15 @@
 	{
 		// It's width limited - work out height centred on view
 		float newHeight = movieSize.height * wScale;
-		float yOrigin = (movieViewSize.height - newHeight) / 2;
-		movieRect = CGRectMake(0, yOrigin, movieViewSize.width, newHeight);
+		float yOrigin = (movieViewSize.height - newHeight) / 2 + movieViewBounds.origin.y;
+		movieRect = CGRectMake(movieViewBounds.origin.x, yOrigin, movieViewSize.width, newHeight);
 	}
 	else
 	{
 		// It's height limited - work out height centred on view
 		float newWidth = movieSize.width * hScale;
-		float xOrigin = (movieViewSize.width - newWidth) / 2;
-		movieRect = CGRectMake(xOrigin, 0, newWidth, movieViewSize.height);
+		float xOrigin = (movieViewSize.width - newWidth) / 2 + movieViewBounds.origin.x;
+		movieRect = CGRectMake(xOrigin, movieViewBounds.origin.y, newWidth, movieViewSize.height);
 	}
 	
 	[trackMapView setFrame:movieRect];
@@ -241,7 +243,7 @@
 {
 }
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	
@@ -251,7 +253,7 @@
 		[time_controller hide];
 }
 
-- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
@@ -263,13 +265,19 @@
 	[trackMapView RequestRedraw];
 }
 
-- (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	float currentUserPanX = [trackMap userXOffset];
-	float currentUserPanY = [trackMap userYOffset];
+	CGRect viewBounds = [gestureView bounds];
+	CGSize viewSize = viewBounds.size;
+	
+	if(viewSize.width < 1 || viewSize.height < 1)
+		return;
+	
+	float currentUserPanX = [trackMap userXOffset] * viewSize.width;
+	float currentUserPanY = [trackMap userYOffset] * viewSize.height;
 	float currentUserScale = [trackMap userScale];
 	float currentMapPanX = [trackMap mapXOffset];
 	float currentMapPanY = [trackMap mapYOffset];
@@ -295,21 +303,62 @@
 	float newPanX = x - new_x ;
 	float newPanY = y - new_y ;
 	
-	[trackMap setUserXOffset:newPanX];
-	[trackMap setUserYOffset:newPanY];
+	[trackMap setUserXOffset:newPanX / viewSize.width];
+	[trackMap setUserYOffset:newPanY / viewSize.height];
 	[trackMap setUserScale:newUserScale];
 	
 	[trackMapView RequestRedraw];
 }
 
-- (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	[trackMap setUserXOffset:[trackMap userXOffset] + x];
-	[trackMap setUserYOffset:[trackMap userYOffset] + y];
+	CGRect viewBounds = [gestureView bounds];
+	CGSize viewSize = viewBounds.size;
+	
+	if(viewSize.width < 1 || viewSize.height < 1)
+		return;
+	
+	float newPanX = [trackMap userXOffset] * viewSize.width + x;
+	float newPanY = [trackMap userYOffset] * viewSize.height + y;
+	
+	[trackMap setUserXOffset:newPanX / viewSize.width];
+	[trackMap setUserYOffset:newPanY / viewSize.height];
 	
 	[trackMapView RequestRedraw];
 }
+
+
+////////////////////////////////////////////////////////////////////////
+//  Callback functions
+
+- (void) movieSizeCallback:(NSNotification*) aNotification
+{
+	MPMoviePlayerController *player = [aNotification object];
+	movieSize = [player naturalSize];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieNaturalSizeAvailableNotification object:player];
+    
+	[self positionOverlays];
+}
+
+- (void) movieFinishedCallback:(NSNotification*) aNotification
+{
+	MPMoviePlayerController *player = [aNotification object];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
+	[player stop];
+	[self.view removeFromSuperview];
+	[player autorelease];    
+}
+
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		[self positionOverlays];
+		[self showOverlays];
+	}
+}
+
 @end

@@ -20,6 +20,7 @@
 	
 	NSTimer *doubleTapTimer;
 	CGPoint tapPoint;
+	UIView * tapView;
 }
 
 - (UIView *) baseView;
@@ -52,13 +53,13 @@
 
 // Action callbacks
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y;
-- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y;
-- (void) OnGestureLongPressAtX:(float)x Y:(float)y;
-- (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed;
-- (void) OnGestureRotationAtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed;
-- (void) OnGestureRightSwipe;
-- (void) OnGestureLeftSwipe;
-- (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y;
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed;
+- (void) OnRotationGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed;
+- (void) OnRightSwipeGestureInView:(UIView *)gestureView;
+- (void) OnLeftSwipeGestureInView:(UIView *)gestureView;
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y;
 
 @end

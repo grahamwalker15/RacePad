@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class TimeViewController;
+@class AlertViewController;
 
 @interface RacePadTimeController : NSObject
 {
 	TimeViewController * timeController;
+	AlertViewController * alertController;
+	UIPopoverController * alertPopover;
 	
 	NSTimer *hideTimer;
 
@@ -40,5 +43,6 @@
 
 - (IBAction)PlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
+- (IBAction)AlertPressed:(id)sender;
 
 @end

@@ -14,6 +14,7 @@
 	TitleBarViewController * titleBarController;
 	
 	int lapCount;
+	int currentLap;
 }
 
 + (RacePadTitleBarController *)Instance;
@@ -23,7 +24,7 @@
 - (void) displayInViewController:(UIViewController *)viewController;
 - (void) hide;
 
-- (void) updateClock:(float)time;
+- (void) updateTime:(float)time;
 - (void) setEventName: (NSString *)event;
 - (void) setLapCount: (int)count;
 - (void) setCurrentLap: (int)lap;

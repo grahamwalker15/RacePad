@@ -60,6 +60,11 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
+	// Resize map view
+	CGRect bg_frame = [background_view_ frame];
+	CGRect map_frame = CGRectInset(bg_frame, 30, 30);
+	[trackMapView setFrame:map_frame];
+	
 	// Force background refresh
 	[background_view_ RequestRedraw];
 	
@@ -77,6 +82,7 @@
 {
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	//[[RacePadCoordinator Instance] SetViewHidden:timing_view_];
+	[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[background_view_ ReleaseBackground];
@@ -94,6 +100,10 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[background_view_ RequestRedraw];
+	
+	CGRect bg_frame = [background_view_ frame];
+	CGRect map_frame = CGRectInset(bg_frame, 30, 30);
+	[trackMapView setFrame:map_frame];
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
@@ -110,7 +120,7 @@
     [super viewDidUnload];
 }
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	
@@ -120,7 +130,7 @@
 		[time_controller hide];
 }
 
-- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
@@ -132,13 +142,19 @@
 	[trackMapView RequestRedraw];
 }
 
-- (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	float currentUserPanX = [trackMap userXOffset];
-	float currentUserPanY = [trackMap userYOffset];
+	CGRect viewBounds = [gestureView bounds];
+	CGSize viewSize = viewBounds.size;
+	
+	if(viewSize.width < 1 || viewSize.height < 1)
+		return;
+	
+	float currentUserPanX = [trackMap userXOffset] * viewSize.width;
+	float currentUserPanY = [trackMap userYOffset] * viewSize.height;
 	float currentUserScale = [trackMap userScale];
 	float currentMapPanX = [trackMap mapXOffset];
 	float currentMapPanY = [trackMap mapYOffset];
@@ -164,20 +180,29 @@
 	float newPanX = x - new_x ;
 	float newPanY = y - new_y ;
 	
-	[trackMap setUserXOffset:newPanX];
-	[trackMap setUserYOffset:newPanY];
+	[trackMap setUserXOffset:newPanX / viewSize.width];
+	[trackMap setUserYOffset:newPanY / viewSize.height];
 	[trackMap setUserScale:newUserScale];
 	
 	[trackMapView RequestRedraw];
 }
 
-- (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	[trackMap setUserXOffset:[trackMap userXOffset] + x];
-	[trackMap setUserYOffset:[trackMap userYOffset] + y];
+	CGRect viewBounds = [gestureView bounds];
+	CGSize viewSize = viewBounds.size;
+	
+	if(viewSize.width < 1 || viewSize.height < 1)
+		return;
+	
+	float newPanX = [trackMap userXOffset] * viewSize.width + x;
+	float newPanY = [trackMap userYOffset] * viewSize.height + y;
+
+	[trackMap setUserXOffset:newPanX / viewSize.width];
+	[trackMap setUserYOffset:newPanY / viewSize.height];
 	
 	[trackMapView RequestRedraw];
 }

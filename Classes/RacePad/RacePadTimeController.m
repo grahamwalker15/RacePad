@@ -9,6 +9,7 @@
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
 #import "TimeViewController.h"
+#import "AlertViewController.h"
 
 @implementation RacePadTimeController
 
@@ -29,6 +30,8 @@ static RacePadTimeController * instance_ = nil;
 	if(self = [super init])
 	{	
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
+		alertController = [[AlertViewController alloc] initWithNibName:@"AlertControlView" bundle:nil];
+		alertPopover = [[UIPopoverController alloc] initWithContentViewController:alertController];
 		displayed = false;
 		hideTimer = nil;
 	}
@@ -78,6 +81,10 @@ static RacePadTimeController * instance_ = nil;
 	
 	UISlider * slider = [timeController timeSlider];
 	[slider addTarget:instance_ action:@selector(SliderChanged:) forControlEvents:UIControlEventValueChanged];
+	
+	UIBarButtonItem * alert_button = [timeController alertButton];	
+	[alert_button setTarget:instance_];
+	[alert_button setAction:@selector(AlertPressed:)];
 	
 	float current_time = [[RacePadCoordinator Instance] currentTime];
 	float start_time = [[RacePadCoordinator Instance] startTime];
@@ -183,6 +190,21 @@ static RacePadTimeController * instance_ = nil;
 	float time = [slider value];
 	[[RacePadCoordinator Instance] jumpToTime:time];
 	[self updateClock:time];
+	[self setHideTimer];
+}
+
+- (IBAction)AlertPressed:(id)sender
+{
+	CGSize popoverSize;
+	if([[RacePadCoordinator Instance] deviceOrientation] == RPC_ORIENTATION_PORTRAIT_)
+		popoverSize = CGSizeMake(400,800);
+	else
+		popoverSize = CGSizeMake(400,600);
+
+	[alertPopover setPopoverContentSize:popoverSize];
+	
+	[alertPopover presentPopoverFromBarButtonItem:[timeController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+
 	[self setHideTimer];
 }
 

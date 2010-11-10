@@ -320,12 +320,14 @@
 		{
 			int count = [stream PopInt];
 			[[RacePadTitleBarController Instance] setLapCount:count];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LAP_COUNT_VIEW_];
 			break;
 		}
 		case RPSC_LAP_COUNTER_:
 		{
 			int lap = [stream PopInt];
 			[[RacePadTitleBarController Instance] setCurrentLap:lap];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LAP_COUNT_VIEW_];
 			break;
 		}
 		case RPSC_PIT_WINDOW_BASE_: // Pit Window Base

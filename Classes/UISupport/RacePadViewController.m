@@ -136,6 +136,7 @@
 {
 	UIView * gestureView = [gestureRecognizer view];
 	tapPoint = [gestureRecognizer locationInView:gestureView];
+	tapView = gestureView;
 	doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
 }
 
@@ -149,12 +150,12 @@
 	
 	UIView * gestureView = [gestureRecognizer view];
 	CGPoint point = [gestureRecognizer locationInView:gestureView];
-	[self OnGestureDoubleTapAtX:point.x Y:point.y];
+	[self OnDoubleTapGestureInView:gestureView AtX:point.x Y:point.y];
 }
 
 - (void) doubleTapTimerExpired: (NSTimer *)theTimer
 {
-	[self OnGestureTapAtX:tapPoint.x Y:tapPoint.y];
+	[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
 	doubleTapTimer = nil;
 }
 
@@ -162,7 +163,7 @@
 {
 	UIView * gestureView = [gestureRecognizer view];
 	CGPoint point = [gestureRecognizer locationInView:gestureView];
-	[self OnGestureLongPressAtX:point.x Y:point.y];
+	[self OnLongPressGestureInView:gestureView AtX:point.x Y:point.y];
 }
 
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -182,7 +183,7 @@
 	{
 		float thisGestureScale = scale;
 		scale = scale / lastGestureScale;
-		[self OnGesturePinchAtX:point.x Y:point.y Scale:scale Speed:speed];
+		[self OnPinchGestureInView:gestureView AtX:point.x Y:point.y Scale:scale Speed:speed];
 		lastGestureScale = thisGestureScale;
 	}
 }
@@ -202,18 +203,20 @@
 	
 	float thisGestureAngle = angle;
 	angle -= lastGestureAngle;
-	[self OnGestureRotationAtX:point.x Y:point.y Angle:angle Speed:speed];
+	[self OnRotationGestureInView:gestureView AtX:point.x Y:point.y Angle:angle Speed:speed];
 	lastGestureAngle = thisGestureAngle;
 }
 
 - (void)HandleRightSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	[self OnGestureRightSwipe];
+	UIView * gestureView = [gestureRecognizer view];
+	[self OnRightSwipeGestureInView:gestureView];
 }
 
 - (void)HandleLeftSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	[self OnGestureLeftSwipe];
+	UIView * gestureView = [gestureRecognizer view];
+	[self OnLeftSwipeGestureInView:gestureView];
 }
 
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -233,42 +236,42 @@
 	float thisGesturePanY = pan.y;
 	pan.x = pan.x - lastGesturePanX;
 	pan.y = pan.y - lastGesturePanY;
-	[self OnGesturePanByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y];
+	[self OnPanGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y];
 	lastGesturePanX = thisGesturePanX;
 	lastGesturePanY = thisGesturePanY;
 }
 
 // Action callbacks - these should be overridden if you want any action
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 }
 
-- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 }
 
-- (void) OnGestureLongPressAtX:(float)x Y:(float)y
+- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 }
 
-- (void) OnGesturePinchAtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
 }
 
-- (void) OnGestureRotationAtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed
+- (void) OnRotationGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed
 {
 }
 
-- (void) OnGestureRightSwipe
+- (void) OnRightSwipeGestureInView:(UIView *)gestureView
 {
 }
 
-- (void) OnGestureLeftSwipe
+- (void) OnLeftSwipeGestureInView:(UIView *)gestureView
 {
 }
 
-- (void) OnGesturePanByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
 {
 }
 

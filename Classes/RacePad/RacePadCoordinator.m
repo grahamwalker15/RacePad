@@ -8,6 +8,7 @@
 
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadTitleBarController.h"
 #import "RacePadClientSocket.h"
 #import "RacePadDataHandler.h"
 #import "ElapsedTime.h"
@@ -263,7 +264,6 @@ static RacePadCoordinator * instance_ = nil;
 		}
 	}
 	
-	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
 	[self setTimer:currentTime + elapsed];
 }
 
@@ -271,6 +271,7 @@ static RacePadCoordinator * instance_ = nil;
 {
 	float elapsed = [elapsedTime value];
 	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
+	[[RacePadTitleBarController Instance] updateTime:currentTime + elapsed];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -865,8 +866,7 @@ static RacePadCoordinator * instance_ = nil;
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
 {
 	// There are no data sources for video or settings types, so ignore calls with this type
-	if(type == RPC_VIDEO_VIEW_
-	  || type == RPC_SETTINGS_VIEW_)
+	if(type == RPC_VIDEO_VIEW_ || type == RPC_SETTINGS_VIEW_)
 		return;
 	
 	// First make sure that this handler is not already in the list
@@ -883,7 +883,6 @@ static RacePadCoordinator * instance_ = nil;
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"timing.rpf"];
-		[self AddDataSourceWithType:type AndFile: @"lap_count.rpf"];
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
@@ -898,6 +897,9 @@ static RacePadCoordinator * instance_ = nil;
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
 		[self AddDataSourceWithType:type AndFile: @"cars.rpf"];
+	}
+	else if (type == RPC_LAP_COUNT_VIEW_ )
+	{
 		[self AddDataSourceWithType:type AndFile: @"lap_count.rpf"];
 	}
 	else if (type == RPC_PIT_WINDOW_VIEW_ )

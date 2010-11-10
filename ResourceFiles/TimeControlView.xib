@@ -44,8 +44,8 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUISlider" id="296489588">
 						<reference key="NSNextResponder" ref="235295983"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{50, 11}, {591, 23}}</string>
+						<int key="NSvFlags">263</int>
+						<string key="NSFrame">{{82, 11}, {751, 23}}</string>
 						<reference key="NSSuperview" ref="235295983"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -54,8 +54,8 @@
 					</object>
 					<object class="IBUIButton" id="958465174">
 						<reference key="NSNextResponder" ref="235295983"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{654, 11}, {102, 23}}</string>
+						<int key="NSvFlags">289</int>
+						<string key="NSFrame">{{876, 11}, {102, 23}}</string>
 						<reference key="NSSuperview" ref="235295983"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -86,7 +86,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{768, 44}</string>
+				<string key="NSFrameSize">{1024, 44}</string>
 				<reference key="NSSuperview"/>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -97,7 +97,7 @@
 					<object class="IBUIBarButtonItem" id="286321629">
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">RightArrow.png</string>
+							<string key="NSResourceName">play.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUIToolbar" ref="235295983"/>
@@ -120,6 +120,14 @@
 					<object class="IBUIBarButtonItem" id="542221634">
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUICustomView" ref="958465174"/>
+						<reference key="IBUIToolbar" ref="235295983"/>
+					</object>
+					<object class="IBUIBarButtonItem" id="352139688">
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">PopupImage.png</string>
+						</object>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUIToolbar" ref="235295983"/>
 					</object>
 				</object>
@@ -160,6 +168,14 @@
 					</object>
 					<int key="connectionID">15</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">alertButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="352139688"/>
+					</object>
+					<int key="connectionID">19</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -189,8 +205,9 @@
 							<reference ref="286321629"/>
 							<reference ref="220259579"/>
 							<reference ref="542221634"/>
-							<reference ref="991767604"/>
+							<reference ref="352139688"/>
 							<reference ref="61700575"/>
+							<reference ref="991767604"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -228,13 +245,18 @@
 						<reference key="parent" ref="542221634"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">10</int>
-						<reference key="object" ref="991767604"/>
+						<int key="objectID">18</int>
+						<reference key="object" ref="352139688"/>
 						<reference key="parent" ref="235295983"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">11</int>
 						<reference key="object" ref="61700575"/>
+						<reference key="parent" ref="235295983"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">10</int>
+						<reference key="object" ref="991767604"/>
 						<reference key="parent" ref="235295983"/>
 					</object>
 				</object>
@@ -247,6 +269,7 @@
 					<string>-2.CustomClassName</string>
 					<string>10.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
+					<string>18.IBPluginDependency</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
@@ -259,7 +282,8 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{385, 801}, {768, 44}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{385, 801}, {1024, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -282,7 +306,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">15</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -294,12 +318,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>alertButton</string>
 							<string>clock</string>
 							<string>playButton</string>
 							<string>timeSlider</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIBarButtonItem</string>
 							<string>UIButton</string>
 							<string>UIBarButtonItem</string>
 							<string>UISlider</string>
@@ -309,12 +335,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>alertButton</string>
 							<string>clock</string>
 							<string>playButton</string>
 							<string>timeSlider</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">alertButton</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">clock</string>
 								<string key="candidateClassName">UIButton</string>
@@ -613,8 +644,17 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../RacePad.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">RightArrow.png</string>
-			<string key="NS.object.0">{24, 24}</string>
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>PopupImage.png</string>
+				<string>play.png</string>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{24, 24}</string>
+				<string>{26, 26}</string>
+			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">123</string>
 	</data>

@@ -58,25 +58,27 @@ static RacePadTitleBarController * instance_ = nil;
 	[viewController.view addSubview:titleBarController.view];
 		
 	float current_time = [[RacePadCoordinator Instance] currentTime];	
-	[self updateClock:current_time];
+	[self updateTime:current_time];
+	
+	[[RacePadCoordinator Instance] SetViewDisplayed:titleBarController];
 }
 
 - (void) hide
 {
+	[[RacePadCoordinator Instance] SetViewHidden:titleBarController];
 	[titleBarController.view removeFromSuperview];
 }
 
-- (void) updateClock:(float)time
+- (void) updateTime:(float)time
 {
-	/*
-	UIBarButton * clock = [titleBarController clock];
-	
-	int h = (int)(time / 3600.0); time -= h * 3600;
-	int m = (int)(time / 60.0); time -= m * 60;
-	int s = (int)(time);
-	NSString * time_string = [NSString stringWithFormat:@"%d:%02d:%02d", h, m, s];
-	[clock setTitle:time_string forState:UIControlStateNormal];
-	 */
+	if (lapCount <= 0)
+	{
+		int h = (int)(time / 3600.0); time -= h * 3600;
+		int m = (int)(time / 60.0); time -= m * 60;
+		int s = (int)(time);
+		NSString * time_string = [NSString stringWithFormat:@"%d:%02d:%02d", h, m, s];
+		[[titleBarController lapCounter] setTitle:time_string forState:UIControlStateNormal];
+	}
 }
 
 - (void) setEventName: (NSString *)event
@@ -87,24 +89,22 @@ static RacePadTitleBarController * instance_ = nil;
 - (void) setLapCount: (int)count
 {
 	lapCount = count;
-	[[titleBarController lapCounter] setHidden:YES];
 }
 
-- (void) setCurrentLap: (int)count
+- (void) setCurrentLap: (int)lap
 {
-	if (lapCount )
+	currentLap = lap;
+	
+	if (lapCount > 0)
 	{
-		NSNumber *i = [NSNumber numberWithInt:count];
+		NSNumber *i = [NSNumber numberWithInt:lap];
 		NSNumber *c = [NSNumber	numberWithInt:lapCount];
 		NSString *s = @"Lap ";
 		s = [s stringByAppendingString:[i stringValue]];
 		s = [s stringByAppendingString:@" of "];
 		s = [s stringByAppendingString:[c stringValue]];
 		[[titleBarController lapCounter] setTitle:s forState:UIControlStateNormal];
-		[[titleBarController lapCounter] setHidden:NO];
 	}
-	else
-		[[titleBarController lapCounter] setHidden:YES];
 }
 
 

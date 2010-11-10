@@ -14,9 +14,11 @@
 	IBOutlet UIBarButtonItem * playButton;
 	IBOutlet UIButton * clock;
 	IBOutlet UISlider * timeSlider;
+	IBOutlet UIBarButtonItem * alertButton;
 }
 
 @property (readonly) UIBarButtonItem * playButton;
+@property (readonly) UIBarButtonItem * alertButton;
 @property (readonly) UISlider * timeSlider;
 @property (readonly) UIButton * clock;
 

@@ -7,6 +7,7 @@
 //
 
 #import "TitleBarViewController.h"
+#import "RacePadCoordinator.h"
 
 @implementation TitleBarViewController
 
@@ -37,6 +38,9 @@
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad
  {
+	 //Tell race pad co-ordinator that we'll be interested in updates
+	 [[RacePadCoordinator Instance] AddView:self WithType:RPC_LAP_COUNT_VIEW_];
+
 	 [super viewDidLoad];
  }
  
@@ -68,6 +72,10 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (void)RequestRedraw
+{
 }
 
 @end

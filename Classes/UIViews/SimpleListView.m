@@ -405,7 +405,7 @@
 					float w, h;
 					[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
 					
-					float text_y = y + row_height_ - text_baseline_ - 2 - h;
+					float text_y = y + row_height - text_baseline_ - 2 - h;
 					
 					float xpos ;
 					float text_offset = 3;
@@ -431,12 +431,13 @@
 				UIImage * image = [[self GetCellImageAtRow:row_index Col:col] retain];
 				
 				[self SetBGColour:background_colour_];
-				
 				[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 				
 				if(image)
 				{
-					[self DrawImage:image AtX:x_draw Y:y];
+					float w = [image size].width;
+					float xpos = x_draw + (column_width / 2) - (w / 2) ;
+					[self DrawImage:image AtX:xpos Y:y];
 					[image release];
 				}
 				

@@ -91,7 +91,12 @@
 	return false;
 }
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y
+- (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	return false;
+}
+
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	int row = -1;
 	int col = -1;
@@ -122,10 +127,14 @@
 				}
 			}
 		}
+		else
+		{
+			[self HandleSelectBackgroundDoubleClick:false LongPress:false];
+		}
 	}
 }
 
-- (void) OnGestureDoubleTapAtX:(float)x Y:(float)y
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	int row = -1;
 	int col = -1;
@@ -156,10 +165,14 @@
 				}
 			}
 		}
+		else
+		{
+			[self HandleSelectBackgroundDoubleClick:true LongPress:false];
+		}		
 	}
 }
 
-- (void) OnGestureLongPressAtX:(float)x Y:(float)y
+- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	int row = -1;
 	int col = -1;
@@ -189,6 +202,10 @@
 					[self HandleSelectRow:row DoubleClick:false LongPress:true];
 				}
 			}
+		}
+		else
+		{
+			[self HandleSelectBackgroundDoubleClick:false LongPress:true];
 		}
 	}
 }

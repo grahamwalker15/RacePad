@@ -21,4 +21,6 @@
 @property (readonly) UIButton * eventName;
 @property (readonly) UIButton * lapCounter;
 
+- (void)RequestRedraw;
+
 @end

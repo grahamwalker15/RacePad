@@ -104,6 +104,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] SetViewHidden:movieView];
+	[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[moviePlayer stop];
@@ -232,7 +233,7 @@
 {
 }
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	

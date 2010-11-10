@@ -33,9 +33,12 @@
 - (void) movieGotoTime:(float)time;
 - (void) moviePrepareToPlay;
 
+- (void) showOverlays;
+- (void) hideOverlays;
 - (void) positionOverlays;
 
 - (void) movieSizeCallback:(NSNotification*) aNotification;
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
+- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 @end
