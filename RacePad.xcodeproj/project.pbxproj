@@ -11,10 +11,16 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
+		4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
+		4D1563F312898CD0000E959D /* PitWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F212898CD0000E959D /* PitWindowView.m */; };
+		4D1563F912898E32000E959D /* PitWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F812898E32000E959D /* PitWindowViewController.m */; };
+		4D15640512898FD1000E959D /* PitWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D15640412898FD1000E959D /* PitWindowView.xib */; };
 		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
 		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
 		4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; };
+		4D782602128989B100BE0329 /* PitWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D782601128989B100BE0329 /* PitWindow.m */; };
 		4D807C101283061500FDE400 /* GPSGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0E1283061500FDE400 /* GPSGreen.png */; };
 		4D807C111283061500FDE400 /* GPSRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0F1283061500FDE400 /* GPSRed.png */; };
 		4D807C6212831A8100FDE400 /* RacePadPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D807C6112831A8100FDE400 /* RacePadPrefs.m */; };
@@ -108,6 +114,13 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D1349C7128A939800A6E375 /* ArrowLeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowLeader.png; path = ResourceFiles/ArrowLeader.png; sourceTree = "<group>"; };
+		4D1349C8128A939800A6E375 /* BlueFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueFlag.png; path = ResourceFiles/BlueFlag.png; sourceTree = "<group>"; };
+		4D1563F112898CD0000E959D /* PitWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindowView.h; sourceTree = "<group>"; };
+		4D1563F212898CD0000E959D /* PitWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindowView.m; sourceTree = "<group>"; };
+		4D1563F712898E32000E959D /* PitWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindowViewController.h; sourceTree = "<group>"; };
+		4D1563F812898E32000E959D /* PitWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindowViewController.m; sourceTree = "<group>"; };
+		4D15640412898FD1000E959D /* PitWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PitWindowView.xib; path = ResourceFiles/PitWindowView.xib; sourceTree = "<group>"; };
 		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
 		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
 		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
@@ -116,6 +129,8 @@
 		4D757B80126F028900E32C41 /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
 		4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDataHandler.h; sourceTree = "<group>"; };
 		4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDataHandler.m; sourceTree = "<group>"; };
+		4D782600128989B100BE0329 /* PitWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindow.h; sourceTree = "<group>"; };
+		4D782601128989B100BE0329 /* PitWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindow.m; sourceTree = "<group>"; };
 		4D807C0E1283061500FDE400 /* GPSGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GPSGreen.png; path = Images/GPSGreen.png; sourceTree = "<group>"; };
 		4D807C0F1283061500FDE400 /* GPSRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GPSRed.png; path = Images/GPSRed.png; sourceTree = "<group>"; };
 		4D807C6012831A8100FDE400 /* RacePadPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadPrefs.h; sourceTree = "<group>"; };
@@ -305,20 +320,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7F865A7512880EBF00F13CB6 /* ListIcon.png */,
-				7F865A15128776B600F13CB6 /* Icon-72.png */,
-				7F865A16128776B600F13CB6 /* Icon-Small-50.png */,
-				7F865A17128776B600F13CB6 /* Icon-Small.png */,
-				7F865A18128776B600F13CB6 /* Icon.png */,
-				7F865A19128776B600F13CB6 /* Icon@2x.png */,
+				4D1349C7128A939800A6E375 /* ArrowLeader.png */,
+				4D1349C8128A939800A6E375 /* BlueFlag.png */,
 				7F62475B12851255009A9D4F /* ChequeredFlag.png */,
-				7F62475C12851255009A9D4F /* GreenFlag */,
-				7F62475D12851255009A9D4F /* RedFlag.png */,
-				7F62475E12851255009A9D4F /* SCFlag.png */,
-				7F62475F12851255009A9D4F /* SCInFlag.png */,
-				7F62476012851255009A9D4F /* YellowFlag.png */,
-				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
-				7F6246A21284471E009A9D4F /* MGPLogo.png */,
 				7F068125126DDA6800C9EE5D /* clock.png */,
 				7F6244F21282EFB5009A9D4F /* CompositeView.xib */,
 				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
@@ -326,27 +330,41 @@
 				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
 				4D807C0E1283061500FDE400 /* GPSGreen.png */,
 				4D807C0F1283061500FDE400 /* GPSRed.png */,
+				7F62475C12851255009A9D4F /* GreenFlag */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
+				7F865A15128776B600F13CB6 /* Icon-72.png */,
+				7F865A16128776B600F13CB6 /* Icon-Small-50.png */,
+				7F865A17128776B600F13CB6 /* Icon-Small.png */,
+				7F865A18128776B600F13CB6 /* Icon.png */,
+				7F865A19128776B600F13CB6 /* Icon@2x.png */,
 				7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */,
+				7F865A7512880EBF00F13CB6 /* ListIcon.png */,
 				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
 				7F067F4B126DAE1700C9EE5D /* Metal.png */,
+				7F6246A21284471E009A9D4F /* MGPLogo.png */,
 				7F068126126DDA6800C9EE5D /* monitor.png */,
 				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
 				7F068127126DDA6800C9EE5D /* newspaper.png */,
 				7F067F4C126DAE1700C9EE5D /* Parchment.png */,
+				4D15640412898FD1000E959D /* PitWindowView.xib */,
 				7F068128126DDA6800C9EE5D /* preferences.png */,
 				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+				7F62475D12851255009A9D4F /* RedFlag.png */,
 				7F6FB6BB127577FE00EF2B8C /* RightArrow.png */,
+				7F62475E12851255009A9D4F /* SCFlag.png */,
+				7F62475F12851255009A9D4F /* SCInFlag.png */,
 				7FB1C58712673E7F008A6C94 /* SecondView.xib */,
 				4D807CF412832B3400FDE400 /* ServerConnect.xib */,
 				7F31CA681270892700F26C7B /* SettingsView.xib */,
 				7FB1C58812673E7F008A6C94 /* TestTextView.xib */,
 				7FB1C58912673E7F008A6C94 /* ThirdView.xib */,
 				7F6FB8981275F11400EF2B8C /* TimeControlView.xib */,
+				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
 				7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
 				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
 				7F068129126DDA6800C9EE5D /* world.png */,
+				7F62476012851255009A9D4F /* YellowFlag.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -371,6 +389,8 @@
 			children = (
 				7FB1C59812673E9F008A6C94 /* ImageListStore.h */,
 				7FB1C59912673E9F008A6C94 /* ImageListStore.m */,
+				4D782600128989B100BE0329 /* PitWindow.h */,
+				4D782601128989B100BE0329 /* PitWindow.m */,
 				7F3276F1126379B000BD1627 /* RacePadDatabase.h */,
 				7F3276F2126379B000BD1627 /* RacePadDatabase.m */,
 				7F3276EF126379B000BD1627 /* TableData.h */,
@@ -384,6 +404,8 @@
 		7F9C10D71255E68B00770746 /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D1563F712898E32000E959D /* PitWindowViewController.h */,
+				4D1563F812898E32000E959D /* PitWindowViewController.m */,
 				7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */,
 				7F6244F01282EF9E009A9D4F /* CompositeViewController.m */,
 				4D8A66821282635500E9E19D /* DownloadProgress.h */,
@@ -417,20 +439,22 @@
 		7F9C10DF1255E6A900770746 /* UIViews */ = {
 			isa = PBXGroup;
 			children = (
+				7F9C1B54125B82CA00770746 /* DrawingView.h */,
+				7F9C1B55125B82CA00770746 /* DrawingView.m */,
 				7F9C12BB12560D0300770746 /* EAGLView.h */,
 				7F9C12BC12560D0300770746 /* EAGLView.m */,
 				7F9C12BD12560D0300770746 /* ESRenderer.h */,
 				7F9C12BE12560D0300770746 /* ESRenderer.m */,
-				7F9C1B54125B82CA00770746 /* DrawingView.h */,
-				7F9C1B55125B82CA00770746 /* DrawingView.m */,
+				7F6239D5127E089F009A9D4F /* MovieView.h */,
+				7F6239D6127E089F009A9D4F /* MovieView.m */,
+				4D1563F112898CD0000E959D /* PitWindowView.h */,
+				4D1563F212898CD0000E959D /* PitWindowView.m */,
 				7F9C1F14125F18A000770746 /* SimpleListView.h */,
 				7F9C1F15125F18A000770746 /* SimpleListView.m */,
 				7FBDF97F12649EBE009D37FA /* TableDataView.h */,
 				7FBDF98012649EBE009D37FA /* TableDataView.m */,
 				7FBDFA841264B822009D37FA /* TrackMapView.h */,
 				7FBDFA851264B822009D37FA /* TrackMapView.m */,
-				7F6239D5127E089F009A9D4F /* MovieView.h */,
-				7F6239D6127E089F009A9D4F /* MovieView.m */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -582,6 +606,9 @@
 				7F865A1D128776B600F13CB6 /* Icon.png in Resources */,
 				7F865A1E128776B600F13CB6 /* Icon@2x.png in Resources */,
 				7F865A7612880EBF00F13CB6 /* ListIcon.png in Resources */,
+				4D15640512898FD1000E959D /* PitWindowView.xib in Resources */,
+				4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */,
+				4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +662,9 @@
 				4D82FB401283F80C00F93A2B /* WorkOffline.m in Sources */,
 				7F6246A612844742009A9D4F /* RacePadTitleBarController.m in Sources */,
 				7F6246A912844762009A9D4F /* TitleBarViewController.m in Sources */,
+				4D782602128989B100BE0329 /* PitWindow.m in Sources */,
+				4D1563F312898CD0000E959D /* PitWindowView.m in Sources */,
+				4D1563F912898E32000E959D /* PitWindowViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

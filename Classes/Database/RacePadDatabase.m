@@ -29,6 +29,7 @@ static RacePadDatabase *instance = nil;
 	driverData = [[TableData alloc] init];
 	trackMap = [[TrackMap alloc] init];
 	imageListStore = [[ImageListStore alloc] init];
+	pitWindow = [[PitWindow alloc] init];
 	
 	return self;
 }
@@ -39,6 +40,7 @@ static RacePadDatabase *instance = nil;
 	[driverData release];
 	[trackMap release];
 	[imageListStore release];
+	[pitWindow release];
 	
 	[super dealloc];
 }
@@ -61,6 +63,11 @@ static RacePadDatabase *instance = nil;
 - (ImageListStore *)imageListStore
 {
 	return imageListStore;
+}
+
+- (PitWindow *)pitWindow
+{
+	return pitWindow;
 }
 
 @end

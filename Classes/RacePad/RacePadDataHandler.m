@@ -328,6 +328,20 @@
 			[[RacePadTitleBarController Instance] setCurrentLap:lap];
 			break;
 		}
+		case RPSC_PIT_WINDOW_BASE_: // Pit Window Base
+		{
+			PitWindow *pitWindow = [[RacePadDatabase Instance] pitWindow];
+			[pitWindow loadBase:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_PIT_WINDOW_VIEW_];
+			break;
+		}
+		case RPSC_PIT_WINDOW_: // Pit Window
+		{
+			PitWindow *pitWindow = [[RacePadDatabase Instance] pitWindow];
+			[pitWindow load:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_PIT_WINDOW_VIEW_];
+			break;
+		}
 		default:
 			break;
 	}

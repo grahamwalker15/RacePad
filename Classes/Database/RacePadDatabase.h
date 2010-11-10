@@ -10,6 +10,7 @@
 #import "TableData.h"
 #import "TrackMap.h"
 #import "ImageListStore.h"
+#import "PitWindow.h"
 
 @interface RacePadDatabase : NSObject
 {
@@ -18,6 +19,7 @@
 	TableData *driverData;
 	TrackMap *trackMap;
 	ImageListStore *imageListStore;
+	PitWindow *pitWindow;
 }
 
 @property (retain) NSString *eventName;
@@ -28,5 +30,6 @@
 - (TableData *) driverData;
 - (TrackMap *) trackMap;
 - (ImageListStore *) imageListStore;
+- (PitWindow *) pitWindow;
 
 @end

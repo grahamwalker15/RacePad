@@ -22,6 +22,9 @@ enum ClientCommands {
 	RPCS_ACCEPT_PUSH_DATA, // 14
 	RPCS_STOP_STREAMS, // 15
 	RPCS_CANCEL_DOWNLOAD, // 16
+	RPCS_REQUEST_PIT_WINDOW_BASE, // 17
+	RPCS_REQUEST_PIT_WINDOW, // 18
+	RPCS_STREAM_PIT_WINDOW, // 19
 };
 
 @interface RacePadClientSocket : Socket
@@ -41,5 +44,8 @@ enum ClientCommands {
 - (void) acceptPushData :(BOOL) send;
 - (void) stopStreams;
 - (void) cancelDownload;
+- (void) RequestPitWindowBase;
+- (void) RequestPitWindow;
+- (void) StreamPitWindow;
 
 @end

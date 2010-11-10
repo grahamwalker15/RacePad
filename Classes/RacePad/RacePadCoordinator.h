@@ -26,6 +26,7 @@ enum ViewTypes
 	RPC_TRACK_MAP_VIEW_ = 0x4,
 	RPC_VIDEO_VIEW_ = 0x8,
 	RPC_SETTINGS_VIEW_ = 0x16,
+	RPC_PIT_WINDOW_VIEW_ = 0x32,
 } ;
 
 // Connection types

@@ -29,6 +29,8 @@ enum ServerCommands {
 	RPSC_COMPLETE_PROJECT_, // 16
 	RPSC_LAP_COUNT_, // 17
 	RPSC_LAP_COUNTER_, // 18
+	RPSC_PIT_WINDOW_BASE_, // 19
+	RPSC_PIT_WINDOW_, // 20
 };
 
 @interface RacePadDataHandler : DataHandler

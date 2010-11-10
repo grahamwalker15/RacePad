@@ -128,6 +128,21 @@
 	[self SimpleCommand:RPCS_CANCEL_DOWNLOAD];
 }
 
+- (void)RequestPitWindowBase
+{
+	[self SimpleCommand:RPCS_REQUEST_PIT_WINDOW_BASE];
+}
+
+- (void)RequestPitWindow
+{
+	[self SimpleCommand:RPCS_REQUEST_PIT_WINDOW];
+}
+
+- (void)StreamPitWindow
+{
+	[self SimpleCommand:RPCS_STREAM_PIT_WINDOW];
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[RacePadDataHandler alloc] init];
