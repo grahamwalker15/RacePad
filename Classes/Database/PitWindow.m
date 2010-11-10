@@ -92,7 +92,7 @@ static UIImage *arrowLeaderImage = nil;
 	if ( px > *lastX - box_width )
 	{
 		py = *lastY - box_height - 4;
-		if ( py - box_height < y - (size.height / 2 - 40) )
+		if ( py - box_height < y - ((size.height - 40) / 2 - 40) )
 			py = y - box_height;
 	}
 	else
@@ -296,7 +296,7 @@ static UIImage *arrowLeaderImage = nil;
 	}
 	
 	int x_axis = y_base - 30;
-	int y1 = y_base - size.height / 2 + 10;
+	int y1 = y_base - (size.height - 40) / 2 + 10;
 	int x_pit_0 = (1-pitStopLoss) * size.width;
 	int x_pit_1 = pitStopLoss * size.width;
 	int x_margin_0 = (1-pitStopLossMargin) * size.width;
@@ -386,8 +386,8 @@ static UIImage *arrowLeaderImage = nil;
 - (void) draw : (PitWindowView *) view
 {
 	CGSize size = [view InqSize];
-	[self drawGraphic:false Y:size.height/2 View:view];
-	[self drawGraphic:true Y:size.height View:view];
+	[self drawGraphic:false Y:(size.height - 40)/2 View:view];
+	[self drawGraphic:true Y:size.height - 40 View:view];
 }
 
 @end
