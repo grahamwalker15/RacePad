@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -271,19 +269,21 @@
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>7F3276EE126379B000BD1627</string>
 								<string>7F9C1AD4125B7B6B00770746</string>
+								<string>7F9C1B75125CA10A00770746</string>
+								<string>7F9C10D71255E68B00770746</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
-									<integer>16</integer>
+									<integer>70</integer>
+									<integer>42</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 100}, {285, 682}}</string>
+							<string>{{0, 613}, {285, 682}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -315,12 +315,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RacePadCoordinator.m</string>
+								<string>TrackMapViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,7 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RacePadCoordinator.m</string>
+										<string>TrackMapViewController.m</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>4D134AE2128ACF9300A6E375</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -367,7 +373,6 @@
 											<string>4D7CE6AF128075CF00C60EB5</string>
 											<string>4D7CE6B0128075CF00C60EB5</string>
 											<string>4D8A66621282605B00E9E19D</string>
-											<string>4D8A669A128265C900E9E19D</string>
 											<string>4D807A6F1282BB3B00FDE400</string>
 											<string>4D807A751282BB3B00FDE400</string>
 											<string>4D807BAA1282F7A800FDE400</string>
@@ -387,8 +392,6 @@
 											<string>4D82FCD5128429E600F93A2B</string>
 											<string>4D82FCFC128430DF00F93A2B</string>
 											<string>4DA8E3A71288078400610129</string>
-											<string>4DA8E3A91288078400610129</string>
-											<string>4DA8E3C21288087E00610129</string>
 											<string>4DA8E3C41288087E00610129</string>
 											<string>4DA8E3DC128828E100610129</string>
 											<string>4DA8E3DD128828E100610129</string>
@@ -397,11 +400,7 @@
 											<string>4DA8E43B12884EB900610129</string>
 											<string>4DA8E46412885E8400610129</string>
 											<string>4DA8E46512885E8400610129</string>
-											<string>4D15640B12898FE0000E959D</string>
-											<string>4D15640C12898FE0000E959D</string>
-											<string>4D15640D12898FE0000E959D</string>
 											<string>4D15642B12899203000E959D</string>
-											<string>4D1564491289933E000E959D</string>
 											<string>4D15646C1289A33D000E959D</string>
 											<string>4D15646F1289A33D000E959D</string>
 											<string>4D1564701289A33D000E959D</string>
@@ -423,6 +422,14 @@
 											<string>4D134A9F128ACB3700A6E375</string>
 											<string>4D134AA0128ACB3700A6E375</string>
 											<string>4D134AA1128ACB3700A6E375</string>
+											<string>4D134AC7128ACDDA00A6E375</string>
+											<string>4D134AC8128ACDDA00A6E375</string>
+											<string>4D134AC9128ACDDA00A6E375</string>
+											<string>4D134AD1128ACE6600A6E375</string>
+											<string>4D134AD8128ACF4D00A6E375</string>
+											<string>4D134AD9128ACF4D00A6E375</string>
+											<string>4D134AE0128ACF9300A6E375</string>
+											<string>4D134AE1128ACF9300A6E375</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -620,7 +627,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>4D134ABB128ACB8100A6E375</string>
+		<string>4D134ADD128ACF4D00A6E375</string>
+		<string>4D134ACD128ACDDA00A6E375</string>
 		<string>4D134ABC128ACB8100A6E375</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>

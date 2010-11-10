@@ -35,8 +35,6 @@
 {
 	pitWindowView = (PitWindowView *)[self drawingView];
 
-	//  Add extra gesture recognizers
- 
 	[super viewDidLoad];
 	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 }
@@ -89,7 +87,7 @@
     [super viewDidUnload];
 }
 
-- (void) OnGestureTapAtX:(float)x Y:(float)y
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	
