@@ -31,13 +31,21 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	NSString * url_string = @"http://www.autosport.com";
-	NSURL * url = [[NSURL alloc] initWithString:url_string];
+	// NSString * url_string = @"http://www.autosport.com";
+	// NSURL * url = [[NSURL alloc] initWithString:url_string];
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *docsFolder = [paths objectAtIndex:0];
+	NSString *folder = [docsFolder stringByAppendingPathComponent:@"Data"];
+	NSString *fileName = [folder stringByAppendingPathComponent:@"RacePad.htm"];
+	NSURL *url = [NSURL fileURLWithPath:fileName];
+	
 	NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
 	[(UIWebView *)self.view loadRequest:request];
-		 
-	[url release];
+
+	// [url release];
 	[request release];
+		 
 	[super viewDidLoad];
 }
 

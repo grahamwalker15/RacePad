@@ -354,7 +354,30 @@
 		{
 			int start = [stream PopInt];
 			int end = [stream PopInt];
-			[[RacePadCoordinator Instance] setProjectRange:start End:end];			
+			[[RacePadCoordinator Instance] setProjectRange:start End:end];
+			break;
+		}
+		case RPSC_DATA_FILE_:
+		{
+			NSString *name = [stream PopString];
+
+			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+			NSString *docsFolder = [paths objectAtIndex:0];
+			NSString *folder = [docsFolder stringByAppendingPathComponent:@"Data"];
+			NSString *fileName = [folder stringByAppendingPathComponent:name];
+
+			NSFileManager *fm = [[NSFileManager alloc]init];
+			[fm setDelegate:self];
+			[fm createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:NULL];
+			
+			int size = [stream PopInt];
+			NSData *data = [stream PopData:size];
+
+			[fm createFileAtPath:fileName contents:data attributes:nil];
+			[data release];
+			
+			[fm release];
+			break;
 		}
 		default:
 			break;

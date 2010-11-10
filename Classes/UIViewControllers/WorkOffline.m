@@ -124,9 +124,12 @@
 		BOOL isDir;
 		if ( [fm fileExistsAtPath:file isDirectory:&isDir] && isDir )
 		{
-			if ( [name compare:preferredEvent] == NSOrderedSame )
-				preferredIndex = [events count];
-			[events addObject:name];
+			if ( [name compare:@"Data"] != NSOrderedSame ) // ignore the Data folder
+			{
+				if ( [name compare:preferredEvent] == NSOrderedSame )
+					preferredIndex = [events count];
+				[events addObject:name];
+			}
 		}
 	}
 	
