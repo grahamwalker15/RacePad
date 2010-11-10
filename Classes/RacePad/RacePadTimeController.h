@@ -34,12 +34,12 @@
 - (void) setHideTimer;
 - (void) hideTimerExpired:(NSTimer *)theTimer;
 
-
 - (void) setSliderMin:(float)startTime Max:(float)endTime;
 
 - (void) updateTime:(float)time;
 - (void) updateSlider:(float)time;
 - (void) updateClock:(float)time;
+- (void) updatePlayButton;
 
 - (IBAction)PlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;

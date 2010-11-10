@@ -113,19 +113,21 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void) setProjectRange:(int) start End:(int) end
 {
-	bool p = playing;
+	bool wasPlaying = playing;
 	[self pausePlay];
 	
 	startTime = start;
 	endTime = end;
 	
-	if ( p )
+	if (wasPlaying)
 	{
 		currentTime = start;
 		[self startPlay];
 	}
 	else
+	{
 		[self jumpToTime:start];
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -149,7 +151,7 @@ static RacePadCoordinator * instance_ = nil;
 	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
 
 	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[(MovieViewController *)registeredViewController moviePlay];	
+		[(MovieViewController *)registeredViewController moviePlay];
 }
 
 -(void)pausePlay
@@ -181,7 +183,8 @@ static RacePadCoordinator * instance_ = nil;
 	
 	[[RacePadTimeController Instance] updateTime:currentTime];
 
-	playing = false;	
+	playing = false;
+
 }
 
 -(void)stopPlay
@@ -224,6 +227,7 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			[self prepareToPlay];
 			[self startPlay];
+			[[RacePadTimeController Instance] updatePlayButton];
 		}
 	}
 	
@@ -680,6 +684,7 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			[self prepareToPlay];
 			[self startPlay];
+			[[RacePadTimeController Instance] updatePlayButton];
 		}
 		else
 		{

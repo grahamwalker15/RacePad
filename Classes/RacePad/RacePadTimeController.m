@@ -55,7 +55,7 @@ static RacePadTimeController * instance_ = nil;
 - (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated
 {
 	//[viewController presentModalViewController:timeController animated:true];
-
+	
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
 	
@@ -66,6 +66,7 @@ static RacePadTimeController * instance_ = nil;
 		[timeController.view setAlpha:0.0];
 	
 	[viewController.view addSubview:timeController.view];
+	[self updatePlayButton];
 	
 	if(animated)
 	{
@@ -164,6 +165,27 @@ static RacePadTimeController * instance_ = nil;
 }
 
 
+- (void) updatePlayButton
+{
+	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
+	UIBarButtonItem * play_button = [timeController playButton];	
+
+	if(play_button)
+	{
+		if([coordinator playing])
+		{
+			[play_button setImage:[UIImage imageNamed:@"pause.png"]];
+		}
+		else
+		{
+			[play_button setImage:[UIImage imageNamed:@"play.png"]];
+		}
+	}
+	
+	[self setHideTimer];
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////
 // Actions
 //////////////////////////////////////////////////////////////////////////////////
@@ -174,11 +196,13 @@ static RacePadTimeController * instance_ = nil;
 	if([coordinator playing])
 	{
 		[coordinator stopPlay];
+		[self updatePlayButton];
 	}
 	else
 	{
 		[coordinator prepareToPlay];
 		[coordinator startPlay];
+		[self updatePlayButton];
 	}
 	
 	[self setHideTimer];
