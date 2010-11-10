@@ -9,6 +9,7 @@
 #import "RacePadTitleBarController.h"
 #import "RacePadCoordinator.h"
 #import "TitleBarViewController.h"
+#import "TrackMap.h"
 
 @implementation RacePadTitleBarController
 
@@ -104,6 +105,30 @@ static RacePadTitleBarController * instance_ = nil;
 		s = [s stringByAppendingString:@" of "];
 		s = [s stringByAppendingString:[c stringValue]];
 		[[titleBarController lapCounter] setTitle:s forState:UIControlStateNormal];
+	}
+}
+
+- (void) setTrackState:(int)state
+{
+	switch (state) {
+		case TM_TRACK_GREEN:
+			break;
+		case TM_TRACK_YELLOW:
+			break;
+		case TM_TRACK_SC:
+			break;
+		case TM_TRACK_SCSTBY:
+			break;
+		case TM_TRACK_SCIN:
+			break;
+		case TM_TRACK_RED:
+			break;
+		case TM_TRACK_GRID:
+			break;
+		case TM_TRACK_CHEQUERED:
+			break;
+		default:
+			break;
 	}
 }
 

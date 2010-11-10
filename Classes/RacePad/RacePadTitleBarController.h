@@ -28,5 +28,6 @@
 - (void) setEventName: (NSString *)event;
 - (void) setLapCount: (int)count;
 - (void) setCurrentLap: (int)lap;
+- (void) setTrackState: (int)state;
 
 @end

@@ -149,6 +149,8 @@ enum OrientationTypes
 
 -(void) goOffline;
 
+-(void) setProjectRange:(int)start End:(int)end;
+
 -(void) prepareToPlayFromSocket;
 -(void) showSnapshotFromSocket;
 

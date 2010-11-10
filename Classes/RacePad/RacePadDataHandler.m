@@ -344,6 +344,18 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_PIT_WINDOW_VIEW_];
 			break;
 		}
+		case RPSC_TRACK_STATE_:
+		{
+			int state = [stream PopInt];
+			[[RacePadTitleBarController Instance] setTrackState:state];
+			break;
+		}
+		case RPSC_PROJECT_RANGE_:
+		{
+			int start = [stream PopInt];
+			int end = [stream PopInt];
+			[[RacePadCoordinator Instance] setProjectRange:start End:end];			
+		}
 		default:
 			break;
 	}

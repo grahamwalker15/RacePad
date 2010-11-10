@@ -111,6 +111,23 @@ static RacePadCoordinator * instance_ = nil;
 		return RPC_ORIENTATION_LANDSCAPE_;	
 }
 
+-(void) setProjectRange:(int) start End:(int) end
+{
+	bool p = playing;
+	[self pausePlay];
+	
+	startTime = start;
+	endTime = end;
+	
+	if ( p )
+	{
+		currentTime = start;
+		[self startPlay];
+	}
+	else
+		[self jumpToTime:start];
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // Play control management
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -385,7 +402,6 @@ static RacePadCoordinator * instance_ = nil;
 	if ( ok )
 	{
 		[socket_ RequestEvent];
-		[socket_ SetReferenceTime:53400];
 		[socket_ RequestTrackMap];
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestDriverHelmets];
