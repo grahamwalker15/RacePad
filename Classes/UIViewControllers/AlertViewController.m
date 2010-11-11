@@ -7,6 +7,10 @@
 //
 
 #import "AlertViewController.h"
+#import "AlertData.h"
+#import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
+#import "RacePadDatabase.h"
 
 @implementation AlertViewController
 
@@ -37,6 +41,7 @@
 - (void)viewDidLoad
 {
 	[alertView SetHeading:false];
+	drawingView = alertView;
     [super viewDidLoad];
 }
 
@@ -73,6 +78,25 @@
 
 //////////////////////////////////////////////////////////////////////
 //  Methods for this class
+
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	float time = [[alertData itemAtIndex:row] timeStamp];
+	[[RacePadCoordinator Instance] jumpToTime:time];
+	[[RacePadTimeController Instance] updateClock:time];
+	
+	if(parentPopover)
+	{
+		[parentPopover dismissPopoverAnimated:true];
+	}
+	
+	[[RacePadCoordinator Instance] prepareToPlay];
+	[[RacePadCoordinator Instance] startPlay];
+	[[RacePadTimeController Instance] updatePlayButton];
+	
+	return true;
+}
 
 - (IBAction) closePressed:(id)sender
 {

@@ -176,7 +176,7 @@
 	float new_x = (x_in_map) * newScale + currentMapPanX;
 	float new_y = (y_in_map) * newScale + currentMapPanY;
 	
-	// Andset the user pan to put it back where it was on the screen
+	// And set the user pan to put it back where it was on the screen
 	float newPanX = x - new_x ;
 	float newPanY = y - new_y ;
 	

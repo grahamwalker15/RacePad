@@ -7,8 +7,10 @@
 //
 
 #import "AlertView.h"
-#import "TableData.h"
 
+#import "RacePadDatabase.h"
+#import "TableData.h"
+#import "AlertData.h"
 
 @implementation AlertView
 
@@ -22,7 +24,8 @@
 
 - (int) RowCount
 {
-	return 16;
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	return [alertData itemCount];
 }
 
 - (int) ColumnCount
@@ -81,16 +84,26 @@
 	[self SetTextColour:black_];
 	[self SetBackgroundColour:white_];
 	
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+
 	switch (col)
 	{
 		case 0:
+		{
 			return @"";
+		}
 		case 1:
-			return @"L1";
+		{
+			return [NSString stringWithFormat:@"L%d", [[alertData itemAtIndex:row] lap]];
+		}
 		case 2:
-			return @"VET collided with BUT";
+		{
+			return [[alertData itemAtIndex:row] description];
+		}
 		default:
+		{
 			return @"";
+		}
 	}
 }
 

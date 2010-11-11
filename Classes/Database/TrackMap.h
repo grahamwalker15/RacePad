@@ -44,6 +44,10 @@ enum TrackState {
 	bool moving;
 }
 
+@property (readonly) NSString * name;
+@property (readonly) float x;
+@property (readonly) float y;
+
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
@@ -161,6 +165,9 @@ enum TrackState {
 	
 	int carCount;
 	
+	bool shouldFollowCar;
+	NSString * carToFollow;
+	
 	NSMutableArray *segmentStates;
 	int overallTrackState;
 }
@@ -173,13 +180,19 @@ enum TrackState {
 @property (nonatomic) float mapYOffset;
 @property (nonatomic) float mapScale;
 
+@property (nonatomic) bool shouldFollowCar;
+@property (nonatomic, retain) NSString * carToFollow;
+
+
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;
 
 - (void) draw:(TrackMapView *)view;
 
-- (void) constructTransformMatrix : (TrackMapView *) view;
+- (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset;
 
 - (int) getTrackState;
+
+- (CGPoint) getCarPositionByLabel: (NSString *) name;
 
 @end

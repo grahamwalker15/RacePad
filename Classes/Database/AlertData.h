@@ -9,23 +9,34 @@
 #import <Foundation/Foundation.h>
 
 
+enum AlertTypes
+{
+	ALERT_RACE_EVENT_,
+	ALERT_INCIDENT_,
+	ALERT_OVERTAKE_,
+	ALERT_SAFETY_CAR_,
+	ALERT_GREEN_FLAG_,
+	ALERT_PIT_STOP_,
+	ALERT_YELLOW_VIOLATION_
+} ;
+
 @interface AlertDataItem : NSObject
 {
 	int type;
-	int focus;
+	NSString *  focus;
 	int lap;
 	float time_stamp;
 	NSString * description;	
 }
 
 @property (nonatomic) int type;
-@property (nonatomic) int focus;
+@property (nonatomic, retain) NSString *  focus;
 @property (nonatomic) int lap;
 @property (nonatomic) float timeStamp;
 @property (nonatomic, retain) NSString * description;	
 
-- (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(int)focusIn Description:(NSString *)descriptionIn;
-- (id) initWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(int)focusIn Description:(NSString *)descriptionIn;
+- (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
+- (id) initWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
 
 @end
 
@@ -35,5 +46,8 @@
 }
 
 - (int) itemCount;
+- (AlertDataItem *) itemAtIndex:(int)index;
 
+- (void) addItemWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
+- (void) addItemWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
 @end

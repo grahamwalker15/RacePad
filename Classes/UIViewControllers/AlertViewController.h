@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "SimpleListViewController.h"
 #import "AlertView.h"
 
-@interface AlertViewController : RacePadViewController
+@interface AlertViewController : SimpleListViewController
 {
 	IBOutlet AlertView * alertView;
 	IBOutlet UIBarButtonItem * closeButton;

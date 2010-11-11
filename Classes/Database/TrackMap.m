@@ -12,6 +12,10 @@
 
 @implementation TrackCar
 
+@synthesize name;
+@synthesize x;
+@synthesize y;
+
 - (id) init
 {
 	pointColour = nil;
@@ -425,6 +429,8 @@
 @synthesize mapXOffset;
 @synthesize mapYOffset;
 @synthesize mapScale;
+@synthesize shouldFollowCar;
+@synthesize carToFollow;
 
 - (id) init
 {
@@ -455,6 +461,9 @@
 		userScale = 1.0;
 		userXOffset = 0.0;
 		userYOffset = 0.0;
+		
+		shouldFollowCar = false;
+		carToFollow = nil;
 	}
 	
 	return self;
@@ -469,6 +478,7 @@
 	[labels release];
 	[segmentStates removeAllObjects];
 	[segmentStates release];
+	[carToFollow release];
 
 	int c;
 	if ( colours )
@@ -708,7 +718,37 @@
 {
 	[view SaveGraphicsState];
 	
-	[self constructTransformMatrix:view];
+	if(shouldFollowCar && [carToFollow length] > 0)
+	{
+		// Get dimensions of current view
+		CGRect map_rect = [view bounds];
+		
+		CGSize viewSize = map_rect.size;
+
+		[view SaveGraphicsState];
+		
+		userScale = 10;
+		[self constructTransformMatrixForView:view WithCarOffsetX:0 Y:0];
+		
+		CGPoint followCarPos = [self getCarPositionByLabel:@"HAM"];
+		CGPoint tp = [view TransformPoint:followCarPos];
+		tp.y = viewSize.height - tp.y;
+
+		CGPoint centre = CGPointMake(xCentre / userScale, -yCentre /userScale);
+		CGPoint tc = [view TransformPoint:centre];
+		tc.y = viewSize.height - tc.y;
+		
+		float carXOffset = (tc.x - tp.x);
+		float carYOffset = (tc.y - tp.y);
+
+		[view RestoreGraphicsState];
+		
+		[self constructTransformMatrixForView:view WithCarOffsetX:carXOffset Y:carYOffset];
+	}
+	else
+	{
+		[self constructTransformMatrixForView:view WithCarOffsetX:0 Y:0];
+	}
 	
 	float scale = mapScale * userScale;
 	[self drawTrack:view Scale:scale];
@@ -718,38 +758,40 @@
 	[self drawTrackLabels:view Scale:scale];
 	[self drawCars:view Scale:scale];
 
-	int t = [self getTrackState];
 	[view UseRegularFont];
 	
 }
 
-- (void) constructTransformMatrix : (TrackMapView *) view
+- (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset
 {
 	// Constructs the transform matrix, stores it, and leaves it current
 	
 	// Get dimensions of current view
 	CGRect map_rect = [view bounds];
 		
-	CGPoint origin = map_rect.origin;
-	CGSize size = map_rect.size;
+	CGPoint viewOrigin = map_rect.origin;
+	CGSize viewSize = map_rect.size;
 	
 	// Centre the map as big as possible in the rectangle
-	float x_scale = (width > 0.0) ? size.width / width : size.width;
-	float y_scale = (height > 0.0) ? size.height / height : size.height;
+	float x_scale = (width > 0.0) ? viewSize.width / width : viewSize.width;
+	float y_scale = (height > 0.0) ? viewSize.height / height : viewSize.height;
 	
 	mapScale = (x_scale < y_scale) ? x_scale : y_scale;
 	
 	mapScale = mapScale * 0.9;
 	
-	mapXOffset = origin.x + size.width * 0.5 - xCentre * mapScale  ;
-	mapYOffset = map_rect.size.height - (origin.y + size.height * 0.5 - yCentre * mapScale)  ;
+	mapXOffset = viewOrigin.x + viewSize.width * 0.5 - xCentre * mapScale  ;
+	mapYOffset = viewSize.height - (viewOrigin.y + viewSize.height * 0.5 - yCentre * mapScale)  ;
 	
 	float scale = mapScale * userScale;
 	
 	[view ResetTransformMatrix];
-	[view SetTranslateX:userXOffset * size.width Y:userYOffset * size.height];
+	
+	[view SetTranslateX:carXOffset Y:carYOffset];	
+	[view SetTranslateX:userXOffset * viewSize.width Y:userYOffset * viewSize.height];	
 	[view SetTranslateX:mapXOffset Y:mapYOffset];
 	[view SetScale:scale];
+	
 	[view StoreTransformMatrix];	
 }
 
@@ -757,5 +799,18 @@
 {	
 	return overallTrackState;
 }
+
+- (CGPoint) getCarPositionByLabel: (NSString *) name
+{
+	for ( int i = 0; i < carCount; i++ )
+	{
+		if([[(TrackCar *)[cars objectAtIndex:i] name] isEqualToString:name])
+			return CGPointMake([(TrackCar *)[cars objectAtIndex:i] x], [(TrackCar *)[cars objectAtIndex:i] y]);
+	}
+	
+	return CGPointMake(0,0);
+}
+
+
 @end
 
