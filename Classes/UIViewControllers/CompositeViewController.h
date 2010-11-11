@@ -23,6 +23,8 @@
 	CGSize movieSize;
 	CGRect movieRect;
 	float startTime;
+	
+	NSString *currentMovie;
 }
 
 - (void) movieLoad:(NSString *)movie_name;

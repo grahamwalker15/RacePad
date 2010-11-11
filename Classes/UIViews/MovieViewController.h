@@ -20,6 +20,8 @@
 	MPMoviePlayerController * moviePlayer;
 	CGSize movieSize;
 	float startTime;
+	
+	NSString *currentMovie;
 }
 
 - (void) movieLoad:(NSString *)movie_name;
