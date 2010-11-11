@@ -36,8 +36,8 @@
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *docsFolder = [paths objectAtIndex:0];
-	NSString *folder = [docsFolder stringByAppendingPathComponent:@"Data"];
-	NSString *fileName = [folder stringByAppendingPathComponent:@"RacePad.htm"];
+	NSString *folder = [docsFolder stringByAppendingPathComponent:@"LocalHTML"];
+	NSString *fileName = [folder stringByAppendingPathComponent:@"home.htm"];
 	NSURL *url = [NSURL fileURLWithPath:fileName];
 	
 	NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];

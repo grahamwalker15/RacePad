@@ -128,7 +128,8 @@
 		BOOL isDir;
 		if ( [fm fileExistsAtPath:file isDirectory:&isDir] && isDir )
 		{
-			if ( [name compare:@"Data"] != NSOrderedSame ) // ignore the Data folder
+			if ( [name compare:@"LocalHTML"] != NSOrderedSame
+			  && [name compare:@"Data"] != NSOrderedSame ) // ignore the Data and LocalHTML folders
 			{
 				if ( [name compare:preferredEvent] == NSOrderedSame )
 					preferredIndex = [events count];

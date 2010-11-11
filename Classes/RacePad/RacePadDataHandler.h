@@ -33,7 +33,7 @@ enum ServerCommands {
 	RPSC_PIT_WINDOW_, // 20
 	RPSC_TRACK_STATE_, // 21
 	RPSC_PROJECT_RANGE_, // 22
-	RPSC_DATA_FILE_, // 23
+	RPSC_HTML_FILE_, // 23
 };
 
 @interface RacePadDataHandler : DataHandler
