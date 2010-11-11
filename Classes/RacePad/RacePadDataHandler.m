@@ -357,13 +357,13 @@
 			[[RacePadCoordinator Instance] setProjectRange:start End:end];
 			break;
 		}
-		case RPSC_DATA_FILE_:
+		case RPSC_HTML_FILE_:
 		{
 			NSString *name = [stream PopString];
 
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 			NSString *docsFolder = [paths objectAtIndex:0];
-			NSString *folder = [docsFolder stringByAppendingPathComponent:@"Data"];
+			NSString *folder = [docsFolder stringByAppendingPathComponent:@"LocalHTML"];
 			NSString *fileName = [folder stringByAppendingPathComponent:name];
 
 			NSFileManager *fm = [[NSFileManager alloc]init];
@@ -374,7 +374,6 @@
 			NSData *data = [stream PopData:size];
 
 			[fm createFileAtPath:fileName contents:data attributes:nil];
-			[data release];
 			
 			[fm release];
 			break;
