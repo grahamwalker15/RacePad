@@ -61,6 +61,7 @@ static RacePadCoordinator * instance_ = nil;
 		registeredViewControllerTypeMask = 0;
 		
 		connectionType = RPC_NO_CONNECTION_;
+		live = false;
 		
 		firstView = true;
 	}
@@ -122,6 +123,7 @@ static RacePadCoordinator * instance_ = nil;
 	if (wasPlaying)
 	{
 		currentTime = start;
+		[self prepareToPlay];
 		[self startPlay];
 	}
 	else
@@ -197,7 +199,9 @@ static RacePadCoordinator * instance_ = nil;
 {
 	[self stopPlay];
 	currentTime = time;
+	live = false;
 	
+	[settingsViewController updateConnectionType];
 	[[RacePadTimeController Instance] updatePlayButton];
 	[self showSnapshot];
 }
@@ -234,6 +238,31 @@ static RacePadCoordinator * instance_ = nil;
 	
 	[settingsViewController updateConnectionType];
 	[[RacePadPrefs Instance]setPref:@"connectionType" Value:[NSNumber numberWithInt: connectionType]];
+}
+
+- (bool) liveMode
+{
+	return live;
+}
+
+- (void) goLive:(bool)newMode
+{
+	[self stopPlay];
+	
+	live = newMode;
+	
+	if ( live  )
+	{
+		if ( connectionType == RPC_NO_CONNECTION_ )
+			needsPlayRestart = true;
+		else
+		{
+			[self prepareToPlay];
+			[self startPlay];
+			[[RacePadTimeController Instance] updatePlayButton];
+		}
+	}
+	
 }
 
 -(void)prepareToPlay
@@ -412,6 +441,8 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ RequestDriverHelmets];
 		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
+		
+		live = true;
 
 		[serverConnect popDown];
 	}
@@ -465,7 +496,6 @@ static RacePadCoordinator * instance_ = nil;
 		if ( showWindow )
 		{
 			// Slightly delay popping up the connect window, just in case we connect really quickly
-			// Which can mean that the window won't pop down
 			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.2];
 		}
 	}
@@ -496,7 +526,10 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)prepareToPlayFromSocket
 {
-	[socket_ SetReferenceTime:currentTime];
+	if ( live )
+		[socket_ goLive];
+	else
+		[socket_ SetReferenceTime:currentTime];
 
 	int view_count = [views count];
 	

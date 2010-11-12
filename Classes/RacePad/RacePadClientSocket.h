@@ -25,6 +25,7 @@ enum ClientCommands {
 	RPCS_REQUEST_PIT_WINDOW_BASE, // 17
 	RPCS_REQUEST_PIT_WINDOW, // 18
 	RPCS_STREAM_PIT_WINDOW, // 19
+	RPCS_GO_LIVE, // 20
 };
 
 @interface RacePadClientSocket : Socket
@@ -35,6 +36,7 @@ enum ClientCommands {
 - (void) RequestEvent;
 - (void) RequestTrackMap;
 - (void) SetReferenceTime:(float)reference_time;
+- (void) goLive;
 - (void) RequestTimingPage;
 - (void) StreamTimingPage;
 - (void) RequestCars;

@@ -143,6 +143,11 @@
 	[self SimpleCommand:RPCS_STREAM_PIT_WINDOW];
 }
 
+- (void)goLive
+{
+	[self SimpleCommand:RPCS_GO_LIVE];
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[RacePadDataHandler alloc] init];

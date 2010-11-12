@@ -109,6 +109,7 @@ enum OrientationTypes
 	int baseTime;
 	ElapsedTime * elapsedTime;
 	
+	bool live;
 	float currentTime;
 	float startTime;
 	float endTime;
@@ -148,6 +149,8 @@ enum OrientationTypes
 -(void) connectionTimeout;
 
 -(void) goOffline;
+-(void) goLive: (bool)newMode;
+-(bool) liveMode;
 
 -(void) setProjectRange:(int)start End:(int)end;
 

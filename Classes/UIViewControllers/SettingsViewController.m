@@ -109,11 +109,17 @@
 	{
 		[modeControl setSelectedSegmentIndex:0];
 		[event setEnabled:NO];
+		if ( [[RacePadCoordinator Instance] liveMode] )
+			[liveMode setSelectedSegmentIndex:0];
+		else
+			[liveMode setSelectedSegmentIndex:1];
+		[liveMode setEnabled:YES];
 	}
 	else
 	{
 		[modeControl setSelectedSegmentIndex:1];
 		[event setEnabled:YES];
+		[liveMode setEnabled:NO];
 	}
 	changingMode = false;
 }
@@ -147,6 +153,17 @@
 		}
 		else
 			[[RacePadCoordinator Instance] goOffline];
+	}
+}
+
+-(IBAction)liveModePressed:(id)sender
+{
+	if ( !changingMode )
+	{
+		if ( [liveMode selectedSegmentIndex] == 0 )
+			[[RacePadCoordinator Instance] goLive:true];
+		else
+			[[RacePadCoordinator Instance] goLive:false];
 	}
 }
 

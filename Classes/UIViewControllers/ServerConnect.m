@@ -75,6 +75,19 @@
 	}
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+	if ( shouldBePoppedDown )
+	{
+		[self dismissModalViewControllerAnimated:YES];
+	}
+	else
+	{
+		// on first try, just give it 3 secs
+		timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
+	}
+}
+
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
 	[label setText:@"Connecting"];
@@ -82,17 +95,12 @@
 	[retry setEnabled:NO];
 	[offline setEnabled:NO];
 	
-	// on first try, just give it 3 secs
-	timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
 	shouldBePoppedDown = false;
 }
 
 - (void) popDown
 {
 	// There's some wierd race condition where if we try to popdown, while we're popping up, then we end up appearing
-	// So, what we're going to do, is leave the timer, and pop ourselves down when that expires if we should be popped down
-	// [timer invalidate];
-	// timer = nil;
 	[self dismissModalViewControllerAnimated:YES];
 	shouldBePoppedDown = true;
 }

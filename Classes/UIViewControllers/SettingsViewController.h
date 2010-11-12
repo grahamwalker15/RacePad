@@ -17,6 +17,7 @@
 	IBOutlet UIButton *serverStatus;
 	IBOutlet UISegmentedControl *modeControl;
 	IBOutlet UIButton *event;
+	IBOutlet UISegmentedControl *liveMode;
 	
 	UIImage *connectedImage;
 	UIImage *disconnectedImage;
@@ -28,6 +29,7 @@
 -(IBAction)serverStatusPressed:(id)sender;
 -(IBAction)modeChanged:(id)sender;
 -(IBAction)eventPressed:(id)sender;
+-(IBAction)liveModePressed:(id)sender;
 
 - (void) updateServerState;
 - (void) updateConnectionType;
