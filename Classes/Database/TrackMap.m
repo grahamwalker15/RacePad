@@ -855,7 +855,7 @@
 {
 	// If we're following a car, we just set the scale
 	// Otherwise we zoom so that the focus point stays at the same screen location
-	if(shouldFollowCar && carToFollow != nil)
+	if([view isZoomView])
 	{
 		float currentUserScale = [view userScale];
 		if(fabs(currentUserScale) < 0.001 || fabs(scale) < 0.001)

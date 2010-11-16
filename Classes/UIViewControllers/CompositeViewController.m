@@ -38,7 +38,7 @@
 
 
 - (void)viewDidLoad
-{
+{	
 	// Set the types on the two map views
 	[trackMapView setIsZoomView:false];
 	[trackZoomView setIsZoomView:true];
@@ -69,7 +69,8 @@
 	[self addPanRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	
-	// And just pinch and double tap for the zoom map
+	// And  for the zoom map
+	[self addTapRecognizerToView:trackZoomView];
 	[self addDoubleTapRecognizerToView:trackZoomView];
 	[self addPinchRecognizerToView:trackZoomView];
 	
@@ -127,6 +128,15 @@
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
 	
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];	
+	
+	if([trackMap carToFollow] != nil)
+	{
+		[trackZoomView setUserScale:10.0];
+		[trackZoomContainer setHidden:false];
+	}
+	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
@@ -157,13 +167,13 @@
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+    //[super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload
-{
+{	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -271,18 +281,32 @@
 
 - (void) showOverlays
 {
- 	[trackMapView setAlpha:0.0];
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];	
+	
+	bool showZoomMap = ([trackMap carToFollow] != nil);
+	
+	[trackMapView setAlpha:0.0];
  	[trackMapView setHidden:false];
  	[leaderboardView setAlpha:0.0];
  	[leaderboardView setHidden:false];
- 	[trackZoomContainer setAlpha:0.0];
- 	[trackZoomContainer setHidden:false];
+	
+	if(showZoomMap)
+	{
+		[trackZoomContainer setAlpha:0.0];
+		[trackZoomContainer setHidden:false];
+	}
 	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
   	[trackMapView setAlpha:1.0];
   	[leaderboardView setAlpha:1.0];
-  	[trackZoomContainer setAlpha:1.0];
+	
+	if(showZoomMap)
+	{
+		[trackZoomContainer setAlpha:1.0];
+	}
+	
 	[UIView commitAnimations];
 }
 
@@ -291,6 +315,34 @@
 	[trackMapView setHidden:true];
 	[leaderboardView setHidden:true];
 	[trackZoomContainer setHidden:true];
+}
+- (void) showZoomMap
+{
+	[trackZoomContainer setAlpha:0.0];
+	[trackZoomContainer setHidden:false];
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[trackZoomContainer setAlpha:1.0];
+	[UIView commitAnimations];
+}
+
+- (void) hideZoomMap
+{
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[trackZoomContainer setAlpha:0.0];
+	[UIView setAnimationDidStopSelector:@selector(hideZoomMapAnimationDidStop:finished:context:)];
+	[UIView commitAnimations];
+}
+
+- (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[trackZoomContainer setHidden:true];
+		[trackZoomContainer setAlpha:1.0];
+	}
 }
 
 - (void) positionOverlays
@@ -345,15 +397,14 @@
 		if([[trackMap carToFollow] isEqualToString:name])
 		{
 			[trackMap followCar:nil];
-			[trackZoomContainer setHidden:true];
+			[self hideZoomMap];
 			[leaderboardView RequestRedraw];
 		}
 		else
 		{
 			[trackMap followCar:name];
 			
-			[trackZoomContainer setHidden:false];
-			
+			[self showZoomMap];			
 			[trackZoomView setUserScale:10.0];
 			[trackZoomView RequestRedraw];
 			[leaderboardView RequestRedraw];
@@ -384,9 +435,8 @@
 	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[(TrackMapView *)gestureView setUserScale:10.0];
-		[(TrackMapView *)gestureView setUserXOffset:0.0];
-		[(TrackMapView *)gestureView setUserYOffset:0.0];
+		[trackMap setCarToFollow:nil];
+		[self hideZoomMap];
 	}
 	else
 	{

@@ -53,6 +53,10 @@
 - (void) hideOverlays;
 - (void) positionOverlays;
 
+- (void) showZoomMap;
+- (void) hideZoomMap;
+- (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+
 - (void) movieSizeCallback:(NSNotification*) aNotification;
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
