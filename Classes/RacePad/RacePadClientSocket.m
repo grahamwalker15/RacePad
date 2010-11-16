@@ -19,9 +19,9 @@
 	[[RacePadCoordinator Instance] Connected];
 }
 
-- (void) Disconnected 
+- (void) Disconnected:(bool) atConnect
 {
-	[[RacePadCoordinator Instance] Disconnected];
+	[[RacePadCoordinator Instance] Disconnected:atConnect];
 }
 
 - (void) SimpleCommand: (int) command

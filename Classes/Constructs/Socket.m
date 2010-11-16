@@ -97,7 +97,7 @@
 			}
 			else
 			{
-				[self OnDisconnect];
+				[self OnDisconnect:true];
 			}
 
 		}
@@ -116,10 +116,10 @@
 	}
 }
 
-- (void)OnDisconnect
+- (void)OnDisconnect:(bool) atConnect
 {
 	status_ = SOCKET_ERROR_;
-	[self Disconnected];
+	[self Disconnected: atConnect];
 }
 
 - (void)OnReceive: (CFSocketRef) socket_ref Data:(CFDataRef)data
@@ -130,7 +130,7 @@
 	
 	if ( data_size == 0 )
 	{
-		[self OnDisconnect];
+		[self OnDisconnect:false];
 		return;
 	}
 	
@@ -204,7 +204,7 @@
 	// Override me
 }
 
-- (void) Disconnected
+- (void) Disconnected:(bool) atConnect
 {
 	// Override me
 }
@@ -267,7 +267,7 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 		}
 	}
 	else {
-		[owner OnDisconnect];
+		[owner OnDisconnect:false];
 	}
 
 }

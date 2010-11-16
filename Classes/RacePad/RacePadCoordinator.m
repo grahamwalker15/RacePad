@@ -507,14 +507,19 @@ static RacePadCoordinator * instance_ = nil;
 	[socket_ RequestVersion];
 }
 
-- (void) Disconnected
+- (void) Disconnected: (bool) atConnect
 {
-	[socket_ release];
-	socket_ = nil;
-	
-	[self setConnectionType:RPC_NO_CONNECTION_];
-	[self SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
-	[settingsViewController updateServerState];
+	// If failed at connect (because WiFi is switched of say), then the connect window will already be up
+	// So, let timer do it do it's thing
+	if ( !atConnect)
+	{
+		[socket_ release];
+		socket_ = nil;
+		
+		[self setConnectionType:RPC_NO_CONNECTION_];
+		[self SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+		[settingsViewController updateServerState];
+	}
 }
 
 - (void) goOffline
