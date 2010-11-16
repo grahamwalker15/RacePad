@@ -15,6 +15,23 @@
 @synthesize fg_;
 @synthesize bg_;
 
+@synthesize black_;
+@synthesize white_;
+@synthesize blue_;
+@synthesize orange_;
+@synthesize yellow_;
+@synthesize red_;
+@synthesize cyan_;
+@synthesize dark_blue_;
+@synthesize light_blue_;
+@synthesize dark_grey_;
+@synthesize light_grey_;
+@synthesize very_light_blue_;
+@synthesize very_light_grey_;
+@synthesize light_orange_;
+@synthesize magenta_;
+@synthesize dark_magenta_;
+
 // Static members
 static UIFont * title_font_ = nil;
 static UIFont * big_font_ = nil;
@@ -147,6 +164,23 @@ static bool statics_initialised_ = false;
     [fg_ release];
     [bg_ release];
 	
+	[black_ release];
+	[white_ release];
+	[blue_ release];
+	[orange_ release];
+	[yellow_ release];
+	[red_ release];
+	[cyan_ release];
+	[dark_blue_ release];
+	[light_blue_ release];
+	[dark_grey_ release];
+	[light_grey_ release];
+	[very_light_blue_ release];
+	[very_light_grey_ release];
+	[light_orange_ release];
+	[magenta_ release];
+	[dark_magenta_ release];
+	
 	[self setDelegate:nil];
 	
     [super dealloc];
@@ -169,6 +203,23 @@ static bool statics_initialised_ = false;
 	current_context_ = nil;
 	bitmap_context_ = nil;
 	bitmap_context_data_ = nil;
+	
+	black_ = [self CreateColourRed:0 Green:0 Blue:0];
+	white_ = [self CreateColourRed:255 Green:255 Blue:255];
+	blue_ = [self CreateColourRed:0 Green:0 Blue:255];
+	orange_ = [self CreateColourRed:200 Green:140 Blue:0];
+	light_orange_ = [self CreateColourRed:250 Green:180 Blue:0];
+	yellow_ = [self CreateColourRed:255 Green:255 Blue:0];
+	red_ = [self CreateColourRed:255 Green:0 Blue:0];
+	cyan_ = [self CreateColourRed:0 Green:255 Blue:255];
+	dark_blue_ = [self CreateColourRed:0 Green:0 Blue:150];
+	light_blue_ = [self CreateColourRed:120 Green:150 Blue:220];
+	dark_grey_ = [self CreateColourRed:130 Green:130 Blue:130];
+	light_grey_ = [self CreateColourRed:200 Green:200 Blue:200];
+	very_light_blue_ = [self CreateColourRed:220 Green:240 Blue:255];
+	very_light_grey_ = [self CreateColourRed:220 Green:220 Blue:220];
+	magenta_ = [self CreateColourRed:255 Green:0 Blue:255];
+	dark_magenta_ = [self CreateColourRed:150 Green:20 Blue:100];
 	
 	current_matrix_ = CGAffineTransformIdentity;
 	
@@ -222,9 +273,9 @@ static bool statics_initialised_ = false;
 	
 	const CGFloat *components = CGColorGetComponents([source CGColor]);
 	
-	float rh = components[0] * 1.2; if(rh > 1.0) rh = 1.0;
-	float gh = components[1] * 1.2; if(gh > 1.0) gh = 1.0;
-	float bh = components[2] * 1.2; if(bh > 1.0) bh = 1.0;
+	float rh = components[0] + 0.4; if(rh > 1.0) rh = 1.0;
+	float gh = components[1] + 0.4; if(gh > 1.0) gh = 1.0;
+	float bh = components[2] + 0.4; if(bh > 1.0) bh = 1.0;
 	float a = component_count >= 4 ? components[3] : 1.0;
 	return [[UIColor alloc] initWithRed:(CGFloat)rh green:(CGFloat)gh blue:(CGFloat)bh alpha:(CGFloat)a];
 }
@@ -322,6 +373,12 @@ static bool statics_initialised_ = false;
 - (void)SetBGToShadowColour
 {
 	[self SetBGColour:shadow_colour_];
+}
+
+- (void)SetAlpha:(float)alpha
+{
+	if(current_context_)
+		CGContextSetAlpha(current_context_, alpha);
 }
 
 // View drawing
@@ -500,6 +557,11 @@ static bool statics_initialised_ = false;
 - (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
 {
 	[self FillShadedRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
+}
+
+- (void) FillPatternRectangle:(UIImage *)image X0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
+{
+	[image drawAsPatternInRect:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
 }
 
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
@@ -708,6 +770,20 @@ static bool statics_initialised_ = false;
  
 - (void)SelectUIFont
 {
+}
+
+- (void)SaveFont
+{
+	[font_stack_ addObject:current_font_];
+}
+
+- (void)RestoreFont
+{
+	if([font_stack_ count] > 0)
+	{
+		current_font_ = [font_stack_ lastObject];
+		[font_stack_ removeLastObject];
+	}
 }
 
 // Matrix manipulation

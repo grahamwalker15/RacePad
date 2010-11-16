@@ -11,6 +11,7 @@
 
 @interface TimeViewController : UIViewController
 {
+	IBOutlet UIToolbar * toolbar;
 	IBOutlet UIBarButtonItem * playButton;
 	IBOutlet UIButton * clock;
 	IBOutlet UISlider * timeSlider;

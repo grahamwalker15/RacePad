@@ -61,7 +61,7 @@ static RacePadTimeController * instance_ = nil;
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
 	
-	CGRect frame = CGRectMake(super_bounds.origin.x, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height, super_bounds.size.width, time_controller_bounds.size.height);
+	CGRect frame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, 60);
 	[timeController.view setFrame:frame];
 
 	if(animated)

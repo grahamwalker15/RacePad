@@ -77,7 +77,7 @@
 		[self addItemWithType:ALERT_GREEN_FLAG_ Lap:40 H:15 M:24 S:19 Focus:@"" Description:@"Safety Car In"];
 		[self addItemWithType:ALERT_OVERTAKE_ Lap:40 H:15 M:25 S:2 Focus:@"ROS" Description:@"ROS overtook MSC at T4"];
 		[self addItemWithType:ALERT_INCIDENT_ Lap:41 H:15 M:25 S:53 Focus:@"TRU" Description:@"Spin TRU"];
-		[self addItemWithType:ALERT_RACE_EVENT_ Lap:44 H:15 M:32 S:34 Focus:@"" Description:@"Chequered Flag"];
+		[self addItemWithType:ALERT_CHEQUERED_FLAG_ Lap:44 H:15 M:32 S:34 Focus:@"" Description:@"Chequered Flag"];
 	}	   
 	   
 	return self;

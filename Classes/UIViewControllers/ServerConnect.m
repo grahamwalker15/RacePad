@@ -67,12 +67,17 @@
 	}
 	else
 	{
-		[[RacePadCoordinator Instance] connectionTimeout];
-		[label setText:@"Connection not available"];
-		[whirl stopAnimating];
-		[retry setEnabled:YES];
-		[offline setEnabled:YES];
+		[self connectionTimeout];
 	}
+}
+
+- (void) connectionTimeout
+{
+	[[RacePadCoordinator Instance] connectionTimeout];
+	[label setText:@"Connection not available"];
+	[whirl stopAnimating];
+	[retry setEnabled:YES];
+	[offline setEnabled:YES];
 }
 
 - (void) viewDidAppear:(BOOL)animated

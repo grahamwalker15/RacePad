@@ -7,11 +7,17 @@
 //
 
 #import "TrackMapView.h"
+#import "BackgroundView.h"
 #import "RacePadDatabase.h"
 #import "TrackMap.h"
 
 
 @implementation TrackMapView
+
+@synthesize isZoomView;
+@synthesize userXOffset;
+@synthesize userYOffset;
+@synthesize userScale;
 
 static UIImage * greenFlagImage = nil;
 static UIImage * yellowFlagImage = nil;
@@ -33,6 +39,7 @@ static bool flag_images_initialised_ = false;
     if ((self = [super initWithCoder:coder]))
     {
 		[self InitialiseImages];
+		[self InitialiseMembers];		
 	}
 	
     return self;
@@ -44,6 +51,7 @@ static bool flag_images_initialised_ = false;
     if ((self = [super initWithFrame:frame]))
 	{
 		[self InitialiseImages];
+		[self InitialiseMembers];		
     }
     return self;
 }
@@ -70,18 +78,27 @@ static bool flag_images_initialised_ = false;
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Methods for this class 
 
+- (void)InitialiseMembers
+{
+	userScale = 1.0;
+	userXOffset = 0.0;
+	userYOffset = 0.0;	
+	
+	isZoomView = false;
+}
+
 - (void)InitialiseImages
 {
 	if(!flag_images_initialised_)
 	{
 		flag_images_initialised_ = true;
 		
-		greenFlagImage = [[UIImage imageNamed:@"GreenFlag.png"] retain];
-		yellowFlagImage = [[UIImage imageNamed:@"YellowFlag.png"] retain];
-		redFlagImage = [[UIImage imageNamed:@"RedFlag.png"] retain];
-		chequeredFlagImage = [[UIImage imageNamed:@"ChequeredFlag.png"] retain];
-		scFlagImage = [[UIImage imageNamed:@"SCFlag.png"] retain];
-		scinFlagImage = [[UIImage imageNamed:@"SCInFlag.png"] retain];
+		greenFlagImage = [[UIImage imageNamed:@"StateGreen.png"] retain];
+		yellowFlagImage = [[UIImage imageNamed:@"StateYellow.png"] retain];
+		redFlagImage = [[UIImage imageNamed:@"StateRed.png"] retain];
+		chequeredFlagImage = [[UIImage imageNamed:@"StateChequered.png"] retain];
+		scFlagImage = [[UIImage imageNamed:@"StateSC.png"] retain];
+		scinFlagImage = [[UIImage imageNamed:@"StateSCIn.png"] retain];
 	}
 	else
 	{
@@ -102,21 +119,29 @@ static bool flag_images_initialised_ = false;
 	
 	if ( trackMap )
 	{
-		[trackMap draw:self];
+		if(isZoomView)
+			[trackMap setShouldFollowCar:true];
+		else
+			[trackMap setShouldFollowCar:false];
 		
-		int track_state = [trackMap getTrackState];
-		
-		CGPoint flagPos = CGPointMake(current_origin_.x + current_size_.width - 90, current_origin_.y + 40);
-		if(track_state == TM_TRACK_YELLOW)
-			[yellowFlagImage drawAtPoint:flagPos];
-		else if(track_state == TM_TRACK_RED)
-			[redFlagImage drawAtPoint:flagPos];
-		else if(track_state == TM_TRACK_CHEQUERED)
-			[chequeredFlagImage drawAtPoint:flagPos];
-		else if(track_state == TM_TRACK_SC)
-			[scFlagImage drawAtPoint:flagPos];
-		else if(track_state == TM_TRACK_SCIN)
-			[scinFlagImage drawAtPoint:flagPos];
+		[trackMap drawInView:self];
+
+		if(!isZoomView)
+		{
+			int track_state = [trackMap getTrackState];
+			
+			CGPoint flagPos = CGPointMake(current_origin_.x + current_size_.width - 130, current_origin_.y + 10);
+			if(track_state == TM_TRACK_YELLOW)
+				[yellowFlagImage drawAtPoint:flagPos];
+			else if(track_state == TM_TRACK_RED)
+				[redFlagImage drawAtPoint:flagPos];
+			else if(track_state == TM_TRACK_CHEQUERED)
+				[chequeredFlagImage drawAtPoint:flagPos];
+			else if(track_state == TM_TRACK_SC)
+				[scFlagImage drawAtPoint:flagPos];
+			else if(track_state == TM_TRACK_SCIN)
+				[scinFlagImage drawAtPoint:flagPos];
+		}
 	}
 }
 
@@ -129,138 +154,3 @@ static bool flag_images_initialised_ = false;
 @end
 
 
-@implementation TrackMapBackgroundView
-
-static UIImage * screen_bg_image_ = nil;
-static UIImage * map_bg_image_ = nil;
-
-static bool bg_images_initialised_ = false;
-
-///////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-//  Super class overrides
-
-//If the view is stored in the nib file,when it's unarchived it's sent -initWithCoder:
-
-- (id)initWithCoder:(NSCoder*)coder
-{    
-    if ((self = [super initWithCoder:coder]))
-    {
-		[self InitialiseImages];
-	}
-	
-    return self;
-}
-
-//If we create it ourselves, we use -initWithFrame:
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self = [super initWithFrame:frame]))
-	{
- 		[self InitialiseImages];
-   }
-    return self;
-}
-
-- (void)layoutSubviews
-{
-	[super layoutSubviews];
-}
-
-- (void)dealloc
-{	
-	[screen_bg_image_ release];
-	[map_bg_image_ release];
-    [super dealloc];
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-//  Methods for this class 
-
-- (void)InitialiseImages
-{
-	if(!bg_images_initialised_)
-	{
-		bg_images_initialised_ = true;
-		
-		screen_bg_image_ = [[UIImage imageNamed:@"Parchment.png"] retain];
-		map_bg_image_ = [[UIImage imageNamed:@"Metal.png"] retain];
-		
-		background_image_ = nil;
-		background_image_w_ = 0;
-		background_image_h_ = 0;
-	}
-	else
-	{
-		[screen_bg_image_ retain];
-		[map_bg_image_ retain];
-	}
-
-	
-	[screen_bg_image_ retain];
-}
-
-- (void)CheckBackground
-{
-	int current_width = current_size_.width;
-	int current_height = current_size_.height;
-	
-	if(!background_image_ || background_image_w_ != current_width || background_image_h_ != current_height)
-	{
-		// Free any existing image
-		if(background_image_)
-		{
-			CGImageRelease(background_image_);
-			background_image_ = nil;
-			background_image_w_ = 0;
-			background_image_h_ = 0;
-		}
-		
-		// Make a new image context
-		if([self CreateBitmapContext])
-		{
-			// Draw the background
-			[self SaveGraphicsState];
-			
-			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
-			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
-			
-			CGRect map_rect = CGRectInset(current_bounds_, 30, 30);
-			[self DrawPattern:map_bg_image_ InRect:map_rect];	
-			
-			[self RestoreGraphicsState];
-			
-			// Get the background image from the bitmap context
-			background_image_ = [self GetImageFromBitmapContext];
-			background_image_w_ = current_width;
-			background_image_h_ = current_height;
-			
-			// Restore the old context
-			[self DestroyBitmapContext];
-		}
-	}
-}
-
-- (void)ReleaseBackground
-{
-	if(background_image_)
-	{
-		CGImageRelease(background_image_);
-		background_image_ = nil;
-	}
-	
-	background_image_w_ = 0;
-	background_image_h_ = 0;
-}
-
-- (void)Draw:(CGRect) rect
-{
-	[self CheckBackground];
-	
-	if(background_image_)
-		CGContextDrawImage (current_context_, current_bounds_, background_image_);
-}
-
-@end

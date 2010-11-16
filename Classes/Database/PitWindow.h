@@ -31,7 +31,7 @@
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
-- (void) preDraw : (PitWindowView *)view Y:(int)y LastX:(int *) lastX LastY:(int *)lastY;
+- (void) preDraw : (PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastY:(int *)lastY;
 - (void) draw : (PitWindowView *)view Y:(int)y XMaxTime:(int)xMaxTime;
 
 @end

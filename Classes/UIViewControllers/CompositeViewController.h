@@ -10,14 +10,19 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "RacePadViewController.h"
 #import "TrackMapView.h"
+#import "DrawingView.h"
 #import "MovieView.h"
-
+#import "LeaderboardView.h"
+#import "BackgroundView.h"
 
 @interface CompositeViewController : RacePadViewController
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
+	IBOutlet BackgroundView * trackZoomContainer;
+	IBOutlet TrackMapView * trackZoomView;
+	IBOutlet LeaderboardView *leaderboardView;
 	
 	MPMoviePlayerController * moviePlayer;
 	CGSize movieSize;
@@ -25,10 +30,19 @@
 	float startTime;
 	
 	NSString *currentMovie;
+	
+	bool displayMap;
+	bool displayLeaderboard;
 }
+
+@property (nonatomic) bool displayMap;
+@property (nonatomic) bool displayLeaderboard;
 
 - (void) movieLoad:(NSString *)movie_name;
 - (void) movieSetStartTime:(float)time;
+
+- (void) getStartTime;
+- (NSString *)getVideoArchiveName;
 
 - (void) moviePlay;
 - (void) movieStop;

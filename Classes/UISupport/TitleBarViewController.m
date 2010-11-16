@@ -12,6 +12,7 @@
 @implementation TitleBarViewController
 
 @synthesize sponsorButton;
+@synthesize alertButton;
 @synthesize eventName;
 @synthesize clock;
 @synthesize lapCounter;
@@ -76,6 +77,7 @@
 
 - (void)RequestRedraw
 {
+	
 }
 
 @end

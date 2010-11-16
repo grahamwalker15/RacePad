@@ -79,8 +79,10 @@
 	}
 }
 
-- (void) draw:(TrackMapView *)view Scale:(float)scale
+- (void) draw:(TrackMapView *)view OnMap:(TrackMap *)trackMap Scale:(float)scale
 {
+	bool isFollowCar = ([[trackMap carToFollow] isEqualToString:name]);
+	
 	CGSize size = [view bounds].size;
 	
 	float boxWidth = 48;
@@ -107,16 +109,28 @@
 		[view FillRectangleX0:x0+5 Y0:y0+5 X1:x1+5 Y1:y1+5];
 
 		// Box
-		[view SetBGColour:fillColour];
+		if(isFollowCar)
+			[view SetBGColour:[view dark_magenta_]];
+		else
+			[view SetBGColour:fillColour];
+		
 		[view FillRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
 		
 		[view SetLineWidth:2];
-		[view SetFGColour:lineColour];
+		if(isFollowCar)
+			[view SetFGColour:[view white_]];
+		else
+			[view SetFGColour:lineColour];
+		
 		[view LineRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
 		
 		if ( name != nil )
 		{
-			[view SetFGColour:textColour];
+			if(isFollowCar)
+				[view SetFGColour:[view white_]];
+			else
+				[view SetFGColour:textColour];
+
 			[view DrawString:name AtX:px + 7 Y:py - 20];
 		}
 	}
@@ -423,9 +437,6 @@
 
 @implementation TrackMap
 
-@synthesize userXOffset;
-@synthesize userYOffset;
-@synthesize userScale;
 @synthesize mapXOffset;
 @synthesize mapYOffset;
 @synthesize mapScale;
@@ -458,9 +469,6 @@
 		width = 0.0;
 		height = 0.0;
 		
-		userScale = 1.0;
-		userXOffset = 0.0;
-		userYOffset = 0.0;
 		
 		shouldFollowCar = false;
 		carToFollow = nil;
@@ -711,36 +719,93 @@
 	[view UseRegularFont];
 	
 	for ( int i = 0; i < carCount; i++ )
-		[[cars objectAtIndex:i] draw:view Scale:scale];
+		[[cars objectAtIndex:i] draw:view OnMap:self Scale:scale];
 }
 
-- (void) draw : (TrackMapView *) view
+- (void) drawInView:(TrackMapView *)view
 {
 	[view SaveGraphicsState];
 	
+	[self constructTransformMatrixForView:view];
+	
+	float scale = mapScale * [view userScale];
+	[self drawTrack:view Scale:scale];
+	
+	[view RestoreGraphicsState];
+	
+	[self drawTrackLabels:view Scale:scale];
+	[self drawCars:view Scale:scale];
+	
+	[view UseRegularFont];
+	
+}
+
+- (bool) carExistsByName:(NSString *)name
+{
+	for ( int i = 0; i < carCount; i++ )
+	{
+		if([[[cars objectAtIndex:i] name] isEqualToString:name])
+			return true;
+	}
+	
+	return false;
+}
+
+- (NSString *) nearestCarInView:(TrackMapView *)view ToX:(float)x Y:(float)y
+{	
+	int nearest_index = -1;
+	float nearest_dist = 0.0;
+	
+	for ( int i = 0; i < carCount; i++ )
+	{
+		TrackCar * car = [cars objectAtIndex:i];
+		float cx = [car x];
+		float cy = [car y];
+		CGPoint tp = [view TransformPoint:CGPointMake(cx, cy)];
+		float tx = tp.x;
+		float ty = tp.y;
+		float dist = sqrt((x - tx) * (x - tx) + (y - ty) * (y - ty));
+		if(nearest_index < 0 || dist < nearest_dist)
+		{
+			nearest_dist = dist;
+			nearest_index = i;
+		}
+	}
+	
+	if(nearest_index >= 0)
+	{
+		return [[cars objectAtIndex:nearest_index] name];
+	}
+	else
+	{
+		return nil;
+	}
+}
+
+- (void) constructTransformMatrixForView:(TrackMapView *)view
+{
 	if(shouldFollowCar && [carToFollow length] > 0)
 	{
-		// Get dimensions of current view
+		// Get dimensions of current view and the position of the follow car
 		CGRect map_rect = [view bounds];
-		
 		CGSize viewSize = map_rect.size;
-
+		CGPoint followCarPos = [self getCarPositionByLabel:carToFollow];
+		
 		[view SaveGraphicsState];
 		
-		userScale = 10;
 		[self constructTransformMatrixForView:view WithCarOffsetX:0 Y:0];
 		
-		CGPoint followCarPos = [self getCarPositionByLabel:@"HAM"];
 		CGPoint tp = [view TransformPoint:followCarPos];
 		tp.y = viewSize.height - tp.y;
-
+		
+		float userScale = [view userScale];
 		CGPoint centre = CGPointMake(xCentre / userScale, -yCentre /userScale);
 		CGPoint tc = [view TransformPoint:centre];
 		tc.y = viewSize.height - tc.y;
 		
 		float carXOffset = (tc.x - tp.x);
 		float carYOffset = (tc.y - tp.y);
-
+		
 		[view RestoreGraphicsState];
 		
 		[self constructTransformMatrixForView:view WithCarOffsetX:carXOffset Y:carYOffset];
@@ -749,17 +814,6 @@
 	{
 		[self constructTransformMatrixForView:view WithCarOffsetX:0 Y:0];
 	}
-	
-	float scale = mapScale * userScale;
-	[self drawTrack:view Scale:scale];
-	
-	[view RestoreGraphicsState];
-	
-	[self drawTrackLabels:view Scale:scale];
-	[self drawCars:view Scale:scale];
-
-	[view UseRegularFont];
-	
 }
 
 - (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset
@@ -783,7 +837,9 @@
 	mapXOffset = viewOrigin.x + viewSize.width * 0.5 - xCentre * mapScale  ;
 	mapYOffset = viewSize.height - (viewOrigin.y + viewSize.height * 0.5 - yCentre * mapScale)  ;
 	
-	float scale = mapScale * userScale;
+	float scale = mapScale * [view userScale];
+	float userXOffset = [view userXOffset];
+	float userYOffset = [view userYOffset];
 	
 	[view ResetTransformMatrix];
 	
@@ -793,6 +849,108 @@
 	[view SetScale:scale];
 	
 	[view StoreTransformMatrix];	
+}
+
+- (void) adjustScaleInView:(TrackMapView *)view Scale:(float)scale X:(float)x Y:(float)y
+{
+	// If we're following a car, we just set the scale
+	// Otherwise we zoom so that the focus point stays at the same screen location
+	if(shouldFollowCar && carToFollow != nil)
+	{
+		float currentUserScale = [view userScale];
+		if(fabs(currentUserScale) < 0.001 || fabs(scale) < 0.001)
+			return;
+		
+		[view setUserScale:currentUserScale * scale];
+	}
+	else
+	{
+		CGRect viewBounds = [view bounds];
+		CGSize viewSize = viewBounds.size;
+
+		if(viewSize.width < 1 || viewSize.height < 1)
+			return;
+
+		float currentUserPanX = [view userXOffset] * viewSize.width;
+		float currentUserPanY = [view userYOffset] * viewSize.height;
+		float currentUserScale = [view userScale];
+		float currentMapPanX = mapXOffset;
+		float currentMapPanY = mapYOffset;
+		float currentMapScale = mapScale;
+		float currentScale = currentUserScale * currentMapScale;
+
+		if(fabs(currentScale) < 0.001 || fabs(scale) < 0.001)
+			return;
+
+		// Calculate where the centre point is in the untransformed map
+		float x_in_map = (x - currentUserPanX - currentMapPanX) / currentScale; 
+		float y_in_map = (y - currentUserPanY - currentMapPanY) / currentScale;
+
+		// Now work out the new scale	
+		float newScale = currentScale * scale;
+		float newUserScale = currentUserScale * scale;
+
+		// Now work out where that point in the map would go now
+		float new_x = (x_in_map) * newScale + currentMapPanX;
+		float new_y = (y_in_map) * newScale + currentMapPanY;
+
+		// Andset the user pan to put it back where it was on the screen
+		float newPanX = (x - new_x) / viewSize.width ;
+		float newPanY = (y - new_y) / viewSize.height;
+
+		[view setUserXOffset:newPanX];
+		[view setUserYOffset:newPanY];
+		[view setUserScale:newUserScale];
+	}
+	
+}
+
+- (void) adjustPanInView:(TrackMapView *)view X:(float)x Y:(float)y
+{
+	CGRect viewBounds = [view bounds];
+	CGSize viewSize = viewBounds.size;
+	
+	if(viewSize.width < 1 || viewSize.height < 1)
+		return;
+	
+	float newPanX = ([view userXOffset] * viewSize.width + x) / viewSize.width;
+	float newPanY = ([view userYOffset] * viewSize.height + y)  / viewSize.height;
+		
+	[view setUserXOffset:newPanX];
+	[view setUserYOffset:newPanY];
+}
+
+- (void) followCarInView:(TrackMapView *)view AtX:(float)x Y:(float)y
+{
+	[(TrackMapView *)view SaveGraphicsState];
+	[(TrackMapView *)view StoreTransformMatrix];
+	[self constructTransformMatrixForView:(TrackMapView *)view];
+	
+	NSString * name = [self nearestCarInView:view ToX:x Y:y];
+	if(name)
+	{
+		[self followCar:name];
+	}
+	
+	[(TrackMapView *)view RestoreGraphicsState];
+}
+   
+- (void) followCar:(NSString *)name
+{
+	if(name && [name length] > 0)
+	{
+		if([self carExistsByName:name])
+		{
+			shouldFollowCar = true;
+			carToFollow = [name retain];
+			return;
+		}
+	}
+	
+	// Reach here if either name was nil, or not found
+	shouldFollowCar = false;
+	[carToFollow release];
+	carToFollow = nil;	
 }
 
 - (int) getTrackState
@@ -810,6 +968,9 @@
 	
 	return CGPointMake(0,0);
 }
+
+////////////////////////////////////////////////////////////////////////
+//
 
 
 @end

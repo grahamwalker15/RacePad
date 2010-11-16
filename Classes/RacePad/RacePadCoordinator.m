@@ -61,6 +61,8 @@ static RacePadCoordinator * instance_ = nil;
 		registeredViewControllerTypeMask = 0;
 		
 		connectionType = RPC_NO_CONNECTION_;
+		connectionRetryCount = 0;
+		connectionRetryTimer = nil;
 		live = false;
 		
 		firstView = true;
@@ -458,6 +460,21 @@ static RacePadCoordinator * instance_ = nil;
 	[settingsViewController updateServerState];
 }
 
+- (void) retryConnection:(NSTimer *)timer
+{
+	if(connectionRetryCount < 10)
+	{
+		connectionRetryCount++;
+		[self SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO];
+	}
+	else
+	{
+		connectionRetryCount = 0;
+		[serverConnect connectionTimeout];
+	}
+
+}
+
 - (void) connectionTimeout
 {
 	[socket_ release];
@@ -474,8 +491,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) showConnecting
 {
-	if ( socket_ != nil
-	  && connectionType != RPC_SOCKET_CONNECTION_ )
+	if ( socket_ != nil && connectionType != RPC_SOCKET_CONNECTION_ )
 	{
 		if ( serverConnect == nil )
 			serverConnect = [[ServerConnect alloc] initWithNibName:@"ServerConnect" bundle:nil];
@@ -540,11 +556,24 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if(view_count > 0)
 	{
+		// We keep a mask of streams already started so that none get started twice
+		int stream_mask = 0;
+		
 		for ( int i = 0 ; i < view_count ; i++)
 		{
 			RPCView * existing_view = [views objectAtIndex:i];
 			if([existing_view Displayed])
 			{
+				int type = [existing_view Type];
+				
+				// Check it hasn't already started
+				if((stream_mask & type) > 0)
+					continue;
+				
+				// Otherwise we can start it
+				
+				stream_mask = (stream_mask | type);
+				
 				if([existing_view Type] == RPC_DRIVER_LIST_VIEW_)
 				{
 					[socket_ StreamTimingPage];

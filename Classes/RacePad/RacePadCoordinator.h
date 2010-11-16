@@ -97,14 +97,17 @@ enum OrientationTypes
 	ServerConnect *serverConnect;
 	WorkOffline *workOffline;
 	SettingsViewController *settingsViewController;
+	
 	bool firstView;
 	
 	RacePadClientSocket * socket_;
+	int connectionRetryCount;
 	
 	NSString *sessionFolder;
 	
 	NSTimer *updateTimer;
 	NSTimer *timeControllerTimer;
+	NSTimer *connectionRetryTimer;
 	
 	int baseTime;
 	ElapsedTime * elapsedTime;

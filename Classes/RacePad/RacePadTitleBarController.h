@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "TitleBarViewController.h"
+#import "AlertViewController.h"
 
 @interface RacePadTitleBarController : NSObject
 {
 	TitleBarViewController * titleBarController;
+	AlertViewController * alertController;
+	UIPopoverController * alertPopover;
 	
 	int lapCount;
 	int currentLap;
@@ -29,5 +32,7 @@
 - (void) setLapCount: (int)count;
 - (void) setCurrentLap: (int)lap;
 - (void) setTrackState: (int)state;
+
+- (IBAction)AlertPressed:(id)sender;
 
 @end

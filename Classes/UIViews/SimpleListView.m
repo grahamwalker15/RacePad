@@ -57,21 +57,6 @@
 	[inter_tyre_ release];
 	[wet_tyre_ release];
 	
-	[black_ release];
-	[white_ release];
-	[blue_ release];
-	[orange_ release];
-	[yellow_ release];
-	[red_ release];
-	[cyan_ release];
-	[dark_blue_ release];
-	[light_blue_ release];
-	[dark_grey_ release];
-	[light_grey_ release];
-	[very_light_blue_ release];
-	[very_light_grey_ release];
-	[light_orange_ release];
-	
 	[base_colour_ release];
 	[selected_colour_ release];
 	[focus_colour_ release];
@@ -132,21 +117,6 @@
 	
 	heading_bg_colour_ = [self CreateColourRed:150 Green:150 Blue:150];
 	heading_text_colour_ = [self CreateColourRed:0 Green:0 Blue:0];
-	
-	black_ = [self CreateColourRed:0 Green:0 Blue:0];
-	white_ = [self CreateColourRed:255 Green:255 Blue:255];
-	blue_ = [self CreateColourRed:0 Green:0 Blue:255];
-	orange_ = [self CreateColourRed:200 Green:140 Blue:0];
-	light_orange_ = [self CreateColourRed:250 Green:180 Blue:0];
-	yellow_ = [self CreateColourRed:255 Green:255 Blue:0];
-	red_ = [self CreateColourRed:255 Green:0 Blue:0];
-	cyan_ = [self CreateColourRed:0 Green:255 Blue:255];
-	dark_blue_ = [self CreateColourRed:0 Green:0 Blue:150];
-	light_blue_ = [self CreateColourRed:120 Green:150 Blue:220];
-	dark_grey_ = [self CreateColourRed:130 Green:130 Blue:130];
-	light_grey_ = [self CreateColourRed:200 Green:200 Blue:200];
-	very_light_blue_ = [self CreateColourRed:220 Green:240 Blue:255];
-	very_light_grey_ = [self CreateColourRed:220 Green:220 Blue:220];
 	
 	option_tyre_ = [self CreateColourRed:255 Green:255 Blue:255];
 	prime_tyre_ = [self CreateColourRed:255 Green:255 Blue:0];

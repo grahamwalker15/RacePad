@@ -10,23 +10,22 @@
 
 #import "DrawingView.h"
 
-@interface TrackMapBackgroundView : DrawingView
-{
-	CGImageRef background_image_;
-	int background_image_w_;
-	int background_image_h_;
-}
-
-- (void)InitialiseImages;
-
-- (void)ReleaseBackground;
-
-@end
-
 @interface TrackMapView : DrawingView
 {
+	bool isZoomView;
+	
+	float userXOffset;
+	float userYOffset;	
+	float userScale;
 }
 
+@property (nonatomic) bool isZoomView;
+
+@property (nonatomic) float userXOffset;
+@property (nonatomic) float userYOffset;
+@property (nonatomic) float userScale;
+
+- (void)InitialiseMembers;
 - (void)InitialiseImages;
 
 @end

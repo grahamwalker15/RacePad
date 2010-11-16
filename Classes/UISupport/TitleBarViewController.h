@@ -14,9 +14,11 @@
 	IBOutlet UIButton * clock;
 	IBOutlet UIButton * eventName;
 	IBOutlet UIButton * lapCounter;
+	IBOutlet UIBarButtonItem * alertButton;
 }
 
 @property (readonly) UIButton * sponsorButton;
+@property (readonly) UIBarButtonItem * alertButton;
 @property (readonly) UIButton * clock;
 @property (readonly) UIButton * eventName;
 @property (readonly) UIButton * lapCounter;

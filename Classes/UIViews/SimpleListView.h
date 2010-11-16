@@ -49,22 +49,7 @@ enum ColumnPriority {
 	UIColor * prime_tyre_;
 	UIColor * inter_tyre_;
 	UIColor * wet_tyre_;
-	
-	UIColor * black_;
-	UIColor * white_;
-	UIColor * blue_;
-	UIColor * orange_;
-	UIColor * yellow_;
-	UIColor * red_;
-	UIColor * cyan_;
-	UIColor * dark_blue_;
-	UIColor * light_blue_;
-	UIColor * dark_grey_;
-	UIColor * light_grey_;
-	UIColor * very_light_blue_;
-	UIColor * very_light_grey_;
-	UIColor * light_orange_;
-	
+		
 	int row_count_ ;
 	int row_height_;
 	

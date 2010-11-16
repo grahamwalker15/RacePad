@@ -161,6 +161,10 @@
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	// Don't rspond to end state
+	if([gestureRecognizer state] == UIGestureRecognizerStateEnded)
+		return;
+	
 	UIView * gestureView = [gestureRecognizer view];
 	CGPoint point = [gestureRecognizer locationInView:gestureView];
 	[self OnLongPressGestureInView:gestureView AtX:point.x Y:point.y];

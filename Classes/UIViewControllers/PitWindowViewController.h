@@ -12,11 +12,12 @@
 #import "ESRenderer.h"
 
 @class PitWindowView;
+@class BackgroundView;
 
 @interface PitWindowViewController : DrawingViewController
 {
-	
-	PitWindowView *pitWindowView;	
+	IBOutlet BackgroundView * backgroundView;
+	PitWindowView * pitWindowView;	
 }
 
 

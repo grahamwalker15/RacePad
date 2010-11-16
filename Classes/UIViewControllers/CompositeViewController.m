@@ -17,6 +17,8 @@
 
 @implementation CompositeViewController
 
+@synthesize displayMap;
+@synthesize displayLeaderboard;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -35,48 +37,18 @@
  */
 
 
-- (void) getStartTime
-{
-	startTime = -1;
-	
-	// Try to find a meta file
-	NSString *metaFileName = [currentMovie stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
-	metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
-	FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
-	if ( metaFile )
-	{
-		char keyword[128];
-		int value;
-		if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
-			if ( strcmp ( keyword, "VideoStartTime" ) == 0 )
-				startTime = value;
-		fclose(metaFile);
-	}
-	
-	if ( startTime == -1 )
-	{
-		// Default to hard coded start time
-		startTime = 13 * 3600.0 + 43 * 60.0 + 40;
-	}
-}
-
-- (NSString *)getVideoArchiveName
-{
-	NSString *name = [[RacePadCoordinator Instance] getVideoArchiveName];
-	
-	// Use a default bundled video if it can't be found
-	if(!name)
-		name = [[NSBundle mainBundle] pathForResource:@"Movie on 2010-10-04 at 16.26" ofType:@"mov"];
-	
-	return name;
-}
-
 - (void)viewDidLoad
 {
+	// Set the types on the two map views
+	[trackMapView setIsZoomView:false];
+	[trackZoomView setIsZoomView:true];
+	
+	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
+	[trackZoomContainer setHidden:true];
+	
 	// Get the video archive file name from RacePadCoordinator
 	currentMovie = [[self getVideoArchiveName] retain];
 	[self getStartTime];
-	
 	
 	moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:currentMovie]];
 	[moviePlayer setShouldAutoplay:false];
@@ -87,18 +59,32 @@
 	movieSize = CGSizeMake(0, 0);
 	movieRect = CGRectMake(0, 0, 0, 0);
 
+	// Configure leaderboard view
+  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+	
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
+	[self addLongPressRecognizerToView:trackMapView];
 	[self addDoubleTapRecognizerToView:trackMapView];
 	[self addPanRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	
+	// And just pinch and double tap for the zoom map
+	[self addDoubleTapRecognizerToView:trackZoomView];
+	[self addPinchRecognizerToView:trackZoomView];
+	
 	// Add tap recognizer to overlay in order to catch taps outside map
 	[self addTapRecognizerToView:overlayView];
+
+	// Add tap and long press recognizers to the leaderboard
+	[self addTapRecognizerToView:leaderboardView];
+	[self addLongPressRecognizerToView:leaderboardView];
 
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_DRIVER_LIST_VIEW_];
 	
 	[super viewDidLoad];
 }
@@ -129,6 +115,9 @@
 	
 	[movieView bringSubviewToFront:overlayView];
 	[movieView bringSubviewToFront:trackMapView];
+	[movieView bringSubviewToFront:leaderboardView];
+	[movieView bringSubviewToFront:trackZoomContainer];
+	[movieView bringSubviewToFront:trackZoomView];
 	
 	// Get notification when we know the movie size
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieSizeCallback:)
@@ -138,9 +127,11 @@
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
 	
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -148,7 +139,9 @@
 {
 	[[RacePadCoordinator Instance] SetViewHidden:movieView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
-	[[RacePadTitleBarController Instance] hide];
+	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewHidden:trackZoomContainer];
+	//[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[moviePlayer stop];
@@ -201,6 +194,46 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////
+// Movie information
+////////////////////////////////////////////////////////////////////////////
+
+- (void) getStartTime
+{
+	startTime = -1;
+	
+	// Try to find a meta file
+	NSString *metaFileName = [currentMovie stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
+	metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
+	FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
+	if ( metaFile )
+	{
+		char keyword[128];
+		int value;
+		if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
+			if ( strcmp ( keyword, "VideoStartTime" ) == 0 )
+				startTime = value;
+		fclose(metaFile);
+	}
+	
+	if ( startTime == -1 )
+	{
+		// Default to hard coded start time
+		startTime = 13 * 3600.0 + 43 * 60.0 + 40;
+	}
+}
+
+- (NSString *)getVideoArchiveName
+{
+	NSString *name = [[RacePadCoordinator Instance] getVideoArchiveName];
+	
+	// Use a default bundled video if it can't be found
+	if(!name)
+		name = [[NSBundle mainBundle] pathForResource:@"Movie on 2010-10-04 at 16.26" ofType:@"mov"];
+	
+	return name;
+}
+
+////////////////////////////////////////////////////////////////////////////
 // Play controls
 ////////////////////////////////////////////////////////////////////////////
 
@@ -240,16 +273,24 @@
 {
  	[trackMapView setAlpha:0.0];
  	[trackMapView setHidden:false];
+ 	[leaderboardView setAlpha:0.0];
+ 	[leaderboardView setHidden:false];
+ 	[trackZoomContainer setAlpha:0.0];
+ 	[trackZoomContainer setHidden:false];
 	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
   	[trackMapView setAlpha:1.0];
+  	[leaderboardView setAlpha:1.0];
+  	[trackZoomContainer setAlpha:1.0];
 	[UIView commitAnimations];
 }
 
 - (void) hideOverlays
 {
 	[trackMapView setHidden:true];
+	[leaderboardView setHidden:true];
+	[trackZoomContainer setHidden:true];
 }
 
 - (void) positionOverlays
@@ -280,6 +321,13 @@
 	}
 	
 	[trackMapView setFrame:movieRect];
+	
+	CGRect lb_frame = CGRectMake(movieRect.origin.x + 5, movieRect.origin.y, 60, movieRect.size.height);
+	[leaderboardView setFrame:lb_frame];
+
+	//CGRect zoom_frame = CGRectMake(movieViewSize.width - 320, movieViewSize.height - 320, 300, 300);
+	CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
+	[trackZoomContainer setFrame:zoom_frame];
 }
 
 - (void) RequestRedrawForType:(int)type
@@ -288,87 +336,137 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	if(![time_controller displayed])
-		[time_controller displayInViewController:self Animated:true];
+	if([gestureView isKindOfClass:[leaderboardView class]])
+	{
+		RacePadDatabase *database = [RacePadDatabase Instance];
+		TrackMap *trackMap = [database trackMap];	
+		NSString * name = [leaderboardView carNameAtX:x Y:y];
+		
+		if([[trackMap carToFollow] isEqualToString:name])
+		{
+			[trackMap followCar:nil];
+			[trackZoomContainer setHidden:true];
+			[leaderboardView RequestRedraw];
+		}
+		else
+		{
+			[trackMap followCar:name];
+			
+			[trackZoomContainer setHidden:false];
+			
+			[trackZoomView setUserScale:10.0];
+			[trackZoomView RequestRedraw];
+			[leaderboardView RequestRedraw];
+		}
+		
+	}
 	else
-		[time_controller hide];
+	{
+		RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+		if(![time_controller displayed])
+			[time_controller displayInViewController:self Animated:true];
+		else
+			[time_controller hide];
+	}
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
+	// Make sure we're on the map - do nothing otherwise
+	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
+	{
+		return;
+	}
+	
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	[trackMap setUserXOffset:0.0];
-	[trackMap setUserYOffset:0.0];
-	[trackMap setUserScale:1.0];
+	if([(TrackMapView *)gestureView isZoomView])
+	{
+		[(TrackMapView *)gestureView setUserScale:10.0];
+		[(TrackMapView *)gestureView setUserXOffset:0.0];
+		[(TrackMapView *)gestureView setUserYOffset:0.0];
+	}
+	else
+	{
+		float current_scale = [(TrackMapView *)gestureView userScale];
+		float current_xoffset = [(TrackMapView *)gestureView userXOffset];
+		float current_yoffset = [(TrackMapView *)gestureView userYOffset];
+
+		if(current_scale == 1.0 && current_xoffset == 0.0 && current_yoffset == 0.0)
+		{
+			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10 X:x Y:y];
+		}
+		else
+		{
+			[(TrackMapView *)gestureView setUserXOffset:0.0];
+			[(TrackMapView *)gestureView setUserYOffset:0.0];
+			[(TrackMapView *)gestureView setUserScale:1.0];	
+		}
+	}
+
+	[trackMapView RequestRedraw];
+	[leaderboardView RequestRedraw];
+}
+
+- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	// Zooms on point in map, or chosen car in leader board
+	if(!gestureView)
+		return;
+
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];	
+	
+	if([gestureView isKindOfClass:[TrackMapView class]])
+	{
+		float current_scale = [(TrackMapView *)gestureView userScale];
+		if(current_scale > 0.001)
+		{
+			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10/current_scale X:x Y:y];
+		}
+	}
+	else if([gestureView isKindOfClass:[leaderboardView class]])
+	{
+		NSString * name = [leaderboardView carNameAtX:x Y:y];
+		[trackMap followCar:name];
+		[trackZoomContainer setHidden:false];
+
+	}
 	
 	[trackMapView RequestRedraw];
+	[leaderboardView RequestRedraw];
 }
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
+	// Make sure we're on the map - do nothing otherwise
+	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
+	{
+		return;
+	}
+			
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	CGRect viewBounds = [gestureView bounds];
-	CGSize viewSize = viewBounds.size;
-	
-	if(viewSize.width < 1 || viewSize.height < 1)
-		return;
-	
-	float currentUserPanX = [trackMap userXOffset] * viewSize.width;
-	float currentUserPanY = [trackMap userYOffset] * viewSize.height;
-	float currentUserScale = [trackMap userScale];
-	float currentMapPanX = [trackMap mapXOffset];
-	float currentMapPanY = [trackMap mapYOffset];
-	float currentMapScale = [trackMap mapScale];
-	float currentScale = currentUserScale * currentMapScale;
-	
-	if(fabs(currentScale) < 0.001 || fabs(scale) < 0.001)
-		return;
-	
-	// Calculate where the centre point is in the untransformed map
-	float x_in_map = (x - currentUserPanX - currentMapPanX) / currentScale; 
-	float y_in_map = (y - currentUserPanY - currentMapPanY) / currentScale;
-	
-	// Now work out the new scale	
-	float newScale = currentScale * scale;
-	float newUserScale = currentUserScale * scale;
-	
-	// Now work out where that point in the map would go now
-	float new_x = (x_in_map) * newScale + currentMapPanX;
-	float new_y = (y_in_map) * newScale + currentMapPanY;
-	
-	// Andset the user pan to put it back where it was on the screen
-	float newPanX = x - new_x ;
-	float newPanY = y - new_y ;
-	
-	[trackMap setUserXOffset:newPanX / viewSize.width];
-	[trackMap setUserYOffset:newPanY / viewSize.height];
-	[trackMap setUserScale:newUserScale];
-	
+	[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
+
 	[trackMapView RequestRedraw];
 }
 
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
 {
+	// Make sure we're on the map - do nothing otherwise
+	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
+	{
+		return;
+	}
+	
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	CGRect viewBounds = [gestureView bounds];
-	CGSize viewSize = viewBounds.size;
-	
-	if(viewSize.width < 1 || viewSize.height < 1)
-		return;
-	
-	float newPanX = [trackMap userXOffset] * viewSize.width + x;
-	float newPanY = [trackMap userYOffset] * viewSize.height + y;
-	
-	[trackMap setUserXOffset:newPanX / viewSize.width];
-	[trackMap setUserYOffset:newPanY / viewSize.height];
+	[trackMap adjustPanInView:(TrackMapView *)gestureView X:x Y:y];
 	
 	[trackMapView RequestRedraw];
 }

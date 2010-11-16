@@ -79,8 +79,8 @@
 	// We'll get notification when we know the movie size - set itto zero for now
 	movieSize = CGSizeMake(0, 0);
 	
-    //	Add tap recognizer to bring up time controls
-	// This is added to the transparent overlay view which goes above all drawing
+	// Add tap recognizer to bring up time controls
+	// This is added to the transparent overlay view which goes above the movie
 	[self addTapRecognizerToView:overlayView];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
@@ -134,7 +134,7 @@
 	[self movieGotoTime:time_of_day];
 
 	// Register the view
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_VIDEO_VIEW_];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 
 	// We disable the screen locking - because that seems to close the socket
@@ -145,7 +145,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] SetViewHidden:movieView];
-	[[RacePadTitleBarController Instance] hide];
+	//[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[moviePlayer stop];

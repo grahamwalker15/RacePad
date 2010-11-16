@@ -100,14 +100,12 @@
 {
 	int row = -1;
 	int col = -1;
-	
-	id controlled_view = [self drawingView];
-	
-	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
+		
+	if(gestureView && [gestureView isKindOfClass:[SimpleListView class]])
 	{
-		if([controlled_view FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
-			bool if_heading = [controlled_view IfHeading];
+			bool if_heading = [(SimpleListView *)gestureView IfHeading];
 			
 			if(if_heading && row == 0)
 			{
@@ -139,13 +137,11 @@
 	int row = -1;
 	int col = -1;
 	
-	id controlled_view = [self drawingView];
-	
-	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
+	if(gestureView && [gestureView isKindOfClass:[SimpleListView class]])
 	{
-		if([controlled_view FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
-			bool if_heading = [controlled_view IfHeading];
+			bool if_heading = [(SimpleListView *)gestureView IfHeading];
 			
 			if(if_heading && row == 0)
 			{
@@ -177,13 +173,11 @@
 	int row = -1;
 	int col = -1;
 	
-	id controlled_view = [self drawingView];
-	
-	if(controlled_view && [controlled_view isKindOfClass:[SimpleListView class]])
+	if(gestureView && [gestureView isKindOfClass:[SimpleListView class]])
 	{
-		if([controlled_view FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
-			bool if_heading = [controlled_view IfHeading];
+			bool if_heading = [(SimpleListView *)gestureView IfHeading];
 			
 			if(if_heading && row == 0)
 			{

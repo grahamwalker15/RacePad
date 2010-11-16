@@ -15,7 +15,26 @@
 		UIColor * fg_;
 		UIColor * bg_;
 	
+		UIColor * black_;
+		UIColor * white_;
+		UIColor * blue_;
+		UIColor * orange_;
+		UIColor * yellow_;
+		UIColor * red_;
+		UIColor * cyan_;
+		UIColor * dark_blue_;
+		UIColor * light_blue_;
+		UIColor * dark_grey_;
+		UIColor * light_grey_;
+		UIColor * very_light_blue_;
+		UIColor * very_light_grey_;
+		UIColor * light_orange_;
+		UIColor * magenta_;
+		UIColor * dark_magenta_;
+
 		UIFont * current_font_;
+		NSMutableArray * font_stack_;
+	
 		CGRect current_bounds_;
 		CGSize current_size_;
 		CGPoint current_origin_;
@@ -41,6 +60,22 @@
 
 @property (nonatomic, retain, setter=SetFGColour, getter=FGColour) UIColor * fg_;
 @property (nonatomic, retain, setter=SetBGColour, getter=BGColour) UIColor * bg_;
+@property (readonly) UIColor * black_;
+@property (readonly) UIColor * white_;
+@property (readonly) UIColor * blue_;
+@property (readonly) UIColor * orange_;
+@property (readonly) UIColor * yellow_;
+@property (readonly) UIColor * red_;
+@property (readonly) UIColor * cyan_;
+@property (readonly) UIColor * dark_blue_;
+@property (readonly) UIColor * light_blue_;
+@property (readonly) UIColor * dark_grey_;
+@property (readonly) UIColor * light_grey_;
+@property (readonly) UIColor * very_light_blue_;
+@property (readonly) UIColor * very_light_grey_;
+@property (readonly) UIColor * light_orange_;
+@property (readonly) UIColor * magenta_;
+@property (readonly) UIColor * dark_magenta_;
 
 // Initialisation
 - (void)InitialiseDrawingViewMembers;
@@ -62,6 +97,7 @@
 - (void)DestroyBitmapContext;
 
 - (void)SetBGToShadowColour;
+- (void)SetAlpha:(float)alpha;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;
@@ -103,6 +139,7 @@
 - (void)LineRectangle:(CGRect)rect;
 - (void)FillRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
+- (void)FillPatternRectangle:(UIImage *)image X0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 
 - (void)EtchRectangle:(CGRect)rect EtchIn:(bool)etch_in;
@@ -151,6 +188,9 @@
 - (void)UseRegularFont;
 
 - (void)SelectUIFont;
+
+- (void)SaveFont;
+- (void)RestoreFont;
 
 // Matrix manipulation
 - (void)SetScale:(float) scale;

@@ -9,6 +9,7 @@
 #import "RacePadTitleBarController.h"
 #import "RacePadCoordinator.h"
 #import "TitleBarViewController.h"
+#import "AlertViewController.h"
 #import "TrackMap.h"
 
 @implementation RacePadTitleBarController
@@ -28,6 +29,9 @@ static RacePadTitleBarController * instance_ = nil;
 	if(self = [super init])
 	{	
 		titleBarController = [[TitleBarViewController alloc] initWithNibName:@"TitleBarView" bundle:nil];
+		alertController = [[AlertViewController alloc] initWithNibName:@"AlertControlView" bundle:nil];
+		alertPopover = [[UIPopoverController alloc] initWithContentViewController:alertController];
+		[alertController setParentPopover:alertPopover];
 		
 		lapCount = 0;
 	}
@@ -58,6 +62,10 @@ static RacePadTitleBarController * instance_ = nil;
 	
 	[viewController.view addSubview:titleBarController.view];
 		
+	UIBarButtonItem * alert_button = [titleBarController alertButton];	
+	[alert_button setTarget:self];
+	[alert_button setAction:@selector(AlertPressed:)];
+	
 	float current_time = [[RacePadCoordinator Instance] currentTime];	
 	[self updateTime:current_time];
 	
@@ -67,6 +75,7 @@ static RacePadTitleBarController * instance_ = nil;
 - (void) hide
 {
 	[[RacePadCoordinator Instance] SetViewHidden:titleBarController];
+	[alertPopover dismissPopoverAnimated:false];
 	[titleBarController.view removeFromSuperview];
 }
 
@@ -139,6 +148,19 @@ static RacePadTitleBarController * instance_ = nil;
 
 - (IBAction)PlayPressed:(id)sender
 {
+}
+
+- (IBAction)AlertPressed:(id)sender
+{
+	CGSize popoverSize;
+	if([[RacePadCoordinator Instance] deviceOrientation] == RPC_ORIENTATION_PORTRAIT_)
+		popoverSize = CGSizeMake(400,800);
+	else
+		popoverSize = CGSizeMake(400,600);
+	
+	[alertPopover setPopoverContentSize:popoverSize];
+	
+	[alertPopover presentPopoverFromBarButtonItem:[titleBarController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 }
 
 

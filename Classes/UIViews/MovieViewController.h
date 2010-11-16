@@ -11,7 +11,6 @@
 #import "RacePadViewController.h"
 #import "MovieView.h"
 
-
 @interface MovieViewController : RacePadViewController
 {
 	IBOutlet MovieView * movieView;

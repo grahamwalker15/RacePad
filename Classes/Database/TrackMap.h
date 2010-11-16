@@ -10,6 +10,7 @@
 
 @class DataStream;
 @class TrackMapView;
+@class TrackMap;
 
 enum TrackMapLineType {
 	TM_L_INKNOWN,
@@ -51,7 +52,7 @@ enum TrackState {
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
-- (void) draw : (TrackMapView *)view Scale:(float)scale;
+- (void) draw:(TrackMapView *)view OnMap:(TrackMap *)trackMap Scale:(float)scale;
 
 @end
 
@@ -148,10 +149,6 @@ enum TrackState {
 	float width;
 	float height;
 	
-	float userXOffset;
-	float userYOffset;	
-	float userScale;
-	
 	float mapXOffset;
 	float mapYOffset;	
 	float mapScale;
@@ -172,10 +169,6 @@ enum TrackState {
 	int overallTrackState;
 }
 
-@property (nonatomic) float userXOffset;
-@property (nonatomic) float userYOffset;
-@property (nonatomic) float userScale;
-
 @property (nonatomic) float mapXOffset;
 @property (nonatomic) float mapYOffset;
 @property (nonatomic) float mapScale;
@@ -187,9 +180,17 @@ enum TrackState {
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;
 
-- (void) draw:(TrackMapView *)view;
+- (bool) carExistsByName:(NSString *)name;
+- (NSString *) nearestCarInView:(UIView *)view ToX:(float)x Y:(float)y;
 
+- (void) drawInView:(TrackMapView *)view;
+
+- (void) constructTransformMatrixForView:(TrackMapView *)view;
 - (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset;
+- (void) adjustScaleInView:(TrackMapView *)view Scale:(float)scale X:(float)x Y:(float)y;
+- (void) adjustPanInView:(TrackMapView *)view X:(float)x Y:(float)y;
+- (void) followCarInView:(TrackMapView *)view AtX:(float)x Y:(float)y;
+- (void) followCar:(NSString *)name;
 
 - (int) getTrackState;
 

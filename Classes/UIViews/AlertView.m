@@ -110,16 +110,35 @@
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
 	[self SetBackgroundColour:white_];
-	switch (col)
+	
+	if(col != 0)
+		return nil;
+	
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	int type = [[alertData itemAtIndex:row] type];
+
+	switch (type)
 	{
-		case 0:
-			return [UIImage imageNamed:@"Icon-Small.png"];
-		case 1:
-			return nil;
-		case 2:
-			return nil;
+		case ALERT_RACE_EVENT_:
+			return [UIImage imageNamed:@"AlertPin.png"];
+		case ALERT_INCIDENT_:
+			return [UIImage imageNamed:@"AlertWarning.png"];
+		case ALERT_OVERTAKE_:
+			return [UIImage imageNamed:@"AlertOvertake.png"];
+		case ALERT_SAFETY_CAR_:
+			return [UIImage imageNamed:@"AlertSafetyCar.png"];
+		case ALERT_GREEN_FLAG_:
+			return [UIImage imageNamed:@"AlertGreenFlag.png"];
+		case ALERT_RED_FLAG_:
+			return [UIImage imageNamed:@"AlertRedFlag.png"];
+		case ALERT_PIT_STOP_:
+			return [UIImage imageNamed:@"AlertPitstop.png"];
+		case ALERT_YELLOW_VIOLATION_:
+			return [UIImage imageNamed:@"AlertYellowFlag.png"];
+		case ALERT_CHEQUERED_FLAG_:
+			return [UIImage imageNamed:@"AlertChequeredFlag.png"];
 		default:
-			return nil;
+			return [UIImage imageNamed:@"AlertPin.png"];
 	}			
 }
 

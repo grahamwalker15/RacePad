@@ -12,6 +12,7 @@
 #import "RacePadTitleBarController.h"
 #import "RacePadDatabase.h"
 #import "PitWindowView.h"
+#import "BackgroundView.h"
 #import "PitWindow.h"
 
 @implementation PitWindowViewController
@@ -34,7 +35,11 @@
 - (void)viewDidLoad
 {
 	pitWindowView = (PitWindowView *)[self drawingView];
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GRASS_];
 
+	//	Add tap recognizer for background
+	[self addTapRecognizerToView:backgroundView];
+	
 	[super viewDidLoad];
 	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 }
@@ -45,8 +50,16 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
+	// Resize overlay view to match background
+	CGRect bg_frame = [backgroundView frame];
+	CGRect pw_frame = CGRectInset(bg_frame, 30, 30);
+	[pitWindowView setFrame:pw_frame];
+	
+	// Force background refresh
+	[backgroundView RequestRedraw];
+	
 	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_PIT_WINDOW_VIEW_];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_PIT_WINDOW_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:pitWindowView];
 
 	// We disable the screen locking - because that seems to close the socket
@@ -71,6 +84,12 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+	[backgroundView RequestRedraw];
+	
+	CGRect bg_frame = [backgroundView frame];
+	CGRect pw_frame = CGRectInset(bg_frame, 30, 30);
+	[pitWindowView setFrame:pw_frame];
+
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
