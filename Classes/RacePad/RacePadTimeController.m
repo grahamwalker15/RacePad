@@ -85,9 +85,9 @@ static RacePadTimeController * instance_ = nil;
 	UISlider * slider = [timeController timeSlider];
 	[slider addTarget:instance_ action:@selector(SliderChanged:) forControlEvents:UIControlEventValueChanged];
 	
-	UIBarButtonItem * alert_button = [timeController alertButton];	
-	[alert_button setTarget:instance_];
-	[alert_button setAction:@selector(AlertPressed:)];
+	UIBarButtonItem * replay_button = [timeController replayButton];	
+	[replay_button setTarget:instance_];
+	[replay_button setAction:@selector(ReplayPressed:)];
 	
 	float current_time = [[RacePadCoordinator Instance] currentTime];
 	float start_time = [[RacePadCoordinator Instance] startTime];
@@ -233,6 +233,27 @@ static RacePadTimeController * instance_ = nil;
 	
 	[alertPopover presentPopoverFromBarButtonItem:[timeController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 
+	[self setHideTimer];
+}
+
+- (IBAction)ReplayPressed:(id)sender
+{
+	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
+	
+	[coordinator stopPlay];
+	float time = [coordinator currentTime];
+	
+	time -= 20.0;
+	if(time < [coordinator startTime])
+		time = [coordinator startTime];
+	
+	[coordinator jumpToTime:time];
+	[self updateTime:time];
+	
+	[coordinator prepareToPlay];
+	[coordinator startPlay];
+	[self updatePlayButton];
+	
 	[self setHideTimer];
 }
 

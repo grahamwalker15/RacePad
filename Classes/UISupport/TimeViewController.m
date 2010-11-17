@@ -12,7 +12,7 @@
 @implementation TimeViewController
 
 @synthesize playButton;
-@synthesize alertButton;
+@synthesize replayButton;
 @synthesize timeSlider;
 @synthesize clock;
 
