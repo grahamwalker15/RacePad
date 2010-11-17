@@ -136,6 +136,7 @@
 		7FC2EAC6128C926C00DAC96E /* StateYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB6128C926B00DAC96E /* StateYellow.png */; };
 		7FC2EAC7128C926C00DAC96E /* TitleStateSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */; };
 		7FC2F4B71292E20400DAC96E /* Grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F4B61292E20400DAC96E /* Grass.png */; };
+		7FC2F765129429B400DAC96E /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F764129429B400DAC96E /* Replay.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -320,6 +321,7 @@
 		7FC2EAB6128C926B00DAC96E /* StateYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateYellow.png; path = Images/StateYellow.png; sourceTree = "<group>"; };
 		7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TitleStateSC.png; path = Images/TitleStateSC.png; sourceTree = "<group>"; };
 		7FC2F4B61292E20400DAC96E /* Grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Grass.png; path = Images/Grass.png; sourceTree = "<group>"; };
+		7FC2F764129429B400DAC96E /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Replay.png; path = Images/Replay.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -387,6 +389,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7FC2F764129429B400DAC96E /* Replay.png */,
 				7FC2F4B61292E20400DAC96E /* Grass.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
 				7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */,
@@ -738,6 +741,7 @@
 				7FC2EAC6128C926C00DAC96E /* StateYellow.png in Resources */,
 				7FC2EAC7128C926C00DAC96E /* TitleStateSC.png in Resources */,
 				7FC2F4B71292E20400DAC96E /* Grass.png in Resources */,
+				7FC2F765129429B400DAC96E /* Replay.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
