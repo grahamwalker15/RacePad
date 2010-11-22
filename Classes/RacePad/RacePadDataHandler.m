@@ -378,6 +378,13 @@
 			[fm release];
 			break;
 		}
+		case RPSC_TELEMETRY_: // Telemetry Data
+		{
+			Telemetry *telemetry = [[RacePadDatabase Instance] telemetry];
+			[telemetry load:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+			break;
+		}
 		default:
 			break;
 	}

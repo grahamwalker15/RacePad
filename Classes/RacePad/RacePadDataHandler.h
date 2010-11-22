@@ -34,6 +34,7 @@ enum ServerCommands {
 	RPSC_TRACK_STATE_, // 21
 	RPSC_PROJECT_RANGE_, // 22
 	RPSC_HTML_FILE_, // 23
+	RPSC_TELEMETRY_, // 24
 };
 
 @interface RacePadDataHandler : DataHandler

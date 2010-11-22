@@ -12,6 +12,7 @@
 #import "TrackMap.h"
 #import "ImageListStore.h"
 #import "PitWindow.h"
+#import "Telemetry.h"
 
 @interface RacePadDatabase : NSObject
 {
@@ -22,6 +23,7 @@
 	ImageListStore *imageListStore;
 	PitWindow *pitWindow;
 	AlertData * alertData;
+	Telemetry *telemetry;
 }
 
 @property (retain) NSString *eventName;
@@ -31,6 +33,7 @@
 @property (readonly) ImageListStore *imageListStore;
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;
+@property (readonly) Telemetry * telemetry;
 
 + (RacePadDatabase *)Instance;
 

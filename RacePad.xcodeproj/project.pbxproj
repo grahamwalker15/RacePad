@@ -28,6 +28,7 @@
 		4D807CF512832B3400FDE400 /* ServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D807CF412832B3400FDE400 /* ServerConnect.xib */; };
 		4D82FB401283F80C00F93A2B /* WorkOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D82FB3E1283F80C00F93A2B /* WorkOffline.m */; };
 		4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D82FB421283F83300F93A2B /* WorkOffline.xib */; };
+		4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */; };
 		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
 		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
@@ -173,6 +174,8 @@
 		4D82FB3D1283F80C00F93A2B /* WorkOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkOffline.h; sourceTree = "<group>"; };
 		4D82FB3E1283F80C00F93A2B /* WorkOffline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkOffline.m; sourceTree = "<group>"; };
 		4D82FB421283F83300F93A2B /* WorkOffline.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WorkOffline.xib; path = ResourceFiles/WorkOffline.xib; sourceTree = "<group>"; };
+		4D86EDD2129A98C000AA49F9 /* Telemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Telemetry.h; sourceTree = "<group>"; };
+		4D86EDD3129A98C000AA49F9 /* Telemetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Telemetry.m; sourceTree = "<group>"; };
 		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
 		4D8A66831282635500E9E19D /* DownloadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgress.m; sourceTree = "<group>"; };
 		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
@@ -493,6 +496,8 @@
 				7F3276F2126379B000BD1627 /* RacePadDatabase.m */,
 				7F3276EF126379B000BD1627 /* TableData.h */,
 				7F3276F0126379B000BD1627 /* TableData.m */,
+				4D86EDD2129A98C000AA49F9 /* Telemetry.h */,
+				4D86EDD3129A98C000AA49F9 /* Telemetry.m */,
 				7F9C67381265F50000F2FFEC /* TrackMap.h */,
 				7F9C67391265F50000F2FFEC /* TrackMap.m */,
 			);
@@ -803,6 +808,7 @@
 				7F866025128ABEE300F13CB6 /* AlertData.m in Sources */,
 				7F866454128C3D4900F13CB6 /* BackgroundView.m in Sources */,
 				7F866590128C51DA00F13CB6 /* LeaderboardView.m in Sources */,
+				4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
