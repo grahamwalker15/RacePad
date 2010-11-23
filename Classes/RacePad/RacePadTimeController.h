@@ -43,7 +43,6 @@
 
 - (IBAction)PlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
-- (IBAction)AlertPressed:(id)sender;
 - (IBAction)ReplayPressed:(id)sender;
 
 @end

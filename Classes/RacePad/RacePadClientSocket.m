@@ -82,9 +82,9 @@
 	[self SimpleCommand:RPCS_STREAM_CARS];
 }
 
-- (void)RequestDriverHelmets
+- (void)RequestUIImages
 {
-	[self SimpleCommand:RPCS_REQUEST_DRIVER_HELMETS];
+	[self SimpleCommand:RPCS_REQUEST_UI_IMAGES];
 }
 
 - (void) requestDriverView :(NSString *) driver

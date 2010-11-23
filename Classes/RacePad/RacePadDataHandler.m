@@ -382,7 +382,7 @@
 		{
 			Telemetry *telemetry = [[RacePadDatabase Instance] telemetry];
 			[telemetry load:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TELEMETRY_VIEW_];
 			break;
 		}
 		default:

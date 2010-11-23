@@ -81,7 +81,7 @@
 
 - (void) draw:(TrackMapView *)view OnMap:(TrackMap *)trackMap Scale:(float)scale
 {
-	bool isFollowCar = ([[trackMap carToFollow] isEqualToString:name]);
+	bool isFollowCar = ([[view carToFollow] isEqualToString:name]);
 	
 	CGSize size = [view bounds].size;
 	
@@ -440,8 +440,6 @@
 @synthesize mapXOffset;
 @synthesize mapYOffset;
 @synthesize mapScale;
-@synthesize shouldFollowCar;
-@synthesize carToFollow;
 
 - (id) init
 {
@@ -469,9 +467,6 @@
 		width = 0.0;
 		height = 0.0;
 		
-		
-		shouldFollowCar = false;
-		carToFollow = nil;
 	}
 	
 	return self;
@@ -486,7 +481,6 @@
 	[labels release];
 	[segmentStates removeAllObjects];
 	[segmentStates release];
-	[carToFollow release];
 
 	int c;
 	if ( colours )
@@ -784,7 +778,9 @@
 
 - (void) constructTransformMatrixForView:(TrackMapView *)view
 {
-	if(shouldFollowCar && [carToFollow length] > 0)
+	NSString * carToFollow = [view carToFollow];
+	
+	if([carToFollow length] > 0)
 	{
 		// Get dimensions of current view and the position of the follow car
 		CGRect map_rect = [view bounds];
@@ -918,39 +914,6 @@
 		
 	[view setUserXOffset:newPanX];
 	[view setUserYOffset:newPanY];
-}
-
-- (void) followCarInView:(TrackMapView *)view AtX:(float)x Y:(float)y
-{
-	[(TrackMapView *)view SaveGraphicsState];
-	[(TrackMapView *)view StoreTransformMatrix];
-	[self constructTransformMatrixForView:(TrackMapView *)view];
-	
-	NSString * name = [self nearestCarInView:view ToX:x Y:y];
-	if(name)
-	{
-		[self followCar:name];
-	}
-	
-	[(TrackMapView *)view RestoreGraphicsState];
-}
-   
-- (void) followCar:(NSString *)name
-{
-	if(name && [name length] > 0)
-	{
-		if([self carExistsByName:name])
-		{
-			shouldFollowCar = true;
-			carToFollow = [name retain];
-			return;
-		}
-	}
-	
-	// Reach here if either name was nil, or not found
-	shouldFollowCar = false;
-	[carToFollow release];
-	carToFollow = nil;	
 }
 
 - (int) getTrackState

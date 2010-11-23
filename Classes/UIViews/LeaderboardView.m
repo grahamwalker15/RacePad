@@ -9,17 +9,19 @@
 #import "LeaderboardView.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
-#import "TrackMap.h"
+#import "TrackMapView.h"
 
 
 @implementation LeaderboardView
 
 @synthesize tableData;
+@synthesize associatedTrackMapView;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
     if ((self = [super initWithCoder:coder]))
     {
+		associatedTrackMapView = nil;
 	}
 	
     return self;
@@ -36,11 +38,16 @@
 {
 	// y is the top of the row
 	
-	// We highlight any car being followed in the map, so get this car
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];
-	NSString * carToFollow = [trackMap carToFollow];
-	bool followingCar = [carToFollow length] > 0;
+	// We highlight any car being followed in the associated map view, so get this car
+
+	bool followingCar = false;
+	NSString * carToFollow = nil;
+	
+	if(associatedTrackMapView)
+	{
+		carToFollow = [associatedTrackMapView carToFollow];
+		followingCar = [carToFollow length] > 0;
+	}
 
 	[self SaveGraphicsState];
 	

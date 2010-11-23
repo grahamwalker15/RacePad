@@ -10,12 +10,16 @@
 
 #import "DrawingView.h"
 
+@class TrackMapView;
+
 @interface LeaderboardView : DrawingView
 {
 	id tableData;
+	TrackMapView * associatedTrackMapView;
 }
 
 @property (nonatomic, retain, setter=SetTableDataClass) id tableData;
+@property (nonatomic, retain) TrackMapView * associatedTrackMapView;
 
 - (int) RowHeight;
 - (int) RowCount;

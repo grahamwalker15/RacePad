@@ -40,7 +40,8 @@
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
-	
+	[leaderboardView setAssociatedTrackMapView:trackMapView];
+
 	//  Add extra gesture recognizers
  
 	//	Tap recognizer for background
@@ -133,12 +134,10 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if([gestureView isKindOfClass:[leaderboardView class]])
+	if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
-		RacePadDatabase *database = [RacePadDatabase Instance];
-		TrackMap *trackMap = [database trackMap];	
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[trackMap followCar:name];
+		[trackMapView followCar:name];
 		[trackMapView RequestRedraw];
 		[leaderboardView RequestRedraw];
 	}
@@ -179,12 +178,12 @@
 		
 		if(current_scale == 1.0 && current_xoffset == 0.0 && current_yoffset == 0.0)
 		{
-			[trackMap followCar:nil];
+			[trackMapView followCar:nil];
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10 X:x Y:y];
 		}
 		else
 		{
-			[trackMap followCar:nil];
+			[(TrackMapView *)gestureView followCar:nil];
 			[(TrackMapView *)gestureView setUserXOffset:0.0];
 			[(TrackMapView *)gestureView setUserYOffset:0.0];
 			[(TrackMapView *)gestureView setUserScale:1.0];	
@@ -206,7 +205,7 @@
 	
 	if([gestureView isKindOfClass:[TrackMapView class]])
 	{
-		[trackMap followCar:nil];
+		[(TrackMapView *)gestureView followCar:nil];
 		
 		float current_scale = [(TrackMapView *)gestureView userScale];
 		if(current_scale > 0.001)
@@ -217,7 +216,7 @@
 	else
 	{
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[trackMap followCar:name];
+		[trackMapView followCar:name];
 	}
 	
 	[trackMapView RequestRedraw];

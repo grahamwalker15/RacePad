@@ -9,6 +9,8 @@
 #import "PitWindow.h"
 #import "DataStream.h"
 #import "PitWindowView.h"
+#import "RacePadDatabase.h"
+#import "ImageListStore.h"
 
 @implementation PitWindowCar
 
@@ -83,35 +85,59 @@ static UIImage *trackImage = nil;
 	lapping = [stream PopBool];
 }
 
-- (void) preDraw:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastY:(int *)lastY
+- (void) preDraw:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *)lastX LastRow:(int *)lastRow
 {
 	CGSize size = [view InqSize];
+	
 	int box_width = 40;
 	int box_height = 18;
-	px = x * size.width - box_width / 2;
-	py = y;
 	
-	if ( px > *lastX - box_width )
+	int car_width = 50;
+	int car_height = 12;
+	
+	int car_base = y - car_height - 16;
+	int box_base = y - graphicHeight - 12;
+	int row = *lastRow;
+	
+	px = x * size.width - box_width / 2;
+	py = box_base;
+	
+	cx = x * size.width;
+	cy = car_base;
+	
+	if ( cx > *lastX - car_width )
 	{
-		py = *lastY - box_height - 4;
-		if ( py - box_height < (y - graphicHeight + 40) )
-			py = y - box_height;
+		row++;
+		cy = car_base - (car_height + 2) * row;
+		if ( cy < (y - graphicHeight + 16) )
+		{
+			cy = car_base;
+			row = 0;
+		}
+		
+		py = box_base - (box_height + 4) * row;
 	}
 	else
-		py = y - box_height;
+	{
+		cy = car_base;
+		py = box_base;
+		row = 0;
+	}
 	
-	*lastX = px;
-	*lastY = py;
+	*lastX = cx;
+	*lastRow = row;
 }
 
-- (void) draw:(PitWindowView *)view Y:(int)y XMaxTime:(int) xMaxTime
+- (void) draw:(PitWindowView *)view Y:(int)y XMaxTime:(int) xMaxTime ImageList:(ImageList *)imageList
 {
 	CGSize size = [view InqSize];
 	int box_width = 40;
 	int box_height = 18;
 	
-	
 	// Draw box background
+	// Shadow
+	[view SetBGToShadowColour];		
+	[view FillRectangleX0:px + 3 Y0:py + 3 X1:px + box_width + 3 Y1:py - box_height + 3];
 	[view SetBGColour:fillColour];
 	[view FillRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
 	
@@ -142,6 +168,9 @@ static UIImage *trackImage = nil;
 	[view SetFGColour:lineColour];
 	[view LineRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
 	[view LineX0:gt Y0:py X1:gt Y1:y];
+	
+	
+	[view SetBGColour:lineColour];
 	[view FillRectangleX0:gt - 3 Y0:y - 3 X1:gt + 3 Y1:y + 3];
 	
 	// Driver name
@@ -158,11 +187,20 @@ static UIImage *trackImage = nil;
 	{
 		CGSize size = [blueFlagImage size];
 		[view DrawImage:blueFlagImage AtX:px + box_width - 5 Y:py - box_height - size.height + 5];
+		[view DrawImage:blueFlagImage AtX:cx Y:cy - 8];
 	}
 	else if ( lapping )
 	{
 		CGSize size = [arrowLeaderImage size];
 		[view DrawImage:arrowLeaderImage AtX:px + box_width - 5 Y:py - box_height - size.height + 5];
+		[view DrawImage:arrowLeaderImage AtX:cx Y:cy - 8];
+	}
+	
+	// Draw car
+	if(imageList)
+	{
+		UIImage *image = [imageList findItem:name];						
+		[view DrawImage:image AtX:cx - 25 Y:cy];
 	}
 	
 }
@@ -402,14 +440,21 @@ static UIImage *trackImage = nil;
 	}
 
 	[view RestoreFont];
-
+	
+	// Get image list for the car images
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	ImageListStore * image_store = [database imageListStore];
+	
+	ImageList *image_list = image_store ? [image_store findList:@"MiniCars"] : nil;
+		
 	int lastX = 9999;
-	int lastY = y_base - 20;
+	int lastRow = 0;
 	int i;
 	for ( i = count - 1; i >= 0; i-- )
-		[[cars objectAtIndex:i] preDraw: view Height:graphicHeight Y:x_axis LastX:&lastX LastY:&lastY];
+		[[cars objectAtIndex:i] preDraw: view Height:graphicHeight - 30 Y:x_axis LastX:&lastX LastRow:&lastRow];
+	
 	for ( i = 0; i < count; i++ )
-		[[cars objectAtIndex:i] draw: view Y:x_axis XMaxTime:xMaxTime];
+			[[cars objectAtIndex:i] draw:view Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
 }
 
 - (void) draw : (PitWindowView *) view
@@ -422,13 +467,13 @@ static UIImage *trackImage = nil;
 		trackImage = [[UIImage imageNamed:@"Metal.png"] retain];
 	}
 	
-	float graphicHeight = (size.height - 40) / 2 - 10;
+	float graphicHeight = (size.height - 40) * 3 / 10 - 20;
 	
-	if(graphicHeight > 200)
-		graphicHeight = 200;
+	if(graphicHeight > 160)
+		graphicHeight = 160;
 	
-	[self drawGraphic:false Y:(size.height/2 - (size.height/2 - graphicHeight) / 2) Height:graphicHeight View:view];
-	[self drawGraphic:true Y:(size.height - (size.height/2 - graphicHeight) / 2) Height:graphicHeight View:view];
+	[self drawGraphic:false Y:(size.height/2 - (size.height/2 - graphicHeight * 2) / 2) Height:graphicHeight View:view];
+	[self drawGraphic:true Y:(size.height - (size.height/2 - graphicHeight * 2) / 2) Height:graphicHeight View:view];
 }
 
 @end

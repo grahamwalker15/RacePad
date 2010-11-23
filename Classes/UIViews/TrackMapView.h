@@ -17,6 +17,8 @@
 	float userXOffset;
 	float userYOffset;	
 	float userScale;
+	
+	NSString * carToFollow;
 }
 
 @property (nonatomic) bool isZoomView;
@@ -25,8 +27,11 @@
 @property (nonatomic) float userYOffset;
 @property (nonatomic) float userScale;
 
+@property (nonatomic, retain) NSString * carToFollow;
+
 - (void)InitialiseMembers;
 - (void)InitialiseImages;
+- (void)followCar:(NSString *)name;
 
 @end
 

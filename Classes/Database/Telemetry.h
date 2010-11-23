@@ -24,7 +24,7 @@
 }
 
 - (void) load : (DataStream *) stream;
-- (void) draw:(TelemetryView *)view;
+- (void) drawInView:(TelemetryView *)view;
 
 @end
 
@@ -35,7 +35,10 @@
 	TelemetryCar *blueCar;
 }
 
+@property (readonly) TelemetryCar *redCar;
+@property (readonly) TelemetryCar *blueCar;
+
 - (void) load : (DataStream *) stream;
-- (void) drawInView:(TelemetryView *)view;
+- (void) drawCar:(TelemetryCar *)car InView:(TelemetryView *)view;
 
 @end

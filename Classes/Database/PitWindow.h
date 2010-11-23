@@ -10,6 +10,7 @@
 
 @class DataStream;
 @class PitWindowView;
+@class ImageList;
 
 @interface PitWindowCar : NSObject
 {
@@ -26,13 +27,14 @@
 	bool lapping;
 	
 	int px, py;
+	int cx, cy;
 }
 
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
-- (void) preDraw : (PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastY:(int *)lastY;
-- (void) draw : (PitWindowView *)view Y:(int)y XMaxTime:(int)xMaxTime;
+- (void) preDraw : (PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastRow:(int *)lastRow;
+- (void) draw : (PitWindowView *)view Y:(int)y XMaxTime:(int)xMaxTime ImageList:(ImageList *)imageList;
 
 @end
 

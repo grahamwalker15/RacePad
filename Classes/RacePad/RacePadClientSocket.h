@@ -16,7 +16,7 @@ enum ClientCommands {
 	RPCS_REQUEST_TIMING_PAGE, // 5
 	RPCS_STREAM_TIMING_PAGE, // 6
 	RPCS_STREAM_CARS, // 7
-	RPCS_REQUEST_DRIVER_HELMETS, // 8
+	RPCS_REQUEST_UI_IMAGES, // 8
 	RPCS_REQUEST_CARS, // 9
 	RPCS_REQUEST_DRIVER_VIEW = 13,
 	RPCS_ACCEPT_PUSH_DATA, // 14
@@ -41,7 +41,7 @@ enum ClientCommands {
 - (void) StreamTimingPage;
 - (void) RequestCars;
 - (void) StreamCars;
-- (void) RequestDriverHelmets;
+- (void) RequestUIImages;
 - (void) requestDriverView :(NSString *) driver;
 - (void) acceptPushData :(BOOL) send;
 - (void) stopStreams;

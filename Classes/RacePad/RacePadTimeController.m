@@ -221,21 +221,6 @@ static RacePadTimeController * instance_ = nil;
 	[self setHideTimer];
 }
 
-- (IBAction)AlertPressed:(id)sender
-{
-	CGSize popoverSize;
-	if([[RacePadCoordinator Instance] deviceOrientation] == RPC_ORIENTATION_PORTRAIT_)
-		popoverSize = CGSizeMake(400,800);
-	else
-		popoverSize = CGSizeMake(400,600);
-
-	[alertPopover setPopoverContentSize:popoverSize];
-	
-	[alertPopover presentPopoverFromBarButtonItem:[timeController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
-
-	[self setHideTimer];
-}
-
 - (IBAction)ReplayPressed:(id)sender
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];

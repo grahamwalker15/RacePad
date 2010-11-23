@@ -27,7 +27,8 @@ enum ViewTypes
 	RPC_VIDEO_VIEW_ = 0x8,
 	RPC_SETTINGS_VIEW_ = 0x10,
 	RPC_LAP_COUNT_VIEW_ = 0x20,
-	RPC_PIT_WINDOW_VIEW_ = 0x40
+	RPC_PIT_WINDOW_VIEW_ = 0x40,
+	RPC_TELEMETRY_VIEW_ = 0x80
 } ;
 
 // Connection types

@@ -18,6 +18,7 @@
 @synthesize userXOffset;
 @synthesize userYOffset;
 @synthesize userScale;
+@synthesize carToFollow;
 
 static UIImage * greenFlagImage = nil;
 static UIImage * yellowFlagImage = nil;
@@ -63,6 +64,8 @@ static bool flag_images_initialised_ = false;
 
 - (void)dealloc
 {
+	[carToFollow release];
+
 	[greenFlagImage release];
 	[yellowFlagImage release];
 	[redFlagImage release];
@@ -85,6 +88,8 @@ static bool flag_images_initialised_ = false;
 	userYOffset = 0.0;	
 	
 	isZoomView = false;
+	
+	carToFollow = nil;
 }
 
 - (void)InitialiseImages
@@ -112,18 +117,30 @@ static bool flag_images_initialised_ = false;
 
 }
 
+- (void) followCar:(NSString *)name
+{
+	if(name && [name length] > 0)
+	{
+		if(![carToFollow isEqualToString:name])
+		{
+			[carToFollow release];
+			carToFollow = [name retain];
+			return;
+		}
+	}
+	
+	// Reach here if either name was nil, or not found
+	[carToFollow release];
+	carToFollow = nil;	
+}
+
 - (void) drawTrack
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
 	if ( trackMap )
-	{
-		if(isZoomView)
-			[trackMap setShouldFollowCar:true];
-		else
-			[trackMap setShouldFollowCar:false];
-		
+	{		
 		[trackMap drawInView:self];
 
 		if(!isZoomView)

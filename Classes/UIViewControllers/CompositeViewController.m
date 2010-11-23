@@ -45,6 +45,9 @@
 	
 	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
 	[trackZoomContainer setHidden:true];
+
+	// Associate leaderboard with zoom map
+	[leaderboardView setAssociatedTrackMapView:trackZoomView];
 	
 	// Get the video archive file name from RacePadCoordinator
 	currentMovie = [[self getVideoArchiveName] retain];
@@ -55,10 +58,6 @@
 	[moviePlayer setControlStyle:MPMovieControlStyleNone];
 	[[moviePlayer view] setUserInteractionEnabled:true];
 	
-	// We'll get notification when we know the movie size - set itto zero for now
-	movieSize = CGSizeMake(0, 0);
-	movieRect = CGRectMake(0, 0, 0, 0);
-
 	// Configure leaderboard view
   	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
@@ -81,6 +80,11 @@
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
 
+	// We'll get notification when we know the movie size - set it to a default for now
+	movieSize = CGSizeMake(768, 576);
+	movieRect = CGRectMake(0, 0, 768, 576);
+	[self positionOverlays];
+	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
@@ -128,10 +132,7 @@
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
 	
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];	
-	
-	if([trackMap carToFollow] != nil)
+	if([trackZoomView carToFollow] != nil)
 	{
 		[trackZoomView setUserScale:10.0];
 		[trackZoomContainer setHidden:false];
@@ -281,10 +282,7 @@
 
 - (void) showOverlays
 {
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];	
-	
-	bool showZoomMap = ([trackMap carToFollow] != nil);
+	bool showZoomMap = ([trackZoomView carToFollow] != nil);
 	
 	[trackMapView setAlpha:0.0];
  	[trackMapView setHidden:false];
@@ -390,19 +388,17 @@
 {
 	if([gestureView isKindOfClass:[leaderboardView class]])
 	{
-		RacePadDatabase *database = [RacePadDatabase Instance];
-		TrackMap *trackMap = [database trackMap];	
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
 		
-		if([[trackMap carToFollow] isEqualToString:name])
+		if([[trackZoomView carToFollow] isEqualToString:name])
 		{
-			[trackMap followCar:nil];
+			[trackZoomView followCar:nil];
 			[self hideZoomMap];
 			[leaderboardView RequestRedraw];
 		}
 		else
 		{
-			[trackMap followCar:name];
+			[trackZoomView followCar:name];
 			
 			[self showZoomMap];			
 			[trackZoomView setUserScale:10.0];
@@ -435,7 +431,7 @@
 	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[trackMap setCarToFollow:nil];
+		[(TrackMapView *)gestureView setCarToFollow:nil];
 		[self hideZoomMap];
 	}
 	else
@@ -477,10 +473,10 @@
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10/current_scale X:x Y:y];
 		}
 	}
-	else if([gestureView isKindOfClass:[leaderboardView class]])
+	else if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[trackMap followCar:name];
+		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
 		[trackZoomContainer setHidden:false];
 
 	}

@@ -44,7 +44,6 @@
 	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Grab the title bar

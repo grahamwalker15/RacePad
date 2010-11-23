@@ -162,9 +162,6 @@ enum TrackState {
 	
 	int carCount;
 	
-	bool shouldFollowCar;
-	NSString * carToFollow;
-	
 	NSMutableArray *segmentStates;
 	int overallTrackState;
 }
@@ -172,10 +169,6 @@ enum TrackState {
 @property (nonatomic) float mapXOffset;
 @property (nonatomic) float mapYOffset;
 @property (nonatomic) float mapScale;
-
-@property (nonatomic) bool shouldFollowCar;
-@property (nonatomic, retain) NSString * carToFollow;
-
 
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;
@@ -189,8 +182,6 @@ enum TrackState {
 - (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset;
 - (void) adjustScaleInView:(TrackMapView *)view Scale:(float)scale X:(float)x Y:(float)y;
 - (void) adjustPanInView:(TrackMapView *)view X:(float)x Y:(float)y;
-- (void) followCarInView:(TrackMapView *)view AtX:(float)x Y:(float)y;
-- (void) followCar:(NSString *)name;
 
 - (int) getTrackState;
 

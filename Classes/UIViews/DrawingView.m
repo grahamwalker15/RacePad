@@ -9,6 +9,7 @@
 #import "DrawingView.h"
 #import "DrawingViewController.h"
 
+#import <math.h>
 
 @implementation DrawingView
 
@@ -21,6 +22,7 @@
 @synthesize orange_;
 @synthesize yellow_;
 @synthesize red_;
+@synthesize green_;
 @synthesize cyan_;
 @synthesize dark_blue_;
 @synthesize light_blue_;
@@ -170,6 +172,7 @@ static bool statics_initialised_ = false;
 	[orange_ release];
 	[yellow_ release];
 	[red_ release];
+	[green_ release];
 	[cyan_ release];
 	[dark_blue_ release];
 	[light_blue_ release];
@@ -211,6 +214,7 @@ static bool statics_initialised_ = false;
 	light_orange_ = [self CreateColourRed:250 Green:180 Blue:0];
 	yellow_ = [self CreateColourRed:255 Green:255 Blue:0];
 	red_ = [self CreateColourRed:255 Green:0 Blue:0];
+	green_ = [self CreateColourRed:0 Green:255 Blue:0];
 	cyan_ = [self CreateColourRed:0 Green:255 Blue:255];
 	dark_blue_ = [self CreateColourRed:0 Green:0 Blue:150];
 	light_blue_ = [self CreateColourRed:120 Green:150 Blue:220];
@@ -441,6 +445,16 @@ static bool statics_initialised_ = false;
 		CGContextClipToRect (current_context_, rect);
 }
  
+- (void)SetClippingAreaToPath:(CGMutablePathRef)path // N.B. Sets it to an intersection with current clip area. Need a save/restore around it
+{
+	if(current_context_)
+	{
+		CGContextBeginPath (current_context_);
+		CGContextAddPath(current_context_, path);
+		CGContextClip (current_context_);
+	}
+}
+
 - (void)SetLineWidth:(float)width
 {
 	if(current_context_)
@@ -649,6 +663,18 @@ static bool statics_initialised_ = false;
 }
 
 
++ (CGMutablePathRef)CreateTrianglePathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 X2:(float)x2 Y2:(float)y2;
+{
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	CGPathMoveToPoint (path, nil, (CGFloat)x0, (CGFloat)y0);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x1, (CGFloat)y1);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x2, (CGFloat)y2);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x0, (CGFloat)y0);
+	
+	return path;
+}
+
 - (void)BeginPath
 {
 	if(current_context_)
@@ -799,7 +825,19 @@ static bool statics_initialised_ = false;
 	if(current_context_)
 		CGContextTranslateCTM(current_context_, x, y);
 }
- 
+
+- (void)SetRotation:(float)angle
+{
+	if(current_context_)
+		CGContextRotateCTM(current_context_, angle);
+}
+
+- (void)SetRotationInDegrees:(float)angle
+{
+	if(current_context_)
+		CGContextRotateCTM(current_context_, angle * M_PI / 180.0);
+}
+
 - (void)StoreTransformMatrix
 {
 	if(current_context_)

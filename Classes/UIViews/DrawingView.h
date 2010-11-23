@@ -21,6 +21,7 @@
 		UIColor * orange_;
 		UIColor * yellow_;
 		UIColor * red_;
+		UIColor * green_;
 		UIColor * cyan_;
 		UIColor * dark_blue_;
 		UIColor * light_blue_;
@@ -66,6 +67,7 @@
 @property (readonly) UIColor * orange_;
 @property (readonly) UIColor * yellow_;
 @property (readonly) UIColor * red_;
+@property (readonly) UIColor * green_;
 @property (readonly) UIColor * cyan_;
 @property (readonly) UIColor * dark_blue_;
 @property (readonly) UIColor * light_blue_;
@@ -123,6 +125,7 @@
 
 - (void)ClearScreen;
 - (void)SetClippingArea:(CGRect)rect; // N.B. Sets it to an intersection with current clip area. Need a save/restore around it
+- (void)SetClippingAreaToPath:(CGMutablePathRef)path; // N.B. Sets it to an intersection with current clip area. Need a save/restore around it
 
 - (void)SetLineWidth:(float)width;
 - (void)SetSolidLine;
@@ -153,6 +156,7 @@
 
 + (CGMutablePathRef)CreatePathPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
 + (CGMutablePathRef)CreatePathPoints:(int)p0 P1:(int)p1 XCoords:(float *)x YCoords:(float *)y Count:(int) count;
++ (CGMutablePathRef)CreateTrianglePathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 X2:(float)x2 Y2:(float)y2;
 
 - (void)BeginPath;
 - (void)LoadPath:(CGMutablePathRef)path;
@@ -195,6 +199,8 @@
 // Matrix manipulation
 - (void)SetScale:(float) scale;
 - (void)SetTranslateX:(float)x Y:(float)y;
+- (void)SetRotation:(float)angle;
+- (void)SetRotationInDegrees:(float)angle;
 
 - (void)StoreTransformMatrix;
 - (void)ResetTransformMatrix;

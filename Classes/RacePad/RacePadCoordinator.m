@@ -441,7 +441,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ RequestEvent];
 		[socket_ RequestTrackMap];
 		[socket_ RequestPitWindowBase];
-		[socket_ RequestDriverHelmets];
+		[socket_ RequestUIImages];
 		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
 		
@@ -597,6 +597,10 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamPitWindow];
 				}
+				else if([existing_view Type] == RPC_TELEMETRY_VIEW_)
+				{
+					//[socket_ StreamTelemetry];
+				}
 			}
 		}
 	}
@@ -634,6 +638,10 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_PIT_WINDOW_VIEW_)
 				{
 					[socket_ RequestPitWindow];
+				}
+				else if([existing_view Type] == RPC_TELEMETRY_VIEW_)
+				{
+					//[socket_ RequestTelemetry];
 				}
 			}
 		}
@@ -997,6 +1005,10 @@ static RacePadCoordinator * instance_ = nil;
 	else if (type == RPC_PIT_WINDOW_VIEW_ )
 	{
 		[self AddDataSourceWithType:type AndFile: @"pit_window.rpf"];
+	}
+	else if (type == RPC_TELEMETRY_VIEW_ )
+	{
+		[self AddDataSourceWithType:type AndFile: @"telemetry.rpf"];
 	}
 }
 
