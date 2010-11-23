@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>4D86EEFE129AB52400AA49F9</string>
+						<string>4D86EF58129BC15400AA49F9</string>
 						<key>history</key>
 						<array>
 							<string>4D86EE0E129A9D5600AA49F9</string>
@@ -270,8 +270,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -312,6 +310,8 @@
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>7F3276EE126379B000BD1627</string>
 								<string>7F9C1AD4125B7B6B00770746</string>
+								<string>7F9C10D71255E68B00770746</string>
+								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -319,14 +319,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>24</integer>
-									<integer>18</integer>
+									<integer>56</integer>
+									<integer>34</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {285, 682}}</string>
+							<string>{{0, 449}, {285, 682}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -358,12 +358,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RacePadCoordinator.m</string>
+								<string>SettingsViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -371,11 +373,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RacePadCoordinator.m</string>
+										<string>SettingsViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4D86EEFD129AB52400AA49F9</string>
+										<string>4D86EF57129BC15400AA49F9</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -446,7 +448,6 @@
 											<string>4D184489128C53D900D227FF</string>
 											<string>4D18449C128C5AD200D227FF</string>
 											<string>4D1844B5128C5B9300D227FF</string>
-											<string>4D1844CA128C5CCA00D227FF</string>
 											<string>4D1844E2128D317E00D227FF</string>
 											<string>4D1845171291962000D227FF</string>
 											<string>4D18451C1292AAAA00D227FF</string>
@@ -460,7 +461,6 @@
 											<string>4D1845251292AAAA00D227FF</string>
 											<string>4D184583129442E300D227FF</string>
 											<string>4D86EDE0129A9C7600AA49F9</string>
-											<string>4D86EDE1129A9C7600AA49F9</string>
 											<string>4D86EDE2129A9C7600AA49F9</string>
 											<string>4D86EDE3129A9C7600AA49F9</string>
 											<string>4D86EDF8129A9CAD00AA49F9</string>
@@ -469,10 +469,12 @@
 											<string>4D86EE58129AA92100AA49F9</string>
 											<string>4D86EE60129AA93F00AA49F9</string>
 											<string>4D86EEAC129AB1FC00AA49F9</string>
-											<string>4D86EEAE129AB1FC00AA49F9</string>
 											<string>4D86EEEE129AB4AA00AA49F9</string>
 											<string>4D86EEFB129AB52400AA49F9</string>
-											<string>4D86EEFC129AB52400AA49F9</string>
+											<string>4D86EF4D129BC10200AA49F9</string>
+											<string>4D86EF54129BC15400AA49F9</string>
+											<string>4D86EF55129BC15400AA49F9</string>
+											<string>4D86EF56129BC15400AA49F9</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -670,6 +672,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>4D86EF59129BC15400AA49F9</string>
 		<string>4D86EDFB129A9CAD00AA49F9</string>
 		<string>4D86EDF4129A9C7600AA49F9</string>
 		<string>1C78EAAD065D492600B07095</string>

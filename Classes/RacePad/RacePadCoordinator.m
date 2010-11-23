@@ -507,6 +507,8 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ release];
 		socket_ = [[RacePadClientSocket alloc] CreateSocket];
 		
+		connectionType = RPC_NO_CONNECTION_;
+
 		[socket_ ConnectSocket:[server UTF8String] Port:6021];
 		[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
 
