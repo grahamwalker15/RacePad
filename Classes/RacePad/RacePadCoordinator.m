@@ -317,7 +317,8 @@ static RacePadCoordinator * instance_ = nil;
 		}
 	}
 	
-	[self setTimer:currentTime + elapsed];
+	if ( playing )
+		[self setTimer:currentTime + elapsed];
 }
 
 - (void) timeControllerTimerUpdate: (NSTimer *)theTimer
