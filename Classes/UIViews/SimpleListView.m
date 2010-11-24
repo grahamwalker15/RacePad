@@ -107,21 +107,21 @@
 	
 	alignment_ = SLV_TEXT_LEFT_;
 	
-	text_colour_ = [self CreateColourRed:255 Green:255 Blue:255];
-	background_colour_ =[self CreateColourRed:0 Green:0 Blue:0];
+	text_colour_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
+	background_colour_ =[DrawingView CreateColourRed:0 Green:0 Blue:0];
 
-	base_colour_ = [self CreateColourRed:200 Green:200 Blue:200];
+	base_colour_ = [DrawingView CreateColourRed:200 Green:200 Blue:200];
 	
-	selected_colour_ = [self CreateColourRed:220 Green:200 Blue:210];
-	focus_colour_ = [self CreateColourRed:180 Green:160 Blue:170];
+	selected_colour_ = [DrawingView CreateColourRed:220 Green:200 Blue:210];
+	focus_colour_ = [DrawingView CreateColourRed:180 Green:160 Blue:170];
 	
-	heading_bg_colour_ = [self CreateColourRed:150 Green:150 Blue:150];
-	heading_text_colour_ = [self CreateColourRed:0 Green:0 Blue:0];
+	heading_bg_colour_ = [DrawingView CreateColourRed:150 Green:150 Blue:150];
+	heading_text_colour_ = [DrawingView CreateColourRed:0 Green:0 Blue:0];
 	
-	option_tyre_ = [self CreateColourRed:255 Green:255 Blue:255];
-	prime_tyre_ = [self CreateColourRed:255 Green:255 Blue:0];
-	inter_tyre_ = [self CreateColourRed:0 Green:255 Blue:255];
-	wet_tyre_ = [self CreateColourRed:110 Green:0 Blue:150];
+	option_tyre_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
+	prime_tyre_ = [DrawingView CreateColourRed:255 Green:255 Blue:0];
+	inter_tyre_ = [DrawingView CreateColourRed:0 Green:255 Blue:255];
+	wet_tyre_ = [DrawingView CreateColourRed:110 Green:0 Blue:150];
 	
 }
 

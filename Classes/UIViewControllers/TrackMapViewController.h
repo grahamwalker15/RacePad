@@ -8,18 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DrawingViewController.h"
-#import "ESRenderer.h"
+#import "RacePadViewController.h"
 
 @class TrackMapView;
 @class BackgroundView;
 @class TableDataView;
 @class LeaderboardView;
 
-@interface TrackMapViewController : DrawingViewController
+@interface TrackMapViewController : RacePadViewController
 {
 	
-	TrackMapView *trackMapView;
+	IBOutlet TrackMapView *trackMapView;
 	IBOutlet BackgroundView *backgroundView;
 	IBOutlet LeaderboardView *leaderboardView;
 	

@@ -55,16 +55,14 @@
 	[self addTapRecognizerToView:blueTelemetryView];
 	[self addTapRecognizerToView:redTelemetryView];
 	
-    //	Tap, pinch, long press and pan recognizers for maps
+    //	Tap, pinch, and double tap recognizers for maps
 	[self addTapRecognizerToView:blueTrackMapView];
 	[self addPinchRecognizerToView:blueTrackMapView];
-	[self addPanRecognizerToView:blueTrackMapView];
-	[self addLongPressRecognizerToView:blueTrackMapView];
+	[self addDoubleTapRecognizerToView:blueTrackMapView];
 	
 	[self addTapRecognizerToView:redTrackMapView];
 	[self addPinchRecognizerToView:redTrackMapView];
-	[self addPanRecognizerToView:redTrackMapView];
-	[self addLongPressRecognizerToView:redTrackMapView];
+	[self addDoubleTapRecognizerToView:redTrackMapView];
 	
     [super viewDidLoad];
  
@@ -88,6 +86,7 @@
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Resize overlay views to match background
+	[self showOverlays];
 	[self positionOverlays];
 	
 	// Force background refresh
@@ -117,10 +116,29 @@
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self hideOverlays];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[backgroundView RequestRedraw];
+
+	[blueTelemetryView setAlpha:0.0];
+	[redTelemetryView setAlpha:0.0];
+	[blueTelemetryView setHidden:false];
+	[redTelemetryView setHidden:false];
+
 	[self positionOverlays];
+
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelegate:self];
+	[blueTelemetryView setAlpha:1.0];
+	[redTelemetryView setAlpha:1.0];
+	[UIView commitAnimations];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
@@ -151,16 +169,60 @@
 {
 	CGRect bg_frame = [backgroundView frame];
 	
-	[blueTelemetryView setFrame:CGRectMake(40, 40, bg_frame.size.width - 80, bg_frame.size.height / 2 - 45)];
-	[redTelemetryView setFrame:CGRectMake(40, bg_frame.size.height / 2 + 5, bg_frame.size.width - 80, bg_frame.size.height / 2 - 45)];
-
-
+	int inset = BG_INSET + 5;
+	
+	[blueTelemetryView setFrame:CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - inset - 5)];
+	[redTelemetryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + 5, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - inset - 5)];
+	
 	CGRect blue_frame = [blueTelemetryView frame];
 	CGRect red_frame = [redTelemetryView frame];
 	[blueTrackMapContainer setFrame:CGRectMake(blue_frame.size.width - 250, blue_frame.size.height / 2 - 120, 240, 240)];
 	[redTrackMapContainer setFrame:CGRectMake(red_frame.size.width - 250, red_frame.size.height / 2 - 120, 240, 240)];
+	[blueTrackMapView setFrame:CGRectMake(0,0, 240, 240)];
+	[blueTrackMapView setFrame:CGRectMake(0,0, 240, 240)];
 	
 }
 
+- (void)showOverlays
+{
+	[blueTelemetryView setHidden:false];
+	[redTelemetryView setHidden:false];
+	[blueTelemetryView setAlpha:1.0];
+	[redTelemetryView setAlpha:1.0];
+}
+
+- (void)hideOverlays
+{
+	[blueTelemetryView setHidden:true];
+	[redTelemetryView setHidden:true];
+}
+
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+{
+	// Make sure we're on a map - do nothing otherwise
+	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
+	{
+		return;
+	}
+	
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	TrackMap *trackMap = [database trackMap];
+	
+	[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
+	
+	[(TrackMapView *)gestureView RequestRedraw];
+}
+
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	// Make sure we're on a map - do nothing otherwise
+	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
+	{
+		return;
+	}
+	
+	[(TrackMapView *)gestureView setUserScale:10.0];
+	[(TrackMapView *)gestureView RequestRedraw];
+}
 
 @end

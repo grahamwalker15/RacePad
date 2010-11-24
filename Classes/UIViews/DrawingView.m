@@ -7,7 +7,6 @@
 //
 
 #import "DrawingView.h"
-#import "DrawingViewController.h"
 
 #import <math.h>
 
@@ -96,70 +95,6 @@ static bool statics_initialised_ = false;
 	[super layoutSubviews];
 }
 
-// Responding to Touch Events
-
-/*
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	UITouch * touch = (UITouch *)[touches anyObject]; // We assume only one touch since multi-touch is not switched on?
-	DrawingViewController * delegate = (DrawingViewController * )[self delegate];
-	
-	if(touch && delegate)
-	{
-		CGPoint point = [touch locationInView:self];
-		float x = point.x;
-		float y = point.y;
-		
-		[delegate OnTouchDownX:x Y:y];
-	}
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	UITouch * touch = (UITouch *)[touches anyObject]; // We assume only one touch since multi-touch is not switched on?
-	DrawingViewController * delegate = (DrawingViewController * )[self delegate];
-	
-	if(touch && delegate)
-	{
-		CGPoint point = [touch locationInView:self];
-		float x = point.x;
-		float y = point.y;
-		
-		[delegate OnTouchMoveX:x Y:y];
-	}
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	UITouch * touch = (UITouch *)[touches anyObject]; // We assume only one touch since multi-touch is not switched on?
-	DrawingViewController * delegate = (DrawingViewController * )[self delegate];
-	
-	if(touch && delegate)
-	{
-		CGPoint point = [touch locationInView:self];
-		float x = point.x;
-		float y = point.y;
-		
-		[delegate OnTouchUpX:x Y:y];
-	}
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	UITouch * touch = (UITouch *)[touches anyObject]; // We assume only one touch since multi-touch is not switched on?
-	DrawingViewController * delegate = (DrawingViewController * )[self delegate];
-	
-	if(touch && delegate)
-	{
-		CGPoint point = [touch locationInView:self];
-		float x = point.x;
-		float y = point.y;
-		
-		[delegate OnTouchCancelledX:x Y:y];
-	}
-}
-*/
-
 // Destruction
 - (void)dealloc
 {
@@ -198,8 +133,8 @@ static bool statics_initialised_ = false;
 {
 	[self InitialiseStatics];
 	
-	fg_ = [self CreateColourRed:255 Green:255 Blue:255]; // White
-	bg_ = [self CreateColourRed:0 Green:0 Blue:0]; // Black
+	fg_ = [DrawingView CreateColourRed:255 Green:255 Blue:255]; // White
+	bg_ = [DrawingView CreateColourRed:0 Green:0 Blue:0]; // Black
 	
 	current_font_ = regular_font_;
 	
@@ -207,23 +142,23 @@ static bool statics_initialised_ = false;
 	bitmap_context_ = nil;
 	bitmap_context_data_ = nil;
 	
-	black_ = [self CreateColourRed:0 Green:0 Blue:0];
-	white_ = [self CreateColourRed:255 Green:255 Blue:255];
-	blue_ = [self CreateColourRed:0 Green:0 Blue:255];
-	orange_ = [self CreateColourRed:200 Green:140 Blue:0];
-	light_orange_ = [self CreateColourRed:250 Green:180 Blue:0];
-	yellow_ = [self CreateColourRed:255 Green:255 Blue:0];
-	red_ = [self CreateColourRed:255 Green:0 Blue:0];
-	green_ = [self CreateColourRed:0 Green:255 Blue:0];
-	cyan_ = [self CreateColourRed:0 Green:255 Blue:255];
-	dark_blue_ = [self CreateColourRed:0 Green:0 Blue:150];
-	light_blue_ = [self CreateColourRed:120 Green:150 Blue:220];
-	dark_grey_ = [self CreateColourRed:130 Green:130 Blue:130];
-	light_grey_ = [self CreateColourRed:200 Green:200 Blue:200];
-	very_light_blue_ = [self CreateColourRed:220 Green:240 Blue:255];
-	very_light_grey_ = [self CreateColourRed:220 Green:220 Blue:220];
-	magenta_ = [self CreateColourRed:255 Green:0 Blue:255];
-	dark_magenta_ = [self CreateColourRed:150 Green:20 Blue:100];
+	black_ = [DrawingView CreateColourRed:0 Green:0 Blue:0];
+	white_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
+	blue_ = [DrawingView CreateColourRed:0 Green:0 Blue:255];
+	orange_ = [DrawingView CreateColourRed:200 Green:140 Blue:0];
+	light_orange_ = [DrawingView CreateColourRed:250 Green:180 Blue:0];
+	yellow_ = [DrawingView CreateColourRed:255 Green:255 Blue:0];
+	red_ = [DrawingView CreateColourRed:255 Green:0 Blue:0];
+	green_ = [DrawingView CreateColourRed:0 Green:255 Blue:0];
+	cyan_ = [DrawingView CreateColourRed:0 Green:255 Blue:255];
+	dark_blue_ = [DrawingView CreateColourRed:0 Green:0 Blue:150];
+	light_blue_ = [DrawingView CreateColourRed:120 Green:150 Blue:220];
+	dark_grey_ = [DrawingView CreateColourRed:130 Green:130 Blue:130];
+	light_grey_ = [DrawingView CreateColourRed:200 Green:200 Blue:200];
+	very_light_blue_ = [DrawingView CreateColourRed:220 Green:240 Blue:255];
+	very_light_grey_ = [DrawingView CreateColourRed:220 Green:220 Blue:220];
+	magenta_ = [DrawingView CreateColourRed:255 Green:0 Blue:255];
+	dark_magenta_ = [DrawingView CreateColourRed:150 Green:20 Blue:100];
 	
 	current_matrix_ = CGAffineTransformIdentity;
 	
@@ -255,12 +190,12 @@ static bool statics_initialised_ = false;
 	}
 }
 
-- (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b
++ (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b
 {
 	return [[UIColor alloc] initWithRed:(CGFloat)r/255.0 green:(CGFloat)g/255.0 blue:(CGFloat)b/255.0 alpha:1.0];
 }
 
-- (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b Alpha:(int)a
++ (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b Alpha:(float)a
 {
 	return [[UIColor alloc] initWithRed:(CGFloat)r/255.0 green:(CGFloat)g/255.0 blue:(CGFloat)b/255.0 alpha:(CGFloat)a];
 }
@@ -663,7 +598,7 @@ static bool statics_initialised_ = false;
 }
 
 
-+ (CGMutablePathRef)CreateTrianglePathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 X2:(float)x2 Y2:(float)y2;
++ (CGMutablePathRef)CreateTrianglePathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 X2:(float)x2 Y2:(float)y2
 {
 	CGMutablePathRef path = CGPathCreateMutable();
 	
@@ -671,6 +606,57 @@ static bool statics_initialised_ = false;
 	CGPathAddLineToPoint (path, nil, (CGFloat)x1, (CGFloat)y1);
 	CGPathAddLineToPoint (path, nil, (CGFloat)x2, (CGFloat)y2);
 	CGPathAddLineToPoint (path, nil, (CGFloat)x0, (CGFloat)y0);
+	
+	return path;
+}
+
++ (CGMutablePathRef)CreateRectPathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
+{
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	CGPathMoveToPoint (path, nil, (CGFloat)x0, (CGFloat)y0);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x0, (CGFloat)y1);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x1, (CGFloat)y1);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x1, (CGFloat)y0);
+	CGPathAddLineToPoint (path, nil, (CGFloat)x0, (CGFloat)y0);
+	
+	return path;
+}
+
++ (CGMutablePathRef)CreateRoundedRectPathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 Radius:(float)r;
+{
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	// Make sure both x and y are increasing
+	if(x0 > x1)
+	{
+		float tx = x0;
+		x0 = x1;
+		x1 = tx;
+	}
+	
+	if(y0 > y1)
+	{
+		float ty = y0;
+		y0 = y1;
+		y1 = ty;
+	}
+	
+	if(r > (x1 - x0) * 0.4)
+		r = (x1 - x0) * 0.4;
+	
+	if(r > (y1 - y0) * 0.4)
+		r = (y1 - y0) * 0.4;
+	
+	CGPathMoveToPoint (path, nil, x0, (y0 + r));
+	CGPathAddLineToPoint (path, nil, x0, (y1 - r));
+	CGPathAddArcToPoint (path, nil, x0, y1, x0 + r, y1, r);
+	CGPathAddLineToPoint (path, nil, (x1 - r), y1);
+	CGPathAddArcToPoint (path, nil, x1, y1, x1, (y1 - r), r);
+	CGPathAddLineToPoint (path, nil, x1, (y0 + r));
+	CGPathAddArcToPoint (path, nil, x1, y0, (x1 - r), y0, r);
+	CGPathAddLineToPoint (path, nil, (x0 + r), y0);
+	CGPathAddArcToPoint (path, nil, x0, y0, x0, (y0 + r), r);
 	
 	return path;
 }
@@ -690,7 +676,7 @@ static bool statics_initialised_ = false;
 	}
 }
 
-- (void)FillPath
+- (void)FillCurrentPath
 {
 	if(current_context_)
 	{
@@ -699,11 +685,33 @@ static bool statics_initialised_ = false;
 	}
 }
 
-- (void)LinePath
+- (void)LineCurrentPath
 {
 	if(current_context_)
 	{
 		[fg_ set];
+		CGContextStrokePath (current_context_);
+	}
+}
+
+- (void)FillPath:(CGMutablePathRef)path
+{
+	if(current_context_)
+	{
+		[bg_ set];
+		CGContextBeginPath (current_context_);
+		CGContextAddPath(current_context_, path);
+		CGContextFillPath (current_context_);
+	}
+}
+
+- (void)LinePath:(CGMutablePathRef)path
+{
+	if(current_context_)
+	{
+		[fg_ set];
+		CGContextBeginPath (current_context_);
+		CGContextAddPath(current_context_, path);
 		CGContextStrokePath (current_context_);
 	}
 }

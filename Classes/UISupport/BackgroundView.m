@@ -93,7 +93,7 @@ static bool bg_images_initialised_ = false;
 			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
 			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
 	
-			CGRect inner_rect = CGRectInset(current_bounds_, 30, 30);
+			CGRect inner_rect = CGRectInset(current_bounds_, BG_INSET, BG_INSET);
 			[self DrawPattern:grey_bg_image_  InRect:inner_rect];
 			break;
 		}
@@ -103,7 +103,7 @@ static bool bg_images_initialised_ = false;
 			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
 			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
 			
-			CGRect inner_rect = CGRectInset(current_bounds_, 30, 30);
+			CGRect inner_rect = CGRectInset(current_bounds_, BG_INSET, BG_INSET);
 			[self DrawPattern:grass_bg_image_  InRect:inner_rect];
 			break;
 		}

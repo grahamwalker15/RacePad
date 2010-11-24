@@ -625,7 +625,7 @@
 		[view BeginPath];
 		[view LoadPath:[inner path]];
 		[view LoadPath:[outer path]];
-		[view LinePath];
+		[view LineCurrentPath];
 		
 		[view ResetDropShadow];
 
@@ -642,7 +642,7 @@
 			else
 				[view SetLineWidth:2 / scale];
 			[view SetFGColour:[line colour]];
-			[view LinePath];
+			[view LineCurrentPath];
 		}
 		
 		count = [segmentStates count];
@@ -660,7 +660,7 @@
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
 			else
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
-			[view LinePath];
+			[view LineCurrentPath];
 		}
 		
 		// Finally draw the label line
@@ -672,7 +672,7 @@
 			TrackLabel *label = [labels objectAtIndex:i];
 			[view LoadPath:[label path]];
 			[view SetFGColour:[label colour]];
-			[view LinePath];
+			[view LineCurrentPath];
 		}
 		
 		[view RestoreGraphicsState];

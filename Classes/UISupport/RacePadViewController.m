@@ -7,6 +7,7 @@
 //
 
 #import "RacePadViewController.h"
+#import "RacePadTimeController.h"
 
 
 @implementation RacePadViewController
@@ -245,10 +246,18 @@
 	lastGesturePanY = thisGesturePanY;
 }
 
-// Action callbacks - these should be overridden if you want any action
+// Action callbacks - these should be overridden if you want any specific actions
+
+// Only the single tap does anything by default - it brings up the ti;e controls
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+	if(![time_controller displayed])
+		[time_controller displayInViewController:self Animated:true];
+	else
+		[time_controller hide];
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y

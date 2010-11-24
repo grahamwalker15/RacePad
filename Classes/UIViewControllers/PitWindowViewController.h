@@ -8,16 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DrawingViewController.h"
-#import "ESRenderer.h"
+#import "RacePadViewController.h"
 
 @class PitWindowView;
 @class BackgroundView;
 
-@interface PitWindowViewController : DrawingViewController
+@interface PitWindowViewController : RacePadViewController
 {
 	IBOutlet BackgroundView * backgroundView;
-	PitWindowView * pitWindowView;	
+	IBOutlet PitWindowView * pitWindowView;	
 }
 
 

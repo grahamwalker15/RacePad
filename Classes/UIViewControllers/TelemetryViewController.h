@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DrawingViewController.h"
+#import "RacePadViewController.h"
 
 @class TelemetryView;
 @class TrackMapView;
 @class BackgroundView;
 
-@interface TelemetryViewController : DrawingViewController
+@interface TelemetryViewController : RacePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
 
@@ -30,5 +30,7 @@
 }
 
 - (void)positionOverlays;
+- (void)showOverlays;
+- (void)hideOverlays;
 
 @end

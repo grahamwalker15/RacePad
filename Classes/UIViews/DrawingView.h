@@ -84,8 +84,8 @@
 - (void)InitialiseImageDrawing;
 - (void)InitialiseStatics;
 
-- (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b;
-- (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b Alpha:(int)a;
++ (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b;
++ (UIColor *)CreateColourRed:(int)r Green:(int)g Blue:(int)b Alpha:(float)a;
 
 - (UIColor *)CreateHighlightColourFromColour:(UIColor *)source;
 - (UIColor *)CreateShadowColourFromColour:(UIColor *)source;
@@ -157,12 +157,17 @@
 + (CGMutablePathRef)CreatePathPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y;
 + (CGMutablePathRef)CreatePathPoints:(int)p0 P1:(int)p1 XCoords:(float *)x YCoords:(float *)y Count:(int) count;
 + (CGMutablePathRef)CreateTrianglePathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 X2:(float)x2 Y2:(float)y2;
++ (CGMutablePathRef)CreateRectPathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
++ (CGMutablePathRef)CreateRoundedRectPathX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 Radius:(float)r;
 
 - (void)BeginPath;
 - (void)LoadPath:(CGMutablePathRef)path;
 
-- (void)FillPath;
-- (void)LinePath;
+- (void)FillCurrentPath;
+- (void)LineCurrentPath;
+
+- (void)FillPath:(CGMutablePathRef)path;
+- (void)LinePath:(CGMutablePathRef)path;
 
 //
 // Image Drawing

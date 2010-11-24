@@ -15,7 +15,7 @@
 
 @interface DriverListController : SimpleListViewController
 {
-	TableDataView * driver_list_view_;
+	IBOutlet TableDataView * driver_list_view_;
 	DriverLapListController * driver_lap_list_controller_;
 	
 	bool driver_lap_list_controller_displayed_;

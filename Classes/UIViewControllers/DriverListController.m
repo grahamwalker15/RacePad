@@ -38,17 +38,19 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
-{
-	// Get a pointer to the associated view
-	driver_list_view_ = (TableDataView *)[self drawingView];
-	
+{	
 	// Set up the table data for SimpleListView
 	[driver_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
 	[driver_list_view_ SetRowHeight:26];
 	[driver_list_view_ SetHeading:true];
 	
-    [super viewDidLoad];
+	// Add gesture recognizers
+ 	[self addTapRecognizerToView:driver_list_view_];
+	[self addDoubleTapRecognizerToView:driver_list_view_];
+	[self addLongPressRecognizerToView:driver_list_view_];
+	
+	[super viewDidLoad];
 	
 	// Tell the RacePadCoordinator that we're interested in data for this view
 	[[RacePadCoordinator Instance] AddView:driver_list_view_ WithType:RPC_DRIVER_LIST_VIEW_];

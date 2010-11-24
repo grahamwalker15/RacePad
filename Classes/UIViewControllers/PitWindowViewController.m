@@ -34,9 +34,13 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	pitWindowView = (PitWindowView *)[self drawingView];
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GRASS_];
 
+	// Add gesture recognizers
+ 	[self addTapRecognizerToView:pitWindowView];
+	[self addDoubleTapRecognizerToView:pitWindowView];
+	[self addLongPressRecognizerToView:pitWindowView];
+	
 	//	Add tap recognizer for background
 	[self addTapRecognizerToView:backgroundView];
 	
@@ -51,7 +55,7 @@
 	
 	// Resize overlay view to match background
 	CGRect bg_frame = [backgroundView frame];
-	CGRect pw_frame = CGRectInset(bg_frame, 30, 30);
+	CGRect pw_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
 	[pitWindowView setFrame:pw_frame];
 	
 	// Force background refresh
@@ -86,7 +90,7 @@
 	[backgroundView RequestRedraw];
 	
 	CGRect bg_frame = [backgroundView frame];
-	CGRect pw_frame = CGRectInset(bg_frame, 30, 30);
+	CGRect pw_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
 	[pitWindowView setFrame:pw_frame];
 
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];

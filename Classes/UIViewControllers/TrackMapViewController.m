@@ -36,14 +36,16 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	trackMapView = (TrackMapView *)[self drawingView];
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	[leaderboardView setAssociatedTrackMapView:trackMapView];
 
-	//  Add extra gesture recognizers
- 
+	// Add gesture recognizers
+ 	[self addTapRecognizerToView:trackMapView];
+	[self addDoubleTapRecognizerToView:trackMapView];
+	[self addLongPressRecognizerToView:trackMapView];
+	
 	//	Tap recognizer for background
 	[self addTapRecognizerToView:backgroundView];
 	
@@ -69,7 +71,7 @@
 	
 	// Resize overlay views
 	CGRect bg_frame = [backgroundView frame];
-	CGRect map_frame = CGRectInset(bg_frame, 30, 30);
+	CGRect map_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
 	[trackMapView setFrame:map_frame];
 	
 	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);
@@ -110,7 +112,7 @@
 	[backgroundView RequestRedraw];
 	
 	CGRect bg_frame = [backgroundView frame];
-	CGRect map_frame = CGRectInset(bg_frame, 30, 30);
+	CGRect map_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
 	[trackMapView setFrame:map_frame];
 
 	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);

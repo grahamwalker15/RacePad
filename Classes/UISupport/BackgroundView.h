@@ -17,6 +17,8 @@ enum BackgroundStyles
 	BG_STYLE_TRANSPARENT_
 } ;
 
+#define BG_INSET 20
+
 @interface BackgroundView : DrawingView
 {
 	int style;

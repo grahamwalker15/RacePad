@@ -41,7 +41,12 @@
 - (void)viewDidLoad
 {
 	[alertView SetHeading:false];
-	drawingView = alertView;
+	
+	// Add gesture recognizers
+ 	[self addTapRecognizerToView:alertView];
+	[self addDoubleTapRecognizerToView:alertView];
+	[self addLongPressRecognizerToView:alertView];
+	
     [super viewDidLoad];
 }
 
