@@ -117,8 +117,8 @@
 
 - (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
-	// On long tap,or selection in name area or lap column, show lap list
-	if(double_click || long_press || col < 4 || col == 15)
+	// On long tap,or selection in lap column, show lap list
+	if(double_click || long_press || col == 15)
 	{
 		TableData * driverListData = [[RacePadDatabase Instance] driverListData];
 		TableCell *cell = [driverListData cell:row Col:0];

@@ -21,6 +21,8 @@
 	float brake;
 	float steering;
 	int laps;
+	int gear;
+	int rpm;
 }
 
 - (void) load : (DataStream *) stream;

@@ -110,6 +110,7 @@
 {	
 	// Right Swipe recognizer
 	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
+	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }

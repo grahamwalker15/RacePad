@@ -95,6 +95,13 @@
 		7F91F628129CFF4800BFDFCC /* TelemetryCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F626129CFF4800BFDFCC /* TelemetryCar.png */; };
 		7F91F629129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */; };
 		7F91F6E9129D130400BFDFCC /* Pedal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F6E8129D130400BFDFCC /* Pedal.png */; };
+		7F91F8C9129D58F700BFDFCC /* wheel_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F8C8129D58F700BFDFCC /* wheel_icon.png */; };
+		7F91F8E5129D5CC800BFDFCC /* track-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F8E4129D5CC800BFDFCC /* track-icon.png */; };
+		7F91FA0E12A011DE00BFDFCC /* RPMGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */; };
+		7F91FA0F12A011DE00BFDFCC /* RPMOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */; };
+		7F91FA1012A011DE00BFDFCC /* RPMRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0C12A011DE00BFDFCC /* RPMRed.png */; };
+		7F91FA1112A011DE00BFDFCC /* RPMWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */; };
+		7F91FA4112A01D7D00BFDFCC /* GearCog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA4012A01D7D00BFDFCC /* GearCog.png */; };
 		7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10D91255E68B00770746 /* FirstViewController.m */; };
 		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
 		7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10FB1255EE1500770746 /* ThirdViewController.m */; };
@@ -274,6 +281,13 @@
 		7F91F626129CFF4800BFDFCC /* TelemetryCar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryCar.png; path = Images/TelemetryCar.png; sourceTree = "<group>"; };
 		7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheelSmall.png; path = Images/TelemetrySteeringWheelSmall.png; sourceTree = "<group>"; };
 		7F91F6E8129D130400BFDFCC /* Pedal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pedal.png; path = Images/Pedal.png; sourceTree = "<group>"; };
+		7F91F8C8129D58F700BFDFCC /* wheel_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel_icon.png; path = Images/wheel_icon.png; sourceTree = "<group>"; };
+		7F91F8E4129D5CC800BFDFCC /* track-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "track-icon.png"; path = "Images/track-icon.png"; sourceTree = "<group>"; };
+		7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMGreen.png; path = Images/RPMGreen.png; sourceTree = "<group>"; };
+		7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMOrange.png; path = Images/RPMOrange.png; sourceTree = "<group>"; };
+		7F91FA0C12A011DE00BFDFCC /* RPMRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMRed.png; path = Images/RPMRed.png; sourceTree = "<group>"; };
+		7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMWhite.png; path = Images/RPMWhite.png; sourceTree = "<group>"; };
+		7F91FA4012A01D7D00BFDFCC /* GearCog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GearCog.png; path = Images/GearCog.png; sourceTree = "<group>"; };
 		7F9C10D81255E68B00770746 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7F9C10D91255E68B00770746 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
@@ -615,6 +629,13 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F91FA4012A01D7D00BFDFCC /* GearCog.png */,
+				7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */,
+				7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */,
+				7F91FA0C12A011DE00BFDFCC /* RPMRed.png */,
+				7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */,
+				7F91F8E4129D5CC800BFDFCC /* track-icon.png */,
+				7F91F8C8129D58F700BFDFCC /* wheel_icon.png */,
 				7F91F6E8129D130400BFDFCC /* Pedal.png */,
 				7F91F626129CFF4800BFDFCC /* TelemetryCar.png */,
 				7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */,
@@ -805,6 +826,13 @@
 				7F91F628129CFF4800BFDFCC /* TelemetryCar.png in Resources */,
 				7F91F629129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png in Resources */,
 				7F91F6E9129D130400BFDFCC /* Pedal.png in Resources */,
+				7F91F8C9129D58F700BFDFCC /* wheel_icon.png in Resources */,
+				7F91F8E5129D5CC800BFDFCC /* track-icon.png in Resources */,
+				7F91FA0E12A011DE00BFDFCC /* RPMGreen.png in Resources */,
+				7F91FA0F12A011DE00BFDFCC /* RPMOrange.png in Resources */,
+				7F91FA1012A011DE00BFDFCC /* RPMRed.png in Resources */,
+				7F91FA1112A011DE00BFDFCC /* RPMWhite.png in Resources */,
+				7F91FA4112A01D7D00BFDFCC /* GearCog.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

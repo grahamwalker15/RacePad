@@ -167,6 +167,9 @@
 
 - (void)positionOverlays
 {
+	// Get the device orientation and set things up accordingly
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
+	
 	CGRect bg_frame = [backgroundView frame];
 	
 	int inset = BG_INSET + 5;
@@ -176,11 +179,20 @@
 	
 	CGRect blue_frame = [blueTelemetryView frame];
 	CGRect red_frame = [redTelemetryView frame];
-	[blueTrackMapContainer setFrame:CGRectMake(blue_frame.size.width - 250, blue_frame.size.height / 2 - 120, 240, 240)];
-	[redTrackMapContainer setFrame:CGRectMake(red_frame.size.width - 250, red_frame.size.height / 2 - 120, 240, 240)];
-	[blueTrackMapView setFrame:CGRectMake(0,0, 240, 240)];
-	[blueTrackMapView setFrame:CGRectMake(0,0, 240, 240)];
 	
+	int mapWidth = (orientation == RPC_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		
+	CGRect blueMapRect = CGRectMake(blue_frame.size.width - mapWidth -10, (blue_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+	CGRect redMapRect = CGRectMake(red_frame.size.width - mapWidth -10, (red_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+	
+	[blueTrackMapContainer setFrame:blueMapRect];
+	[redTrackMapContainer setFrame:redMapRect];
+	
+	[blueTelemetryView setMapRect:blueMapRect];
+	[redTelemetryView setMapRect:redMapRect];
+	
+	[blueTrackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
+	[blueTrackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
 }
 
 - (void)showOverlays

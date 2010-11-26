@@ -145,14 +145,12 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] SetViewHidden:movieView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-	[[RacePadCoordinator Instance] SetViewHidden:trackZoomContainer];
-	//[[RacePadTitleBarController Instance] hide];
+	[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[moviePlayer stop];
@@ -314,6 +312,7 @@
 	[leaderboardView setHidden:true];
 	[trackZoomContainer setHidden:true];
 }
+
 - (void) showZoomMap
 {
 	[trackZoomContainer setAlpha:0.0];
@@ -388,6 +387,8 @@
 {
 	if([gestureView isKindOfClass:[leaderboardView class]])
 	{
+		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
+		
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
 		
 		if([[trackZoomView carToFollow] isEqualToString:name])
@@ -400,7 +401,9 @@
 		{
 			[trackZoomView followCar:name];
 			
-			[self showZoomMap];			
+			if(!zoomMapVisible)
+				[self showZoomMap];
+			
 			[trackZoomView setUserScale:10.0];
 			[trackZoomView RequestRedraw];
 			[leaderboardView RequestRedraw];

@@ -36,10 +36,17 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	// Set the types on the two map views
+	[trackMapView setIsZoomView:false];
+	[trackZoomView setIsZoomView:true];
+	
+	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
+	[trackZoomContainer setHidden:true];
+	
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
-	[leaderboardView setAssociatedTrackMapView:trackMapView];
+	[leaderboardView setAssociatedTrackMapView:trackZoomView];
 
 	// Add gesture recognizers
  	[self addTapRecognizerToView:trackMapView];
@@ -58,8 +65,15 @@
 	[self addPanRecognizerToView:trackMapView];
 	[self addLongPressRecognizerToView:trackMapView];
 
+	// And  for the zoom map
+	[self addTapRecognizerToView:trackZoomView];
+	[self addDoubleTapRecognizerToView:trackZoomView];
+	[self addPinchRecognizerToView:trackZoomView];
+
 	[super viewDidLoad];
+	
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_DRIVER_LIST_VIEW_];
 }
 
@@ -70,31 +84,33 @@
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Resize overlay views
-	CGRect bg_frame = [backgroundView frame];
-	CGRect map_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
-	[trackMapView setFrame:map_frame];
-	
-	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);
-	[leaderboardView setFrame:lb_frame];
+	[self positionOverlays];
 	
 	// Force background refresh
 	[backgroundView RequestRedraw];
 	
+	// Set up zoom mapif necessary
+	if([trackZoomView carToFollow] != nil)
+	{
+		[trackZoomView setUserScale:10.0];
+		[trackZoomContainer setHidden:false];
+	}
+	
 	// Register the views
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+	[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-	//[[RacePadTitleBarController Instance] hide];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	// re-enable the screen locking
@@ -107,16 +123,18 @@
     return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self hideOverlays];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[backgroundView RequestRedraw];
 	
-	CGRect bg_frame = [backgroundView frame];
-	CGRect map_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
-	[trackMapView setFrame:map_frame];
-
-	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);
-	[leaderboardView setFrame:lb_frame];
+	[self positionOverlays];
+	[self showOverlays];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
@@ -134,14 +152,108 @@
     [super viewDidUnload];
 }
 
+////////////////////////////////////////////////////////////////////////////
+
+- (void) showOverlays
+{
+	bool showZoomMap = ([trackZoomView carToFollow] != nil);
+	
+ 	[leaderboardView setAlpha:0.0];
+ 	[leaderboardView setHidden:false];
+	
+	if(showZoomMap)
+	{
+		[trackZoomContainer setAlpha:0.0];
+		[trackZoomContainer setHidden:false];
+	}
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+  	[leaderboardView setAlpha:1.0];
+	
+	if(showZoomMap)
+	{
+		[trackZoomContainer setAlpha:1.0];
+	}
+	
+	[UIView commitAnimations];
+}
+
+- (void) hideOverlays
+{
+	[leaderboardView setHidden:true];
+	[trackZoomContainer setHidden:true];
+}
+- (void) showZoomMap
+{
+	[trackZoomContainer setAlpha:0.0];
+	[trackZoomContainer setHidden:false];
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[trackZoomContainer setAlpha:1.0];
+	[UIView commitAnimations];
+}
+
+- (void) hideZoomMap
+{
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[trackZoomContainer setAlpha:0.0];
+	[UIView setAnimationDidStopSelector:@selector(hideZoomMapAnimationDidStop:finished:context:)];
+	[UIView commitAnimations];
+}
+
+- (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[trackZoomContainer setHidden:true];
+		[trackZoomContainer setAlpha:1.0];
+	}
+}
+
+- (void) positionOverlays
+{
+	CGRect bg_frame = [backgroundView frame];
+	CGRect map_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
+	[trackMapView setFrame:map_frame];
+	
+	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);
+	[leaderboardView setFrame:lb_frame];
+	
+	CGRect zoom_frame = CGRectMake(map_frame.origin.x + 80, map_frame.origin.y + map_frame.size.height - 320, 300, 300);
+	[trackZoomContainer setFrame:zoom_frame];
+}
+
+////////////////////////////////////////////////////////////////////////////
+
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if([gestureView isKindOfClass:[LeaderboardView class]])
+	if([gestureView isKindOfClass:[leaderboardView class]])
 	{
+		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
+		
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[trackMapView followCar:name];
-		[trackMapView RequestRedraw];
-		[leaderboardView RequestRedraw];
+		
+		if([[trackZoomView carToFollow] isEqualToString:name])
+		{
+			[trackZoomView followCar:nil];
+			[self hideZoomMap];
+			[leaderboardView RequestRedraw];
+		}
+		else
+		{
+			[trackZoomView followCar:name];
+			
+			if(!zoomMapVisible)
+				[self showZoomMap];
+			
+			[trackZoomView setUserScale:10.0];
+			[trackZoomView RequestRedraw];
+			[leaderboardView RequestRedraw];
+		}
+		
 	}
 	else
 	{
@@ -165,12 +277,10 @@
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	TrackMap *trackMap = [database trackMap];
 	
-	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[(TrackMapView *)gestureView setUserScale:10.0];
-		[(TrackMapView *)gestureView setUserXOffset:0.0];
-		[(TrackMapView *)gestureView setUserYOffset:0.0];
+		[(TrackMapView *)gestureView setCarToFollow:nil];
+		[self hideZoomMap];
 	}
 	else
 	{
@@ -180,12 +290,10 @@
 		
 		if(current_scale == 1.0 && current_xoffset == 0.0 && current_yoffset == 0.0)
 		{
-			[trackMapView followCar:nil];
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10 X:x Y:y];
 		}
 		else
 		{
-			[(TrackMapView *)gestureView followCar:nil];
 			[(TrackMapView *)gestureView setUserXOffset:0.0];
 			[(TrackMapView *)gestureView setUserYOffset:0.0];
 			[(TrackMapView *)gestureView setUserScale:1.0];	
@@ -198,7 +306,7 @@
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	// Zooms on nearest car in map, or chosen car in leader board
+	// Zooms on point in map, or chosen car in leader board
 	if(!gestureView)
 		return;
 	
@@ -207,18 +315,18 @@
 	
 	if([gestureView isKindOfClass:[TrackMapView class]])
 	{
-		[(TrackMapView *)gestureView followCar:nil];
-		
 		float current_scale = [(TrackMapView *)gestureView userScale];
 		if(current_scale > 0.001)
 		{
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10/current_scale X:x Y:y];
 		}
 	}
-	else
+	else if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[trackMapView followCar:name];
+		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
+		[trackZoomContainer setHidden:false];
+		
 	}
 	
 	[trackMapView RequestRedraw];

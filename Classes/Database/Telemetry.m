@@ -8,6 +8,7 @@
 
 #import "Telemetry.h"
 #import "DataStream.h"
+#import "RacePadCoordinator.h"
 #import "TelemetryView.h"
 
 @implementation TelemetryCar
@@ -16,6 +17,11 @@ static UIImage * bigWheelImage = nil;
 static UIImage * smallWheelImage = nil;
 static UIImage * carImage  = nil;
 static UIImage * pedalImage  = nil;
+static UIImage * gearImage  = nil;
+static UIImage * rpmImageWhite  = nil;
+static UIImage * rpmImageGreen  = nil;
+static UIImage * rpmImageOrange  = nil;
+static UIImage * rpmImageRed  = nil;
 
 - (void) load:(DataStream *)stream 
 {
@@ -27,6 +33,8 @@ static UIImage * pedalImage  = nil;
 	brake = [stream PopFloat];
 	steering = [stream PopFloat];
 	laps = [stream PopInt];
+	gear = [stream PopInt];
+	rpm = [stream PopInt];
 }
 
 - (void) drawInView:(TelemetryView *)view
@@ -38,15 +46,20 @@ static UIImage * pedalImage  = nil;
 		bigWheelImage = [[UIImage imageNamed:@"TelemetrySteeringWheel.png"] retain];
 		smallWheelImage = [[UIImage imageNamed:@"TelemetrySteeringWheelSmall.png"] retain];
 		pedalImage = [[UIImage imageNamed:@"Pedal.png"] retain];
+		rpmImageWhite = [[UIImage imageNamed:@"RPMWhite.png"] retain];
+		rpmImageGreen = [[UIImage imageNamed:@"RPMGreen.png"] retain];
+		rpmImageOrange = [[UIImage imageNamed:@"RPMOrange.png"] retain];
+		rpmImageRed = [[UIImage imageNamed:@"RPMRed.png"] retain];
+		gearImage = [[UIImage imageNamed:@"GearCog.png"] retain];
 	}
 	
 	// Get the device orientation and set things up accordingly
-	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 
 	UIImage * wheelImage = nil;
 	int pedalHeight;
 
-	if(orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown)
+	if(orientation == RPC_ORIENTATION_PORTRAIT_)
 	{
 		wheelImage = bigWheelImage;
 		pedalHeight = 80;
@@ -57,6 +70,9 @@ static UIImage * pedalImage  = nil;
 		pedalHeight = 60;
 	}
 	
+	CGSize viewBoundsSize = [view bounds].size;
+	CGRect mapRect = [view mapRect];
+
 	// Draw outline
 	[view SaveGraphicsState];
 	[view SetLineWidth:3];
@@ -66,19 +82,18 @@ static UIImage * pedalImage  = nil;
 	[view RestoreGraphicsState];
 	
 	// Draw car with G Forces
-	CGSize viewBounds = [view bounds].size;
 	CGSize carSize = [carImage size];
 	
 	float carWidth = carSize.width;
 	float carHeight = carSize.height;
 	
 	float carXCentre = 80 + carWidth / 2;
-	float carYCentre = viewBounds.height / 2;
+	float carYCentre = viewBoundsSize.height / 2;
 	
-	float wheelXCentre = viewBounds.width / 2;
-	float wheelYCentre = viewBounds.height / 2;
+	float wheelXCentre = viewBoundsSize.width / 2;
+	float wheelYCentre = viewBoundsSize.height / 2;
 
-	float pedalBase = viewBounds.height - 10;
+	float pedalBase = viewBoundsSize.height - 10;
 	
 	[view DrawImage:carImage AtX:carXCentre - carWidth * 0.5 Y:carYCentre - carHeight * 0.5];
 		
@@ -171,28 +186,85 @@ static UIImage * pedalImage  = nil;
 	[view LineCurrentPath];
 	
 	//Draw dashboard
+	float dashLeft = wheelXCentre - 80;
+	float dashRight = wheelXCentre + 80;
+	float dashSplit = wheelXCentre - 20;
+	float dashYBase = 20;
+	
 	[view SetBGColour:[view very_light_grey_]];
-	[view FillRectangleX0:wheelXCentre - 80 Y0:20 X1:wheelXCentre + 80 Y1:55 ];
+	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51 ];
 	[view SetBGColour:[view dark_grey_]];
-	[view FillRectangleX0:wheelXCentre - 80 Y0:20 X1:wheelXCentre - 20 Y1:55 ];
+	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashSplit Y1:dashYBase + 51  ];
+	[view SetBGColour:[view very_dark_grey_]];
+	[view FillRectangleX0:dashLeft Y0:dashYBase X1:dashRight Y1:dashYBase  + 16 ];
 	
 	[view SetFGColour:[view black_]];
-	[view LineRectangleX0:wheelXCentre - 80 Y0:20 X1:wheelXCentre - 20 Y1:55 ];
-	[view LineRectangleX0:wheelXCentre - 20 Y0:20 X1:wheelXCentre + 80 Y1:55 ];
+	[view LineRectangleX0:dashLeft Y0:dashYBase X1:dashRight Y1:dashYBase + 16  ];
+	[view LineRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashSplit Y1:dashYBase + 51  ];
+	[view LineRectangleX0:dashSplit Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51  ];
 	
 	[view SetFGColour:[view white_]];
-	[view LineRectangleX0:wheelXCentre - 81 Y0:19 X1:wheelXCentre + 81 Y1:56 ];
+	[view LineRectangleX0:dashLeft - 1 Y0:dashYBase - 1 X1:dashRight + 1 Y1:dashYBase + 52 ];
 	
 	[view SetFGColour:[view black_]];
 	[view UseMediumBoldFont];
-	[view DrawString:[NSString stringWithFormat:@"L"] AtX:wheelXCentre -75 Y:35];
-	[view DrawString:[NSString stringWithFormat:@"kph"] AtX:wheelXCentre + 45 Y:35];
+	[view DrawImage:gearImage AtX:dashLeft + 5 Y:dashYBase + 31];
+	[view DrawString:[NSString stringWithFormat:@"KPH"] AtX:dashRight - 35 Y:dashYBase + 31];
 	
 	[view UseBigFont];
-	[view DrawString:[NSString stringWithFormat:@"%d", (int)speed] AtX:wheelXCentre - 10 Y:20];
+	[view DrawString:[NSString stringWithFormat:@"%d", (int)speed] AtX:dashSplit +10 Y:dashYBase + 16];
 	
+	if(gear > 0)
+		[view DrawString:[NSString stringWithFormat:@"%d", gear] AtX:dashLeft + 35 Y:dashYBase + 16];
+	else
+		[view DrawString:[NSString stringWithFormat:@"N"] AtX:dashLeft + 35 Y:dashYBase + 16];
+	
+	
+	// Draw lap counter and distance guage around the map
 	if(laps > 0)
-		 [view DrawString:[NSString stringWithFormat:@"%d", laps] AtX:wheelXCentre - 63 Y:20];
+	{
+		[view UseMediumBoldFont];
+		NSString * lapLabel = [NSString stringWithFormat:@"Lap %d", laps];
+		
+		float w, h;
+		[view GetStringBox:lapLabel WidthReturn:&w HeightReturn:&h];
+
+		[view SetFGColour:[view white_]];
+		[view DrawString:lapLabel AtX:mapRect.origin.x + mapRect.size.width - w Y:mapRect.origin.y - h - 3];
+	}
+	
+	[view SetBGColour:transparent_white_];
+	[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	
+	float distWidth = distance / 7400.0 * mapRect.size.width; 
+	[view SetBGColour:[view dark_grey_]];
+	[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	 
+	[view SetFGColour:[view white_]];
+	[view LineRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+
+	
+	// Draw RPM Lights
+	int rpmLimit[12] = {7000, 8500, 10500, 12500, 14000, 15000, 15500, 16000, 16500, 16900, 17200, 17500};
+	
+	float rpmPos = dashLeft + 8;
+	float rpmStep = 12;
+	float rpmY = dashYBase +3;
+	
+	for(int i = 0 ; i < 12 ; i++)
+	{
+		if(rpm < rpmLimit[i])
+			[view DrawImage:rpmImageWhite AtX:rpmPos Y:rpmY];
+		else if(i == 11)
+			[view DrawImage:rpmImageRed AtX:rpmPos Y:rpmY];
+		else if(i >= 9)
+			[view DrawImage:rpmImageOrange AtX:rpmPos Y:rpmY];
+		else
+			[view DrawImage:rpmImageGreen AtX:rpmPos Y:rpmY];
+		
+		rpmPos += rpmStep;
+
+	}
 
 	//Draw wheel
 	CGSize wheelSize = [wheelImage size];
@@ -213,46 +285,6 @@ static UIImage * pedalImage  = nil;
 	CGPathRelease(arrowRight);
 	CGPathRelease(rectThrottle);
 	CGPathRelease(rectBrake);
-	
-	/*
-	[view UseMediumBoldFont];
-	[view SetFGColour:[view black_]];
-	
-	float ytext = 25;
-	
-	[view DrawString:@"Speed" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f kph", speed] AtX:100 Y:ytext];
-	ytext +=25;
-
-	[view DrawString:@"Distance" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f m", distance] AtX:100 Y:ytext];
-	ytext +=25;
-	
-	[view DrawString:@"Throttle" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f %%", throttle] AtX:100 Y:ytext];
-	ytext +=25;
-
-	[view DrawString:@"Brake" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f kph", brake] AtX:100 Y:ytext];
-	ytext +=25;
-
-	[view DrawString:@"Steering" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f deg", speed] AtX:100 Y:ytext];
-	ytext +=25;
-
-	[view DrawString:@"G Lat" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f g", gLat] AtX:100 Y:ytext];
-	ytext +=25;
-	
-	[view DrawString:@"G Long" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%.2f g", gLong] AtX:100 Y:ytext];
-	ytext +=25;
-	
-	[view DrawString:@"Lap" AtX:25 Y:ytext];
-	[view DrawString:[NSString stringWithFormat:@"%d L", laps] AtX:100 Y:ytext];
-	ytext +=25;
-	 
-	*/
 	
 }
 

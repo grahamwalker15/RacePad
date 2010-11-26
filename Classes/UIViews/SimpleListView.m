@@ -82,6 +82,7 @@
 		
 	if_heading_ = false;
 	if_large_font_ = false;
+	swiping_enabled_ = false;
 			
 	text_baseline_ = 0;
 	
@@ -99,7 +100,7 @@
 	click_ = 0;
 	double_click_possible_ = false;
 	
-	base_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+	base_colour_ = [[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
 	selected_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	focus_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	selected_text_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
@@ -109,8 +110,6 @@
 	
 	text_colour_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
 	background_colour_ =[DrawingView CreateColourRed:0 Green:0 Blue:0];
-
-	base_colour_ = [DrawingView CreateColourRed:200 Green:200 Blue:200];
 	
 	selected_colour_ = [DrawingView CreateColourRed:220 Green:200 Blue:210];
 	focus_colour_ = [DrawingView CreateColourRed:180 Green:160 Blue:170];
@@ -206,6 +205,11 @@
 - (void) SetLargeFont:(bool)if_large
 {
 	if_large_font_ = if_large;
+}
+
+- (void) SetSwipingEnabled:(bool)value
+{
+	swiping_enabled_ = value;
 }
 
 - (void) ScrollToEnd
@@ -453,14 +457,15 @@
 	float table_height = row_count * [self RowHeight ];
 	float table_width = [self TableWidth];
 	
-	[self SetContentWidth:table_width AndHeight:table_height];
+	float content_width = table_width > current_size_.width ? table_width : current_size_.width;
+	float content_height = table_height > current_size_.height ? table_height : swiping_enabled_ ? current_size_.height + 1 : current_size_.height;
+	
+	[self SetContentWidth:content_width AndHeight:content_height];
 		
 	if(if_large_font_)
 		[self UseMediumBoldFont];
 	else
 		[self UseBoldFont];
-	
-	[self ClearScreen];
 	
 	// If there is a heading, we'll draw it at the end at the origin - leave space for it
 	bool if_heading = [self IfHeading];
@@ -486,7 +491,10 @@
 	
 	if( y < ymax )
 	{
-		[self SetBackgroundColour:base_colour_];
+		if(y < ymin)
+			y = ymin;
+		
+		[self SetBGColour:base_colour_];
 		[self FillRectangleX0:current_origin_.x Y0:y X1:current_top_right_.x Y1:ymax];
 	}
 	

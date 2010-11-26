@@ -26,6 +26,7 @@
 		UIColor * dark_blue_;
 		UIColor * light_blue_;
 		UIColor * dark_grey_;
+		UIColor * very_dark_grey_;
 		UIColor * light_grey_;
 		UIColor * very_light_blue_;
 		UIColor * very_light_grey_;
@@ -72,6 +73,7 @@
 @property (readonly) UIColor * dark_blue_;
 @property (readonly) UIColor * light_blue_;
 @property (readonly) UIColor * dark_grey_;
+@property (readonly) UIColor * very_dark_grey_;
 @property (readonly) UIColor * light_grey_;
 @property (readonly) UIColor * very_light_blue_;
 @property (readonly) UIColor * very_light_grey_;

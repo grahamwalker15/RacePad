@@ -20,9 +20,18 @@
 	
 	IBOutlet TrackMapView *trackMapView;
 	IBOutlet BackgroundView *backgroundView;
+	IBOutlet BackgroundView * trackZoomContainer;
+	IBOutlet TrackMapView * trackZoomView;
 	IBOutlet LeaderboardView *leaderboardView;
 	
 }
 
+- (void) showOverlays;
+- (void) hideOverlays;
+- (void) positionOverlays;
+
+- (void) showZoomMap;
+- (void) hideZoomMap;
+- (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 @end

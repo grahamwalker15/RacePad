@@ -73,7 +73,7 @@ static RacePadTimeController * instance_ = nil;
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDuration:0.5];
 		[timeController.view setAlpha:1.0];
 		[UIView commitAnimations];
 	}
@@ -104,7 +104,7 @@ static RacePadTimeController * instance_ = nil;
 - (void) hide
 {
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:1.0];
+	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];

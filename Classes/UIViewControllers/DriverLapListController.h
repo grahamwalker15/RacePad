@@ -17,6 +17,7 @@
 {
 	IBOutlet UIToolbar * title_bar_;
 	IBOutlet TableDataView * lap_list_view_;
+	IBOutlet UIView * swipe_catcher_view_;
 	
 	IBOutlet UIBarButtonItem * back_button_;
 	IBOutlet UIBarButtonItem * title_;

@@ -15,8 +15,11 @@
 @interface TelemetryView : DrawingView
 {
 	TelemetryCar * car;
+	
+	CGRect mapRect;
 }
 
 @property (nonatomic, retain) TelemetryCar * car;
+@property (nonatomic) CGRect mapRect;
 
 @end

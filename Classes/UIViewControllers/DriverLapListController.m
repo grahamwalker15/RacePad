@@ -45,7 +45,15 @@
 	
 	[lap_list_view_ SetRowHeight:26];
 	[lap_list_view_ SetHeading:true];
+	[lap_list_view_ SetSwipingEnabled:true];
 		
+	// Add gesture recognizers
+ 	[self addTapRecognizerToView:lap_list_view_];
+	[self addDoubleTapRecognizerToView:lap_list_view_];
+
+	[self addRightSwipeRecognizerToView:swipe_catcher_view_];
+	[self addLeftSwipeRecognizerToView:swipe_catcher_view_];
+	
 	[super viewDidLoad];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
@@ -79,7 +87,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -111,7 +118,7 @@
 }
 
 - (IBAction)PreviousButton:(id)sender
-{
+{	
 	NSString * new_driver = [[lap_list_view_ TableData] titleField:@"Prev"];
 	if(new_driver && [new_driver length] > 0)
 	{
@@ -137,6 +144,21 @@
 - (void) RequestRedrawForType:(int)type
 {
 	[title_ setTitle:[[lap_list_view_ TableData] titleField:@"Title"]];
+}
+
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	[self BackButton:nil];
+}
+
+- (void) OnRightSwipeGestureInView:(UIView *)gestureView
+{
+	[self NextButton:nil];
+}
+
+- (void) OnLeftSwipeGestureInView:(UIView *)gestureView
+{
+	[self PreviousButton:nil];
 }
 
 
