@@ -11,25 +11,21 @@
 #import "RacePadViewController.h"
 
 
-@interface SettingsViewController : RacePadViewController
+@interface SettingsViewController : RacePadViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 {
 	IBOutlet UITextField *ip_address_edit_;
-	IBOutlet UIButton *serverStatus;
-	IBOutlet UISegmentedControl *modeControl;
-	IBOutlet UIButton *event;
-	IBOutlet UISegmentedControl *liveMode;
+	IBOutlet UIButton *connect;
+	IBOutlet UIButton *loadArchive;
+	IBOutlet UIPickerView *event;
+	IBOutlet UILabel *status;
 	
-	UIImage *connectedImage;
-	UIImage *disconnectedImage;
-	
-	bool changingMode;
+	NSMutableArray *events;
+	NSMutableArray *sessions;
 }
 
 -(IBAction)IPAddressChanged:(id)sender;
--(IBAction)serverStatusPressed:(id)sender;
--(IBAction)modeChanged:(id)sender;
--(IBAction)eventPressed:(id)sender;
--(IBAction)liveModePressed:(id)sender;
+-(IBAction)connectPressed:(id)sender;
+- (IBAction)loadPressed:(id)sender;
 
 - (void) updateServerState;
 - (void) updateConnectionType;

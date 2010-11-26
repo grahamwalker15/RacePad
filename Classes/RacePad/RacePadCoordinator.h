@@ -148,6 +148,7 @@ enum OrientationTypes
 -(void)serverConnected:(BOOL)ok;
 -(BOOL)serverConnected;
 -(void)SetServerAddress:(NSString *)server ShowWindow:(BOOL)showWindow;
+-(void) disconnect;
 -(void)Connected;
 -(void)Disconnected:(bool) atConnect;
 -(void) connectionTimeout;

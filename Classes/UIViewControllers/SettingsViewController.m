@@ -20,7 +20,7 @@
     }
     return self;
 }
-*/
+ */
  
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -34,12 +34,102 @@
     [super viewDidLoad];
 	[[RacePadCoordinator Instance] setSettingsViewController:self];
 	[[RacePadCoordinator Instance] AddView:[self view] WithType:RPC_SETTINGS_VIEW_];
-	connectedImage = [[UIImage imageNamed:@"GPSGreen.png"] retain];
-	disconnectedImage = [[UIImage imageNamed:@"GPSRed.png"] retain];
 	[ip_address_edit_ setText:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"]];
-	changingMode = false;
 }
 
+
+- (void) updateSessions: (int) row
+{
+	[sessions removeAllObjects];
+	
+	if ( row < 0 || row >= [events count] )
+		return;
+	
+	NSFileManager *fm =	[[NSFileManager alloc]init];
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *docsFolder = [paths objectAtIndex:0];
+	NSString *folder = [docsFolder stringByAppendingPathComponent:[events objectAtIndex:row]];
+	
+	NSArray *contents = [fm contentsOfDirectoryAtPath:folder error:NULL];
+	int count = [contents count];
+	int preferredIndex = -1;
+	NSString *preferredSession = [[RacePadPrefs Instance] getPref:@"preferredSession"];
+	for ( int i = 0; i < count; i++ )
+	{
+		NSString *name = [contents objectAtIndex:i];
+		NSString *file = [folder stringByAppendingPathComponent:name];
+		BOOL isDir;
+		if ( [fm fileExistsAtPath:file isDirectory:&isDir] && isDir )
+		{
+			if ( [name compare:preferredSession] == NSOrderedSame )
+				preferredIndex = [sessions count];
+			[sessions addObject:name];
+		}
+	}
+	
+	[fm release];
+	[event reloadComponent:1];
+	
+	if ( count )
+	{
+		if ( preferredIndex >= 0 )
+		{
+			[event selectRow:preferredIndex inComponent:1 animated:YES];
+		}
+	}
+	
+	NSString *eventName = [events objectAtIndex:[event selectedRowInComponent:0]];
+	NSString *sessionName = [sessions objectAtIndex:[event selectedRowInComponent:1]];
+	
+	if ( eventName != nil && [eventName length] > 0
+	  && sessionName != nil && [sessionName length] > 0 )
+		[loadArchive setEnabled:YES];
+	else
+		[loadArchive setEnabled:NO];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+	return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+	if ( component == 0 )
+		return [events count];
+	if ( component == 1 )
+		return [sessions count];
+	return 0;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+	return 40;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+	if ( component == 0 )
+		return [events objectAtIndex:row];
+	return [sessions objectAtIndex:row];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+{
+	if ( component == 0 )
+		return 150;
+	return 115;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+	if ( component == 0 )
+	{
+		[self updateSessions: row];
+	}
+	
+}
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
@@ -47,6 +137,54 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:[self view]];
 	[self updateServerState];
 	[self updateConnectionType];
+	
+	if ( !events )
+	{
+		events = [[NSMutableArray alloc] init];
+		sessions = [[NSMutableArray alloc] init];
+	}
+	[events removeAllObjects];
+	NSFileManager *fm =	[[NSFileManager alloc]init];
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *docsFolder = [paths objectAtIndex:0];
+	
+	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
+	int count = [contents count];
+	int preferredIndex = -1;
+	NSString *preferredEvent = [[RacePadPrefs Instance] getPref:@"preferredEvent"];
+	for ( int i = 0; i < count; i++ )
+	{
+		NSString *name = [contents objectAtIndex:i];
+		NSString *file = [docsFolder stringByAppendingPathComponent:name];
+		BOOL isDir;
+		if ( [fm fileExistsAtPath:file isDirectory:&isDir] && isDir )
+		{
+			if ( [name compare:@"LocalHTML"] != NSOrderedSame
+				&& [name compare:@"Data"] != NSOrderedSame ) // ignore the Data and LocalHTML folders
+			{
+				if ( [name compare:preferredEvent] == NSOrderedSame )
+					preferredIndex = [events count];
+				[events addObject:name];
+			}
+		}
+	}
+	
+	[fm release];
+	
+	[sessions removeAllObjects];
+	
+	if ( count )
+	{
+		[event reloadComponent:0];
+		if ( preferredIndex >= 0 )
+		{
+			[event selectRow:preferredIndex inComponent:0 animated:NO]; // If you animate this, then you'll get the wrong selectedValue below
+		}
+		[self updateSessions: preferredIndex];
+	}
+	else
+		[loadArchive setEnabled:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -81,47 +219,28 @@
 
 - (void)dealloc
 {
-	[connectedImage release];
-	[disconnectedImage release];
     [super dealloc];
+	[events release];
+	[sessions release];
 }
 
 - (void) updateServerState
 {
-	changingMode = true;
-	if ( [[RacePadCoordinator Instance] serverConnected] )
+	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
 	{
-		[serverStatus setImage:connectedImage forState:UIControlStateNormal];
-		[modeControl setEnabled:YES forSegmentAtIndex:0];
+		[connect setTitle:@"Disconnect" forState:UIControlStateNormal];
+		[status setText:@"Connected to server"];
 	}
 	else
 	{
-		[serverStatus setImage:disconnectedImage forState:UIControlStateNormal];
-		[modeControl setEnabled:NO forSegmentAtIndex:0];
+		[connect setTitle:@"Connect" forState:UIControlStateNormal];
+		[status setText:@"Working offline"];
 	}
-	changingMode = false;
 }
 
 - (void) updateConnectionType
 {
-	changingMode = true;
-	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
-	{
-		[modeControl setSelectedSegmentIndex:0];
-		[event setEnabled:NO];
-		if ( [[RacePadCoordinator Instance] liveMode] )
-			[liveMode setSelectedSegmentIndex:0];
-		else
-			[liveMode setSelectedSegmentIndex:1];
-		[liveMode setEnabled:YES];
-	}
-	else
-	{
-		[modeControl setSelectedSegmentIndex:1];
-		[event setEnabled:YES];
-		[liveMode setEnabled:NO];
-	}
-	changingMode = false;
+	[self updateServerState];
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -133,43 +252,30 @@
 	[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
 }
 
--(IBAction)serverStatusPressed:(id)sender
+-(IBAction)connectPressed:(id)sender
 {
-	if ( ![[RacePadCoordinator Instance] serverConnected] )
+	if ( [[RacePadCoordinator Instance] serverConnected] )
+	{
+		[[RacePadCoordinator Instance] disconnect];
+		[self updateConnectionType];
+	}
+	else
 	{
 		NSString *text = [ip_address_edit_ text];
 		[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
 	}
 }
 
--(IBAction)modeChanged:(id)sender
+- (IBAction)loadPressed:(id)sender
 {
-	if ( !changingMode )
+	NSString *eventName = [events objectAtIndex:[event selectedRowInComponent:0]];
+	NSString *sessionName = [sessions objectAtIndex:[event selectedRowInComponent:1]];
+	
+	if ( eventName != nil && [eventName length] > 0
+	  && sessionName != nil && [sessionName length] > 0 )
 	{
-		if ( [modeControl selectedSegmentIndex] == 0 )
-		{
-			NSString *text = [ip_address_edit_ text];
-			[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
-		}
-		else
-			[[RacePadCoordinator Instance] goOffline];
+		[[RacePadCoordinator Instance] loadSession:eventName Session:sessionName];
 	}
-}
-
--(IBAction)liveModePressed:(id)sender
-{
-	if ( !changingMode )
-	{
-		if ( [liveMode selectedSegmentIndex] == 0 )
-			[[RacePadCoordinator Instance] goLive:true];
-		else
-			[[RacePadCoordinator Instance] goLive:false];
-	}
-}
-
--(IBAction)eventPressed:(id)sender
-{
-	[[RacePadCoordinator Instance] goOffline];
 }
 
 

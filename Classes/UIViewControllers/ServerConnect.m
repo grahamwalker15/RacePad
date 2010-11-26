@@ -9,6 +9,7 @@
 #import "ServerConnect.h"
 #import "RacePadCoordinator.h"
 #import "RacePadPrefs.h"
+#import "RacePadAppDelegate.h"
 
 @implementation ServerConnect
 
@@ -53,7 +54,7 @@
 	[label release];
 	[whirl release];
 	[retry release];
-	[offline release];
+	[settings release];
 
     [super dealloc];
 }
@@ -77,7 +78,7 @@
 	[label setText:@"Connection not available"];
 	[whirl stopAnimating];
 	[retry setEnabled:YES];
-	[offline setEnabled:YES];
+	[settings setEnabled:YES];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -98,7 +99,7 @@
 	[label setText:@"Connecting"];
 	[whirl startAnimating];
 	[retry setEnabled:NO];
-	[offline setEnabled:NO];
+	[settings setEnabled:NO];
 	
 	shouldBePoppedDown = false;
 }
@@ -118,7 +119,7 @@
 	[label setText:@"Server version does not match this client"];
 	[whirl stopAnimating];
 	[retry setEnabled:YES];
-	[offline setEnabled:YES];
+	[settings setEnabled:YES];
 }
 
 -(void) retryPressed:(id)sender
@@ -126,19 +127,25 @@
 	[label setText:@"Connecting"];
 	[whirl startAnimating];
 	[retry setEnabled:NO];
-	[offline setEnabled:NO];
+	[settings setEnabled:NO];
 	
 	// on re-try, give it 15 secs
 	timer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
 	[[RacePadCoordinator Instance] SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO];
 }
 
--(void) offlinePressed:(id)sender
+-(void) settingsPressed:(id)sender
 {
-	// Don't animate the popdown - as we're going to popup the offline window
-	// The framework doesn't get it right, and the new window doesn't display
-	[self dismissModalViewControllerAnimated:NO];
-	[[RacePadCoordinator Instance] goOffline];
+	[self dismissModalViewControllerAnimated:YES];
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	if ( tabControl )
+	{
+		NSArray *tabs = [tabControl viewControllers];
+		// Assume Settings is the final one
+		if ( [tabs count] )
+			[tabControl setSelectedViewController:[tabs objectAtIndex:[tabs count]-1]];
+	}
 }
 
 @end

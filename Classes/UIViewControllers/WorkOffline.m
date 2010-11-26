@@ -9,6 +9,7 @@
 #import "WorkOffline.h"
 #import "RacePadPrefs.h"
 #import "RacePadCoordinator.h"
+#import "RacePadAppDelegate.h"
 
 @implementation WorkOffline
 
@@ -214,6 +215,20 @@
 {
 	[self dismissModalViewControllerAnimated:NO];
 	[[RacePadCoordinator Instance] SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+}
+
+- (IBAction)settingsPressed:(id)sender
+{
+	[self dismissModalViewControllerAnimated:YES];
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	if ( tabControl )
+	{
+		NSArray *tabs = [tabControl viewControllers];
+		// Assume Settings is the final one
+		if ( [tabs count] )
+			[tabControl setSelectedViewController:[tabs objectAtIndex:[tabs count]-1]];
+	}
 }
 
 @end

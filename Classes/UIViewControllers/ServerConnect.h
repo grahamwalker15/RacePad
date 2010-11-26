@@ -14,7 +14,7 @@
 	IBOutlet UILabel *label;
 	IBOutlet UIActivityIndicatorView *whirl;
 	IBOutlet UIButton *retry;
-	IBOutlet UIButton *offline;
+	IBOutlet UIButton *settings;
 	
 	NSTimer *timer;
 	bool shouldBePoppedDown;
@@ -22,7 +22,7 @@
 }
 
 - (IBAction)retryPressed:(id)sender;
-- (IBAction)offlinePressed:(id)sender;
+- (IBAction)settingsPressed:(id)sender;
 
 -(void) popDown;
 -(void) badVersion;

@@ -14,6 +14,7 @@
 	IBOutlet UIPickerView *event;
 	IBOutlet UIButton *ok;
 	IBOutlet UIButton *online;
+	IBOutlet UIButton *settings;
 	
 	NSMutableArray *events;
 	NSMutableArray *sessions;
@@ -22,5 +23,6 @@
 
 - (IBAction)okPressed:(id)sender;
 - (IBAction)onlinePressed:(id)sender;
+- (IBAction)settingsPressed:(id)sender;
 
 @end

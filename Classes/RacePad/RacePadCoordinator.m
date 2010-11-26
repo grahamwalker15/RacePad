@@ -93,6 +93,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) onDisplayFirstView
 {
+	/*
 	NSNumber *ctype= [[RacePadPrefs Instance] getPref:@"connectionType"];
 	if ( [ctype intValue] == RPC_SOCKET_CONNECTION_ )
 	{
@@ -101,6 +102,7 @@ static RacePadCoordinator * instance_ = nil;
 			[self SetServerAddress: address ShowWindow:YES];
 	}
 	else
+	*/
 		[self goOffline];
 }
 
@@ -384,7 +386,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) loadSession: (NSString *)event Session: (NSString *)session
 {
-	[self setConnectionType:RPC_NO_CONNECTION_];
+	[self disconnect];
 	[self loadRPF: @"race_pad.rpf"];
 	
 	NSString *eventFile = [event stringByAppendingPathComponent:@"event.rpf"];
@@ -520,6 +522,13 @@ static RacePadCoordinator * instance_ = nil;
 	}
 }
 
+- (void) disconnect 
+{
+	[self setConnectionType: RPC_NO_CONNECTION_];
+
+	[socket_ release];
+	socket_ = nil;
+}
 
 - (void) Connected
 {
