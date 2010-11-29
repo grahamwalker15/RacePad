@@ -28,6 +28,7 @@
 	
 	int px, py;
 	int cx, cy;
+	int row;
 }
 
 - (id) init;

@@ -102,6 +102,9 @@
 		7F91FA1012A011DE00BFDFCC /* RPMRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0C12A011DE00BFDFCC /* RPMRed.png */; };
 		7F91FA1112A011DE00BFDFCC /* RPMWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */; };
 		7F91FA4112A01D7D00BFDFCC /* GearCog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA4012A01D7D00BFDFCC /* GearCog.png */; };
+		7F91FB3512A4059C00BFDFCC /* ShinyGreenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */; };
+		7F91FB3612A4059C00BFDFCC /* ShinyGreyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */; };
+		7F91FB4A12A4138F00BFDFCC /* BlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB4912A4138F00BFDFCC /* BlackBar.png */; };
 		7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10D91255E68B00770746 /* FirstViewController.m */; };
 		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
 		7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10FB1255EE1500770746 /* ThirdViewController.m */; };
@@ -288,6 +291,9 @@
 		7F91FA0C12A011DE00BFDFCC /* RPMRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMRed.png; path = Images/RPMRed.png; sourceTree = "<group>"; };
 		7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMWhite.png; path = Images/RPMWhite.png; sourceTree = "<group>"; };
 		7F91FA4012A01D7D00BFDFCC /* GearCog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GearCog.png; path = Images/GearCog.png; sourceTree = "<group>"; };
+		7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShinyGreenButton.png; path = Images/ShinyGreenButton.png; sourceTree = "<group>"; };
+		7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShinyGreyButton.png; path = Images/ShinyGreyButton.png; sourceTree = "<group>"; };
+		7F91FB4912A4138F00BFDFCC /* BlackBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlackBar.png; path = Images/BlackBar.png; sourceTree = "<group>"; };
 		7F9C10D81255E68B00770746 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7F9C10D91255E68B00770746 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
@@ -629,6 +635,9 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F91FB4912A4138F00BFDFCC /* BlackBar.png */,
+				7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */,
+				7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */,
 				7F91FA4012A01D7D00BFDFCC /* GearCog.png */,
 				7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */,
 				7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */,
@@ -833,6 +842,9 @@
 				7F91FA1012A011DE00BFDFCC /* RPMRed.png in Resources */,
 				7F91FA1112A011DE00BFDFCC /* RPMWhite.png in Resources */,
 				7F91FA4112A01D7D00BFDFCC /* GearCog.png in Resources */,
+				7F91FB3512A4059C00BFDFCC /* ShinyGreenButton.png in Resources */,
+				7F91FB3612A4059C00BFDFCC /* ShinyGreyButton.png in Resources */,
+				7F91FB4A12A4138F00BFDFCC /* BlackBar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

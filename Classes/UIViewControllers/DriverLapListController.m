@@ -153,12 +153,12 @@
 
 - (void) OnRightSwipeGestureInView:(UIView *)gestureView
 {
-	[self NextButton:nil];
+	[self PreviousButton:nil];
 }
 
 - (void) OnLeftSwipeGestureInView:(UIView *)gestureView
 {
-	[self PreviousButton:nil];
+	[self NextButton:nil];
 }
 
 

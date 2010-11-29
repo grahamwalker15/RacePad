@@ -155,7 +155,7 @@
 				if(if_heading)
 					row --;
 				
-				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
+				if(![self HandleSelectCellRow:row Col:col DoubleClick:true LongPress:false])
 				{
 					[self HandleSelectRow:row DoubleClick:true LongPress:false];
 				}
@@ -191,7 +191,7 @@
 				if(if_heading)
 					row --;
 				
-				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
+				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:true])
 				{
 					[self HandleSelectRow:row DoubleClick:false LongPress:true];
 				}

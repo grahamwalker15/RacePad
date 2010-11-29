@@ -22,6 +22,7 @@ static UIImage * rpmImageWhite  = nil;
 static UIImage * rpmImageGreen  = nil;
 static UIImage * rpmImageOrange  = nil;
 static UIImage * rpmImageRed  = nil;
+static UIImage * blackBarImage = nil;
 
 - (void) load:(DataStream *)stream 
 {
@@ -51,6 +52,7 @@ static UIImage * rpmImageRed  = nil;
 		rpmImageOrange = [[UIImage imageNamed:@"RPMOrange.png"] retain];
 		rpmImageRed = [[UIImage imageNamed:@"RPMRed.png"] retain];
 		gearImage = [[UIImage imageNamed:@"GearCog.png"] retain];
+		blackBarImage = [[UIImage imageNamed:@"BlackBar.png"] retain];
 	}
 	
 	// Get the device orientation and set things up accordingly
@@ -107,8 +109,8 @@ static UIImage * rpmImageRed  = nil;
 	
 	float gLeft = gLat > 0 ? gLat * arrowLength / 4 : 0;
 	float gRight = gLat < 0 ? -gLat * arrowLength / 4 : 0;
-	float gFront = gLong > 0 ? gLong * arrowLength / 4 : 0;
-	float gBack = gLong < 0 ? -gLong * arrowLength / 4 : 0;
+	float gFront = gLong < 0 ? -gLong * arrowLength / 4 : 0;
+	float gBack = gLong > 0 ? gLong * arrowLength / 4 : 0;
 	
 	CGMutablePathRef arrowLeft = [DrawingView CreateTrianglePathX0:xLeft Y0:carYCentre - arrowWidth X1:xLeft Y1:carYCentre + arrowWidth X2:xLeft - arrowLength Y2:carYCentre];
 	CGMutablePathRef arrowRight = [DrawingView CreateTrianglePathX0:xRight Y0:carYCentre - arrowWidth X1:xRight Y1:carYCentre + arrowWidth X2:xRight + arrowLength Y2:carYCentre];
@@ -124,7 +126,7 @@ static UIImage * rpmImageRed  = nil;
 	[view SetClippingAreaToPath:arrowTop];
 	[view SetBGColour:transparent_white_];
 	[view FillPath:arrowTop];
-	[view SetBGColour:[view green_]];
+	[view SetBGColour:[view red_]];
 	[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5];
 	[view RestoreGraphicsState];
 	
@@ -132,7 +134,7 @@ static UIImage * rpmImageRed  = nil;
 	[view SetClippingAreaToPath:arrowBottom];
 	[view SetBGColour:transparent_white_];
 	[view FillPath:arrowBottom];
-	[view SetBGColour:[view red_]];
+	[view SetBGColour:[view green_]];
 	[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack];
 	[view RestoreGraphicsState];
 	
@@ -236,14 +238,52 @@ static UIImage * rpmImageRed  = nil;
 	[view SetBGColour:transparent_white_];
 	[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
 	
-	float distWidth = distance / 7400.0 * mapRect.size.width; 
-	[view SetBGColour:[view dark_grey_]];
-	[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
-	 
-	[view SetFGColour:[view white_]];
-	[view LineRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
-
+	float lapDist = 6920.0;
+	float s1Dist = 2229.0 / lapDist;
+	float s2Dist = 5016.0 / lapDist;
 	
+	float distWidth = distance / lapDist * mapRect.size.width; 
+	[view SetBGColour:[view dark_grey_]];
+	//[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	[view FillPatternRectangle:blackBarImage X0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+
+	[view SetFGColour:[view white_]];
+	[view LineX0:mapRect.origin.x + s1Dist * mapRect.size.width Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + s1Dist * mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	[view LineX0:mapRect.origin.x + s2Dist * mapRect.size.width Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + s2Dist * mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	[view LineRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	
+	[view UseControlFont];
+	for(int i = 0 ; i < 3 ; i++)
+	{
+		NSString * sectorLabel = [NSString stringWithFormat:@"Sector %d", i+1];
+	
+		float w, h;
+		[view GetStringBox:sectorLabel WidthReturn:&w HeightReturn:&h];
+		
+		float xLeft, xRight;
+		
+		if(i == 0)
+		{
+			xLeft = mapRect.origin.x;
+			xRight = mapRect.origin.x + s1Dist * mapRect.size.width;
+		}
+		else if(i == 1)
+		{
+			xLeft = mapRect.origin.x + s1Dist * mapRect.size.width;
+			xRight = mapRect.origin.x + s2Dist * mapRect.size.width;
+		}
+		else
+		{
+			xLeft = mapRect.origin.x + s2Dist * mapRect.size.width;
+			xRight = mapRect.origin.x + mapRect.size.width;
+		}
+		
+		float sWidth = xRight - xLeft;
+			
+		[view SetFGColour:[view white_]];
+		[view DrawString:sectorLabel AtX:xLeft + (sWidth - w) * 0.5 Y:mapRect.origin.y + mapRect.size.height + 16 - h];
+	}
+
 	// Draw RPM Lights
 	int rpmLimit[12] = {7000, 8500, 10500, 12500, 14000, 15000, 15500, 16000, 16500, 16900, 17200, 17500};
 	

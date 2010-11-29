@@ -97,7 +97,8 @@ static UIImage *trackImage = nil;
 	
 	int car_base = y - car_height - 16;
 	int box_base = y - graphicHeight - 12;
-	int row = *lastRow;
+	
+	row = *lastRow;
 	
 	px = x * size.width - box_width / 2;
 	py = box_base;
@@ -155,20 +156,28 @@ static UIImage *trackImage = nil;
 		{
 			[view SetLineWidth:3];
 			int gn = ((xMaxTime-gapNext) / (xMaxTime * 2)) * size.width;
+			
 			if ( gapNext > gapThis )
 				[view SetFGColour:redTrail];
 			else
 				[view SetFGColour:greenTrail];
+			
 			[view LineX0:gt Y0:py - box_height - 2  X1:gn Y1:py - box_height - 2];
 		}
 	}
+	
 	[view SetLineWidth:1];
 	
 	// Draw outline and line to axis
 	[view SetFGColour:lineColour];
 	[view LineRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
-	[view LineX0:gt Y0:py X1:gt Y1:y];
+	[view LineX0:gt Y0:cy+8 X1:gt Y1:y];
 	
+	if(fabs(x - 0.5) > 0.001)
+		//[view SetFGColour:[lineColour colorWithAlphaComponent:(0.4 - (float)row * 0.1)]];
+		[view SetFGColour:[lineColour colorWithAlphaComponent:0.2]];
+	
+	[view LineX0:gt Y0:py X1:gt Y1:cy+8];	
 	
 	[view SetBGColour:lineColour];
 	[view FillRectangleX0:gt - 3 Y0:y - 3 X1:gt + 3 Y1:y + 3];
