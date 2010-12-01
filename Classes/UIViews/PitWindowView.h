@@ -12,7 +12,20 @@
 
 @interface PitWindowView : DrawingView
 {
+	float userOffset;
+	float userScale;
+	
+	int car;
 }
+
+@property (nonatomic) float userOffset;
+@property (nonatomic) float userScale;
+@property (nonatomic) int car;
+
+
+- (void) adjustScale:(float)scale X:(float)x Y:(float)y;
+- (void) adjustPanX:(float)x Y:(float)y;
+- (float) transformX:(float)x;
 
 @end
 

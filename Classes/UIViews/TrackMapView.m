@@ -65,6 +65,7 @@ static bool flag_images_initialised_ = false;
 - (void)dealloc
 {
 	[carToFollow release];
+	carToFollow = nil;
 
 	[greenFlagImage release];
 	[yellowFlagImage release];
@@ -127,6 +128,11 @@ static bool flag_images_initialised_ = false;
 			carToFollow = [name retain];
 			return;
 		}
+		else
+		{
+			return;
+		}
+
 	}
 	
 	// Reach here if either name was nil, or not found

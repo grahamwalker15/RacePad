@@ -12,6 +12,8 @@
 #import "RacePadDatabase.h"
 #import "ImageListStore.h"
 
+#import "UIConstants.h"
+
 @implementation PitWindowCar
 
 static UIColor *redTrail = nil;
@@ -27,6 +29,7 @@ static UIImage *blueFlagImage = nil;
 static UIImage *arrowLeaderImage = nil;
 static UIImage *kerbImage = nil;
 static UIImage *trackImage = nil;
+static UIImage *grassImage = nil;
 
 - (id) init
 {
@@ -85,7 +88,7 @@ static UIImage *trackImage = nil;
 	lapping = [stream PopBool];
 }
 
-- (void) preDraw:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *)lastX LastRow:(int *)lastRow
+- (void) preDrawInView:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *)lastX LastRow:(int *)lastRow
 {
 	CGSize size = [view InqSize];
 	
@@ -100,10 +103,10 @@ static UIImage *trackImage = nil;
 	
 	row = *lastRow;
 	
-	px = x * size.width - box_width / 2;
+	px = [view transformX:x] * size.width - box_width / 2;
 	py = box_base;
 	
-	cx = x * size.width;
+	cx = [view transformX:x] * size.width;
 	cy = car_base;
 	
 	if ( cx > *lastX - car_width )
@@ -129,7 +132,7 @@ static UIImage *trackImage = nil;
 	*lastRow = row;
 }
 
-- (void) draw:(PitWindowView *)view Y:(int)y XMaxTime:(int) xMaxTime ImageList:(ImageList *)imageList
+- (void) drawInView:(PitWindowView *)view Y:(int)y XMaxTime:(int) xMaxTime ImageList:(ImageList *)imageList
 {
 	CGSize size = [view InqSize];
 	int box_width = 40;
@@ -142,7 +145,7 @@ static UIImage *trackImage = nil;
 	[view SetBGColour:fillColour];
 	[view FillRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
 	
-	int gt = ((xMaxTime-gapThis) / (xMaxTime * 2)) * size.width;
+	int gt = [view transformX:((xMaxTime-gapThis) / (xMaxTime * 2))] * size.width;
 	
 	// Draw next lap gap indicator
 	if ( !inPit )
@@ -155,7 +158,7 @@ static UIImage *trackImage = nil;
 		if ( abs(gapNext - gapThis) < 10 )
 		{
 			[view SetLineWidth:3];
-			int gn = ((xMaxTime-gapNext) / (xMaxTime * 2)) * size.width;
+			int gn = [view transformX:((xMaxTime-gapNext) / (xMaxTime * 2))] * size.width;
 			
 			if ( gapNext > gapThis )
 				[view SetFGColour:redTrail];
@@ -327,7 +330,7 @@ static UIImage *trackImage = nil;
 	}
 }
 
-- (void) drawGraphic: (bool)blueCar Y:(int)y_base Height:(float)graphicHeight View:(PitWindowView *)view
+- (void) drawGraphicInView:(PitWindowView *)view IsBlueCar:(bool)blueCar Y:(int)y_base Height:(float)graphicHeight
 {
 	CGSize size = [view InqSize];
 	xRange = size.width;
@@ -337,12 +340,15 @@ static UIImage *trackImage = nil;
 	int x_axis = y_base - 30;
 	int y1 = y_base - graphicHeight;
 	
-	int x_pit_0 = (1-pitStopLoss) * size.width;
-	int x_pit_1 = pitStopLoss * size.width;
-	int x_margin_0 = (1-pitStopLossMargin) * size.width;
-	int x_margin_1 = pitStopLossMargin * size.width;
-	int x_sc_0 = (1-pitStopLossSC) * size.width;
-	int x_sc_1 = pitStopLossSC * size.width;
+	int x_pit_0 = [view transformX:(1-pitStopLoss)] * size.width;
+	int x_pit_1 = [view transformX:pitStopLoss] * size.width;
+	int x_margin_0 = [view transformX:(1-pitStopLossMargin)] * size.width;
+	int x_margin_1 = [view transformX:pitStopLossMargin] * size.width;
+	int x_sc_0 = [view transformX:(1-pitStopLossSC)] * size.width;
+	int x_sc_1 = [view transformX:pitStopLossSC] * size.width;
+	
+	// Draw background and track
+	[view FillPatternRectangle:grassImage X0:0 Y0:0 X1:size.width - 1 Y1:size.height - 1];
 	
 	// Draw track
 	[view FillPatternRectangle:trackImage X0:0 Y0:y1 X1:size.width Y1:x_axis];
@@ -400,7 +406,7 @@ static UIImage *trackImage = nil;
 	// Draw Axes
 	[view SetFGColour:[view white_]];
 	[view SetBGColour:[view white_]];
-	int cx = size.width / 2;
+	int cx = [view transformX:0.5] * size.width;
 	
 	// Draw centre line
 	[view LineRectangleX0:cx Y0:y_base - 10 X1:cx Y1:y1];
@@ -414,8 +420,8 @@ static UIImage *trackImage = nil;
 	[view UseMediumBoldFont];
 	for ( int xval = 0; xval < xMaxTime; xval += 1 )
 	{
-		double xRight = ((float)xval / xMaxTime) * (size.width / 2) + (size.width / 2);
-		double xLeft = (size.width / 2) - (((float)xval / xMaxTime) * (size.width / 2));
+		double xRight = [view transformX:(0.5 + (float)xval / xMaxTime * 0.5)] * size.width;
+		double xLeft = [view transformX:(0.5 - (float)xval / xMaxTime * 0.5)] * size.width;
 		
 		if ( counter == 0 )
 		{
@@ -460,29 +466,38 @@ static UIImage *trackImage = nil;
 	int lastRow = 0;
 	int i;
 	for ( i = count - 1; i >= 0; i-- )
-		[[cars objectAtIndex:i] preDraw: view Height:graphicHeight - 30 Y:x_axis LastX:&lastX LastRow:&lastRow];
+		[[cars objectAtIndex:i] preDrawInView:view Height:graphicHeight - 30 Y:x_axis LastX:&lastX LastRow:&lastRow];
 	
 	for ( i = 0; i < count; i++ )
-			[[cars objectAtIndex:i] draw:view Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
+			[[cars objectAtIndex:i] drawInView:view Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
+
+	// Draw outline
+	[view SaveGraphicsState];
+	[view SetLineWidth:3];
+	[view SetFGColour:[view black_]];
+	CGRect inner_rect = CGRectInset([view bounds], 1, 1);
+	[view LineRectangle:inner_rect];
+	[view RestoreGraphicsState];
+	
 }
 
-- (void) draw : (PitWindowView *) view
+- (void) drawCar:(int)car InView:(PitWindowView *)view
 {
 	CGSize size = [view InqSize];
 	
 	if ( kerbImage == nil )
 	{
+		grassImage = [[UIImage imageNamed:@"Grass.png"] retain];
 		kerbImage = [[UIImage imageNamed:@"Kerbs.png"] retain];
 		trackImage = [[UIImage imageNamed:@"Metal.png"] retain];
 	}
 	
-	float graphicHeight = (size.height - 40) * 3 / 10 - 20;
+	float graphicHeight = (size.height - 20) * 3 / 5 - 20;
 	
 	if(graphicHeight > 160)
 		graphicHeight = 160;
 	
-	[self drawGraphic:false Y:(size.height/2 - (size.height/2 - graphicHeight * 2) / 2) Height:graphicHeight View:view];
-	[self drawGraphic:true Y:(size.height - (size.height/2 - graphicHeight * 2) / 2) Height:graphicHeight View:view];
+	[self drawGraphicInView:view IsBlueCar:(car == UI_BLUE_CAR_) Y:size.height Height:graphicHeight];
 }
 
 @end

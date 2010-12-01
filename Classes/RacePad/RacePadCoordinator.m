@@ -20,6 +20,8 @@
 #import "WorkOffline.h"
 #import "RacePadPrefs.h"
 
+#import "UIConstants.h"
+
 @implementation RacePadCoordinator
 
 @synthesize connectionType;
@@ -112,18 +114,18 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		CGRect bounds = [[registeredViewController view] bounds];
 		if(bounds.size.width < bounds.size.height)
-			return RPC_ORIENTATION_PORTRAIT_;
+			return UI_ORIENTATION_PORTRAIT_;
 		else
-			return RPC_ORIENTATION_LANDSCAPE_;	
+			return UI_ORIENTATION_LANDSCAPE_;	
 	}
 	else
 	{
 		UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 		
 		if(orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown)
-			return RPC_ORIENTATION_PORTRAIT_;
+			return UI_ORIENTATION_PORTRAIT_;
 		else
-			return RPC_ORIENTATION_LANDSCAPE_;	
+			return UI_ORIENTATION_LANDSCAPE_;	
 	}
 }
 

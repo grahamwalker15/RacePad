@@ -68,8 +68,8 @@ static bool bg_images_initialised_ = false;
 	{
 		bg_images_initialised_ = true;
 		
-		screen_bg_image_ = [[UIImage imageNamed:@"Parchment.png"] retain];
-		grey_bg_image_  = [[UIImage imageNamed:@"Metal.png"] retain];
+		screen_bg_image_ = [[UIImage imageNamed:@"GraphPaper.png"] retain];
+		grey_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
 		grass_bg_image_  = [[UIImage imageNamed:@"Grass.png"] retain];
 	}
 	else

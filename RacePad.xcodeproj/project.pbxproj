@@ -39,6 +39,8 @@
 		7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068127126DDA6800C9EE5D /* newspaper.png */; };
 		7F06812D126DDA6800C9EE5D /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068128126DDA6800C9EE5D /* preferences.png */; };
 		7F06812E126DDA6800C9EE5D /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068129126DDA6800C9EE5D /* world.png */; };
+		7F0B27C812A58F8D00604392 /* CarbonFibre2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0B27C612A58F8D00604392 /* CarbonFibre2.png */; };
+		7F0B27C912A58F8D00604392 /* Turquoise.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0B27C712A58F8D00604392 /* Turquoise.png */; };
 		7F11F64D127197B800C88544 /* ElapsedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11F64C127197B800C88544 /* ElapsedTime.m */; };
 		7F317D44129BB71200F35097 /* TelemetryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F317D43129BB71200F35097 /* TelemetryView.xib */; };
 		7F31CA691270892700F26C7B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F31CA681270892700F26C7B /* SettingsView.xib */; };
@@ -68,6 +70,11 @@
 		7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BB127577FE00EF2B8C /* RightArrow.png */; };
 		7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB8981275F11400EF2B8C /* TimeControlView.xib */; };
 		7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */; };
+		7F767CA812A62EC9009249F7 /* BlueBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA612A62EC9009249F7 /* BlueBar.png */; };
+		7F767CA912A62EC9009249F7 /* RedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA712A62EC9009249F7 /* RedBar.png */; };
+		7F767CC212A6300D009249F7 /* GraphPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CC112A6300D009249F7 /* GraphPaper.png */; };
+		7F767E6E12A68525009249F7 /* CarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F767E6D12A68525009249F7 /* CarViewController.m */; };
+		7F767E9112A689F1009249F7 /* CarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F767E9012A689F1009249F7 /* CarView.xib */; };
 		7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A15128776B600F13CB6 /* Icon-72.png */; };
 		7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A16128776B600F13CB6 /* Icon-Small-50.png */; };
 		7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A17128776B600F13CB6 /* Icon-Small.png */; };
@@ -208,6 +215,8 @@
 		7F068127126DDA6800C9EE5D /* newspaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newspaper.png; path = Images/newspaper.png; sourceTree = "<group>"; };
 		7F068128126DDA6800C9EE5D /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = preferences.png; path = Images/preferences.png; sourceTree = "<group>"; };
 		7F068129126DDA6800C9EE5D /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world.png; path = Images/world.png; sourceTree = "<group>"; };
+		7F0B27C612A58F8D00604392 /* CarbonFibre2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CarbonFibre2.png; path = Images/CarbonFibre2.png; sourceTree = "<group>"; };
+		7F0B27C712A58F8D00604392 /* Turquoise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Turquoise.png; path = Images/Turquoise.png; sourceTree = "<group>"; };
 		7F11F64B127197B800C88544 /* ElapsedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElapsedTime.h; sourceTree = "<group>"; };
 		7F11F64C127197B800C88544 /* ElapsedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElapsedTime.m; sourceTree = "<group>"; };
 		7F317D43129BB71200F35097 /* TelemetryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TelemetryView.xib; path = ResourceFiles/TelemetryView.xib; sourceTree = "<group>"; };
@@ -251,6 +260,13 @@
 		7F6FB8981275F11400EF2B8C /* TimeControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
 		7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadTimeController.h; sourceTree = "<group>"; };
 		7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTimeController.m; sourceTree = "<group>"; };
+		7F767CA612A62EC9009249F7 /* BlueBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBar.png; path = Images/BlueBar.png; sourceTree = "<group>"; };
+		7F767CA712A62EC9009249F7 /* RedBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedBar.png; path = Images/RedBar.png; sourceTree = "<group>"; };
+		7F767CC112A6300D009249F7 /* GraphPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GraphPaper.png; path = Images/GraphPaper.png; sourceTree = "<group>"; };
+		7F767D9E12A67559009249F7 /* UIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIConstants.h; sourceTree = "<group>"; };
+		7F767E6C12A68525009249F7 /* CarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarViewController.h; sourceTree = "<group>"; };
+		7F767E6D12A68525009249F7 /* CarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarViewController.m; sourceTree = "<group>"; };
+		7F767E9012A689F1009249F7 /* CarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarView.xib; path = ResourceFiles/CarView.xib; sourceTree = "<group>"; };
 		7F865A15128776B600F13CB6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
 		7F865A16128776B600F13CB6 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images/Icon-Small-50.png"; sourceTree = "<group>"; };
 		7F865A17128776B600F13CB6 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images/Icon-Small.png"; sourceTree = "<group>"; };
@@ -513,6 +529,8 @@
 				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
 				7FC2FBC1129AC94E00DAC96E /* TelemetryViewController.h */,
 				7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */,
+				7F767E6C12A68525009249F7 /* CarViewController.h */,
+				7F767E6D12A68525009249F7 /* CarViewController.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -601,6 +619,7 @@
 				7F6246A812844762009A9D4F /* TitleBarViewController.m */,
 				7F866452128C3D4900F13CB6 /* BackgroundView.h */,
 				7F866453128C3D4900F13CB6 /* BackgroundView.m */,
+				7F767D9E12A67559009249F7 /* UIConstants.h */,
 			);
 			path = UISupport;
 			sourceTree = "<group>";
@@ -608,6 +627,7 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F767E9012A689F1009249F7 /* CarView.xib */,
 				7F317D43129BB71200F35097 /* TelemetryView.xib */,
 				7FC2F85D1295943200DAC96E /* CompositeContentView.xib */,
 				7FB1C58712673E7F008A6C94 /* SecondView.xib */,
@@ -635,6 +655,11 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F767CC112A6300D009249F7 /* GraphPaper.png */,
+				7F767CA612A62EC9009249F7 /* BlueBar.png */,
+				7F767CA712A62EC9009249F7 /* RedBar.png */,
+				7F0B27C612A58F8D00604392 /* CarbonFibre2.png */,
+				7F0B27C712A58F8D00604392 /* Turquoise.png */,
 				7F91FB4912A4138F00BFDFCC /* BlackBar.png */,
 				7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */,
 				7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */,
@@ -845,6 +870,12 @@
 				7F91FB3512A4059C00BFDFCC /* ShinyGreenButton.png in Resources */,
 				7F91FB3612A4059C00BFDFCC /* ShinyGreyButton.png in Resources */,
 				7F91FB4A12A4138F00BFDFCC /* BlackBar.png in Resources */,
+				7F0B27C812A58F8D00604392 /* CarbonFibre2.png in Resources */,
+				7F0B27C912A58F8D00604392 /* Turquoise.png in Resources */,
+				7F767CA812A62EC9009249F7 /* BlueBar.png in Resources */,
+				7F767CA912A62EC9009249F7 /* RedBar.png in Resources */,
+				7F767CC212A6300D009249F7 /* GraphPaper.png in Resources */,
+				7F767E9112A689F1009249F7 /* CarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -909,6 +940,7 @@
 				4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */,
 				7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */,
 				7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */,
+				7F767E6E12A68525009249F7 /* CarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,21 +19,14 @@
 #import "TelemetryView.h"
 #import "BackgroundView.h"
 
+#import "UIConstants.h"
+
 @implementation TelemetryViewController
 
 
 - (void)viewDidLoad
 {
 	// Set parameters for views
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	Telemetry *telemetry = [database telemetry];
-
-	if (telemetry)
-	{
-		[blueTelemetryView setCar:[telemetry blueCar]];
-		[redTelemetryView setCar:[telemetry redCar]];
-	}
-	
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
 	[blueTrackMapView setIsZoomView:true];
@@ -84,6 +77,10 @@
 {
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
+	
+	// Set paramters for views
+	[blueTelemetryView setCar:UI_BLUE_CAR_];
+	[redTelemetryView setCar:UI_RED_CAR_];
 	
 	// Resize overlay views to match background
 	[self showOverlays];
@@ -180,7 +177,7 @@
 	CGRect blue_frame = [blueTelemetryView frame];
 	CGRect red_frame = [redTelemetryView frame];
 	
-	int mapWidth = (orientation == RPC_ORIENTATION_PORTRAIT_) ? 240 : 220;
+	int mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
 		
 	CGRect blueMapRect = CGRectMake(blue_frame.size.width - mapWidth -10, (blue_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
 	CGRect redMapRect = CGRectMake(red_frame.size.width - mapWidth -10, (red_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);

@@ -12,6 +12,8 @@
 #import "AlertViewController.h"
 #import "TrackMap.h"
 
+#import "UIConstants.h"
+
 @implementation RacePadTitleBarController
 
 static RacePadTitleBarController * instance_ = nil;
@@ -153,7 +155,7 @@ static RacePadTitleBarController * instance_ = nil;
 - (IBAction)AlertPressed:(id)sender
 {
 	CGSize popoverSize;
-	if([[RacePadCoordinator Instance] deviceOrientation] == RPC_ORIENTATION_PORTRAIT_)
+	if([[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_)
 		popoverSize = CGSizeMake(400,800);
 	else
 		popoverSize = CGSizeMake(400,600);

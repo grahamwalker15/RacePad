@@ -9,7 +9,9 @@
 #import "Telemetry.h"
 #import "DataStream.h"
 #import "RacePadCoordinator.h"
+
 #import "TelemetryView.h"
+#import "UIConstants.h"
 
 @implementation TelemetryCar
 
@@ -22,7 +24,8 @@ static UIImage * rpmImageWhite  = nil;
 static UIImage * rpmImageGreen  = nil;
 static UIImage * rpmImageOrange  = nil;
 static UIImage * rpmImageRed  = nil;
-static UIImage * blackBarImage = nil;
+static UIImage * blueBarImage = nil;
+static UIImage * redBarImage = nil;
 
 - (void) load:(DataStream *)stream 
 {
@@ -38,7 +41,7 @@ static UIImage * blackBarImage = nil;
 	rpm = [stream PopInt];
 }
 
-- (void) drawInView:(TelemetryView *)view
+- (void) drawInView:(TelemetryView *)view Colour:(int)colour
 {
 	// Make sure we have the images
 	if ( carImage == nil )
@@ -52,7 +55,8 @@ static UIImage * blackBarImage = nil;
 		rpmImageOrange = [[UIImage imageNamed:@"RPMOrange.png"] retain];
 		rpmImageRed = [[UIImage imageNamed:@"RPMRed.png"] retain];
 		gearImage = [[UIImage imageNamed:@"GearCog.png"] retain];
-		blackBarImage = [[UIImage imageNamed:@"BlackBar.png"] retain];
+		blueBarImage = [[UIImage imageNamed:@"BlueBar.png"] retain];
+		redBarImage = [[UIImage imageNamed:@"RedBar.png"] retain];
 	}
 	
 	// Get the device orientation and set things up accordingly
@@ -61,7 +65,7 @@ static UIImage * blackBarImage = nil;
 	UIImage * wheelImage = nil;
 	int pedalHeight;
 
-	if(orientation == RPC_ORIENTATION_PORTRAIT_)
+	if(orientation == UI_ORIENTATION_PORTRAIT_)
 	{
 		wheelImage = bigWheelImage;
 		pedalHeight = 80;
@@ -101,8 +105,8 @@ static UIImage * blackBarImage = nil;
 		
 	float xLeft = carXCentre - 35;
 	float xRight = carXCentre + 35;
-	float yTop = carYCentre - carHeight * 0.5;
-	float yBottom = carYCentre + carHeight * 0.5;
+	float yTop = carYCentre - carHeight * 0.5 - 3;
+	float yBottom = carYCentre + carHeight * 0.5 + 3;
 	
 	float arrowWidth = 15;
 	float arrowLength = 60;
@@ -173,7 +177,6 @@ static UIImage * blackBarImage = nil;
 	[view FillRectangleX0:wheelXCentre + 10 Y0:pedalBase -  throttleHeight X1:wheelXCentre + 40 Y1:pedalBase];
 	[view RestoreGraphicsState];
 	
-	
 	[view SaveGraphicsState];
 	[view SetClippingAreaToPath:rectBrake];
 	[view DrawImage:pedalImage AtX:wheelXCentre - 40 Y:pedalBase - pedalHeight];
@@ -235,17 +238,19 @@ static UIImage * blackBarImage = nil;
 		[view DrawString:lapLabel AtX:mapRect.origin.x + mapRect.size.width - w Y:mapRect.origin.y - h - 3];
 	}
 	
-	[view SetBGColour:transparent_white_];
+	[view SetBGColour:[view dark_grey_]];
 	[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
 	
 	float lapDist = 6920.0;
 	float s1Dist = 2229.0 / lapDist;
 	float s2Dist = 5016.0 / lapDist;
 	
-	float distWidth = distance / lapDist * mapRect.size.width; 
-	[view SetBGColour:[view dark_grey_]];
-	//[view FillRectangleX0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
-	[view FillPatternRectangle:blackBarImage X0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	float distWidth = distance / lapDist * mapRect.size.width;
+	
+	if(colour == UI_BLUE_CAR_)
+		[view FillPatternRectangle:blueBarImage X0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
+	else
+		[view FillPatternRectangle:redBarImage X0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
 
 	[view SetFGColour:[view white_]];
 	[view LineX0:mapRect.origin.x + s1Dist * mapRect.size.width Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + s1Dist * mapRect.size.width Y1:mapRect.origin.y + mapRect.size.height + 16 ];
@@ -281,7 +286,7 @@ static UIImage * blackBarImage = nil;
 		float sWidth = xRight - xLeft;
 			
 		[view SetFGColour:[view white_]];
-		[view DrawString:sectorLabel AtX:xLeft + (sWidth - w) * 0.5 Y:mapRect.origin.y + mapRect.size.height + 16 - h];
+		[view DrawString:sectorLabel AtX:xLeft + (sWidth - w) * 0.5 Y:mapRect.origin.y + mapRect.size.height + 16 - h + 1];
 	}
 
 	// Draw RPM Lights
@@ -361,9 +366,12 @@ static UIImage * blackBarImage = nil;
 	[blueCar load:stream];
 }
 
-- (void) drawCar:(TelemetryCar *)car InView:(TelemetryView *)view;
+- (void) drawCar:(int)car InView:(TelemetryView *)view;
 {	
-	[car drawInView:view];
+	if(car == UI_BLUE_CAR_)
+		[blueCar drawInView:view Colour:car];
+	else if(car == UI_RED_CAR_)
+		[redCar drawInView:view Colour:car];
 }
 
 

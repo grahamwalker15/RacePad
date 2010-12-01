@@ -34,8 +34,8 @@
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
-- (void) preDraw : (PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastRow:(int *)lastRow;
-- (void) draw : (PitWindowView *)view Y:(int)y XMaxTime:(int)xMaxTime ImageList:(ImageList *)imageList;
+- (void) preDrawInView:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastRow:(int *)lastRow;
+- (void) drawInView:(PitWindowView *)view Y:(int)y XMaxTime:(int)xMaxTime ImageList:(ImageList *)imageList;
 
 @end
 
@@ -61,6 +61,6 @@
 - (void) loadBase: (DataStream *) stream;
 - (void) load : (DataStream *) stream;
 
-- (void) draw:(PitWindowView *)view;
+- (void) drawCar:(int)car InView:(PitWindowView *)view;
 
 @end

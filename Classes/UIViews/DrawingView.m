@@ -684,7 +684,7 @@ static bool statics_initialised_ = false;
 	if(current_context_)
 	{
 		[bg_ set];
-		CGContextFillPath (current_context_);
+		CGContextEOFillPath (current_context_);
 	}
 }
 

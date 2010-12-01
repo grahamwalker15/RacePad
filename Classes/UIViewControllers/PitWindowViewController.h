@@ -16,7 +16,8 @@
 @interface PitWindowViewController : RacePadViewController
 {
 	IBOutlet BackgroundView * backgroundView;
-	IBOutlet PitWindowView * pitWindowView;	
+	IBOutlet PitWindowView * redPitWindowView;	
+	IBOutlet PitWindowView * bluePitWindowView;	
 }
 
 

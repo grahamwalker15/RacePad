@@ -22,8 +22,6 @@
 
 - (void)dealloc
 {
-	[car release];
-	
     [super dealloc];
 }
 
@@ -37,7 +35,7 @@
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	Telemetry *telemetry = [database telemetry];
 	
-	if ( telemetry && car)
+	if ( telemetry && car >= 0)
 	{
 		[telemetry drawCar:car InView:self];
 	}

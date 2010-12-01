@@ -615,13 +615,21 @@
 {
 	if ( [inner path]  && [outer path] )
 	{
-		// Draw inner and outer track in 2 point white with drop shadow
+		// Draw track in transparent white and inner and outer track in 2 point white with drop shadow
 		[view SaveGraphicsState];
 		
 		[view SetLineWidth:2 / scale];
 		[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
-		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+
+		[view SetBGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
 		
+		[view BeginPath];
+		[view LoadPath:[inner path]];
+		[view LoadPath:[outer path]];
+		[view FillCurrentPath];
+		
+		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+
 		[view BeginPath];
 		[view LoadPath:[inner path]];
 		[view LoadPath:[outer path]];
