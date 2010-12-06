@@ -271,8 +271,6 @@
 								<string>7F9C1AD4125B7B6B00770746</string>
 								<string>7F9C10D71255E68B00770746</string>
 								<string>7F9C10DF1255E6A900770746</string>
-								<string>29B97317FDCFA39411CA2CEA</string>
-								<string>7FC2F8171295910D00DAC96E</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -280,14 +278,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>91</integer>
-									<integer>71</integer>
+									<integer>38</integer>
+									<integer>36</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 967}, {285, 682}}</string>
+							<string>{{0, 557}, {285, 682}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -326,7 +324,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LeaderboardView.m</string>
+								<string>AlertViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +332,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>LeaderboardView.m</string>
+										<string>AlertViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4DE8990D12AD0F3E000FEE9C</string>
+										<string>4DE8995512AD5173000FEE9C</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -410,7 +408,6 @@
 											<string>4D1845211292AAAA00D227FF</string>
 											<string>4D1845221292AAAA00D227FF</string>
 											<string>4D1845241292AAAA00D227FF</string>
-											<string>4D1845251292AAAA00D227FF</string>
 											<string>4D86EDE2129A9C7600AA49F9</string>
 											<string>4D86EDE3129A9C7600AA49F9</string>
 											<string>4D86EE25129A9E7300AA49F9</string>
@@ -425,12 +422,9 @@
 											<string>4DE897E5129FC4E1000FEE9C</string>
 											<string>4DE89808129FC850000FEE9C</string>
 											<string>4DE89837129FF4D9000FEE9C</string>
-											<string>4DE898BA12ACFD60000FEE9C</string>
 											<string>4DE898C012ACFD60000FEE9C</string>
 											<string>4DE898C112ACFD60000FEE9C</string>
 											<string>4DE898C212ACFD60000FEE9C</string>
-											<string>4DE898C312ACFD60000FEE9C</string>
-											<string>4DE898E212AD054D000FEE9C</string>
 											<string>4DE898E412AD054D000FEE9C</string>
 											<string>4DE898F612AD0E26000FEE9C</string>
 											<string>4DE898F712AD0E26000FEE9C</string>
@@ -438,12 +432,19 @@
 											<string>4DE898FA12AD0E26000FEE9C</string>
 											<string>4DE898FB12AD0E26000FEE9C</string>
 											<string>4DE898FC12AD0E26000FEE9C</string>
-											<string>4DE898FD12AD0E26000FEE9C</string>
-											<string>4DE898FE12AD0E26000FEE9C</string>
-											<string>4DE898FF12AD0E26000FEE9C</string>
-											<string>4DE8990012AD0E26000FEE9C</string>
-											<string>4DE8990612AD0EFF000FEE9C</string>
-											<string>4DE8990712AD0EFF000FEE9C</string>
+											<string>4DE8992912AD4F8C000FEE9C</string>
+											<string>4DE8992A12AD4F8C000FEE9C</string>
+											<string>4DE8992B12AD4F8C000FEE9C</string>
+											<string>4DE8992C12AD4F8C000FEE9C</string>
+											<string>4DE8992D12AD4F8C000FEE9C</string>
+											<string>4DE8992F12AD4F8C000FEE9C</string>
+											<string>4DE8993012AD4F8C000FEE9C</string>
+											<string>4DE8993E12AD50B8000FEE9C</string>
+											<string>4DE8993F12AD50B8000FEE9C</string>
+											<string>4DE8994012AD50B8000FEE9C</string>
+											<string>4DE8995212AD5173000FEE9C</string>
+											<string>4DE8995312AD5173000FEE9C</string>
+											<string>4DE8995412AD5173000FEE9C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -641,14 +642,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>4DE8990C12AD0F2A000FEE9C</string>
+		<string>4DE8995612AD5173000FEE9C</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>4DE898CB12ACFDD3000FEE9C</string>
 		<string>4DE898C812ACFD60000FEE9C</string>
 		<string>4DE8989112ACE617000FEE9C</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>4DA2E44012646AD300796E28</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Users/Mark/Documents/Work/Development/RacePad/RacePad.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -668,14 +669,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RacePadCoordinator.m</string>
+								<string>AlertData.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -692,6 +691,8 @@
 							<string>323pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -886,14 +887,12 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TrackMapViewController.m</string>
+										<string>AlertView.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -914,6 +913,8 @@
 							<string>353pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -959,7 +960,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

@@ -25,6 +25,7 @@
 	ImageListStore *imageListStore;
 	PitWindow *pitWindow;
 	AlertData * alertData;
+	AlertData * rcMessages;
 	Telemetry *telemetry;
 	DriverNames *driverNames;
 }
@@ -37,6 +38,7 @@
 @property (readonly) ImageListStore *imageListStore;
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;
+@property (readonly) AlertData * rcMessages;
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
 

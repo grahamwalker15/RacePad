@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class DataStream;
 
 enum AlertTypes
 {
@@ -39,6 +40,7 @@ enum AlertTypes
 
 - (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
 - (id) initWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
+- (AlertDataItem *) initWithStream:(DataStream*)stream;
 
 @end
 
@@ -52,4 +54,7 @@ enum AlertTypes
 
 - (void) addItemWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
 - (void) addItemWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
+
+- (void) loadData : (DataStream *) stream;
+
 @end

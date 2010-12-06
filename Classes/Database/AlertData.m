@@ -7,6 +7,7 @@
 //
 
 #import "AlertData.h"
+#import "DataStream.h"
 
 
 @implementation AlertDataItem
@@ -45,6 +46,17 @@
 	return self;
 }
 
+- (AlertDataItem *) initWithStream:(DataStream*)stream
+{
+	type = [stream PopUnsignedChar];
+	lap = [stream PopInt];
+	timeStamp = [stream PopFloat];
+	focus = [[stream PopString] retain];
+	description = [[stream PopString] retain];
+	
+	return self;
+}
+
 - (void) dealloc
 {
 	[description release];
@@ -62,6 +74,7 @@
 	{
 		alerts = [[NSMutableArray alloc] init];
 		
+		/*
 		[self addItemWithType:ALERT_RACE_EVENT_ Lap:1 H:14 M:3 S:30 Focus:@"" Description:@"Race Start"];
 		[self addItemWithType:ALERT_INCIDENT_ Lap:1 H:14 M:5 S:24 Focus:@"BAR" Description:@"Collision BAR and ALO"];
 		[self addItemWithType:ALERT_OVERTAKE_ Lap:2 H:14 M:5 S:34 Focus:@"BUT" Description:@"BUT overtook MAS at T1"];
@@ -78,6 +91,7 @@
 		[self addItemWithType:ALERT_OVERTAKE_ Lap:40 H:15 M:25 S:2 Focus:@"ROS" Description:@"ROS overtook MSC at T4"];
 		[self addItemWithType:ALERT_INCIDENT_ Lap:41 H:15 M:25 S:53 Focus:@"TRU" Description:@"Spin TRU"];
 		[self addItemWithType:ALERT_CHEQUERED_FLAG_ Lap:44 H:15 M:32 S:34 Focus:@"" Description:@"Chequered Flag"];
+		 */
 	}	   
 	   
 	return self;
@@ -114,6 +128,17 @@
 	AlertDataItem * newItem = [[AlertDataItem alloc] initWithType:typeIn Lap:lapIn H:hIn M:mIn S:sIn Focus:focusIn Description:descriptionIn];
 	[alerts addObject:newItem];
 	[newItem release];
+}
+
+- (void) loadData : (DataStream *) stream
+{
+	int count = [stream PopInt];
+	for ( int i = 0; i < count; i++ )
+	{
+		int index = [stream PopInt];
+		AlertDataItem *item = [[AlertDataItem alloc] initWithStream:stream];
+		[alerts addObject:item];
+	}
 }
 				   
 @end

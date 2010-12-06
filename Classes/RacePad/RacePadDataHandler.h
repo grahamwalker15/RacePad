@@ -38,6 +38,8 @@ enum ServerCommands {
 	RPSC_DRIVER_NAMES_,			// 25
 	RPSC_WHOLE_LEADER_BOARD_,	// 26
 	RPSC_UPDATE_LEADER_BOARD_,	// 27
+	RPSC_RC_MESSAGES_,			// 28
+	RPSC_ALERTS_,				// 29
 };
 
 @interface RacePadDataHandler : DataHandler

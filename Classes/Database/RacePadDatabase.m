@@ -29,6 +29,7 @@ static RacePadDatabase *instance = nil;
 @synthesize imageListStore;
 @synthesize pitWindow;
 @synthesize alertData;
+@synthesize rcMessages;
 @synthesize telemetry;
 @synthesize driverNames;
 
@@ -41,6 +42,7 @@ static RacePadDatabase *instance = nil;
 	imageListStore = [[ImageListStore alloc] init];
 	pitWindow = [[PitWindow alloc] init];
 	alertData = [[AlertData alloc] init];
+	rcMessages = [[AlertData alloc] init];
 	telemetry = [[Telemetry alloc] init];
 	driverNames = [[DriverNames alloc] init];
 	
@@ -56,6 +58,7 @@ static RacePadDatabase *instance = nil;
 	[imageListStore release];
 	[pitWindow release];
 	[alertData release];
+	[rcMessages release];
 	[telemetry release];
 	
 	[super dealloc];

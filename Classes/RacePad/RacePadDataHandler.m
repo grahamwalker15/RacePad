@@ -406,6 +406,18 @@
 			[driverNames loadData:stream];
 			break;
 		}
+		case RPSC_RC_MESSAGES_: // Race Control Messages
+		{
+			AlertData *rc_messages = [[RacePadDatabase Instance] rcMessages];
+			[rc_messages loadData:stream];
+			break;
+		}
+		case RPSC_ALERTS_: // Alerts
+		{
+			AlertData *alertData = [[RacePadDatabase Instance] alertData];
+			[alertData loadData:stream];
+			break;
+		}
 		default:
 			break;
 	}
