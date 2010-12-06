@@ -440,6 +440,11 @@
 @synthesize mapXOffset;
 @synthesize mapYOffset;
 @synthesize mapScale;
+@synthesize trackLength;
+@synthesize s1Length;
+@synthesize s2Length;
+@synthesize sc1Length;
+@synthesize sc2Length;
 
 - (id) init
 {
@@ -567,6 +572,12 @@
 		[label loadShape:stream Count:count];
 		[labels addObject:label];
 	}
+	
+	trackLength = [stream PopFloat];
+	s1Length = [stream PopFloat];
+	s2Length = [stream PopFloat];
+	sc1Length = [stream PopFloat];
+	sc2Length = [stream PopFloat];
 	
 	width = [inner width] > [outer width] ? [inner width] : [outer width];
 	height = [inner height] > [outer height] ? [inner height] : [outer height];

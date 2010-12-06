@@ -59,7 +59,7 @@
 	//float xmin = current_bottom_left_.x;
 	//float xmax = current_top_right_.x;
 				
-	NSString * text = [[self GetCellTextAtRow:row_index Col:3] retain];
+	NSString * text = [[self GetCellTextAtRow:row_index Col:2] retain];
 			
 	if(followingCar && [text isEqualToString:carToFollow])
 		[self SetBGColour:dark_magenta_];
@@ -152,7 +152,7 @@
 	int row = (int)((float)(y - ytop) / row_height);
 	
 	if(tableData && row < [tableData rows])
-	   return [self GetCellTextAtRow:row Col:3];
+	   return [self GetCellTextAtRow:row Col:2];
 	else
 		return nil;
 }

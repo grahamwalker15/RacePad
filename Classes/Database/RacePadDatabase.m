@@ -23,22 +23,26 @@ static RacePadDatabase *instance = nil;
 
 @synthesize eventName;
 @synthesize driverListData;
+@synthesize leaderBoardData;
 @synthesize driverData;
 @synthesize trackMap;
 @synthesize imageListStore;
 @synthesize pitWindow;
 @synthesize alertData;
 @synthesize telemetry;
+@synthesize driverNames;
 
 - (RacePadDatabase *)init
 {
 	driverListData = [[TableData alloc] init];
+	leaderBoardData = [[TableData alloc] init];
 	driverData = [[TableData alloc] init];
 	trackMap = [[TrackMap alloc] init];
 	imageListStore = [[ImageListStore alloc] init];
 	pitWindow = [[PitWindow alloc] init];
 	alertData = [[AlertData alloc] init];
 	telemetry = [[Telemetry alloc] init];
+	driverNames = [[DriverNames alloc] init];
 	
 	return self;
 }
@@ -46,6 +50,7 @@ static RacePadDatabase *instance = nil;
 - (void) dealloc
 {
 	[driverListData release];
+	[leaderBoardData release];
 	[driverData release];
 	[trackMap release];
 	[imageListStore release];

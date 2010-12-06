@@ -72,6 +72,16 @@
 	[self SimpleCommand:RPCS_STREAM_TIMING_PAGE];
 }
 
+- (void)RequestLeaderBoard
+{
+	[self SimpleCommand:RPCS_REQUEST_LEADER_BOARD];
+}
+
+- (void)StreamLeaderBoard
+{
+	[self SimpleCommand:RPCS_STREAM_LEADER_BOARD];
+}
+
 - (void)RequestCars
 {
 	[self SimpleCommand:RPCS_REQUEST_CARS];

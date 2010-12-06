@@ -32,6 +32,7 @@
 		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
 		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
+		4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; };
 		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
 		7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
 		7F06812A126DDA6800C9EE5D /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068125126DDA6800C9EE5D /* clock.png */; };
@@ -209,6 +210,8 @@
 		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
+		4DE8989512ACFA79000FEE9C /* DriverNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverNames.h; sourceTree = "<group>"; };
+		4DE8989612ACFA79000FEE9C /* DriverNames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverNames.m; sourceTree = "<group>"; };
 		7F067F4B126DAE1700C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
 		7F067F4C126DAE1700C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
 		7F068125126DDA6800C9EE5D /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clock.png; path = Images/clock.png; sourceTree = "<group>"; };
@@ -480,6 +483,8 @@
 			children = (
 				7F866023128ABEE300F13CB6 /* AlertData.h */,
 				7F866024128ABEE300F13CB6 /* AlertData.m */,
+				4DE8989512ACFA79000FEE9C /* DriverNames.h */,
+				4DE8989612ACFA79000FEE9C /* DriverNames.m */,
 				7FB1C59812673E9F008A6C94 /* ImageListStore.h */,
 				7FB1C59912673E9F008A6C94 /* ImageListStore.m */,
 				4D782600128989B100BE0329 /* PitWindow.h */,
@@ -945,6 +950,7 @@
 				7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */,
 				7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */,
 				7F767E6E12A68525009249F7 /* CarViewController.m in Sources */,
+				4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

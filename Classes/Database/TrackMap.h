@@ -153,6 +153,12 @@ enum TrackState {
 	float mapYOffset;	
 	float mapScale;
 	
+	float trackLength;
+	float s1Length;
+	float s2Length;
+	float sc1Length;
+	float sc2Length;
+	
 	NSMutableArray *lines;
 	NSMutableArray *labels;
 
@@ -169,6 +175,11 @@ enum TrackState {
 @property (nonatomic) float mapXOffset;
 @property (nonatomic) float mapYOffset;
 @property (nonatomic) float mapScale;
+@property (nonatomic) float trackLength;
+@property (nonatomic) float s1Length;
+@property (nonatomic) float s2Length;
+@property (nonatomic) float sc1Length;
+@property (nonatomic) float sc2Length;
 
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;

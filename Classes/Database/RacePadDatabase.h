@@ -13,27 +13,32 @@
 #import "ImageListStore.h"
 #import "PitWindow.h"
 #import "Telemetry.h"
+#import "DriverNames.h"
 
 @interface RacePadDatabase : NSObject
 {
 	NSString *eventName;
 	TableData *driverListData;
+	TableData *leaderBoardData;
 	TableData *driverData;
 	TrackMap *trackMap;
 	ImageListStore *imageListStore;
 	PitWindow *pitWindow;
 	AlertData * alertData;
 	Telemetry *telemetry;
+	DriverNames *driverNames;
 }
 
 @property (retain) NSString *eventName;
 @property (readonly) TableData *driverListData;
+@property (readonly) TableData *leaderBoardData;
 @property (readonly) TableData *driverData;
 @property (readonly) TrackMap *trackMap;
 @property (readonly) ImageListStore *imageListStore;
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;
 @property (readonly) Telemetry * telemetry;
+@property (readonly) DriverNames * driverNames;
 
 + (RacePadDatabase *)Instance;
 

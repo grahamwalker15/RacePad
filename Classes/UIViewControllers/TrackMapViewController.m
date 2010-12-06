@@ -45,7 +45,7 @@
 	
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 
- 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+ 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackZoomView];
 
 	// Add gesture recognizers
@@ -74,7 +74,7 @@
 	
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
-	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_DRIVER_LIST_VIEW_];
+	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

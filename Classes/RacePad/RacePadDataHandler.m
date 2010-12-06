@@ -199,6 +199,21 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
 			break;
 		}
+		case RPSC_WHOLE_LEADER_BOARD_: // Leader Board (whole page)
+		{
+			
+			TableData *leader_board = [[RacePadDatabase Instance] leaderBoardData];
+			[leader_board loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LEADER_BOARD_VIEW_];
+			break;
+		}
+		case RPSC_UPDATE_LEADER_BOARD_: // Leader Board (updates)
+		{
+			TableData *leader_board = [[RacePadDatabase Instance] leaderBoardData];
+			[leader_board updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LEADER_BOARD_VIEW_];
+			break;
+		}
 			
 		case RPSC_CARS_: // Track Map Cars
 		{
@@ -383,6 +398,12 @@
 			Telemetry *telemetry = [[RacePadDatabase Instance] telemetry];
 			[telemetry load:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TELEMETRY_VIEW_];
+			break;
+		}
+		case RPSC_DRIVER_NAMES_: // Driver Names
+		{
+			DriverNames *driverNames = [[RacePadDatabase Instance] driverNames];
+			[driverNames loadData:stream];
 			break;
 		}
 		default:

@@ -604,6 +604,10 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamTimingPage];
 				}
+				else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
+				{
+					[socket_ StreamLeaderBoard];
+				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
 					NSString * driver = [existing_view Parameter];					
@@ -645,6 +649,10 @@ static RacePadCoordinator * instance_ = nil;
 				if([existing_view Type] == RPC_DRIVER_LIST_VIEW_)
 				{
 					[socket_ RequestTimingPage];
+				}
+				else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
+				{
+					[socket_ RequestLeaderBoard];
 				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
@@ -1006,6 +1014,10 @@ static RacePadCoordinator * instance_ = nil;
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"timing.rpf"];
+	}
+	else if (type == RPC_LEADER_BOARD_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"leader.rpf"];
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
