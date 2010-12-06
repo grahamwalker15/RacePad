@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RacePadViewController.h"
 #import "SettingsViewController.h"
 
 
+@class RacePadViewController;
 @class RacePadClientSocket;
 @class RacePadDataHandler;
 @class ElapsedTime;
@@ -172,8 +172,8 @@ enum ConnectionTypes
 -(void)setTimer: (float)thisTime;
 -(void)timerUpdate: (NSTimer *)theTimer;
 
--(void)RegisterViewController:(UIViewController *)view_controller WithTypeMask:(int)mask;
--(void)ReleaseViewController:(UIViewController *)view_controller;
+-(void)RegisterViewController:(RacePadViewController *)view_controller WithTypeMask:(int)mask;
+-(void)ReleaseViewController:(RacePadViewController *)view_controller;
 
 -(void)AddView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;

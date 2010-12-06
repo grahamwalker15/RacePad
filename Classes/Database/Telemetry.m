@@ -81,9 +81,12 @@ static UIImage * redBarImage = nil;
 
 	// Draw outline
 	[view SaveGraphicsState];
-	[view SetLineWidth:3];
+	[view SetLineWidth:2];
+	[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
+	CGRect inner_rect = CGRectInset([view bounds], 2, 2);
+	[view LineRectangle:inner_rect];
 	[view SetFGColour:[view black_]];
-	CGRect inner_rect = CGRectInset([view bounds], 1, 1);
+	inner_rect = CGRectInset([view bounds], 4, 4);
 	[view LineRectangle:inner_rect];
 	[view RestoreGraphicsState];
 	

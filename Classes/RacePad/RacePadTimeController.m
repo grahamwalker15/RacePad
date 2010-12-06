@@ -8,8 +8,8 @@
 
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
+#import "RacePadViewController.h"
 #import "TimeViewController.h"
-#import "AlertViewController.h"
 
 @implementation RacePadTimeController
 
@@ -30,11 +30,10 @@ static RacePadTimeController * instance_ = nil;
 	if(self = [super init])
 	{	
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
-		alertController = [[AlertViewController alloc] initWithNibName:@"AlertControlView" bundle:nil];
-		alertPopover = [[UIPopoverController alloc] initWithContentViewController:alertController];
-		[alertController setParentPopover:alertPopover];
+		addOnOptionsView = nil;
 		
 		displayed = false;
+		hiding = false;
 		hideTimer = nil;
 	}
 	
@@ -45,6 +44,7 @@ static RacePadTimeController * instance_ = nil;
 - (void)dealloc
 {
 	[timeController release];
+	[addOnOptionsView release];
     [super dealloc];
 }
 
@@ -54,27 +54,62 @@ static RacePadTimeController * instance_ = nil;
 {
 }
 
-- (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated
-{
-	//[viewController presentModalViewController:timeController animated:true];
+- (void) displayInViewController:(RacePadViewController *)viewController Animated:(bool)animated
+{	
+	// Can't display if we're in the middle of hiding
+	if(hiding)
+		return;
 	
+	// Release any existing add on from an old view controller
+	if(addOnOptionsView)
+	{
+		[addOnOptionsView release];
+		addOnOptionsView = nil;
+	}
+	
+	// Get the new add on
+	addOnOptionsView = [[viewController timeControllerAddOnOptionsView] retain];
+	
+	// Get the new positions
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
 	
-	CGRect frame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, 60);
-	[timeController.view setFrame:frame];
+	CGRect timeFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, 60);
+	[timeController.view setFrame:timeFrame];
+	
+	if(addOnOptionsView)
+	{
+		CGRect options_bounds = [addOnOptionsView bounds];
+		CGRect optionsFrame = CGRectMake(super_bounds.origin.x + (super_bounds.size.width - options_bounds.size.width) / 2, timeFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
+		[addOnOptionsView setFrame:optionsFrame];
+	}
 
 	if(animated)
+	{
 		[timeController.view setAlpha:0.0];
+		if(addOnOptionsView)
+		{
+			[addOnOptionsView setAlpha:0.0];
+		}
+	}
 	
 	[viewController.view addSubview:timeController.view];
 	[self updatePlayButton];
 	
+	if(addOnOptionsView)
+	{
+		[viewController.view addSubview:addOnOptionsView];
+	}
+
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.5];
 		[timeController.view setAlpha:1.0];
+		if(addOnOptionsView)
+		{
+			[addOnOptionsView setAlpha:1.0];
+		}
 		[UIView commitAnimations];
 	}
 	
@@ -103,14 +138,26 @@ static RacePadTimeController * instance_ = nil;
 
 - (void) hide
 {
+	hiding = true;
+	
+	if(hideTimer)
+	{
+		[hideTimer invalidate];
+		hideTimer = nil;
+	}
+
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];
-	[UIView commitAnimations];
 	
-	[alertPopover dismissPopoverAnimated:true];
+	if(addOnOptionsView)
+	{
+		[addOnOptionsView setAlpha:0.0];
+	}
+	
+	[UIView commitAnimations];
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -119,6 +166,17 @@ static RacePadTimeController * instance_ = nil;
 	{
 		[timeController.view removeFromSuperview];
 		displayed = false;
+		
+		// Release any existing add on from an old view controller
+		if(addOnOptionsView)
+		{
+			[addOnOptionsView removeFromSuperview];
+			[addOnOptionsView release];
+			addOnOptionsView = nil;
+		}
+		
+		hiding = false;
+		
 	}
 }
 

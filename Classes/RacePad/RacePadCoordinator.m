@@ -7,6 +7,7 @@
 //
 
 #import "RacePadCoordinator.h"
+#import "RacePadViewController.h"
 #import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
 #import "RacePadClientSocket.h"
@@ -675,7 +676,7 @@ static RacePadCoordinator * instance_ = nil;
 // Registration etc. of "interested" views - used to tell the server what data to send
 ////////////////////////////////////////////////////////////////////////////////////////
 
--(void)RegisterViewController:(UIViewController *)view_controller WithTypeMask:(int)mask
+-(void)RegisterViewController:(RacePadViewController *)view_controller WithTypeMask:(int)mask
 {
 	// If nil is passed, just release any existing one
 	if(!view_controller)

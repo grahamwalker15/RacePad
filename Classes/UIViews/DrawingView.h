@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIConstants.h"
 
 @interface DrawingView : UIScrollView
 {
@@ -93,7 +94,7 @@
 - (UIColor *)CreateShadowColourFromColour:(UIColor *)source;
 
 // Basic utilities
-- (UIDeviceOrientation)inqDeviceOrientation;
+- (int)inqDeviceOrientation;
 - (CGSize)InqSize;
 
 - (bool)CreateBitmapContext;

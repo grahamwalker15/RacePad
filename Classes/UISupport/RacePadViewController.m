@@ -51,9 +51,9 @@
     [super dealloc];
 }
 
-- (UIView *) baseView
+- (UIView *) timeControllerAddOnOptionsView
 {
-	return [self view];
+	return nil;
 }
 
 - (void) RequestRedrawForType:(int)type

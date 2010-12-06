@@ -9,17 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @class TimeViewController;
-@class AlertViewController;
 
 @interface RacePadTimeController : NSObject
 {
 	TimeViewController * timeController;
-	AlertViewController * alertController;
-	UIPopoverController * alertPopover;
+	
+	UIView * addOnOptionsView;
 	
 	NSTimer *hideTimer;
 
 	bool displayed;
+	bool hiding;
 }
 
 @property(nonatomic) bool displayed;

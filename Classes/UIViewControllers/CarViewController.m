@@ -32,10 +32,12 @@
 	// Set parameters for views
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
+	trackMapExpanded = false;
+	backupUserScale = 1.0;	// Used for switching track map mode between zoom and full
 	[trackMapView setIsZoomView:true];
 	
 	[trackMapView setUserScale:10.0];
-	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
+	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];	
 	
 	//  Add extra gesture recognizers
 	
@@ -76,6 +78,7 @@
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Set paramters for views
+
 	if(car == UI_BLUE_CAR_)
 	{
 		[telemetryView setCar:UI_BLUE_CAR_];
@@ -132,8 +135,10 @@
 	
 	[telemetryView setAlpha:0.0];
 	[pitWindowView setAlpha:0.0];
+	[trackMapContainer setAlpha:0.0];
 	[telemetryView setHidden:false];
 	[pitWindowView setHidden:false];
+	[trackMapContainer setHidden:false];
 	
 	[self positionOverlays];
 	
@@ -142,6 +147,7 @@
 	[UIView setAnimationDelegate:self];
 	[telemetryView setAlpha:1.0];
 	[pitWindowView setAlpha:1.0];
+	[trackMapContainer setAlpha:1.0];
 	[UIView commitAnimations];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -185,10 +191,10 @@
 	
 	int mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
 	
-	CGRect mapRect = CGRectMake(telemetry_frame.size.width - mapWidth -10, (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+	CGRect mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
 	
 	[trackMapContainer setFrame:mapRect];
-	[telemetryView setMapRect:mapRect];
+	[telemetryView setMapRect:CGRectOffset(mapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
 	
 	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
 }
@@ -197,7 +203,9 @@
 {
 	[telemetryView setHidden:false];
 	[pitWindowView setHidden:false];
+	[trackMapContainer setHidden:false];
 	[telemetryView setAlpha:1.0];
+	[trackMapContainer setAlpha:1.0];
 	[pitWindowView setAlpha:1.0];
 }
 
@@ -205,6 +213,7 @@
 {
 	[telemetryView setHidden:true];
 	[pitWindowView setHidden:true];
+	[trackMapContainer setHidden:true];
 }
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
@@ -257,6 +266,43 @@
 		[(PitWindowView *)gestureView adjustPanX:x Y:y];	
 		[(PitWindowView *)gestureView RequestRedraw];
 	}
+}
+
+- (IBAction) trackMapSizeChanged
+{
+	// Get the device orientation and set things up accordingly
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
+	
+	CGRect telemetry_frame = [telemetryView frame];
+	
+	int mapWidth;	
+	CGRect mapRect;
+	
+	trackMapExpanded = !trackMapExpanded;
+	
+	if(trackMapExpanded)
+	{
+		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		[trackMapView setIsZoomView:false];
+	}
+	else
+	{
+		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+		[trackMapView setIsZoomView:true];
+	}
+	
+	float tempUserScale = [trackMapView userScale];
+	[trackMapView setUserScale:backupUserScale];
+	backupUserScale = tempUserScale;
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[trackMapContainer setFrame:mapRect];
+	[UIView commitAnimations];
+	
+	[telemetryView setMapRect:CGRectOffset(mapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
 }
 
 @end

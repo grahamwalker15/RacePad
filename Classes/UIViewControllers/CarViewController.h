@@ -24,8 +24,12 @@
 	IBOutlet PitWindowView * pitWindowView;
 	
 	IBOutlet BackgroundView *trackMapContainer;
+	IBOutlet UIButton *trackMapSizeButton;
 	
 	int car;
+	
+	bool trackMapExpanded;
+	float backupUserScale;
 }
 
 @property (nonatomic) int car;
@@ -33,6 +37,8 @@
 - (void)positionOverlays;
 - (void)showOverlays;
 - (void)hideOverlays;
+
+- (IBAction) trackMapSizeChanged;
 
 @end
 

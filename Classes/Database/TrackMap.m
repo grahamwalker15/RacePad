@@ -786,9 +786,9 @@
 
 - (void) constructTransformMatrixForView:(TrackMapView *)view
 {
-	NSString * carToFollow = [view carToFollow];
+	NSString * carToFollow = [view isZoomView] ? [view carToFollow] : nil;
 	
-	if([carToFollow length] > 0)
+	if(carToFollow && [carToFollow length] > 0)
 	{
 		// Get dimensions of current view and the position of the follow car
 		CGRect map_rect = [view bounds];

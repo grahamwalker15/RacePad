@@ -23,7 +23,8 @@
 	UIView * tapView;
 }
 
-- (UIView *) baseView;
+// Virtual method to be overwritten if you want any other options to appear with time controller
+- (UIView *) timeControllerAddOnOptionsView;
 
 // Virtual method to be overwritten in order to update any title bars etc.
 - (void) RequestRedrawForType:(int)type;

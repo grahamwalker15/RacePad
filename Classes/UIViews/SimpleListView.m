@@ -9,7 +9,6 @@
 #import "SimpleListView.h"
 #import "TableData.h"
 
-
 @implementation SimpleListView
 
 @synthesize base_colour_;
@@ -178,8 +177,8 @@
 - (int) TableWidth
 {
 	// Get the device orientation
-	UIDeviceOrientation orientation = [self inqDeviceOrientation];
-	portraitMode = (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown);
+	int orientation = [self inqDeviceOrientation];
+	portraitMode = (orientation == UI_ORIENTATION_PORTRAIT_);
 
 	// Work out width
 	int w = 0;
@@ -442,8 +441,8 @@
 - (void) Draw:(CGRect)region
 {
 	// Get the device orientation
-	UIDeviceOrientation orientation = [self inqDeviceOrientation];
-	portraitMode = (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown);
+	int orientation = [self inqDeviceOrientation];
+	portraitMode = (orientation == UI_ORIENTATION_PORTRAIT_);
 
 	// Prepare any data specific to a derived class
 	[self PrepareData];
@@ -614,6 +613,12 @@
 	int col = 0;
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
 	{
+		// Do we draw this column
+		if(portraitMode && [self ColumnUse:i] == TD_USE_FOR_LANDSCAPE)
+			continue;
+		else if(!portraitMode && [self ColumnUse:i] == TD_USE_FOR_PORTRAIT)
+			continue;
+
 		w += [self ColumnWidth:i];
 		if(w >= x)
 		{

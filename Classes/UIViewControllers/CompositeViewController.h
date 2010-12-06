@@ -23,7 +23,10 @@
 	IBOutlet BackgroundView * trackZoomContainer;
 	IBOutlet TrackMapView * trackZoomView;
 	IBOutlet LeaderboardView *leaderboardView;
-	
+
+	IBOutlet UIView *optionContainer;;
+	IBOutlet UISegmentedControl *optionSwitches;
+
 	MPMoviePlayerController * moviePlayer;
 	CGSize movieSize;
 	CGRect movieRect;
@@ -60,5 +63,7 @@
 - (void) movieSizeCallback:(NSNotification*) aNotification;
 - (void) movieFinishedCallback:(NSNotification*) aNotification;
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
+- (IBAction) optionSwitchesHit:(id)sender;
 
 @end

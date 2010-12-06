@@ -20,25 +20,17 @@
 @synthesize displayMap;
 @synthesize displayLeaderboard;
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
- - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
- if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
- // Custom initialization
- }
- return self;
- }
- */
-
-/*
- // Implement loadView to create a view hierarchy programmatically, without using a nib.
- - (void)loadView {
- }
- */
-
-
 - (void)viewDidLoad
 {	
+	// Initialise display options
+	displayMap = true;
+	displayLeaderboard = true;
+
+	// Remove the optionsSwitches from the view - they will get re-added when the timecontroller is displayed
+	// Retain them so that they are always available to be displayed
+	[optionContainer retain];
+	[optionContainer removeFromSuperview];
+	
 	// Set the types on the two map views
 	[trackMapView setIsZoomView:false];
 	[trackZoomView setIsZoomView:true];
@@ -140,17 +132,34 @@
 	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+	
+	if(displayMap)
+	{
+		[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+		[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+	}
+	
+	if(displayLeaderboard)
+	{
+		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] SetViewHidden:movieView];
-	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
-	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-	[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+
+	if(displayMap)
+	{
+		[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+		[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+	}
+	
+	if(displayLeaderboard)
+	{
+		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	}
+	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	[moviePlayer stop];
@@ -173,6 +182,9 @@
 
 - (void)viewDidUnload
 {	
+	[optionContainer release];
+	optionContainer = nil;
+
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -278,29 +290,51 @@
 	[moviePlayer setInitialPlaybackTime:movie_time];
 }
 
+/////////////////////////////////////////////////////////////////////
+// Overlay Controls
+
+- (UIView *) timeControllerAddOnOptionsView
+{
+	return optionContainer;
+}
+
 - (void) showOverlays
 {
 	bool showZoomMap = ([trackZoomView carToFollow] != nil);
 	
-	[trackMapView setAlpha:0.0];
- 	[trackMapView setHidden:false];
- 	[leaderboardView setAlpha:0.0];
- 	[leaderboardView setHidden:false];
-	
-	if(showZoomMap)
+	if(displayMap)
 	{
-		[trackZoomContainer setAlpha:0.0];
-		[trackZoomContainer setHidden:false];
+		[trackMapView setAlpha:0.0];
+		[trackMapView setHidden:false];
+		
+		if(showZoomMap)
+		{
+			[trackZoomContainer setAlpha:0.0];
+			[trackZoomContainer setHidden:false];
+		}
 	}
 	
+	if(displayLeaderboard)
+	{
+		[leaderboardView setAlpha:0.0];
+		[leaderboardView setHidden:false];
+	}
+
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
-  	[trackMapView setAlpha:1.0];
-  	[leaderboardView setAlpha:1.0];
-	
-	if(showZoomMap)
+	if(displayMap)
 	{
-		[trackZoomContainer setAlpha:1.0];
+		[trackMapView setAlpha:1.0];
+		
+		if(showZoomMap)
+		{
+			[trackZoomContainer setAlpha:1.0];
+		}
+	}
+	
+	if(displayLeaderboard)
+	{
+		[leaderboardView setAlpha:1.0];
 	}
 	
 	[UIView commitAnimations];
@@ -385,7 +419,7 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if([gestureView isKindOfClass:[leaderboardView class]])
+	if([gestureView isKindOfClass:[leaderboardView class]] && displayMap)
 	{
 		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
 		
@@ -415,9 +449,13 @@
 		RacePadTimeController * time_controller = [RacePadTimeController Instance];
 	
 		if(![time_controller displayed])
+		{
 			[time_controller displayInViewController:self Animated:true];
+		}
 		else
+		{
 			[time_controller hide];
+		}
 	}
 }
 
@@ -549,6 +587,43 @@
 		[self positionOverlays];
 		[self showOverlays];
 	}
+}
+
+- (IBAction) optionSwitchesHit:(id)sender
+{
+	// Switches are displayed via the time controller
+	// Reset the hide timer on this
+	[[RacePadTimeController Instance] setHideTimer];
+	
+	int selectedSegment = [optionSwitches selectedSegmentIndex];
+	
+	if(selectedSegment == 0)
+	{
+		displayMap = false;
+		displayLeaderboard = false;
+		[trackMapView setHidden:true];
+		[trackZoomContainer setHidden:true];
+		[leaderboardView setHidden:true];
+		[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+		[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+	}
+	else
+	{
+		displayMap = true;
+		displayLeaderboard = true;
+		[trackMapView setHidden:false];
+		[trackZoomContainer setHidden:false];
+		[leaderboardView setHidden:false];
+		
+		[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+		[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+		
+		[trackMapView RequestRedraw];
+		[leaderboardView RequestRedraw];
+	}	
+
 }
 
 @end
