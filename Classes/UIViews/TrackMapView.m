@@ -19,6 +19,10 @@
 @synthesize userYOffset;
 @synthesize userScale;
 @synthesize carToFollow;
+@synthesize isAnimating;
+@synthesize animationScaleTarget;
+@synthesize animationAlpha;
+@synthesize animationDirection;
 
 static UIImage * greenFlagImage = nil;
 static UIImage * yellowFlagImage = nil;
@@ -90,6 +94,10 @@ static bool flag_images_initialised_ = false;
 	
 	isZoomView = false;
 	
+	isAnimating = false;
+	animationDirection = 0;
+	animationAlpha = 0.0;
+	
 	carToFollow = nil;
 }
 
@@ -116,6 +124,14 @@ static bool flag_images_initialised_ = false;
 		[scinFlagImage retain];
 	}
 
+}
+
+- (float) interpolatedUserScale
+{
+	if(isAnimating)
+		return ((1.0 - animationAlpha) * userScale + animationAlpha * animationScaleTarget);
+	else
+		return userScale;
 }
 
 - (void) followCar:(NSString *)name

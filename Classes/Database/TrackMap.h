@@ -190,7 +190,7 @@ enum TrackState {
 - (void) drawInView:(TrackMapView *)view;
 
 - (void) constructTransformMatrixForView:(TrackMapView *)view;
-- (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset;
+- (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y;
 - (void) adjustScaleInView:(TrackMapView *)view Scale:(float)scale X:(float)x Y:(float)y;
 - (void) adjustPanInView:(TrackMapView *)view X:(float)x Y:(float)y;
 

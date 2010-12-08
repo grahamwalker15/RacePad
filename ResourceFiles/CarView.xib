@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
+			<integer value="12"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -85,14 +85,13 @@
 										<reference key="IBUIBackgroundColor" ref="854673127"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
-										<int key="IBUIContentMode">3</int>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 									</object>
-									<object class="IBUIButton" id="148865131">
+									<object class="IBUIButton" id="471919718">
 										<reference key="NSNextResponder" ref="221130288"/>
 										<int key="NSvFlags">289</int>
-										<string key="NSFrame">{{210, 10}, {20, 20}}</string>
+										<string key="NSFrame">{{216, 4}, {20, 20}}</string>
 										<reference key="NSSuperview" ref="221130288"/>
 										<reference key="IBUIBackgroundColor" ref="854673127"/>
 										<bool key="IBUIOpaque">NO</bool>
@@ -130,7 +129,6 @@
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">3</int>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
@@ -151,6 +149,7 @@
 						<int key="NSID">2</int>
 					</object>
 				</object>
+				<int key="IBUIContentMode">3</int>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
 				</object>
@@ -212,14 +211,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">trackMapSizeButton</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="148865131"/>
+						<reference key="destination" ref="471919718"/>
 					</object>
 					<int key="connectionID">28</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">trackMapSizeChanged</string>
-						<reference key="source" ref="148865131"/>
+						<reference key="source" ref="471919718"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -284,14 +283,14 @@
 						<reference key="object" ref="221130288"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="148865131"/>
+							<reference ref="471919718"/>
 							<reference ref="149056820"/>
 						</object>
 						<reference key="parent" ref="1044748747"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">27</int>
-						<reference key="object" ref="148865131"/>
+						<reference key="object" ref="471919718"/>
 						<reference key="parent" ref="221130288"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -341,7 +340,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUP+AABDEAAAA</bytes>
 					</object>
-					<string>{{210, -45}, {783, 776}}</string>
+					<string>{{385, 89}, {783, 767}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">

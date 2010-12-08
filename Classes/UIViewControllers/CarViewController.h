@@ -15,6 +15,8 @@
 @class TrackMapView;
 @class BackgroundView;
 
+@class AnimationTimer;
+
 @interface CarViewController : RacePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
@@ -30,6 +32,10 @@
 	
 	bool trackMapExpanded;
 	float backupUserScale;
+	
+	AnimationTimer * animationTimer;
+	CGRect animationRectStart;
+	CGRect animationRectEnd;	
 }
 
 @property (nonatomic) int car;
@@ -39,6 +45,8 @@
 - (void)hideOverlays;
 
 - (IBAction) trackMapSizeChanged;
+- (void) trackMapSizeAnimationDidFire:(id)alphaPtr;
+- (void) trackMapSizeAnimationDidStop;
 
 @end
 

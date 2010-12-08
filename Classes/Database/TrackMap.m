@@ -741,7 +741,7 @@
 	
 	[self constructTransformMatrixForView:view];
 	
-	float scale = mapScale * [view userScale];
+	float scale = mapScale * [view interpolatedUserScale]; // Usually just userScale unless animating
 	[self drawTrack:view Scale:scale];
 	
 	[view RestoreGraphicsState];
@@ -803,42 +803,66 @@
 	{
 		// Get dimensions of current view and the position of the follow car
 		CGRect map_rect = [view bounds];
-		CGSize viewSize = map_rect.size;
+		
 		CGPoint followCarPos = [self getCarPositionByLabel:carToFollow];
 		
-		[view SaveGraphicsState];
+		// Adjust the parameters if we are animating from zoom to full view (o vice versa)
+		if([view isAnimating])
+		{
+			float alpha = [view animationAlpha];
+			float userScale = [view userScale];
+			int direction = [view animationDirection];
+			float s1, s2;
 		
-		[self constructTransformMatrixForView:view WithCarOffsetX:0 Y:0];
-		
-		CGPoint tp = [view TransformPoint:followCarPos];
-		tp.y = viewSize.height - tp.y;
-		
-		float userScale = [view userScale];
-		CGPoint centre = CGPointMake(xCentre / userScale, -yCentre /userScale);
-		CGPoint tc = [view TransformPoint:centre];
-		tc.y = viewSize.height - tc.y;
-		
-		float carXOffset = (tc.x - tp.x);
-		float carYOffset = (tc.y - tp.y);
-		
-		[view RestoreGraphicsState];
-		
-		[self constructTransformMatrixForView:view WithCarOffsetX:carXOffset Y:carYOffset];
+			float s = [view interpolatedUserScale];
+
+			if(direction == 1)
+			{
+				s1 = userScale;
+				s2 = [view animationScaleTarget];
+			}
+			else
+			{
+				s1 = [view animationScaleTarget];
+				s2 = userScale;
+				alpha = 1.0 - alpha;
+			}
+									
+			// Calculate centre of transformation such that the car position varies linearly with
+			// alpha from the centre to it's 1:1 track position.
+			// Note : only works correctly with square maps
+			
+			float carX = followCarPos.x;
+			float carY = followCarPos.y;
+			float cX = xCentre;
+			float cY = -yCentre;
+			
+			float dX = 2 * ( carX - cX) * s2;
+			float dY = 2 * ( carY - cY) * s2;
+			
+			float x = carX - (dX * alpha) / (s * 2.0);
+			float y = carY - (dY * alpha) / (s * 2.0);
+			
+			[self constructTransformMatrixForView:view WithCentreX:x Y:y];
+		}
+		else
+		{
+			[self constructTransformMatrixForView:view WithCentreX:followCarPos.x Y:followCarPos.y];
+		}
 	}
 	else
 	{
-		[self constructTransformMatrixForView:view WithCarOffsetX:0 Y:0];
+		[self constructTransformMatrixForView:view WithCentreX:xCentre Y:-yCentre];
 	}
 }
 
-- (void) constructTransformMatrixForView:(TrackMapView *)view WithCarOffsetX:(float)carXOffset Y:(float)carYOffset
+- (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y
 {
 	// Constructs the transform matrix, stores it, and leaves it current
 	
 	// Get dimensions of current view
 	CGRect map_rect = [view bounds];
 		
-	CGPoint viewOrigin = map_rect.origin;
 	CGSize viewSize = map_rect.size;
 	
 	// Centre the map as big as possible in the rectangle
@@ -849,19 +873,20 @@
 	
 	mapScale = mapScale * 0.9;
 	
-	mapXOffset = viewOrigin.x + viewSize.width * 0.5 - xCentre * mapScale  ;
-	mapYOffset = viewSize.height - (viewOrigin.y + viewSize.height * 0.5 - yCentre * mapScale)  ;
+	mapXOffset = viewSize.width * 0.5 - xCentre  ;
+	mapYOffset = viewSize.height * 0.5 + yCentre ;
 	
-	float scale = mapScale * [view userScale];
+	float userScale = [view interpolatedUserScale];
 	float userXOffset = [view userXOffset];
 	float userYOffset = [view userYOffset];
 	
+	//  And build the matrix
 	[view ResetTransformMatrix];
 	
-	[view SetTranslateX:carXOffset Y:carYOffset];	
 	[view SetTranslateX:userXOffset * viewSize.width Y:userYOffset * viewSize.height];	
 	[view SetTranslateX:mapXOffset Y:mapYOffset];
-	[view SetScale:scale];
+	[view SetScale:mapScale * userScale];
+	[view SetTranslateX:-x Y:-y];
 	
 	[view StoreTransformMatrix];	
 }

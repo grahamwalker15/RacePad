@@ -71,6 +71,7 @@
 		7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BB127577FE00EF2B8C /* RightArrow.png */; };
 		7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB8981275F11400EF2B8C /* TimeControlView.xib */; };
 		7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */; };
+		7F71A4AB12AFDEBD0052C70C /* AnimationTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */; };
 		7F767CA812A62EC9009249F7 /* BlueBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA612A62EC9009249F7 /* BlueBar.png */; };
 		7F767CA912A62EC9009249F7 /* RedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA712A62EC9009249F7 /* RedBar.png */; };
 		7F767CC212A6300D009249F7 /* GraphPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CC112A6300D009249F7 /* GraphPaper.png */; };
@@ -264,6 +265,8 @@
 		7F6FB8981275F11400EF2B8C /* TimeControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
 		7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadTimeController.h; sourceTree = "<group>"; };
 		7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTimeController.m; sourceTree = "<group>"; };
+		7F71A4A912AFDEBD0052C70C /* AnimationTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationTimer.h; sourceTree = "<group>"; };
+		7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationTimer.m; sourceTree = "<group>"; };
 		7F767CA612A62EC9009249F7 /* BlueBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBar.png; path = Images/BlueBar.png; sourceTree = "<group>"; };
 		7F767CA712A62EC9009249F7 /* RedBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedBar.png; path = Images/RedBar.png; sourceTree = "<group>"; };
 		7F767CC112A6300D009249F7 /* GraphPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GraphPaper.png; path = Images/GraphPaper.png; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 		7F9C1725125A2B9000770746 /* Constructs */ = {
 			isa = PBXGroup;
 			children = (
+				7F71A4A912AFDEBD0052C70C /* AnimationTimer.h */,
+				7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */,
 				7F11F64B127197B800C88544 /* ElapsedTime.h */,
 				7F11F64C127197B800C88544 /* ElapsedTime.m */,
 				4D757B79126F01B700E32C41 /* BufferedDataStream.h */,
@@ -951,6 +956,7 @@
 				7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */,
 				7F767E6E12A68525009249F7 /* CarViewController.m in Sources */,
 				4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */,
+				7F71A4AB12AFDEBD0052C70C /* AnimationTimer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

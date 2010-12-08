@@ -14,12 +14,13 @@
 
 #import "RacePadDatabase.h"
 #import "Telemetry.h"
-#import "Telemetry.h"
 
 #import "TrackMapView.h"
 #import "TelemetryView.h"
 #import "PitWindowView.h"
 #import "BackgroundView.h"
+
+#import "AnimationTimer.h"
 
 #import "UIConstants.h"
 
@@ -37,7 +38,7 @@
 	[trackMapView setIsZoomView:true];
 	
 	[trackMapView setUserScale:10.0];
-	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];	
+	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
 	
 	//  Add extra gesture recognizers
 	
@@ -94,6 +95,8 @@
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
 	}
 	
+	animationTimer = nil;
+	
 	// Resize overlay views to match background
 	[self showOverlays];
 	[self positionOverlays];
@@ -114,6 +117,9 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
+	if(animationTimer)
+		[animationTimer kill];
+	
 	[[RacePadCoordinator Instance] SetViewHidden:telemetryView];
 	[[RacePadCoordinator Instance] SetViewHidden:pitWindowView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
@@ -125,6 +131,9 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+	if(animationTimer)
+		[animationTimer kill];
+	
 	[self hideOverlays];
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
@@ -270,39 +279,70 @@
 
 - (IBAction) trackMapSizeChanged
 {
+	// Make sure we don't animate twice
+	if([trackMapView isAnimating])
+		return;
+	
 	// Get the device orientation and set things up accordingly
 	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 	
 	CGRect telemetry_frame = [telemetryView frame];
 	
-	int mapWidth;	
-	CGRect mapRect;
-	
 	trackMapExpanded = !trackMapExpanded;
+	
+	animationRectStart = [trackMapContainer frame];
 	
 	if(trackMapExpanded)
 	{
-		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
-		[trackMapView setIsZoomView:false];
+		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
+		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
 	}
 	else
 	{
-		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
-		[trackMapView setIsZoomView:true];
+		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
 	}
 	
+	[trackMapView setIsAnimating:true];
+	[trackMapView setIsZoomView:true];
+	[trackMapView setAnimationScaleTarget:backupUserScale];
+	
+	animationTimer = [[AnimationTimer alloc] initWithDuration:1.0 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
+}
+
+- (void) trackMapSizeAnimationDidFire:(id)alphaPtr
+{
+	float alpha = * (float *)alphaPtr;
+	
+	float x = (1.0 - alpha) * animationRectStart.origin.x + alpha * animationRectEnd.origin.x;
+	float y = (1.0 - alpha) * animationRectStart.origin.y + alpha * animationRectEnd.origin.y;
+	float w = (1.0 - alpha) * animationRectStart.size.width + alpha * animationRectEnd.size.width;
+	float h = (1.0 - alpha) * animationRectStart.size.height + alpha * animationRectEnd.size.height;
+	
+	[trackMapContainer setFrame:CGRectMake(x, y, w, h)];
+	[trackMapView setFrame:CGRectMake(0, 0, w, h)];
+	[trackMapSizeButton setFrame:CGRectMake(w - 24, 4, 20, 20)];
+	[trackMapView setAnimationAlpha:(trackMapExpanded ? sqrt (alpha) : alpha * alpha)];
+	[trackMapView setAnimationDirection:(trackMapExpanded ? 1 : -1)];
+	[trackMapView RequestRedraw];
+}
+
+- (void) trackMapSizeAnimationDidStop
+{
+	[trackMapView setIsAnimating:false];
 	float tempUserScale = [trackMapView userScale];
 	[trackMapView setUserScale:backupUserScale];
 	backupUserScale = tempUserScale;
 	
-	[UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-	[trackMapContainer setFrame:mapRect];
-	[UIView commitAnimations];
+	[animationTimer release];
+	animationTimer = nil;
 	
-	[telemetryView setMapRect:CGRectOffset(mapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
+	if(trackMapExpanded)
+		[trackMapView setIsZoomView:false];
+	else
+		[trackMapView setIsZoomView:true];
+	
+	[trackMapView RequestRedraw];
 }
 
 @end
