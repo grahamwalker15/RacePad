@@ -34,6 +34,7 @@
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
 	trackMapExpanded = false;
+	trackMapPinched = false;
 	backupUserScale = 1.0;	// Used for switching track map mode between zoom and full
 	[trackMapView setIsZoomView:true];
 	
@@ -198,14 +199,29 @@
 	
 	CGRect telemetry_frame = [telemetryView frame];
 	
-	int mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+	CGRect mapRect;
+	CGRect normalMapRect;
+	float mapWidth;
 	
-	CGRect mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+	if(trackMapExpanded)
+	{
+		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		float normalMapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		normalMapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - normalMapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - normalMapWidth) / 2, normalMapWidth, normalMapWidth);
+	}
+	else
+	{
+		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+		normalMapRect = mapRect;
+	}
 	
 	[trackMapContainer setFrame:mapRect];
-	[telemetryView setMapRect:CGRectOffset(mapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
+	[telemetryView setMapRect:CGRectOffset(normalMapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
 	
 	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
+	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
 }
 
 - (void)showOverlays
@@ -225,6 +241,19 @@
 	[trackMapContainer setHidden:true];
 }
 
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	if([gestureView isKindOfClass:[TrackMapView class]] || [gestureView isKindOfClass:[UIButton class]])
+		return;
+	
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	if(![time_controller displayed])
+		[time_controller displayInViewController:self Animated:true];
+	else
+		[time_controller hide];
+}
+
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
 	if(!gestureView)
@@ -232,11 +261,16 @@
 	
 	if([gestureView isKindOfClass:[TrackMapView class]])
 	{
-		RacePadDatabase *database = [RacePadDatabase Instance];
-		TrackMap *trackMap = [database trackMap];
-	
-		[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
-		[(TrackMapView *)gestureView RequestRedraw];
+		if(!trackMapExpanded)
+		{
+			RacePadDatabase *database = [RacePadDatabase Instance];
+			TrackMap *trackMap = [database trackMap];
+		
+			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
+			[(TrackMapView *)gestureView RequestRedraw];
+			
+			trackMapPinched = true;
+		}
 	}
 	else if([gestureView isKindOfClass:[PitWindowView class]])
 	{
@@ -252,8 +286,17 @@
 	
 	if([gestureView isKindOfClass:[TrackMapView class]])
 	{
-		[(TrackMapView *)gestureView setUserScale:10.0];
-		[(TrackMapView *)gestureView RequestRedraw];
+		if(trackMapExpanded || !trackMapPinched)
+		{
+			[self trackMapSizeChanged];
+		}
+		else
+		{
+			[(TrackMapView *)gestureView setUserScale:10.0];
+			[(TrackMapView *)gestureView RequestRedraw];
+			
+			trackMapPinched = false;
+		}
 	}
 	else if([gestureView isKindOfClass:[PitWindowView class]])
 	{
@@ -303,6 +346,10 @@
 		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
 	}
 	
+	[trackMapSizeButton setHidden:true];
+	[[RacePadCoordinator Instance] DisableViewRefresh:trackMapView];
+
+	[trackMapView setAnimationAlpha:0.0];
 	[trackMapView setIsAnimating:true];
 	[trackMapView setIsZoomView:true];
 	[trackMapView setAnimationScaleTarget:backupUserScale];
@@ -321,7 +368,6 @@
 	
 	[trackMapContainer setFrame:CGRectMake(x, y, w, h)];
 	[trackMapView setFrame:CGRectMake(0, 0, w, h)];
-	[trackMapSizeButton setFrame:CGRectMake(w - 24, 4, 20, 20)];
 	[trackMapView setAnimationAlpha:(trackMapExpanded ? sqrt (alpha) : alpha * alpha)];
 	[trackMapView setAnimationDirection:(trackMapExpanded ? 1 : -1)];
 	[trackMapView RequestRedraw];
@@ -329,6 +375,9 @@
 
 - (void) trackMapSizeAnimationDidStop
 {
+	[trackMapContainer setFrame:animationRectEnd];
+	[trackMapView setFrame:CGRectMake(0, 0, animationRectEnd.size.width, animationRectEnd.size.height)];
+
 	[trackMapView setIsAnimating:false];
 	float tempUserScale = [trackMapView userScale];
 	[trackMapView setUserScale:backupUserScale];
@@ -338,11 +387,21 @@
 	animationTimer = nil;
 	
 	if(trackMapExpanded)
+	{
 		[trackMapView setIsZoomView:false];
+		[trackMapSizeButton setImage:[UIImage imageNamed:@"SmallScreen.png"] forState:UIControlStateNormal];
+	}
 	else
+	{
 		[trackMapView setIsZoomView:true];
+		[trackMapSizeButton setImage:[UIImage imageNamed:@"FullScreen.png"] forState:UIControlStateNormal];
+	}
 	
+	[trackMapSizeButton setFrame:CGRectMake(4, [trackMapContainer bounds].size.height - 24, 20, 20)];
+	[trackMapSizeButton setHidden:false];
+
 	[trackMapView RequestRedraw];
+	[[RacePadCoordinator Instance] EnableViewRefresh:trackMapView];
 }
 
 @end

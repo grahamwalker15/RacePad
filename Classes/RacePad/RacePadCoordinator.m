@@ -748,7 +748,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 }
 
--(void)ReleaseViewController:(UIViewController *)view_controller
+-(void)ReleaseViewController:(RacePadViewController *)view_controller
 {
 	if(registeredViewController == view_controller)
 	{
@@ -794,26 +794,6 @@ static RacePadCoordinator * instance_ = nil;
 	[new_view release];
 }
 
--(void)AddUndrawableView:(id)view WithType:(int)type
-{
-	// First make sure that this view is not already in the list
-	RPCView * existing_view = [self FindView:view];
-	
-	if(existing_view)
-	{
-		// If it is, just set the type
-		[existing_view SetType:type];
-		[existing_view setRedrawable:false];
-		return;
-	}
-	
-	// Reach here if the view wasn't found - so we'll add a new one
-	RPCView * new_view = [[RPCView alloc] initWithView:view AndType:type];
-	[new_view setRedrawable:false];
-	[views addObject:new_view];
-	[new_view release];
-}
-
 -(void)RemoveView:(id)view
 {
 	int index;
@@ -833,6 +813,7 @@ static RacePadCoordinator * instance_ = nil;
 	if(existing_view)
 	{
 		[existing_view SetDisplayed:true];
+		[existing_view SetRefreshEnabled:true];
 
 		needsPlayRestart = (needsPlayRestart || playing);
 		
@@ -876,6 +857,28 @@ static RacePadCoordinator * instance_ = nil;
 		// Release the data handler
 		if(connectionType == RPC_ARCHIVE_CONNECTION_)
 			[self RemoveDataSourceWithType:[existing_view Type]];
+	}
+}
+
+-(void)EnableViewRefresh:(id)view
+{
+	// First make sure that we have this view in the list
+	RPCView * existing_view = [self FindView:view];
+	
+	if(existing_view)
+	{
+		[existing_view SetRefreshEnabled:true];
+	}
+}
+
+-(void)DisableViewRefresh:(id)view
+{
+	// First make sure that we have this view in the list
+	RPCView * existing_view = [self FindView:view];
+	
+	if(existing_view)
+	{
+		[existing_view SetRefreshEnabled:false];
 	}
 }
 
@@ -958,7 +961,8 @@ static RacePadCoordinator * instance_ = nil;
 		for ( int i = 0 ; i < view_count ; i++)
 		{
 			RPCView * existing_view = [views objectAtIndex:i];
-			if( [existing_view Type] == type && [existing_view Displayed] && [existing_view redrawable])
+
+			if( [existing_view Type] == type && [existing_view Displayed] && [existing_view RefreshEnabled])
 			{
 				[[existing_view View] RequestRedraw];
 			}
@@ -1198,7 +1202,7 @@ static RacePadCoordinator * instance_ = nil;
 @synthesize parameter_;
 @synthesize type_;
 @synthesize displayed_;
-@synthesize redrawable;
+@synthesize refresh_enabled_;
 
 -(id)initWithView:(id)view AndType:(int)type
 {
@@ -1208,7 +1212,7 @@ static RacePadCoordinator * instance_ = nil;
 		parameter_ = nil;
 		type_ = type;
 		displayed_ = false;
-		redrawable = true;
+		refresh_enabled_ = true;
 	}
 
 	return self;
@@ -1222,7 +1226,6 @@ static RacePadCoordinator * instance_ = nil;
 		parameter_ = [parameter retain];
 		type_ = type;
 		displayed_ = false;
-		redrawable = true;
 	}
 	
 	return self;

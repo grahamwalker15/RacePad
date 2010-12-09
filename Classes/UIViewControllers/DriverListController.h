@@ -19,9 +19,10 @@
 	DriverLapListController * driver_lap_list_controller_;
 	
 	bool driver_lap_list_controller_displayed_;
+	bool driver_lap_list_controller_closing_;
 }
 
 - (void)ShowDriverLapList:(NSString *)driver;
-- (void)HideDriverLapList;
+- (void)HideDriverLapListAnimated:(bool)animated;
 
 @end

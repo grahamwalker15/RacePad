@@ -114,7 +114,7 @@
 
 - (IBAction)BackButton:(id)sender
 {
-	[[self parentViewController] HideDriverLapList];
+	[[self parentViewController] HideDriverLapListAnimated:true];
 }
 
 - (IBAction)PreviousButton:(id)sender

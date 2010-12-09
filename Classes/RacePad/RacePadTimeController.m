@@ -158,6 +158,9 @@ static RacePadTimeController * instance_ = nil;
 	}
 	
 	[UIView commitAnimations];
+	
+	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
+	NSTimer * flagTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -178,6 +181,11 @@ static RacePadTimeController * instance_ = nil;
 		hiding = false;
 		
 	}
+}
+
+- (void) flagTimerExpired:(NSTimer *)theTimer
+{
+	hiding = false;
 }
 
 - (void) setHideTimer

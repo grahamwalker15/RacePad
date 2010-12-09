@@ -31,6 +31,7 @@
 	int car;
 	
 	bool trackMapExpanded;
+	bool trackMapPinched;
 	float backupUserScale;
 	
 	AnimationTimer * animationTimer;

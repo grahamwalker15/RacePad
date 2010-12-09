@@ -48,14 +48,14 @@ enum ConnectionTypes
 	int type_;
 	NSString * parameter_;
 	bool displayed_;
-	bool redrawable;
+	bool refresh_enabled_;
 }
 
 @property (nonatomic, retain, setter=SetView, getter=View) id view_;
 @property (nonatomic, retain, setter=SetParameter, getter=Parameter) NSString * parameter_;
 @property (nonatomic, setter=SetType, getter=Type) int type_;
 @property (nonatomic, setter=SetDisplayed, getter=Displayed) bool displayed_;
-@property bool redrawable;
+@property (nonatomic, setter=SetRefreshEnabled, getter=RefreshEnabled) bool refresh_enabled_;
 
 -(id)initWithView:(id)view AndType:(int)type;
 
@@ -183,10 +183,11 @@ enum ConnectionTypes
 -(void)ReleaseViewController:(RacePadViewController *)view_controller;
 
 -(void)AddView:(id)view WithType:(int)type;
--(void)AddUndrawableView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;
 -(void)SetViewDisplayed:(id)view;
 -(void)SetViewHidden:(id)view;
+-(void)EnableViewRefresh:(id)view;
+-(void)DisableViewRefresh:(id)view;
 -(void)SetParameter:(NSString *)parameter ForView:(id)view;
 -(void)RequestRedraw:(id)view;
 -(void)RequestRedrawType:(int)type;

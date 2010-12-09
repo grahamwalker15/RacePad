@@ -33,7 +33,8 @@
 {
     [super viewDidLoad];
 	[[RacePadCoordinator Instance] setGameViewController:self];
-	[[RacePadCoordinator Instance] AddUndrawableView:[self view] WithType:RPC_GAME_VIEW_];
+	[[RacePadCoordinator Instance] AddView:[self view] WithType:RPC_GAME_VIEW_];
+	[[RacePadCoordinator Instance] DisableViewRefresh:[self view]];
 	changingSelection = false;
 }
 

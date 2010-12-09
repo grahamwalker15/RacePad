@@ -38,7 +38,8 @@
 	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
 	[trackZoomContainer setHidden:true];
 
-	// Associate leaderboard with zoom map
+	// Set leaderboard data source and associate  with zoom map
+ 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackZoomView];
 	
 	// Get the video archive file name from RacePadCoordinator
@@ -49,10 +50,7 @@
 	[moviePlayer setShouldAutoplay:false];
 	[moviePlayer setControlStyle:MPMovieControlStyleNone];
 	[[moviePlayer view] setUserInteractionEnabled:true];
-	
-	// Configure leaderboard view
-  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
-	
+		
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
 	[self addLongPressRecognizerToView:trackMapView];
@@ -81,7 +79,7 @@
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
-	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_DRIVER_LIST_VIEW_];
+	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
 	[super viewDidLoad];
 }
@@ -373,6 +371,7 @@
 	{
 		[trackZoomContainer setHidden:true];
 		[trackZoomContainer setAlpha:1.0];
+		[trackZoomView setCarToFollow:nil];
 	}
 }
 
@@ -425,38 +424,42 @@
 		
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
 		
-		if([[trackZoomView carToFollow] isEqualToString:name])
+		if(name && [name length] > 0)
 		{
-			[trackZoomView followCar:nil];
-			[self hideZoomMap];
-			[leaderboardView RequestRedraw];
-		}
-		else
-		{
-			[trackZoomView followCar:name];
+			if([[trackZoomView carToFollow] isEqualToString:name])
+			{
+				[self hideZoomMap];
+				[leaderboardView RequestRedraw];
+			}
+			else
+			{
+				[trackZoomView followCar:name];
+				
+				if(!zoomMapVisible)
+					[self showZoomMap];
+				
+				[trackZoomView setUserScale:10.0];
+				[trackZoomView RequestRedraw];
+				[leaderboardView RequestRedraw];
+			}
 			
-			if(!zoomMapVisible)
-				[self showZoomMap];
-			
-			[trackZoomView setUserScale:10.0];
-			[trackZoomView RequestRedraw];
-			[leaderboardView RequestRedraw];
+			return;
 		}
 		
 	}
+	
+	// Reach here if either tap was outside leaderboard, or no car was found at tap point
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+
+	if(![time_controller displayed])
+	{
+		[time_controller displayInViewController:self Animated:true];
+	}
 	else
 	{
-		RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-		if(![time_controller displayed])
-		{
-			[time_controller displayInViewController:self Animated:true];
-		}
-		else
-		{
-			[time_controller hide];
-		}
+		[time_controller hide];
 	}
+
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -472,7 +475,6 @@
 	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[(TrackMapView *)gestureView setCarToFollow:nil];
 		[self hideZoomMap];
 	}
 	else

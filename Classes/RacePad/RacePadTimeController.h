@@ -33,6 +33,7 @@
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 - (void) setHideTimer;
 - (void) hideTimerExpired:(NSTimer *)theTimer;
+- (void) flagTimerExpired:(NSTimer *)theTimer;
 
 - (void) setSliderMin:(float)startTime Max:(float)endTime;
 

@@ -210,6 +210,7 @@
 	{
 		[trackZoomContainer setHidden:true];
 		[trackZoomContainer setAlpha:1.0];
+		[trackZoomView setCarToFollow:nil];
 	}
 }
 
@@ -236,33 +237,41 @@
 		
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
 		
-		if([[trackZoomView carToFollow] isEqualToString:name])
+		if(name && [name length] > 0)
 		{
-			[trackZoomView followCar:nil];
-			[self hideZoomMap];
-			[leaderboardView RequestRedraw];
-		}
-		else
-		{
-			[trackZoomView followCar:name];
+			if([[trackZoomView carToFollow] isEqualToString:name])
+			{
+				[self hideZoomMap];
+				[leaderboardView RequestRedraw];
+			}
+			else
+			{
+				[trackZoomView followCar:name];
+				
+				if(!zoomMapVisible)
+					[self showZoomMap];
+				
+				[trackZoomView setUserScale:10.0];
+				[trackZoomView RequestRedraw];
+				[leaderboardView RequestRedraw];
+			}
 			
-			if(!zoomMapVisible)
-				[self showZoomMap];
+			return;
 			
-			[trackZoomView setUserScale:10.0];
-			[trackZoomView RequestRedraw];
-			[leaderboardView RequestRedraw];
 		}
 		
 	}
+	
+	// Reach here if either tap was outside leaderboard, or no car was found at tap point
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	if(![time_controller displayed])
+	{
+		[time_controller displayInViewController:self Animated:true];
+	}
 	else
 	{
-		RacePadTimeController * time_controller = [RacePadTimeController Instance];
-		
-		if(![time_controller displayed])
-			[time_controller displayInViewController:self Animated:true];
-		else
-			[time_controller hide];
+		[time_controller hide];
 	}
 }
 
@@ -279,7 +288,6 @@
 	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[(TrackMapView *)gestureView setCarToFollow:nil];
 		[self hideZoomMap];
 	}
 	else

@@ -59,11 +59,11 @@ static RacePadTitleBarController * instance_ = nil;
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect title_controller_bounds = [titleBarController.view bounds];
 	
+	[viewController.view addSubview:titleBarController.view];
+	
 	CGRect frame = CGRectMake(super_bounds.origin.x, super_bounds.origin.y, super_bounds.size.width, title_controller_bounds.size.height);
 	[titleBarController.view setFrame:frame];
 	
-	[viewController.view addSubview:titleBarController.view];
-		
 	UIBarButtonItem * alert_button = [titleBarController alertButton];	
 	[alert_button setTarget:self];
 	[alert_button setAction:@selector(AlertPressed:)];
@@ -121,7 +121,8 @@ static RacePadTitleBarController * instance_ = nil;
 
 - (void) setTrackState:(int)state
 {
-	switch (state) {
+	switch (state)
+	{
 		case TM_TRACK_GREEN:
 			break;
 		case TM_TRACK_YELLOW:

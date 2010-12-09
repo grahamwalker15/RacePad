@@ -21,7 +21,7 @@
 		finishSelector = finishSelectorIn;
 		
 		elapsedTime = [[ElapsedTime alloc] init];
-		animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(animationTimerCallback:) userInfo:nil repeats:YES];
+		animationTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0) target:self selector:@selector(animationTimerCallback:) userInfo:nil repeats:YES];
 	}
 	
 	return self;

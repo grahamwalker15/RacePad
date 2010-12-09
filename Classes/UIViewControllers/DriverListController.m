@@ -40,6 +40,7 @@
 	// Create a view controller for the driver lap times which may be displayed as an overlay
 	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
 	driver_lap_list_controller_displayed_ = false;
+	driver_lap_list_controller_closing_ = false;
 
 }
 
@@ -48,29 +49,47 @@
 	// Grab the title bar and mark it as displayed
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
-	// Register view
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_DRIVER_LIST_VIEW_ | RPC_LAP_COUNT_VIEW_)];
-	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
-	
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	if(!driver_lap_list_controller_closing_)
+	{
+		// Register view
+		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_DRIVER_LIST_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+		[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
+		
+		// We disable the screen locking - because that seems to close the socket
+		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
 {
-	[self HideDriverLapList];
-	[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
-	//[[RacePadTitleBarController Instance] hide];
-	[[RacePadCoordinator Instance] ReleaseViewController:self];
+	if(driver_lap_list_controller_displayed_)
+	{
+		driver_lap_list_controller_closing_ = true; // This prevents the resultant viewWillAppear from registering everything
+		[self HideDriverLapListAnimated:false];
+	}
 	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	if(!driver_lap_list_controller_closing_)
+	{
+		[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
+		//[[RacePadTitleBarController Instance] hide];
+		[[RacePadCoordinator Instance] ReleaseViewController:self];
+		
+		// re-enable the screen locking
+		[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	}
+	
+	driver_lap_list_controller_closing_ = false;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Overriden to allow any orientation.
     return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,7 +189,7 @@
 	}
 }
 
-- (void)HideDriverLapList
+- (void)HideDriverLapListAnimated:(bool)animated
 {
 	if(driver_lap_list_controller_displayed_)
 	{
@@ -178,7 +197,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:true];
+		[self dismissModalViewControllerAnimated:animated];
 		driver_lap_list_controller_displayed_ = false;
 	}
 }
