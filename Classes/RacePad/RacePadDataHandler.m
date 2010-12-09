@@ -404,6 +404,7 @@
 		{
 			DriverNames *driverNames = [[RacePadDatabase Instance] driverNames];
 			[driverNames loadData:stream];
+			[[RacePadCoordinator Instance] updateDriverNames];
 			break;
 		}
 		case RPSC_RC_MESSAGES_: // Race Control Messages
@@ -416,6 +417,27 @@
 		{
 			AlertData *alertData = [[RacePadDatabase Instance] alertData];
 			[alertData loadData:stream];
+			break;
+		}
+		case RPSC_RETURN_PREDICTION_: // Race prediction for this user
+		{
+			[[[RacePadDatabase Instance] racePrediction] load:stream];
+			[[RacePadCoordinator Instance] updatePrediction];
+			break;
+		}
+		case RPSC_WHOLE_RESULT_VIEW_: // Result View (whole page)
+		{
+			
+			TableData *resultData = [[RacePadDatabase Instance] resultData];
+			[resultData loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
+			break;
+		}
+		case RPSC_UPDATE_RESULT_VIEW_: // Result View (updates)
+		{
+			TableData *resultData = [[RacePadDatabase Instance] resultData];
+			[resultData updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
 			break;
 		}
 		default:

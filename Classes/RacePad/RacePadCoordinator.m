@@ -32,6 +32,7 @@
 @synthesize needsPlayRestart;
 @synthesize playing;
 @synthesize settingsViewController;
+@synthesize gameViewController;
 
 static RacePadCoordinator * instance_ = nil;
 
@@ -69,6 +70,8 @@ static RacePadCoordinator * instance_ = nil;
 		live = false;
 		
 		firstView = true;
+		
+		gameViewController = nil;
 	}
 	
 	return self;
@@ -87,6 +90,7 @@ static RacePadCoordinator * instance_ = nil;
 	[serverConnect release];
 	[WorkOffline release];
 	[settingsViewController release];
+	[gameViewController release];
     [super dealloc];
 }
 
@@ -149,6 +153,23 @@ static RacePadCoordinator * instance_ = nil;
 		[self jumpToTime:start];
 	}
 }
+
+-(void) clearStaticData
+{
+	[[RacePadDatabase Instance] clearStaticData];
+	[self updatePrediction];
+}
+
+-(void) updateDriverNames
+{
+}
+
+-(void) updatePrediction
+{
+	if ( gameViewController )
+		[gameViewController updatePrediction];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Play control management
@@ -401,6 +422,7 @@ static RacePadCoordinator * instance_ = nil;
 - (void) loadSession: (NSString *)event Session: (NSString *)session
 {
 	[self disconnect];
+	[self clearStaticData];
 	[self loadRPF: @"race_pad.rpf"];
 	
 	NSString *eventFile = [event stringByAppendingPathComponent:@"event.rpf"];
@@ -454,10 +476,12 @@ static RacePadCoordinator * instance_ = nil;
 {
 	if ( ok )
 	{
+		[self clearStaticData];
 		[socket_ RequestEvent];
 		[socket_ RequestTrackMap];
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestUIImages];
+		[socket_ requestPrediction];
 		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
 		
@@ -608,6 +632,10 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamLeaderBoard];
 				}
+				else if([existing_view Type] == RPC_GAME_VIEW_)
+				{
+					[socket_ StreamResultView];
+				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
 					NSString * driver = [existing_view Parameter];					
@@ -653,6 +681,10 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
 				{
 					[socket_ RequestLeaderBoard];
+				}
+				else if([existing_view Type] == RPC_GAME_VIEW_)
+				{
+					[socket_ RequestResultView];
 				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
@@ -758,6 +790,26 @@ static RacePadCoordinator * instance_ = nil;
 	
 	// Reach here if the view wasn't found - so we'll add a new one
 	RPCView * new_view = [[RPCView alloc] initWithView:view AndType:type];
+	[views addObject:new_view];
+	[new_view release];
+}
+
+-(void)AddUndrawableView:(id)view WithType:(int)type
+{
+	// First make sure that this view is not already in the list
+	RPCView * existing_view = [self FindView:view];
+	
+	if(existing_view)
+	{
+		// If it is, just set the type
+		[existing_view SetType:type];
+		[existing_view setRedrawable:false];
+		return;
+	}
+	
+	// Reach here if the view wasn't found - so we'll add a new one
+	RPCView * new_view = [[RPCView alloc] initWithView:view AndType:type];
+	[new_view setRedrawable:false];
 	[views addObject:new_view];
 	[new_view release];
 }
@@ -906,7 +958,7 @@ static RacePadCoordinator * instance_ = nil;
 		for ( int i = 0 ; i < view_count ; i++)
 		{
 			RPCView * existing_view = [views objectAtIndex:i];
-			if( [existing_view Type] == type && [existing_view Displayed])
+			if( [existing_view Type] == type && [existing_view Displayed] && [existing_view redrawable])
 			{
 				[[existing_view View] RequestRedraw];
 			}
@@ -1127,6 +1179,12 @@ static RacePadCoordinator * instance_ = nil;
 	return nil;
 }
 
+-(void) sendPrediction
+{
+	if (connectionType == RPC_SOCKET_CONNECTION_)
+		[socket_ sendPrediction];
+}
+
 @end
 
 
@@ -1140,6 +1198,7 @@ static RacePadCoordinator * instance_ = nil;
 @synthesize parameter_;
 @synthesize type_;
 @synthesize displayed_;
+@synthesize redrawable;
 
 -(id)initWithView:(id)view AndType:(int)type
 {
@@ -1149,6 +1208,7 @@ static RacePadCoordinator * instance_ = nil;
 		parameter_ = nil;
 		type_ = type;
 		displayed_ = false;
+		redrawable = true;
 	}
 
 	return self;
@@ -1162,6 +1222,7 @@ static RacePadCoordinator * instance_ = nil;
 		parameter_ = [parameter retain];
 		type_ = type;
 		displayed_ = false;
+		redrawable = true;
 	}
 	
 	return self;

@@ -28,8 +28,8 @@
 - (DriverName *) initWithStream : (DataStream *) stream
 {
 	number = [stream PopInt];
-	name = [[stream PopString] retain];
 	abbr = [[stream PopString] retain];
+	name = [[stream PopString] retain];
 	team = [[stream PopString] retain];
 	
 	return self;

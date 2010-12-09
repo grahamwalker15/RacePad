@@ -40,6 +40,9 @@ enum ServerCommands {
 	RPSC_UPDATE_LEADER_BOARD_,	// 27
 	RPSC_RC_MESSAGES_,			// 28
 	RPSC_ALERTS_,				// 29
+	RPSC_RETURN_PREDICTION_,	// 30
+	RPSC_WHOLE_RESULT_VIEW_,	// 31
+	RPSC_UPDATE_RESULT_VIEW_,	// 32
 };
 
 @interface RacePadDataHandler : DataHandler

@@ -14,16 +14,6 @@
 
 @implementation RacePadClientSocket
 
-- (void) Connected 
-{
-	[[RacePadCoordinator Instance] Connected];
-}
-
-- (void) Disconnected:(bool) atConnect
-{
-	[[RacePadCoordinator Instance] Disconnected:atConnect];
-}
-
 - (void) SimpleCommand: (int) command
 {
 	uint32_t int_data[2];
@@ -32,6 +22,49 @@
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 2);
 	CFSocketSendData (socket_ref_, nil, data, 0);
 	CFRelease(data);
+}
+
+-(void) pushBuffer:(char **)buf Int:(int)v
+{
+	int *b = (int *)(*buf);
+	*b = htonl(v);
+	*buf += sizeof(int);
+}
+
+-(void) pushBuffer:(char **)buf String:(const char *)v
+{
+	int l = 0;
+	if ( v )
+		l = strlen(v);
+	[self pushBuffer:buf Int:l];
+	memcpy(*buf, v, l);
+	*buf += l;
+}
+
+- (void) Connected 
+{
+	const char *deviceID = [[[UIDevice currentDevice]uniqueIdentifier] UTF8String];
+	const char *deviceName = [[[UIDevice currentDevice]name] UTF8String];
+	int messageLength = 4 * sizeof(uint32_t) + strlen (deviceID) + strlen (deviceName);
+	char *buf = malloc(messageLength);
+	char *b = buf;
+	
+	[self pushBuffer: &b Int:messageLength];
+	[self pushBuffer: &b Int:RPCS_DEVICE_ID];
+	[self pushBuffer: &b String:deviceID];
+	[self pushBuffer: &b String:deviceName];
+	
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+	
+	[[RacePadCoordinator Instance] Connected];
+}
+
+- (void) Disconnected:(bool) atConnect
+{
+	[[RacePadCoordinator Instance] Disconnected:atConnect];
 }
 
 - (void)RequestVersion
@@ -156,6 +189,47 @@
 - (void)goLive
 {
 	[self SimpleCommand:RPCS_GO_LIVE];
+}
+
+-(void) sendPrediction
+{
+	RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];
+	const char *user = [racePrediction.user UTF8String];
+	int count = racePrediction.count;
+	int *prediction = [racePrediction prediction];
+	
+	int messageLength = (count + 4) * sizeof(uint32_t);
+	if ( user )
+		messageLength += strlen(user);
+	char *buf = malloc(messageLength);
+	char *b = buf;
+	
+	[self pushBuffer: &b Int:messageLength];
+	[self pushBuffer: &b Int:RPCS_RACE_PREDICTION];
+	[self pushBuffer: &b String:user];
+	[self pushBuffer: &b Int:count];
+	for ( int i = 0; i < count; i++ )
+		[self pushBuffer: &b Int:prediction[i]];
+	
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)requestPrediction
+{
+	[self SimpleCommand:RPCS_REQUEST_PREDICTION];
+}
+
+- (void)RequestResultView
+{
+	[self SimpleCommand:RPCS_REQUEST_RESULT_VIEW];
+}
+
+- (void)StreamResultView
+{
+	[self SimpleCommand:RPCS_STREAM_RESULT_VIEW];
 }
 
 - (DataHandler *) constructDataHandler

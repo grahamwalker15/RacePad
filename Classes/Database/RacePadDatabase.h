@@ -14,6 +14,7 @@
 #import "PitWindow.h"
 #import "Telemetry.h"
 #import "DriverNames.h"
+#import "RacePrediction.h"
 
 @interface RacePadDatabase : NSObject
 {
@@ -28,6 +29,8 @@
 	AlertData * rcMessages;
 	Telemetry *telemetry;
 	DriverNames *driverNames;
+	RacePrediction *racePrediction;
+	TableData *resultData;
 }
 
 @property (retain) NSString *eventName;
@@ -41,7 +44,10 @@
 @property (readonly) AlertData * rcMessages;
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
+@property (readonly) RacePrediction * racePrediction;
+@property (readonly) TableData *resultData;
 
 + (RacePadDatabase *)Instance;
+- (void) clearStaticData;
 
 @end

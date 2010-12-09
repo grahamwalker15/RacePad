@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SettingsViewController.h"
+#import "GameViewController.h"
 
 
 @class RacePadViewController;
@@ -30,6 +31,7 @@ enum ViewTypes
 	RPC_PIT_WINDOW_VIEW_ = 0x40,
 	RPC_TELEMETRY_VIEW_ = 0x80,
 	RPC_LEADER_BOARD_VIEW_ = 0x100,
+	RPC_GAME_VIEW_ = 0x200,
 } ;
 
 // Connection types
@@ -46,12 +48,14 @@ enum ConnectionTypes
 	int type_;
 	NSString * parameter_;
 	bool displayed_;
+	bool redrawable;
 }
 
 @property (nonatomic, retain, setter=SetView, getter=View) id view_;
 @property (nonatomic, retain, setter=SetParameter, getter=Parameter) NSString * parameter_;
 @property (nonatomic, setter=SetType, getter=Type) int type_;
 @property (nonatomic, setter=SetDisplayed, getter=Displayed) bool displayed_;
+@property bool redrawable;
 
 -(id)initWithView:(id)view AndType:(int)type;
 
@@ -92,6 +96,7 @@ enum ConnectionTypes
 	ServerConnect *serverConnect;
 	WorkOffline *workOffline;
 	SettingsViewController *settingsViewController;
+	GameViewController *gameViewController;
 	
 	bool firstView;
 	
@@ -123,6 +128,7 @@ enum ConnectionTypes
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
 @property (retain) SettingsViewController *settingsViewController;
+@property (retain) GameViewController *gameViewController;
 
 +(RacePadCoordinator *)Instance;
 
@@ -177,6 +183,7 @@ enum ConnectionTypes
 -(void)ReleaseViewController:(RacePadViewController *)view_controller;
 
 -(void)AddView:(id)view WithType:(int)type;
+-(void)AddUndrawableView:(id)view WithType:(int)type;
 -(void)RemoveView:(id)view;
 -(void)SetViewDisplayed:(id)view;
 -(void)SetViewHidden:(id)view;
@@ -197,5 +204,9 @@ enum ConnectionTypes
 
 -(RPCDataSource *)FindDataSourceWithType:(int)type;
 -(RPCDataSource *)FindDataSourceWithType:(int)type WithIndexReturned:(int *)index;
+
+-(void) updateDriverNames;
+-(void) sendPrediction;
+-(void) updatePrediction;
 
 @end

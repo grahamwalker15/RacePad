@@ -32,6 +32,8 @@ static RacePadDatabase *instance = nil;
 @synthesize rcMessages;
 @synthesize telemetry;
 @synthesize driverNames;
+@synthesize racePrediction;
+@synthesize resultData;
 
 - (RacePadDatabase *)init
 {
@@ -45,6 +47,8 @@ static RacePadDatabase *instance = nil;
 	rcMessages = [[AlertData alloc] init];
 	telemetry = [[Telemetry alloc] init];
 	driverNames = [[DriverNames alloc] init];
+	racePrediction = [[RacePrediction alloc] init];
+	resultData = [[TableData alloc] init];
 	
 	return self;
 }
@@ -60,8 +64,21 @@ static RacePadDatabase *instance = nil;
 	[alertData release];
 	[rcMessages release];
 	[telemetry release];
+	[driverNames release];
+	[racePrediction release];
+	[resultData release];
 	
 	[super dealloc];
+}
+
+-(void) clearStaticData
+{
+	[rcMessages release];
+	[alertData release];
+	[racePrediction release];
+	alertData = [[AlertData alloc] init];
+	rcMessages = [[AlertData alloc] init];
+	racePrediction = [[RacePrediction alloc] init];
 }
 
 @end
