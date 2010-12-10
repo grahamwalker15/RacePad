@@ -142,6 +142,7 @@
 {
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:[self view]];
+	[[RacePadCoordinator Instance] DisableViewRefresh:[self view]];
 	[userName setText:[[[RacePadDatabase Instance] racePrediction] user]];
 	[self updatePrediction];
 }
