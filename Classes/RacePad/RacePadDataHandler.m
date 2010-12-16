@@ -440,6 +440,37 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
 			break;
 		}
+		case RPSC_GAME_STATUS_: // Game Start Time
+		{
+			[[[RacePadDatabase Instance] racePrediction] loadStatus:stream];
+			[[RacePadCoordinator Instance] updatePrediction];
+			break;
+		}
+		case RPSC_WHOLE_COMPETITOR_VIEW_: // Competitor View (whole page)
+		{
+			
+			TableData *resultData = [[RacePadDatabase Instance] competitorData];
+			[resultData loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
+			break;
+		}
+		case RPSC_UPDATE_COMPETITOR_VIEW_: // Competitor View (updates)
+		{
+			TableData *resultData = [[RacePadDatabase Instance] competitorData];
+			[resultData updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
+			break;
+		}
+		case RPSC_REGISTERED_USER_: // New user accepted
+		{
+			[[RacePadCoordinator Instance] registeredUser];
+			break;
+		}
+		case RPSC_BAD_USER_: // New user accepted
+		{
+			[[RacePadCoordinator Instance] badUser];
+			break;
+		}
 		default:
 			break;
 	}

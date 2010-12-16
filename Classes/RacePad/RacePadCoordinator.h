@@ -207,7 +207,11 @@ enum ConnectionTypes
 -(RPCDataSource *)FindDataSourceWithType:(int)type WithIndexReturned:(int *)index;
 
 -(void) updateDriverNames;
+-(void) requestPrediction: (NSString *)user;
 -(void) sendPrediction;
 -(void) updatePrediction;
+-(void) checkUserName: (NSString *)name;
+-(void) registeredUser;
+-(void) badUser;
 
 @end

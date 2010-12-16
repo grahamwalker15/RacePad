@@ -68,6 +68,30 @@
 	return nil;
 }
 
+- (DriverName *)driverByNumber : (int) number
+{
+	for ( int i = 0; i < count; i++ )
+	{
+		DriverName *driver = [drivers objectAtIndex : i];
+		if ( driver.number == number )
+			return driver;
+	}
+	
+	return nil;
+}
+
+- (int)driverIndexByNumber : (int) number
+{
+	for ( int i = 0; i < count; i++ )
+	{
+		DriverName *driver = [drivers objectAtIndex : i];
+		if ( driver.number == number )
+			return i;
+	}
+	
+	return -1;
+}
+
 - (DriverName *) blueCar
 {
 	for ( int i = 0; i; i++ < count )

@@ -191,10 +191,10 @@
 	[self SimpleCommand:RPCS_GO_LIVE];
 }
 
--(void) sendPrediction
+-(void) sendPrediction: (NSString *)userName Command:(int)command
 {
 	RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];
-	const char *user = [racePrediction.user UTF8String];
+	const char *user = [userName UTF8String];
 	int count = racePrediction.count;
 	int *prediction = [racePrediction prediction];
 	
@@ -205,7 +205,7 @@
 	char *b = buf;
 	
 	[self pushBuffer: &b Int:messageLength];
-	[self pushBuffer: &b Int:RPCS_RACE_PREDICTION];
+	[self pushBuffer: &b Int:command];
 	[self pushBuffer: &b String:user];
 	[self pushBuffer: &b Int:count];
 	for ( int i = 0; i < count; i++ )
@@ -217,19 +217,45 @@
 	free (buf);
 }
 
-- (void)requestPrediction
+-(void) sendPrediction
 {
-	[self SimpleCommand:RPCS_REQUEST_PREDICTION];
+	RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];
+	[self sendPrediction:racePrediction.user Command:RPCS_RACE_PREDICTION];
 }
 
-- (void)RequestResultView
+- (void)requestPrediction:(NSString *)name
 {
-	[self SimpleCommand:RPCS_REQUEST_RESULT_VIEW];
+	const char *user = [name UTF8String];
+	
+	int messageLength = 3 * sizeof(uint32_t);
+	if ( user )
+		messageLength += strlen(user);
+	char *buf = malloc(messageLength);
+	char *b = buf;
+	
+	[self pushBuffer: &b Int:messageLength];
+	[self pushBuffer: &b Int:RPCS_REQUEST_PREDICTION];
+	[self pushBuffer: &b String:user];
+
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
 }
 
-- (void)StreamResultView
+- (void)RequestGameView
 {
-	[self SimpleCommand:RPCS_STREAM_RESULT_VIEW];
+	[self SimpleCommand:RPCS_REQUEST_GAME_VIEW];
+}
+
+- (void)StreamGameView
+{
+	[self SimpleCommand:RPCS_STREAM_GAME_VIEW];
+}
+
+-(void) checkUserName: (NSString *)name
+{
+	[self sendPrediction:name Command:RPCS_CHECK_USER_NAME];
 }
 
 - (DataHandler *) constructDataHandler

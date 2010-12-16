@@ -481,10 +481,11 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ RequestTrackMap];
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestUIImages];
-		[socket_ requestPrediction];
 		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
 		
+		[self requestPrediction:[[[RacePadDatabase Instance] racePrediction] user]];
+
 		live = true;
 
 		[serverConnect popDown];
@@ -634,7 +635,7 @@ static RacePadCoordinator * instance_ = nil;
 				}
 				else if([existing_view Type] == RPC_GAME_VIEW_)
 				{
-					[socket_ StreamResultView];
+					[socket_ StreamGameView];
 				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
@@ -684,7 +685,7 @@ static RacePadCoordinator * instance_ = nil;
 				}
 				else if([existing_view Type] == RPC_GAME_VIEW_)
 				{
-					[socket_ RequestResultView];
+					[socket_ RequestGameView];
 				}
 				else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 				{
@@ -1188,6 +1189,29 @@ static RacePadCoordinator * instance_ = nil;
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[socket_ sendPrediction];
 }
+
+-(void) checkUserName: (NSString *)name
+{
+	if (connectionType == RPC_SOCKET_CONNECTION_)
+		[socket_ checkUserName:name];
+}
+
+-(void) requestPrediction: (NSString *)name
+{
+	if (connectionType == RPC_SOCKET_CONNECTION_)
+		[socket_ requestPrediction:name];
+}
+
+-(void) registeredUser
+{
+	[gameViewController registeredUser];
+}
+
+-(void) badUser
+{
+	[gameViewController badUser];
+}
+
 
 @end
 

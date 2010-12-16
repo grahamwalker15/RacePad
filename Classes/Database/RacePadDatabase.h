@@ -31,6 +31,7 @@
 	DriverNames *driverNames;
 	RacePrediction *racePrediction;
 	TableData *resultData;
+	TableData *competitorData;
 }
 
 @property (retain) NSString *eventName;
@@ -46,6 +47,7 @@
 @property (readonly) DriverNames * driverNames;
 @property (readonly) RacePrediction * racePrediction;
 @property (readonly) TableData *resultData;
+@property (readonly) TableData *competitorData;
 
 + (RacePadDatabase *)Instance;
 - (void) clearStaticData;

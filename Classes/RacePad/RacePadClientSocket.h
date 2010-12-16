@@ -31,8 +31,9 @@ enum ClientCommands {
 	RPCS_RACE_PREDICTION,			// 23
 	RPCS_DEVICE_ID,					// 24
 	RPCS_REQUEST_PREDICTION,		// 25
-	RPCS_REQUEST_RESULT_VIEW,		// 26
-	RPCS_STREAM_RESULT_VIEW,		// 27
+	RPCS_REQUEST_GAME_VIEW,			// 26
+	RPCS_STREAM_GAME_VIEW,			// 27
+	RPCS_CHECK_USER_NAME,			// 28
 };
 
 @interface RacePadClientSocket : Socket
@@ -59,9 +60,10 @@ enum ClientCommands {
 - (void) RequestPitWindow;
 - (void) StreamPitWindow;
 
-- (void) requestPrediction;
+- (void) requestPrediction: (NSString *)name;
 - (void) sendPrediction;
-- (void) RequestResultView;
-- (void) StreamResultView;
+- (void) RequestGameView;
+- (void) StreamGameView;
+- (void) checkUserName: (NSString *)name;
 
 @end

@@ -19,6 +19,12 @@
 		4D344E2712B144CC00B15298 /* RacePrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D344E2612B144CC00B15298 /* RacePrediction.m */; };
 		4D344E2C12B144E300B15298 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D344E2B12B144E300B15298 /* GameViewController.m */; };
 		4D344E3012B144FB00B15298 /* GameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D344E2F12B144FB00B15298 /* GameView.xib */; };
+		4D344F1312B7743200B15298 /* NewCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D344F1212B7743200B15298 /* NewCompetitor.xib */; };
+		4D344F1A12B7754F00B15298 /* NewCompetitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D344F1912B7754F00B15298 /* NewCompetitor.m */; };
+		4D34502312B7C17400B15298 /* UserPin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D34502212B7C17400B15298 /* UserPin.xib */; };
+		4D34502D12B7C33E00B15298 /* UserPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D34502C12B7C33E00B15298 /* UserPin.m */; };
+		4D3451AE12B9173200B15298 /* ChangeCompetitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D3451AD12B9173200B15298 /* ChangeCompetitor.m */; };
+		4D3451B412B9175500B15298 /* ChangeCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D3451B312B9175500B15298 /* ChangeCompetitor.xib */; };
 		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
 		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
@@ -192,6 +198,15 @@
 		4D344E2A12B144E300B15298 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		4D344E2B12B144E300B15298 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		4D344E2F12B144FB00B15298 /* GameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GameView.xib; path = ResourceFiles/GameView.xib; sourceTree = "<group>"; };
+		4D344F1212B7743200B15298 /* NewCompetitor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NewCompetitor.xib; path = ResourceFiles/NewCompetitor.xib; sourceTree = "<group>"; };
+		4D344F1812B7754F00B15298 /* NewCompetitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCompetitor.h; sourceTree = "<group>"; };
+		4D344F1912B7754F00B15298 /* NewCompetitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCompetitor.m; sourceTree = "<group>"; };
+		4D34502212B7C17400B15298 /* UserPin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UserPin.xib; path = ResourceFiles/UserPin.xib; sourceTree = "<group>"; };
+		4D34502B12B7C33E00B15298 /* UserPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPin.h; sourceTree = "<group>"; };
+		4D34502C12B7C33E00B15298 /* UserPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPin.m; sourceTree = "<group>"; };
+		4D3451AC12B9173200B15298 /* ChangeCompetitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeCompetitor.h; sourceTree = "<group>"; };
+		4D3451AD12B9173200B15298 /* ChangeCompetitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeCompetitor.m; sourceTree = "<group>"; };
+		4D3451B312B9175500B15298 /* ChangeCompetitor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChangeCompetitor.xib; path = ResourceFiles/ChangeCompetitor.xib; sourceTree = "<group>"; };
 		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
 		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
 		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
@@ -521,6 +536,8 @@
 				7F866021128ABEC800F13CB6 /* AlertViewController.m */,
 				7F767E6C12A68525009249F7 /* CarViewController.h */,
 				7F767E6D12A68525009249F7 /* CarViewController.m */,
+				4D3451AC12B9173200B15298 /* ChangeCompetitor.h */,
+				4D3451AD12B9173200B15298 /* ChangeCompetitor.m */,
 				7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */,
 				7F6244F01282EF9E009A9D4F /* CompositeViewController.m */,
 				4D8A66821282635500E9E19D /* DownloadProgress.h */,
@@ -537,6 +554,8 @@
 				7F9C684F12671CD200F2FFEC /* HTMLViewController.m */,
 				7F9C1694125A176700770746 /* MovieViewController.h */,
 				7F9C1695125A176700770746 /* MovieViewController.m */,
+				4D344F1812B7754F00B15298 /* NewCompetitor.h */,
+				4D344F1912B7754F00B15298 /* NewCompetitor.m */,
 				4D1563F712898E32000E959D /* PitWindowViewController.h */,
 				4D1563F812898E32000E959D /* PitWindowViewController.m */,
 				4D807CEF12832AED00FDE400 /* ServerConnect.h */,
@@ -551,6 +570,8 @@
 				7F9C10FB1255EE1500770746 /* ThirdViewController.m */,
 				7F9C10DA1255E68B00770746 /* TrackMapViewController.h */,
 				7F9C10DB1255E68B00770746 /* TrackMapViewController.m */,
+				4D34502B12B7C33E00B15298 /* UserPin.h */,
+				4D34502C12B7C33E00B15298 /* UserPin.m */,
 				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
 				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
 			);
@@ -653,6 +674,7 @@
 			children = (
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
+				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
 				7F6244F21282EFB5009A9D4F /* CompositeView.xib */,
 				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
 				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
@@ -660,6 +682,7 @@
 				4D344E2F12B144FB00B15298 /* GameView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
 				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
+				4D344F1212B7743200B15298 /* NewCompetitor.xib */,
 				4D15640412898FD1000E959D /* PitWindowView.xib */,
 				7FB1C58712673E7F008A6C94 /* SecondView.xib */,
 				4D807CF412832B3400FDE400 /* ServerConnect.xib */,
@@ -670,6 +693,7 @@
 				7F6FB8981275F11400EF2B8C /* TimeControlView.xib */,
 				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
 				7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */,
+				4D34502212B7C17400B15298 /* UserPin.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
 				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
 			);
@@ -904,6 +928,9 @@
 				7F7683F912AAA06A009249F7 /* FullScreen.png in Resources */,
 				7F7683FB12AAA07D009249F7 /* SmallScreen.png in Resources */,
 				4D344E3012B144FB00B15298 /* GameView.xib in Resources */,
+				4D344F1312B7743200B15298 /* NewCompetitor.xib in Resources */,
+				4D34502312B7C17400B15298 /* UserPin.xib in Resources */,
+				4D3451B412B9175500B15298 /* ChangeCompetitor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,6 +1000,9 @@
 				7F71A4AB12AFDEBD0052C70C /* AnimationTimer.m in Sources */,
 				4D344E2712B144CC00B15298 /* RacePrediction.m in Sources */,
 				4D344E2C12B144E300B15298 /* GameViewController.m in Sources */,
+				4D344F1A12B7754F00B15298 /* NewCompetitor.m in Sources */,
+				4D34502D12B7C33E00B15298 /* UserPin.m in Sources */,
+				4D3451AE12B9173200B15298 /* ChangeCompetitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

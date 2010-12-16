@@ -37,6 +37,8 @@
 
 - (int)count;
 - (DriverName *) driver : (int) index;
+- (DriverName *) driverByNumber : (int) number;
+- (int) driverIndexByNumber : (int) number;
 - (DriverName *) blueCar;
 - (DriverName *) redCar;
 

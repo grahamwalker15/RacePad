@@ -9,21 +9,48 @@
 #import <UIKit/UIKit.h>
 
 #import "RacePadViewController.h"
+#import "NewCompetitor.h"
+#import "ChangeCompetitor.h"
+#import "TableDataView.h"
 
+@class	UserPin;
 
-@interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
-	IBOutlet UIButton *sendPrediction;
+	IBOutlet UITextField *user;
+	IBOutlet UIButton *newUser;
+	IBOutlet UIButton *changeUser;
 	IBOutlet UITableView *result;
 	IBOutlet UITableView *drivers;
-	IBOutlet UITextField *userName;
+	IBOutlet UIButton *action;
+	IBOutlet UIButton *reset;
 	IBOutlet UILabel *status;
+	IBOutlet TableDataView *leagueTable;
 	
 	bool changingSelection;
+	int driverCount;
+	bool changingUser;
+	bool locked;
+	int competitorCount;
+	bool showingBadUser;
+	
+	NewCompetitor *newCompetitor;
+	ChangeCompetitor *changeCompetitor;
+	UserPin *userPin;
+	UIAlertView *pinMessage;
 }
 
--(IBAction) predictPressed:(id)sender;
--(IBAction) userChanged:(id)sender;
+-(IBAction) newUserPressed:(id)sender;
+-(IBAction) changeUserPressed:(id)sender;
+-(IBAction) actionPressed:(id)sender;
+-(IBAction) resetPressed:(id)sender;
 -(void) updatePrediction;
+-(void) registeredUser;
+-(void) cancelledRegister;
+-(void) badUser;
+-(void) pinCorrect;
+-(void) pinFailed;
+-(bool) validName:(NSString *)name;
+-(void) lock;
 
 @end

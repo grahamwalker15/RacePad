@@ -34,6 +34,7 @@ static RacePadDatabase *instance = nil;
 @synthesize driverNames;
 @synthesize racePrediction;
 @synthesize resultData;
+@synthesize competitorData;
 
 - (RacePadDatabase *)init
 {
@@ -49,6 +50,7 @@ static RacePadDatabase *instance = nil;
 	driverNames = [[DriverNames alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
 	resultData = [[TableData alloc] init];
+	competitorData = [[TableData alloc] init];
 	
 	return self;
 }
@@ -67,6 +69,7 @@ static RacePadDatabase *instance = nil;
 	[driverNames release];
 	[racePrediction release];
 	[resultData release];
+	[competitorData release];
 	
 	[super dealloc];
 }
