@@ -47,12 +47,31 @@
 	[changeUser setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 }
 
+- (void)positionViews
+{
+	CGRect leagueFrame = [leagueTable frame];
+	leagueFrame = CGRectMake(leagueFrame.origin.x, leagueFrame.origin.y, 335, leagueFrame.size.height);
+	[leagueTable setFrame:leagueFrame];
+}
+
+- (void)hideViews
+{
+	leagueTable.hidden = YES;
+}
+
+- (void)showViews
+{
+	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+	if ( p.gameStatus != GS_NOT_STARTED )
+		leagueTable.hidden = NO;
+}
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
 	[self updatePrediction];
+	[self positionViews];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -65,6 +84,20 @@
 
 	// re-enable the screen locking
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[self hideViews];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self positionViews];
+	[self showViews];
+	
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -120,11 +153,13 @@
 {
 	locked = false;
 	action.enabled = YES;
-	[action setTitle:@"Submit Change" forState:UIControlStateNormal ];
-	[action setTitle:@"Submit Change" forState:UIControlStateHighlighted];
+	[action setTitle:@"Send Prediction" forState:UIControlStateNormal ];
+	[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
 	reset.hidden = NO;
+	relock.hidden = NO;
 	result.allowsSelection = YES;
 	drivers.allowsSelection = YES;
+	newUser.hidden = YES;
 }
 
 -(void) pinFailed
@@ -134,8 +169,8 @@
 -(IBAction)newUserPressed:(id)sender
 {
 	action.enabled = YES;
-	[action setTitle:@"Submit New" forState:UIControlStateNormal];
-	[action setTitle:@"Submit New" forState:UIControlStateHighlighted];
+	[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
+	[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
 	[[[RacePadDatabase Instance] racePrediction] clear];
 	user.text = @"";
 	[self updatePrediction];
@@ -197,12 +232,33 @@
 			if ( locked )
 				[self unlock];
 			else
+			{
 				[[RacePadCoordinator Instance]sendPrediction];
+				reset.hidden = NO;
+				relock.hidden = NO;
+			}
 	}
 }
 
 -(IBAction) resetPressed:(id)sender
 {
+	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+	[[RacePadCoordinator Instance]requestPrediction:p.user];
+}
+
+-(IBAction) relockPressed:(id)sender
+{
+	locked = true;
+	action.enabled = YES;
+	[action setTitle:@"Change Prediction" forState:UIControlStateNormal ];
+	[action setTitle:@"Change Prediction" forState:UIControlStateHighlighted];
+	reset.hidden = YES;
+	relock.hidden = YES;
+	result.allowsSelection = NO;
+	[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
+	drivers.allowsSelection = NO;
+	[drivers deselectRowAtIndexPath:[drivers indexPathForSelectedRow] animated:TRUE];
+	newUser.hidden = NO;
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[[RacePadCoordinator Instance]requestPrediction:p.user];
 }
@@ -242,17 +298,18 @@
 		}
 		else
 			text = @"Game has not started yet";
-		newUser.hidden = NO;
 		if ( p.cleared )
 		{
 			// leave the user name as it is
 			user.enabled = YES;
-			[action setTitle:@"Submit New" forState:UIControlStateNormal];
-			[action setTitle:@"Submit New" forState:UIControlStateHighlighted];
+			[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
+			[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
 			locked = false;
 			result.allowsSelection = YES;
 			drivers.allowsSelection = YES;
 			reset.hidden = YES;
+			relock.hidden = YES;
+			newUser.hidden = YES;
 		}
 		else
 		{
@@ -260,19 +317,30 @@
 			user.text = p.user;
 			if ( locked )
 			{
-				[action setTitle:@"Unlock" forState:UIControlStateNormal];
-				[action setTitle:@"Unlock" forState:UIControlStateHighlighted];
+				[action setTitle:@"Change Prediction" forState:UIControlStateNormal];
+				[action setTitle:@"Change Prediction" forState:UIControlStateHighlighted];
 				reset.hidden = YES;
+				relock.hidden = YES;
 				result.allowsSelection = NO;
+				[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
 				drivers.allowsSelection = NO;
+				[drivers deselectRowAtIndexPath:[drivers indexPathForSelectedRow] animated:TRUE];
+				newUser.hidden = NO;
 			}
 			else
 			{
-				[action setTitle:@"Submit Change" forState:UIControlStateNormal];
-				[action setTitle:@"Submit Change" forState:UIControlStateHighlighted];
-				reset.hidden = NO;
+				[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
+				[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
+				bool empty = true;
+				int *pre = [p prediction];
+				for ( int i = 0; i < p.count; i++ )
+					if ( pre[i] != -1 )
+						empty = false;
+				reset.hidden = empty;
+				relock.hidden = empty;
 				result.allowsSelection = YES;
 				drivers.allowsSelection = YES;
+				newUser.hidden = YES;
 			}
 		}
 		drivers.hidden = NO;
@@ -327,10 +395,13 @@
 		newUser.hidden = YES;
 		action.hidden = YES;
 		reset.hidden = YES;
+		relock.hidden = YES;
 		drivers.hidden = YES;
 		leagueTable.hidden = NO;
 		result.allowsSelection = NO;
+		[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
 		drivers.allowsSelection = NO;
+		[drivers deselectRowAtIndexPath:[drivers indexPathForSelectedRow] animated:TRUE];
 	}
 	[status setText:text];
 }
@@ -355,7 +426,7 @@
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction];
 	NSNumber *number = [NSNumber numberWithInt:p.pin];
 	message = [message stringByAppendingString:[number stringValue]];
-	message = [message stringByAppendingString:@". You will need this to unlock your entry"];
+	message = [message stringByAppendingString:@". You will need this to change your entry"];
 	pinMessage.message = message;
 	[pinMessage show];
 }
@@ -368,9 +439,18 @@
 		[newCompetitor badUser];
 	else
 	{
-		[newCompetitor getUser:self];
+		[newCompetitor getUser:self AlreadyBad:true];
 		showingBadUser = true;
 	}
+}
+
+-(void) makeNewUser
+{
+	[[[RacePadDatabase Instance] racePrediction] clear];
+	if ( newCompetitor == nil )
+		newCompetitor = [[NewCompetitor alloc] initWithNibName:@"NewCompetitor" bundle:nil];
+	[newCompetitor getUser:self AlreadyBad:true];
+	showingBadUser = true;
 }
 
 -(void)cancelledRegister
@@ -422,8 +502,7 @@
 		if ( indexPath.row < [[[RacePadDatabase Instance] racePrediction] count] )
 			p = prediction[indexPath.row];
 		
-		if ( p < 0
-			|| p >= [[[RacePadDatabase Instance]driverNames] count] )
+		if ( p <= 0 )
 			cell.detailTextLabel.text = nil;
 		else
 		{

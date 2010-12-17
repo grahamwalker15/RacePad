@@ -68,12 +68,7 @@
 		[competitorNames addObject:s];
 	}
 	[competitorNames sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-	[user reloadComponent:0];
-	[user selectRow:0 inComponent:0 animated:NO];
-	if ( [ competitorNames count] )
-		currentUser = [competitorNames objectAtIndex:0];
-	else
-		currentUser = nil;
+	[user reloadData];
 }
 
 -(void) cancelPressed:(id)sender
@@ -81,43 +76,43 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
--(void) selectPressed:(id)sender
+-(void) newUserPressed:(id)sender
 {
+	[self dismissModalViewControllerAnimated:NO];
+	[gameController makeNewUser];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return [competitorNames count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *MyIdentifier = @"RacePadGame";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:MyIdentifier] autorelease];
+    }
+	
+	cell.textLabel.text = [competitorNames objectAtIndex:indexPath.row];
+	cell.detailTextLabel.text = nil;
+	return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return @"Competitors";
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSString *currentUser = [competitorNames objectAtIndex:indexPath.row];
 	[[RacePadCoordinator Instance] requestPrediction:currentUser];
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[p setUser:currentUser];
 	[gameController lock];
 	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-	return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-	return [competitorNames count];
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-	return 40;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-	return [competitorNames objectAtIndex:row];
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-	return 180;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-	currentUser = [competitorNames objectAtIndex:row];
 }
 
 - (void) getUser: (GameViewController *)controller

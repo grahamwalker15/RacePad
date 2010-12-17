@@ -10,20 +10,19 @@
 
 @class GameViewController;
 
-@interface ChangeCompetitor : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface ChangeCompetitor : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 
 	IBOutlet UIButton *cancel;
-	IBOutlet UIButton *select;
-	IBOutlet UIPickerView *user;
+	IBOutlet UIButton *newUser;
+	IBOutlet UITableView *user;
 
-	NSString *currentUser;
 	NSMutableArray *competitorNames;
 	
 	GameViewController *gameController;
 }
 
 - (IBAction)cancelPressed:(id)sender;
-- (IBAction)selectPressed:(id)sender;
+- (IBAction)newUserPressed:(id)sender;
 
 -(void) getUser:(GameViewController *)controller;
 

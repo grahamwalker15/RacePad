@@ -18,12 +18,13 @@
 	IBOutlet UIButton *cancel;
 	
 	GameViewController *gameController;
+	bool alreadyBad;
 
 }
 
 - (IBAction)cancelPressed:(id)sender;
 
 -(void) badUser;
-- (void) getUser: (GameViewController *)controller;
+- (void) getUser: (GameViewController *)controller AlreadyBad:(bool) alreadyBad;
 
 @end

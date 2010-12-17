@@ -64,7 +64,10 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	[status setText:@"User is already registered. Please select a new name."];
+	if ( alreadyBad )
+		[status setText:@"User is already registered. Please select a new name."];
+	else
+		[status setText:@"Please enter a new user name."];
 	[name setText:@""];
 	[whirl stopAnimating];
 	[name becomeFirstResponder];
@@ -100,8 +103,9 @@
 	[status setText:@"User is already registered. Please select a new name."];
 }
 
-- (void) getUser: (GameViewController *)controller
+- (void) getUser: (GameViewController *)controller AlreadyBad: (bool) b
 {
+	alreadyBad = b;
 	gameController = controller;
 	[gameController presentModalViewController:self animated:YES];
 }

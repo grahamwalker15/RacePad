@@ -24,6 +24,7 @@
 	IBOutlet UITableView *drivers;
 	IBOutlet UIButton *action;
 	IBOutlet UIButton *reset;
+	IBOutlet UIButton *relock;
 	IBOutlet UILabel *status;
 	IBOutlet TableDataView *leagueTable;
 	
@@ -44,6 +45,7 @@
 -(IBAction) changeUserPressed:(id)sender;
 -(IBAction) actionPressed:(id)sender;
 -(IBAction) resetPressed:(id)sender;
+-(IBAction) relockPressed:(id)sender;
 -(void) updatePrediction;
 -(void) registeredUser;
 -(void) cancelledRegister;
@@ -52,5 +54,6 @@
 -(void) pinFailed;
 -(bool) validName:(NSString *)name;
 -(void) lock;
+-(void) makeNewUser;
 
 @end
