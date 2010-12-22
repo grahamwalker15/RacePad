@@ -119,6 +119,11 @@ static RacePadTitleBarController * instance_ = nil;
 	}
 }
 
+- (int) inqCurrentLap
+{
+	return currentLap;
+}
+
 - (void) setTrackState:(int)state
 {
 	switch (state)

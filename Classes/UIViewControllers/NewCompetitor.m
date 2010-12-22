@@ -22,6 +22,7 @@
         // Custom initialization
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationFormSheet];
+		alreadyBad = false;
     }
     return self;
 }

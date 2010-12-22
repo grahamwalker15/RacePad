@@ -24,5 +24,7 @@
 
 - (void) getPin: (int)pin Controller: (GameViewController *)controller;
 - (IBAction)cancelPressed:(id)sender;
+- (IBAction)digitPressed:(id)sender;
+- (IBAction)deletePressed:(id)sender;
 
 @end

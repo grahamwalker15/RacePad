@@ -30,7 +30,6 @@
 	Telemetry *telemetry;
 	DriverNames *driverNames;
 	RacePrediction *racePrediction;
-	TableData *resultData;
 	TableData *competitorData;
 }
 
@@ -46,7 +45,6 @@
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
 @property (readonly) RacePrediction * racePrediction;
-@property (readonly) TableData *resultData;
 @property (readonly) TableData *competitorData;
 
 + (RacePadDatabase *)Instance;

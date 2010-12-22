@@ -63,43 +63,39 @@
 	changingPin = true;
 	[pin setText:@""];
 	changingPin = false;
-	[pin becomeFirstResponder];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-	if ( [pin.text intValue] == userPin )
-	{
-		[pin resignFirstResponder];
-		[self dismissModalViewControllerAnimated:YES];
-		[gameController pinCorrect];
-		return YES;
-	}
-	changingPin = true;
-	[pin setText:@""];
-	changingPin = false;
-	return NO;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-	int newLength = pin.text.length - range.length + string.length;
-	if ( newLength > 4 )
-		return NO;
-	
-	for ( int i = 0; i < string.length; i++ )
-	{
-		unichar ch = [string characterAtIndex:i];
-		if ( ch < '0' || ch > '9' )
-			return NO;
-	}
-	return YES;
 }
 
 -(void) cancelPressed:(id)sender
 {
 	[self dismissModalViewControllerAnimated:YES];
 	[gameController pinFailed];
+}
+
+-(void) digitPressed:(id)sender
+{
+	NSString *text = pin.text;
+	if ( text.length < 4 )
+	{
+		UIButton *button = sender;
+		
+		text = [text stringByAppendingString: button.titleLabel.text];
+		[pin setText:text];
+		if ( [text intValue] == userPin )
+		{
+			[self dismissModalViewControllerAnimated:YES];
+			[gameController pinCorrect];
+		}
+	}
+}
+
+-(void) deletePressed:(id)sender
+{
+	NSString *text = pin.text;
+	if ( text.length > 0 )
+	{
+		text = [text substringToIndex:text.length - 1];
+		[pin setText:text];
+	}
 }
 
 - (void) getPin: (int)inPin Controller: (GameViewController *)controller

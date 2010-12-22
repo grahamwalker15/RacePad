@@ -1102,6 +1102,10 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[self AddDataSourceWithType:type AndFile: @"telemetry.rpf"];
 	}
+	else if (type == RPC_GAME_VIEW_ )
+	{
+		[self AddDataSourceWithType:type AndFile: @"game.rpf"];
+	}
 }
 
 -(void)RemoveDataSourceWithType:(int)type
@@ -1194,12 +1198,38 @@ static RacePadCoordinator * instance_ = nil;
 {
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[socket_ checkUserName:name];
+	else
+	{
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *folder = [paths objectAtIndex:0];
+		folder = [folder stringByAppendingPathComponent:sessionFolder];
+		NSString *fName = @"player_";
+		fName = [fName stringByAppendingString:name];
+		fName = [fName stringByAppendingString:@".rpf"];
+		NSString *competitorFile = [folder stringByAppendingPathComponent:fName];
+		NSFileManager *fm =	[[NSFileManager alloc]init];
+		BOOL isDir;
+		if ( [fm fileExistsAtPath:competitorFile isDirectory:&isDir] )
+			[self badUser];
+		else
+			[gameViewController cancelledRegister];
+		[fm release];
+	}
 }
 
 -(void) requestPrediction: (NSString *)name
 {
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[socket_ requestPrediction:name];
+	else
+	{
+		NSString *fName = @"player_";
+		fName = [fName stringByAppendingString:name];
+		fName = [fName stringByAppendingString:@".rpf"];
+		NSString *competitorFile = [sessionFolder stringByAppendingPathComponent:fName];
+		[self loadRPF:competitorFile];		
+	}
+
 }
 
 -(void) registeredUser

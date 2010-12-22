@@ -34,6 +34,7 @@
 	bool locked;
 	int competitorCount;
 	bool showingBadUser;
+	unsigned char gameStatus;
 	
 	NewCompetitor *newCompetitor;
 	ChangeCompetitor *changeCompetitor;

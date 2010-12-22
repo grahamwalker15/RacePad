@@ -31,6 +31,7 @@
 - (void) setEventName: (NSString *)event;
 - (void) setLapCount: (int)count;
 - (void) setCurrentLap: (int)lap;
+- (int) inqCurrentLap;
 - (void) setTrackState: (int)state;
 
 - (IBAction)AlertPressed:(id)sender;

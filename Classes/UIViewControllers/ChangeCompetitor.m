@@ -108,11 +108,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSString *currentUser = [competitorNames objectAtIndex:indexPath.row];
-	[[RacePadCoordinator Instance] requestPrediction:currentUser];
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[p setUser:currentUser];
 	[gameController lock];
 	[self dismissModalViewControllerAnimated:YES];
+	[[RacePadCoordinator Instance] requestPrediction:currentUser];
 }
 
 - (void) getUser: (GameViewController *)controller

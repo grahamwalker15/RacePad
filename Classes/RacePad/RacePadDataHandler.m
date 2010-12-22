@@ -425,21 +425,6 @@
 			[[RacePadCoordinator Instance] updatePrediction];
 			break;
 		}
-		case RPSC_WHOLE_RESULT_VIEW_: // Result View (whole page)
-		{
-			
-			TableData *resultData = [[RacePadDatabase Instance] resultData];
-			[resultData loadData:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
-			break;
-		}
-		case RPSC_UPDATE_RESULT_VIEW_: // Result View (updates)
-		{
-			TableData *resultData = [[RacePadDatabase Instance] resultData];
-			[resultData updateData:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_GAME_VIEW_];
-			break;
-		}
 		case RPSC_GAME_STATUS_: // Game Start Time
 		{
 			[[[RacePadDatabase Instance] racePrediction] loadStatus:stream];

@@ -10,6 +10,8 @@
 #import "RacePadCoordinator.h"
 #import	"RacePadDatabase.h"
 #import "UserPin.h"
+#import "RacePadTitleBarController.h"
+#import "RacePadTimeController.h"
 
 @implementation GameViewController
 
@@ -43,8 +45,21 @@
 	[[RacePadCoordinator Instance] AddView:leagueTable WithType:RPC_GAME_VIEW_];
 	changingSelection = false;
 	locked = false;
+	gameStatus = GS_NOT_STARTED;
 	[action setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	[changeUser setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
+
+	// We get the tap to show/s=hide the time controller
+	[self addTapRecognizerToView:leagueTable];
+	[self addTapRecognizerToView:[self view]];
+	// But, we don't want it on these controls
+	[self addTapRecognizerToView:result];
+	[self addTapRecognizerToView:drivers];
+	[self addTapRecognizerToView:newUser];
+	[self addTapRecognizerToView:changeUser];
+	[self addTapRecognizerToView:action];
+	[self addTapRecognizerToView:reset];
+	[self addTapRecognizerToView:relock];
 }
 
 - (void)positionViews
@@ -59,10 +74,25 @@
 	leagueTable.hidden = YES;
 }
 
+- (unsigned char) inqGameStatus
+{
+	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
+	{
+		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+		return p.gameStatus;
+	}
+	else
+	{
+		if ( [[RacePadTitleBarController Instance] inqCurrentLap] > 1 )
+			return GS_PLAYING;
+	}
+	
+	return GS_NOT_STARTED;
+}
+
 - (void)showViews
 {
-	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-	if ( p.gameStatus != GS_NOT_STARTED )
+	if ( [self inqGameStatus] != GS_NOT_STARTED )
 		leagueTable.hidden = NO;
 }
 
@@ -79,7 +109,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
 {
-	[[RacePadCoordinator Instance] SetViewHidden:[self view]];
+	[[RacePadCoordinator Instance] SetViewHidden:leagueTable];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 
 	// re-enable the screen locking
@@ -129,6 +159,24 @@
     [super dealloc];
 }
 
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	if ( gestureView == [self view]
+	  || gestureView == leagueTable )
+	{
+		RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+		if(![time_controller displayed])
+		{
+			[time_controller displayInViewController:self Animated:true];
+		}
+		else
+		{
+			[time_controller hide];
+		}
+	}
+}
+
 /////////////////////////////////////////////////////////////////////
 // Class specific methods
 
@@ -141,7 +189,7 @@
 -(void)unlock
 {
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-	if ( p.gameStatus == GS_NOT_STARTED )
+	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
 		if ( userPin == nil )
 			userPin = [[UserPin alloc] initWithNibName:@"UserPin" bundle:nil];
@@ -213,19 +261,19 @@
 -(IBAction)actionPressed:(id)sender
 {
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-	if ( p.gameStatus == GS_NOT_STARTED )
+	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
 		if ( p.cleared )
 		{
 			NSString *name = user.text;
 			if ( [self validName:name] )
 			{
-				[[RacePadCoordinator Instance]checkUserName:name];
 				action.enabled = NO;
 				user.enabled = NO;
 				changeUser.enabled = NO;
 				[self lock];
 				[p setUser:name];
+				[[RacePadCoordinator Instance]checkUserName:name];
 			}
 		}
 		else
@@ -268,10 +316,13 @@
 	[drivers reloadData];
 	
 	// has the number of drivers in the result table changed?
-	if ( driverCount != [[[RacePadDatabase Instance]resultData] rows] )
+	// or the gameStatus changed
+	if ( driverCount != [[[RacePadDatabase Instance]driverNames] count]
+	  || gameStatus != [self inqGameStatus] )
 	{
 		[self updatePrediction];
-		driverCount = [[[RacePadDatabase Instance]resultData] rows];
+		driverCount = [[[RacePadDatabase Instance]driverNames] count];
+		gameStatus = [self inqGameStatus];
 	}
 }
 
@@ -281,7 +332,7 @@
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 
 	NSString *text;
-	if ( p.gameStatus == GS_NOT_STARTED )
+	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
 		int time = p.startTime;
 		if ( time >= 0 )
@@ -352,14 +403,14 @@
 		user.text = p.user;
 		if ( p.position < 0 )
 		{
-			if ( p.gameStatus == GS_PLAYING )
+			if ( [self inqGameStatus] == GS_PLAYING )
 				text = @"Game is in progress";
 			else
 				text = @"Game is complete";
 		}
 		else
 		{
-			if ( p.gameStatus == GS_PLAYING )
+			if ( [self inqGameStatus] == GS_PLAYING )
 				text = @"Current status would make you ";
 			else
 				text = @"Final result makes you ";
@@ -449,7 +500,7 @@
 	[[[RacePadDatabase Instance] racePrediction] clear];
 	if ( newCompetitor == nil )
 		newCompetitor = [[NewCompetitor alloc] initWithNibName:@"NewCompetitor" bundle:nil];
-	[newCompetitor getUser:self AlreadyBad:true];
+	[newCompetitor getUser:self AlreadyBad:false];
 	showingBadUser = true;
 }
 
@@ -470,7 +521,7 @@
 {
 	if ( tableView == result )
 		return [[[RacePadDatabase Instance] racePrediction] count];
-	return [[[RacePadDatabase Instance]resultData] rows];
+	return [[[RacePadDatabase Instance]driverNames] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -508,7 +559,7 @@
 		{
 			DriverName *driver = [[[RacePadDatabase Instance]driverNames] driverByNumber:prediction[indexPath.row]];
 			NSString *name = driver.name;
-			if ( racePrediction.gameStatus != GS_NOT_STARTED )
+			if ( [self inqGameStatus] != GS_NOT_STARTED )
 			{
 				int pts = [racePrediction scores][indexPath.row];
 				NSNumber *points = [NSNumber numberWithInt:pts];
@@ -521,9 +572,9 @@
 	}
 	else
 	{
-		TableData *resultData = [[RacePadDatabase Instance]resultData];
-		cell.textLabel.text = [[resultData cell:indexPath.row Col:1] string];
-		cell.detailTextLabel.text = [[resultData cell:indexPath.row Col:2] string];
+		DriverName *driver = [[[RacePadDatabase Instance]driverNames] driver:indexPath.row];
+		cell.textLabel.text = driver.name;
+		cell.detailTextLabel.text = driver.team;
 	}
 	return cell;
 }
@@ -551,15 +602,7 @@
 			int driverNumber = prediction[indexPath.row];
 			
 			// Find the driver with this number in the result view
-			int count = [[[RacePadDatabase Instance] resultData] rows];
-			for ( int i = 0; i < count; i++ )
-			{
-				if ( driverNumber == [[[[[RacePadDatabase Instance] resultData] cell:i Col:0] string] intValue] )
-				{
-					p = i;
-					break;
-				}
-			}
+			p = [[[RacePadDatabase Instance] driverNames] driverIndexByNumber:driverNumber];
 		}
 		
 		if ( p == -1 )
@@ -584,8 +627,8 @@
 				int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
 				int count = [[[RacePadDatabase Instance] racePrediction] count];
 				int number = 0;
-				if ( indexPath.row < [[[RacePadDatabase Instance] resultData] rows] )
-					number = [[[[[RacePadDatabase Instance] resultData] cell:indexPath.row Col:0] string] intValue];
+				if ( indexPath.row < [[[RacePadDatabase Instance] driverNames] count] )
+					number = [[[[RacePadDatabase Instance] driverNames] driver:indexPath.row] number];
 				for ( int i = 0; i < count; i++ )
 					if ( prediction[i] == number )
 						prediction[i] = -1;
