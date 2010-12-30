@@ -897,7 +897,7 @@
 			CGPoint resultPoint = [recognizer locationInView:result];
 			if([result pointInside:resultPoint withEvent:nil])
 			{
-				NSIndexPath * resultRow = [(UITableView *)gestureView indexPathForRowAtPoint:resultPoint];
+				NSIndexPath * resultRow = [result indexPathForRowAtPoint:resultPoint];
 				if(resultRow)
 				{
 					UITableViewCell * cell = [result cellForRowAtIndexPath:resultRow];
