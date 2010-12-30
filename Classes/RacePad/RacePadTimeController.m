@@ -63,6 +63,7 @@ static RacePadTimeController * instance_ = nil;
 	// Release any existing add on from an old view controller
 	if(addOnOptionsView)
 	{
+		[addOnOptionsView removeFromSuperview];
 		[addOnOptionsView release];
 		addOnOptionsView = nil;
 	}
@@ -160,7 +161,7 @@ static RacePadTimeController * instance_ = nil;
 	[UIView commitAnimations];
 	
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
-	NSTimer * flagTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context

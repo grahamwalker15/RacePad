@@ -29,14 +29,6 @@
 }
 
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -44,12 +36,16 @@
 	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:alertView];
-	[self addDoubleTapRecognizerToView:alertView];
 	[self addLongPressRecognizerToView:alertView];
 	
     [super viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[alertView SelectRow:-1];
+	[super viewWillAppear:animated];
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -91,16 +87,24 @@
 	[[RacePadCoordinator Instance] jumpToTime:time];
 	[[RacePadTimeController Instance] updateClock:time];
 	
-	if(parentPopover)
-	{
-		[parentPopover dismissPopoverAnimated:true];
-	}
+	[alertView SelectRow:row];
+	[alertView RequestRedraw];
+	
+	[NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(dismissTimerExpired:) userInfo:nil repeats:NO];
 	
 	[[RacePadCoordinator Instance] prepareToPlay];
 	[[RacePadCoordinator Instance] startPlay];
 	[[RacePadTimeController Instance] updatePlayButton];
 	
 	return true;
+}
+
+- (void) dismissTimerExpired:(NSTimer *)theTimer
+{
+	if(parentPopover)
+	{
+		[parentPopover dismissPopoverAnimated:true];
+	}
 }
 
 - (IBAction) closePressed:(id)sender

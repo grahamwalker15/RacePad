@@ -12,23 +12,34 @@
 #import "NewCompetitor.h"
 #import "ChangeCompetitor.h"
 #import "TableDataView.h"
+#import "BackgroundView.h"
 
 @class	UserPin;
 
 @interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
+	IBOutlet BackgroundView *background;
 	IBOutlet UITextField *user;
 	IBOutlet UIButton *newUser;
 	IBOutlet UIButton *changeUser;
 	IBOutlet UITableView *result;
-	IBOutlet UITableView *drivers;
+	IBOutlet UITableView *drivers1;
+	IBOutlet UITableView *drivers2;
 	IBOutlet UIButton *action;
 	IBOutlet UIButton *reset;
 	IBOutlet UIButton *relock;
 	IBOutlet UILabel *status;
 	IBOutlet TableDataView *leagueTable;
+	IBOutlet UIImageView * predictionBG;
+	IBOutlet UIView * draggedDriver;
+	
+	bool portraitMode;
 	
 	bool changingSelection;
+	bool draggingCell;
+	int draggedDriverIndex;
+	NSIndexPath * draggedTargetIndex;
+	
 	int driverCount;
 	bool changingUser;
 	bool locked;
@@ -56,5 +67,6 @@
 -(bool) validName:(NSString *)name;
 -(void) lock;
 -(void) makeNewUser;
+-(void) addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath;
 
 @end

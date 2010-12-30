@@ -7,6 +7,7 @@
 //
 
 #import "DriverLapListController.h"
+#import "DriverListController.h"
 
 #import "TableDataView.h"
 #import "RacePadCoordinator.h"
@@ -114,7 +115,7 @@
 
 - (IBAction)BackButton:(id)sender
 {
-	[[self parentViewController] HideDriverLapListAnimated:true];
+	[(DriverListController *)[self parentViewController] HideDriverLapListAnimated:true];
 }
 
 - (IBAction)PreviousButton:(id)sender

@@ -122,6 +122,8 @@ static bool bg_images_initialised_ = false;
 	}
 		
 	[self RestoreGraphicsState];
+
 }
+
 
 @end

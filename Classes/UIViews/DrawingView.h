@@ -57,12 +57,15 @@
 				
 		int last_x_, last_y_;
 	
+		bool double_tap_enabled_;
+	
 }
 	
 // Properties for synthesizing
 
 @property (nonatomic, retain, setter=SetFGColour, getter=FGColour) UIColor * fg_;
 @property (nonatomic, retain, setter=SetBGColour, getter=BGColour) UIColor * bg_;
+@property (nonatomic, setter=SetDoubleTapEnabled, getter=DoubleTapEnabled) bool double_tap_enabled_;
 @property (readonly) UIColor * black_;
 @property (readonly) UIColor * white_;
 @property (readonly) UIColor * blue_;

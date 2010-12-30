@@ -144,7 +144,7 @@ enum ColumnPriority {
 - (void) SetBaseColour:(UIColor *)colour;
 - (void) SetAlignment:(int)alignment;
 
-// Protected functions that can be overridden
+- (void) SelectRow:(int)index;
 - (bool) IsRowSelected:(int)index;
 - (int) InqSelectedRowIndex;
 - (bool) IsColSelected:(int)index;

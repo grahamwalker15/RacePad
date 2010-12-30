@@ -29,6 +29,8 @@
 // Virtual method to be overwritten in order to update any title bars etc.
 - (void) RequestRedrawForType:(int)type;
 
+// View display configuration
+-(void) addDropShadowToView:(UIView *)view WithOffsetX:(float)x Y:(float)y Blur:(float)blur;
 
 // Gesture recognizer creation
 
@@ -40,6 +42,7 @@
 -(void) addRightSwipeRecognizerToView:(UIView *)view;
 -(void) addLeftSwipeRecognizerToView:(UIView *)view;
 -(void) addPanRecognizerToView:(UIView *)view;
+-(void) addDragRecognizerToView:(UIView *)view WithTarget:(UIView *)targetView;
 
 // Gesture recognizer callbacks
 
@@ -51,6 +54,7 @@
 - (void)HandleRightSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandleLeftSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer;
+- (void)HandleDragFrom:(UIGestureRecognizer *)gestureRecognizer; // Works only on UITableViews
 
 // Action callbacks
 
@@ -61,6 +65,7 @@
 - (void) OnRotationGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed;
 - (void) OnRightSwipeGestureInView:(UIView *)gestureView;
 - (void) OnLeftSwipeGestureInView:(UIView *)gestureView;
-- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y;
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state;
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIGestureRecognizer *)recognizer;
 
 @end

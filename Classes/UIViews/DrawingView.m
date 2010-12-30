@@ -15,6 +15,8 @@
 @synthesize fg_;
 @synthesize bg_;
 
+@synthesize double_tap_enabled_;
+
 @synthesize black_;
 @synthesize white_;
 @synthesize blue_;
@@ -166,6 +168,7 @@ static bool statics_initialised_ = false;
 	current_matrix_ = CGAffineTransformIdentity;
 	
 	entered_ = false;
+	double_tap_enabled_= false;
 	
 	last_x_ = 0;
 	last_y_ = 0;

@@ -13,6 +13,11 @@
 @interface TrackMapView : DrawingView
 {
 	bool isZoomView;
+	bool isOverlayView;
+	
+	float homeXOffset;
+	float homeYOffset;	
+	float homeScale;
 	
 	float userXOffset;
 	float userYOffset;	
@@ -27,6 +32,11 @@
 }
 
 @property (nonatomic) bool isZoomView;
+@property (nonatomic) bool isOverlayView;
+
+@property (nonatomic) float homeXOffset;
+@property (nonatomic) float homeYOffset;
+@property (nonatomic) float homeScale;
 
 @property (nonatomic) float userXOffset;
 @property (nonatomic) float userYOffset;

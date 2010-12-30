@@ -8,6 +8,8 @@
 
 #import "RacePadViewController.h"
 #import "RacePadTimeController.h"
+#import "DrawingView.h"
+#import "QuartzCore/QuartzCore.h"
 
 
 @implementation RacePadViewController
@@ -60,6 +62,18 @@
 {
 }
 
+// View display configuration
+-(void) addDropShadowToView:(UIView *)view WithOffsetX:(float)x Y:(float)y Blur:(float)blur
+{
+	if(view)
+	{
+		view.layer.shadowColor = [UIColor blackColor].CGColor;
+		view.layer.shadowOpacity = 1.0;
+		view.layer.shadowRadius = blur;
+		view.layer.shadowOffset = CGSizeMake(x, y);
+		view.clipsToBounds = false;
+	}	
+}
 
 // Gesture recognizers
 
@@ -79,6 +93,9 @@
 	[(UITapGestureRecognizer *)recognizer setNumberOfTapsRequired:2];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
+	
+	if([view isKindOfClass:[DrawingView class]])
+		[(DrawingView *)view SetDoubleTapEnabled:true];
 }
 
 -(void) addLongPressRecognizerToView:(UIView *)view
@@ -108,18 +125,20 @@
 
 -(void) addRightSwipeRecognizerToView:(UIView *)view
 {	
-	// Right Swipe recognizer
+	// Right Swipe recognizer - two fingers
 	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
 	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+	[(UISwipeGestureRecognizer *)recognizer setNumberOfTouchesRequired:2];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
 
 -(void) addLeftSwipeRecognizerToView:(UIView *)view
 {
-	// Left Swipe recognizer
+	// Left Swipe recognizer - two fingers
 	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLeftSwipeFrom:)];
 	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+	[(UISwipeGestureRecognizer *)recognizer setNumberOfTouchesRequired:2];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
@@ -132,14 +151,33 @@
 	[recognizer release];
 }
 
+-(void) addDragRecognizerToView:(UIView *)view WithTarget:(UIView *)targetView 
+{	
+	//Drag and drop - implemented as pan recognizer
+	// Works only on UITableViews
+	if(!view || ![view isKindOfClass:[UITableView class]])
+		return;
+	
+	UIPanGestureRecognizer * recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDragFrom:)];
+	[view addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
 // Gesture recognizer callbacks
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	UIView * gestureView = [gestureRecognizer view];
-	tapPoint = [gestureRecognizer locationInView:gestureView];
-	tapView = gestureView;
-	doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
+	tapView = [gestureRecognizer view];
+	tapPoint = [gestureRecognizer locationInView:tapView];
+	
+	if([tapView isKindOfClass:[DrawingView class]] && ![(DrawingView *)tapView DoubleTapEnabled])
+	{
+		[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
+	}
+	else
+	{
+		doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
+	}
 }
 
 - (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -227,13 +265,7 @@
 
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	if([(UIPanGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateEnded)
-	{
-		lastGesturePanX = 0.0;
-		lastGesturePanY = 0.0;
-		return;
-	}
-	
+	int state = [(UIPanGestureRecognizer *)gestureRecognizer state];
 	UIView * gestureView = [gestureRecognizer view];
 	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureView];
 	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
@@ -242,9 +274,42 @@
 	float thisGesturePanY = pan.y;
 	pan.x = pan.x - lastGesturePanX;
 	pan.y = pan.y - lastGesturePanY;
-	[self OnPanGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y];
+	[self OnPanGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y State:state];
 	lastGesturePanX = thisGesturePanX;
 	lastGesturePanY = thisGesturePanY;
+
+	if(state == UIGestureRecognizerStateEnded)
+	{
+		lastGesturePanX = 0.0;
+		lastGesturePanY = 0.0;
+		return;
+	}
+	
+}
+
+- (void)HandleDragFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	int state = [(UIPanGestureRecognizer *)gestureRecognizer state];
+	UIView * gestureView = [gestureRecognizer view];
+
+	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureView];
+	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
+		
+	float thisGesturePanX = pan.x;
+	float thisGesturePanY = pan.y;
+	pan.x = pan.x - lastGesturePanX;
+	pan.y = pan.y - lastGesturePanY;
+	[self OnDragGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y  State:state Recognizer:gestureRecognizer];
+	lastGesturePanX = thisGesturePanX;
+	lastGesturePanY = thisGesturePanY;
+	
+	if(state == UIGestureRecognizerStateEnded)
+	{
+		lastGesturePanX = 0.0;
+		lastGesturePanY = 0.0;
+		return;
+	}
+	
 }
 
 // Action callbacks - these should be overridden if you want any specific actions
@@ -285,7 +350,11 @@
 {
 }
 
-- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
+{
+}
+
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIGestureRecognizer *)recognizer;
 {
 }
 

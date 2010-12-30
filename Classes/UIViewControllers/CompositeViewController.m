@@ -35,6 +35,8 @@
 	[trackMapView setIsZoomView:false];
 	[trackZoomView setIsZoomView:true];
 	
+	[trackMapView setIsOverlayView:true];
+	
 	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
 	[trackZoomContainer setHidden:true];
 
@@ -62,6 +64,9 @@
 	[self addTapRecognizerToView:trackZoomView];
 	[self addDoubleTapRecognizerToView:trackZoomView];
 	[self addPinchRecognizerToView:trackZoomView];
+	
+	// And add pan view to the trackZoomView to allow dragging the container
+	[self addPanRecognizerToView:trackZoomView];
 	
 	// Add tap recognizer to overlay in order to catch taps outside map
 	[self addTapRecognizerToView:overlayView];
@@ -361,6 +366,7 @@
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
 	[trackZoomContainer setAlpha:0.0];
+	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(hideZoomMapAnimationDidStop:finished:context:)];
 	[UIView commitAnimations];
 }
@@ -372,6 +378,7 @@
 		[trackZoomContainer setHidden:true];
 		[trackZoomContainer setAlpha:1.0];
 		[trackZoomView setCarToFollow:nil];
+		[leaderboardView RequestRedraw];
 	}
 }
 
@@ -544,20 +551,28 @@
 	[trackMapView RequestRedraw];
 }
 
-- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
 {
-	// Make sure we're on the map - do nothing otherwise
-	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
-	{
+	// Ignore lifting finger
+	if(state == UIGestureRecognizerStateEnded)
 		return;
+	
+	// If we're on the track zoom, drag the container
+	if(gestureView == trackZoomView)
+	{
+		CGRect frame = [trackZoomContainer frame];
+		CGRect newFrame = CGRectOffset(frame, x, y);
+		[trackZoomContainer setFrame:newFrame];
 	}
 	
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];
-	
-	[trackMap adjustPanInView:(TrackMapView *)gestureView X:x Y:y];
-	
-	[trackMapView RequestRedraw];
+	// If we're on the track map, pan the map
+	if(gestureView == trackMapView)
+	{
+		RacePadDatabase *database = [RacePadDatabase Instance];
+		TrackMap *trackMap = [database trackMap];
+		[trackMap adjustPanInView:(TrackMapView *)gestureView X:x Y:y];	
+		[trackMapView RequestRedraw];
+	}
 }
 
 
@@ -612,18 +627,24 @@
 	}
 	else
 	{
+		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
 		displayMap = true;
 		displayLeaderboard = true;
 		[trackMapView setHidden:false];
-		[trackZoomContainer setHidden:false];
 		[leaderboardView setHidden:false];
 		
 		[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
-		[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 		
 		[trackMapView RequestRedraw];
 		[leaderboardView RequestRedraw];
+		
+		if(zoomMapVisible)
+		{
+			[trackZoomContainer setHidden:false];
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+			[trackZoomView RequestRedraw];
+		}
 	}	
 
 }

@@ -311,8 +311,12 @@
 	// Will give info about car in pit window
 }
 
-- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
 {
+	// Ignore lifting finger
+	if(state == UIGestureRecognizerStateEnded)
+		return;
+	
 	if([gestureView isKindOfClass:[PitWindowView class]])
 	{
 		[(PitWindowView *)gestureView adjustPanX:x Y:y];	

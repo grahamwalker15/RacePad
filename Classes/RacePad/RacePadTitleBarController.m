@@ -162,9 +162,9 @@ static RacePadTitleBarController * instance_ = nil;
 {
 	CGSize popoverSize;
 	if([[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_)
-		popoverSize = CGSizeMake(400,800);
+		popoverSize = CGSizeMake(500,800);
 	else
-		popoverSize = CGSizeMake(400,600);
+		popoverSize = CGSizeMake(500,600);
 	
 	[alertPopover setPopoverContentSize:popoverSize];
 	

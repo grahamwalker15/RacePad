@@ -437,9 +437,6 @@
 
 @implementation TrackMap
 
-@synthesize mapXOffset;
-@synthesize mapYOffset;
-@synthesize mapScale;
 @synthesize trackLength;
 @synthesize s1Length;
 @synthesize s2Length;
@@ -664,8 +661,8 @@
 			[view LineCurrentPath];
 		}
 		
-		count = [segmentStates count];
 		// Now overlay any red/yellow segments
+		count = [segmentStates count];
 		[view SetLineWidth:2 / scale];
 		for ( i = 0; i < count; i++)
 		{
@@ -741,7 +738,7 @@
 	
 	[self constructTransformMatrixForView:view];
 	
-	float scale = mapScale * [view interpolatedUserScale]; // Usually just userScale unless animating
+	float scale = [view homeScale] * [view interpolatedUserScale]; // Usually just userScale unless animating
 	[self drawTrack:view Scale:scale];
 	
 	[view RestoreGraphicsState];
@@ -865,16 +862,32 @@
 		
 	CGSize viewSize = map_rect.size;
 	
-	// Centre the map as big as possible in the rectangle
+	// Make the map as big as possible in the rectangle
 	float x_scale = (width > 0.0) ? viewSize.width / width : viewSize.width;
 	float y_scale = (height > 0.0) ? viewSize.height / height : viewSize.height;
 	
-	mapScale = (x_scale < y_scale) ? x_scale : y_scale;
+	float mapScale = (x_scale < y_scale) ? x_scale : y_scale;
 	
-	mapScale = mapScale * 0.9;
+	float mapXOffset, mapYOffset;
+
 	
-	mapXOffset = viewSize.width * 0.5 - xCentre  ;
-	mapYOffset = viewSize.height * 0.5 + yCentre ;
+	// If it is an overlay view, we move it to the right. Otherwise centre.
+	if([view isOverlayView])
+	{
+		mapScale = mapScale * 0.7;
+		mapXOffset = viewSize.width - width * 0.5 * mapScale - 55 ;
+		mapYOffset = viewSize.height * 0.5 + yCentre  ;
+	}
+	else
+	{
+		mapScale = mapScale * 0.9;
+		mapXOffset = viewSize.width * 0.5 - xCentre  ;
+		mapYOffset = viewSize.height * 0.5 + yCentre ;
+	}
+	
+	[view setHomeScale:mapScale];
+	[view setHomeXOffset:mapXOffset];
+	[view setHomeYOffset:mapYOffset];
 	
 	float userScale = [view interpolatedUserScale];
 	float userXOffset = [view userXOffset];
@@ -914,9 +927,9 @@
 		float currentUserPanX = [view userXOffset] * viewSize.width;
 		float currentUserPanY = [view userYOffset] * viewSize.height;
 		float currentUserScale = [view userScale];
-		float currentMapPanX = mapXOffset;
-		float currentMapPanY = mapYOffset;
-		float currentMapScale = mapScale;
+		float currentMapPanX = [view homeXOffset];
+		float currentMapPanY = [view homeYOffset];
+		float currentMapScale = [view homeScale];
 		float currentScale = currentUserScale * currentMapScale;
 
 		if(fabs(currentScale) < 0.001 || fabs(scale) < 0.001)

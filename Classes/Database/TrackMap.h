@@ -149,10 +149,6 @@ enum TrackState {
 	float width;
 	float height;
 	
-	float mapXOffset;
-	float mapYOffset;	
-	float mapScale;
-	
 	float trackLength;
 	float s1Length;
 	float s2Length;
@@ -172,9 +168,6 @@ enum TrackState {
 	int overallTrackState;
 }
 
-@property (nonatomic) float mapXOffset;
-@property (nonatomic) float mapYOffset;
-@property (nonatomic) float mapScale;
 @property (nonatomic) float trackLength;
 @property (nonatomic) float s1Length;
 @property (nonatomic) float s2Length;

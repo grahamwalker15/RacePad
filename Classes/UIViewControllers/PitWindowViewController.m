@@ -147,14 +147,18 @@
 	// Will give info about car
 }
 
-- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed 
 {
 	[(PitWindowView *)gestureView adjustScale:scale X:x Y:y];	
 	[(PitWindowView *)gestureView RequestRedraw];
 }
 
-- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
 {
+	// Ignore lifting finger
+	if(state == UIGestureRecognizerStateEnded)
+		return;
+
 	[(PitWindowView *)gestureView adjustPanX:x Y:y];	
 	[(PitWindowView *)gestureView RequestRedraw];
 }

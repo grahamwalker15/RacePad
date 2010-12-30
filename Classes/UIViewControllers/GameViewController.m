@@ -41,37 +41,103 @@
 	[leagueTable SetRowHeight:30];
 	[leagueTable SetHeading:true];
 
-	[[RacePadCoordinator Instance] setGameViewController:self];
-	[[RacePadCoordinator Instance] AddView:leagueTable WithType:RPC_GAME_VIEW_];
+	[predictionBG removeFromSuperview];
+	[result setBackgroundView:predictionBG];
+	[result setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
+	
+	[background setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	
+	[draggedDriver removeFromSuperview];
+
 	changingSelection = false;
+	draggingCell = false;
+	draggedDriverIndex = -1;
+	draggedTargetIndex= nil;
+	
 	locked = false;
+
 	gameStatus = GS_NOT_STARTED;
+
 	[action setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	[changeUser setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
+	
+	portraitMode = false; // Arbitrary - will be set properly on display or rotation
+	
+	// Add drop shadows to all of the views
+	/*
+	[self addDropShadowToView:user WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:newUser WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:changeUser WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:result WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:drivers1 WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:drivers2 WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:action WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:reset WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:relock WithOffsetX:5 Y:5 Blur:3];
+	[self addDropShadowToView:leagueTable WithOffsetX:5 Y:5 Blur:3];
+	*/
+	
+	// Register our interest in data feeds
+	[[RacePadCoordinator Instance] setGameViewController:self];
+	[[RacePadCoordinator Instance] AddView:leagueTable WithType:RPC_GAME_VIEW_];
 
-	// We get the tap to show/s=hide the time controller
+	
+	// We get the tap to show/hide the time controller
 	[self addTapRecognizerToView:leagueTable];
 	[self addTapRecognizerToView:[self view]];
+	
 	// But, we don't want it on these controls
 	[self addTapRecognizerToView:result];
-	[self addTapRecognizerToView:drivers];
+	[self addTapRecognizerToView:drivers1];
+	[self addTapRecognizerToView:drivers2];
 	[self addTapRecognizerToView:newUser];
 	[self addTapRecognizerToView:changeUser];
 	[self addTapRecognizerToView:action];
 	[self addTapRecognizerToView:reset];
 	[self addTapRecognizerToView:relock];
+	
+	[self addDragRecognizerToView:drivers1 WithTarget:result];
+	[self addDragRecognizerToView:drivers2 WithTarget:result];
 }
 
 - (void)positionViews
 {
+	// Position the driver lists to the right of the prediction and under the title
+	CGRect resultFrame = [result frame];
+	CGRect titleFrame = [status frame];
+	
+	float xOrigin = resultFrame.origin.x + resultFrame.size.width + 30;
+	float yOrigin = titleFrame.origin.y + titleFrame.size.height + 30;
+	
 	CGRect leagueFrame = [leagueTable frame];
-	leagueFrame = CGRectMake(leagueFrame.origin.x, leagueFrame.origin.y, 335, leagueFrame.size.height);
+	leagueFrame = CGRectMake(xOrigin, yOrigin, 335, leagueFrame.size.height);
 	[leagueTable setFrame:leagueFrame];
+	
+	CGRect drivers1Frame = [drivers1 frame];
+	drivers1Frame = CGRectMake(xOrigin, yOrigin, drivers1Frame.size.width, drivers1Frame.size.height);
+	[drivers1 setFrame:drivers1Frame];
+	
+	CGRect drivers2Frame = [drivers2 frame];
+	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 30, yOrigin, drivers2Frame.size.width, drivers2Frame.size.height);
+	[drivers2 setFrame:drivers2Frame];
+	
+	if(portraitMode)
+	{
+		[drivers1 setHidden:false];
+		[drivers2 setHidden:true];
+	}
+	else
+	{
+		[drivers1 setHidden:false];
+		[drivers2 setHidden:false];
+	}
+
 }
 
 - (void)hideViews
 {
 	leagueTable.hidden = YES;
+	drivers2.hidden = YES;
 }
 
 - (unsigned char) inqGameStatus
@@ -98,8 +164,14 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
+	// Get the UI orientation
+	portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+
+	// Register this UI as current
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
+	
+	// Update UI
 	[self updatePrediction];
 	[self positionViews];
 
@@ -124,6 +196,10 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+	// Get the UI orientation
+	portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
+	// Update UI
 	[self positionViews];
 	[self showViews];
 	
@@ -183,7 +259,7 @@
 -(void)lock
 {
 	locked = true;
-	// Assume rest getssorted when the new prediction turns up
+	// Assume rest gets sorted when the new prediction turns up
 }
 
 -(void)unlock
@@ -206,7 +282,8 @@
 	reset.hidden = NO;
 	relock.hidden = NO;
 	result.allowsSelection = YES;
-	drivers.allowsSelection = YES;
+	drivers1.allowsSelection = YES;
+	drivers2.allowsSelection = YES;
 	newUser.hidden = YES;
 }
 
@@ -297,15 +374,23 @@
 -(IBAction) relockPressed:(id)sender
 {
 	locked = true;
+	
 	action.enabled = YES;
 	[action setTitle:@"Change Prediction" forState:UIControlStateNormal ];
 	[action setTitle:@"Change Prediction" forState:UIControlStateHighlighted];
+	
 	reset.hidden = YES;
 	relock.hidden = YES;
+	
 	result.allowsSelection = NO;
 	[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
-	drivers.allowsSelection = NO;
-	[drivers deselectRowAtIndexPath:[drivers indexPathForSelectedRow] animated:TRUE];
+	
+	drivers1.allowsSelection = NO;
+	[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
+	
+	drivers2.allowsSelection = NO;
+	[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
+	
 	newUser.hidden = NO;
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[[RacePadCoordinator Instance]requestPrediction:p.user];
@@ -313,12 +398,12 @@
 
 - (void) RequestRedrawForType:(int)type
 {
-	[drivers reloadData];
-	
+	[drivers1 reloadData];
+	[drivers2 reloadData];
+		
 	// has the number of drivers in the result table changed?
 	// or the gameStatus changed
-	if ( driverCount != [[[RacePadDatabase Instance]driverNames] count]
-	  || gameStatus != [self inqGameStatus] )
+	if ( driverCount != [[[RacePadDatabase Instance]driverNames] count] || gameStatus != [self inqGameStatus] )
 	{
 		[self updatePrediction];
 		driverCount = [[[RacePadDatabase Instance]driverNames] count];
@@ -348,7 +433,10 @@
 			text = [text stringByAppendingString:[n stringValue]];
 		}
 		else
+		{
 			text = @"Game has not started yet";
+		}
+		
 		if ( p.cleared )
 		{
 			// leave the user name as it is
@@ -357,7 +445,8 @@
 			[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
 			locked = false;
 			result.allowsSelection = YES;
-			drivers.allowsSelection = YES;
+			drivers1.allowsSelection = YES;
+			drivers2.allowsSelection = YES;
 			reset.hidden = YES;
 			relock.hidden = YES;
 			newUser.hidden = YES;
@@ -370,31 +459,44 @@
 			{
 				[action setTitle:@"Change Prediction" forState:UIControlStateNormal];
 				[action setTitle:@"Change Prediction" forState:UIControlStateHighlighted];
+				
 				reset.hidden = YES;
 				relock.hidden = YES;
+				
 				result.allowsSelection = NO;
 				[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
-				drivers.allowsSelection = NO;
-				[drivers deselectRowAtIndexPath:[drivers indexPathForSelectedRow] animated:TRUE];
+				
+				drivers1.allowsSelection = NO;
+				[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
+				
+				drivers2.allowsSelection = NO;
+				[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
+				
 				newUser.hidden = NO;
 			}
 			else
 			{
 				[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
 				[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
+				
 				bool empty = true;
 				int *pre = [p prediction];
 				for ( int i = 0; i < p.count; i++ )
+				{
 					if ( pre[i] != -1 )
 						empty = false;
+				}
+				
 				reset.hidden = empty;
 				relock.hidden = empty;
 				result.allowsSelection = YES;
-				drivers.allowsSelection = YES;
+				drivers1.allowsSelection = YES;
+				drivers2.allowsSelection = YES;
 				newUser.hidden = YES;
 			}
 		}
-		drivers.hidden = NO;
+		drivers1.hidden = NO;
+		drivers2.hidden = portraitMode; // Hidden if in portrait mode, displayed in landscape
 		leagueTable.hidden = YES;
 
 	}
@@ -414,11 +516,16 @@
 				text = @"Current status would make you ";
 			else
 				text = @"Final result makes you ";
+			
 			if ( p.position == 1 )
 				if ( p.equal )
+				{
 					text = [text stringByAppendingString:@"joint WINNER"];
+				}
 				else
+				{
 					text = [text stringByAppendingString:@"the WINNER"];
+				}
 				else
 				{
 					NSNumber *n = [NSNumber numberWithInt:p.position];
@@ -443,17 +550,25 @@
 			if ( p.score != 1 )
 				text = [text stringByAppendingString:@"s"];
 		}
+		
 		newUser.hidden = YES;
 		action.hidden = YES;
 		reset.hidden = YES;
 		relock.hidden = YES;
-		drivers.hidden = YES;
+		drivers1.hidden = YES;
+		drivers2.hidden = YES;
 		leagueTable.hidden = NO;
+		
 		result.allowsSelection = NO;
 		[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
-		drivers.allowsSelection = NO;
-		[drivers deselectRowAtIndexPath:[drivers indexPathForSelectedRow] animated:TRUE];
+		
+		drivers1.allowsSelection = NO;
+		[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
+		
+		drivers2.allowsSelection = NO;
+		[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
 	}
+	
 	[status setText:text];
 }
 
@@ -461,6 +576,7 @@
 {
 	if ( showingBadUser )
 		[newCompetitor dismissModalViewControllerAnimated:NO];
+	
 	showingBadUser = false;
 	locked = false;
 	[self updatePrediction];
@@ -473,6 +589,7 @@
 		pinMessage.title = @"User Added";
 		pinMessage.cancelButtonIndex = [pinMessage addButtonWithTitle:@"OK"];
 	}
+	
 	NSString *message = @"Your PIN is ";
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction];
 	NSNumber *number = [NSNumber numberWithInt:p.pin];
@@ -485,9 +602,13 @@
 -(void) badUser
 {
 	if ( newCompetitor == nil )
+	{
 		newCompetitor = [[NewCompetitor alloc] initWithNibName:@"NewCompetitor" bundle:nil];
+	}
 	if ( showingBadUser )
+	{
 		[newCompetitor badUser];
+	}
 	else
 	{
 		[newCompetitor getUser:self AlreadyBad:true];
@@ -498,8 +619,10 @@
 -(void) makeNewUser
 {
 	[[[RacePadDatabase Instance] racePrediction] clear];
+	
 	if ( newCompetitor == nil )
 		newCompetitor = [[NewCompetitor alloc] initWithNibName:@"NewCompetitor" bundle:nil];
+	
 	[newCompetitor getUser:self AlreadyBad:false];
 	showingBadUser = true;
 }
@@ -514,21 +637,57 @@
 	locked = false;
 	showingBadUser = false;
 	result.allowsSelection = YES;
-	drivers.allowsSelection = YES;
+	drivers1.allowsSelection = YES;
+	drivers2.allowsSelection = YES;
 }
+
+- (void)addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath
+{
+	int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
+	int count = [[[RacePadDatabase Instance] racePrediction] count];
+	
+	// Get the selected driver number
+	int number = -1;
+	if ( driverIndex < [[[RacePadDatabase Instance] driverNames] count] )
+		number = [[[[RacePadDatabase Instance] driverNames] driver:driverIndex] number];
+	
+	// If he's already picked for a position, remove him from there
+	for ( int i = 0; i < count; i++ )
+	{
+		if ( prediction[i] == number )
+			prediction[i] = -1;
+	}
+	
+	// And add him to the prediction
+	prediction [indexPath.row] = number;
+	[result reloadData];
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Table view delegate routines
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if ( tableView == result )
 		return [[[RacePadDatabase Instance] racePrediction] count];
-	return [[[RacePadDatabase Instance]driverNames] count];
+	else
+	{
+		int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+		if ( tableView == drivers1 )
+			return portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : driverListSplit;
+		else if ( tableView == drivers2 )
+			return portraitMode ? 0 : [[[RacePadDatabase Instance]driverNames] count] - driverListSplit;
+	}
+	
+	return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *MyIdentifier = @"RacePadGame";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-    if (cell == nil) {
+    if (cell == nil)
+	{
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:MyIdentifier] autorelease];
     }
 	
@@ -549,12 +708,15 @@
 		
 		RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];
 		int *prediction = [racePrediction prediction];
+		
 		int p = -1;
 		if ( indexPath.row < [[[RacePadDatabase Instance] racePrediction] count] )
 			p = prediction[indexPath.row];
 		
 		if ( p <= 0 )
+		{
 			cell.detailTextLabel.text = nil;
+		}
 		else
 		{
 			DriverName *driver = [[[RacePadDatabase Instance]driverNames] driverByNumber:prediction[indexPath.row]];
@@ -570,12 +732,24 @@
 			cell.detailTextLabel.text = name;
 		}
 	}
-	else
+	else // tableView is one of the driver lists
 	{
-		DriverName *driver = [[[RacePadDatabase Instance]driverNames] driver:indexPath.row];
-		cell.textLabel.text = driver.name;
-		cell.detailTextLabel.text = driver.team;
+		int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+		int driverIndexAtRow = (tableView == drivers1) ? indexPath.row : indexPath.row + driverListSplit;
+		
+		if((tableView == drivers1 && driverIndexAtRow >= driverListSplit) || driverIndexAtRow > [[[RacePadDatabase Instance]driverNames] count])
+		{
+			cell.detailTextLabel.text = nil;
+			cell.textLabel.text = nil;
+		}
+		else
+		{
+			DriverName *driver = [[[RacePadDatabase Instance]driverNames] driver:driverIndexAtRow];
+			cell.textLabel.text = driver.name;
+			cell.detailTextLabel.text = driver.team;
+		}
 	}
+	
 	return cell;
 }
 
@@ -583,8 +757,8 @@
 {
 	if ( tableView == result )
 		return @"Prediction";
-	
-	return @"Drivers";
+	else // One of the driver lists
+		return @"Drivers";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -593,10 +767,12 @@
 		return;
 	
 	changingSelection = true;
+	
 	if ( tableView == result )
 	{
 		int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
 		int p = -1;
+		
 		if ( indexPath.row < [[[RacePadDatabase Instance] racePrediction] count] )
 		{
 			int driverNumber = prediction[indexPath.row];
@@ -607,37 +783,48 @@
 		
 		if ( p == -1 )
 		{
-			NSIndexPath *currentSelection = [drivers indexPathForSelectedRow];
-			if ( currentSelection )
-				[drivers deselectRowAtIndexPath:currentSelection animated:TRUE];
+			[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
+			[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
 		}
 		else
 		{
-			NSIndexPath *newSelection = [NSIndexPath indexPathForRow:p inSection:0];
-			[drivers selectRowAtIndexPath:newSelection animated:TRUE scrollPosition:UITableViewScrollPositionMiddle];
+			int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+
+			if(p < driverListSplit)
+			{
+				NSIndexPath *newSelection = [NSIndexPath indexPathForRow:p inSection:0];
+				[drivers1 selectRowAtIndexPath:newSelection animated:TRUE scrollPosition:UITableViewScrollPositionMiddle];
+			}
+			else
+			{
+				NSIndexPath *newSelection = [NSIndexPath indexPathForRow:(p - driverListSplit) inSection:0];
+				[drivers2 selectRowAtIndexPath:newSelection animated:TRUE scrollPosition:UITableViewScrollPositionMiddle];
+			}
 		}
 	}
-	else
+	else // tableView is one of the driver selection list tables
 	{
-		if ( !locked )
+		// Get the picked driver - may be from either driver list
+		int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+		int driverListOffset = (tableView == drivers1) ? 0 : driverListSplit;
+		int selectedDriverIndex = indexPath.row + driverListOffset;
+		
+		// Don't act on any rows picked below the last driver in the first list
+		bool invalid = (tableView == drivers1 && selectedDriverIndex > driverListSplit);
+
+		// Pick driver if we're allowed
+		if ( !locked && !invalid )
 		{
 			NSIndexPath *currentSelection = [result indexPathForSelectedRow];
 			if ( currentSelection )
 			{
-				int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
-				int count = [[[RacePadDatabase Instance] racePrediction] count];
-				int number = 0;
-				if ( indexPath.row < [[[RacePadDatabase Instance] driverNames] count] )
-					number = [[[[RacePadDatabase Instance] driverNames] driver:indexPath.row] number];
-				for ( int i = 0; i < count; i++ )
-					if ( prediction[i] == number )
-						prediction[i] = -1;
-				prediction [currentSelection.row] = number;
-				[result reloadData];
+				[self addToPrediction:selectedDriverIndex AtIndexPath:currentSelection];
 			}
 		}
 	}
+	
 	changingSelection = false;
+	
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -645,5 +832,137 @@
 	[user resignFirstResponder];
 	return YES;
 }
+
+
+////////////////////////////////////////////////////////////////////////////
+// Gesture recognizers
+
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state Recognizer:(UIGestureRecognizer *)recognizer
+{
+	// Only relevant for driver list views
+	if(gestureView != drivers1 && gestureView != drivers2)
+		return;
+	
+	// Behaviour depends on state
+	
+	switch(state)
+	{
+		case UIGestureRecognizerStateBegan:
+		{	
+			CGPoint point = [recognizer locationInView:gestureView];
+			NSIndexPath * selectedRow = [(UITableView *)gestureView indexPathForRowAtPoint:point];
+			if(selectedRow)
+			{
+				// Get the picked driver - may be from either driver list
+				int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+				int driverListOffset = (gestureView == drivers1) ? 0 : driverListSplit;
+				int selectedDriverIndex = selectedRow.row + driverListOffset;
+				
+				// Don't act on any rows picked below the last driver in the first list
+				bool invalid = (selectedDriverIndex < 0 || (gestureView == drivers1 && selectedDriverIndex > driverListSplit) || selectedDriverIndex >= [[[RacePadDatabase Instance]driverNames] count]);
+				
+				// Pick driver if we're allowed
+				if ( !locked && !invalid )
+				{
+					[self.view addSubview:draggedDriver];
+					[self addDropShadowToView:draggedDriver WithOffsetX:5 Y:5 Blur:3];
+
+					CGRect rowRect = [(UITableView *)gestureView rectForRowAtIndexPath:selectedRow];
+					CGRect tableFrame = [gestureView frame];
+					CGRect dragFrame = CGRectMake(tableFrame.origin.x + rowRect.origin.x, tableFrame.origin.y + rowRect.origin.y, rowRect.size.width, rowRect.size.height);
+					[draggedDriver setFrame:dragFrame];
+					draggingCell = true;
+					draggedDriverIndex = selectedDriverIndex;
+				}
+			}
+
+			[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
+
+			break;
+		}
+			
+		case UIGestureRecognizerStateChanged:
+		{
+			// Only do anything if we started properly
+			if(!draggingCell)
+				break;
+			
+			// Move the dragged cell
+			CGRect frame = [draggedDriver frame];
+			CGRect newFrame = CGRectOffset(frame, x, y);
+			[draggedDriver setFrame:newFrame];
+			
+			// Check whether we are over a cell in the result table
+			bool resultCellSelected = false;
+			CGPoint resultPoint = [recognizer locationInView:result];
+			if([result pointInside:resultPoint withEvent:nil])
+			{
+				NSIndexPath * resultRow = [(UITableView *)gestureView indexPathForRowAtPoint:resultPoint];
+				if(resultRow)
+				{
+					UITableViewCell * cell = [result cellForRowAtIndexPath:resultRow];
+					if(cell)
+					{
+						if(![cell isSelected])
+						{
+							[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
+							[result selectRowAtIndexPath:resultRow animated:false scrollPosition:UITableViewScrollPositionMiddle];
+							
+							if(draggedTargetIndex)
+								[draggedTargetIndex release];
+							
+							draggedTargetIndex = [resultRow retain];
+							//[result reloadData];
+						}
+						
+						resultCellSelected = true;
+						
+					}
+				}
+			}
+			
+			if(!resultCellSelected)
+			{
+				[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
+				
+				if(draggedTargetIndex)
+					[draggedTargetIndex release];
+				
+				draggedTargetIndex = nil;
+			}
+			
+			break;
+		}
+			
+		case UIGestureRecognizerStateEnded:
+		{
+			if(draggingCell)
+			{
+				[draggedDriver removeFromSuperview];
+				
+				// Check whether we are over a cell in the result table
+				if(draggedTargetIndex)
+				{
+					[self addToPrediction:draggedDriverIndex AtIndexPath:draggedTargetIndex];
+				}
+				
+				[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
+				
+			}
+			
+			if(draggedTargetIndex)
+				[draggedTargetIndex release];
+			
+			draggedTargetIndex = nil;
+			
+			draggingCell = false;
+			break;
+		}
+			
+		default:
+			break;
+	}
+}
+
 
 @end

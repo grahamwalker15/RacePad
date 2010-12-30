@@ -100,7 +100,7 @@
 	double_click_possible_ = false;
 	
 	base_colour_ = [[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-	selected_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+	selected_colour_ = [[UIColor alloc] initWithRed:0.2 green:0.2 blue:1.0 alpha:1.0];
 	focus_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	selected_text_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	
@@ -110,7 +110,6 @@
 	text_colour_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
 	background_colour_ =[DrawingView CreateColourRed:0 Green:0 Blue:0];
 	
-	selected_colour_ = [DrawingView CreateColourRed:220 Green:200 Blue:210];
 	focus_colour_ = [DrawingView CreateColourRed:180 Green:160 Blue:170];
 	
 	heading_bg_colour_ = [DrawingView CreateColourRed:150 Green:150 Blue:150];
@@ -282,6 +281,11 @@
 	alignment_ = alignment;
 }
 
+- (void) SelectRow:(int)index
+{
+	selected_row_= index ;
+}
+
 - (bool) IsRowSelected:(int)index
 {
 	return (index == selected_row_) ;
@@ -365,8 +369,16 @@
 			{
 				NSString * text = heading ? [[self GetHeadingAtCol:col] retain] : [[self GetCellTextAtRow:row_index Col:col] retain];
 				
-				[self SetBGColour:background_colour_];
-				[self SetFGColour:text_colour_];
+				if(selected)
+				{
+					[self SetBGColour:selected_colour_];
+					[self SetFGColour:selected_text_colour_];
+				}
+				else
+				{
+					[self SetBGColour:background_colour_];
+					[self SetFGColour:text_colour_];
+				}
 				
 				if(heading)
 					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
@@ -404,6 +416,15 @@
 				UIImage * image = [[self GetCellImageAtRow:row_index Col:col] retain];
 				
 				[self SetBGColour:background_colour_];
+				if(selected)
+				{
+					[self SetBGColour:selected_colour_];
+				}
+				else
+				{
+					[self SetBGColour:background_colour_];
+				}
+				
 				[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 				
 				if(image)

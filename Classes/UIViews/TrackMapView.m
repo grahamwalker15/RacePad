@@ -15,6 +15,10 @@
 @implementation TrackMapView
 
 @synthesize isZoomView;
+@synthesize isOverlayView;
+@synthesize homeXOffset;
+@synthesize homeYOffset;
+@synthesize homeScale;
 @synthesize userXOffset;
 @synthesize userYOffset;
 @synthesize userScale;
@@ -93,6 +97,7 @@ static bool flag_images_initialised_ = false;
 	userYOffset = 0.0;	
 	
 	isZoomView = false;
+	isOverlayView = false;
 	
 	isAnimating = false;
 	animationDirection = 0;

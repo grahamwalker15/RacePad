@@ -10,7 +10,8 @@
 
 @class GameViewController;
 
-@interface UserPin : UIViewController <UITextFieldDelegate> {
+@interface UserPin : UIViewController <UITextFieldDelegate>
+{
 
 	IBOutlet UITextField *pin;
 	IBOutlet UIButton *cancel;

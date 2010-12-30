@@ -47,7 +47,7 @@
 		case 1:
 			return 50;
 		case 2:
-			return 320;
+			return 420;
 		default:
 			return 0;
 	}
@@ -120,19 +120,28 @@
 	switch (type)
 	{
 		case ALERT_RACE_EVENT_:
+		case ALERT_USER_EVENT_:
 			return [UIImage imageNamed:@"AlertPin.png"];
 		case ALERT_INCIDENT_:
+		case ALERT_CAR_STOPPED_:
+		case ALERT_OFF_TRACK_:
 			return [UIImage imageNamed:@"AlertWarning.png"];
 		case ALERT_OVERTAKE_:
 			return [UIImage imageNamed:@"AlertOvertake.png"];
 		case ALERT_SAFETY_CAR_:
+		case ALERT_OVERTAKE_SC_:
+		case ALERT_SC_SPEEDING_:
+		case ALERT_SC_VIOLATION_:
 			return [UIImage imageNamed:@"AlertSafetyCar.png"];
 		case ALERT_GREEN_FLAG_:
+		case ALERT_CAR_CONTINUED_:
 			return [UIImage imageNamed:@"AlertGreenFlag.png"];
 		case ALERT_RED_FLAG_:
 			return [UIImage imageNamed:@"AlertRedFlag.png"];
 		case ALERT_PIT_STOP_:
 			return [UIImage imageNamed:@"AlertPitstop.png"];
+		case ALERT_YELLOW_FLAG_:
+		case ALERT_YELLOW_SPEEDING_:
 		case ALERT_YELLOW_VIOLATION_:
 			return [UIImage imageNamed:@"AlertYellowFlag.png"];
 		case ALERT_CHEQUERED_FLAG_:

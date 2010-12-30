@@ -21,6 +21,8 @@
 
 @property (nonatomic, retain) UIPopoverController * parentPopover;
 
+- (void) dismissTimerExpired:(NSTimer *)theTimer;
+
 - (IBAction) closePressed:(id)sender;
 
 @end
