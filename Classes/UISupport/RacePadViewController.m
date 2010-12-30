@@ -158,7 +158,7 @@
 	if(!view || ![view isKindOfClass:[UITableView class]])
 		return;
 	
-	UIPanGestureRecognizer * recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDragFrom:)];
+	UIDragDropGestureRecognizer * recognizer = [[UIDragDropGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDragFrom:)];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
@@ -289,17 +289,17 @@
 
 - (void)HandleDragFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	int state = [(UIPanGestureRecognizer *)gestureRecognizer state];
+	int state = [(UIDragDropGestureRecognizer *)gestureRecognizer state];
 	UIView * gestureView = [gestureRecognizer view];
 
-	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureView];
-	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
+	CGPoint pan = [(UIDragDropGestureRecognizer *)gestureRecognizer translationInView:gestureView];
+	CGPoint speed = [(UIDragDropGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
 		
 	float thisGesturePanX = pan.x;
 	float thisGesturePanY = pan.y;
 	pan.x = pan.x - lastGesturePanX;
 	pan.y = pan.y - lastGesturePanY;
-	[self OnDragGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y  State:state Recognizer:gestureRecognizer];
+	[self OnDragGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y  State:state Recognizer:(UIDragDropGestureRecognizer *)gestureRecognizer];
 	lastGesturePanX = thisGesturePanX;
 	lastGesturePanY = thisGesturePanY;
 	
@@ -354,8 +354,23 @@
 {
 }
 
-- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIGestureRecognizer *)recognizer;
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer;
 {
 }
 
 @end
+
+// Our own drag drop gesture recognizer
+@implementation UIDragDropGestureRecognizer
+
+@synthesize downPoint;
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	downPoint = [[touches anyObject] locationInView:[self view]];
+	[super touchesBegan:touches withEvent:event];
+}
+
+@end
+
+

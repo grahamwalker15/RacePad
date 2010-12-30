@@ -7,8 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>
+
 
 // Virtual class to ensure that all of our view controllers have certain methods
+
+// Declare our own drag drop gesture recognizer
+@interface UIDragDropGestureRecognizer : UIPanGestureRecognizer
+{
+	CGPoint downPoint;
+}
+
+@property (readonly) CGPoint downPoint;
+
+@end
 
 @interface RacePadViewController : UIViewController
 {
@@ -66,6 +78,8 @@
 - (void) OnRightSwipeGestureInView:(UIView *)gestureView;
 - (void) OnLeftSwipeGestureInView:(UIView *)gestureView;
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state;
-- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIGestureRecognizer *)recognizer;
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer;
 
 @end
+
+

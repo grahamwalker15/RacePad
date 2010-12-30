@@ -838,14 +838,14 @@
 ////////////////////////////////////////////////////////////////////////////
 // Gesture recognizers
 
-- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state Recognizer:(UIGestureRecognizer *)recognizer
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer
 {
 	// Behaviour depends on state	
 	switch(state)
 	{
 		case UIGestureRecognizerStateBegan:
 		{	
-			CGPoint point = [recognizer locationInView:gestureView];
+			CGPoint point = [recognizer downPoint];
 			NSIndexPath * selectedRow = [(UITableView *)gestureView indexPathForRowAtPoint:point];
 			if(selectedRow)
 			{
