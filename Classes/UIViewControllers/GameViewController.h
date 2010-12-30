@@ -39,7 +39,9 @@
 	bool portraitMode;
 	
 	bool changingSelection;
+	
 	bool draggingCell;
+	bool reorderOnDrop;
 	int draggedDriverIndex;
 	NSIndexPath * draggedTargetIndex;
 	
@@ -70,6 +72,6 @@
 -(bool) validName:(NSString *)name;
 -(void) lock;
 -(void) makeNewUser;
--(void) addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath;
+-(void) addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath Reorder:(bool)reorder;
 
 @end

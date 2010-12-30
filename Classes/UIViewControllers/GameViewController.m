@@ -642,25 +642,64 @@
 	drivers2.allowsSelection = YES;
 }
 
-- (void)addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath
+- (void)addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath Reorder:(bool)reorder
 {
 	int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
 	int count = [[[RacePadDatabase Instance] racePrediction] count];
+	
+	int newPosition = indexPath.row;
 	
 	// Get the selected driver number
 	int number = -1;
 	if ( driverIndex < [[[RacePadDatabase Instance] driverNames] count] )
 		number = [[[[RacePadDatabase Instance] driverNames] driver:driverIndex] number];
 	
-	// If he's already picked for a position, remove him from there
+	// If he's already picked for a position, remove him from there, and record the old position
+	int oldPosition = -1;
 	for ( int i = 0; i < count; i++ )
 	{
 		if ( prediction[i] == number )
+		{
+			oldPosition = i;
 			prediction[i] = -1;
+		}
+	}
+	
+	// If we're reordering, move all drivers that must be moved
+	if(reorder && oldPosition >= 0)
+	{
+		if(oldPosition < newPosition)
+		{
+			int p = newPosition;
+			while(prediction[p] >= 0 && p > 0) // Will definitely stop at oldPosition if not before
+				p--;
+			
+			if(p < newPosition)
+			{
+				for ( int i = p; i < newPosition; i++ )
+				{
+					prediction[i] = prediction[i+1];
+				}
+			}
+		}
+		else if(oldPosition > newPosition)
+		{
+			int p = newPosition;
+			while(prediction[p] >= 0 && p < count - 1) // Will definitely stop at oldPosition if not before
+				p++;
+			
+			if(p > newPosition)
+			{
+				for ( int i = p; i > newPosition; i-- )
+				{
+					prediction[i] = prediction[i-1];
+				}
+			}
+		}
 	}
 	
 	// And add him to the prediction
-	prediction [indexPath.row] = number;
+	prediction [newPosition] = number;
 	[result reloadData];
 }
 
@@ -795,11 +834,13 @@
 			{
 				NSIndexPath *newSelection = [NSIndexPath indexPathForRow:p inSection:0];
 				[drivers1 selectRowAtIndexPath:newSelection animated:TRUE scrollPosition:UITableViewScrollPositionMiddle];
+				[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:false];
 			}
 			else
 			{
 				NSIndexPath *newSelection = [NSIndexPath indexPathForRow:(p - driverListSplit) inSection:0];
 				[drivers2 selectRowAtIndexPath:newSelection animated:TRUE scrollPosition:UITableViewScrollPositionMiddle];
+				[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:false];
 			}
 		}
 	}
@@ -819,9 +860,12 @@
 			NSIndexPath *currentSelection = [result indexPathForSelectedRow];
 			if ( currentSelection )
 			{
-				[self addToPrediction:selectedDriverIndex AtIndexPath:currentSelection];
+				[self addToPrediction:selectedDriverIndex AtIndexPath:currentSelection Reorder:false];
 			}
 		}
+		
+		[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
+		[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
 	}
 	
 	changingSelection = false;
@@ -893,13 +937,14 @@
 
 					
 					draggingCell = true;
+					reorderOnDrop = (gestureView == result);
 					draggedDriverIndex = selectedDriverIndex;
-					
-					
 				}
 			}
 
 			[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
+			[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:false];
+			[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:false];
 
 			break;
 		}
@@ -966,7 +1011,7 @@
 				// Check whether we are over a cell in the result table
 				if(draggedTargetIndex)
 				{
-					[self addToPrediction:draggedDriverIndex AtIndexPath:draggedTargetIndex];
+					[self addToPrediction:draggedDriverIndex AtIndexPath:draggedTargetIndex Reorder:reorderOnDrop];
 				}
 				
 				[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
