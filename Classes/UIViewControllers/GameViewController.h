@@ -31,7 +31,10 @@
 	IBOutlet UILabel *status;
 	IBOutlet TableDataView *leagueTable;
 	IBOutlet UIImageView * predictionBG;
-	IBOutlet UIView * draggedDriver;
+	
+	IBOutlet UIView * draggedDriverCell;
+	IBOutlet UILabel * draggedDriverText;
+	IBOutlet UILabel * draggedDriverDetailText;
 	
 	bool portraitMode;
 	

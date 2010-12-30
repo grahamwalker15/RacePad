@@ -47,7 +47,7 @@
 	
 	[background setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
-	[draggedDriver removeFromSuperview];
+	[draggedDriverCell removeFromSuperview];
 
 	changingSelection = false;
 	draggingCell = false;
@@ -96,6 +96,7 @@
 	[self addTapRecognizerToView:reset];
 	[self addTapRecognizerToView:relock];
 	
+	[self addDragRecognizerToView:result WithTarget:result];
 	[self addDragRecognizerToView:drivers1 WithTarget:result];
 	[self addDragRecognizerToView:drivers2 WithTarget:result];
 }
@@ -839,12 +840,7 @@
 
 - (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state Recognizer:(UIGestureRecognizer *)recognizer
 {
-	// Only relevant for driver list views
-	if(gestureView != drivers1 && gestureView != drivers2)
-		return;
-	
-	// Behaviour depends on state
-	
+	// Behaviour depends on state	
 	switch(state)
 	{
 		case UIGestureRecognizerStateBegan:
@@ -853,26 +849,53 @@
 			NSIndexPath * selectedRow = [(UITableView *)gestureView indexPathForRowAtPoint:point];
 			if(selectedRow)
 			{
-				// Get the picked driver - may be from either driver list
-				int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
-				int driverListOffset = (gestureView == drivers1) ? 0 : driverListSplit;
-				int selectedDriverIndex = selectedRow.row + driverListOffset;
-				
-				// Don't act on any rows picked below the last driver in the first list
-				bool invalid = (selectedDriverIndex < 0 || (gestureView == drivers1 && selectedDriverIndex > driverListSplit) || selectedDriverIndex >= [[[RacePadDatabase Instance]driverNames] count]);
-				
+				// Get the picked driver - may be from either driver list, or the prediction
+				int selectedDriverIndex = -1;
+				bool invalid = true;
+
+				if(gestureView == drivers1 || gestureView == drivers2)
+				{
+					int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+					int driverListOffset = (gestureView == drivers1) ? 0 : driverListSplit;
+					selectedDriverIndex = selectedRow.row + driverListOffset;
+					invalid = (selectedDriverIndex < 0 || (gestureView == drivers1 && selectedDriverIndex > driverListSplit) || selectedDriverIndex >= [[[RacePadDatabase Instance]driverNames] count]);
+				}
+				else if(gestureView == result)
+				{
+					RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];
+					int * prediction = [racePrediction prediction];
+					
+					if ( selectedRow.row < [[[RacePadDatabase Instance] racePrediction] count] )
+					{
+						int p = prediction[selectedRow.row];
+						if(p >= 0)
+						{
+							selectedDriverIndex = [[[RacePadDatabase Instance] driverNames] driverIndexByNumber:p];
+							invalid = (selectedDriverIndex < 0 || selectedDriverIndex >= [[[RacePadDatabase Instance]driverNames] count]);
+						}
+					}
+				}
+								
 				// Pick driver if we're allowed
 				if ( !locked && !invalid )
 				{
-					[self.view addSubview:draggedDriver];
-					[self addDropShadowToView:draggedDriver WithOffsetX:5 Y:5 Blur:3];
+					[self.view addSubview:draggedDriverCell];
+					[self addDropShadowToView:draggedDriverCell WithOffsetX:5 Y:5 Blur:3];
 
 					CGRect rowRect = [(UITableView *)gestureView rectForRowAtIndexPath:selectedRow];
 					CGRect tableFrame = [gestureView frame];
 					CGRect dragFrame = CGRectMake(tableFrame.origin.x + rowRect.origin.x, tableFrame.origin.y + rowRect.origin.y, rowRect.size.width, rowRect.size.height);
-					[draggedDriver setFrame:dragFrame];
+					[draggedDriverCell setFrame:dragFrame];
+					
+					UITableViewCell * cell = [(UITableView *)gestureView cellForRowAtIndexPath:selectedRow];
+					[draggedDriverText setText:[[cell textLabel] text]];
+					[draggedDriverDetailText setText:[[cell detailTextLabel] text]];
+
+					
 					draggingCell = true;
 					draggedDriverIndex = selectedDriverIndex;
+					
+					
 				}
 			}
 
@@ -888,9 +911,9 @@
 				break;
 			
 			// Move the dragged cell
-			CGRect frame = [draggedDriver frame];
+			CGRect frame = [draggedDriverCell frame];
 			CGRect newFrame = CGRectOffset(frame, x, y);
-			[draggedDriver setFrame:newFrame];
+			[draggedDriverCell setFrame:newFrame];
 			
 			// Check whether we are over a cell in the result table
 			bool resultCellSelected = false;
@@ -938,7 +961,7 @@
 		{
 			if(draggingCell)
 			{
-				[draggedDriver removeFromSuperview];
+				[draggedDriverCell removeFromSuperview];
 				
 				// Check whether we are over a cell in the result table
 				if(draggedTargetIndex)
