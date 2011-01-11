@@ -200,14 +200,20 @@
 
 - (IBAction)okPressed:(id)sender
 {
-	NSString *eventName = [events objectAtIndex:[event selectedRowInComponent:0]];
-	NSString *sessionName = [sessions objectAtIndex:[event selectedRowInComponent:1]];
-	
-	if ( eventName != nil && [eventName length] > 0
-	  && sessionName != nil && [sessionName length] > 0 )
+	int eventIndex = [event selectedRowInComponent:0];
+	int sessionIndex = [event selectedRowInComponent:1];
+	if ( [events count] > eventIndex
+	  && [sessions count] > sessionIndex )
 	{
-		[self dismissModalViewControllerAnimated:YES];
-		[[RacePadCoordinator Instance] loadSession:eventName Session:sessionName];
+		NSString *eventName = [events objectAtIndex:eventIndex];
+		NSString *sessionName = [sessions objectAtIndex:sessionIndex];
+	
+		if ( eventName != nil && [eventName length] > 0
+		  && sessionName != nil && [sessionName length] > 0 )
+		{
+			[self dismissModalViewControllerAnimated:YES];
+			[[RacePadCoordinator Instance] loadSession:eventName Session:sessionName];
+		}
 	}
 }
 
