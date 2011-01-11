@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -82,6 +82,11 @@
 		7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */; };
 		7F71A4AB12AFDEBD0052C70C /* AnimationTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */; };
 		7F71A8DD12BBFCD60052C70C /* PredictionBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F71A8DC12BBFCD60052C70C /* PredictionBG.png */; };
+		7F71AF4F12CE43600052C70C /* JogControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F71AF4E12CE43600052C70C /* JogControlView.xib */; };
+		7F71AF5912CE44220052C70C /* JogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F71AF5812CE44220052C70C /* JogViewController.m */; };
+		7F71B01712CF95990052C70C /* JogControlBase.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F71B01512CF95990052C70C /* JogControlBase.png */; };
+		7F71B01812CF95990052C70C /* JogControlInset.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F71B01612CF95990052C70C /* JogControlInset.png */; };
+		7F71B14F12D379E20052C70C /* MathOdds.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F71B14E12D379E20052C70C /* MathOdds.m */; };
 		7F767CA812A62EC9009249F7 /* BlueBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA612A62EC9009249F7 /* BlueBar.png */; };
 		7F767CA912A62EC9009249F7 /* RedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA712A62EC9009249F7 /* RedBar.png */; };
 		7F767CC212A6300D009249F7 /* GraphPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CC112A6300D009249F7 /* GraphPaper.png */; };
@@ -110,6 +115,8 @@
 		7F8664E6128C46CA00F13CB6 /* Kerbs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8664E5128C46CA00F13CB6 /* Kerbs.png */; };
 		7F866590128C51DA00F13CB6 /* LeaderboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86658F128C51DA00F13CB6 /* LeaderboardView.m */; };
 		7F88203F12632EB40010785D /* DriverListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F88203E12632EB40010785D /* DriverListController.m */; };
+		7F8F89A412DC8EF300EA04A6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */; };
+		7F8F8A3212DCAA3300EA04A6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */; };
 		7F91F470129BD3C300BFDFCC /* TelemetryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */; };
 		7F91F471129BD3C300BFDFCC /* TelemetrySteeringWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */; };
 		7F91F625129CFF3100BFDFCC /* LightMetalSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */; };
@@ -292,6 +299,13 @@
 		7F71A4A912AFDEBD0052C70C /* AnimationTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationTimer.h; sourceTree = "<group>"; };
 		7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationTimer.m; sourceTree = "<group>"; };
 		7F71A8DC12BBFCD60052C70C /* PredictionBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PredictionBG.png; path = Images/PredictionBG.png; sourceTree = "<group>"; };
+		7F71AF4E12CE43600052C70C /* JogControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = JogControlView.xib; path = ResourceFiles/JogControlView.xib; sourceTree = "<group>"; };
+		7F71AF5712CE44220052C70C /* JogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JogViewController.h; sourceTree = "<group>"; };
+		7F71AF5812CE44220052C70C /* JogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JogViewController.m; sourceTree = "<group>"; };
+		7F71B01512CF95990052C70C /* JogControlBase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = JogControlBase.png; path = Images/JogControlBase.png; sourceTree = "<group>"; };
+		7F71B01612CF95990052C70C /* JogControlInset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = JogControlInset.png; path = Images/JogControlInset.png; sourceTree = "<group>"; };
+		7F71B14D12D379E20052C70C /* MathOdds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathOdds.h; sourceTree = "<group>"; };
+		7F71B14E12D379E20052C70C /* MathOdds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathOdds.m; sourceTree = "<group>"; };
 		7F767CA612A62EC9009249F7 /* BlueBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBar.png; path = Images/BlueBar.png; sourceTree = "<group>"; };
 		7F767CA712A62EC9009249F7 /* RedBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedBar.png; path = Images/RedBar.png; sourceTree = "<group>"; };
 		7F767CC112A6300D009249F7 /* GraphPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GraphPaper.png; path = Images/GraphPaper.png; sourceTree = "<group>"; };
@@ -328,6 +342,8 @@
 		7F86658F128C51DA00F13CB6 /* LeaderboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardView.m; sourceTree = "<group>"; };
 		7F88203D12632EB40010785D /* DriverListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverListController.h; sourceTree = "<group>"; };
 		7F88203E12632EB40010785D /* DriverListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverListController.m; sourceTree = "<group>"; };
+		7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryBG.png; path = Images/TelemetryBG.png; sourceTree = "<group>"; };
 		7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheel.png; path = Images/TelemetrySteeringWheel.png; sourceTree = "<group>"; };
 		7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LightMetalSmall.png; path = Images/LightMetalSmall.png; sourceTree = "<group>"; };
@@ -432,6 +448,8 @@
 				7F9C1515125759D900770746 /* CoreFoundation.framework in Frameworks */,
 				7F9C1517125759D900770746 /* CoreText.framework in Frameworks */,
 				7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */,
+				7F8F89A412DC8EF300EA04A6 /* AVFoundation.framework in Frameworks */,
+				7F8F8A3212DCAA3300EA04A6 /* CoreMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +520,8 @@
 				7F9C1514125759D900770746 /* CoreFoundation.framework */,
 				7F9C1516125759D900770746 /* CoreText.framework */,
 				7F9C15F51257646700770746 /* MediaPlayer.framework */,
+				7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */,
+				7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -626,6 +646,8 @@
 				4D757B7C126F01B700E32C41 /* FileDataStream.m */,
 				7F9C1726125A2BD000770746 /* Socket.h */,
 				4DB3904D126DFEB0009DA232 /* Socket.m */,
+				7F71B14D12D379E20052C70C /* MathOdds.h */,
+				7F71B14E12D379E20052C70C /* MathOdds.m */,
 			);
 			path = Constructs;
 			sourceTree = "<group>";
@@ -667,6 +689,8 @@
 				7F866452128C3D4900F13CB6 /* BackgroundView.h */,
 				7F866453128C3D4900F13CB6 /* BackgroundView.m */,
 				7F767D9E12A67559009249F7 /* UIConstants.h */,
+				7F71AF5712CE44220052C70C /* JogViewController.h */,
+				7F71AF5812CE44220052C70C /* JogViewController.m */,
 			);
 			path = UISupport;
 			sourceTree = "<group>";
@@ -698,6 +722,7 @@
 				4D34502212B7C17400B15298 /* UserPin.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
 				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
+				7F71AF4E12CE43600052C70C /* JogControlView.xib */,
 			);
 			name = "XIB Files";
 			sourceTree = "<group>";
@@ -705,6 +730,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F71B01512CF95990052C70C /* JogControlBase.png */,
+				7F71B01612CF95990052C70C /* JogControlInset.png */,
 				7F71A8DC12BBFCD60052C70C /* PredictionBG.png */,
 				7F7683FA12AAA07D009249F7 /* SmallScreen.png */,
 				7F7683F812AAA06A009249F7 /* FullScreen.png */,
@@ -811,7 +838,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -935,6 +962,9 @@
 				4D34502312B7C17400B15298 /* UserPin.xib in Resources */,
 				4D3451B412B9175500B15298 /* ChangeCompetitor.xib in Resources */,
 				7F71A8DD12BBFCD60052C70C /* PredictionBG.png in Resources */,
+				7F71AF4F12CE43600052C70C /* JogControlView.xib in Resources */,
+				7F71B01712CF95990052C70C /* JogControlBase.png in Resources */,
+				7F71B01812CF95990052C70C /* JogControlInset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1037,8 @@
 				4D344F1A12B7754F00B15298 /* NewCompetitor.m in Sources */,
 				4D34502D12B7C33E00B15298 /* UserPin.m in Sources */,
 				4D3451AE12B9173200B15298 /* ChangeCompetitor.m in Sources */,
+				7F71AF5912CE44220052C70C /* JogViewController.m in Sources */,
+				7F71B14F12D379E20052C70C /* MathOdds.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,7 +1085,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -1068,7 +1100,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

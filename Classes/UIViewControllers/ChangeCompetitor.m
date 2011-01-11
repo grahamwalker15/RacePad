@@ -59,7 +59,6 @@
 {
 	[user release];
 	[cancel release];
-	[select release];
 
     [super dealloc];
 }

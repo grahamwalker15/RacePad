@@ -16,6 +16,8 @@
 	IBOutlet UIButton * clock;
 	IBOutlet UISlider * timeSlider;
 	IBOutlet UIBarButtonItem * replayButton;
+	
+	IBOutlet UIView * scrubControl;
 }
 
 @property (readonly) UIBarButtonItem * playButton;

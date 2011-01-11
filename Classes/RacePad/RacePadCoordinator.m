@@ -15,7 +15,7 @@
 #import "ElapsedTime.h"
 #import "TableDataView.h"
 #import "RacePadDatabase.h"
-#import "MovieViewController.h"
+#import "CompositeViewController.h"
 #import "DownloadProgress.h"
 #import "ServerConnect.h"
 #import "WorkOffline.h"
@@ -192,7 +192,7 @@ static RacePadCoordinator * instance_ = nil;
 	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
 
 	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[(MovieViewController *)registeredViewController moviePlay];
+		[(CompositeViewController *)registeredViewController moviePlay];
 }
 
 -(void)pausePlay
@@ -216,7 +216,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ stopStreams];	
 	
 	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[(MovieViewController *)registeredViewController movieStop];
+		[(CompositeViewController *)registeredViewController movieStop];
 
 	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
 	[elapsedTime release];
@@ -394,8 +394,8 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, prepare it to play
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		//[(MovieViewController *)registeredViewController movieGotoTime:currentTime];
-		//[(MovieViewController *)registeredViewController moviePrepareToPlay];
+		//[(CompositeViewController *)registeredViewController movieGotoTime:currentTime];
+		//[(CompositeViewController *)registeredViewController moviePrepareToPlay];
 	}
 }
 
@@ -415,7 +415,7 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, cue this too
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		[(MovieViewController *)registeredViewController movieGotoTime:currentTime];
+		[(CompositeViewController *)registeredViewController movieGotoTime:currentTime];
 	}
 }
 

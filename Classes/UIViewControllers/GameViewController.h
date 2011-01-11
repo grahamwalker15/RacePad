@@ -36,8 +36,6 @@
 	IBOutlet UILabel * draggedDriverText;
 	IBOutlet UILabel * draggedDriverDetailText;
 	
-	bool portraitMode;
-	
 	bool changingSelection;
 	
 	bool draggingCell;
@@ -73,5 +71,7 @@
 -(void) lock;
 -(void) makeNewUser;
 -(void) addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath Reorder:(bool)reorder;
+
+- (unsigned char) inqGameStatus;
 
 @end

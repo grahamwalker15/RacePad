@@ -10,6 +10,7 @@
 #import "RacePadTimeController.h"
 #import "RacePadViewController.h"
 #import "TimeViewController.h"
+#import "JogViewController.h"
 
 @implementation RacePadTimeController
 
@@ -30,6 +31,7 @@ static RacePadTimeController * instance_ = nil;
 	if(self = [super init])
 	{	
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
+		jogController = [[JogViewController alloc] initWithNibName:@"JogControlView" bundle:nil];
 		addOnOptionsView = nil;
 		
 		displayed = false;
@@ -44,6 +46,7 @@ static RacePadTimeController * instance_ = nil;
 - (void)dealloc
 {
 	[timeController release];
+	[jogController release];
 	[addOnOptionsView release];
     [super dealloc];
 }
@@ -74,9 +77,12 @@ static RacePadTimeController * instance_ = nil;
 	// Get the new positions
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
+	CGRect jog_controller_bounds = [jogController.view bounds];
 	
 	CGRect timeFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, 60);
+	CGRect jogFrame = CGRectMake(timeFrame.origin.x + timeFrame.size.width - jog_controller_bounds.size.width, timeFrame.origin.y - jog_controller_bounds.size.height - 20, jog_controller_bounds.size.width, jog_controller_bounds.size.height);
 	[timeController.view setFrame:timeFrame];
+	[jogController.view setFrame:jogFrame];
 	
 	if(addOnOptionsView)
 	{
@@ -88,6 +94,7 @@ static RacePadTimeController * instance_ = nil;
 	if(animated)
 	{
 		[timeController.view setAlpha:0.0];
+		[jogController.view setAlpha:0.0];
 		if(addOnOptionsView)
 		{
 			[addOnOptionsView setAlpha:0.0];
@@ -95,6 +102,7 @@ static RacePadTimeController * instance_ = nil;
 	}
 	
 	[viewController.view addSubview:timeController.view];
+	[viewController.view addSubview:jogController.view];
 	[self updatePlayButton];
 	
 	if(addOnOptionsView)
@@ -107,6 +115,7 @@ static RacePadTimeController * instance_ = nil;
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.5];
 		[timeController.view setAlpha:1.0];
+		[jogController.view setAlpha:1.0];
 		if(addOnOptionsView)
 		{
 			[addOnOptionsView setAlpha:1.0];
@@ -124,6 +133,10 @@ static RacePadTimeController * instance_ = nil;
 	UIBarButtonItem * replay_button = [timeController replayButton];	
 	[replay_button setTarget:instance_];
 	[replay_button setAction:@selector(ReplayPressed:)];
+	
+	JogControlView * jog_control = [jogController jogControl];	
+	[jog_control setTarget:instance_];
+	[jog_control setSelector:@selector(JogControlChanged:)];
 	
 	float current_time = [[RacePadCoordinator Instance] currentTime];
 	float start_time = [[RacePadCoordinator Instance] startTime];
@@ -152,6 +165,7 @@ static RacePadTimeController * instance_ = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];
+	[jogController.view setAlpha:0.0];
 	
 	if(addOnOptionsView)
 	{
@@ -169,6 +183,7 @@ static RacePadTimeController * instance_ = nil;
 	if([finished intValue] == 1)
 	{
 		[timeController.view removeFromSuperview];
+		[jogController.view removeFromSuperview];
 		displayed = false;
 		
 		// Release any existing add on from an old view controller
@@ -284,6 +299,25 @@ static RacePadTimeController * instance_ = nil;
 	UISlider * slider = [timeController timeSlider];
 	float time = [slider value];
 	[[RacePadCoordinator Instance] jumpToTime:time];
+	[self updateClock:time];
+	[self setHideTimer];
+}
+
+- (IBAction)JogControlChanged:(id)sender
+{
+	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
+	
+	[coordinator stopPlay];
+	float time = [coordinator currentTime];
+
+	JogControlView * jog_control = [jogController jogControl];
+	float change = [jog_control value];
+	
+	time -= change * 2;	// 4.0 secs for full turn - -ve angle = positive time change
+	if(time < [coordinator startTime])
+		time = [coordinator startTime];
+	
+	[coordinator jumpToTime:time];
 	[self updateClock:time];
 	[self setHideTimer];
 }

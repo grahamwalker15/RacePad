@@ -22,6 +22,26 @@
 
 @end
 
+// Declare our own jog control gesture recognizer
+@interface UIJogGestureRecognizer : UIPanGestureRecognizer
+{
+	CGPoint downPoint;
+	bool initialised;
+	float lastAngle;
+	float direction;
+}
+
+@property (readonly) CGPoint downPoint;
+@property (nonatomic) bool initialised;
+@property (nonatomic) float lastAngle;
+@property (nonatomic) float direction;
+
+- (float)angleOfPoint:(CGPoint)point InView:(UIView *)gestureView;
+
+@end
+
+// The view controller base
+
 @interface RacePadViewController : UIViewController
 {
 	// Gesture recognizer state stores
@@ -55,6 +75,7 @@
 -(void) addLeftSwipeRecognizerToView:(UIView *)view;
 -(void) addPanRecognizerToView:(UIView *)view;
 -(void) addDragRecognizerToView:(UIView *)view WithTarget:(UIView *)targetView;
+-(void) addJogRecognizerToView:(UIView *)view;
 
 // Gesture recognizer callbacks
 
@@ -67,6 +88,7 @@
 - (void)HandleLeftSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandleDragFrom:(UIGestureRecognizer *)gestureRecognizer; // Works only on UITableViews
+- (void)HandleJogFrom:(UIGestureRecognizer *)gestureRecognizer; // Works only on JogControlViews
 
 // Action callbacks
 
@@ -79,6 +101,7 @@
 - (void) OnLeftSwipeGestureInView:(UIView *)gestureView;
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state;
 - (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer;
+- (void) OnJogGestureInView:(UIView *)gestureView AngleChange:(float)angle State:(int)state;
 
 @end
 

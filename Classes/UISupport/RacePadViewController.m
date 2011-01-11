@@ -9,6 +9,7 @@
 #import "RacePadViewController.h"
 #import "RacePadTimeController.h"
 #import "DrawingView.h"
+#import "JogViewController.h"
 #import "QuartzCore/QuartzCore.h"
 
 
@@ -163,6 +164,18 @@
 	[recognizer release];
 }
 
+-(void) addJogRecognizerToView:(UIView *)view 
+{	
+	//Jog control - implemented as pan recognizer
+	// Works only on JogControlViews
+	if(!view || ![view isKindOfClass:[JogControlView class]])
+		return;
+	
+	UIJogGestureRecognizer * recognizer = [[UIJogGestureRecognizer alloc] initWithTarget:self action:@selector(HandleJogFrom:)];
+	[view addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
 // Gesture recognizer callbacks
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -291,10 +304,10 @@
 {
 	int state = [(UIDragDropGestureRecognizer *)gestureRecognizer state];
 	UIView * gestureView = [gestureRecognizer view];
-
+	
 	CGPoint pan = [(UIDragDropGestureRecognizer *)gestureRecognizer translationInView:gestureView];
 	CGPoint speed = [(UIDragDropGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
-		
+	
 	float thisGesturePanX = pan.x;
 	float thisGesturePanY = pan.y;
 	pan.x = pan.x - lastGesturePanX;
@@ -308,6 +321,81 @@
 		lastGesturePanX = 0.0;
 		lastGesturePanY = 0.0;
 		return;
+	}
+	
+}
+
+- (void)HandleJogFrom:(UIGestureRecognizer *)gestureRecognizer
+{	
+	int state = [(UIJogGestureRecognizer *)gestureRecognizer state];
+	if(state == UIGestureRecognizerStateEnded)
+		return;
+	
+	UIView * gestureView = [gestureRecognizer view];
+	
+	CGPoint point = [(UIJogGestureRecognizer *)gestureRecognizer locationInView:gestureView];
+	
+	CGRect viewBounds = [gestureView bounds];
+	
+	float xCentre = viewBounds.size.width / 2;
+	float yCentre = viewBounds.size.height / 2;
+	
+	float dx = point.x - xCentre;
+	float dy = yCentre - point.y;
+
+	// only initialise once we're 10 pixels from centre
+	if(![(UIJogGestureRecognizer *)gestureRecognizer initialised])
+	{
+		if((dx * dx + dy * dy) > 100.0)
+		{
+			float angle = atan2(dy,dx);
+			[(UIJogGestureRecognizer *)gestureRecognizer setLastAngle:angle];
+			[(UIJogGestureRecognizer *)gestureRecognizer setInitialised:true];
+		}
+	}
+	else
+	{
+		float angle = atan2(dy,dx);
+		float lastAngle = [(UIJogGestureRecognizer *)gestureRecognizer lastAngle];
+		float change = angle - lastAngle;
+		
+		// Fast spinning is considered as maximum speed (= 90 degrees per sample)
+		// First verify that we haven't crossed the +/- 180 degree line slowly
+		
+		float direction = [(UIJogGestureRecognizer *)gestureRecognizer direction];
+		
+		if(angle > M_PI * 0.75 && lastAngle < - M_PI * 0.75)
+		{
+			angle -= M_PI * 2;
+			change = angle - lastAngle;
+		}
+		else if(angle < - M_PI * 0.75 && lastAngle > M_PI * 0.75)
+		{
+			lastAngle -= M_PI * 2;
+			change = angle - lastAngle;
+		}
+		
+/*
+		if(fabsf(change) > M_PI * 0.5)
+		{
+			change = M_PI * 0.5 * direction;
+		}
+		else
+		{
+			direction = change < -0.0001 ? -1 : change > 0.0001 ? 1.0 : direction;
+		}
+ */
+		
+		while(angle > M_PI)
+			angle -= M_PI * 2;
+		
+		while(angle < -M_PI)
+			angle += M_PI * 2;
+		
+		[(UIJogGestureRecognizer *)gestureRecognizer setLastAngle:angle];
+		[(UIJogGestureRecognizer *)gestureRecognizer setDirection:direction];
+		
+		[self OnJogGestureInView:gestureView AngleChange:change State:state];
 	}
 	
 }
@@ -354,7 +442,11 @@
 {
 }
 
-- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer;
+- (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer
+{
+}
+
+- (void) OnJogGestureInView:(UIView *)gestureView AngleChange:(float)angle State:(int)state
 {
 }
 
@@ -369,6 +461,56 @@
 {
 	downPoint = [[touches anyObject] locationInView:[self view]];
 	[super touchesBegan:touches withEvent:event];
+}
+
+@end
+
+// Our own jog gesture recognizer
+@implementation UIJogGestureRecognizer
+
+@synthesize downPoint;
+@synthesize initialised;
+@synthesize lastAngle;
+@synthesize direction;
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	direction = 1.0;
+	
+	downPoint = [[touches anyObject] locationInView:[self view]];
+	
+	CGRect viewBounds = [[self view] bounds];
+	
+	float xCentre = viewBounds.size.width / 2;
+	float yCentre = viewBounds.size.height / 2;
+	
+	float dx = downPoint.x - xCentre;
+	float dy = yCentre - downPoint.y;
+	
+	// only initialise once we're 10 pixels from centre
+	initialised = false;
+	if((dx * dx + dy * dy) > 100.0)
+	{
+		lastAngle = atan2(dy,dx);
+		initialised = true;
+	}
+	
+	[(JogControlView *)[self view] setChange:0.0];
+
+	[super touchesBegan:touches withEvent:event];
+}
+
+- (float)angleOfPoint:(CGPoint)point InView:(UIView *)gestureView
+{
+	CGRect viewBounds = [gestureView bounds];
+
+	float xCentre = viewBounds.size.width / 2;
+		float yCentre = viewBounds.size.height / 2;
+
+	float dx = point.x - xCentre;
+	float dy = yCentre - point.y;
+
+	return atan2(dy,dx);
 }
 
 @end

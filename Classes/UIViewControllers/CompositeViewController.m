@@ -48,10 +48,7 @@
 	currentMovie = [[self getVideoArchiveName] retain];
 	[self getStartTime];
 	
-	moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:currentMovie]];
-	[moviePlayer setShouldAutoplay:false];
-	[moviePlayer setControlStyle:MPMovieControlStyleNone];
-	[[moviePlayer view] setUserInteractionEnabled:true];
+	moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:currentMovie]];
 		
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
@@ -108,8 +105,15 @@
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Position the movie and order the overlays
-	[[moviePlayer view] setFrame:[movieView bounds]];
-	[movieView addSubview:[moviePlayer view]];
+	CALayer *superlayer = movieView.layer;
+	moviePlayerLayer = [AVPlayerLayer playerLayerWithPlayer:moviePlayer];
+	[moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+	[moviePlayerLayer setFrame:[movieView bounds]];
+
+	[superlayer addSublayer:moviePlayerLayer];
+
+	//[[moviePlayer view] setFrame:[movieView bounds]];
+	//[movieView addSubview:[moviePlayer view]];
 	
 	[self positionOverlays];
 	
@@ -165,8 +169,8 @@
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
-	[moviePlayer stop];
-	[[moviePlayer view] removeFromSuperview];
+	[moviePlayer pause];
+	[moviePlayerLayer removeFromSuperlayer];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -205,7 +209,7 @@
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-	[[moviePlayer view] setFrame:[movieView bounds]];
+	[moviePlayerLayer setFrame:[movieView bounds]];
 	[UIView commitAnimations];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -213,6 +217,7 @@
 
 - (void)dealloc
 {
+	[moviePlayerLayer release];
 	[moviePlayer release];
     [super dealloc];
 }
@@ -273,7 +278,7 @@
 
 - (void) moviePrepareToPlay
 {
-	[moviePlayer prepareToPlay];
+	//[moviePlayer prepareToPlay];
 }
 
 - (void) moviePlay
@@ -288,9 +293,11 @@
 
 - (void) movieGotoTime:(float)time
 {
-	NSTimeInterval movie_time = time - startTime;
-	[moviePlayer setCurrentPlaybackTime:movie_time];
-	[moviePlayer setInitialPlaybackTime:movie_time];
+	Float64 movie_time = time - startTime;
+	
+	CMTime cm_time = CMTimeMakeWithSeconds(movie_time, 600);
+	
+	[moviePlayer seekToTime:cm_time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
 /////////////////////////////////////////////////////////////////////

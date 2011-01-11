@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVPlayer.h>
+#import <AVFoundation/AVPlayerLayer.h>
+#import <CoreMedia/CMTime.h>
+
 #import "RacePadViewController.h"
 #import "TrackMapView.h"
 #import "DrawingView.h"
@@ -27,7 +30,9 @@
 	IBOutlet UIView *optionContainer;;
 	IBOutlet UISegmentedControl *optionSwitches;
 
-	MPMoviePlayerController * moviePlayer;
+	AVPlayer * moviePlayer;
+	AVPlayerLayer * moviePlayerLayer;
+	
 	CGSize movieSize;
 	CGRect movieRect;
 	float startTime;

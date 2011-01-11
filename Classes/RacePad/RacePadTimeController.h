@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class TimeViewController;
+@class JogViewController;
 
 @interface RacePadTimeController : NSObject
 {
 	TimeViewController * timeController;
+	JogViewController * jogController;
 	
 	UIView * addOnOptionsView;
 	
@@ -44,6 +46,7 @@
 
 - (IBAction)PlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
+- (IBAction)JogControlChanged:(id)sender;
 - (IBAction)ReplayPressed:(id)sender;
 
 @end

@@ -799,8 +799,6 @@
 	if(carToFollow && [carToFollow length] > 0)
 	{
 		// Get dimensions of current view and the position of the follow car
-		CGRect map_rect = [view bounds];
-		
 		CGPoint followCarPos = [self getCarPositionByLabel:carToFollow];
 		
 		// Adjust the parameters if we are animating from zoom to full view (o vice versa)
@@ -911,7 +909,7 @@
 	if([view isZoomView])
 	{
 		float currentUserScale = [view userScale];
-		if(fabs(currentUserScale) < 0.001 || fabs(scale) < 0.001)
+		if(fabsf(currentUserScale) < 0.001 || fabsf(scale) < 0.001)
 			return;
 		
 		[view setUserScale:currentUserScale * scale];
@@ -932,7 +930,7 @@
 		float currentMapScale = [view homeScale];
 		float currentScale = currentUserScale * currentMapScale;
 
-		if(fabs(currentScale) < 0.001 || fabs(scale) < 0.001)
+		if(fabsf(currentScale) < 0.001 || fabsf(scale) < 0.001)
 			return;
 
 		// Calculate where the centre point is in the untransformed map

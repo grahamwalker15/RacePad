@@ -61,8 +61,6 @@
 	[action setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	[changeUser setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	
-	portraitMode = false; // Arbitrary - will be set properly on display or rotation
-	
 	// Add drop shadows to all of the views
 	/*
 	[self addDropShadowToView:user WithOffsetX:5 Y:5 Blur:3];
@@ -103,34 +101,69 @@
 
 - (void)positionViews
 {
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+
 	// Position the driver lists to the right of the prediction and under the title
 	CGRect resultFrame = [result frame];
 	CGRect titleFrame = [status frame];
+	CGRect userFrame = [user frame];
 	
-	float xOrigin = resultFrame.origin.x + resultFrame.size.width + 30;
-	float yOrigin = titleFrame.origin.y + titleFrame.size.height + 30;
-	
-	CGRect leagueFrame = [leagueTable frame];
-	leagueFrame = CGRectMake(xOrigin, yOrigin, 335, leagueFrame.size.height);
-	[leagueTable setFrame:leagueFrame];
-	
-	CGRect drivers1Frame = [drivers1 frame];
-	drivers1Frame = CGRectMake(xOrigin, yOrigin, drivers1Frame.size.width, drivers1Frame.size.height);
-	[drivers1 setFrame:drivers1Frame];
-	
-	CGRect drivers2Frame = [drivers2 frame];
-	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 30, yOrigin, drivers2Frame.size.width, drivers2Frame.size.height);
-	[drivers2 setFrame:drivers2Frame];
+	float xOrigin, yOrigin;
+	float driverTableHeight;
 	
 	if(portraitMode)
 	{
-		[drivers1 setHidden:false];
-		[drivers2 setHidden:true];
+		xOrigin = resultFrame.origin.x + resultFrame.size.width + 50;
+		yOrigin = titleFrame.origin.y;
+		driverTableHeight = 24 * 35 + 30;
 	}
 	else
 	{
-		[drivers1 setHidden:false];
-		[drivers2 setHidden:false];
+		xOrigin = resultFrame.origin.x + resultFrame.size.width + 30;
+		yOrigin = userFrame.origin.y;
+		driverTableHeight = 13 * 35 + 30;
+	}
+	
+	float resultTableHeight = 8 * 44 + 30;
+	
+	CGRect newResultFrame = CGRectMake(resultFrame.origin.x, resultFrame.origin.y, resultFrame.size.width, resultTableHeight);
+	[result setFrame:newResultFrame];
+	
+	CGRect leagueFrame = [leagueTable frame];
+	leagueFrame = CGRectMake(xOrigin, userFrame.origin.y, 335, leagueFrame.size.height);
+	[leagueTable setFrame:leagueFrame];
+	
+	CGRect drivers1Frame = [drivers1 frame];
+	drivers1Frame = CGRectMake(xOrigin, yOrigin, drivers1Frame.size.width, driverTableHeight);
+	[drivers1 setFrame:drivers1Frame];
+	
+	CGRect drivers2Frame = [drivers2 frame];
+	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 30, yOrigin, drivers2Frame.size.width, driverTableHeight);
+	[drivers2 setFrame:drivers2Frame];
+	
+	if ( [self inqGameStatus] == GS_NOT_STARTED )
+	{
+		if(portraitMode)
+		{
+			[drivers1 setHidden:false];
+			[drivers2 setHidden:true];
+			
+			[drivers1 reloadData];
+		}
+		else
+		{
+			[drivers1 setHidden:false];
+			[drivers2 setHidden:false];
+			
+			[drivers1 reloadData];
+			[drivers2 reloadData];
+		}
+	}
+	else
+	{
+		[drivers1 setHidden:true];
+		[drivers2 setHidden:true];
 	}
 
 }
@@ -159,15 +192,17 @@
 
 - (void)showViews
 {
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+
 	if ( [self inqGameStatus] != GS_NOT_STARTED )
 		leagueTable.hidden = NO;
+	else if(!portraitMode)
+		drivers2.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	// Get the UI orientation
-	portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-
 	// Register this UI as current
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
@@ -197,9 +232,6 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	// Get the UI orientation
-	portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-	
 	// Update UI
 	[self positionViews];
 	[self showViews];
@@ -238,8 +270,7 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if ( gestureView == [self view]
-	  || gestureView == leagueTable )
+	if ( gestureView == [self view] || gestureView == leagueTable )
 	{
 		RacePadTimeController * time_controller = [RacePadTimeController Instance];
 		
@@ -414,6 +445,9 @@
 
 -(void) updatePrediction
 {
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
 	[result reloadData];
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 
@@ -708,6 +742,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
 	if ( tableView == result )
 		return [[[RacePadDatabase Instance] racePrediction] count];
 	else
@@ -724,7 +761,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *MyIdentifier = @"RacePadGame";
+ 	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+
+	static NSString *MyIdentifier = @"RacePadGame";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     if (cell == nil)
 	{
@@ -803,6 +843,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
 	if ( changingSelection )
 		return;
 	
@@ -884,6 +927,9 @@
 
 - (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer
 {
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+
 	// Behaviour depends on state	
 	switch(state)
 	{

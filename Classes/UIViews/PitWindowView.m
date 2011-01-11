@@ -77,7 +77,7 @@
 	float currentUserScale = userScale;
 	float centreX = x / current_size_.width ;
 		
-	if(fabs(currentUserScale) < 0.001 || fabs(scale) < 0.001)
+	if(fabsf(currentUserScale) < 0.001 || fabsf(scale) < 0.001)
 		return;
 		
 	// Calculate where the centre point is in the untransformed window

@@ -10,7 +10,8 @@
 
 @class GameViewController;
 
-@interface ChangeCompetitor : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface ChangeCompetitor : UIViewController <UITableViewDelegate, UITableViewDataSource>
+{
 
 	IBOutlet UIButton *cancel;
 	IBOutlet UIButton *newUser;
@@ -24,6 +25,6 @@
 - (IBAction)cancelPressed:(id)sender;
 - (IBAction)newUserPressed:(id)sender;
 
--(void) getUser:(GameViewController *)controller;
+- (void)getUser:(GameViewController *)controller;
 
 @end
