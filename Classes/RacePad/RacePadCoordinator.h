@@ -119,6 +119,11 @@ enum ConnectionTypes
 	
 	bool playing;
 	bool needsPlayRestart;
+	
+	bool reconnectOnBecomeActive;
+	bool playOnBecomeActive;
+	bool jumpOnBecomeActive;
+	float restartTime;
 }
 
 @property (nonatomic) int connectionType;
@@ -213,5 +218,8 @@ enum ConnectionTypes
 -(void) checkUserName: (NSString *)name;
 -(void) registeredUser;
 -(void) badUser;
+
+-(void) willResignActive;
+-(void) didBecomeActive;
 
 @end

@@ -72,6 +72,11 @@ static RacePadCoordinator * instance_ = nil;
 		firstView = true;
 		
 		gameViewController = nil;
+		
+		reconnectOnBecomeActive = false;
+		playOnBecomeActive = false;
+		jumpOnBecomeActive = false;
+		restartTime = 0;
 	}
 	
 	return self;
@@ -144,14 +149,21 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if (wasPlaying)
 	{
-		currentTime = start;
+		if ( restartTime != 0 )
+		{
+			currentTime = restartTime;
+			restartTime = 0;
+		}
+		else
+			currentTime = start;
 		[self prepareToPlay];
 		[self startPlay];
 	}
 	else
-	{
-		[self jumpToTime:start];
-	}
+		if ( restartTime != 0 )
+			[self jumpToTime:restartTime];
+		else
+			[self jumpToTime:start];
 }
 
 -(void) clearStaticData
@@ -306,6 +318,9 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)prepareToPlay
 {
+	if ( restartTime != 0 )
+		currentTime = restartTime;
+	
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[self prepareToPlayFromSocket];
 	else if(connectionType == RPC_ARCHIVE_CONNECTION_)
@@ -486,7 +501,8 @@ static RacePadCoordinator * instance_ = nil;
 		
 		[self requestPrediction:[[[RacePadDatabase Instance] racePrediction] user]];
 
-		live = true;
+		if ( restartTime == 0 )
+			live = true;
 
 		[serverConnect popDown];
 	}
@@ -496,6 +512,7 @@ static RacePadCoordinator * instance_ = nil;
 		socket_ = nil;
 		
 		[self setConnectionType:RPC_NO_CONNECTION_];
+		restartTime = 0;
 		
 		[serverConnect badVersion];
 	}
@@ -523,6 +540,7 @@ static RacePadCoordinator * instance_ = nil;
 	socket_ = nil;
 	
 	[self setConnectionType:RPC_NO_CONNECTION_];
+	restartTime = 0;
 	[settingsViewController updateServerState];
 }
 
@@ -1251,6 +1269,46 @@ static RacePadCoordinator * instance_ = nil;
 	[gameViewController badUser];
 }
 
+-(void) willResignActive
+{
+	playOnBecomeActive = playing;
+	jumpOnBecomeActive = true;
+	[self stopPlay];
+	if ( !live )
+		restartTime = currentTime;
+
+	if ( connectionType == RPC_SOCKET_CONNECTION_ )
+	{
+		[self setConnectionType:RPC_NO_CONNECTION_];
+		[socket_ release];
+		socket_ = nil;
+		
+		reconnectOnBecomeActive = true;
+	}
+	
+}
+
+-(void) didBecomeActive
+{
+	if ( reconnectOnBecomeActive )
+	{
+		needsPlayRestart = playOnBecomeActive;
+		[self SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+		[settingsViewController updateServerState];
+	}
+	else
+		if ( playOnBecomeActive )
+		{
+			[self prepareToPlay];
+			[self startPlay];
+			restartTime = 0;
+		}
+		else
+			if ( jumpOnBecomeActive )
+			{
+				[self jumpToTime:restartTime];
+			}
+}
 
 @end
 
