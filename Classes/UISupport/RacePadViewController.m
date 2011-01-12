@@ -59,6 +59,11 @@
 	return nil;
 }
 
+- (BOOL) wantTimeControls
+{
+	return YES;
+}
+
 - (void) RequestRedrawForType:(int)type
 {
 }

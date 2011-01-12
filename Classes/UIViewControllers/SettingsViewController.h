@@ -27,7 +27,10 @@
 -(IBAction)connectPressed:(id)sender;
 - (IBAction)loadPressed:(id)sender;
 
+- (void) updateEvents;
 - (void) updateServerState;
 - (void) updateConnectionType;
+
+- (BOOL) wantTimeControls;
 
 @end

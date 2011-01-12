@@ -739,7 +739,11 @@ static RacePadCoordinator * instance_ = nil;
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
 		
 	if([time_controller displayed])
-		[time_controller displayInViewController:view_controller Animated:false];
+		if ( [view_controller wantTimeControls] )
+			[time_controller displayInViewController:view_controller Animated:false];
+		else
+			[time_controller setDisplayed:NO];
+
 	
 	// The first time a viewController becomes active, we can use it to display the re-connect modal dialog
 	if ( firstView )
@@ -934,6 +938,11 @@ static RacePadCoordinator * instance_ = nil;
 		[self CreateDataSources];
 	
 	[downloadProgress dismissModalViewControllerAnimated:YES];
+	
+	if ( registeredViewControllerTypeMask & RPC_SETTINGS_VIEW_ )
+	{
+		[settingsViewController updateEvents];
+	}
 	
 	// Dismissing the view will make the playing restart if required.
 }

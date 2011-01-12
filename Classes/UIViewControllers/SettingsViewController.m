@@ -38,6 +38,11 @@
 }
 
 
+- (BOOL) wantTimeControls
+{
+	return NO;
+}
+
 - (void) updateSessions: (int) row
 {
 	[sessions removeAllObjects];
@@ -131,13 +136,8 @@
 	
 }
 
-- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
+- (void)updateEvents
 {
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_SETTINGS_VIEW_];
-	[[RacePadCoordinator Instance] SetViewDisplayed:[self view]];
-	[self updateServerState];
-	[self updateConnectionType];
-	
 	if ( !events )
 	{
 		events = [[NSMutableArray alloc] init];
@@ -185,6 +185,15 @@
 	}
 	else
 		[loadArchive setEnabled:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
+{
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_SETTINGS_VIEW_];
+	[[RacePadCoordinator Instance] SetViewDisplayed:[self view]];
+	[self updateServerState];
+	[self updateConnectionType];
+	[self updateEvents];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
