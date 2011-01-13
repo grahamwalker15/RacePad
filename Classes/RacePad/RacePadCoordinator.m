@@ -23,6 +23,11 @@
 
 #import "UIConstants.h"
 
+@interface UIApplication (extended)
+-(void) terminateWithSuccess;
+@end
+
+
 @implementation RacePadCoordinator
 
 @synthesize connectionType;
@@ -612,6 +617,18 @@ static RacePadCoordinator * instance_ = nil;
 	if ( workOffline == nil )
 		workOffline = [[WorkOffline alloc] initWithNibName:@"WorkOffline" bundle:nil];
 	[registeredViewController presentModalViewController:workOffline animated:YES];
+}
+
+- (void) userExit
+{
+	[[UIApplication sharedApplication] terminateWithSuccess];
+}
+
+- (void) userRestart
+{
+	[self disconnect];
+	[self goOffline];
+	
 }
 
 -(void)prepareToPlayFromSocket

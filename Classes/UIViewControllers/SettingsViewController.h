@@ -16,6 +16,8 @@
 	IBOutlet UITextField *ip_address_edit_;
 	IBOutlet UIButton *connect;
 	IBOutlet UIButton *loadArchive;
+	IBOutlet UIButton *restart;
+	IBOutlet UIButton *exit;
 	IBOutlet UIPickerView *event;
 	IBOutlet UILabel *status;
 	
@@ -26,6 +28,8 @@
 -(IBAction)IPAddressChanged:(id)sender;
 -(IBAction)connectPressed:(id)sender;
 - (IBAction)loadPressed:(id)sender;
+- (IBAction)restartPressed:(id)sender;
+- (IBAction)exitPressed:(id)sender;
 
 - (void) updateEvents;
 - (void) updateServerState;

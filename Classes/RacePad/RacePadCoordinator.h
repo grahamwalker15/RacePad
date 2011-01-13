@@ -162,6 +162,9 @@ enum ConnectionTypes
 -(void) goLive: (bool)newMode;
 -(bool) liveMode;
 
+-(void) userExit;
+-(void) userRestart;
+
 -(void) setProjectRange:(int)start End:(int)end;
 
 -(void) prepareToPlayFromSocket;

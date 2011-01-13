@@ -287,5 +287,15 @@
 	}
 }
 
+-(IBAction)exitPressed:(id)sender
+{
+	[[RacePadCoordinator Instance] userExit];
+}
+
+-(IBAction)restartPressed:(id)sender
+{
+	[[RacePadCoordinator Instance] userRestart];
+}
+
 
 @end
