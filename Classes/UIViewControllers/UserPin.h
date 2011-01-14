@@ -13,13 +13,18 @@
 @interface UserPin : UIViewController <UITextFieldDelegate>
 {
 
-	IBOutlet UITextField *pin;
+	IBOutlet UIButton *titleButton;
+	IBOutlet UITextField *pin1;
+	IBOutlet UITextField *pin2;
+	IBOutlet UITextField *pin3;
+	IBOutlet UITextField *pin4;
 	IBOutlet UIButton *cancel;
 	
 	int userPin;
 	GameViewController *gameController;
 	
 	bool changingPin;
+	bool wrongPinEntered;
 
 }
 

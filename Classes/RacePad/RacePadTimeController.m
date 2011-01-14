@@ -113,7 +113,7 @@ static RacePadTimeController * instance_ = nil;
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.5];
+		[UIView setAnimationDuration:0.25];
 		[timeController.view setAlpha:1.0];
 		[jogController.view setAlpha:1.0];
 		if(addOnOptionsView)
@@ -161,7 +161,7 @@ static RacePadTimeController * instance_ = nil;
 	}
 
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDuration:0.25];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];

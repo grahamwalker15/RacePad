@@ -17,7 +17,8 @@
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
         // Custom initialization
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationFormSheet];
@@ -58,7 +59,10 @@
 
 - (void)dealloc
 {
-	[pin release];
+	[pin1 release];
+	[pin2 release];
+	[pin3 release];
+	[pin4 release];
 	[cancel release];
 
     [super dealloc];
@@ -67,8 +71,14 @@
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
 	changingPin = true;
-	[pin setText:@""];
+	[pin1 setText:@""];
+	[pin2 setText:@""];
+	[pin3 setText:@""];
+	[pin4 setText:@""];
+	[titleButton.titleLabel setText:@"Enter Pin"];
+	[titleButton setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0]];
 	changingPin = false;
+	wrongPinEntered = false;
 }
 
 -(void) cancelPressed:(id)sender
@@ -79,28 +89,83 @@
 
 -(void) digitPressed:(id)sender
 {
-	NSString *text = pin.text;
-	if ( text.length < 4 )
+	NSString *text1 = pin1.text;
+	NSString *text2 = pin2.text;
+	NSString *text3 = pin3.text;
+	NSString *text4 = pin4.text;
+	
+	// Find next button
+	UITextField * nextButton = nil;
+	if(text1.length < 1)
+		nextButton = pin1;
+	else if(text2.length < 1)
+		nextButton = pin2;
+	else if(text3.length < 1)
+		nextButton = pin3;
+	else if(text4.length < 1)
+		nextButton = pin4;
+	
+	if ( nextButton )
 	{
 		UIButton *button = sender;
 		
-		text = [text stringByAppendingString: button.titleLabel.text];
-		[pin setText:text];
-		if ( [text intValue] == userPin )
+		[nextButton setText:button.titleLabel.text];
+		
+		if ( nextButton == pin4)
 		{
-			[self dismissModalViewControllerAnimated:YES];
-			[gameController pinCorrect];
+			NSString *text = pin1.text;
+			text = [text stringByAppendingString:pin2.text];
+			text = [text stringByAppendingString:pin3.text];
+			text = [text stringByAppendingString:pin4.text];
+			if([text intValue] == userPin )
+			{
+				[self dismissModalViewControllerAnimated:YES];
+				[gameController pinCorrect];
+			}
+			else
+			{
+				[titleButton.titleLabel setText:@"Try again"];
+				[titleButton setBackgroundColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.6]];
+				[pin1 setText:@""];
+				[pin2 setText:@""];
+				[pin3 setText:@""];
+				[pin4 setText:@""];
+				wrongPinEntered = true;
+			}
+		}
+		else if(wrongPinEntered)
+		{
+			[UIView beginAnimations:nil context:NULL];
+			[UIView setAnimationDuration:0.25];
+			[titleButton.titleLabel setText:@"Enter Pin"];
+			[titleButton setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0]];
+			[UIView commitAnimations];
+			wrongPinEntered = false;
 		}
 	}
 }
 
 -(void) deletePressed:(id)sender
 {
-	NSString *text = pin.text;
-	if ( text.length > 0 )
+	NSString *text1 = pin1.text;
+	NSString *text2 = pin2.text;
+	NSString *text3 = pin3.text;
+	NSString *text4 = pin4.text;
+	
+	// Find last button
+	UITextField * lastButton = nil;
+	if(text4.length > 0)
+		lastButton = pin4;
+	else if(text3.length > 0)
+		lastButton = pin3;
+	else if(text2.length > 0)
+		lastButton = pin2;
+	else if(text1.length > 0)
+		lastButton = pin1;
+	
+	if (lastButton)
 	{
-		text = [text substringToIndex:text.length - 1];
-		[pin setText:text];
+		[lastButton setText:@""];
 	}
 }
 

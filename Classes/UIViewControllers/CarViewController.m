@@ -358,7 +358,7 @@
 	[trackMapView setIsZoomView:true];
 	[trackMapView setAnimationScaleTarget:backupUserScale];
 	
-	animationTimer = [[AnimationTimer alloc] initWithDuration:1.0 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
+	animationTimer = [[AnimationTimer alloc] initWithDuration:0.5 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
 }
 
 - (void) trackMapSizeAnimationDidFire:(id)alphaPtr
@@ -374,7 +374,7 @@
 	[trackMapView setFrame:CGRectMake(0, 0, w, h)];
 	[trackMapView setAnimationAlpha:(trackMapExpanded ? sqrt (alpha) : alpha * alpha)];
 	[trackMapView setAnimationDirection:(trackMapExpanded ? 1 : -1)];
-	[trackMapView RequestRedraw];
+	[trackMapContainer RequestRedraw];
 }
 
 - (void) trackMapSizeAnimationDidStop
@@ -404,7 +404,7 @@
 	[trackMapSizeButton setFrame:CGRectMake(4, [trackMapContainer bounds].size.height - 24, 20, 20)];
 	[trackMapSizeButton setHidden:false];
 
-	[trackMapView RequestRedraw];
+	[trackMapContainer RequestRedraw];
 	[[RacePadCoordinator Instance] EnableViewRefresh:trackMapView];
 }
 
