@@ -28,7 +28,7 @@ enum GameStatus {
 	bool equal;
 	unsigned char gameStatus;
 	int startTime;
-	bool cleared;
+	bool gotPin;
 }
 
 @property (readonly) int count;
@@ -39,7 +39,7 @@ enum GameStatus {
 @property (readonly) bool equal;
 @property (readonly) unsigned char gameStatus;
 @property (readonly) int startTime;
-@property (readonly) bool cleared;
+@property bool gotPin;
 
 - (void) clear;
 - (bool) load : (DataStream *) stream;
@@ -48,5 +48,6 @@ enum GameStatus {
 - (int *) scores;
 - (void) setUser:(NSString *) name;
 - (void) noUser;
+- (bool) validUser;
 
 @end

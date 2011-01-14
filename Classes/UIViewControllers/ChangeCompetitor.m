@@ -117,7 +117,7 @@
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[p setUser:currentUser];
 	[gameController lock];
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:NO]; // Not animated, beacuse the pin window is coming
 	[[RacePadCoordinator Instance] requestPrediction:currentUser];
 }
 

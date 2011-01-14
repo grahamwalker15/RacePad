@@ -20,7 +20,7 @@
 @synthesize equal;
 @synthesize gameStatus;
 @synthesize startTime;
-@synthesize cleared;
+@synthesize gotPin;
 
 - (id) init
 {
@@ -34,7 +34,7 @@
 		}
 		user = nil;
 		position = -1;
-		cleared = true;
+		gotPin = false;
 	}	   
 	
 	return self;
@@ -49,18 +49,17 @@
 		prediction[i] = -1;
 		scores[i] = 0;
 	}
-	cleared = true;
 }
 
 - (bool) load:(DataStream*)stream
 {
 	NSString *name = [[stream PopString] retain];
-	if ( !cleared && [user compare:name] == NSOrderedSame )
+	if ( [user compare:name] == NSOrderedSame )
 	{
 		[self clear];
-		cleared = false;
 		user = name;
 		pin = [stream PopInt];
+		gotPin = true;
 		int c = [stream PopInt];
 		for ( int i = 0; i < c; i++ )
 		{
@@ -111,14 +110,22 @@
 {
 	[user release];
 	user = [name retain];
-	cleared = false;
+	gotPin = false;
 }
 
 - (void) noUser
 {
 	[user release];
 	user = nil;
-	cleared = true;
+	gotPin = false;
+}
+
+-(bool)validUser
+{
+	if ( user != nil )
+		return true;
+	
+	return false;
 }
 
 - (void) loadStatus:(DataStream *)stream

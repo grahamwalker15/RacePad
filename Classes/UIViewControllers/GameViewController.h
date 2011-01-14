@@ -20,14 +20,15 @@
 {
 	IBOutlet BackgroundView *background;
 	IBOutlet UITextField *user;
-	IBOutlet UIButton *newUser;
 	IBOutlet UIButton *changeUser;
+	IBOutlet UIButton *signOut;
+	IBOutlet UITableView *users;
 	IBOutlet UITableView *result;
 	IBOutlet UITableView *drivers1;
 	IBOutlet UITableView *drivers2;
 	IBOutlet UIButton *action;
+	IBOutlet UIButton *newUser;
 	IBOutlet UIButton *reset;
-	IBOutlet UIButton *relock;
 	IBOutlet UILabel *status;
 	IBOutlet TableDataView *leagueTable;
 	IBOutlet UIImageView * predictionBG;
@@ -45,7 +46,7 @@
 	
 	int driverCount;
 	bool changingUser;
-	bool locked;
+	bool needPin;
 	int competitorCount;
 	bool showingBadUser;
 	unsigned char gameStatus;
@@ -58,9 +59,9 @@
 
 -(IBAction) newUserPressed:(id)sender;
 -(IBAction) changeUserPressed:(id)sender;
+-(IBAction) signOutPressed:(id)sender;
 -(IBAction) actionPressed:(id)sender;
 -(IBAction) resetPressed:(id)sender;
--(IBAction) relockPressed:(id)sender;
 -(void) updatePrediction;
 -(void) registeredUser;
 -(void) cancelledRegister;

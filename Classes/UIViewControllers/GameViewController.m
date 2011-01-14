@@ -54,7 +54,7 @@
 	draggedDriverIndex = -1;
 	draggedTargetIndex= nil;
 	
-	locked = false;
+	needPin = false;
 
 	gameStatus = GS_NOT_STARTED;
 
@@ -86,13 +86,14 @@
 	
 	// But, we don't want it on these controls
 	[self addTapRecognizerToView:result];
+	[self addTapRecognizerToView:users];
 	[self addTapRecognizerToView:drivers1];
 	[self addTapRecognizerToView:drivers2];
 	[self addTapRecognizerToView:newUser];
+	[self addTapRecognizerToView:signOut];
 	[self addTapRecognizerToView:changeUser];
 	[self addTapRecognizerToView:action];
 	[self addTapRecognizerToView:reset];
-	[self addTapRecognizerToView:relock];
 	
 	[self addDragRecognizerToView:result WithTarget:result];
 	[self addDragRecognizerToView:drivers1 WithTarget:result];
@@ -199,6 +200,22 @@
 		leagueTable.hidden = NO;
 	else if(!portraitMode)
 		drivers2.hidden = NO;
+	if ( [[[RacePadDatabase Instance] racePrediction] validUser] && !needPin )
+	{
+		users.hidden = YES;
+		result.hidden = NO;
+		newUser.hidden = YES;
+		signOut.hidden = NO;
+		changeUser.hidden = NO;
+	}
+	else
+	{
+		users.hidden = NO;
+		result.hidden = YES;
+		newUser.hidden = [self inqGameStatus] != GS_NOT_STARTED;
+		signOut.hidden = YES;
+		changeUser.hidden = YES;
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
@@ -210,6 +227,7 @@
 	// Update UI
 	[self updatePrediction];
 	[self positionViews];
+	[self showViews];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -290,7 +308,7 @@
 
 -(void)lock
 {
-	locked = true;
+	needPin = [self inqGameStatus] == GS_NOT_STARTED;
 	// Assume rest gets sorted when the new prediction turns up
 }
 
@@ -307,30 +325,18 @@
 
 -(void) pinCorrect
 {
-	locked = false;
+	needPin = false;
 	action.enabled = YES;
-	[action setTitle:@"Send Prediction" forState:UIControlStateNormal ];
-	[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
 	reset.hidden = NO;
-	relock.hidden = NO;
 	result.allowsSelection = YES;
 	drivers1.allowsSelection = YES;
 	drivers2.allowsSelection = YES;
-	newUser.hidden = YES;
+	[self showViews];
 }
 
 -(void) pinFailed
 {
-}
-
--(IBAction)newUserPressed:(id)sender
-{
-	action.enabled = YES;
-	[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
-	[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
-	[[[RacePadDatabase Instance] racePrediction] clear];
-	user.text = @"";
-	[self updatePrediction];
+	[self showViews];
 }
 
 -(IBAction)changeUserPressed:(id)sender
@@ -340,7 +346,20 @@
 		if ( changeCompetitor == nil )
 			changeCompetitor = [[ChangeCompetitor	alloc] initWithNibName:@"ChangeCompetitor" bundle:nil];
 		[changeCompetitor getUser:self];
+		needPin = true;
 	}
+}
+
+-(IBAction)newUserPressed:(id)sender
+{
+	[self makeNewUser];
+}
+
+-(IBAction)signOutPressed:(id)sender
+{
+	RacePrediction *p = [[RacePadDatabase Instance] racePrediction];
+	[p noUser];
+	[self updatePrediction];
 }
 
 -(bool) validName: (NSString *)name
@@ -369,61 +388,15 @@
 
 -(IBAction)actionPressed:(id)sender
 {
-	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
-		if ( p.cleared )
-		{
-			NSString *name = user.text;
-			if ( [self validName:name] )
-			{
-				action.enabled = NO;
-				user.enabled = NO;
-				changeUser.enabled = NO;
-				[self lock];
-				[p setUser:name];
-				[[RacePadCoordinator Instance]checkUserName:name];
-			}
-		}
-		else
-			if ( locked )
-				[self unlock];
-			else
-			{
-				[[RacePadCoordinator Instance]sendPrediction];
-				reset.hidden = NO;
-				relock.hidden = NO;
-			}
+		[[RacePadCoordinator Instance]sendPrediction];
+		reset.hidden = NO;
 	}
 }
 
 -(IBAction) resetPressed:(id)sender
 {
-	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-	[[RacePadCoordinator Instance]requestPrediction:p.user];
-}
-
--(IBAction) relockPressed:(id)sender
-{
-	locked = true;
-	
-	action.enabled = YES;
-	[action setTitle:@"Change Prediction" forState:UIControlStateNormal ];
-	[action setTitle:@"Change Prediction" forState:UIControlStateHighlighted];
-	
-	reset.hidden = YES;
-	relock.hidden = YES;
-	
-	result.allowsSelection = NO;
-	[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
-	
-	drivers1.allowsSelection = NO;
-	[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
-	
-	drivers2.allowsSelection = NO;
-	[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
-	
-	newUser.hidden = NO;
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[[RacePadCoordinator Instance]requestPrediction:p.user];
 }
@@ -441,6 +414,7 @@
 		driverCount = [[[RacePadDatabase Instance]driverNames] count];
 		gameStatus = [self inqGameStatus];
 	}
+	[users reloadData];
 }
 
 -(void) updatePrediction
@@ -449,6 +423,9 @@
 	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
 	
 	[result reloadData];
+	[users reloadData];
+	[self showViews];
+	
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 
 	NSString *text;
@@ -472,64 +449,22 @@
 			text = @"Game has not started yet";
 		}
 		
-		if ( p.cleared )
+		user.enabled = NO;
+		user.text = p.user;
+		
+		bool empty = true;
+		int *pre = [p prediction];
+		for ( int i = 0; i < p.count; i++ )
 		{
-			// leave the user name as it is
-			user.enabled = YES;
-			[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
-			[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
-			locked = false;
-			result.allowsSelection = YES;
-			drivers1.allowsSelection = YES;
-			drivers2.allowsSelection = YES;
-			reset.hidden = YES;
-			relock.hidden = YES;
-			newUser.hidden = YES;
+			if ( pre[i] != -1 )
+				empty = false;
 		}
-		else
-		{
-			user.enabled = NO;
-			user.text = p.user;
-			if ( locked )
-			{
-				[action setTitle:@"Change Prediction" forState:UIControlStateNormal];
-				[action setTitle:@"Change Prediction" forState:UIControlStateHighlighted];
-				
-				reset.hidden = YES;
-				relock.hidden = YES;
-				
-				result.allowsSelection = NO;
-				[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
-				
-				drivers1.allowsSelection = NO;
-				[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
-				
-				drivers2.allowsSelection = NO;
-				[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
-				
-				newUser.hidden = NO;
-			}
-			else
-			{
-				[action setTitle:@"Send Prediction" forState:UIControlStateNormal];
-				[action setTitle:@"Send Prediction" forState:UIControlStateHighlighted];
-				
-				bool empty = true;
-				int *pre = [p prediction];
-				for ( int i = 0; i < p.count; i++ )
-				{
-					if ( pre[i] != -1 )
-						empty = false;
-				}
-				
-				reset.hidden = empty;
-				relock.hidden = empty;
-				result.allowsSelection = YES;
-				drivers1.allowsSelection = YES;
-				drivers2.allowsSelection = YES;
-				newUser.hidden = YES;
-			}
-		}
+		
+		reset.hidden = empty;
+		result.allowsSelection = YES;
+		drivers1.allowsSelection = YES;
+		drivers2.allowsSelection = YES;
+
 		drivers1.hidden = NO;
 		drivers2.hidden = portraitMode; // Hidden if in portrait mode, displayed in landscape
 		leagueTable.hidden = YES;
@@ -586,10 +521,8 @@
 				text = [text stringByAppendingString:@"s"];
 		}
 		
-		newUser.hidden = YES;
 		action.hidden = YES;
 		reset.hidden = YES;
-		relock.hidden = YES;
 		drivers1.hidden = YES;
 		drivers2.hidden = YES;
 		leagueTable.hidden = NO;
@@ -605,6 +538,9 @@
 	}
 	
 	[status setText:text];
+	
+	if ( needPin && [p validUser] && p.gotPin )
+		[self unlock];
 }
 
 -(void)registeredUser
@@ -613,7 +549,7 @@
 		[newCompetitor dismissModalViewControllerAnimated:NO];
 	
 	showingBadUser = false;
-	locked = false;
+	needPin = false;
 	[self updatePrediction];
 	action.enabled = YES;
 	changeUser.enabled = YES;
@@ -669,7 +605,6 @@
 	action.enabled = YES;
 	user.enabled = YES;
 	changeUser.enabled = YES;
-	locked = false;
 	showingBadUser = false;
 	result.allowsSelection = YES;
 	drivers1.allowsSelection = YES;
@@ -747,6 +682,8 @@
 	
 	if ( tableView == result )
 		return [[[RacePadDatabase Instance] racePrediction] count];
+	else if ( tableView == users )
+		return [[[RacePadDatabase Instance]competitorData] rows];
 	else
 	{
 		int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
@@ -812,6 +749,11 @@
 			cell.detailTextLabel.text = name;
 		}
 	}
+	else if ( tableView == users )
+	{
+		cell.textLabel.text = [[[[RacePadDatabase Instance]competitorData] cell:indexPath.row Col:1] string];
+		cell.detailTextLabel.text = nil;
+	}
 	else // tableView is one of the driver lists
 	{
 		int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
@@ -837,6 +779,8 @@
 {
 	if ( tableView == result )
 		return @"Prediction";
+	else if ( tableView == users )
+		return @"Users";
 	else // One of the driver lists
 		return @"Drivers";
 }
@@ -887,6 +831,14 @@
 			}
 		}
 	}
+	else if ( tableView == users )
+	{
+		NSString *currentUser = [[[[RacePadDatabase Instance]competitorData] cell:indexPath.row Col:1] string];
+		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+		[p setUser:currentUser];
+		[self lock];
+		[[RacePadCoordinator Instance] requestPrediction:currentUser];
+	}
 	else // tableView is one of the driver selection list tables
 	{
 		// Get the picked driver - may be from either driver list
@@ -898,7 +850,8 @@
 		bool invalid = (tableView == drivers1 && selectedDriverIndex > driverListSplit);
 
 		// Pick driver if we're allowed
-		if ( !locked && !invalid )
+		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+		if ( [p validUser] && !needPin && !invalid )
 		{
 			NSIndexPath *currentSelection = [result indexPathForSelectedRow];
 			if ( currentSelection )
@@ -967,7 +920,8 @@
 				}
 								
 				// Pick driver if we're allowed
-				if ( !locked && !invalid )
+				RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+				if ( [p validUser] && !needPin && !invalid )
 				{
 					[self.view addSubview:draggedDriverCell];
 					[self addDropShadowToView:draggedDriverCell WithOffsetX:5 Y:5 Blur:3];
