@@ -252,13 +252,13 @@
 	
 	// And the game status
 	bool gameStarted = ([self inqGameStatus] != GS_NOT_STARTED);
-	bool validUser = ([[[RacePadDatabase Instance] racePrediction] validUser] && !needPin);
+	bool validUser = ([[[RacePadDatabase Instance] racePrediction] validUser]);
 	
 	leagueTable.hidden = !gameStarted;	// Hidden before game, shown afterwards
 	
 	if (validUser)
 	{
-		// We have a valid logged in user
+		// We have a valid user, but he/she may not yet have entered pin
 		
 		user.hidden = NO;
 		result.hidden = NO;
@@ -268,11 +268,13 @@
 		signInLabel.hidden = YES;
 		orLabel.hidden = YES;
 		
+		signIn.hidden = YES;
+		
 		signOut.hidden = NO;
 		changeUser.hidden = NO;
 		
-		action.hidden = !(predictionComplete && !gameStarted);
-		reset.hidden = !(predictionChanged && !gameStarted);
+		action.hidden = (needPin || !(predictionComplete && !gameStarted));
+		reset.hidden = (needPin || !(predictionChanged && !gameStarted));
 		
 		drivers1.hidden = gameStarted;
 		drivers2.hidden = (gameStarted || portraitMode); // Hidden in portrait mode, shown in landscape
@@ -282,9 +284,6 @@
 		// We do not have a logged in user
 		
 		user.hidden = YES;
-		
-		signInLabel.hidden = NO;
-		users.hidden = NO;
 		
 		result.hidden = YES;
 		signOut.hidden = YES;
@@ -296,8 +295,12 @@
 		drivers2.hidden = YES;
 		
 		// If the game has not started, we can add new users - otherwise we can't
+		signInLabel.hidden = gameStarted;
+		users.hidden = gameStarted;
 		orLabel.hidden = gameStarted;
 		newUser.hidden = gameStarted;
+		
+		signIn.hidden = !gameStarted;
 	}
 }
 
@@ -332,7 +335,12 @@
 
 -(void) pinFailed
 {
-	[self showViews];
+	// Explicitly log out for now 
+	// Once we have two stagelog in, this will probably revert to old user
+	
+	RacePrediction *p = [[RacePadDatabase Instance] racePrediction];
+	[p noUser];
+	[self updatePrediction];
 }
 
 -(IBAction)changeUserPressed:(id)sender
@@ -523,7 +531,6 @@
 	{
 		user.text = @"";
 	}
-
 
 	[status setText:text];
 	
