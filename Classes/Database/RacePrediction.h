@@ -30,6 +30,7 @@ enum GameStatus
 	unsigned char gameStatus;
 	int startTime;
 	bool gotPin;
+	bool usePrediction;
 }
 
 @property (readonly) int count;

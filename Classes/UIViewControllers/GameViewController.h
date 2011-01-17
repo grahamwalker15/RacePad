@@ -54,6 +54,7 @@
 	int driverCount;
 	bool changingUser;
 	bool needPin;
+	bool gettingPin;
 	int competitorCount;
 	bool showingBadUser;
 	unsigned char gameStatus;

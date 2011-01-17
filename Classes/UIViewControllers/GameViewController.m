@@ -38,6 +38,7 @@
 	draggedTargetIndex= nil;
 	
 	needPin = false;
+	gettingPin = false;
 
 	gameStatus = GS_NOT_STARTED;
 	predictionChanged = false;
@@ -313,11 +314,13 @@
 -(void)unlock
 {
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-	if ( [self inqGameStatus] == GS_NOT_STARTED )
+	if ( [self inqGameStatus] == GS_NOT_STARTED
+	  && !gettingPin )
 	{
 		if ( userPin == nil )
 			userPin = [[UserPin alloc] initWithNibName:@"UserPin" bundle:nil];
 		
+		gettingPin = true;
 		[userPin getPin:p.pin Controller:self];
 	}
 }
@@ -325,6 +328,7 @@
 -(void) pinCorrect
 {
 	needPin = false;
+	gettingPin = false;
 	action.enabled = YES;
 	reset.hidden = NO;
 	result.allowsSelection = YES;
@@ -338,6 +342,7 @@
 	// Explicitly log out for now 
 	// Once we have two stagelog in, this will probably revert to old user
 	
+	gettingPin = false;
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction];
 	[p noUser];
 	[self updatePrediction];

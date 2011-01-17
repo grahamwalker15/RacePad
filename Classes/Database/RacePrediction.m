@@ -56,20 +56,30 @@
 	NSString *name = [[stream PopString] retain];
 	if ( [user compare:name] == NSOrderedSame )
 	{
-		[self clear];
-		user = name;
 		pin = [stream PopInt];
 		gotPin = true;
 		int c = [stream PopInt];
+		int inPrediction[8];
 		for ( int i = 0; i < c; i++ )
 		{
 			int t = [stream PopInt];
 			if ( i < 8 )
-				prediction[i] = t;
+				inPrediction[i] = t;
 		}
 		
 		bool notify = [stream PopBool];
 		gameStatus = [stream PopUnsignedChar];
+
+		if ( gameStatus != GS_NOT_STARTED
+		  || usePrediction )
+		{
+			[self clear];
+			user = name;
+			for ( int i = 0; i < c; i++ )
+				prediction[i] = inPrediction[i];
+		}
+
+		usePrediction = false;
 		startTime = [stream PopInt];
 		score = [stream PopInt];
 		position = [stream PopInt];
@@ -111,6 +121,7 @@
 	[user release];
 	user = [name retain];
 	gotPin = false;
+	usePrediction = true;
 }
 
 - (void) noUser
