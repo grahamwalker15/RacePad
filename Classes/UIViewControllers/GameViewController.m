@@ -15,23 +15,6 @@
 
 @implementation GameViewController
 
-/*
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-    }
-    return self;
-}
- */
- 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -57,21 +40,18 @@
 	needPin = false;
 
 	gameStatus = GS_NOT_STARTED;
-
+	predictionChanged = false;
+	predictionComplete = false;
+	predictionEmpty = true;
+	
 	[action setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	[changeUser setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	
 	// Add drop shadows to all of the views
 	/*
-	[self addDropShadowToView:user WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:newUser WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:changeUser WithOffsetX:5 Y:5 Blur:3];
 	[self addDropShadowToView:result WithOffsetX:5 Y:5 Blur:3];
 	[self addDropShadowToView:drivers1 WithOffsetX:5 Y:5 Blur:3];
 	[self addDropShadowToView:drivers2 WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:action WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:reset WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:relock WithOffsetX:5 Y:5 Blur:3];
 	[self addDropShadowToView:leagueTable WithOffsetX:5 Y:5 Blur:3];
 	*/
 	
@@ -100,126 +80,11 @@
 	[self addDragRecognizerToView:drivers2 WithTarget:result];
 }
 
-- (void)positionViews
-{
-	// Get the UI orientation
-	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-
-	// Position the driver lists to the right of the prediction and under the title
-	CGRect resultFrame = [result frame];
-	CGRect titleFrame = [status frame];
-	CGRect userFrame = [user frame];
-	
-	float xOrigin, yOrigin;
-	float driverTableHeight;
-	
-	if(portraitMode)
-	{
-		xOrigin = resultFrame.origin.x + resultFrame.size.width + 50;
-		yOrigin = titleFrame.origin.y;
-		driverTableHeight = 24 * 35 + 30;
-	}
-	else
-	{
-		xOrigin = resultFrame.origin.x + resultFrame.size.width + 30;
-		yOrigin = userFrame.origin.y;
-		driverTableHeight = 13 * 35 + 30;
-	}
-	
-	float resultTableHeight = 8 * 44 + 30;
-	
-	CGRect newResultFrame = CGRectMake(resultFrame.origin.x, resultFrame.origin.y, resultFrame.size.width, resultTableHeight);
-	[result setFrame:newResultFrame];
-	
-	CGRect leagueFrame = [leagueTable frame];
-	leagueFrame = CGRectMake(xOrigin, userFrame.origin.y, 335, leagueFrame.size.height);
-	[leagueTable setFrame:leagueFrame];
-	
-	CGRect drivers1Frame = [drivers1 frame];
-	drivers1Frame = CGRectMake(xOrigin, yOrigin, drivers1Frame.size.width, driverTableHeight);
-	[drivers1 setFrame:drivers1Frame];
-	
-	CGRect drivers2Frame = [drivers2 frame];
-	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 30, yOrigin, drivers2Frame.size.width, driverTableHeight);
-	[drivers2 setFrame:drivers2Frame];
-	
-	if ( [self inqGameStatus] == GS_NOT_STARTED )
-	{
-		if(portraitMode)
-		{
-			[drivers1 setHidden:false];
-			[drivers2 setHidden:true];
-			
-			[drivers1 reloadData];
-		}
-		else
-		{
-			[drivers1 setHidden:false];
-			[drivers2 setHidden:false];
-			
-			[drivers1 reloadData];
-			[drivers2 reloadData];
-		}
-	}
-	else
-	{
-		[drivers1 setHidden:true];
-		[drivers2 setHidden:true];
-	}
-
-}
-
-- (void)hideViews
-{
-	leagueTable.hidden = YES;
-	drivers2.hidden = YES;
-}
-
-- (unsigned char) inqGameStatus
-{
-	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
-	{
-		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-		return p.gameStatus;
-	}
-	else
-	{
-		if ( [[RacePadTitleBarController Instance] inqCurrentLap] > 1 )
-			return GS_PLAYING;
-	}
-	
-	return GS_NOT_STARTED;
-}
-
-- (void)showViews
-{
-	// Get the UI orientation
-	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-
-	if ( [self inqGameStatus] != GS_NOT_STARTED )
-		leagueTable.hidden = NO;
-	else if(!portraitMode)
-		drivers2.hidden = NO;
-	if ( [[[RacePadDatabase Instance] racePrediction] validUser] && !needPin )
-	{
-		users.hidden = YES;
-		result.hidden = NO;
-		newUser.hidden = YES;
-		signOut.hidden = NO;
-		changeUser.hidden = NO;
-	}
-	else
-	{
-		users.hidden = NO;
-		result.hidden = YES;
-		newUser.hidden = [self inqGameStatus] != GS_NOT_STARTED;
-		signOut.hidden = YES;
-		changeUser.hidden = YES;
-	}
-}
-
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
+	// Grab the title bar
+	[[RacePadTitleBarController Instance] displayInViewController:self];
+	
 	// Register this UI as current
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
@@ -286,25 +151,155 @@
     [super dealloc];
 }
 
-- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+/////////////////////////////////////////////////////////////////////
+// Class specific methods
+
+- (unsigned char) inqGameStatus
 {
-	if ( gestureView == [self view] || gestureView == leagueTable )
+	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
 	{
-		RacePadTimeController * time_controller = [RacePadTimeController Instance];
-		
-		if(![time_controller displayed])
-		{
-			[time_controller displayInViewController:self Animated:true];
+		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+		return p.gameStatus;
+	}
+	else
+	{
+		if ( [[RacePadTitleBarController Instance] inqCurrentLap] > 1 )
+			return GS_PLAYING;
+	}
+	
+	return GS_NOT_STARTED;
+}
+
+- (void)positionViews
+{
+	// Positions all views that aren't handled automatically, regardless
+	// of whether they will be displayed or not
+	
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
+	// Position the driver lists to the right of the prediction and under the title
+	CGRect resultFrame = [result frame];
+	CGRect titleFrame = [status frame];
+	CGRect userFrame = [user frame];
+	
+	float xOrigin, yOrigin;
+	float driverTableHeight;
+	
+	if(portraitMode)
+	{
+		xOrigin = resultFrame.origin.x + resultFrame.size.width + 50;
+		yOrigin = titleFrame.origin.y;
+		driverTableHeight = 24 * 35 + 30;
+	}
+	else
+	{
+		xOrigin = resultFrame.origin.x + resultFrame.size.width + 30;
+		yOrigin = userFrame.origin.y;
+		driverTableHeight = 13 * 35 + 30;
+	}
+	
+	float resultTableHeight = 8 * 44 + 30;
+	
+	CGRect newResultFrame = CGRectMake(resultFrame.origin.x, resultFrame.origin.y, resultFrame.size.width, resultTableHeight);
+	[result setFrame:newResultFrame];
+	
+	CGRect leagueFrame = [leagueTable frame];
+	leagueFrame = CGRectMake(xOrigin, userFrame.origin.y, 335, leagueFrame.size.height);
+	[leagueTable setFrame:leagueFrame];
+	
+	CGRect drivers1Frame = [drivers1 frame];
+	drivers1Frame = CGRectMake(xOrigin, yOrigin, drivers1Frame.size.width, driverTableHeight);
+	[drivers1 setFrame:drivers1Frame];
+	
+	CGRect drivers2Frame = [drivers2 frame];
+	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 30, yOrigin, drivers2Frame.size.width, driverTableHeight);
+	[drivers2 setFrame:drivers2Frame];
+	
+	if ( [self inqGameStatus] == GS_NOT_STARTED )
+	{
+		if(portraitMode)
+		{			
+			[drivers1 reloadData];
 		}
 		else
 		{
-			[time_controller hide];
+			[drivers1 reloadData];
+			[drivers2 reloadData];
 		}
 	}
+	else
+	{
+		[drivers1 setHidden:true];
+		[drivers2 setHidden:true];
+	}
+	
 }
 
-/////////////////////////////////////////////////////////////////////
-// Class specific methods
+- (void)hideViews
+{
+	// Called when about to change orientation - just hide the views that don't rotate nicely
+	// They may be hidden already, but that doesn't matter
+	
+	leagueTable.hidden = YES;
+	drivers2.hidden = YES;
+}
+
+- (void)showViews
+{
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
+	// And the game status
+	bool gameStarted = ([self inqGameStatus] != GS_NOT_STARTED);
+	bool validUser = ([[[RacePadDatabase Instance] racePrediction] validUser] && !needPin);
+	
+	leagueTable.hidden = !gameStarted;	// Hidden before game, shown afterwards
+	
+	if (validUser)
+	{
+		// We have a valid logged in user
+		
+		user.hidden = NO;
+		result.hidden = NO;
+
+		users.hidden = YES;
+		newUser.hidden = YES;
+		signInLabel.hidden = YES;
+		orLabel.hidden = YES;
+		
+		signOut.hidden = NO;
+		changeUser.hidden = NO;
+		
+		action.hidden = !(predictionComplete && !gameStarted);
+		reset.hidden = !(predictionChanged && !gameStarted);
+		
+		drivers1.hidden = gameStarted;
+		drivers2.hidden = (gameStarted || portraitMode); // Hidden in portrait mode, shown in landscape
+	}
+	else
+	{
+		// We do not have a logged in user
+		
+		user.hidden = YES;
+		
+		signInLabel.hidden = NO;
+		users.hidden = NO;
+		
+		result.hidden = YES;
+		signOut.hidden = YES;
+		changeUser.hidden = YES;
+		action.hidden = YES;
+		reset.hidden = YES;
+		
+		drivers1.hidden = YES;
+		drivers2.hidden = YES;
+		
+		// If the game has not started, we can add new users - otherwise we can't
+		orLabel.hidden = gameStarted;
+		newUser.hidden = gameStarted;
+	}
+}
 
 -(void)lock
 {
@@ -319,6 +314,7 @@
 	{
 		if ( userPin == nil )
 			userPin = [[UserPin alloc] initWithNibName:@"UserPin" bundle:nil];
+		
 		[userPin getPin:p.pin Controller:self];
 	}
 }
@@ -367,11 +363,14 @@
 	int count = [name length];
 	bool all_spaces = true;
 	for ( int i = 0; i < count; i++ )
+	{
 		if ( [name characterAtIndex:i] != ' ' )
 		{
 			all_spaces = false;
 			break;
 		}
+	}
+	
 	if ( all_spaces )
 	{
 		UIAlertView *alert = [[UIAlertView alloc] init];
@@ -383,6 +382,7 @@
 		
 		return false;
 	}
+	
 	return true;
 }
 
@@ -391,7 +391,8 @@
 	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
 		[[RacePadCoordinator Instance]sendPrediction];
-		reset.hidden = NO;
+		predictionChanged = false;
+		[self showViews];
 	}
 }
 
@@ -399,6 +400,8 @@
 {
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[[RacePadCoordinator Instance]requestPrediction:p.user];
+	predictionChanged = false;
+	[self showViews];
 }
 
 - (void) RequestRedrawForType:(int)type
@@ -419,16 +422,13 @@
 
 -(void) updatePrediction
 {
-	// Get the UI orientation
-	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-	
 	[result reloadData];
 	[users reloadData];
-	[self showViews];
 	
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
-
+	
 	NSString *text;
+	
 	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
 		int time = p.startTime;
@@ -449,30 +449,14 @@
 			text = @"Game has not started yet";
 		}
 		
-		user.enabled = NO;
-		user.text = p.user;
+		[self checkPrediction];
 		
-		bool empty = true;
-		int *pre = [p prediction];
-		for ( int i = 0; i < p.count; i++ )
-		{
-			if ( pre[i] != -1 )
-				empty = false;
-		}
-		
-		reset.hidden = empty;
 		result.allowsSelection = YES;
 		drivers1.allowsSelection = YES;
 		drivers2.allowsSelection = YES;
-
-		drivers1.hidden = NO;
-		drivers2.hidden = portraitMode; // Hidden if in portrait mode, displayed in landscape
-		leagueTable.hidden = YES;
-
 	}
 	else
 	{
-		user.text = p.user;
 		if ( p.position < 0 )
 		{
 			if ( [self inqGameStatus] == GS_PLAYING )
@@ -488,30 +472,28 @@
 				text = @"Final result makes you ";
 			
 			if ( p.position == 1 )
+			{
 				if ( p.equal )
-				{
 					text = [text stringByAppendingString:@"joint WINNER"];
-				}
 				else
-				{
 					text = [text stringByAppendingString:@"the WINNER"];
-				}
+			}
+			else
+			{
+				NSNumber *n = [NSNumber numberWithInt:p.position];
+				text = [text stringByAppendingString:[n stringValue]];
+				if ( p.position % 100 != 11 && p.position % 10 == 1 )
+					text = [text stringByAppendingString:@"st"];
+				else if ( p.position % 100 != 12 && p.position % 10 == 2 )
+					text = [text stringByAppendingString:@"nd"];
+				else if ( p.position % 100 != 13 && p.position % 10 == 3 )
+					text = [text stringByAppendingString:@"rd"];
 				else
-				{
-					NSNumber *n = [NSNumber numberWithInt:p.position];
-					text = [text stringByAppendingString:[n stringValue]];
-					if ( p.position % 100 != 11 && p.position % 10 == 1 )
-						text = [text stringByAppendingString:@"st"];
-					else if ( p.position % 100 != 12 && p.position % 10 == 2 )
-						text = [text stringByAppendingString:@"nd"];
-					else if ( p.position % 100 != 13 && p.position % 10 == 3 )
-						text = [text stringByAppendingString:@"rd"];
-					else
-						text = [text stringByAppendingString:@"th"];
-					
-					if ( p.equal )
-						text = [text stringByAppendingString:@"="];
-				}
+					text = [text stringByAppendingString:@"th"];
+				
+				if ( p.equal )
+					text = [text stringByAppendingString:@"="];
+			}
 			
 			text = [text stringByAppendingString:@" with "];
 			NSNumber *n = [NSNumber numberWithInt:p.score];
@@ -520,12 +502,6 @@
 			if ( p.score != 1 )
 				text = [text stringByAppendingString:@"s"];
 		}
-		
-		action.hidden = YES;
-		reset.hidden = YES;
-		drivers1.hidden = YES;
-		drivers2.hidden = YES;
-		leagueTable.hidden = NO;
 		
 		result.allowsSelection = NO;
 		[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:TRUE];
@@ -537,10 +513,40 @@
 		[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
 	}
 	
+	if([p user])
+	{
+		NSString * userText = @"User : ";
+		userText = [userText stringByAppendingString:[p user]];
+		user.text = userText;
+	}
+	else
+	{
+		user.text = @"";
+	}
+
+
 	[status setText:text];
+	
+	[self showViews];
 	
 	if ( needPin && [p validUser] && p.gotPin )
 		[self unlock];
+}
+
+-(void) checkPrediction
+{
+	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
+	
+	predictionEmpty = true;
+	predictionComplete = true;
+	int *pre = [p prediction];
+	for ( int i = 0; i < p.count; i++ )
+	{
+		if ( pre[i] == -1 )
+			predictionComplete = false;
+		else
+			predictionEmpty = false;
+	}
 }
 
 -(void)registeredUser
@@ -565,7 +571,7 @@
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction];
 	NSNumber *number = [NSNumber numberWithInt:p.pin];
 	message = [message stringByAppendingString:[number stringValue]];
-	message = [message stringByAppendingString:@". You will need this to change your entry"];
+	message = [message stringByAppendingString:@". You will need this to sign in again"];
 	pinMessage.message = message;
 	[pinMessage show];
 }
@@ -603,7 +609,6 @@
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[p noUser];
 	action.enabled = YES;
-	user.enabled = YES;
 	changeUser.enabled = YES;
 	showingBadUser = false;
 	result.allowsSelection = YES;
@@ -670,6 +675,11 @@
 	// And add him to the prediction
 	prediction [newPosition] = number;
 	[result reloadData];
+	predictionChanged = true;
+	
+	// Check status of prediction and display ui accordingly
+	[self checkPrediction];
+	[self showViews];
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -870,7 +880,6 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	[user resignFirstResponder];
 	return YES;
 }
 
@@ -1030,6 +1039,25 @@
 		default:
 			break;
 	}
+}
+
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	/*
+	 if ( gestureView == [self view] || gestureView == leagueTable )
+	 {
+	 RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	 
+	 if(![time_controller displayed])
+	 {
+	 [time_controller displayInViewController:self Animated:true];
+	 }
+	 else
+	 {
+	 [time_controller hide];
+	 }
+	 }
+	 */
 }
 
 

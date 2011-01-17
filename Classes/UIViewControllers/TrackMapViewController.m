@@ -221,8 +221,9 @@
 
 - (void) positionOverlays
 {
+	int inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
-	CGRect map_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
+	CGRect map_frame = CGRectInset(bg_frame, inset, inset);
 	[trackMapView setFrame:map_frame];
 	
 	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);

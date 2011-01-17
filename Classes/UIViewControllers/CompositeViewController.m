@@ -93,7 +93,8 @@
 	NSString *movie = [[self getVideoArchiveName] retain];
 	if ( [movie compare:currentMovie] != NSOrderedSame )
 	{
-		[moviePlayer setContentURL:[NSURL fileURLWithPath:movie]];
+		AVPlayerItem * item = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:movie]];
+		[moviePlayer replaceCurrentItemWithPlayerItem:item];
 		[currentMovie release];
 		currentMovie = movie;
 		[self getStartTime];

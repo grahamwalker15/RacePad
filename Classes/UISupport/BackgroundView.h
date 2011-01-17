@@ -14,17 +14,18 @@ enum BackgroundStyles
 {
 	BG_STYLE_FULL_SCREEN_GREY_,
 	BG_STYLE_FULL_SCREEN_GRASS_,
-	BG_STYLE_TRANSPARENT_
+	BG_STYLE_TRANSPARENT_,
+	BG_STYLE_SHADOWED_GREY_
 } ;
-
-#define BG_INSET 20
 
 @interface BackgroundView : DrawingView
 {
 	int style;
+	int inset;
 }
 
 @property (nonatomic) int style;
+@property (nonatomic, readonly) int inset;
 
 - (void)InitialiseImages;
 

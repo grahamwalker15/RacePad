@@ -10,7 +10,8 @@
 
 @class DataStream;
 
-enum GameStatus {
+enum GameStatus
+{
 	GS_NOT_STARTED,
 	GS_PLAYING,
 	GS_FINISHED,

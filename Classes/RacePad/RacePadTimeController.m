@@ -210,7 +210,7 @@ static RacePadTimeController * instance_ = nil;
 	if(hideTimer)
 		[hideTimer invalidate];
 	
-	hideTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
+	hideTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
 	
 }
 

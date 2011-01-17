@@ -14,6 +14,7 @@
 @implementation BackgroundView
 
 @synthesize style;
+@synthesize inset;
 
 static UIImage * screen_bg_image_ = nil;
 static UIImage * grey_bg_image_  = nil;
@@ -33,6 +34,8 @@ static bool bg_images_initialised_ = false;
     {
 		[self InitialiseImages];
 		style = BG_STYLE_FULL_SCREEN_GREY_;
+		inset = 0;
+
 	}
 	
     return self;
@@ -45,6 +48,8 @@ static bool bg_images_initialised_ = false;
 	{
  		[self InitialiseImages];
 		style = BG_STYLE_FULL_SCREEN_GREY_;
+		inset = 0;
+
 	}
     return self;
 }
@@ -90,26 +95,27 @@ static bool bg_images_initialised_ = false;
 	{
 		case BG_STYLE_FULL_SCREEN_GREY_:
 		{
-			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
-			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
-	
-			CGRect inner_rect = CGRectInset(current_bounds_, BG_INSET, BG_INSET);
-			[self DrawPattern:grey_bg_image_  InRect:inner_rect];
+			inset = 0;
+			[self DrawPattern:grey_bg_image_ InRect:current_bounds_];	
 			break;
 		}
 		
 		case BG_STYLE_FULL_SCREEN_GRASS_:
 		{
+			inset = 20;
+			
 			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
 			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
 			
-			CGRect inner_rect = CGRectInset(current_bounds_, BG_INSET, BG_INSET);
+			CGRect inner_rect = CGRectInset(current_bounds_, inset, inset);
 			[self DrawPattern:grass_bg_image_  InRect:inner_rect];
 			break;
 		}
 	
 		case BG_STYLE_TRANSPARENT_:
 		{
+			inset = 0;
+			
 			[self SetLineWidth:3];
 			[self SetFGColour:white_];
 			CGRect inner_rect = CGRectInset(current_bounds_, 1, 1);
@@ -117,6 +123,18 @@ static bool bg_images_initialised_ = false;
 			break;
 		}
 		
+		case BG_STYLE_SHADOWED_GREY_:
+		{
+			inset = 20;
+			
+			[self DrawPattern:screen_bg_image_ InRect:current_bounds_];	
+			[self SetDropShadowXOffset:10.0 YOffset:10.0 Blur:5.0];
+			
+			CGRect inner_rect = CGRectInset(current_bounds_, inset, inset);
+			[self DrawPattern:grey_bg_image_  InRect:inner_rect];
+			break;
+		}
+			
 		default:
 			break;
 	}

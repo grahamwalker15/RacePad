@@ -19,15 +19,19 @@
 @interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
 	IBOutlet BackgroundView *background;
-	IBOutlet UITextField *user;
+	
+	IBOutlet UILabel *signInLabel;
+	IBOutlet UITableView *users;
+	IBOutlet UILabel *orLabel;
+	IBOutlet UIButton *newUser;
+
+	IBOutlet UILabel *user;
 	IBOutlet UIButton *changeUser;
 	IBOutlet UIButton *signOut;
-	IBOutlet UITableView *users;
 	IBOutlet UITableView *result;
 	IBOutlet UITableView *drivers1;
 	IBOutlet UITableView *drivers2;
 	IBOutlet UIButton *action;
-	IBOutlet UIButton *newUser;
 	IBOutlet UIButton *reset;
 	IBOutlet UILabel *status;
 	IBOutlet TableDataView *leagueTable;
@@ -50,6 +54,9 @@
 	int competitorCount;
 	bool showingBadUser;
 	unsigned char gameStatus;
+	bool predictionChanged;
+	bool predictionComplete;
+	bool predictionEmpty;
 	
 	NewCompetitor *newCompetitor;
 	ChangeCompetitor *changeCompetitor;
@@ -63,6 +70,7 @@
 -(IBAction) actionPressed:(id)sender;
 -(IBAction) resetPressed:(id)sender;
 -(void) updatePrediction;
+-(void) checkPrediction;
 -(void) registeredUser;
 -(void) cancelledRegister;
 -(void) badUser;
@@ -74,5 +82,8 @@
 -(void) addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath Reorder:(bool)reorder;
 
 - (unsigned char) inqGameStatus;
+- (void) showViews;
+- (void) hideViews;
+- (void) positionViews;
 
 @end

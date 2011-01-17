@@ -190,10 +190,9 @@
 	// Get the device orientation and set things up accordingly
 	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 	
+	int inset = [backgroundView inset] + 5;
 	CGRect bg_frame = [backgroundView frame];
-	
-	int inset = BG_INSET + 5;
-	
+		
 	[telemetryView setFrame:CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - inset - 5)];
 	[pitWindowView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + 5, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - inset - 5)];
 	

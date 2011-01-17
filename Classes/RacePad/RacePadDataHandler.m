@@ -451,7 +451,7 @@
 			[[RacePadCoordinator Instance] registeredUser];
 			break;
 		}
-		case RPSC_BAD_USER_: // New user accepted
+		case RPSC_BAD_USER_: // New user not accepted
 		{
 			[[RacePadCoordinator Instance] badUser];
 			break;

@@ -71,8 +71,9 @@
 	[redPitWindowView setCar:UI_RED_CAR_];
 	
 	// Resize overlay view to match background
+	int inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
-	CGRect pw_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
+	CGRect pw_frame = CGRectInset(bg_frame, inset, inset);
 	CGRect bottom_frame = CGRectMake(pw_frame.origin.x, pw_frame.origin.y + pw_frame.size.height / 2, pw_frame.size.width, pw_frame.size.height / 2);
 	CGRect top_frame = CGRectMake(pw_frame.origin.x, pw_frame.origin.y, pw_frame.size.width, pw_frame.size.height / 2);
 	[redPitWindowView setFrame:bottom_frame];
@@ -111,8 +112,9 @@
 {
 	[backgroundView RequestRedraw];
 	
+	int inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
-	CGRect pw_frame = CGRectInset(bg_frame, BG_INSET, BG_INSET);
+	CGRect pw_frame = CGRectInset(bg_frame, inset, inset);
 	CGRect bottom_frame = CGRectMake(pw_frame.origin.x, pw_frame.origin.y + pw_frame.size.height / 2, pw_frame.size.width, pw_frame.size.height / 2);
 	CGRect top_frame = CGRectMake(pw_frame.origin.x, pw_frame.origin.y, pw_frame.size.width, pw_frame.size.height / 2);
 	[redPitWindowView setFrame:bottom_frame];

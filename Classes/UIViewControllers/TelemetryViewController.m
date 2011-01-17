@@ -169,7 +169,7 @@
 	
 	CGRect bg_frame = [backgroundView frame];
 	
-	int inset = BG_INSET + 5;
+	int inset = [backgroundView inset] + 5;
 	
 	[blueTelemetryView setFrame:CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - inset - 5)];
 	[redTelemetryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + 5, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - inset - 5)];

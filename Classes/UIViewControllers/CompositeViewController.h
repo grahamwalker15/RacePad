@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVPlayer.h>
 #import <AVFoundation/AVPlayerLayer.h>
+#import <AVFoundation/AVPlayerItem.h>
 #import <CoreMedia/CMTime.h>
 
 #import "RacePadViewController.h"
