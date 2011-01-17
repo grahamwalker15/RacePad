@@ -53,6 +53,7 @@
      */
 	
 	[[RacePadCoordinator Instance] willResignActive];
+	[[RacePadPrefs Instance] save];
 }
 
 

@@ -76,8 +76,6 @@ static RacePadPrefs *instance = nil;
     else {
         [error release];
     }
-	
-	[plistData release];
 }
 
 

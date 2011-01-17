@@ -294,6 +294,7 @@ static RacePadCoordinator * instance_ = nil;
 	
 	[settingsViewController updateConnectionType];
 	[[RacePadPrefs Instance]setPref:@"connectionType" Value:[NSNumber numberWithInt: connectionType]];
+	[[RacePadPrefs Instance] save];
 }
 
 - (bool) liveMode
@@ -575,6 +576,7 @@ static RacePadCoordinator * instance_ = nil;
 
 		[socket_ ConnectSocket:[server UTF8String] Port:6021];
 		[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
+		[[RacePadPrefs Instance] save];
 
 		if ( showWindow )
 		{
