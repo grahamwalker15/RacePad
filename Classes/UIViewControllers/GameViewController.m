@@ -614,6 +614,7 @@
 	
 	[newCompetitor getUser:self AlreadyBad:false];
 	showingBadUser = true;
+	needPin = false;
 }
 
 -(void)cancelledRegister
