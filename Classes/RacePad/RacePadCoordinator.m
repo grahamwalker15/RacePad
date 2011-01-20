@@ -155,20 +155,23 @@ static RacePadCoordinator * instance_ = nil;
 	if (wasPlaying)
 	{
 		if ( restartTime != 0 )
-		{
 			currentTime = restartTime;
-			restartTime = 0;
-		}
 		else
 			currentTime = start;
+		
 		[self prepareToPlay];
 		[self startPlay];
 	}
 	else
+	{
 		if ( restartTime != 0 )
 			[self jumpToTime:restartTime];
 		else
 			[self jumpToTime:start];
+		
+	}
+	
+	restartTime= 0;
 }
 
 -(void) clearStaticData
@@ -325,7 +328,10 @@ static RacePadCoordinator * instance_ = nil;
 -(void)prepareToPlay
 {
 	if ( restartTime != 0 )
+	{
 		currentTime = restartTime;
+		restartTime = 0;
+	}
 	
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[self prepareToPlayFromSocket];
@@ -384,6 +390,13 @@ static RacePadCoordinator * instance_ = nil;
 	float elapsed = [elapsedTime value];
 	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
 	[[RacePadTitleBarController Instance] updateTime:currentTime + elapsed];
+	
+	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
+	// If the registered view controller is interested in commentary, update the commentary views
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
+	{
+		[self RequestRedrawType:RPC_COMMENTARY_VIEW_];
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -437,6 +450,13 @@ static RacePadCoordinator * instance_ = nil;
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
 		[(CompositeViewController *)registeredViewController movieGotoTime:currentTime];
+	}
+	
+	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
+	// If the registered view controller is interested in commentary, update the commentary views
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
+	{
+		[self RequestRedrawType:RPC_COMMENTARY_VIEW_];
 	}
 }
 
@@ -875,7 +895,6 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			[self showSnapshot];
 		}
-			
 	}
 }
 
@@ -1316,17 +1335,20 @@ static RacePadCoordinator * instance_ = nil;
 		[settingsViewController updateServerState];
 	}
 	else
+	{
 		if ( playOnBecomeActive )
 		{
 			[self prepareToPlay];
 			[self startPlay];
-			restartTime = 0;
 		}
-		else
-			if ( jumpOnBecomeActive )
-			{
-				[self jumpToTime:restartTime];
-			}
+		else if ( jumpOnBecomeActive )
+		{
+			[self jumpToTime:restartTime];
+		}
+		
+		restartTime = 0;
+		
+	}
 }
 
 @end

@@ -119,6 +119,10 @@
 		7F8F8A3212DCAA3300EA04A6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */; };
 		7F8F8C5B12E0394600EA04A6 /* PINButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F8C5A12E0394600EA04A6 /* PINButton.png */; };
 		7F8F8CE612E0483400EA04A6 /* trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F8CE512E0483400EA04A6 /* trophy.png */; };
+		7F8F905712E611CB00EA04A6 /* CommentaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F905612E611CB00EA04A6 /* CommentaryView.m */; };
+		7F8F913212E6D59F00EA04A6 /* CommentaryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F913112E6D59F00EA04A6 /* CommentaryData.m */; };
+		7F8F95C612E83AB700EA04A6 /* AlertInsight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F95C412E83AB700EA04A6 /* AlertInsight.png */; };
+		7F8F95C712E83AB700EA04A6 /* AlertLC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F95C512E83AB700EA04A6 /* AlertLC.png */; };
 		7F91F470129BD3C300BFDFCC /* TelemetryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */; };
 		7F91F471129BD3C300BFDFCC /* TelemetrySteeringWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */; };
 		7F91F625129CFF3100BFDFCC /* LightMetalSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */; };
@@ -348,6 +352,12 @@
 		7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		7F8F8C5A12E0394600EA04A6 /* PINButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PINButton.png; path = Images/PINButton.png; sourceTree = "<group>"; };
 		7F8F8CE512E0483400EA04A6 /* trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trophy.png; path = Images/trophy.png; sourceTree = "<group>"; };
+		7F8F905512E611CB00EA04A6 /* CommentaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentaryView.h; sourceTree = "<group>"; };
+		7F8F905612E611CB00EA04A6 /* CommentaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentaryView.m; sourceTree = "<group>"; };
+		7F8F913012E6D59F00EA04A6 /* CommentaryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentaryData.h; sourceTree = "<group>"; };
+		7F8F913112E6D59F00EA04A6 /* CommentaryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentaryData.m; sourceTree = "<group>"; };
+		7F8F95C412E83AB700EA04A6 /* AlertInsight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertInsight.png; path = Images/AlertInsight.png; sourceTree = "<group>"; };
+		7F8F95C512E83AB700EA04A6 /* AlertLC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertLC.png; path = Images/AlertLC.png; sourceTree = "<group>"; };
 		7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryBG.png; path = Images/TelemetryBG.png; sourceTree = "<group>"; };
 		7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheel.png; path = Images/TelemetrySteeringWheel.png; sourceTree = "<group>"; };
 		7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LightMetalSmall.png; path = Images/LightMetalSmall.png; sourceTree = "<group>"; };
@@ -551,6 +561,8 @@
 				4D86EDD3129A98C000AA49F9 /* Telemetry.m */,
 				7F9C67381265F50000F2FFEC /* TrackMap.h */,
 				7F9C67391265F50000F2FFEC /* TrackMap.m */,
+				7F8F913012E6D59F00EA04A6 /* CommentaryData.h */,
+				7F8F913112E6D59F00EA04A6 /* CommentaryData.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -629,6 +641,8 @@
 				7F86658F128C51DA00F13CB6 /* LeaderboardView.m */,
 				7FC2FBBE129AC91700DAC96E /* TelemetryView.h */,
 				7FC2FBBF129AC91700DAC96E /* TelemetryView.m */,
+				7F8F905512E611CB00EA04A6 /* CommentaryView.h */,
+				7F8F905612E611CB00EA04A6 /* CommentaryView.m */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -734,6 +748,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F8F95C412E83AB700EA04A6 /* AlertInsight.png */,
+				7F8F95C512E83AB700EA04A6 /* AlertLC.png */,
 				7F8F8CE512E0483400EA04A6 /* trophy.png */,
 				7F8F8C5A12E0394600EA04A6 /* PINButton.png */,
 				7F71B01512CF95990052C70C /* JogControlBase.png */,
@@ -973,6 +989,8 @@
 				7F71B01812CF95990052C70C /* JogControlInset.png in Resources */,
 				7F8F8C5B12E0394600EA04A6 /* PINButton.png in Resources */,
 				7F8F8CE612E0483400EA04A6 /* trophy.png in Resources */,
+				7F8F95C612E83AB700EA04A6 /* AlertInsight.png in Resources */,
+				7F8F95C712E83AB700EA04A6 /* AlertLC.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1047,6 +1065,8 @@
 				4D3451AE12B9173200B15298 /* ChangeCompetitor.m in Sources */,
 				7F71AF5912CE44220052C70C /* JogViewController.m in Sources */,
 				7F71B14F12D379E20052C70C /* MathOdds.m in Sources */,
+				7F8F905712E611CB00EA04A6 /* CommentaryView.m in Sources */,
+				7F8F913212E6D59F00EA04A6 /* CommentaryData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
