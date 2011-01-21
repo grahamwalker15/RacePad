@@ -9,12 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "TableData.h"
 #import "AlertData.h"
+#import "CommentaryData.h"
 #import "TrackMap.h"
 #import "ImageListStore.h"
 #import "PitWindow.h"
 #import "Telemetry.h"
 #import "DriverNames.h"
 #import "RacePrediction.h"
+
+// Our cars
+enum OurCars
+{
+	RPD_BLUE_CAR_,
+	RPD_RED_CAR_
+} ;
 
 @interface RacePadDatabase : NSObject
 {
@@ -27,6 +35,8 @@
 	PitWindow *pitWindow;
 	AlertData * alertData;
 	AlertData * rcMessages;
+	CommentaryData * blueCommentary;
+	CommentaryData * redCommentary;
 	Telemetry *telemetry;
 	DriverNames *driverNames;
 	RacePrediction *racePrediction;
@@ -42,6 +52,8 @@
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;
 @property (readonly) AlertData * rcMessages;
+@property (readonly) CommentaryData * blueCommentary;
+@property (readonly) CommentaryData * redCommentary;
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
 @property (readonly) RacePrediction * racePrediction;

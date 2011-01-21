@@ -17,6 +17,7 @@
 static RacePadTimeController * instance_ = nil;
 
 @synthesize displayed;
+@synthesize timeNow;
 
 +(RacePadTimeController *)Instance
 {
@@ -37,6 +38,8 @@ static RacePadTimeController * instance_ = nil;
 		displayed = false;
 		hiding = false;
 		hideTimer = nil;
+		
+		timeNow = 0.0;
 	}
 	
 	return self;
@@ -224,6 +227,7 @@ static RacePadTimeController * instance_ = nil;
 {
 	[self updateSlider:time];
 	[self updateClock:time];
+	timeNow = time;
 }
 
 - (void) updateSlider:(float)time
@@ -300,6 +304,7 @@ static RacePadTimeController * instance_ = nil;
 	float time = [slider value];
 	[[RacePadCoordinator Instance] jumpToTime:time];
 	[self updateClock:time];
+	timeNow = time;
 	[self setHideTimer];
 }
 
@@ -318,7 +323,7 @@ static RacePadTimeController * instance_ = nil;
 		time = [coordinator startTime];
 	
 	[coordinator jumpToTime:time];
-	[self updateClock:time];
+	[self updateTime:time];
 	[self setHideTimer];
 }
 

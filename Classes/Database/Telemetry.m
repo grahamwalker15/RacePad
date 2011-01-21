@@ -9,6 +9,7 @@
 #import "Telemetry.h"
 #import "DataStream.h"
 #import "RacePadCoordinator.h"
+#import "RacePadDatabase.h"
 
 #import "TelemetryView.h"
 #import "UIConstants.h"
@@ -79,17 +80,6 @@ static UIImage * redBarImage = nil;
 	CGSize viewBoundsSize = [view bounds].size;
 	CGRect mapRect = [view mapRect];
 
-	// Draw outline
-	[view SaveGraphicsState];
-	[view SetLineWidth:2];
-	[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
-	CGRect inner_rect = CGRectInset([view bounds], 2, 2);
-	[view LineRectangle:inner_rect];
-	[view SetFGColour:[view black_]];
-	inner_rect = CGRectInset([view bounds], 4, 4);
-	[view LineRectangle:inner_rect];
-	[view RestoreGraphicsState];
-	
 	// Draw car with G Forces
 	CGSize carSize = [carImage size];
 	
@@ -250,7 +240,7 @@ static UIImage * redBarImage = nil;
 	
 	float distWidth = distance / lapDist * mapRect.size.width;
 	
-	if(colour == UI_BLUE_CAR_)
+	if(colour == RPD_BLUE_CAR_)
 		[view FillPatternRectangle:blueBarImage X0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
 	else
 		[view FillPatternRectangle:redBarImage X0:mapRect.origin.x Y0:mapRect.origin.y + mapRect.size.height + 3 X1:mapRect.origin.x + distWidth Y1:mapRect.origin.y + mapRect.size.height + 16 ];
@@ -371,9 +361,9 @@ static UIImage * redBarImage = nil;
 
 - (void) drawCar:(int)car InView:(TelemetryView *)view;
 {	
-	if(car == UI_BLUE_CAR_)
+	if(car == RPD_BLUE_CAR_)
 		[blueCar drawInView:view Colour:car];
-	else if(car == UI_RED_CAR_)
+	else if(car == RPD_RED_CAR_)
 		[redCar drawInView:view Colour:car];
 }
 

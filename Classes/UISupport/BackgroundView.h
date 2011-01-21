@@ -22,12 +22,20 @@ enum BackgroundStyles
 {
 	int style;
 	int inset;
+	
+	NSMutableArray * frames;	// An array of CGRects (wrapped in NSValue) which need to be drawn in outline
 }
 
 @property (nonatomic) int style;
 @property (nonatomic, readonly) int inset;
 
 - (void)InitialiseImages;
+
+- (void)drawFrames;
+- (void)drawOutline:(CGRect) rect;
+
+- (void)clearFrames;
+- (void)addFrame:(CGRect) rect;
 
 @end
 

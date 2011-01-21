@@ -22,9 +22,12 @@
 
 	bool displayed;
 	bool hiding;
+	
+	float timeNow;
 }
 
 @property(nonatomic) bool displayed;
+@property(nonatomic, readonly) float timeNow;
 
 +(RacePadTimeController *)Instance;
 

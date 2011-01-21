@@ -12,6 +12,7 @@
 
 @class TelemetryView;
 @class PitWindowView;
+@class CommentaryView;
 @class TrackMapView;
 @class BackgroundView;
 
@@ -23,6 +24,7 @@
 	
 	IBOutlet TelemetryView * telemetryView;
 	IBOutlet TrackMapView * trackMapView;
+	IBOutlet CommentaryView * commentaryView;
 	IBOutlet PitWindowView * pitWindowView;
 	
 	IBOutlet BackgroundView *trackMapContainer;

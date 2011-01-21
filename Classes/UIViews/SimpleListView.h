@@ -83,12 +83,17 @@ enum ColumnPriority {
 	UIColor * text_colour_;
 	UIColor * background_colour_;
 	
+	float background_alpha_;
+	bool draw_all_cells_;
+	
 	int alignment_;
 	
 	bool portraitMode;;
 		
 }
 
+@property (nonatomic, setter=SetDrawAllCells, getter=DrawAllCells) bool draw_all_cells_;
+@property (nonatomic, setter=SetBackgroundAlpha, getter=BackgroundAlpha) float background_alpha_;
 @property (nonatomic, retain, setter=SetBaseColour, getter=BaseColour) UIColor * base_colour_;
 @property (nonatomic, retain, setter=SetSelectedColour, getter=SelectedColour) UIColor * selected_colour_;
 @property (nonatomic, retain, setter=SetFocusColour, getter=FocusColour) UIColor * focus_colour_;
@@ -113,11 +118,8 @@ enum ColumnPriority {
 - (void) SetSwipingEnabled:(bool)value;
 
 - (void) ScrollToEnd;
-- (void) ScrollToEndAndRedraw;
 - (void) ScrollToRow:(int)row;
-- (void) ScrollToRowAndRedraw:(int)row;
 - (void) MakeRowVisible:(int)row;
-- (void) MakeRowVisibleAndRedraw:(int)row;
 
 /*
 - (void) MouseDown ( int x, int y, int button, int detail );

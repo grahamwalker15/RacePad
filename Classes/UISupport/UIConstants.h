@@ -15,11 +15,4 @@ enum OrientationTypes
 	UI_ORIENTATION_LANDSCAPE_
 } ;
 
-// Our cars
-enum OurCars
-{
-	UI_BLUE_CAR_,
-	UI_RED_CAR_
-} ;
-
 

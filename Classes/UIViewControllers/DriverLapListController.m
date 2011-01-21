@@ -46,6 +46,8 @@
 	
 	[lap_list_view_ SetRowHeight:26];
 	[lap_list_view_ SetHeading:true];
+	[lap_list_view_ SetBackgroundAlpha:0.5];
+
 	[lap_list_view_ SetSwipingEnabled:true];
 		
 	// Add gesture recognizers

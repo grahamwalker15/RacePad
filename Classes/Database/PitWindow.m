@@ -470,18 +470,6 @@ static UIImage *grassImage = nil;
 	
 	for ( i = 0; i < count; i++ )
 			[[cars objectAtIndex:i] drawInView:view Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
-
-	// Draw outline
-	[view SaveGraphicsState];
-	[view SetLineWidth:2];
-	[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
-	CGRect inner_rect = CGRectInset([view bounds], 2, 2);
-	[view LineRectangle:inner_rect];
-	[view SetFGColour:[view black_]];
-	inner_rect = CGRectInset([view bounds], 4, 4);
-	[view LineRectangle:inner_rect];
-	[view RestoreGraphicsState];
-	
 	
 }
 
@@ -501,7 +489,7 @@ static UIImage *grassImage = nil;
 	if(graphicHeight > 160)
 		graphicHeight = 160;
 	
-	[self drawGraphicInView:view IsBlueCar:(car == UI_BLUE_CAR_) Y:size.height Height:graphicHeight];
+	[self drawGraphicInView:view IsBlueCar:(car == RPD_BLUE_CAR_) Y:size.height Height:graphicHeight];
 }
 
 @end

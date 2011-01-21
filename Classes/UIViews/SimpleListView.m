@@ -11,6 +11,8 @@
 
 @implementation SimpleListView
 
+@synthesize draw_all_cells_;
+@synthesize background_alpha_;
 @synthesize base_colour_;
 @synthesize selected_colour_;
 @synthesize focus_colour_;
@@ -108,7 +110,10 @@
 	alignment_ = SLV_TEXT_LEFT_;
 	
 	text_colour_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
-	background_colour_ =[DrawingView CreateColourRed:0 Green:0 Blue:0];
+	background_colour_ = [DrawingView CreateColourRed:0 Green:0 Blue:0];
+	
+	background_alpha_ = 1.0;
+	draw_all_cells_ = true;
 	
 	focus_colour_ = [DrawingView CreateColourRed:180 Green:160 Blue:170];
 	
@@ -212,26 +217,36 @@
 
 - (void) ScrollToEnd
 {
-}
-
-- (void) ScrollToEndAndRedraw
-{
+	CGRect bounds = [self bounds];
+	
+	float yOffset = [self RowHeight] * [self RowCount] - bounds.size.height;
+	
+	if(yOffset < 0)
+		yOffset = 0;
+	
+	[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
+	[self RequestRedraw];
 }
 
 - (void) ScrollToRow:(int)row
 {
-}
+	CGRect bounds = [self bounds];
+	float yOffset = [self RowHeight] * (row + 1) - bounds.size.height;
 
-- (void) ScrollToRowAndRedraw:(int)row
-{
-}
+	if(yOffset < 0)
+		yOffset = 0;
 
+	[self setContentOffset:CGPointMake(0.0, yOffset) animated:false];
+	[self RequestRedraw];
+}
+	  
 - (void) MakeRowVisible:(int)row
 {
-}
-
-- (void) MakeRowVisibleAndRedraw:(int)row
-{
+	float w = [self TableWidth];
+	float h = [self RowHeight];
+	
+	[self scrollRectToVisible:CGRectMake(0.0, row * h, w, h) animated:false];
+	[self RequestRedraw];
 }
 
 /*
@@ -371,18 +386,19 @@
 				
 				if(selected)
 				{
-					[self SetBGColour:selected_colour_];
+
+					[self SetBGColour:[selected_colour_ colorWithAlphaComponent:background_alpha_]];
 					[self SetFGColour:selected_text_colour_];
 				}
 				else
 				{
-					[self SetBGColour:background_colour_];
+					[self SetBGColour:[background_colour_ colorWithAlphaComponent:background_alpha_]];
 					[self SetFGColour:text_colour_];
 				}
 				
 				if(heading)
 					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
-				else if([self isOpaque] || [text length] > 0)
+				else if(draw_all_cells_ || [self isOpaque] || [text length] > 0)
 					[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 
 				if([text length] > 0)
@@ -415,14 +431,13 @@
 			{
 				UIImage * image = [[self GetCellImageAtRow:row_index Col:col] retain];
 				
-				[self SetBGColour:background_colour_];
 				if(selected)
 				{
-					[self SetBGColour:selected_colour_];
+					[self SetBGColour:[selected_colour_ colorWithAlphaComponent:background_alpha_]];
 				}
 				else
 				{
-					[self SetBGColour:background_colour_];
+					[self SetBGColour:[background_colour_ colorWithAlphaComponent:background_alpha_]];
 				}
 				
 				[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
@@ -440,7 +455,7 @@
 			{
 				UIImage * image = [[self GetCellClientImageAtRow:row_index Col:col] retain];
 				
-				[self SetBGColour:background_colour_];
+				[self SetBGColour:[background_colour_ colorWithAlphaComponent:background_alpha_]];
 				
 				[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 				
@@ -514,7 +529,7 @@
 		if(y < ymin)
 			y = ymin;
 		
-		[self SetBGColour:base_colour_];
+		[self SetBGColour:[base_colour_ colorWithAlphaComponent:background_alpha_]];
 		[self FillRectangleX0:current_origin_.x Y0:y X1:current_top_right_.x Y1:ymax];
 	}
 	
@@ -526,6 +541,7 @@
 	}
 	
 	[self EndDrawing];
+	
 }
 
 - (void) DrawBase

@@ -1,35 +1,80 @@
 //
-//  AlertView.m
+//  CommentaryView.m
 //  RacePad
 //
-//  Created by Gareth Griffith on 11/10/10.
-//  Copyright 2010 SBG Racing Services Ltd. All rights reserved.
+//  Created by Gareth Griffith on 1/18/11.
+//  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "AlertView.h"
 
+#import "CommentaryView.h"
+
+#import "RacePadTimeController.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
-#import "AlertData.h"
+#import "CommentaryData.h"
 
-@implementation AlertView
+@implementation CommentaryView
 
+@synthesize car;
+
+- (id)initWithCoder:(NSCoder*)coder
+{    
+    if ((self = [super initWithCoder:coder]))
+    {
+		lastRowCount = 0;
+		
+		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
+	}
+	
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+	{
+		lastRowCount = 0;
+		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
+    }
+    return self;
+}
 
 - (void)dealloc
 {
     [super dealloc];
 }
 
-- (void)PrepareData
+- (void) Draw:(CGRect)region
 {
-	[super PrepareData];
-	[self SetBaseColour:white_];
+	[super Draw:region];
+	
+	int rowCount = [self RowCount];
+	
+	if(rowCount != lastRowCount)
+		[self ScrollToEnd];
+	
+	lastRowCount = rowCount;
 }
 
 - (int) RowCount
 {
-	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-	return [alertData itemCount];
+	CommentaryData * data;
+	if(car == RPD_BLUE_CAR_)
+		data = [[RacePadDatabase Instance] blueCommentary];
+	else
+		data = [[RacePadDatabase Instance] redCommentary];
+	
+	float timeNow = [[RacePadTimeController Instance] timeNow];
+	
+	int count = 0;
+	
+	for (int i = 0 ; i < [data itemCount] ; i++)
+	{
+		if([[data itemAtIndex:i] timeStamp] <= timeNow)
+			count++;
+	}
+	return count;
 }
 
 - (int) ColumnCount
@@ -44,6 +89,8 @@
 
 - (int) ColumnWidth:(int)col;
 {
+	CGRect bounds = [self bounds];
+	
 	switch (col)
 	{
 		case 0:
@@ -51,7 +98,7 @@
 		case 1:
 			return 50;
 		case 2:
-			return 420;
+			return (bounds.size.width - 80);
 		default:
 			return 0;
 	}
@@ -86,10 +133,14 @@
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col
 {
 	[self SetTextColour:black_];
-	[self SetBackgroundColour:white_];
+	[self SetBackgroundColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
 	
-	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-
+	CommentaryData * data;
+	if(car == RPD_BLUE_CAR_)
+		data = [[RacePadDatabase Instance] blueCommentary];
+	else
+		data = [[RacePadDatabase Instance] redCommentary];
+		
 	switch (col)
 	{
 		case 0:
@@ -98,11 +149,11 @@
 		}
 		case 1:
 		{
-			return [NSString stringWithFormat:@"L%d", [[alertData itemAtIndex:row] lap]];
+			return [NSString stringWithFormat:@"L%d", [[data itemAtIndex:row] lap]];
 		}
 		case 2:
 		{
-			return [[alertData itemAtIndex:row] description];
+			return [[data itemAtIndex:row] description];
 		}
 		default:
 		{
@@ -113,14 +164,19 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	[self SetBackgroundColour:white_];
+	[self SetBackgroundColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
 	
 	if(col != 0)
 		return nil;
 	
-	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-	int type = [[alertData itemAtIndex:row] type];
-
+	CommentaryData * data;
+	if(car == RPD_BLUE_CAR_)
+		data = [[RacePadDatabase Instance] blueCommentary];
+	else
+		data = [[RacePadDatabase Instance] redCommentary];
+	
+	int type = [[data itemAtIndex:row] type];
+	
 	switch (type)
 	{
 		case ALERT_RACE_EVENT_:

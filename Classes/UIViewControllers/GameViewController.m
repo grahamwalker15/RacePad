@@ -90,7 +90,9 @@
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
 	
-	// Update UI
+	[leagueTable SetBaseColour:[leagueTable light_grey_]];
+
+	 // Update UI
 	[self updatePrediction];
 	[self positionViews];
 	[self showViews];
@@ -350,12 +352,19 @@
 
 -(IBAction)changeUserPressed:(id)sender
 {
-	if ( [[[RacePadDatabase Instance]competitorData] rows] )
+	if ( [self inqGameStatus] == GS_NOT_STARTED )
 	{
-		if ( changeCompetitor == nil )
-			changeCompetitor = [[ChangeCompetitor	alloc] initWithNibName:@"ChangeCompetitor" bundle:nil];
-		[changeCompetitor getUser:self];
-		needPin = true;
+		[self signOutPressed:sender];
+	}
+	else
+	{
+		if ( [[[RacePadDatabase Instance]competitorData] rows] )
+		{
+			if ( changeCompetitor == nil )
+				changeCompetitor = [[ChangeCompetitor	alloc] initWithNibName:@"ChangeCompetitor" bundle:nil];
+			[changeCompetitor getUser:self];
+			needPin = true;
+		}
 	}
 }
 
@@ -631,6 +640,11 @@
 
 - (void)addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath Reorder:(bool)reorder
 {
+	// Can't change prediction once the game has started
+	if ( [self inqGameStatus] != GS_NOT_STARTED )
+		return;
+
+	//Otherwise do it
 	int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
 	int count = [[[RacePadDatabase Instance] racePrediction] count];
 	

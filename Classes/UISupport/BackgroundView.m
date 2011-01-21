@@ -35,7 +35,8 @@ static bool bg_images_initialised_ = false;
 		[self InitialiseImages];
 		style = BG_STYLE_FULL_SCREEN_GREY_;
 		inset = 0;
-
+		
+		frames = [[NSMutableArray alloc] init];
 	}
 	
     return self;
@@ -50,6 +51,7 @@ static bool bg_images_initialised_ = false;
 		style = BG_STYLE_FULL_SCREEN_GREY_;
 		inset = 0;
 
+		frames = [[NSMutableArray alloc] init];
 	}
     return self;
 }
@@ -59,6 +61,10 @@ static bool bg_images_initialised_ = false;
 	[screen_bg_image_ release];
 	[grey_bg_image_  release];
 	[grass_bg_image_  release];
+	
+	[frames removeAllObjects];
+	[frames release];
+	
     [super dealloc];
 }
 
@@ -140,7 +146,42 @@ static bool bg_images_initialised_ = false;
 	}
 		
 	[self RestoreGraphicsState];
+	
+	[self drawFrames];
 
+}
+
+- (void)drawFrames
+{
+	for (int i = 0 ; i < [frames count] ; i++)
+	{
+		CGRect rect = [(NSValue *)[frames objectAtIndex:i] CGRectValue];
+		[self drawOutline:rect];
+	}
+}
+
+- (void)clearFrames
+{
+	[frames removeAllObjects];
+}
+
+- (void)addFrame:(CGRect) rect
+{
+	[frames addObject:[NSValue valueWithCGRect:rect]];
+}
+
+- (void)drawOutline:(CGRect) rect
+{
+	// Draw outline outside given rect
+	[self SaveGraphicsState];
+	[self SetLineWidth:2];
+	[self SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
+	CGRect draw_rect = CGRectInset(rect, -4, -4);
+	[self LineRectangle:draw_rect];
+	[self SetFGColour:[self black_]];
+	draw_rect = CGRectInset(rect, -2, -2);
+	[self LineRectangle:draw_rect];
+	[self RestoreGraphicsState];
 }
 
 

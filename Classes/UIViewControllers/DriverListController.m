@@ -26,6 +26,7 @@
 	
 	[driver_list_view_ SetRowHeight:26];
 	[driver_list_view_ SetHeading:true];
+	[driver_list_view_ SetBackgroundAlpha:0.5];
 	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:driver_list_view_];

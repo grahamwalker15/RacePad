@@ -67,8 +67,8 @@
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Set parameters for views
-	[bluePitWindowView setCar:UI_BLUE_CAR_];
-	[redPitWindowView setCar:UI_RED_CAR_];
+	[bluePitWindowView setCar:RPD_BLUE_CAR_];
+	[redPitWindowView setCar:RPD_RED_CAR_];
 	
 	// Resize overlay view to match background
 	int inset = [backgroundView inset];

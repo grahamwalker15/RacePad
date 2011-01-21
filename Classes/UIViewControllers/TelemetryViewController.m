@@ -79,8 +79,8 @@
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	// Set paramters for views
-	[blueTelemetryView setCar:UI_BLUE_CAR_];
-	[redTelemetryView setCar:UI_RED_CAR_];
+	[blueTelemetryView setCar:RPD_BLUE_CAR_];
+	[redTelemetryView setCar:RPD_RED_CAR_];
 	
 	// Resize overlay views to match background
 	[self showOverlays];

@@ -314,7 +314,9 @@ static RacePadCoordinator * instance_ = nil;
 	if ( live  )
 	{
 		if ( connectionType == RPC_NO_CONNECTION_ )
+		{
 			needsPlayRestart = true;
+		}
 		else
 		{
 			[self prepareToPlay];
@@ -322,7 +324,6 @@ static RacePadCoordinator * instance_ = nil;
 			[[RacePadTimeController Instance] updatePlayButton];
 		}
 	}
-	
 }
 
 -(void)prepareToPlay
@@ -538,6 +539,7 @@ static RacePadCoordinator * instance_ = nil;
 		socket_ = nil;
 		
 		[self setConnectionType:RPC_NO_CONNECTION_];
+		
 		restartTime = 0;
 		
 		[serverConnect badVersion];
@@ -566,7 +568,9 @@ static RacePadCoordinator * instance_ = nil;
 	socket_ = nil;
 	
 	[self setConnectionType:RPC_NO_CONNECTION_];
+	
 	restartTime = 0;
+	
 	[settingsViewController updateServerState];
 }
 
@@ -1312,6 +1316,7 @@ static RacePadCoordinator * instance_ = nil;
 	playOnBecomeActive = playing;
 	jumpOnBecomeActive = true;
 	[self stopPlay];
+	
 	if ( !live )
 		restartTime = currentTime;
 
@@ -1344,10 +1349,7 @@ static RacePadCoordinator * instance_ = nil;
 		else if ( jumpOnBecomeActive )
 		{
 			[self jumpToTime:restartTime];
-		}
-		
-		restartTime = 0;
-		
+		}		
 	}
 }
 

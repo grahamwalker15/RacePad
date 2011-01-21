@@ -8,7 +8,6 @@
 
 #import "RacePadDatabase.h"
 
-
 @implementation RacePadDatabase
 
 static RacePadDatabase *instance = nil;
@@ -30,6 +29,8 @@ static RacePadDatabase *instance = nil;
 @synthesize pitWindow;
 @synthesize alertData;
 @synthesize rcMessages;
+@synthesize blueCommentary;
+@synthesize redCommentary;
 @synthesize telemetry;
 @synthesize driverNames;
 @synthesize racePrediction;
@@ -45,10 +46,15 @@ static RacePadDatabase *instance = nil;
 	pitWindow = [[PitWindow alloc] init];
 	alertData = [[AlertData alloc] init];
 	rcMessages = [[AlertData alloc] init];
+	blueCommentary = [[CommentaryData alloc] init];
+	redCommentary = [[CommentaryData alloc] init];
 	telemetry = [[Telemetry alloc] init];
 	driverNames = [[DriverNames alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
 	competitorData = [[TableData alloc] init];
+	
+	[blueCommentary fillWithDefaultData:RPD_BLUE_CAR_];
+	[redCommentary fillWithDefaultData:RPD_RED_CAR_];
 	
 	return self;
 }
