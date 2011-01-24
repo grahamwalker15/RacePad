@@ -75,6 +75,8 @@
 	[self addTapRecognizerToView:changeUser];
 	[self addTapRecognizerToView:action];
 	[self addTapRecognizerToView:reset];
+	[self addTapRecognizerToView:raceMSC];
+	[self addTapRecognizerToView:raceROS];
 	
 	[self addDragRecognizerToView:result WithTarget:result];
 	[self addDragRecognizerToView:drivers1 WithTarget:result];
@@ -272,6 +274,8 @@
 		orLabel.hidden = YES;
 		
 		signIn.hidden = YES;
+		raceMSC.hidden = YES;
+		raceROS.hidden = YES;
 		
 		signOut.hidden = NO;
 		changeUser.hidden = NO;
@@ -304,6 +308,8 @@
 		newUser.hidden = gameStarted;
 		
 		signIn.hidden = !gameStarted;
+		raceMSC.hidden = NO;
+		raceROS.hidden = NO;
 	}
 }
 
@@ -371,6 +377,22 @@
 -(IBAction)newUserPressed:(id)sender
 {
 	[self makeNewUser];
+}
+
+-(IBAction)raceMSCPressed:(id)sender
+{
+	if ( drivingGame == nil )
+		drivingGame = [[DrivingViewController alloc] initWithNibName:@"DrivingView" bundle:nil];
+	drivingGame.car = RPD_BLUE_CAR_;
+	[self presentModalViewController:drivingGame animated:YES];
+}
+
+-(IBAction)raceROSPressed:(id)sender
+{
+	if ( drivingGame == nil )
+		drivingGame = [[DrivingViewController alloc] initWithNibName:@"DrivingView" bundle:nil];
+	drivingGame.car = RPD_RED_CAR_;
+	[self presentModalViewController:drivingGame animated:YES];
 }
 
 -(IBAction)signOutPressed:(id)sender

@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
@@ -292,6 +292,42 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="32961008"/>
+					</object>
+					<object class="IBUIButton" id="678835449">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{51, 402}, {143, 45}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="IBUIBackgroundColor" ref="309266346"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIFont" ref="636518578"/>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Race MSC</string>
+						<reference key="IBUIHighlightedTitleColor" ref="698153580"/>
+						<reference key="IBUINormalTitleColor" ref="795100811"/>
+						<reference key="IBUINormalTitleShadowColor" ref="32961008"/>
+					</object>
+					<object class="IBUIButton" id="862059811">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{51, 455}, {143, 45}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="IBUIBackgroundColor" ref="309266346"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<reference key="IBUIFont" ref="636518578"/>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Race ROS</string>
+						<reference key="IBUIHighlightedTitleColor" ref="698153580"/>
+						<reference key="IBUINormalTitleColor" ref="795100811"/>
 						<reference key="IBUINormalTitleShadowColor" ref="32961008"/>
 					</object>
 					<object class="IBUIButton" id="558651708">
@@ -751,6 +787,40 @@
 					</object>
 					<int key="connectionID">207</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">raceMSC</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="678835449"/>
+					</object>
+					<int key="connectionID">212</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">raceMSCPressed:</string>
+						<reference key="source" ref="678835449"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">213</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">raceROSPressed:</string>
+						<reference key="source" ref="862059811"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">214</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">raceROS</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="862059811"/>
+					</object>
+					<int key="connectionID">215</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -795,6 +865,8 @@
 							<reference ref="702034536"/>
 							<reference ref="335152170"/>
 							<reference ref="686346664"/>
+							<reference ref="678835449"/>
+							<reference ref="862059811"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -921,6 +993,16 @@
 						<reference key="object" ref="686346664"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">208</int>
+						<reference key="object" ref="678835449"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">210</int>
+						<reference key="object" ref="862059811"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -969,6 +1051,10 @@
 					<string>202.IBViewBoundsToFrameTransform</string>
 					<string>205.IBPluginDependency</string>
 					<string>205.IBViewBoundsToFrameTransform</string>
+					<string>208.IBPluginDependency</string>
+					<string>208.IBViewBoundsToFrameTransform</string>
+					<string>210.IBPluginDependency</string>
+					<string>210.IBViewBoundsToFrameTransform</string>
 					<string>58.IBPluginDependency</string>
 					<string>58.IBViewBoundsToFrameTransform</string>
 					<string>87.IBPluginDependency</string>
@@ -978,7 +1064,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>GameViewController</string>
 					<string>UIResponder</string>
-					<string>{{380, 77}, {783, 779}}</string>
+					<string>{{380, 64}, {783, 792}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAxHqAAA</bytes>
@@ -1046,7 +1132,15 @@
 					<object class="NSAffineTransform"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwiwAAA</bytes>
+						<bytes key="NSTransformStruct">AUJMAABDroAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABCEAAAxCmAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABCEAAAxDbAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1074,7 +1168,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">207</int>
+			<int key="maxID">215</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1105,11 +1199,15 @@
 							<string>actionPressed:</string>
 							<string>changeUserPressed:</string>
 							<string>newUserPressed:</string>
+							<string>raceMSCPressed:</string>
+							<string>raceROSPressed:</string>
 							<string>resetPressed:</string>
 							<string>signOutPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1124,6 +1222,8 @@
 							<string>actionPressed:</string>
 							<string>changeUserPressed:</string>
 							<string>newUserPressed:</string>
+							<string>raceMSCPressed:</string>
+							<string>raceROSPressed:</string>
 							<string>resetPressed:</string>
 							<string>signOutPressed:</string>
 						</object>
@@ -1139,6 +1239,14 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">newUserPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">raceMSCPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">raceROSPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1167,6 +1275,8 @@
 							<string>newUser</string>
 							<string>orLabel</string>
 							<string>predictionBG</string>
+							<string>raceMSC</string>
+							<string>raceROS</string>
 							<string>reset</string>
 							<string>result</string>
 							<string>signIn</string>
@@ -1190,6 +1300,8 @@
 							<string>UIButton</string>
 							<string>UILabel</string>
 							<string>UIImageView</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UITableView</string>
 							<string>UIButton</string>
@@ -1216,6 +1328,8 @@
 							<string>newUser</string>
 							<string>orLabel</string>
 							<string>predictionBG</string>
+							<string>raceMSC</string>
+							<string>raceROS</string>
 							<string>reset</string>
 							<string>result</string>
 							<string>signIn</string>
@@ -1274,6 +1388,14 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">predictionBG</string>
 								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">raceMSC</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">raceROS</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">reset</string>

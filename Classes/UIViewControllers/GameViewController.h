@@ -13,6 +13,7 @@
 #import "ChangeCompetitor.h"
 #import "TableDataView.h"
 #import "BackgroundView.h"
+#import "DrivingViewController.h"
 
 @class	UserPin;
 
@@ -44,6 +45,9 @@
 	IBOutlet UILabel * draggedDriverText;
 	IBOutlet UILabel * draggedDriverDetailText;
 	
+	IBOutlet UIButton *raceMSC;
+	IBOutlet UIButton *raceROS;
+
 	bool changingSelection;
 	
 	bool draggingCell;
@@ -66,6 +70,8 @@
 	ChangeCompetitor *changeCompetitor;
 	UserPin *userPin;
 	UIAlertView *pinMessage;
+	
+	DrivingViewController *drivingGame;
 }
 
 -(IBAction) newUserPressed:(id)sender;
@@ -84,6 +90,8 @@
 -(void) lock;
 -(void) makeNewUser;
 -(void) addToPrediction:(int)driverIndex AtIndexPath:(NSIndexPath *)indexPath Reorder:(bool)reorder;
+-(IBAction) raceMSCPressed:(id)sender;
+-(IBAction) raceROSPressed:(id)sender;
 
 - (unsigned char) inqGameStatus;
 - (void) showViews;

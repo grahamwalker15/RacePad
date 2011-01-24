@@ -40,6 +40,9 @@
 		4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */; };
 		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
 		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
+		4D91DDE912ED9778005B7FE7 /* TabletState.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DDE812ED9778005B7FE7 /* TabletState.m */; };
+		4D91DE5412EDC83A005B7FE7 /* DrivingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */; };
+		4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
 		4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; };
 		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
@@ -246,6 +249,11 @@
 		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
 		4D8A66831282635500E9E19D /* DownloadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgress.m; sourceTree = "<group>"; };
 		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
+		4D91DDE712ED9778005B7FE7 /* TabletState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabletState.h; sourceTree = "<group>"; };
+		4D91DDE812ED9778005B7FE7 /* TabletState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabletState.m; sourceTree = "<group>"; };
+		4D91DE5212EDC83A005B7FE7 /* DrivingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrivingViewController.h; sourceTree = "<group>"; };
+		4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrivingViewController.m; sourceTree = "<group>"; };
+		4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DrivingView.xib; path = ResourceFiles/DrivingView.xib; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
 		4DE8989512ACFA79000FEE9C /* DriverNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverNames.h; sourceTree = "<group>"; };
@@ -584,6 +592,8 @@
 				7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */,
 				7F88203D12632EB40010785D /* DriverListController.h */,
 				7F88203E12632EB40010785D /* DriverListController.m */,
+				4D91DE5212EDC83A005B7FE7 /* DrivingViewController.h */,
+				4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */,
 				7F9C10D81255E68B00770746 /* FirstViewController.h */,
 				7F9C10D91255E68B00770746 /* FirstViewController.m */,
 				4D344E2A12B144E300B15298 /* GameViewController.h */,
@@ -652,20 +662,22 @@
 			children = (
 				7F71A4A912AFDEBD0052C70C /* AnimationTimer.h */,
 				7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */,
-				7F11F64B127197B800C88544 /* ElapsedTime.h */,
-				7F11F64C127197B800C88544 /* ElapsedTime.m */,
 				4D757B79126F01B700E32C41 /* BufferedDataStream.h */,
 				4D757B7A126F01B700E32C41 /* BufferedDataStream.m */,
 				4D757B7F126F028900E32C41 /* DataHandler.h */,
 				4D757B80126F028900E32C41 /* DataHandler.m */,
 				4DB39052126DFEF6009DA232 /* DataStream.h */,
 				7F9C1727125A2BD000770746 /* DataStream.m */,
+				7F11F64B127197B800C88544 /* ElapsedTime.h */,
+				7F11F64C127197B800C88544 /* ElapsedTime.m */,
 				4D757B7B126F01B700E32C41 /* FileDataStream.h */,
 				4D757B7C126F01B700E32C41 /* FileDataStream.m */,
-				7F9C1726125A2BD000770746 /* Socket.h */,
-				4DB3904D126DFEB0009DA232 /* Socket.m */,
 				7F71B14D12D379E20052C70C /* MathOdds.h */,
 				7F71B14E12D379E20052C70C /* MathOdds.m */,
+				7F9C1726125A2BD000770746 /* Socket.h */,
+				4DB3904D126DFEB0009DA232 /* Socket.m */,
+				4D91DDE712ED9778005B7FE7 /* TabletState.h */,
+				4D91DDE812ED9778005B7FE7 /* TabletState.m */,
 			);
 			path = Constructs;
 			sourceTree = "<group>";
@@ -723,8 +735,10 @@
 				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
 				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
 				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
+				4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */,
 				4D344E2F12B144FB00B15298 /* GameView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
+				7F71AF4E12CE43600052C70C /* JogControlView.xib */,
 				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
 				4D344F1212B7743200B15298 /* NewCompetitor.xib */,
 				4D15640412898FD1000E959D /* PitWindowView.xib */,
@@ -740,7 +754,6 @@
 				4D34502212B7C17400B15298 /* UserPin.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
 				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
-				7F71AF4E12CE43600052C70C /* JogControlView.xib */,
 			);
 			name = "XIB Files";
 			sourceTree = "<group>";
@@ -991,6 +1004,7 @@
 				7F8F8CE612E0483400EA04A6 /* trophy.png in Resources */,
 				7F8F95C612E83AB700EA04A6 /* AlertInsight.png in Resources */,
 				7F8F95C712E83AB700EA04A6 /* AlertLC.png in Resources */,
+				4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1067,6 +1081,8 @@
 				7F71B14F12D379E20052C70C /* MathOdds.m in Sources */,
 				7F8F905712E611CB00EA04A6 /* CommentaryView.m in Sources */,
 				7F8F913212E6D59F00EA04A6 /* CommentaryData.m in Sources */,
+				4D91DDE912ED9778005B7FE7 /* TabletState.m in Sources */,
+				4D91DE5412EDC83A005B7FE7 /* DrivingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

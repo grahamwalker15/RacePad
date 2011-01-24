@@ -10,6 +10,7 @@
 #import "DataStream.h"
 #import "RacePadCoordinator.h"
 #import "RacePadDatabase.h"
+#import "TabletState.h"
 
 #import "TelemetryView.h"
 #import "UIConstants.h"
@@ -94,71 +95,80 @@ static UIImage * redBarImage = nil;
 
 	float pedalBase = viewBoundsSize.height - 10;
 	
-	[view DrawImage:carImage AtX:carXCentre - carWidth * 0.5 Y:carYCentre - carHeight * 0.5];
-		
-	float xLeft = carXCentre - 35;
-	float xRight = carXCentre + 35;
-	float yTop = carYCentre - carHeight * 0.5 - 3;
-	float yBottom = carYCentre + carHeight * 0.5 + 3;
+	UIColor * transparent_white_ = [DrawingView CreateColourRed:255 Green:255 Blue:255 Alpha:0.3];
 	
-	float arrowWidth = 15;
-	float arrowLength = 60;
-	
-	float gLeft = gLat > 0 ? gLat * arrowLength / 4 : 0;
-	float gRight = gLat < 0 ? -gLat * arrowLength / 4 : 0;
-	float gFront = gLong < 0 ? -gLong * arrowLength / 4 : 0;
-	float gBack = gLong > 0 ? gLong * arrowLength / 4 : 0;
-	
-	CGMutablePathRef arrowLeft = [DrawingView CreateTrianglePathX0:xLeft Y0:carYCentre - arrowWidth X1:xLeft Y1:carYCentre + arrowWidth X2:xLeft - arrowLength Y2:carYCentre];
-	CGMutablePathRef arrowRight = [DrawingView CreateTrianglePathX0:xRight Y0:carYCentre - arrowWidth X1:xRight Y1:carYCentre + arrowWidth X2:xRight + arrowLength Y2:carYCentre];
-	CGMutablePathRef arrowTop = [DrawingView CreateTrianglePathX0:carXCentre - arrowWidth Y0:yTop X1:carXCentre + arrowWidth Y1:yTop X2:carXCentre Y2:yTop - arrowLength];
-	CGMutablePathRef arrowBottom = [DrawingView CreateTrianglePathX0:carXCentre - arrowWidth Y0:yBottom X1:carXCentre + arrowWidth Y1:yBottom X2:carXCentre Y2:yBottom + arrowLength];
-
 	CGMutablePathRef rectThrottle = [DrawingView CreateRoundedRectPathX0:wheelXCentre + 10 Y0:pedalBase - pedalHeight X1:wheelXCentre + 40 Y1:pedalBase Radius:5.0];
 	CGMutablePathRef rectBrake = [DrawingView CreateRoundedRectPathX0:wheelXCentre - 40 Y0:pedalBase - pedalHeight X1:wheelXCentre - 10 Y1:pedalBase Radius:5.0];
 	
-	UIColor * transparent_white_ = [DrawingView CreateColourRed:255 Green:255 Blue:255 Alpha:0.3];
+	if ( !view.drivingMode )
+	{
 	
-	[view SaveGraphicsState];
-	[view SetClippingAreaToPath:arrowTop];
-	[view SetBGColour:transparent_white_];
-	[view FillPath:arrowTop];
-	[view SetBGColour:[view red_]];
-	[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5];
-	[view RestoreGraphicsState];
-	
-	[view SaveGraphicsState];
-	[view SetClippingAreaToPath:arrowBottom];
-	[view SetBGColour:transparent_white_];
-	[view FillPath:arrowBottom];
-	[view SetBGColour:[view green_]];
-	[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack];
-	[view RestoreGraphicsState];
-	
-	[view SaveGraphicsState];
-	[view SetClippingAreaToPath:arrowLeft];
-	[view SetBGColour:transparent_white_];
-	[view FillPath:arrowLeft];
-	[view SetBGColour:[view orange_]];
-	[view FillRectangleX0:carXCentre - 25 - gLeft Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth];
-	[view RestoreGraphicsState];
-	
-	[view SaveGraphicsState];
-	[view SetClippingAreaToPath:arrowRight];
-	[view SetBGColour:transparent_white_];
-	[view FillPath:arrowRight];
-	[view SetBGColour:[view orange_]];
-	[view FillRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + gRight Y1:carYCentre + arrowWidth];
-	[view RestoreGraphicsState];
-	
-	[view SetFGColour:[view white_]];
-	[view BeginPath];
-	[view LoadPath:arrowTop];
-	[view LoadPath:arrowBottom];
-	[view LoadPath:arrowLeft];
-	[view LoadPath:arrowRight];
-	[view LineCurrentPath];
+		[view DrawImage:carImage AtX:carXCentre - carWidth * 0.5 Y:carYCentre - carHeight * 0.5];
+			
+		float xLeft = carXCentre - 35;
+		float xRight = carXCentre + 35;
+		float yTop = carYCentre - carHeight * 0.5 - 3;
+		float yBottom = carYCentre + carHeight * 0.5 + 3;
+		
+		float arrowWidth = 15;
+		float arrowLength = 60;
+		
+		float gLeft = gLat > 0 ? gLat * arrowLength / 4 : 0;
+		float gRight = gLat < 0 ? -gLat * arrowLength / 4 : 0;
+		float gFront = gLong < 0 ? -gLong * arrowLength / 4 : 0;
+		float gBack = gLong > 0 ? gLong * arrowLength / 4 : 0;
+		
+		CGMutablePathRef arrowLeft = [DrawingView CreateTrianglePathX0:xLeft Y0:carYCentre - arrowWidth X1:xLeft Y1:carYCentre + arrowWidth X2:xLeft - arrowLength Y2:carYCentre];
+		CGMutablePathRef arrowRight = [DrawingView CreateTrianglePathX0:xRight Y0:carYCentre - arrowWidth X1:xRight Y1:carYCentre + arrowWidth X2:xRight + arrowLength Y2:carYCentre];
+		CGMutablePathRef arrowTop = [DrawingView CreateTrianglePathX0:carXCentre - arrowWidth Y0:yTop X1:carXCentre + arrowWidth Y1:yTop X2:carXCentre Y2:yTop - arrowLength];
+		CGMutablePathRef arrowBottom = [DrawingView CreateTrianglePathX0:carXCentre - arrowWidth Y0:yBottom X1:carXCentre + arrowWidth Y1:yBottom X2:carXCentre Y2:yBottom + arrowLength];
 
+		[view SaveGraphicsState];
+		[view SetClippingAreaToPath:arrowTop];
+		[view SetBGColour:transparent_white_];
+		[view FillPath:arrowTop];
+		[view SetBGColour:[view red_]];
+		[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5];
+		[view RestoreGraphicsState];
+		
+		[view SaveGraphicsState];
+		[view SetClippingAreaToPath:arrowBottom];
+		[view SetBGColour:transparent_white_];
+		[view FillPath:arrowBottom];
+		[view SetBGColour:[view green_]];
+		[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack];
+		[view RestoreGraphicsState];
+		
+		[view SaveGraphicsState];
+		[view SetClippingAreaToPath:arrowLeft];
+		[view SetBGColour:transparent_white_];
+		[view FillPath:arrowLeft];
+		[view SetBGColour:[view orange_]];
+		[view FillRectangleX0:carXCentre - 25 - gLeft Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth];
+		[view RestoreGraphicsState];
+		
+		[view SaveGraphicsState];
+		[view SetClippingAreaToPath:arrowRight];
+		[view SetBGColour:transparent_white_];
+		[view FillPath:arrowRight];
+		[view SetBGColour:[view orange_]];
+		[view FillRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + gRight Y1:carYCentre + arrowWidth];
+		[view RestoreGraphicsState];
+		
+		[view SetFGColour:[view white_]];
+		[view BeginPath];
+		[view LoadPath:arrowTop];
+		[view LoadPath:arrowBottom];
+		[view LoadPath:arrowLeft];
+		[view LoadPath:arrowRight];
+		[view LineCurrentPath];
+		
+		CGPathRelease(arrowTop);
+		CGPathRelease(arrowBottom);
+		CGPathRelease(arrowLeft);
+		CGPathRelease(arrowRight);
+	}
+	
 	// Draw brake and throttle
 	float throttleHeight = throttle * 0.01 * pedalHeight;
 	float brakeHeight = brake * 0.01 * pedalHeight;
@@ -306,21 +316,31 @@ static UIImage * redBarImage = nil;
 
 	//Draw wheel
 	CGSize wheelSize = [wheelImage size];
+	float steeringAngle = steering;
+	if ( [view drivingMode] )
+		steeringAngle -= [[TabletState Instance] currentRotation];
 	
 	[view SaveGraphicsState];
 	[view SetTranslateX:wheelXCentre Y:wheelYCentre];
-	[view SetRotationInDegrees:steering];
+	[view SetRotationInDegrees:steeringAngle];
 	[view SetTranslateX:(-wheelSize.width * 0.5) Y:(-wheelSize.height * 0.5)];
 	[view SetDropShadowXOffset:4 YOffset:8 Blur:3];
 	[view DrawImage:wheelImage AtX:0 Y:0];
 	[view RestoreGraphicsState];
 	
+	// Driving Game Test
+	if ( [view drivingMode] )
+	{
+		if ( fabs ( steeringAngle ) < 10 )
+			[view SetFGColour:[view white_]];
+		else
+			[view SetFGColour:[view red_]];
+		[view LineX0:wheelXCentre - wheelSize.width / 2 Y0:wheelYCentre X1:wheelXCentre + wheelSize.width / 2 Y1:wheelYCentre];
+		[view LineX0:wheelXCentre Y0:wheelYCentre + wheelSize.height / 2 X1:wheelXCentre Y1:wheelYCentre - wheelSize.height / 2];
+	}
+	
 	[transparent_white_ release];
 	
-	CGPathRelease(arrowTop);
-	CGPathRelease(arrowBottom);
-	CGPathRelease(arrowLeft);
-	CGPathRelease(arrowRight);
 	CGPathRelease(rectThrottle);
 	CGPathRelease(rectBrake);
 	

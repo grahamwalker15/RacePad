@@ -14,9 +14,11 @@
 {
 	int car;
 	CGRect mapRect;
+	bool drivingMode;
 }
 
 @property (nonatomic) int car;
 @property (nonatomic) CGRect mapRect;
+@property (nonatomic) bool drivingMode;
 
 @end
