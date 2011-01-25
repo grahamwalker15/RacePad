@@ -218,7 +218,7 @@ static UIImage * redBarImage = nil;
 		
 	if ( view.drivingMode )
 	{
-		if ( throttleHeight == 0 && !throttlePressed )
+		if ( throttleHeight <= 0 && !throttlePressed )
 		{
 			[view SetFGColour:[view white_]];
 			sampleScore += 1;
@@ -234,7 +234,7 @@ static UIImage * redBarImage = nil;
 		[view LoadPath:rectThrottle];
 		[view LineCurrentPath];
 		
-		if ( brakeHeight == 0 && !brakePressed )
+		if ( brakeHeight <= 0 && !brakePressed )
 		{
 			[view SetFGColour:[view white_]];
 			sampleScore += 1;
@@ -363,7 +363,7 @@ static UIImage * redBarImage = nil;
 	
 	if ( view.drivingMode )
 	{
-		int steeringScore = 12 - ( fabs ( steeringAngle ) / 4 );
+		int steeringScore = 12 - (int) ( fabs ( steeringAngle ) / 4 );
 		if ( steeringScore < 0 )
 			steeringScore = 0;
 		for(int i = 0 ; i < 12 ; i++)
