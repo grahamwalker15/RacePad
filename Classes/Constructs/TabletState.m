@@ -25,7 +25,34 @@ static TabletState *instance = nil;
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
-    currentRotation = RadiansToDegrees ( atan2(acceleration.y, acceleration.x) );
+    currentRotation = RadiansToDegrees ( atan2(acceleration.y, acceleration.x) ) - baseRotation;
+	
+	if ( currentRotation > 180 )
+		currentRotation -= 360;
+	if ( currentRotation < -180 )
+		currentRotation += 360;
+	
 }
+
+- (void)setBaseRotation:(UIInterfaceOrientation)interfaceOrientation
+{
+	switch (interfaceOrientation) {
+		case UIInterfaceOrientationPortrait:
+			baseRotation = -90;
+			break;
+		case UIInterfaceOrientationPortraitUpsideDown:
+			baseRotation = 90;
+			break;
+		case UIInterfaceOrientationLandscapeLeft:
+			baseRotation = 0;
+			break;
+		case UIInterfaceOrientationLandscapeRight:
+			baseRotation = 180;
+			break;
+		default:
+			break;
+	}
+}
+
 
 @end

@@ -13,12 +13,14 @@
 {
 	
 	float currentRotation;
+	float baseRotation;
 		
 }
 
 @property (readonly) float currentRotation;
 
 + (TabletState *)Instance;
+- (void) setBaseRotation: (UIInterfaceOrientation)interfaceOrientation;
 
 @end
 

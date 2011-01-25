@@ -23,10 +23,19 @@
 	int laps;
 	int gear;
 	int rpm;
+	
+	// User interaction state
+	bool brakePressed;
+	bool throttlePressed;
+	int score;
 }
 
 - (void) load : (DataStream *) stream;
 - (void) drawInView:(TelemetryView *)view Colour:(int)colour;
+- (void) resetDriving;
+
+@property (nonatomic) bool brakePressed;
+@property (nonatomic) bool throttlePressed;
 
 @end
 

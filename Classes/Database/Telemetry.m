@@ -17,8 +17,12 @@
 
 @implementation TelemetryCar
 
+@synthesize brakePressed;
+@synthesize throttlePressed;
+
 static UIImage * bigWheelImage = nil;
 static UIImage * smallWheelImage = nil;
+static UIImage * drivingWheelImage = nil;
 static UIImage * carImage  = nil;
 static UIImage * pedalImage  = nil;
 static UIImage * gearImage  = nil;
@@ -61,22 +65,32 @@ static UIImage * redBarImage = nil;
 		redBarImage = [[UIImage imageNamed:@"RedBar.png"] retain];
 	}
 	
+	int sampleScore = 0;
+	
 	// Get the device orientation and set things up accordingly
 	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 
 	UIImage * wheelImage = nil;
 	int pedalHeight;
 
-	if(orientation == UI_ORIENTATION_PORTRAIT_)
+	if ( view.drivingMode )
 	{
-		wheelImage = bigWheelImage;
+		if ( drivingWheelImage == nil )
+			drivingWheelImage = [[UIImage imageNamed:@"DrivingWheel.png"] retain];
+		wheelImage = drivingWheelImage;
 		pedalHeight = 80;
 	}
 	else
-	{
-		wheelImage = smallWheelImage;
-		pedalHeight = 60;
-	}
+		if(orientation == UI_ORIENTATION_PORTRAIT_)
+		{
+			wheelImage = bigWheelImage;
+			pedalHeight = 80;
+		}
+		else
+		{
+			wheelImage = smallWheelImage;
+			pedalHeight = 60;
+		}
 	
 	CGSize viewBoundsSize = [view bounds].size;
 	CGRect mapRect = [view mapRect];
@@ -92,13 +106,8 @@ static UIImage * redBarImage = nil;
 	
 	float wheelXCentre = viewBoundsSize.width / 2;
 	float wheelYCentre = viewBoundsSize.height / 2;
-
-	float pedalBase = viewBoundsSize.height - 10;
 	
 	UIColor * transparent_white_ = [DrawingView CreateColourRed:255 Green:255 Blue:255 Alpha:0.3];
-	
-	CGMutablePathRef rectThrottle = [DrawingView CreateRoundedRectPathX0:wheelXCentre + 10 Y0:pedalBase - pedalHeight X1:wheelXCentre + 40 Y1:pedalBase Radius:5.0];
-	CGMutablePathRef rectBrake = [DrawingView CreateRoundedRectPathX0:wheelXCentre - 40 Y0:pedalBase - pedalHeight X1:wheelXCentre - 10 Y1:pedalBase Radius:5.0];
 	
 	if ( !view.drivingMode )
 	{
@@ -170,64 +179,86 @@ static UIImage * redBarImage = nil;
 	}
 	
 	// Draw brake and throttle
+	float throttleX;
+	float brakeX;
+	float pedalBase;
+	
+	if ( view.drivingMode )
+	{
+		throttleX = viewBoundsSize.width - 120;
+		brakeX = 90;
+		pedalBase = 20 + pedalHeight;
+	}
+	else
+	{
+		throttleX = wheelXCentre + 10;
+		brakeX = wheelXCentre - 40;
+		pedalBase = viewBoundsSize.height - 10;
+	}
+
+	CGMutablePathRef rectThrottle = [DrawingView CreateRoundedRectPathX0:throttleX Y0:pedalBase - pedalHeight X1:throttleX + 30 Y1:pedalBase Radius:5.0];
+	CGMutablePathRef rectBrake = [DrawingView CreateRoundedRectPathX0:brakeX Y0:pedalBase - pedalHeight X1:brakeX + 30 Y1:pedalBase Radius:5.0];
+	
 	float throttleHeight = throttle * 0.01 * pedalHeight;
 	float brakeHeight = brake * 0.01 * pedalHeight;
 	
 	[view SaveGraphicsState];
 	[view SetClippingAreaToPath:rectThrottle];
-	[view DrawImage:pedalImage AtX:wheelXCentre + 10 Y:pedalBase - pedalHeight];
+	[view DrawImage:pedalImage AtX:throttleX Y:pedalBase - pedalHeight];
 	[view SetBGColour:[view green_]];
-	[view FillRectangleX0:wheelXCentre + 10 Y0:pedalBase -  throttleHeight X1:wheelXCentre + 40 Y1:pedalBase];
+	[view FillRectangleX0:throttleX Y0:pedalBase -  throttleHeight X1:throttleX + 30 Y1:pedalBase];
 	[view RestoreGraphicsState];
 	
 	[view SaveGraphicsState];
 	[view SetClippingAreaToPath:rectBrake];
-	[view DrawImage:pedalImage AtX:wheelXCentre - 40 Y:pedalBase - pedalHeight];
+	[view DrawImage:pedalImage AtX:brakeX Y:pedalBase - pedalHeight];
 	[view SetBGColour:[view red_]];
-	[view FillRectangleX0:wheelXCentre - 40 Y0:pedalBase - brakeHeight X1:wheelXCentre - 10 Y1:pedalBase ];
+	[view FillRectangleX0:brakeX Y0:pedalBase - brakeHeight X1:brakeX + 30 Y1:pedalBase ];
 	[view RestoreGraphicsState];
 		
-	[view SetFGColour:[view white_]];
-	[view BeginPath];
-	[view LoadPath:rectThrottle];
-	[view LoadPath:rectBrake];
-	[view LineCurrentPath];
-	
-	//Draw dashboard
-	float dashLeft = wheelXCentre - 80;
-	float dashRight = wheelXCentre + 80;
-	float dashSplit = wheelXCentre - 20;
-	float dashYBase = 20;
-	
-	[view SetBGColour:[view very_light_grey_]];
-	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51 ];
-	[view SetBGColour:[view dark_grey_]];
-	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashSplit Y1:dashYBase + 51  ];
-	[view SetBGColour:[view very_dark_grey_]];
-	[view FillRectangleX0:dashLeft Y0:dashYBase X1:dashRight Y1:dashYBase  + 16 ];
-	
-	[view SetFGColour:[view black_]];
-	[view LineRectangleX0:dashLeft Y0:dashYBase X1:dashRight Y1:dashYBase + 16  ];
-	[view LineRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashSplit Y1:dashYBase + 51  ];
-	[view LineRectangleX0:dashSplit Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51  ];
-	
-	[view SetFGColour:[view white_]];
-	[view LineRectangleX0:dashLeft - 1 Y0:dashYBase - 1 X1:dashRight + 1 Y1:dashYBase + 52 ];
-	
-	[view SetFGColour:[view black_]];
-	[view UseMediumBoldFont];
-	[view DrawImage:gearImage AtX:dashLeft + 5 Y:dashYBase + 31];
-	[view DrawString:[NSString stringWithFormat:@"KPH"] AtX:dashRight - 35 Y:dashYBase + 31];
-	
-	[view UseBigFont];
-	[view DrawString:[NSString stringWithFormat:@"%d", (int)speed] AtX:dashSplit +10 Y:dashYBase + 16];
-	
-	if(gear > 0)
-		[view DrawString:[NSString stringWithFormat:@"%d", gear] AtX:dashLeft + 35 Y:dashYBase + 16];
+	if ( view.drivingMode )
+	{
+		if ( throttleHeight == 0 && !throttlePressed )
+		{
+			[view SetFGColour:[view white_]];
+			sampleScore += 1;
+		}
+		else if ( throttleHeight > 0 && throttlePressed )
+		{
+			[view SetFGColour:[view green_]];
+			sampleScore += 2;
+		}
+		else
+			[view SetFGColour:[view red_]];
+		[view BeginPath];
+		[view LoadPath:rectThrottle];
+		[view LineCurrentPath];
+		
+		if ( brakeHeight == 0 && !brakePressed )
+		{
+			[view SetFGColour:[view white_]];
+			sampleScore += 1;
+		}
+		else if ( brakeHeight > 0 && brakePressed )
+		{
+			[view SetFGColour:[view green_]];
+			sampleScore += 2;
+		}
+		else
+			[view SetFGColour:[view red_]];
+		[view BeginPath];
+		[view LoadPath:rectBrake];
+		[view LineCurrentPath];
+	}
 	else
-		[view DrawString:[NSString stringWithFormat:@"N"] AtX:dashLeft + 35 Y:dashYBase + 16];
-	
-	
+	{
+		[view SetFGColour:[view white_]];
+		[view BeginPath];
+		[view LoadPath:rectThrottle];
+		[view LoadPath:rectBrake];
+		[view LineCurrentPath];
+	}
+		
 	// Draw lap counter and distance guage around the map
 	if(laps > 0)
 	{
@@ -292,6 +323,37 @@ static UIImage * redBarImage = nil;
 		[view DrawString:sectorLabel AtX:xLeft + (sWidth - w) * 0.5 Y:mapRect.origin.y + mapRect.size.height + 16 - h + 1];
 	}
 
+	float steeringAngle = steering;
+	if ( [view drivingMode] )
+	{
+		steeringAngle -= [[TabletState Instance] currentRotation];
+		if ( steeringAngle  > 180 )
+			steeringAngle -= 360;
+		if ( steeringAngle < -180 )
+			steeringAngle += 360;
+	}
+
+	//Draw dashboard BG
+	float dashLeft = wheelXCentre - 80;
+	float dashRight = wheelXCentre + 80;
+	float dashSplit = wheelXCentre - 20;
+	float dashYBase = 20;
+	
+	[view SetBGColour:[view very_light_grey_]];
+	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51 ];
+	[view SetBGColour:[view dark_grey_]];
+	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashSplit Y1:dashYBase + 51  ];
+	[view SetBGColour:[view very_dark_grey_]];
+	[view FillRectangleX0:dashLeft Y0:dashYBase X1:dashRight Y1:dashYBase  + 16 ];
+	
+	[view SetFGColour:[view black_]];
+	[view LineRectangleX0:dashLeft Y0:dashYBase X1:dashRight Y1:dashYBase + 16  ];
+	[view LineRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashSplit Y1:dashYBase + 51  ];
+	[view LineRectangleX0:dashSplit Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51  ];
+	
+	[view SetFGColour:[view white_]];
+	[view LineRectangleX0:dashLeft - 1 Y0:dashYBase - 1 X1:dashRight + 1 Y1:dashYBase + 52 ];
+
 	// Draw RPM Lights
 	int rpmLimit[12] = {7000, 8500, 10500, 12500, 14000, 15000, 15500, 16000, 16500, 16900, 17200, 17500};
 	
@@ -299,26 +361,71 @@ static UIImage * redBarImage = nil;
 	float rpmStep = 12;
 	float rpmY = dashYBase +3;
 	
-	for(int i = 0 ; i < 12 ; i++)
+	if ( view.drivingMode )
 	{
-		if(rpm < rpmLimit[i])
-			[view DrawImage:rpmImageWhite AtX:rpmPos Y:rpmY];
-		else if(i == 11)
-			[view DrawImage:rpmImageRed AtX:rpmPos Y:rpmY];
-		else if(i >= 9)
-			[view DrawImage:rpmImageOrange AtX:rpmPos Y:rpmY];
-		else
-			[view DrawImage:rpmImageGreen AtX:rpmPos Y:rpmY];
-		
-		rpmPos += rpmStep;
+		int steeringScore = 12 - ( fabs ( steeringAngle ) / 4 );
+		if ( steeringScore < 0 )
+			steeringScore = 0;
+		for(int i = 0 ; i < 12 ; i++)
+		{
+			if(steeringScore < i)
+				[view DrawImage:rpmImageWhite AtX:rpmPos Y:rpmY];
+			else if(i == 11)
+				[view DrawImage:rpmImageGreen AtX:rpmPos Y:rpmY];
+			else if(i >= 9)
+				[view DrawImage:rpmImageOrange AtX:rpmPos Y:rpmY];
+			else
+				[view DrawImage:rpmImageRed AtX:rpmPos Y:rpmY];
+			
+			rpmPos += rpmStep;
+		}
+		sampleScore += steeringScore;
+	}
+	else
+	{
+		for(int i = 0 ; i < 12 ; i++)
+		{
+			if(rpm < rpmLimit[i])
+				[view DrawImage:rpmImageWhite AtX:rpmPos Y:rpmY];
+			else if(i == 11)
+				[view DrawImage:rpmImageRed AtX:rpmPos Y:rpmY];
+			else if(i >= 9)
+				[view DrawImage:rpmImageOrange AtX:rpmPos Y:rpmY];
+			else
+				[view DrawImage:rpmImageGreen AtX:rpmPos Y:rpmY];
+			
+			rpmPos += rpmStep;
 
+		}
 	}
 
+	// Draw Dashboard Text
+	[view SetFGColour:[view black_]];
+	[view UseMediumBoldFont];
+	
+	if ( view.drivingMode )
+	{
+		[view DrawString:[NSString stringWithFormat:@"%d", sampleScore] AtX:dashLeft + 35 Y:dashYBase + 16];
+		score += sampleScore;
+		
+		[view UseBigFont];
+		[view DrawString:[NSString stringWithFormat:@"%d", score] AtX:dashSplit +10 Y:dashYBase + 16];
+	}
+	else
+	{
+		[view DrawImage:gearImage AtX:dashLeft + 5 Y:dashYBase + 31];
+		[view DrawString:[NSString stringWithFormat:@"KPH"] AtX:dashRight - 35 Y:dashYBase + 31];
+		
+		[view UseBigFont];
+		[view DrawString:[NSString stringWithFormat:@"%d", (int)speed] AtX:dashSplit +10 Y:dashYBase + 16];
+		
+		if(gear > 0)
+			[view DrawString:[NSString stringWithFormat:@"%d", gear] AtX:dashLeft + 35 Y:dashYBase + 16];
+		else
+			[view DrawString:[NSString stringWithFormat:@"N"] AtX:dashLeft + 35 Y:dashYBase + 16];
+	}
 	//Draw wheel
 	CGSize wheelSize = [wheelImage size];
-	float steeringAngle = steering;
-	if ( [view drivingMode] )
-		steeringAngle -= [[TabletState Instance] currentRotation];
 	
 	[view SaveGraphicsState];
 	[view SetTranslateX:wheelXCentre Y:wheelYCentre];
@@ -344,6 +451,13 @@ static UIImage * redBarImage = nil;
 	CGPathRelease(rectThrottle);
 	CGPathRelease(rectBrake);
 	
+}
+
+- (void) resetDriving
+{
+	brakePressed = false;
+	throttlePressed = false;
+	score = 0;
 }
 
 @end

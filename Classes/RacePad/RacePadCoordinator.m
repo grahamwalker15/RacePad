@@ -83,10 +83,7 @@ static RacePadCoordinator * instance_ = nil;
 		playOnBecomeActive = false;
 		jumpOnBecomeActive = false;
 		restartTime = 0;
-		
-		[[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0 / 10)]; // 10 Hz update
-        [[UIAccelerometer sharedAccelerometer] setDelegate:[TabletState Instance]];
-	}
+			}
 	
 	return self;
 }

@@ -43,6 +43,7 @@
 		4D91DDE912ED9778005B7FE7 /* TabletState.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DDE812ED9778005B7FE7 /* TabletState.m */; };
 		4D91DE5412EDC83A005B7FE7 /* DrivingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */; };
 		4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */; };
+		4D91DF1812EDF122005B7FE7 /* DrivingWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
 		4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; };
 		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
@@ -254,6 +255,7 @@
 		4D91DE5212EDC83A005B7FE7 /* DrivingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrivingViewController.h; sourceTree = "<group>"; };
 		4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrivingViewController.m; sourceTree = "<group>"; };
 		4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DrivingView.xib; path = ResourceFiles/DrivingView.xib; sourceTree = "<group>"; };
+		4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DrivingWheel.png; path = Images/DrivingWheel.png; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
 		4DE8989512ACFA79000FEE9C /* DriverNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverNames.h; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */,
 				7F8F95C412E83AB700EA04A6 /* AlertInsight.png */,
 				7F8F95C512E83AB700EA04A6 /* AlertLC.png */,
 				7F8F8CE512E0483400EA04A6 /* trophy.png */,
@@ -1005,6 +1008,7 @@
 				7F8F95C612E83AB700EA04A6 /* AlertInsight.png in Resources */,
 				7F8F95C712E83AB700EA04A6 /* AlertLC.png in Resources */,
 				4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */,
+				4D91DF1812EDF122005B7FE7 /* DrivingWheel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

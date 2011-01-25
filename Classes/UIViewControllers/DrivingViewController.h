@@ -24,8 +24,13 @@
 	IBOutlet BackgroundView *trackMapContainer;
 
 	IBOutlet UIButton *stop;
+	IBOutlet UIButton *brake;
+	IBOutlet UIButton *throttle;
 
 	int car;
+	BOOL disableRotation;
+
+	UIInterfaceOrientation viewOrientation;
 }
 
 @property (nonatomic) int car;
@@ -34,6 +39,8 @@
 - (void)showOverlays;
 - (void)hideOverlays;
 -(IBAction) stopPressed:(id)sender;
+-(IBAction) controlPressed:(id)sender;
+-(IBAction) controlReleased:(id)sender;
 
 @end
 

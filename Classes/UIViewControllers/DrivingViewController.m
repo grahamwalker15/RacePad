@@ -18,6 +18,7 @@
 #import "TrackMapView.h"
 #import "TelemetryView.h"
 #import "BackgroundView.h"
+#import "TabletState.h"
 
 #import "UIConstants.h"
 
@@ -41,7 +42,10 @@
 	//	Tap recognizer for background,pit window and telemetry views
 	[self addTapRecognizerToView:backgroundView];
 	[self addTapRecognizerToView:telemetryView];
+	[self addTapRecognizerToView:trackMapView];
 	[self addTapRecognizerToView:stop];
+	[self addTapRecognizerToView:brake];
+	[self addTapRecognizerToView:throttle];
 	
     //	Tap, pinch, and double tap recognizers for map
 	[self addTapRecognizerToView:trackMapView];
@@ -52,18 +56,22 @@
 	
 	[[RacePadCoordinator Instance] AddView:telemetryView WithType:RPC_TELEMETRY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
-	
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Overriden to allow any orientation.
-    return YES;
+	viewOrientation = interfaceOrientation;
+    return !disableRotation;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	disableRotation = YES;
+	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0 / 10)]; // 10 Hz update
+	[[UIAccelerometer sharedAccelerometer] setDelegate:[TabletState Instance]];
+	[[TabletState Instance] setBaseRotation: viewOrientation];
+	
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
@@ -74,12 +82,14 @@
 		[telemetryView setCar:RPD_BLUE_CAR_];
 		[trackMapView followCar:@"MSC"];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
+		[[[[RacePadDatabase Instance] telemetry] blueCar] resetDriving];
 	}
 	else
 	{
 		[telemetryView setCar:RPD_RED_CAR_];
 		[trackMapView followCar:@"ROS"];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
+		[[[[RacePadDatabase Instance] telemetry] redCar] resetDriving];
 	}
 	
 	// Resize overlay views to match background
@@ -101,40 +111,23 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
+	disableRotation = NO;
 	[[RacePadCoordinator Instance] SetViewHidden:telemetryView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
 	// re-enable the screen locking
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	// [self hideOverlays];
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-	/*
-	[backgroundView RequestRedraw];
-	
-	[telemetryView setAlpha:0.0];
-	[trackMapContainer setAlpha:0.0];
-	[telemetryView setHidden:false];
-	[trackMapContainer setHidden:false];
-	
-	[self positionOverlays];
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelegate:self];
-	[telemetryView setAlpha:1.0];
-	[trackMapContainer setAlpha:1.0];
-	[UIView commitAnimations];
-	*/
-	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
@@ -183,6 +176,10 @@
 	
 	[backgroundView clearFrames];
 	[backgroundView addFrame:[telemetryView frame]];
+	
+	CGRect controlFrame = [brake frame];
+	[brake setFrame:CGRectMake(0, bg_frame.size.height / 2 + 20, controlFrame.size.width, controlFrame.size.height)];
+	[throttle setFrame:CGRectMake(bg_frame.size.width - controlFrame.size.width, bg_frame.size.height / 2 + 20, controlFrame.size.width, controlFrame.size.height)];
 }
 
 - (void)showOverlays
@@ -201,7 +198,7 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if([gestureView isKindOfClass:[TrackMapView class]] || [gestureView isKindOfClass:[UIButton class]])
+	if([gestureView isKindOfClass:[UIButton class]])
 		return;
 	
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
@@ -254,6 +251,34 @@
 - (IBAction) stopPressed:(id)sender
 {
 	[self dismissModalViewControllerAnimated:NO];
+}
+
+- (IBAction) controlPressed:(id)sender
+{
+	TelemetryCar *userCar;
+	if ( car == RPD_BLUE_CAR_ )
+		userCar = [[[RacePadDatabase Instance] telemetry] blueCar];
+	else
+		userCar = [[[RacePadDatabase Instance] telemetry] redCar];
+	
+	if ( sender == brake )
+		[userCar setBrakePressed:true];
+	else
+		[userCar setThrottlePressed:true];
+}
+
+- (IBAction) controlReleased:(id)sender
+{
+	TelemetryCar *userCar;
+	if ( car == RPD_BLUE_CAR_ )
+		userCar = [[[RacePadDatabase Instance] telemetry] blueCar];
+	else
+		userCar = [[[RacePadDatabase Instance] telemetry] redCar];
+	
+	if ( sender == brake )
+		[userCar setBrakePressed:false];
+	else
+		[userCar setThrottlePressed:false];
 }
 
 
