@@ -45,6 +45,8 @@
 	predictionComplete = false;
 	predictionEmpty = true;
 	
+	inDrivingGame = false;
+	
 	[action setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	[changeUser setTitleColor: [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.7] forState:UIControlStateDisabled];
 	
@@ -101,6 +103,7 @@
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	inDrivingGame = false;
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -109,7 +112,8 @@
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 
 	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	if (!inDrivingGame)
+		[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -384,6 +388,7 @@
 	if ( drivingGame == nil )
 		drivingGame = [[DrivingViewController alloc] initWithNibName:@"DrivingView" bundle:nil];
 	drivingGame.car = RPD_BLUE_CAR_;
+	inDrivingGame = true;
 	[self presentModalViewController:drivingGame animated:YES];
 }
 
@@ -392,6 +397,7 @@
 	if ( drivingGame == nil )
 		drivingGame = [[DrivingViewController alloc] initWithNibName:@"DrivingView" bundle:nil];
 	drivingGame.car = RPD_RED_CAR_;
+	inDrivingGame = true;
 	[self presentModalViewController:drivingGame animated:YES];
 }
 
