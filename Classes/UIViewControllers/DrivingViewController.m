@@ -33,6 +33,7 @@
 	
 	[trackMapView setIsZoomView:true];
 	[trackMapView setUserScale:10.0];
+	[trackMapView setAutoRotate:true];
 	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
 	
 	[telemetryView setDrivingMode:true];

@@ -24,6 +24,7 @@
 	float userScale;
 	
 	NSString * carToFollow;
+	bool autoRotate;
 	
 	bool isAnimating;
 	float animationScaleTarget;
@@ -48,6 +49,7 @@
 @property (nonatomic) int animationDirection;
 
 @property (nonatomic, retain) NSString * carToFollow;
+@property (nonatomic) bool autoRotate;
 
 - (void)InitialiseMembers;
 - (void)InitialiseImages;

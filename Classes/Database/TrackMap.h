@@ -68,6 +68,10 @@ enum TrackState {
 	float height;
 	
 	CGMutablePathRef path;
+	int count;
+	float *x;
+	float *y;
+
 	int segmentCount;
 	CGMutablePathRef *segmentPaths;
 }
@@ -86,6 +90,7 @@ enum TrackState {
 - (float)height;
 
 - (void) loadShape : (DataStream *) stream;
+- (float) directionAtPoint:(float)xp Y:(float)yp;
 
 @end
 
@@ -183,12 +188,13 @@ enum TrackState {
 - (void) drawInView:(TrackMapView *)view;
 
 - (void) constructTransformMatrixForView:(TrackMapView *)view;
-- (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y;
+- (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y Rotation:(float) rotation;
 - (void) adjustScaleInView:(TrackMapView *)view Scale:(float)scale X:(float)x Y:(float)y;
 - (void) adjustPanInView:(TrackMapView *)view X:(float)x Y:(float)y;
 
 - (int) getTrackState;
 
 - (CGPoint) getCarPositionByLabel: (NSString *) name;
+- (float) directionAtPoint:(float)xp Y:(float)yp;
 
 @end

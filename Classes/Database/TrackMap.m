@@ -9,6 +9,7 @@
 #import "TrackMap.h"
 #import "DataStream.h"
 #import "TrackMapView.h"
+#import "MathOdds.h"
 
 @implementation TrackCar
 
@@ -156,6 +157,8 @@
 	if(self = [super init])
 	{
 		path = nil;
+		x = NULL;
+		y = NULL;
 		
 		min_x = 0.0;
 		max_x = 0.0;
@@ -173,6 +176,12 @@
 {
 	CGPathRelease(path);
 	path = NULL;
+	if ( x )
+		free(x);
+	x = NULL;
+	if ( y )
+		free(y);
+	y = NULL;
 	
 	segmentCount = 0;
 	int i;
@@ -198,9 +207,9 @@
 {
 	// Assume we've been cleared
 	
-	int count = [stream PopInt];
-	float *x = malloc(sizeof(float) * count);
-	float *y = malloc(sizeof(float) * count);
+	count = [stream PopInt];
+	x = malloc(sizeof(float) * count);
+	y = malloc(sizeof(float) * count);
 	
 	min_x = 1.0;
 	max_x = 0.0;
@@ -258,9 +267,38 @@
 		
 		free ( segments );
 	}
+}
+
+- (float) directionAtPoint: (float)xp Y:(float)yp
+{
+	float bestD2;
+	bool gotD2 = false;
+	int bestSeg;
+	for ( int i = 1; i < count; i++ )
+	{
+		float tx = xp - x[i-1];
+		float ty = yp - y[i-1];
+		float dx = x[i] - x[i-1];
+		float dy = y[i] - y[i-1];
+		float l = (tx * dx + ty * dy) / (dx * dx + dy * dy);
+		l = (l<0) ? 0 : ((l > 1) ? 1 : l);
+		dx = tx - l * dx;
+		dy = ty - l * dy;
+		float d2 = dx * dx + dy * dy;
+		if ( !gotD2 || d2 < bestD2 )
+		{
+			gotD2 = true;
+			bestD2 = d2;
+			bestSeg = i;
+		}
+	}
 	
-	free ( x );
-	free ( y );
+	if ( gotD2 )
+	{
+		return RadiansToDegrees ( atan2 (y[bestSeg] - y[bestSeg-1], x[bestSeg] - x[bestSeg-1] ) );
+	}
+	
+	return 0;
 }
 
 @end
@@ -800,6 +838,9 @@
 	{
 		// Get dimensions of current view and the position of the follow car
 		CGPoint followCarPos = [self getCarPositionByLabel:carToFollow];
+		float rotation = 0;
+		if ( view.autoRotate )
+			rotation = -90 - [self directionAtPoint:followCarPos.x Y:followCarPos.y];
 		
 		// Adjust the parameters if we are animating from zoom to full view (o vice versa)
 		if([view isAnimating])
@@ -838,20 +879,20 @@
 			float x = carX - (dX * alpha) / (s * 2.0);
 			float y = carY - (dY * alpha) / (s * 2.0);
 			
-			[self constructTransformMatrixForView:view WithCentreX:x Y:y];
+			[self constructTransformMatrixForView:view WithCentreX:x Y:y Rotation:rotation];
 		}
 		else
 		{
-			[self constructTransformMatrixForView:view WithCentreX:followCarPos.x Y:followCarPos.y];
+			[self constructTransformMatrixForView:view WithCentreX:followCarPos.x Y:followCarPos.y Rotation:rotation];
 		}
 	}
 	else
 	{
-		[self constructTransformMatrixForView:view WithCentreX:xCentre Y:-yCentre];
+		[self constructTransformMatrixForView:view WithCentreX:xCentre Y:-yCentre Rotation:0];
 	}
 }
 
-- (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y
+- (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y Rotation:(float) rotation
 {
 	// Constructs the transform matrix, stores it, and leaves it current
 	
@@ -897,6 +938,7 @@
 	[view SetTranslateX:userXOffset * viewSize.width Y:userYOffset * viewSize.height];	
 	[view SetTranslateX:mapXOffset Y:mapYOffset];
 	[view SetScale:mapScale * userScale];
+	[view SetRotationInDegrees:rotation];
 	[view SetTranslateX:-x Y:-y];
 	
 	[view StoreTransformMatrix];	
@@ -985,6 +1027,11 @@
 	}
 	
 	return CGPointMake(0,0);
+}
+
+- (float) directionAtPoint:(float)xp Y:(float)yp
+{
+	return [inner directionAtPoint:xp Y:yp];
 }
 
 ////////////////////////////////////////////////////////////////////////

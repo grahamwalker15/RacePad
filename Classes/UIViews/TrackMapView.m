@@ -27,6 +27,7 @@
 @synthesize animationScaleTarget;
 @synthesize animationAlpha;
 @synthesize animationDirection;
+@synthesize autoRotate;
 
 static UIImage * greenFlagImage = nil;
 static UIImage * yellowFlagImage = nil;
@@ -104,6 +105,7 @@ static bool flag_images_initialised_ = false;
 	animationAlpha = 0.0;
 	
 	carToFollow = nil;
+	autoRotate = false;
 }
 
 - (void)InitialiseImages
