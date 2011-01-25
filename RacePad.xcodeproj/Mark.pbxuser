@@ -379,6 +379,8 @@
 			4D91DF9212EF0CDE005B7FE7 /* PBXTextBookmark */ = 4D91DF9212EF0CDE005B7FE7 /* PBXTextBookmark */;
 			4D91DFA512EF0FD3005B7FE7 /* PBXTextBookmark */ = 4D91DFA512EF0FD3005B7FE7 /* PBXTextBookmark */;
 			4D91DFA612EF0FD3005B7FE7 /* PBXTextBookmark */ = 4D91DFA612EF0FD3005B7FE7 /* PBXTextBookmark */;
+			4D91DFBF12EF1BBF005B7FE7 /* PBXTextBookmark */ = 4D91DFBF12EF1BBF005B7FE7 /* PBXTextBookmark */;
+			4D91DFC012EF1BBF005B7FE7 /* PBXTextBookmark */ = 4D91DFC012EF1BBF005B7FE7 /* PBXTextBookmark */;
 			4D9AC9A312DC817700DA7EFD = 4D9AC9A312DC817700DA7EFD /* PBXTextBookmark */;
 			4DA78AF712DD9C38002AEE95 = 4DA78AF712DD9C38002AEE95 /* PBXTextBookmark */;
 			4DA78B3512DDB1B4002AEE95 = 4DA78B3512DDB1B4002AEE95 /* PBXTextBookmark */;
@@ -1423,7 +1425,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 57";
 		rLen = 0;
-		rLoc = 976;
+		rLoc = 986;
 		rType = 0;
 		vrLen = 476;
 		vrLoc = 553;
@@ -2153,7 +2155,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 324";
 		rLen = 0;
-		rLoc = 15059;
+		rLoc = 15322;
 		rType = 0;
 		vrLen = 1194;
 		vrLoc = 971;
@@ -2323,7 +2325,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 232";
 		rLen = 7;
-		rLoc = 8828;
+		rLoc = 8944;
 		rType = 0;
 		vrLen = 1277;
 		vrLoc = 8264;
@@ -2394,7 +2396,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 316";
 		rLen = 0;
-		rLoc = 14499;
+		rLoc = 14762;
 		rType = 0;
 		vrLen = 915;
 		vrLoc = 11741;
@@ -2584,7 +2586,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 466;
+		rLoc = 476;
 		rType = 1;
 	};
 	4D91DE9312EDD6BF005B7FE7 /* PBXTextBookmark */ = {
@@ -2592,7 +2594,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 233";
 		rLen = 1;
-		rLoc = 8581;
+		rLoc = 8697;
 		rType = 0;
 		vrLen = 924;
 		vrLoc = 8255;
@@ -2622,7 +2624,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 171";
 		rLen = 0;
-		rLoc = 6312;
+		rLoc = 6428;
 		rType = 0;
 		vrLen = 1282;
 		vrLoc = 8468;
@@ -2912,7 +2914,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 202";
 		rLen = 2;
-		rLoc = 7242;
+		rLoc = 7358;
 		rType = 0;
 		vrLen = 1202;
 		vrLoc = 6237;
@@ -2942,7 +2944,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 262";
 		rLen = 1;
-		rLoc = 8581;
+		rLoc = 8697;
 		rType = 0;
 		vrLen = 612;
 		vrLoc = 7090;
@@ -2962,7 +2964,7 @@
 		fRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */;
 		name = "Telemetry.m: 271";
 		rLen = 1;
-		rLoc = 8581;
+		rLoc = 8697;
 		rType = 0;
 		vrLen = 515;
 		vrLoc = 7655;
@@ -3036,6 +3038,26 @@
 		vrLoc = 3243;
 	};
 	4D91DFA612EF0FD3005B7FE7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */;
+		name = "RacePadTimeController.m: 35";
+		rLen = 3;
+		rLoc = 720;
+		rType = 0;
+		vrLen = 451;
+		vrLoc = 488;
+	};
+	4D91DFBF12EF1BBF005B7FE7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */;
+		name = "TrackMap.m: 566";
+		rLen = 0;
+		rLoc = 9454;
+		rType = 0;
+		vrLen = 282;
+		vrLoc = 3227;
+	};
+	4D91DFC012EF1BBF005B7FE7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */;
 		name = "RacePadTimeController.m: 35";
@@ -3910,9 +3932,9 @@
 	};
 	7F9C67391265F50000F2FFEC /* TrackMap.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {806, 15080}}";
-			sepNavSelRange = "{9433, 0}";
-			sepNavVisRange = "{3243, 297}";
+			sepNavIntBoundsRect = "{{0, 0}, {806, 13923}}";
+			sepNavSelRange = "{9454, 0}";
+			sepNavVisRange = "{3227, 282}";
 			sepNavWindowFrame = "{{38, 150}, {1110, 702}}";
 		};
 	};

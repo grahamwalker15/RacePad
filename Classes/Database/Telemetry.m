@@ -37,7 +37,13 @@ static UIImage * redBarImage = nil;
 {
 	speed = [stream PopFloat];
 	throttle = [stream PopFloat];
-	distance = [stream PopFloat];
+	float new_distance = [stream PopFloat];
+	if ( new_distance != 0 )
+	{
+		if ( new_distance < distance )
+			score = 0;
+		distance = new_distance;
+	}
 	gLong = [stream PopFloat];
 	gLat = [stream PopFloat];
 	brake = [stream PopFloat];
@@ -386,6 +392,10 @@ static UIImage * redBarImage = nil;
 			
 			rpmPos += rpmStep;
 		}
+		if ( fabs (dampedSteering) < 8 )
+			steeringScore = steeringScore / 4;
+		if ( fabs (dampedSteering) < 32 )
+			steeringScore = steeringScore / 2;
 		sampleScore += steeringScore;
 	}
 	else
