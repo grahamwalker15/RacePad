@@ -12,6 +12,7 @@
 @implementation TabletState
 
 @synthesize currentRotation;
+@synthesize dampedRotation;
 
 static TabletState *instance = nil;
 
@@ -25,12 +26,22 @@ static TabletState *instance = nil;
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
+	float damper = 0.5f;
+	dampedAccelerationX = acceleration.x * damper + (1 - damper) * dampedAccelerationX;
+	dampedAccelerationY = acceleration.y * damper + (1 - damper) * dampedAccelerationY;
+
     currentRotation = RadiansToDegrees ( atan2(acceleration.y, acceleration.x) ) - baseRotation;
+    dampedRotation = RadiansToDegrees ( atan2(dampedAccelerationY, dampedAccelerationX) ) - baseRotation;
 	
 	if ( currentRotation > 180 )
 		currentRotation -= 360;
 	if ( currentRotation < -180 )
 		currentRotation += 360;
+
+	if ( dampedRotation > 180 )
+		dampedRotation -= 360;
+	if ( dampedRotation < -180 )
+		dampedRotation += 360;
 	
 }
 

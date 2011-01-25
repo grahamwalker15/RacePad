@@ -20,6 +20,7 @@
 	float gLat;
 	float brake;
 	float steering;
+	float dampedSteering;
 	int laps;
 	int gear;
 	int rpm;

@@ -14,10 +14,14 @@
 	
 	float currentRotation;
 	float baseRotation;
+	float dampedRotation;
+	float dampedAccelerationX;
+	float dampedAccelerationY;
 		
 }
 
 @property (readonly) float currentRotation;
+@property (readonly) float dampedRotation;
 
 + (TabletState *)Instance;
 - (void) setBaseRotation: (UIInterfaceOrientation)interfaceOrientation;

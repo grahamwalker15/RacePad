@@ -45,6 +45,13 @@ static UIImage * redBarImage = nil;
 	laps = [stream PopInt];
 	gear = [stream PopInt];
 	rpm = [stream PopInt];
+	
+	float damper = 0.5f;
+	dampedSteering = steering * damper + (1 - damper) * dampedSteering;
+	if ( dampedSteering < -180 )
+		dampedSteering += 360;
+	if ( dampedSteering > 180 )
+		dampedSteering -= 360;
 }
 
 - (void) drawInView:(TelemetryView *)view Colour:(int)colour
@@ -326,7 +333,7 @@ static UIImage * redBarImage = nil;
 	float steeringAngle = steering;
 	if ( [view drivingMode] )
 	{
-		steeringAngle -= [[TabletState Instance] currentRotation];
+		steeringAngle = dampedSteering - [[TabletState Instance] dampedRotation];
 		if ( steeringAngle  > 180 )
 			steeringAngle -= 360;
 		if ( steeringAngle < -180 )
@@ -435,15 +442,24 @@ static UIImage * redBarImage = nil;
 	[view DrawImage:wheelImage AtX:0 Y:0];
 	[view RestoreGraphicsState];
 	
-	// Driving Game Test
+	// Driving Game Cross Hairs
 	if ( [view drivingMode] )
 	{
+		[view SaveGraphicsState];
+		[view SetTranslateX:wheelXCentre Y:wheelYCentre];
+		[view SetTranslateX:(-wheelSize.width * 0.5) Y:(-wheelSize.height * 0.5)];
+		[view SetDropShadowXOffset:4 YOffset:8 Blur:3];
+		[view DrawImage:wheelImage AtX:0 Y:0 WithAlpha:0.5f];
+		[view RestoreGraphicsState];
+
+		/*
 		if ( fabs ( steeringAngle ) < 10 )
 			[view SetFGColour:[view white_]];
 		else
 			[view SetFGColour:[view red_]];
 		[view LineX0:wheelXCentre - wheelSize.width / 2 Y0:wheelYCentre X1:wheelXCentre + wheelSize.width / 2 Y1:wheelYCentre];
 		[view LineX0:wheelXCentre Y0:wheelYCentre + wheelSize.height / 2 X1:wheelXCentre Y1:wheelYCentre - wheelSize.height / 2];
+		*/
 	}
 	
 	[transparent_white_ release];
