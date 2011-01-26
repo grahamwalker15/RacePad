@@ -72,6 +72,7 @@
 	UIAlertView *pinMessage;
 	
 	DrivingViewController *drivingGame;
+	bool inDrivingGame;
 }
 
 -(IBAction) newUserPressed:(id)sender;

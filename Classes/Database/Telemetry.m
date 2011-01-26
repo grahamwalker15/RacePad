@@ -23,6 +23,7 @@
 static UIImage * bigWheelImage = nil;
 static UIImage * smallWheelImage = nil;
 static UIImage * drivingWheelImage = nil;
+static UIImage * outlineWheelImage = nil;
 static UIImage * carImage  = nil;
 static UIImage * pedalImage  = nil;
 static UIImage * gearImage  = nil;
@@ -234,12 +235,12 @@ static UIImage * redBarImage = nil;
 		if ( throttleHeight <= 0 && !throttlePressed )
 		{
 			[view SetFGColour:[view white_]];
-			sampleScore += 1;
+			sampleScore += 2;
 		}
 		else if ( throttleHeight > 0 && throttlePressed )
 		{
 			[view SetFGColour:[view green_]];
-			sampleScore += 2;
+			sampleScore += 1;
 		}
 		else
 			[view SetFGColour:[view red_]];
@@ -255,7 +256,7 @@ static UIImage * redBarImage = nil;
 		else if ( brakeHeight > 0 && brakePressed )
 		{
 			[view SetFGColour:[view green_]];
-			sampleScore += 2;
+			sampleScore += 3;
 		}
 		else
 			[view SetFGColour:[view red_]];
@@ -376,7 +377,7 @@ static UIImage * redBarImage = nil;
 	
 	if ( view.drivingMode )
 	{
-		int steeringScore = 12 - (int) ( fabs ( steeringAngle ) / 4 );
+		int steeringScore = 12 - (int) ( fabs ( steeringAngle ) / 2 );
 		if ( steeringScore < 0 )
 			steeringScore = 0;
 		for(int i = 0 ; i < 12 ; i++)
@@ -393,10 +394,16 @@ static UIImage * redBarImage = nil;
 			rpmPos += rpmStep;
 		}
 		if ( fabs (dampedSteering) < 8 )
-			steeringScore = steeringScore / 4;
-		if ( fabs (dampedSteering) < 32 )
-			steeringScore = steeringScore / 2;
+			steeringScore = steeringScore / 6;
+		else if ( fabs (dampedSteering) < 16 )
+			steeringScore = steeringScore / 3;
+		else if ( fabs (dampedSteering) > 32 )
+			steeringScore = steeringScore * 2;
 		sampleScore += steeringScore;
+		if ( sampleScore > 6 )
+		{
+			int zz = 42;
+		}
 	}
 	else
 	{
@@ -455,11 +462,14 @@ static UIImage * redBarImage = nil;
 	// Driving Game Cross Hairs
 	if ( [view drivingMode] )
 	{
+		if ( outlineWheelImage == nil )
+			outlineWheelImage = [[UIImage imageNamed:@"DrivingWheelOutline.png"] retain];
+		
 		[view SaveGraphicsState];
 		[view SetTranslateX:wheelXCentre Y:wheelYCentre];
 		[view SetTranslateX:(-wheelSize.width * 0.5) Y:(-wheelSize.height * 0.5)];
-		[view SetDropShadowXOffset:4 YOffset:8 Blur:3];
-		[view DrawImage:wheelImage AtX:0 Y:0 WithAlpha:0.5f];
+		// [view SetDropShadowXOffset:4 YOffset:8 Blur:3];
+		[view DrawImage:outlineWheelImage AtX:0 Y:0 WithAlpha:0.75];
 		[view RestoreGraphicsState];
 
 		/*
