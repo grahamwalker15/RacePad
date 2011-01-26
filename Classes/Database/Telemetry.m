@@ -50,10 +50,11 @@ static UIImage * redBarImage = nil;
 	brake = [stream PopFloat];
 	steering = [stream PopFloat];
 	laps = [stream PopInt];
+	
 	gear = [stream PopInt];
 	rpm = [stream PopInt];
 	
-	float damper = 0.5f;
+	float damper = 0.3f;
 	dampedSteering = steering * damper + (1 - damper) * dampedSteering;
 	if ( dampedSteering < -180 )
 		dampedSteering += 360;
@@ -400,10 +401,6 @@ static UIImage * redBarImage = nil;
 		else if ( fabs (dampedSteering) > 32 )
 			steeringScore = steeringScore * 2;
 		sampleScore += steeringScore;
-		if ( sampleScore > 6 )
-		{
-			int zz = 42;
-		}
 	}
 	else
 	{
@@ -525,8 +522,8 @@ static UIImage * redBarImage = nil;
 
 - (void) load : (DataStream *) stream
 {
-	[redCar load:stream];
 	[blueCar load:stream];
+	[redCar load:stream];
 }
 
 - (void) drawCar:(int)car InView:(TelemetryView *)view;
