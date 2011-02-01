@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "BackgroundView.h"
 
-@interface MovieView : UIView
+
+@interface MovieView : BackgroundView
 {
 	MPMoviePlayerController * moviePlayer;
 }

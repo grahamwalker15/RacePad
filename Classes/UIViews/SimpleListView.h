@@ -61,6 +61,8 @@ enum ColumnPriority {
 	bool if_heading_ ;
 	bool if_large_font_;
 	bool swiping_enabled_;
+	
+	bool scroll_to_end_requested_;
 		
 	int text_baseline_;
 		
@@ -117,6 +119,7 @@ enum ColumnPriority {
 - (void) SetLargeFont:(bool)if_large;
 - (void) SetSwipingEnabled:(bool)value;
 
+- (void) RequestScrollToEnd;
 - (void) ScrollToEnd;
 - (void) ScrollToRow:(int)row;
 - (void) MakeRowVisible:(int)row;

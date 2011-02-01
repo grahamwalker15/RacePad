@@ -7,6 +7,9 @@
 //
 
 #import "TrackMapViewController.h"
+
+#import "MapHelpController.h"
+
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
@@ -51,7 +54,6 @@
 	// Add gesture recognizers
  	[self addTapRecognizerToView:trackMapView];
 	[self addDoubleTapRecognizerToView:trackMapView];
-	[self addLongPressRecognizerToView:trackMapView];
 	
 	//	Tap recognizer for background
 	[self addTapRecognizerToView:backgroundView];
@@ -63,7 +65,8 @@
     //	Pinch, long press and pan recognizers for map
 	[self addPinchRecognizerToView:trackMapView];
 	[self addPanRecognizerToView:trackMapView];
-	[self addLongPressRecognizerToView:trackMapView];
+	// Don't zoom on corner for now - it's too confusing if you tap in the wrong place
+	//[self addLongPressRecognizerToView:trackMapView];
 
 	// And  for the zoom map
 	[self addTapRecognizerToView:trackZoomView];
@@ -86,6 +89,9 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
+	// Register the views
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	
 	// Resize overlay views
 	[self positionOverlays];
 	
@@ -99,8 +105,6 @@
 		[trackZoomContainer setHidden:false];
 	}
 	
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
@@ -156,6 +160,14 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////
+
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[MapHelpController alloc] initWithNibName:@"MapHelp" bundle:nil];
+	
+	return (HelpViewController *)helpController;
+}
 
 - (void) showOverlays
 {
@@ -298,6 +310,8 @@
 	}
 	else
 	{
+		// Don't zoom on corner for now - it's too confusing if you tap in the wrong place
+		/*
 		float current_scale = [(TrackMapView *)gestureView userScale];
 		float current_xoffset = [(TrackMapView *)gestureView userXOffset];
 		float current_yoffset = [(TrackMapView *)gestureView userYOffset];
@@ -307,6 +321,7 @@
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10 X:x Y:y];
 		}
 		else
+		*/
 		{
 			[(TrackMapView *)gestureView setUserXOffset:0.0];
 			[(TrackMapView *)gestureView setUserYOffset:0.0];
@@ -330,10 +345,13 @@
 	if([gestureView isKindOfClass:[TrackMapView class]])
 	{
 		float current_scale = [(TrackMapView *)gestureView userScale];
+		// Don't zoom on corner for now - it's too confusing if you tap in the wrong place
+		/*
 		if(current_scale > 0.001)
 		{
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10/current_scale X:x Y:y];
 		}
+		*/
 	}
 	else if([gestureView isKindOfClass:[LeaderboardView class]])
 	{

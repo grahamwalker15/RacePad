@@ -36,6 +36,9 @@
 	bool trackMapPinched;
 	float backupUserScale;
 	
+	bool commentaryAnimating;
+	bool commentaryExpanded;
+	
 	AnimationTimer * animationTimer;
 	CGRect animationRectStart;
 	CGRect animationRectEnd;	
@@ -46,10 +49,18 @@
 - (void)positionOverlays;
 - (void)showOverlays;
 - (void)hideOverlays;
+- (void)addBackgroundFrames;
 
 - (IBAction) trackMapSizeChanged;
 - (void) trackMapSizeAnimationDidFire:(id)alphaPtr;
 - (void) trackMapSizeAnimationDidStop;
+
+- (void) expandCommentaryView;
+- (void) restoreCommentaryView;
+
+- (void) viewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) commentaryExpansionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) commentaryRestorationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 @end
 

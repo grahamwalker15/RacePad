@@ -119,6 +119,9 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 		
+	// Register the view
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	
 	// Position the movie player
 	[[moviePlayer view] setFrame:[movieView bounds]];
 	[movieView addSubview:[moviePlayer view]];
@@ -133,8 +136,6 @@
 	float time_of_day = [[RacePadCoordinator Instance] currentTime];
 	[self movieGotoTime:time_of_day];
 
-	// Register the view
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 
 	// We disable the screen locking - because that seems to close the socket

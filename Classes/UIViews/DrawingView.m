@@ -26,6 +26,7 @@
 @synthesize green_;
 @synthesize cyan_;
 @synthesize dark_blue_;
+@synthesize dark_red_;
 @synthesize light_blue_;
 @synthesize dark_grey_;
 @synthesize very_dark_grey_;
@@ -79,6 +80,13 @@ static bool statics_initialised_ = false;
 
 - (void)drawRect:(CGRect)rect
 {
+	[self getCurrentBoundsInfo];
+	
+	[self Draw: rect];
+}
+
+- (void)getCurrentBoundsInfo
+{
 	current_context_ = UIGraphicsGetCurrentContext();
 	
 	current_bounds_ = [self bounds];
@@ -89,8 +97,6 @@ static bool statics_initialised_ = false;
 	current_top_right_ =  CGPointMake(current_origin_.x + current_size_.width, current_origin_.y);
 	
 	current_scroll_offset_ = [self contentOffset];
-	
-	[self Draw: rect];
 }
 
 - (void)layoutSubviews
@@ -113,6 +119,7 @@ static bool statics_initialised_ = false;
 	[green_ release];
 	[cyan_ release];
 	[dark_blue_ release];
+	[dark_red_ release];
 	[light_blue_ release];
 	[dark_grey_ release];
 	[very_dark_grey_ release];
@@ -155,6 +162,7 @@ static bool statics_initialised_ = false;
 	red_ = [DrawingView CreateColourRed:255 Green:0 Blue:0];
 	green_ = [DrawingView CreateColourRed:0 Green:255 Blue:0];
 	cyan_ = [DrawingView CreateColourRed:0 Green:255 Blue:255];
+	dark_red_ = [DrawingView CreateColourRed:150 Green:0 Blue:0];
 	dark_blue_ = [DrawingView CreateColourRed:0 Green:0 Blue:150];
 	light_blue_ = [DrawingView CreateColourRed:120 Green:150 Blue:220];
 	dark_grey_ = [DrawingView CreateColourRed:130 Green:130 Blue:130];
@@ -467,32 +475,89 @@ static bool statics_initialised_ = false;
 	}
 }
 
-- (void)FillShadedRectangle:(CGRect)rect
+- (void)FillShadedRectangle:(CGRect)rect WithHighlight:(bool)ifHighlight
 {
 	if(current_context_)
 	{
 		// Vertical gradient based on current background colour
 		UIColor * highlight = [self CreateHighlightColourFromColour:bg_];
 		UIColor * shadow = [self CreateShadowColourFromColour:bg_];
-
+		
 		CGContextSaveGState(current_context_);
 		CGContextClipToRect(current_context_, rect);
 		
-		CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-		CGColorRef colors[] = {[highlight CGColor], [bg_ CGColor], [shadow CGColor]};
-		CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 3, &kCFTypeArrayCallBacks);
+		CGGradientRef gradient;
 		
-		CGGradientRef gradient = CGGradientCreateWithColors(colorspace, colorsArray, NULL);
+		if(ifHighlight)
+		{
+			CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+			CGColorRef colors[] = {[highlight CGColor], [white_ CGColor], [highlight CGColor], [shadow CGColor]};
+			CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 4, &kCFTypeArrayCallBacks);
+			
+			CGFloat locations[] = {0.0, 0.4, 0.6, 1.0};
+			
+			gradient = CGGradientCreateWithColors(colorspace, colorsArray, locations);
+			
+			CFRelease(colorsArray);
+			CGColorSpaceRelease(colorspace);
+		}
+		else
+		{
+			CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+			CGColorRef colors[] = {[highlight CGColor], [bg_ CGColor], [shadow CGColor]};
+			CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 3, &kCFTypeArrayCallBacks);
+			
+			gradient = CGGradientCreateWithColors(colorspace, colorsArray, NULL);
+			
+			CFRelease(colorsArray);
+			CGColorSpaceRelease(colorspace);
+		}
+		
 		CGPoint start_point = rect.origin;
 		CGPoint end_point = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
 		CGContextDrawLinearGradient(current_context_, gradient, start_point, end_point, 0);
 		
-		CFRelease(colorsArray);
 		CGGradientRelease(gradient);
-		CGColorSpaceRelease(colorspace);
 		
 		[highlight release];
 		[shadow release];
+		
+		CGContextRestoreGState(current_context_);
+		
+	}
+}
+
+- (void)FillGlassRectangle:(CGRect)rect
+{
+	if(current_context_)
+	{
+		// Vertical gradient with varying degrees of transparency
+
+		CGContextSaveGState(current_context_);
+		CGContextClipToRect(current_context_, rect);
+		
+		UIColor * c1 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
+		UIColor * c2 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
+		UIColor * c3 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7];
+		UIColor * c4 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
+		UIColor * c5 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.4];
+		
+		CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+		CGColorRef colors[] = {[c1 CGColor], [c2 CGColor], [c3 CGColor], [c4 CGColor], [c5 CGColor]};
+		CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 5, &kCFTypeArrayCallBacks);
+			
+		CGFloat locations[] = {0.0, 0.2, 0.4, 0.5, 1.0};
+			
+		CGGradientRef gradient = CGGradientCreateWithColors(colorspace, colorsArray, locations);
+		
+		CFRelease(colorsArray);
+		CGColorSpaceRelease(colorspace);
+		
+		CGPoint start_point = rect.origin;
+		CGPoint end_point = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+		CGContextDrawLinearGradient(current_context_, gradient, start_point, end_point, 0);
+		
+		CGGradientRelease(gradient);
 		
 		CGContextRestoreGState(current_context_);
 		
@@ -513,9 +578,14 @@ static bool statics_initialised_ = false;
 	[self FillRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
 }
 
-- (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
+- (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 WithHighlight:(bool)ifHighlight
 {
-	[self FillShadedRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
+	[self FillShadedRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0)) WithHighlight:ifHighlight];
+}
+
+- (void)FillGlassRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
+{
+	[self FillGlassRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
 }
 
 - (void) FillPatternRectangle:(UIImage *)image X0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1

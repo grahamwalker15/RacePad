@@ -133,6 +133,8 @@ enum ConnectionTypes
 @property (nonatomic) float endTime;
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
+
+@property (readonly) RacePadViewController * registeredViewController;
 @property (retain) SettingsViewController *settingsViewController;
 @property (retain) GameViewController *gameViewController;
 

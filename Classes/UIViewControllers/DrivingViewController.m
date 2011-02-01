@@ -76,6 +76,9 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
+	// Register the views
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+
 	// Set paramters for views
 
 	if(car == RPD_BLUE_CAR_)
@@ -100,8 +103,6 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 		
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	

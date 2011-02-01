@@ -152,7 +152,7 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowTop];
 		[view SetBGColour:[view red_]];
-		[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5];
+		[view FillShadedRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5 WithHighlight:true];
 		[view RestoreGraphicsState];
 		
 		[view SaveGraphicsState];
@@ -160,7 +160,7 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowBottom];
 		[view SetBGColour:[view green_]];
-		[view FillRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack];
+		[view FillShadedRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack WithHighlight:true];
 		[view RestoreGraphicsState];
 		
 		[view SaveGraphicsState];
@@ -168,7 +168,7 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowLeft];
 		[view SetBGColour:[view orange_]];
-		[view FillRectangleX0:carXCentre - 25 - gLeft Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth];
+		[view FillShadedRectangleX0:carXCentre - 25 - gLeft Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth WithHighlight:true];
 		[view RestoreGraphicsState];
 		
 		[view SaveGraphicsState];
@@ -176,7 +176,7 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowRight];
 		[view SetBGColour:[view orange_]];
-		[view FillRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + gRight Y1:carYCentre + arrowWidth];
+		[view FillShadedRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + gRight Y1:carYCentre + arrowWidth WithHighlight:true];
 		[view RestoreGraphicsState];
 		
 		[view SetFGColour:[view white_]];
@@ -191,6 +191,31 @@ static UIImage * redBarImage = nil;
 		CGPathRelease(arrowBottom);
 		CGPathRelease(arrowLeft);
 		CGPathRelease(arrowRight);
+		
+		// Draw G force text
+		/* This works, but it's commented out for the moment as I don't like it - too busy
+		 
+		[view SetFGColour:[view white_]];
+		[view UseMediumBoldFont];
+		
+		if(gLat < -1.0)
+		{
+			[view DrawString:[NSString stringWithFormat:@"%.1fg", -gLat] AtX:xRight + arrowLength - 40 Y:carYCentre + 20];
+		}
+		else if(gLat > 1.0)
+		{
+			[view DrawString:[NSString stringWithFormat:@"%.1fg", gLat] AtX:xLeft - arrowLength + 10 Y:carYCentre + 20];
+		}
+		
+		if(gLong < -0.5)
+		{
+			[view DrawString:[NSString stringWithFormat:@"%.1fg", -gLong] AtX:carXCentre + 20 Y:yTop - arrowLength + 25];
+		}
+		else if(gLong > 0.5)
+		{
+			[view DrawString:[NSString stringWithFormat:@"%.1fg", gLong] AtX:carXCentre + 20 Y:yBottom + arrowLength - 40];
+		}
+		*/
 	}
 	
 	// Draw brake and throttle
@@ -260,7 +285,10 @@ static UIImage * redBarImage = nil;
 			sampleScore += 3;
 		}
 		else
+		{
 			[view SetFGColour:[view red_]];
+		}
+		
 		[view BeginPath];
 		[view LoadPath:rectBrake];
 		[view LineCurrentPath];
@@ -354,6 +382,8 @@ static UIImage * redBarImage = nil;
 	float dashSplit = wheelXCentre - 20;
 	float dashYBase = 20;
 	
+	CGRect dashRect = CGRectMake(dashLeft, dashYBase, (dashRight - dashLeft), 51);
+	
 	[view SetBGColour:[view very_light_grey_]];
 	[view FillRectangleX0:dashLeft Y0:dashYBase + 16 X1:dashRight Y1:dashYBase + 51 ];
 	[view SetBGColour:[view dark_grey_]];
@@ -445,6 +475,10 @@ static UIImage * redBarImage = nil;
 		else
 			[view DrawString:[NSString stringWithFormat:@"N"] AtX:dashLeft + 35 Y:dashYBase + 16];
 	}
+	
+	// Add glass highlight over dashboard
+	[view FillGlassRectangle:dashRect];
+	 
 	//Draw wheel
 	CGSize wheelSize = [wheelImage size];
 	

@@ -112,13 +112,10 @@ static UIImage *grassImage = nil;
 	if ( cx > *lastX - car_width )
 	{
 		row++;
-		cy = car_base - (car_height + 2) * row;
-		if ( cy < (y - graphicHeight + 16) )
-		{
-			cy = car_base;
+		if ( row >= 3 )
 			row = 0;
-		}
 		
+		cy = car_base - (car_height + 2) * row;
 		py = box_base - (box_height + 4) * row;
 	}
 	else
@@ -148,6 +145,8 @@ static UIImage *grassImage = nil;
 	int gt = [view transformX:((xMaxTime-gapThis) / (xMaxTime * 2))] * size.width;
 	
 	// Draw next lap gap indicator
+	// Don't do this for the moment - too confusing
+	/*
 	if ( !inPit )
 	{
 		if ( redTrail == nil )
@@ -168,6 +167,7 @@ static UIImage *grassImage = nil;
 			[view LineX0:gt Y0:py - box_height - 2  X1:gn Y1:py - box_height - 2];
 		}
 	}
+	*/
 	
 	[view SetLineWidth:1];
 	
@@ -337,7 +337,7 @@ static UIImage *grassImage = nil;
 	NSMutableArray *cars;
 	int count;
 	
-	int x_axis = y_base - 30;
+	int x_axis = y_base;
 	int y1 = y_base - graphicHeight;
 	
 	int x_pit_0 = [view transformX:(1-pitStopLoss)] * size.width;
@@ -409,7 +409,7 @@ static UIImage *grassImage = nil;
 	int cx = [view transformX:0.5] * size.width;
 	
 	// Draw centre line
-	[view LineRectangleX0:cx Y0:y_base - 10 X1:cx Y1:y1];
+	[view LineRectangleX0:cx Y0:x_axis + 20 X1:cx Y1:y1];
 	
 	// X Axis
 	[view FillRectangleX0:0 Y0:x_axis X1:size.width Y1:x_axis+2];
@@ -466,7 +466,7 @@ static UIImage *grassImage = nil;
 	int lastRow = 0;
 	int i;
 	for ( i = count - 1; i >= 0; i-- )
-		[[cars objectAtIndex:i] preDrawInView:view Height:graphicHeight - 30 Y:x_axis LastX:&lastX LastRow:&lastRow];
+		[[cars objectAtIndex:i] preDrawInView:view Height:graphicHeight Y:x_axis LastX:&lastX LastRow:&lastRow];
 	
 	for ( i = 0; i < count; i++ )
 			[[cars objectAtIndex:i] drawInView:view Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
@@ -484,12 +484,16 @@ static UIImage *grassImage = nil;
 		trackImage = [[UIImage imageNamed:@"Metal.png"] retain];
 	}
 	
-	float graphicHeight = (size.height - 20) * 3 / 5 - 20;
+	float axisSpace = size.height > 250 ? 30 : 25;
 	
-	if(graphicHeight > 160)
-		graphicHeight = 160;
+	float graphicHeight = (size.height - axisSpace) / 2;
 	
-	[self drawGraphicInView:view IsBlueCar:(car == RPD_BLUE_CAR_) Y:size.height Height:graphicHeight];
+	if(graphicHeight > 130)
+		graphicHeight = 130;
+	else if(graphicHeight < 90)
+		graphicHeight = 90;
+	
+	[self drawGraphicInView:view IsBlueCar:(car == RPD_BLUE_CAR_) Y:(size.height - axisSpace) Height:graphicHeight];
 }
 
 @end

@@ -37,6 +37,7 @@
 @synthesize endTime;
 @synthesize needsPlayRestart;
 @synthesize playing;
+@synthesize registeredViewController;
 @synthesize settingsViewController;
 @synthesize gameViewController;
 

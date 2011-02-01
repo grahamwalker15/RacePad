@@ -82,6 +82,9 @@
 	[blueTelemetryView setCar:RPD_BLUE_CAR_];
 	[redTelemetryView setCar:RPD_RED_CAR_];
 	
+	// Register the views
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+
 	// Resize overlay views to match background
 	[self showOverlays];
 	[self positionOverlays];
@@ -89,13 +92,12 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 	
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	[[RacePadCoordinator Instance] SetViewDisplayed:redTrackMapView];
+	
 	[[RacePadCoordinator Instance] SetViewDisplayed:blueTelemetryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:redTelemetryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:blueTrackMapView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:redTrackMapView];
-	
+
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }

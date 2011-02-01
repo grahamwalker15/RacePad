@@ -70,6 +70,9 @@
 	[bluePitWindowView setCar:RPD_BLUE_CAR_];
 	[redPitWindowView setCar:RPD_RED_CAR_];
 	
+	// Register the views
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_PIT_WINDOW_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	
 	// Resize overlay view to match background
 	int inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
@@ -82,8 +85,6 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 	
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_PIT_WINDOW_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:redPitWindowView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:bluePitWindowView];
 

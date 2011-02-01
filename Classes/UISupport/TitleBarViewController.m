@@ -13,9 +13,12 @@
 
 @synthesize sponsorButton;
 @synthesize alertButton;
+@synthesize helpBarButton;
+@synthesize helpButton;
 @synthesize eventName;
 @synthesize clock;
 @synthesize lapCounter;
+@synthesize trackStateButton;
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad

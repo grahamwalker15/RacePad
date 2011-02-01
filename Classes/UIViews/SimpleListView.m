@@ -125,6 +125,7 @@
 	inter_tyre_ = [DrawingView CreateColourRed:0 Green:255 Blue:255];
 	wet_tyre_ = [DrawingView CreateColourRed:110 Green:0 Blue:150];
 	
+	scroll_to_end_requested_ = false;	
 }
 
 - (void) DeleteTable
@@ -215,6 +216,11 @@
 	swiping_enabled_ = value;
 }
 
+- (void) RequestScrollToEnd
+{
+	scroll_to_end_requested_ = true;
+}
+
 - (void) ScrollToEnd
 {
 	CGRect bounds = [self bounds];
@@ -225,6 +231,10 @@
 		yOffset = 0;
 	
 	[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
+	[self getCurrentBoundsInfo];
+	
+	scroll_to_end_requested_ = false;
+
 	[self RequestRedraw];
 }
 
@@ -397,7 +407,7 @@
 				}
 				
 				if(heading)
-					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:true];
 				else if(draw_all_cells_ || [self isOpaque] || [text length] > 0)
 					[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 
@@ -541,6 +551,11 @@
 	}
 	
 	[self EndDrawing];
+	
+	if(scroll_to_end_requested_)
+	{
+		[self ScrollToEnd];		
+	}
 	
 }
 

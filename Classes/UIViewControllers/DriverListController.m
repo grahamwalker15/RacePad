@@ -9,6 +9,8 @@
 #import "DriverListController.h"
 #import "DriverLapListController.h"
 
+#import "TimingHelpController.h"
+
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
@@ -116,6 +118,14 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[TimingHelpController alloc] initWithNibName:@"TimingHelp" bundle:nil];
+	
+	return (HelpViewController *)helpController;
+}
 
 - (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
 {

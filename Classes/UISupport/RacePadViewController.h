@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
+#import "HelpViewController.h"
 
 // Virtual class to ensure that all of our view controllers have certain methods
 
@@ -53,7 +54,12 @@
 	NSTimer *doubleTapTimer;
 	CGPoint tapPoint;
 	UIView * tapView;
+	
+	HelpViewController * helpController;
 }
+
+// Virtual method to be overwritten to set the help view to be used for this view controller
+- (HelpViewController *) helpController;
 
 // Virtual method to be overwritten if you want any other options to appear with time controller
 - (UIView *) timeControllerAddOnOptionsView;

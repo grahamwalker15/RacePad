@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "TitleBarViewController.h"
 #import "AlertViewController.h"
+#import "HelpViewController.h"
 
-@interface RacePadTitleBarController : NSObject
+@interface RacePadTitleBarController : NSObject <UIPopoverControllerDelegate>
 {
 	TitleBarViewController * titleBarController;
 	AlertViewController * alertController;
 	UIPopoverController * alertPopover;
+	
+	HelpViewController * helpController;
+	UIPopoverController * helpPopover;
 	
 	int lapCount;
 	int currentLap;
@@ -35,5 +39,6 @@
 - (void) setTrackState: (int)state;
 
 - (IBAction)AlertPressed:(id)sender;
+- (IBAction)HelpPressed:(id)sender;
 
 @end

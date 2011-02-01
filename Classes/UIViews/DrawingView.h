@@ -24,6 +24,7 @@
 		UIColor * red_;
 		UIColor * green_;
 		UIColor * cyan_;
+		UIColor * dark_red_;
 		UIColor * dark_blue_;
 		UIColor * light_blue_;
 		UIColor * dark_grey_;
@@ -74,6 +75,7 @@
 @property (readonly) UIColor * red_;
 @property (readonly) UIColor * green_;
 @property (readonly) UIColor * cyan_;
+@property (readonly) UIColor * dark_red_;
 @property (readonly) UIColor * dark_blue_;
 @property (readonly) UIColor * light_blue_;
 @property (readonly) UIColor * dark_grey_;
@@ -97,6 +99,7 @@
 - (UIColor *)CreateShadowColourFromColour:(UIColor *)source;
 
 // Basic utilities
+- (void)getCurrentBoundsInfo;
 - (int)inqDeviceOrientation;
 - (CGSize)InqSize;
 
@@ -144,10 +147,12 @@
 - (void)LinePoint0:(CGPoint)p0 Point1:(CGPoint)p1;
 
 - (void)FillRectangle:(CGRect)rect;
-- (void)FillShadedRectangle:(CGRect)rect;
+- (void)FillShadedRectangle:(CGRect)rect WithHighlight:(bool)ifHighlight;
+- (void)FillGlassRectangle:(CGRect)rect;
 - (void)LineRectangle:(CGRect)rect;
 - (void)FillRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
-- (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
+- (void)FillShadedRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1 WithHighlight:(bool)ifHighlight;
+- (void)FillGlassRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)FillPatternRectangle:(UIImage *)image X0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 

@@ -9,6 +9,8 @@
 #import "DriverLapListController.h"
 #import "DriverListController.h"
 
+#import "LapListHelpController.h"
+
 #import "TableDataView.h"
 #import "RacePadCoordinator.h"
 #import "RacePadDatabase.h"
@@ -106,6 +108,14 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[LapListHelpController alloc] initWithNibName:@"LapListHelp" bundle:nil];
+	
+	return (HelpViewController *)helpController;
+}
 
 - (void)SetDriver:(NSString *)driver
 {

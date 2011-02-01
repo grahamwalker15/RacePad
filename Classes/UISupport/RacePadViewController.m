@@ -25,6 +25,8 @@
 	lastGestureAngle = 0.0;
 	lastGesturePanX = 0.0;
 	lastGesturePanY = 0.0;
+	
+	helpController = nil;
 
     [super viewDidLoad];
 }
@@ -45,6 +47,11 @@
 
 - (void)viewDidUnload
 {
+	if(helpController)
+		[helpController release];
+	
+	helpController = nil;
+
     [super viewDidUnload];
 }
 
@@ -52,6 +59,14 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[HelpViewController alloc] initWithNibName:@"DefaultHelpView" bundle:nil];
+
+	return helpController;
 }
 
 - (UIView *) timeControllerAddOnOptionsView

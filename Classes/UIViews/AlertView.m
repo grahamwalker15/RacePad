@@ -154,6 +154,8 @@
 			return [UIImage imageNamed:@"AlertInsight.png"];
 		case ALERT_LAP_COMPLETE_:
 			return [UIImage imageNamed:@"AlertLC.png"];
+		case ALERT_INFO_:
+			return [UIImage imageNamed:@"AlertInfo.png"];
 		default:
 			return [UIImage imageNamed:@"AlertPin.png"];
 	}			

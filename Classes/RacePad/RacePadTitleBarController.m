@@ -31,10 +31,14 @@ static RacePadTitleBarController * instance_ = nil;
 	if(self = [super init])
 	{	
 		titleBarController = [[TitleBarViewController alloc] initWithNibName:@"TitleBarView" bundle:nil];
+		
 		alertController = [[AlertViewController alloc] initWithNibName:@"AlertControlView" bundle:nil];
 		alertPopover = [[UIPopoverController alloc] initWithContentViewController:alertController];
 		[alertController setParentPopover:alertPopover];
 		
+		helpController = nil;
+		helpPopover = nil;
+				
 		lapCount = 0;
 	}
 	
@@ -67,6 +71,12 @@ static RacePadTitleBarController * instance_ = nil;
 	UIBarButtonItem * alert_button = [titleBarController alertButton];	
 	[alert_button setTarget:self];
 	[alert_button setAction:@selector(AlertPressed:)];
+	
+	UIButton * lap_button = [titleBarController lapCounter];
+	[lap_button addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
+	
+	UIButton * help_button = [titleBarController helpButton];
+	[help_button addTarget:self action:@selector(HelpPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	float current_time = [[RacePadCoordinator Instance] currentTime];	
 	[self updateTime:current_time];
@@ -129,22 +139,39 @@ static RacePadTitleBarController * instance_ = nil;
 	switch (state)
 	{
 		case TM_TRACK_GREEN:
+		default:
+			[[titleBarController lapCounter] setDefaultColours];
+			[[titleBarController lapCounter] requestRedraw];
+			[[titleBarController trackStateButton] setHidden:true];
 			break;
 		case TM_TRACK_YELLOW:
+			[[titleBarController lapCounter] setButtonColour:[UIColor yellowColor]];
+			[[titleBarController lapCounter] setTextColour:[UIColor blackColor]];
+			[[titleBarController lapCounter] requestRedraw];
+			[[titleBarController trackStateButton] setHidden:true];
 			break;
 		case TM_TRACK_SC:
+			[[titleBarController lapCounter] setButtonColour:[UIColor yellowColor]];
+			[[titleBarController lapCounter] setTextColour:[UIColor blackColor]];
+			[[titleBarController lapCounter] requestRedraw];
+			[[titleBarController trackStateButton] setImage:[UIImage imageNamed:@"TitleSC.png"] forState:UIControlStateNormal];
+			[[titleBarController trackStateButton] setHidden:false];
 			break;
 		case TM_TRACK_SCSTBY:
 			break;
 		case TM_TRACK_SCIN:
 			break;
 		case TM_TRACK_RED:
+			[[titleBarController lapCounter] setButtonColour:[UIColor redColor]];
+			[[titleBarController lapCounter] setTextColour:[UIColor whiteColor]];
+			[[titleBarController lapCounter] requestRedraw];
+			[[titleBarController trackStateButton] setHidden:true];
 			break;
 		case TM_TRACK_GRID:
 			break;
 		case TM_TRACK_CHEQUERED:
-			break;
-		default:
+			[[titleBarController trackStateButton] setImage:[UIImage imageNamed:@"TitleChequered.png"] forState:UIControlStateNormal];
+			[[titleBarController trackStateButton] setHidden:false];
 			break;
 	}
 }
@@ -171,5 +198,41 @@ static RacePadTitleBarController * instance_ = nil;
 	[alertPopover presentPopoverFromBarButtonItem:[titleBarController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 }
 
+- (IBAction)HelpPressed:(id)sender
+{
+	RacePadViewController * currentController = [[RacePadCoordinator Instance] registeredViewController];
+	
+	if(!currentController)
+		return;
+	
+	HelpViewController * newHelpController = [currentController helpController];
+	if(!newHelpController)
+		return;
+	
+	if(!helpController || !helpPopover || helpController != newHelpController)
+	{
+		if(helpController)
+			[helpController release];
+	
+		helpController = [newHelpController retain];
+			
+		if(helpPopover)
+			[helpPopover setContentViewController:helpController];
+		else
+			helpPopover = [[UIPopoverController alloc] initWithContentViewController:helpController];
+	}
+	
+	[helpPopover setDelegate:self];
+	[helpController setParentPopover:helpPopover];
+
+	CGSize popoverSize = CGSizeMake(600,600);
+	
+	[helpPopover setPopoverContentSize:popoverSize];
+	[helpPopover presentPopoverFromBarButtonItem:[titleBarController helpBarButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+}
 
 @end

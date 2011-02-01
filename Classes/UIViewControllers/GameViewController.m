@@ -7,6 +7,9 @@
 //
 
 #import "GameViewController.h"
+
+#import "GameHelpController.h"
+
 #import "RacePadCoordinator.h"
 #import	"RacePadDatabase.h"
 #import "UserPin.h"
@@ -23,6 +26,7 @@
 	
 	[leagueTable SetRowHeight:30];
 	[leagueTable SetHeading:true];
+	[leagueTable SetBackgroundAlpha:0.8];
 
 	[predictionBG removeFromSuperview];
 	[result setBackgroundView:predictionBG];
@@ -92,7 +96,6 @@
 	
 	// Register this UI as current
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
-	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
 	
 	[leagueTable SetBaseColour:[leagueTable light_grey_]];
 
@@ -100,6 +103,8 @@
 	[self updatePrediction];
 	[self positionViews];
 	[self showViews];
+
+	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -162,6 +167,14 @@
 
 /////////////////////////////////////////////////////////////////////
 // Class specific methods
+
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[GameHelpController alloc] initWithNibName:@"GameHelp" bundle:nil];
+	
+	return (HelpViewController *)helpController;
+}
 
 - (unsigned char) inqGameStatus
 {
@@ -263,8 +276,18 @@
 	bool gameStarted = ([self inqGameStatus] != GS_NOT_STARTED);
 	bool validUser = ([[[RacePadDatabase Instance] racePrediction] validUser]);
 	
-	leagueTable.hidden = !gameStarted;	// Hidden before game, shown afterwards
-	
+	//[background clearFrames];
+
+	if(gameStarted)
+	{
+		leagueTable.hidden =  NO;
+		//[background addFrame:[leagueTable frame]];
+	}
+	else
+	{
+		leagueTable.hidden = YES;
+	}
+
 	if (validUser)
 	{
 		// We have a valid user, but he/she may not yet have entered pin

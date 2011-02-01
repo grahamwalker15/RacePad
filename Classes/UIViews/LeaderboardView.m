@@ -68,7 +68,7 @@
 	
 	[self SetFGColour:white_];
 				
-	[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+	[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:false];
 				
 	if([text length] > 0)
 	{				

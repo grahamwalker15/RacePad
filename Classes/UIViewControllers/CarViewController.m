@@ -12,6 +12,8 @@
 #import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
 
+#import "TelemetryHelpController.h"
+
 #import "RacePadDatabase.h"
 #import "Telemetry.h"
 
@@ -42,11 +44,15 @@
 	[trackMapView setUserScale:10.0];
 	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
 	
+	commentaryExpanded = false;
+	commentaryAnimating = false;
+	
 	//  Add extra gesture recognizers
 	
 	//	Tap recognizer for background,pit window and telemetry views
 	[self addTapRecognizerToView:backgroundView];
 	[self addTapRecognizerToView:telemetryView];
+	[self addTapRecognizerToView:commentaryView];
 	[self addTapRecognizerToView:pitWindowView];
 	
     //	Tap, pinch, and double tap recognizers for map
@@ -59,6 +65,9 @@
 	[self addDoubleTapRecognizerToView:pitWindowView];
 	[self addPanRecognizerToView:pitWindowView];
 	[self addPinchRecognizerToView:pitWindowView];
+	
+	// Double tap recognizer for expanding commentary view
+	[self addDoubleTapRecognizerToView:commentaryView];
 	
 	[super viewDidLoad];
 	
@@ -80,6 +89,9 @@
 {
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
+	
+	// Register the views
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
 	// Set paramters for views
 
@@ -111,13 +123,11 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 		
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:pitWindowView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-	
+
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
@@ -151,14 +161,14 @@
 {
 	[backgroundView RequestRedraw];
 	
-	[commentaryView ScrollToEnd];
+	commentaryAnimating = true;
 	
 	[telemetryView setAlpha:0.0];
 	[pitWindowView setAlpha:0.0];
 	[trackMapContainer setAlpha:0.0];
 	[telemetryView setHidden:false];
 	[commentaryView setHidden:false];
-	[pitWindowView setHidden:false];
+	[pitWindowView setHidden:commentaryExpanded]; // Hidden if commentary expanded
 	[trackMapContainer setHidden:false];
 	
 	[self positionOverlays];
@@ -166,6 +176,7 @@
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(viewAnimationDidStop:finished:context:)];
 	[telemetryView setAlpha:1.0];
 	[pitWindowView setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
@@ -197,6 +208,14 @@
     [super dealloc];
 }
 
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[TelemetryHelpController alloc] initWithNibName:@"TelemetryHelp" bundle:nil];
+	
+	return (HelpViewController *)helpController;
+}
+
 - (void)positionOverlays
 {
 	// Get the device orientation and set things up accordingly
@@ -205,10 +224,15 @@
 	int inset = [backgroundView inset] + 10;
 	CGRect bg_frame = [backgroundView frame];
 	
-	int commentaryHeight = (orientation == UI_ORIENTATION_PORTRAIT_) ? 120 : 80;
+	int commentaryHeight = (orientation == UI_ORIENTATION_PORTRAIT_) ? 200 : 120;
 		
 	[telemetryView setFrame:CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - 20 - inset * 3)];
-	[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, commentaryHeight)];
+	
+	if(commentaryExpanded)
+		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 + 20 - inset)];
+	else
+		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, commentaryHeight)];
+
 	[pitWindowView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + commentaryHeight - 20 + inset * 2, bg_frame.size.width - inset * 2, bg_frame.size.height / 2  - (commentaryHeight - 20) - inset * 3)];
 	
 	CGRect telemetry_frame = [telemetryView frame];
@@ -236,24 +260,34 @@
 	
 	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
 	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
-	
-	
+		
+	[self addBackgroundFrames];
+}
+
+- (void)addBackgroundFrames
+{
 	[backgroundView clearFrames];
 	[backgroundView addFrame:[telemetryView frame]];
 	[backgroundView addFrame:[commentaryView frame]];
-	[backgroundView addFrame:[pitWindowView frame]];
+	
+	if(!commentaryExpanded)
+		[backgroundView addFrame:[pitWindowView frame]];
 }
 
 - (void)showOverlays
 {
 	[telemetryView setHidden:false];
 	[commentaryView setHidden:false];
-	[pitWindowView setHidden:false];
 	[trackMapContainer setHidden:false];
 	[telemetryView setAlpha:1.0];
 	[trackMapContainer setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
-	[pitWindowView setAlpha:1.0];
+
+	if(!commentaryExpanded)
+	{
+		[pitWindowView setHidden:false];
+		[pitWindowView setAlpha:1.0];
+	}
 }
 
 - (void)hideOverlays
@@ -326,6 +360,17 @@
 		[(PitWindowView *)gestureView setUserOffset:0.0];
 		[(PitWindowView *)gestureView setUserScale:1.0];
 		[(PitWindowView *)gestureView RequestRedraw];
+	}
+	else if([gestureView isKindOfClass:[commentaryView class]])
+	{
+		if(commentaryExpanded)
+		{
+			[self restoreCommentaryView];
+		}
+		else
+		{
+			[self expandCommentaryView];
+		}
 	}
 }
 
@@ -429,6 +474,99 @@
 
 	[trackMapContainer RequestRedraw];
 	[[RacePadCoordinator Instance] EnableViewRefresh:trackMapView];
+}
+
+- (void) expandCommentaryView
+{
+	if(commentaryAnimating)
+		return;
+	
+	commentaryAnimating = true;
+	
+	CGRect commentaryFrame = [commentaryView frame];
+	CGRect pitWindowFrame = [pitWindowView frame];
+	
+	float newHeight = pitWindowFrame.origin.y + pitWindowFrame.size.height - commentaryFrame.origin.y;
+	
+	CGRect newFrame = CGRectMake(commentaryFrame.origin.x, commentaryFrame.origin.y, commentaryFrame.size.width, newHeight);
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(commentaryExpansionDidStop:finished:context:)];
+	[pitWindowView setAlpha:0.0];
+	[commentaryView setFrame:newFrame];
+	[UIView commitAnimations];
+	
+	commentaryExpanded = true;
+}
+
+- (void) restoreCommentaryView
+{
+	if(commentaryAnimating)
+		return;
+	
+	commentaryAnimating = true;
+	
+	CGRect commentaryFrame = [commentaryView frame];
+	CGRect pitWindowFrame = [pitWindowView frame];
+	
+	int inset = [backgroundView inset] + 10;
+	float newHeight = pitWindowFrame.origin.y - inset * 2 - commentaryFrame.origin.y;
+	
+	CGRect newFrame = CGRectMake(commentaryFrame.origin.x, commentaryFrame.origin.y, commentaryFrame.size.width, newHeight);
+	
+	[pitWindowView setAlpha:0.0];
+	[pitWindowView setHidden:false];
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(commentaryRestorationDidStop:finished:context:)];
+	[pitWindowView setAlpha:1.0];
+	[commentaryView setFrame:newFrame];
+	[UIView commitAnimations];
+	
+}
+
+- (void) viewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		commentaryAnimating = false;		
+	}
+}
+
+- (void) commentaryExpansionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[pitWindowView setHidden:true];
+
+		commentaryExpanded = true;
+		commentaryAnimating = false;		
+
+		[commentaryView RequestScrollToEnd];
+		[commentaryView RequestRedraw];
+
+		[self addBackgroundFrames];
+		[backgroundView RequestRedraw];
+	}
+}
+
+- (void) commentaryRestorationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		commentaryExpanded = false;
+		commentaryAnimating = false;
+
+		[commentaryView RequestScrollToEnd];
+		[commentaryView RequestRedraw];
+		
+		[self addBackgroundFrames];
+		[backgroundView RequestRedraw];
+	}
 }
 
 @end

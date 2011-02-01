@@ -10,6 +10,9 @@
 #import "RacePadCoordinator.h"
 #import "RacePadTitleBarController.h"
 #import "RacePadTimeController.h"
+
+#import "VideoHelpController.h"
+
 #import "RacePadDatabase.h"
 #import "TableDataView.h"
 #import "TrackMapView.h"
@@ -105,6 +108,8 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+
 	// Position the movie and order the overlays
 	CALayer *superlayer = movieView.layer;
 	moviePlayerLayer = [AVPlayerLayer playerLayerWithPlayer:moviePlayer];
@@ -138,7 +143,6 @@
 		[trackZoomContainer setHidden:false];
 	}
 	
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 	
 	if(displayMap)
@@ -221,6 +225,14 @@
 	[moviePlayerLayer release];
 	[moviePlayer release];
     [super dealloc];
+}
+
+- (HelpViewController *) helpController
+{
+	if(!helpController)
+		helpController = [[VideoHelpController alloc] initWithNibName:@"VideoHelp" bundle:nil];
+	
+	return (HelpViewController *)helpController;
 }
 
 ////////////////////////////////////////////////////////////////////////////

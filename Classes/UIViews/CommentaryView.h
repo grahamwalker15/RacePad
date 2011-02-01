@@ -14,6 +14,8 @@
 	int car;
 	
 	int lastRowCount;
+	
+	float latestMessageTime;
 }
 
 @property (nonatomic) int car;
