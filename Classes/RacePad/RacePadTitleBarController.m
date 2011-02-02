@@ -225,7 +225,7 @@ static RacePadTitleBarController * instance_ = nil;
 	[helpPopover setDelegate:self];
 	[helpController setParentPopover:helpPopover];
 
-	CGSize popoverSize = CGSizeMake(600,600);
+	CGSize popoverSize = CGSizeMake(600,650);
 	
 	[helpPopover setPopoverContentSize:popoverSize];
 	[helpPopover presentPopoverFromBarButtonItem:[titleBarController helpBarButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];

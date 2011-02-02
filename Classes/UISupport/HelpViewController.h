@@ -14,6 +14,7 @@
 	IBOutlet UIBarButtonItem * closeButton;
 	
 	IBOutlet UIView * backgroundView;
+	IBOutlet UIImageView * imageView;
 	
 	IBOutlet UIButton * helpButton1;
 	IBOutlet UIButton * helpButton2;
@@ -48,6 +49,7 @@
 
 @property (nonatomic, retain) UIPopoverController * parentPopover;
 
+- (void) positionViews;
 - (void) getHTMLForView:(UIWebView *)webView WithIndex:(int)index;
 
 - (IBAction) closePressed:(id)sender;

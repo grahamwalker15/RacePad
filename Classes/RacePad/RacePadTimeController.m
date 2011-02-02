@@ -80,17 +80,19 @@ static RacePadTimeController * instance_ = nil;
 	// Get the new positions
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
+	CGRect time_toolbar_bounds = [timeController.toolbar bounds];
 	CGRect jog_controller_bounds = [jogController.view bounds];
 	
-	CGRect timeFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, 60);
-	CGRect jogFrame = CGRectMake(timeFrame.origin.x + timeFrame.size.width - jog_controller_bounds.size.width, timeFrame.origin.y - jog_controller_bounds.size.height - 20, jog_controller_bounds.size.width, jog_controller_bounds.size.height);
+	CGRect timeFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, time_controller_bounds.size.height);
+	CGRect toolbarFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_toolbar_bounds.size.height - 30, super_bounds.size.width - 60, time_toolbar_bounds.size.height);
+	CGRect jogFrame = CGRectMake(toolbarFrame.origin.x + toolbarFrame.size.width - jog_controller_bounds.size.width, toolbarFrame.origin.y - jog_controller_bounds.size.height - 20, jog_controller_bounds.size.width, jog_controller_bounds.size.height);
 	[timeController.view setFrame:timeFrame];
 	[jogController.view setFrame:jogFrame];
 	
 	if(addOnOptionsView)
 	{
 		CGRect options_bounds = [addOnOptionsView bounds];
-		CGRect optionsFrame = CGRectMake(super_bounds.origin.x + (super_bounds.size.width - options_bounds.size.width) / 2, timeFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
+		CGRect optionsFrame = CGRectMake(super_bounds.origin.x + (super_bounds.size.width - options_bounds.size.width) / 2, toolbarFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
 		[addOnOptionsView setFrame:optionsFrame];
 	}
 

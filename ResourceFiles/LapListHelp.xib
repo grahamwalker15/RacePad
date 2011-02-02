@@ -743,6 +743,14 @@
 					</object>
 					<int key="connectionID">75</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="655637354"/>
+					</object>
+					<int key="connectionID">76</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1006,7 +1014,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUKwAABB4AAAA</bytes>
 					</object>
-					<string>{{454, 66}, {600, 620}}</string>
+					<string>{{454, 77}, {600, 620}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1065,7 +1073,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">75</int>
+			<int key="maxID">76</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1132,6 +1140,7 @@
 							<string>helpText8</string>
 							<string>helpText9</string>
 							<string>helpTextDefault</string>
+							<string>imageView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1158,6 +1167,7 @@
 							<string>UIWebView</string>
 							<string>UIWebView</string>
 							<string>UIWebView</string>
+							<string>UIImageView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1187,6 +1197,7 @@
 							<string>helpText8</string>
 							<string>helpText9</string>
 							<string>helpTextDefault</string>
+							<string>imageView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1281,6 +1292,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">helpTextDefault</string>
 								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">imageView</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 						</object>
 					</object>

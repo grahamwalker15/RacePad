@@ -20,6 +20,7 @@
 	IBOutlet UIView * scrubControl;
 }
 
+@property (readonly) UIToolbar * toolbar;
 @property (readonly) UIBarButtonItem * playButton;
 @property (readonly) UIBarButtonItem * replayButton;
 @property (readonly) UISlider * timeSlider;

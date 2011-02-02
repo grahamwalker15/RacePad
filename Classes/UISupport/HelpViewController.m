@@ -37,6 +37,8 @@
 
 - (void)viewDidLoad
 {
+	[self positionViews];
+
 	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"PredictionBG.png"]];
 	[backgroundView setBackgroundColor:background];
 	[background release];
@@ -102,6 +104,28 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (void) positionViews
+{
+	[[self view] setFrame:CGRectMake(0, 0, 600, 650)];
+	[backgroundView setFrame:CGRectMake(0, 44, 600, 606)];
+	[imageView setFrame:CGRectMake(44, 14, 512, 384)];
+	
+	// N.B. The NIB file must have the imageView at this position so that the
+	// help buttons will line up correctly.
+	
+	[helpTextDefault setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText1 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText2 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText3 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText4 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText5 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText6 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText7 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText8 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText9 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText10 setFrame:CGRectMake(44, 405, 512, 187)];
 }
 
 - (IBAction) helpButtonPressed:(id)sender

@@ -370,6 +370,7 @@
 		{
 			float angle = atan2(dy,dx);
 			[(UIJogGestureRecognizer *)gestureRecognizer setLastAngle:angle];
+			[(UIJogGestureRecognizer *)gestureRecognizer setDirection:0];
 			[(UIJogGestureRecognizer *)gestureRecognizer setInitialised:true];
 		}
 	}
@@ -382,11 +383,11 @@
 		// Fast spinning is considered as maximum speed (= 90 degrees per sample)
 		// First verify that we haven't crossed the +/- 180 degree line slowly
 		
-		float direction = [(UIJogGestureRecognizer *)gestureRecognizer direction];
+		int direction = [(UIJogGestureRecognizer *)gestureRecognizer direction];
 		
 		if(angle > M_PI * 0.75 && lastAngle < - M_PI * 0.75)
 		{
-			angle -= M_PI * 2;
+			lastAngle += M_PI * 2;
 			change = angle - lastAngle;
 		}
 		else if(angle < - M_PI * 0.75 && lastAngle > M_PI * 0.75)
@@ -395,17 +396,16 @@
 			change = angle - lastAngle;
 		}
 		
-/*
-		if(fabsf(change) > M_PI * 0.5)
+		int newDirection = change < -0.0001 ? -1 : change > 0.0001 ? 1 : direction;
+
+		if(fabsf(change) > M_PI * 0.75)
 		{
-			change = M_PI * 0.5 * direction;
+			if(direction != 0 && newDirection != direction)
+			{
+				change = direction == 1 ? change + M_PI * 2.0 : change - M_PI * 2.0 ;
+			}
 		}
-		else
-		{
-			direction = change < -0.0001 ? -1 : change > 0.0001 ? 1.0 : direction;
-		}
- */
-		
+ 		
 		while(angle > M_PI)
 			angle -= M_PI * 2;
 		
@@ -413,7 +413,7 @@
 			angle += M_PI * 2;
 		
 		[(UIJogGestureRecognizer *)gestureRecognizer setLastAngle:angle];
-		[(UIJogGestureRecognizer *)gestureRecognizer setDirection:direction];
+		[(UIJogGestureRecognizer *)gestureRecognizer setDirection:newDirection];
 		
 		[self OnJogGestureInView:gestureView AngleChange:change State:state];
 	}
@@ -495,7 +495,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	direction = 1.0;
+	direction = 0;
 	
 	downPoint = [[touches anyObject] locationInView:[self view]];
 	
@@ -525,7 +525,7 @@
 	CGRect viewBounds = [gestureView bounds];
 
 	float xCentre = viewBounds.size.width / 2;
-		float yCentre = viewBounds.size.height / 2;
+	float yCentre = viewBounds.size.height / 2;
 
 	float dx = point.x - xCentre;
 	float dy = yCentre - point.y;

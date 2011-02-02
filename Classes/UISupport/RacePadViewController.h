@@ -29,13 +29,13 @@
 	CGPoint downPoint;
 	bool initialised;
 	float lastAngle;
-	float direction;
+	int direction;
 }
 
 @property (readonly) CGPoint downPoint;
 @property (nonatomic) bool initialised;
 @property (nonatomic) float lastAngle;
-@property (nonatomic) float direction;
+@property (nonatomic) int direction;
 
 - (float)angleOfPoint:(CGPoint)point InView:(UIView *)gestureView;
 

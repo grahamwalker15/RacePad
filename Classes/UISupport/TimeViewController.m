@@ -11,6 +11,7 @@
 
 @implementation TimeViewController
 
+@synthesize toolbar;
 @synthesize playButton;
 @synthesize replayButton;
 @synthesize timeSlider;
