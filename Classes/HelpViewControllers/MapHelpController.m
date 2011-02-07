@@ -79,7 +79,7 @@
 	
 	[html appendString:@"</body</html>"];
 	
-	[webView loadHTMLString:html baseURL:nil];
+	[webView loadHTMLString:html baseURL:[[NSBundle mainBundle] bundleURL]];
 	
 	[html release];	
 }
