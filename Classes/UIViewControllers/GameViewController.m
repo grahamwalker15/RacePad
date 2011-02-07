@@ -35,6 +35,9 @@
 	[background setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
 	[draggedDriverCell removeFromSuperview];
+	
+	driverInfoController = nil;
+	driverInfoPopover = nil;
 
 	changingSelection = false;
 	draggingCell = false;
@@ -65,7 +68,6 @@
 	// Register our interest in data feeds
 	[[RacePadCoordinator Instance] setGameViewController:self];
 	[[RacePadCoordinator Instance] AddView:leagueTable WithType:RPC_GAME_VIEW_];
-
 	
 	// We get the tap to show/hide the time controller
 	[self addTapRecognizerToView:leagueTable];
@@ -235,7 +237,7 @@
 	[drivers1 setFrame:drivers1Frame];
 	
 	CGRect drivers2Frame = [drivers2 frame];
-	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 30, yOrigin, drivers2Frame.size.width, driverTableHeight);
+	drivers2Frame = CGRectMake(xOrigin + drivers1Frame.size.width + 20, yOrigin, drivers2Frame.size.width, driverTableHeight);
 	[drivers2 setFrame:drivers2Frame];
 	
 	if ( [self inqGameStatus] == GS_NOT_STARTED )
@@ -821,6 +823,7 @@
 		if ( p <= 0 )
 		{
 			cell.detailTextLabel.text = nil;
+			cell.accessoryType = UITableViewCellAccessoryNone;
 		}
 		else
 		{
@@ -835,12 +838,14 @@
 				name = [name stringByAppendingString:@")"];
 			}
 			cell.detailTextLabel.text = name;
+			cell.accessoryType = UITableViewCellAccessoryNone;
 		}
 	}
 	else if ( tableView == users )
 	{
 		cell.textLabel.text = [[[[RacePadDatabase Instance]competitorData] cell:indexPath.row Col:1] string];
 		cell.detailTextLabel.text = nil;
+		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 	else // tableView is one of the driver lists
 	{
@@ -851,12 +856,14 @@
 		{
 			cell.detailTextLabel.text = nil;
 			cell.textLabel.text = nil;
+			cell.accessoryType = UITableViewCellAccessoryNone;
 		}
 		else
 		{
 			DriverName *driver = [[[RacePadDatabase Instance]driverNames] driver:driverIndexAtRow];
 			cell.textLabel.text = driver.name;
 			cell.detailTextLabel.text = driver.team;
+			cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 		}
 	}
 	
@@ -956,6 +963,62 @@
 	
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+	// Get the UI orientation
+	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
+	
+	if ( changingSelection )
+		return;
+	
+	changingSelection = true;
+	
+	if(tableView == drivers1 || tableView == drivers2)
+	{
+		// Get the picked driver - may be from either driver list
+		int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
+		int driverListOffset = (tableView == drivers1) ? 0 : driverListSplit;
+		int selectedDriverIndex = indexPath.row + driverListOffset;
+		
+		// Don't act on any rows picked below the last driver in the first list
+		bool invalid = (tableView == drivers1 && selectedDriverIndex > driverListSplit);
+		
+		// Pick driver if we're allowed
+		if ( !invalid )
+		{
+			[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:TRUE];
+			[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
+			
+			// Show driver info in popover
+			[self showDriverInfoPopover:selectedDriverIndex AtRect:[tableView rectForRowAtIndexPath:indexPath] InView:tableView];
+		}		
+	}
+	
+	changingSelection = false;
+}
+
+- (void) showDriverInfoPopover:(int)index AtRect:(CGRect)selectedRect InView:(UIView *)selectedView
+{
+	if(!driverInfoController)
+	{
+		driverInfoController = [[DriverInfoViewController alloc] initWithNibName:@"DriverInfo" bundle:nil];
+		driverInfoPopover = [[UIPopoverController alloc] initWithContentViewController:driverInfoController];
+		[driverInfoPopover setDelegate:self];
+		[driverInfoController setParentPopover:driverInfoPopover];
+	}
+	
+	if(driverInfoController && [driverInfoController setDriverIndex:index])
+	{
+		CGSize popoverSize = CGSizeMake(320,420);
+		[driverInfoPopover setPopoverContentSize:popoverSize];
+		[driverInfoPopover presentPopoverFromRect:selectedRect inView:selectedView  permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+	}
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	return YES;
@@ -1022,7 +1085,6 @@
 					[draggedDriverText setText:[[cell textLabel] text]];
 					[draggedDriverDetailText setText:[[cell detailTextLabel] text]];
 
-					
 					draggingCell = true;
 					reorderOnDrop = (gestureView == result);
 					draggedDriverIndex = selectedDriverIndex;
