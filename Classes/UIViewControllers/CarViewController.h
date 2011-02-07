@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "RacePadViewController.h"
+#import "ShinyButton.h"
 
 @class TelemetryView;
 @class PitWindowView;
@@ -26,6 +27,7 @@
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet CommentaryView * commentaryView;
 	IBOutlet PitWindowView * pitWindowView;
+	IBOutlet ShinyButton *pitWindowSimplifyButton;
 	
 	IBOutlet BackgroundView *trackMapContainer;
 	IBOutlet UIButton *trackMapSizeButton;
@@ -54,6 +56,8 @@
 - (IBAction) trackMapSizeChanged;
 - (void) trackMapSizeAnimationDidFire:(id)alphaPtr;
 - (void) trackMapSizeAnimationDidStop;
+
+- (IBAction) pitWindowSimplifyPressed:(id)sender;
 
 - (void) expandCommentaryView;
 - (void) restoreCommentaryView;

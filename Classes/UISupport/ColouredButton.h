@@ -13,11 +13,14 @@
 	UIColor * textColour;
 	UIColor * buttonColour;
 	UIColor * outlineColour;
+	
+	bool outline;
 }
 
 @property (nonatomic, retain) UIColor * textColour;
 @property (nonatomic, retain) UIColor * buttonColour;
 @property (nonatomic, retain) UIColor * outlineColour;
+@property (nonatomic) bool outline;
 
 - (void) setDefaultColours;
 - (void) requestRedraw;

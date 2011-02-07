@@ -25,6 +25,7 @@
 	float gapThis;
 	bool lapped;
 	bool lapping;
+	bool shouldDraw;
 	
 	int px, py;
 	int cx, cy;
@@ -34,8 +35,8 @@
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
-- (void) preDrawInView:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastRow:(int *)lastRow;
-- (void) drawInView:(PitWindowView *)view Y:(int)y XMaxTime:(int)xMaxTime ImageList:(ImageList *)imageList;
+- (void) preDrawInView:(PitWindowView *)view Simplified:(bool)simplified Height:(float)graphicHeight Y:(int)y LastX:(int *) lastX LastRow:(int *)lastRow;
+- (void) drawInView:(PitWindowView *)view Simplified:(bool)simplified Y:(int)y XMaxTime:(int)xMaxTime ImageList:(ImageList *)imageList;
 
 @end
 
@@ -55,8 +56,11 @@
 	
 	int xRange;
 	int xMaxTime;
-		
+	
+	bool simplified;
 }
+
+@property (nonatomic) bool simplified;
 
 - (void) loadBase: (DataStream *) stream;
 - (void) load : (DataStream *) stream;

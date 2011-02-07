@@ -211,7 +211,7 @@ static RacePadTimeController * instance_ = nil;
 
 - (void) setHideTimer
 {
-	// Timer to hide the controls if they're not touched for 10 seconds
+	// Timer to hide the controls if they're not touched for 5 seconds
 	if(hideTimer)
 		[hideTimer invalidate];
 	
@@ -235,6 +235,13 @@ static RacePadTimeController * instance_ = nil;
 - (void) updateSlider:(float)time
 {
 	UISlider * slider = [timeController timeSlider];
+	
+	if(time < [slider minimumValue])
+		[slider setMinimumValue:time];
+	
+	if(time > [slider maximumValue])
+		[slider setMaximumValue:time];
+	
 	[slider setValue:time animated:false];
 }
 
@@ -249,6 +256,17 @@ static RacePadTimeController * instance_ = nil;
 	[clock setTitle:time_string forState:UIControlStateNormal];
 }
 
+- (void) setSliderMin:(float)startTime
+{
+	UISlider * slider = [timeController timeSlider];
+	[slider setMinimumValue:startTime];
+}
+
+- (void) setSliderMax:(float)endTime
+{
+	UISlider * slider = [timeController timeSlider];
+	[slider setMaximumValue:endTime];
+}
 - (void) setSliderMin:(float)startTime Max:(float)endTime
 {
 	UISlider * slider = [timeController timeSlider];

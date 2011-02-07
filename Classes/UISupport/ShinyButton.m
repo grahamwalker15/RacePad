@@ -11,13 +11,31 @@
 
 @implementation ShinyButton
 
+@synthesize shine;
+
+- (id)initWithCoder:(NSCoder*)coder
+{    
+    if ((self = [super initWithCoder:coder]))
+    {
+		shine = 0.3;
+	}
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    
+    self = [super initWithFrame:frame];
+    if (self)
+	{
+		shine = 0.3;
+    }
+    return self;
+}
 
 - (void)drawRect:(CGRect)rect
 {
 	// Make highlight colour and shadow colour from button colour
-	
-	UIColor * highlight;
-	UIColor * shadow;
 	
 	int component_count = CGColorGetNumberOfComponents ([buttonColour CGColor]);
 	const CGFloat *components = CGColorGetComponents([buttonColour CGColor]);
@@ -40,34 +58,41 @@
 	// If the button is white, darken it a bit
 	if(r > 0.95 && g > 0.95 && b > 0.95)
 	{
-		r = 0.8;
-		g = 0.8;
-		b = 0.8;
+		r = 0.95;
+		g = 0.95;
+		b = 0.95;
 		[buttonColour release];
 		buttonColour = [[UIColor alloc] initWithRed:r green:g blue:b alpha:1.0];
 	}
 	
 	// Now make the highlight and shadow
 
-	CGFloat rh = r + 0.2; if(rh > 1.0) rh = 1.0;
-	CGFloat gh = g + 0.2; if(gh > 1.0) gh = 1.0;
-	CGFloat bh = b + 0.2; if(bh > 1.0) bh = 1.0;
-	highlight = [[UIColor alloc] initWithRed:rh green:gh blue:bh alpha:1.0];
+	CGFloat rh = r * 1.2; if(rh > 1.0) rh = 1.0;
+	CGFloat gh = g * 1.2; if(gh > 1.0) gh = 1.0;
+	CGFloat bh = b * 1.2; if(bh > 1.0) bh = 1.0;
+	UIColor * highlight = [[UIColor alloc] initWithRed:rh green:gh blue:bh alpha:1.0];
 	
-	CGFloat rs = r * 0.7;
-	CGFloat gs = g * 0.7;
-	CGFloat bs = b * 0.7;
-	shadow = [[UIColor alloc] initWithRed:rs green:gs blue:bs alpha:1.0];
+	CGFloat rs = r * 0.5;
+	CGFloat gs = g * 0.5;
+	CGFloat bs = b * 0.5;
+	UIColor * shadow = [[UIColor alloc] initWithRed:rs green:gs blue:bs alpha:1.0];
 	
-	UIColor * white = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+	CGFloat rw = r + shine; if(rw > 1.0) rw = 1.0;
+	CGFloat gw = g + shine; if(gw > 1.0) gw = 1.0;
+	CGFloat bw = b + shine; if(bw > 1.0) bw = 1.0;
+	UIColor * white = [[UIColor alloc] initWithRed:rw green:gw blue:bw alpha:1.0];
 
+	// Create rounded path filling the bounds
 	// Create rounded path filling the bounds
 	CGRect bounds = [self bounds];
 	
-	float x0 = bounds.origin.x + 1;
-	float y0 = bounds.origin.y + 1;
-	float x1 = x0 + bounds.size.width - 2;
-	float y1 = y0 + bounds.size.height - 2;
+	if(outline)
+		bounds = CGRectInset(bounds, 2, 2);
+	
+	float x0 = bounds.origin.x + 0.5;
+	float y0 = bounds.origin.y + 0.5;
+	float x1 = x0 + bounds.size.width - 1.0 ;
+	float y1 = y0 + bounds.size.height - 1.0;
 	
 	float rad = 10.0;
 	
@@ -97,10 +122,10 @@
 	
 	// Vertical gradient based on current background colour
 	CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-	CGColorRef colors[] = {[shadow CGColor], [highlight CGColor], [white CGColor], [highlight CGColor], [shadow CGColor]};
-	CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 5, &kCFTypeArrayCallBacks);
+	CGColorRef colors[] = {[shadow CGColor], [highlight CGColor], [white CGColor], [highlight CGColor], [buttonColour CGColor], [shadow CGColor]};
+	CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 6, &kCFTypeArrayCallBacks);
 	
-	CGFloat locations[] = {0.0, 0.1, 0.4, 0.6, 1.0};
+	CGFloat locations[] = {0.0, 0.1, 0.3, 0.4, 0.6, 1.0};
 	
 	CGGradientRef gradient = CGGradientCreateWithColors(colorspace, colorsArray, locations);
 	
@@ -119,10 +144,13 @@
 	
 	CGContextRestoreGState (context);
 	
-	//CGContextBeginPath (context);
-	//CGContextAddPath(context, path);
-	//[outlineColour set];
-	//CGContextStrokePath (context);
+	if(outline)
+	{
+		CGContextBeginPath (context);
+		CGContextAddPath(context, path);
+		[outlineColour set];
+		CGContextStrokePath (context);
+	}
 	
 	CGPathRelease(path);
 }

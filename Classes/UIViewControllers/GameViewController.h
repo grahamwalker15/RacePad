@@ -13,11 +13,12 @@
 #import "ChangeCompetitor.h"
 #import "TableDataView.h"
 #import "BackgroundView.h"
+#import "DriverInfoViewController.h"
 #import "DrivingViewController.h"
 
 @class	UserPin;
 
-@interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
 {
 	IBOutlet BackgroundView *background;
 	
@@ -73,6 +74,9 @@
 	
 	DrivingViewController *drivingGame;
 	bool inDrivingGame;
+	
+	DriverInfoViewController * driverInfoController;
+	UIPopoverController * driverInfoPopover;
 }
 
 -(IBAction) newUserPressed:(id)sender;
@@ -98,5 +102,8 @@
 - (void) showViews;
 - (void) hideViews;
 - (void) positionViews;
+
+- (void) showDriverInfoPopover:(int)index AtRect:(CGRect)selectedRect InView:(UIView *)selectedView;
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "HelpViewController.h"
+#import "RacePadCoordinator.h"
 
 
 @implementation HelpViewController
@@ -24,6 +25,13 @@
 		helpButtonCurrent = nil;
 		helpTextCurrent = nil;
 		helpTextPrevious = nil;
+		
+		animatingViews = false;
+		loadCount = 0;
+		loadTarget = 0;
+		loadComplete = false;
+		loadTimer = nil;
+		needsRestartAfterLoad = false;
 
     }
     return self;
@@ -43,6 +51,34 @@
 	[backgroundView setBackgroundColor:background];
 	[background release];
 
+	[helpTextDefault setDelegate:self];
+	[helpText1 setDelegate:self];
+	[helpText2 setDelegate:self];
+	[helpText3 setDelegate:self];
+	[helpText4 setDelegate:self];
+	[helpText5 setDelegate:self];
+	[helpText6 setDelegate:self];
+	[helpText7 setDelegate:self];
+	[helpText8 setDelegate:self];
+	[helpText9 setDelegate:self];
+	[helpText10 setDelegate:self];
+	
+	if([[RacePadCoordinator Instance] playing])
+	{
+		[[RacePadCoordinator Instance] pausePlay];
+		needsRestartAfterLoad = true;
+	}
+	else
+	{
+		needsRestartAfterLoad = false;
+	}
+
+	loadCount = 0;
+	loadTarget = 11;
+	loadComplete = false;
+	
+	[self setLoadTimer];
+
 	[self getHTMLForView:helpTextDefault WithIndex:0];
 	[self getHTMLForView:helpText1 WithIndex:1];
 	[self getHTMLForView:helpText2 WithIndex:2];
@@ -54,7 +90,7 @@
 	[self getHTMLForView:helpText8 WithIndex:8];
 	[self getHTMLForView:helpText9 WithIndex:9];
 	[self getHTMLForView:helpText10 WithIndex:10];
-
+	
 	[super viewDidLoad];
 }
 
@@ -62,12 +98,18 @@
 {
 	if(helpButtonCurrent)
 		[helpButtonCurrent setSelected:false];
-
-	if(helpTextCurrent)
-		[helpTextCurrent setHidden:true];
 	
-	if(helpTextDefault)
-		[helpTextDefault setHidden:false];
+	[helpTextDefault setHidden:false];
+	[helpText1 setHidden:true];
+	[helpText2 setHidden:true];
+	[helpText3 setHidden:true];
+	[helpText4 setHidden:true];
+	[helpText5 setHidden:true];
+	[helpText6 setHidden:true];
+	[helpText7 setHidden:true];
+	[helpText8 setHidden:true];
+	[helpText9 setHidden:true];
+	[helpText10 setHidden:true];
 	
 	helpTextCurrent = helpTextDefault;
 	helpButtonCurrent = nil;
@@ -129,14 +171,10 @@
 }
 
 - (IBAction) helpButtonPressed:(id)sender
-{
-	if(helpButtonCurrent)
-		[helpButtonCurrent setSelected:false];
-	
-	helpButtonCurrent = (UIButton *)sender;
-
-	if(helpButtonCurrent)
-		[helpButtonCurrent setSelected:true];
+{	
+	// Do nothing if we're already animating a change
+	if(animatingViews)
+		return;
 	
 	helpTextPrevious = helpTextCurrent;
 	
@@ -165,14 +203,25 @@
 	if(helpTextCurrent == helpTextPrevious)
 		return;
 	
-	// Otherwise, animate swap of text views
+	// Otherwise, update the button and animate swap of text views
+	
+	animatingViews = true;
+	
+	if(helpButtonCurrent)
+		[helpButtonCurrent setSelected:false];
+	
+	helpButtonCurrent = (UIButton *)sender;
+	
+	if(helpButtonCurrent)
+		[helpButtonCurrent setSelected:true];
+	
 	[[helpTextPrevious superview] bringSubviewToFront:helpTextPrevious];
 	[helpTextCurrent setHidden:false];
 	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];
 	[helpTextPrevious setAlpha:0.0];
-	[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:helpTextPrevious cache:true];
+	[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:helpTextPrevious cache:false];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(textSwapAnimationDidStop:finished:context:)];
 	[UIView commitAnimations];
@@ -184,6 +233,8 @@
 	{
 		[helpTextPrevious setHidden:true];
 		[helpTextPrevious setAlpha:1.0];
+		
+		animatingViews = false;
 	}
 }
 
@@ -265,10 +316,50 @@
 	}
 	
 	[html appendString:@"</body</html>"];
-
-	[webView loadHTMLString:html baseURL:nil];
+	
+	[webView loadHTMLString:html baseURL:[[NSBundle mainBundle] bundleURL]];
 	
 	[html release];	
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  UIWebViewDelegate routines
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+	[webView setNeedsDisplay];
+	
+	loadCount++;
+	
+	if(loadCount == loadTarget)
+	{
+		loadComplete = true;
+		if(needsRestartAfterLoad)
+		{
+			needsRestartAfterLoad = false;
+			[[RacePadCoordinator Instance] startPlay];
+		}
+	}
+}
+
+- (void) setLoadTimer
+{
+	// Timer to restart play if loading is not finished after 2 seconds
+	if(loadTimer)
+		[loadTimer invalidate];
+	
+	loadTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadTimerExpired:) userInfo:nil repeats:NO];	
+}
+
+- (void) loadTimerExpired:(NSTimer *)theTimer
+{
+	loadTimer = nil;
+	
+	if(needsRestartAfterLoad)
+	{
+		needsRestartAfterLoad = false;
+		[[RacePadCoordinator Instance] startPlay];
+	}
 }
 
 @end

@@ -24,21 +24,28 @@
     return self;
 }
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
+	[backgroundView setStyle:BG_STYLE_TRANSPARENT_];
+	[online setButtonColour:[UIColor colorWithRed:0.3 green:1.0 blue:0.3 alpha:1.0]];
+	[online setShine:0.5];
+	
+	[online setOutline:true];
+	[ok setOutline:true];
+	
     [super viewDidLoad];
 }
-*/
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     // Overriden to allow any orientation.
     return YES;
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
@@ -46,7 +53,8 @@
 }
 
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

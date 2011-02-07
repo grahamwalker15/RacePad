@@ -16,12 +16,14 @@
 
 #import "RacePadDatabase.h"
 #import "Telemetry.h"
+#import "PitWindow.h"
 
 #import "TrackMapView.h"
 #import "TelemetryView.h"
 #import "CommentaryView.h"
 #import "PitWindowView.h"
 #import "BackgroundView.h"
+#import "ShinyButton.h"
 
 #import "AnimationTimer.h"
 
@@ -44,6 +46,8 @@
 	[trackMapView setUserScale:10.0];
 	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
 	
+	[pitWindowSimplifyButton setButtonColour:[UIColor colorWithRed:0.6 green:0.8 blue:0.4 alpha:1.0]];
+	
 	commentaryExpanded = false;
 	commentaryAnimating = false;
 	
@@ -54,11 +58,13 @@
 	[self addTapRecognizerToView:telemetryView];
 	[self addTapRecognizerToView:commentaryView];
 	[self addTapRecognizerToView:pitWindowView];
+	[self addTapRecognizerToView:pitWindowSimplifyButton];
 	
     //	Tap, pinch, and double tap recognizers for map
 	[self addTapRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	[self addDoubleTapRecognizerToView:trackMapView];
+	[self addTapRecognizerToView:trackMapSizeButton];
 	
 	// Long press, double tap, pan and pinch for pit window
  	[self addLongPressRecognizerToView:pitWindowView];
@@ -566,6 +572,29 @@
 		
 		[self addBackgroundFrames];
 		[backgroundView RequestRedraw];
+	}
+}
+
+- (IBAction) pitWindowSimplifyPressed:(id)sender
+{
+	RacePadDatabase *database = [RacePadDatabase Instance];
+	PitWindow *pitWindow = [database pitWindow];
+	
+	if ( pitWindow )
+	{
+		if([pitWindow simplified])
+		{
+			[pitWindow setSimplified:false];
+			[sender setSelected:false];
+		}
+		else
+		{
+			[pitWindow setSimplified:true];
+			[sender setSelected:true];
+		}
+		
+		[pitWindowView RequestRedraw];
+		
 	}
 }
 

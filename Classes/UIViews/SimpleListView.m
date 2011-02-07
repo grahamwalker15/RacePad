@@ -76,6 +76,8 @@
 
 - (void)InitialiseSimpleListViewMembers
 {	
+	[self setDelegate:self];
+	
 	row_count_ = 0;
 	row_height_ = 20;
 	
@@ -106,7 +108,6 @@
 	focus_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	selected_text_colour_ = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	
-	
 	alignment_ = SLV_TEXT_LEFT_;
 	
 	text_colour_ = [DrawingView CreateColourRed:255 Green:255 Blue:255];
@@ -125,7 +126,9 @@
 	inter_tyre_ = [DrawingView CreateColourRed:0 Green:255 Blue:255];
 	wet_tyre_ = [DrawingView CreateColourRed:110 Green:0 Blue:150];
 	
-	scroll_to_end_requested_ = false;	
+	scroll_to_end_requested_ = false;
+	scroll_animating_ = false;
+	scrollTimeoutTimer = nil;
 }
 
 - (void) DeleteTable
@@ -216,6 +219,13 @@
 	swiping_enabled_ = value;
 }
 
+- (void)RequestRedraw
+{
+	// Ignore redraw requests while we're animating a scroll
+	if(!scroll_animating_)
+		[self setNeedsDisplay];
+}
+
 - (void) RequestScrollToEnd
 {
 	scroll_to_end_requested_ = true;
@@ -223,9 +233,15 @@
 
 - (void) ScrollToEnd
 {
+	// Don't do it if an animation is in progress - it will be done in the DidStop callback
+	if(scroll_animating_)
+		return;
+	
+	scroll_to_end_requested_ = false;
+
 	CGRect bounds = [self bounds];
 	
-	float yOffset = [self RowHeight] * [self RowCount] - bounds.size.height;
+	float yOffset = floorf([self RowHeight] * [self RowCount] - bounds.size.height);
 	
 	if(yOffset < 0)
 		yOffset = 0;
@@ -233,9 +249,12 @@
 	[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
 	[self getCurrentBoundsInfo];
 	
-	scroll_to_end_requested_ = false;
+	scroll_animating_ = true;
 
 	[self RequestRedraw];
+	
+	// Set timer to catch it if the end callback isn't called for any reason
+	[self setScrollTimer];
 }
 
 - (void) ScrollToRow:(int)row
@@ -259,17 +278,38 @@
 	[self RequestRedraw];
 }
 
-/*
- - (void) MouseDown ( int x, int y, int button, int detail )
- - (void) DoubleClick ( int x, int y, int button, int detail );
- - (// void MouseMove ( int x, int y, int button, int detail );
- - (void) MouseUp ( int x, int y, int button, int detail );
- - (void) MousePosition ( int x, int y, int detail );
- - (void) Enter ( int x, int y );
- - (void) Exit ( );
- - (void) ActionKey ( unsigned char ch, int detail );
- - (void) GetMousePosition(int &x, int &y);
- */
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+	if(scrollTimeoutTimer)
+	{
+		[scrollTimeoutTimer invalidate];
+		scrollTimeoutTimer = nil;
+	}
+
+	scroll_animating_ = false;
+	
+	if(scroll_to_end_requested_)
+		[self ScrollToEnd];
+}
+
+- (void) setScrollTimer
+{
+	// Timer to re-enable redraws just in case scroll to end hasn't finished in 5 secs
+	if(scrollTimeoutTimer)
+		[scrollTimeoutTimer invalidate];
+	
+	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];	
+}
+
+- (void) scrollTimerExpired:(NSTimer *)theTimer
+{
+	scrollTimeoutTimer = nil;
+	
+	scroll_animating_ = false;
+	
+	if(scroll_to_end_requested_)
+		[self ScrollToEnd];
+}
 
 - (bool) IfHeading
 {

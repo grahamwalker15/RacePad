@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ColouredButton.h"
+#import "ShinyButton.h"
 
 @interface TitleBarViewController : UIViewController
 {
 	IBOutlet UIButton * sponsorButton;
 	IBOutlet UIButton * clock;
 	IBOutlet UIButton * eventName;
-	IBOutlet ColouredButton * lapCounter;
+	IBOutlet ShinyButton * lapCounter;
 	IBOutlet UIBarButtonItem * alertButton;
 	IBOutlet UIButton * helpButton;
 	IBOutlet UIBarButtonItem * helpBarButton;
@@ -28,7 +28,7 @@
 @property (readonly) UIButton * helpButton;
 @property (readonly) UIButton * clock;
 @property (readonly) UIButton * eventName;
-@property (readonly) ColouredButton * lapCounter;
+@property (readonly) ShinyButton * lapCounter;
 @property (readonly) UIButton * trackStateButton;
 
 - (void)RequestRedraw;

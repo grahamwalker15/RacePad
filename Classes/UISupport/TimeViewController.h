@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ShinyButton.h"
 
 @interface TimeViewController : UIViewController
 {
@@ -17,6 +17,8 @@
 	IBOutlet UISlider * timeSlider;
 	IBOutlet UIBarButtonItem * replayButton;
 	
+	IBOutlet ShinyButton * goLiveButton;
+
 	IBOutlet UIView * scrubControl;
 }
 
@@ -25,5 +27,6 @@
 @property (readonly) UIBarButtonItem * replayButton;
 @property (readonly) UISlider * timeSlider;
 @property (readonly) UIButton * clock;
+@property (readonly) ShinyButton * goLiveButton;
 
 @end

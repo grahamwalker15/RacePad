@@ -38,7 +38,7 @@ enum ColumnPriority {
 
 #define SLV_MAX_COLUMNS 1024
 
-@interface SimpleListView : DrawingView
+@interface SimpleListView : DrawingView <UIScrollViewDelegate>
 {
 	@protected
 	
@@ -63,6 +63,8 @@ enum ColumnPriority {
 	bool swiping_enabled_;
 	
 	bool scroll_to_end_requested_;
+	bool scroll_animating_;
+	NSTimer *scrollTimeoutTimer;
 		
 	int text_baseline_;
 		
@@ -124,18 +126,8 @@ enum ColumnPriority {
 - (void) ScrollToRow:(int)row;
 - (void) MakeRowVisible:(int)row;
 
-/*
-- (void) MouseDown ( int x, int y, int button, int detail );
-- (void) DoubleClick ( int x, int y, int button, int detail );
-- (// void MouseMove ( int x, int y, int button, int detail );
-- (void) MouseUp ( int x, int y, int button, int detail );
-- (void) MousePosition ( int x, int y, int detail );
-- (void) Enter ( int x, int y );
-- (void) Exit ( );
-- (void) ActionKey ( unsigned char ch, int detail );
- - (void) GetMousePosition(int &x, int &y);
- 
-*/
+- (void) setScrollTimer;
+- (void) scrollTimerExpired:(NSTimer *)theTimer;
 
 - (void) ClearRows;
 - (bool) IfHeading;

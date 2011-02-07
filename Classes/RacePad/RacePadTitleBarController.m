@@ -49,6 +49,10 @@ static RacePadTitleBarController * instance_ = nil;
 - (void)dealloc
 {
 	[titleBarController release];
+	[helpPopover release];
+	[helpController release];
+	[alertPopover release];
+	[alertController release];
     [super dealloc];
 }
 
@@ -212,10 +216,18 @@ static RacePadTitleBarController * instance_ = nil;
 	if(!helpController || !helpPopover || helpController != newHelpController)
 	{
 		if(helpController)
-			[helpController release];
-	
-		helpController = [newHelpController retain];
-			
+		{
+			if(helpController != newHelpController)
+			{
+				[helpController release];	
+				helpController = [newHelpController retain];
+			}
+		}
+		else
+		{
+			helpController = [newHelpController retain];
+		}
+
 		if(helpPopover)
 			[helpPopover setContentViewController:helpController];
 		else

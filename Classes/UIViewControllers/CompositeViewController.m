@@ -52,6 +52,7 @@
 	[self getStartTime];
 	
 	moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:currentMovie]];
+	[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
 		
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];

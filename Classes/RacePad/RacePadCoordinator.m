@@ -368,6 +368,9 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if ( eventTime > 0 )
 		updateTimer = [NSTimer scheduledTimerWithTimeInterval:eventTime - thisTime target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
+	else
+		updateTimer = nil;
+
 }
 
 - (void) timerUpdate: (NSTimer *)theTimer

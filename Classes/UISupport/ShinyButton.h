@@ -12,7 +12,9 @@
 
 @interface ShinyButton : ColouredButton
 {
-
+	float shine;
 }
+
+@property (nonatomic) float shine;
 
 @end

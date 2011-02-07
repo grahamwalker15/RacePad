@@ -152,7 +152,8 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowTop];
 		[view SetBGColour:[view red_]];
-		[view FillShadedRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5 WithHighlight:true];
+		[view FillShadedRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  gFront X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5 WithHighlight:false];
+		[view FillGlassRectangleX0:carXCentre - arrowWidth Y0:carYCentre - carHeight * 0.5 -  arrowLength X1:carXCentre + arrowWidth Y1:carYCentre - carHeight * 0.5];
 		[view RestoreGraphicsState];
 		
 		[view SaveGraphicsState];
@@ -160,7 +161,8 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowBottom];
 		[view SetBGColour:[view green_]];
-		[view FillShadedRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack WithHighlight:true];
+		[view FillShadedRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + gBack WithHighlight:false];
+		[view FillGlassRectangleX0:carXCentre - arrowWidth Y0:carYCentre + carHeight * 0.5 X1:carXCentre + arrowWidth Y1:carYCentre + carHeight * 0.5 + arrowLength];
 		[view RestoreGraphicsState];
 		
 		[view SaveGraphicsState];
@@ -168,7 +170,8 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowLeft];
 		[view SetBGColour:[view orange_]];
-		[view FillShadedRectangleX0:carXCentre - 25 - gLeft Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth WithHighlight:true];
+		[view FillShadedRectangleX0:carXCentre - 25 - gLeft Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth WithHighlight:false];
+		[view FillGlassRectangleX0:carXCentre - 25 - arrowLength Y0:carYCentre - arrowWidth X1:carXCentre - 25 Y1:carYCentre + arrowWidth];
 		[view RestoreGraphicsState];
 		
 		[view SaveGraphicsState];
@@ -176,7 +179,8 @@ static UIImage * redBarImage = nil;
 		[view SetBGColour:transparent_white_];
 		[view FillPath:arrowRight];
 		[view SetBGColour:[view orange_]];
-		[view FillShadedRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + gRight Y1:carYCentre + arrowWidth WithHighlight:true];
+		[view FillShadedRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + gRight Y1:carYCentre + arrowWidth WithHighlight:false];
+		[view FillGlassRectangleX0:carXCentre + 25 Y0:carYCentre - arrowWidth X1:carXCentre + 25 + arrowLength Y1:carYCentre + arrowWidth];
 		[view RestoreGraphicsState];
 		
 		[view SetFGColour:[view white_]];
@@ -245,14 +249,14 @@ static UIImage * redBarImage = nil;
 	[view SaveGraphicsState];
 	[view SetClippingAreaToPath:rectThrottle];
 	[view DrawImage:pedalImage AtX:throttleX Y:pedalBase - pedalHeight];
-	[view SetBGColour:[view green_]];
+	[view SetBGColour:[UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.7]];
 	[view FillRectangleX0:throttleX Y0:pedalBase -  throttleHeight X1:throttleX + 30 Y1:pedalBase];
 	[view RestoreGraphicsState];
 	
 	[view SaveGraphicsState];
 	[view SetClippingAreaToPath:rectBrake];
 	[view DrawImage:pedalImage AtX:brakeX Y:pedalBase - pedalHeight];
-	[view SetBGColour:[view red_]];
+	[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.7]];
 	[view FillRectangleX0:brakeX Y0:pedalBase - brakeHeight X1:brakeX + 30 Y1:pedalBase ];
 	[view RestoreGraphicsState];
 		

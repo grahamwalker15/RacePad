@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface HelpViewController : UIViewController
+@interface HelpViewController : UIViewController <UIWebViewDelegate, UIPopoverControllerDelegate>
 {
 	IBOutlet UIBarButtonItem * closeButton;
 	
@@ -44,7 +44,15 @@
 	UIWebView * helpTextCurrent;
 	UIWebView * helpTextPrevious;
 	
-	UIPopoverController * parentPopover;	
+	UIPopoverController * parentPopover;
+	
+	int loadCount;
+	int loadTarget;
+	bool loadComplete;
+	bool needsRestartAfterLoad;
+	NSTimer *loadTimer;
+	
+	bool animatingViews;
 }
 
 @property (nonatomic, retain) UIPopoverController * parentPopover;
@@ -54,5 +62,8 @@
 
 - (IBAction) closePressed:(id)sender;
 - (IBAction) helpButtonPressed:(id)sender;
+
+- (void) setLoadTimer;
+- (void) loadTimerExpired:(NSTimer *)theTimer;
 
 @end

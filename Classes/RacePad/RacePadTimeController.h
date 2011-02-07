@@ -40,6 +40,8 @@
 - (void) hideTimerExpired:(NSTimer *)theTimer;
 - (void) flagTimerExpired:(NSTimer *)theTimer;
 
+- (void) setSliderMin:(float)startTime;
+- (void) setSliderMax:(float)endTime;
 - (void) setSliderMin:(float)startTime Max:(float)endTime;
 
 - (void) updateTime:(float)time;

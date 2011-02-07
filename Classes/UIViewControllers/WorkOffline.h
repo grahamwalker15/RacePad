@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShinyButton.h"
+#import "BackgroundView.h"
 
 
-@interface WorkOffline : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface WorkOffline : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+{
 	
+	IBOutlet BackgroundView *backgroundView;
 	IBOutlet UIPickerView *event;
-	IBOutlet UIButton *ok;
-	IBOutlet UIButton *online;
+	IBOutlet ShinyButton *ok;
+	IBOutlet ShinyButton *online;
 	IBOutlet UIButton *settings;
 	
 	NSMutableArray *events;

@@ -191,6 +191,14 @@
 		7FA2765C12F9D13D001407FD /* TelemetryHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765412F9D13D001407FD /* TelemetryHelpController.m */; };
 		7FA2765D12F9D13D001407FD /* TimingHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765612F9D13D001407FD /* TimingHelpController.m */; };
 		7FA2765E12F9D13D001407FD /* VideoHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765812F9D13D001407FD /* VideoHelpController.m */; };
+		7FA27A7812FC08AC001407FD /* MGPLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27A7712FC08AC001407FD /* MGPLogoBig.png */; };
+		7FA27ABF12FC61B7001407FD /* BigSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27ABE12FC61B7001407FD /* BigSettings.png */; };
+		7FA27B2612FC674C001407FD /* HelpButtonHTML.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27B2512FC674C001407FD /* HelpButtonHTML.png */; };
+		7FA27CB512FEFDCD001407FD /* DriverInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27CB412FEFDCD001407FD /* DriverInfo.xib */; };
+		7FA27CEC130017C3001407FD /* DriverInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA27CEB130017C3001407FD /* DriverInfoViewController.m */; };
+		7FA27D3913001BB5001407FD /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27D3813001BB5001407FD /* CloseButton.png */; };
+		7FA27DA613002425001407FD /* NoPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27DA513002425001407FD /* NoPhoto.png */; };
+		7FA27E1913002D5A001407FD /* NoHelmet.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27E1813002D5A001407FD /* NoHelmet.png */; };
 		7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
 		7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
 		7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
@@ -483,6 +491,15 @@
 		7FA2765612F9D13D001407FD /* TimingHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimingHelpController.m; sourceTree = "<group>"; };
 		7FA2765712F9D13D001407FD /* VideoHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoHelpController.h; sourceTree = "<group>"; };
 		7FA2765812F9D13D001407FD /* VideoHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoHelpController.m; sourceTree = "<group>"; };
+		7FA27A7712FC08AC001407FD /* MGPLogoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MGPLogoBig.png; path = Images/MGPLogoBig.png; sourceTree = "<group>"; };
+		7FA27ABE12FC61B7001407FD /* BigSettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BigSettings.png; path = Images/BigSettings.png; sourceTree = "<group>"; };
+		7FA27B2512FC674C001407FD /* HelpButtonHTML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelpButtonHTML.png; path = Images/HelpButtonHTML.png; sourceTree = "<group>"; };
+		7FA27CB412FEFDCD001407FD /* DriverInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverInfo.xib; path = ResourceFiles/DriverInfo.xib; sourceTree = "<group>"; };
+		7FA27CEA130017C3001407FD /* DriverInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverInfoViewController.h; sourceTree = "<group>"; };
+		7FA27CEB130017C3001407FD /* DriverInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverInfoViewController.m; sourceTree = "<group>"; };
+		7FA27D3813001BB5001407FD /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseButton.png; path = Images/CloseButton.png; sourceTree = "<group>"; };
+		7FA27DA513002425001407FD /* NoPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoPhoto.png; path = Images/NoPhoto.png; sourceTree = "<group>"; };
+		7FA27E1813002D5A001407FD /* NoHelmet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoHelmet.png; path = Images/NoHelmet.png; sourceTree = "<group>"; };
 		7FB1C58412673E7F008A6C94 /* DriverListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverListView.xib; path = ResourceFiles/DriverListView.xib; sourceTree = "<group>"; };
 		7FB1C58512673E7F008A6C94 /* HTMLView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HTMLView.xib; path = ResourceFiles/HTMLView.xib; sourceTree = "<group>"; };
 		7FB1C58612673E7F008A6C94 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ResourceFiles/MainWindow.xib; sourceTree = "<group>"; };
@@ -709,6 +726,8 @@
 				4D34502C12B7C33E00B15298 /* UserPin.m */,
 				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
 				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
+				7FA27CEA130017C3001407FD /* DriverInfoViewController.h */,
+				7FA27CEB130017C3001407FD /* DriverInfoViewController.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -831,6 +850,7 @@
 				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
 				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
 				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
+				7FA27CB412FEFDCD001407FD /* DriverInfo.xib */,
 				4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */,
 				4D344E2F12B144FB00B15298 /* GameView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
@@ -861,6 +881,12 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FA27E1813002D5A001407FD /* NoHelmet.png */,
+				7FA27DA513002425001407FD /* NoPhoto.png */,
+				7FA27D3813001BB5001407FD /* CloseButton.png */,
+				7FA27B2512FC674C001407FD /* HelpButtonHTML.png */,
+				7FA27ABE12FC61B7001407FD /* BigSettings.png */,
+				7FA27A7712FC08AC001407FD /* MGPLogoBig.png */,
 				7F93547B12F6E48600AB1D07 /* HelpButton.png */,
 				7F93547C12F6E48600AB1D07 /* HelpButtonHighlighted.png */,
 				7F93543612F6D7A000AB1D07 /* AlertInfo.png */,
@@ -1138,6 +1164,13 @@
 				7F9354CE12F6F1A700AB1D07 /* TelemetryHelp.xib in Resources */,
 				7F9354D012F6F1C300AB1D07 /* GameHelp.xib in Resources */,
 				7F9354D212F6F1E500AB1D07 /* LapListHelp.xib in Resources */,
+				7FA27A7812FC08AC001407FD /* MGPLogoBig.png in Resources */,
+				7FA27ABF12FC61B7001407FD /* BigSettings.png in Resources */,
+				7FA27B2612FC674C001407FD /* HelpButtonHTML.png in Resources */,
+				7FA27CB512FEFDCD001407FD /* DriverInfo.xib in Resources */,
+				7FA27D3913001BB5001407FD /* CloseButton.png in Resources */,
+				7FA27DA613002425001407FD /* NoPhoto.png in Resources */,
+				7FA27E1913002D5A001407FD /* NoHelmet.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,6 +1258,7 @@
 				7FA2765C12F9D13D001407FD /* TelemetryHelpController.m in Sources */,
 				7FA2765D12F9D13D001407FD /* TimingHelpController.m in Sources */,
 				7FA2765E12F9D13D001407FD /* VideoHelpController.m in Sources */,
+				7FA27CEC130017C3001407FD /* DriverInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

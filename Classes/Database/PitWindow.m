@@ -88,9 +88,11 @@ static UIImage *grassImage = nil;
 	lapping = [stream PopBool];
 }
 
-- (void) preDrawInView:(PitWindowView *)view Height:(float)graphicHeight Y:(int)y LastX:(int *)lastX LastRow:(int *)lastRow
+- (void) preDrawInView:(PitWindowView *)view Simplified:(bool)simplified Height:(float)graphicHeight Y:(int)y LastX:(int *)lastX LastRow:(int *)lastRow
 {
 	CGSize size = [view InqSize];
+	
+	shouldDraw = true;
 	
 	int box_width = 40;
 	int box_height = 18;
@@ -99,8 +101,12 @@ static UIImage *grassImage = nil;
 	int car_height = 12;
 	
 	int car_base = y - car_height - 16;
-	int box_base = y - graphicHeight - 12;
 	
+	if(simplified)
+		car_base += 6;
+	
+	int box_base = y - graphicHeight - 12;
+		
 	row = *lastRow;
 	
 	px = [view transformX:x] * size.width - box_width / 2;
@@ -109,110 +115,165 @@ static UIImage *grassImage = nil;
 	cx = [view transformX:x] * size.width;
 	cy = car_base;
 	
-	if ( cx > *lastX - car_width )
+	// The positioning of cars is different depending on whether we're in simplified mode
+	if(simplified)
 	{
-		row++;
-		if ( row >= 3 )
+		if(fabsf(x - 0.5) < 0.0001) // The reference car - FIXME - should have exlicit ID of reference
+		{
 			row = 0;
-		
-		cy = car_base - (car_height + 2) * row;
-		py = box_base - (box_height + 4) * row;
+			shouldDraw = true;
+		}
+		else if (lapped || lapping)
+		{
+			row = 4;
+			shouldDraw = false;
+		}
+		else if ( cx > *lastX - car_width )
+		{
+			row++;
+			if ( row >= 4 )
+				row = 1;
+			
+			shouldDraw = false;
+		}
+		else
+		{
+			row = 1;
+			shouldDraw = true;
+		}
 	}
 	else
 	{
-		cy = car_base;
-		py = box_base;
-		row = 0;
+		if ( cx > *lastX - car_width )
+		{
+			row++;
+			if ( row >= 3 )
+				row = 0;
+		}
+		else
+		{
+			row = 0;
+		}
 	}
 	
-	*lastX = cx;
-	*lastRow = row;
+	cy = car_base - (car_height + 2) * row;
+	py = box_base - (box_height + 4) * row;
+		
+	if(!(simplified && (lapped || lapping)))
+	{
+		*lastX = cx;
+		*lastRow = row;
+	}
 }
 
-- (void) drawInView:(PitWindowView *)view Y:(int)y XMaxTime:(int) xMaxTime ImageList:(ImageList *)imageList
+- (void) drawInView:(PitWindowView *)view Simplified:(bool)simplified Y:(int)y XMaxTime:(int) xMaxTime ImageList:(ImageList *)imageList
 {
 	CGSize size = [view InqSize];
 	int box_width = 40;
 	int box_height = 18;
 	
-	// Draw box background
-	// Shadow
-	[view SetBGToShadowColour];		
-	[view FillRectangleX0:px + 3 Y0:py + 3 X1:px + box_width + 3 Y1:py - box_height + 3];
-	[view SetBGColour:fillColour];
-	[view FillRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
-	
-	int gt = [view transformX:((xMaxTime-gapThis) / (xMaxTime * 2))] * size.width;
-	
-	// Draw next lap gap indicator
-	// Don't do this for the moment - too confusing
-	/*
-	if ( !inPit )
-	{
-		if ( redTrail == nil )
-		{
-			redTrail = [[UIColor alloc ]initWithRed:0.7f green:0 blue:0 alpha:1];
-			greenTrail = [[UIColor alloc]initWithRed:0 green:0.7f blue:0 alpha:1];
-		}
-		if ( abs(gapNext - gapThis) < 10 )
-		{
-			[view SetLineWidth:3];
-			int gn = [view transformX:((xMaxTime-gapNext) / (xMaxTime * 2))] * size.width;
-			
-			if ( gapNext > gapThis )
-				[view SetFGColour:redTrail];
-			else
-				[view SetFGColour:greenTrail];
-			
-			[view LineX0:gt Y0:py - box_height - 2  X1:gn Y1:py - box_height - 2];
-		}
-	}
-	*/
-	
-	[view SetLineWidth:1];
-	
-	// Draw outline and line to axis
-	[view SetFGColour:lineColour];
-	[view LineRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
-	[view LineX0:gt Y0:cy+8 X1:gt Y1:y];
-	
-	if(fabs(x - 0.5) > 0.001)
-		//[view SetFGColour:[lineColour colorWithAlphaComponent:(0.4 - (float)row * 0.1)]];
-		[view SetFGColour:[lineColour colorWithAlphaComponent:0.2]];
-	
-	[view LineX0:gt Y0:py X1:gt Y1:cy+8];	
-	
-	[view SetBGColour:lineColour];
-	[view FillRectangleX0:gt - 3 Y0:y - 3 X1:gt + 3 Y1:y + 3];
-	
-	// Driver name
-	[view SetFGColour:textColour];
-	[view DrawString:name AtX:px + 1 Y:py - box_height - 1];
-	
+	//Make sure we've got the images
 	if ( blueFlagImage == nil )
 	{
 		blueFlagImage = [[UIImage imageNamed:@"BlueFlag.png"] retain];
 		arrowLeaderImage = [[UIImage imageNamed:@"ArrowLeader.png"] retain];
 	}
 	
+	// Draw box label if shouldDraw is on
+	if(shouldDraw)
+	{
+		// First, the background
+		// Shadow
+		[view SetBGToShadowColour];		
+		[view FillRectangleX0:px + 3 Y0:py + 3 X1:px + box_width + 3 Y1:py - box_height + 3];
+		[view SetBGColour:fillColour];
+		[view FillRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
+	
+		int gt = [view transformX:((xMaxTime-gapThis) / (xMaxTime * 2))] * size.width;
+	
+		// Draw next lap gap indicator
+		// Don't do this for the moment - too confusing
+		/*
+		if ( !inPit )
+		{
+			if ( redTrail == nil )
+			{
+				redTrail = [[UIColor alloc ]initWithRed:0.7f green:0 blue:0 alpha:1];
+				greenTrail = [[UIColor alloc]initWithRed:0 green:0.7f blue:0 alpha:1];
+			}
+			if ( abs(gapNext - gapThis) < 10 )
+			{
+				[view SetLineWidth:3];
+				int gn = [view transformX:((xMaxTime-gapNext) / (xMaxTime * 2))] * size.width;
+				
+				if ( gapNext > gapThis )
+					[view SetFGColour:redTrail];
+				else
+					[view SetFGColour:greenTrail];
+				
+				[view LineX0:gt Y0:py - box_height - 2  X1:gn Y1:py - box_height - 2];
+			}
+		}
+		*/
+	
+		[view SetLineWidth:1];
+		
+		// Draw outline and line to axis
+		[view SetFGColour:lineColour];
+		[view LineRectangleX0:px Y0:py X1:px + box_width Y1:py - box_height];
+		[view LineX0:gt Y0:cy+8 X1:gt Y1:y];
+		
+		if(fabs(x - 0.5) > 0.001)
+			[view SetFGColour:[lineColour colorWithAlphaComponent:0.2]];
+		
+		[view LineX0:gt Y0:py X1:gt Y1:cy+8];	
+		
+		[view SetBGColour:lineColour];
+		[view FillRectangleX0:gt - 3 Y0:y - 3 X1:gt + 3 Y1:y + 3];
+		
+		// Driver name
+		[view SetFGColour:textColour];
+		[view DrawString:name AtX:px + 1 Y:py - box_height - 1];
+	
+	}
+	
+	// Draw flags and arrows
 	if ( lapped )
 	{
 		CGSize size = [blueFlagImage size];
-		[view DrawImage:blueFlagImage AtX:px + box_width - 5 Y:py - box_height - size.height + 5];
-		[view DrawImage:blueFlagImage AtX:cx Y:cy - 8];
+		
+		if(shouldDraw)
+		{
+			[view DrawImage:blueFlagImage AtX:px + box_width - 5 Y:py - box_height - size.height + 5];
+			[view DrawImage:blueFlagImage AtX:cx Y:cy - 8];
+		}
+		else
+		{
+			[view DrawImage:blueFlagImage AtX:cx Y:cy - 8 WithAlpha:0.5];
+		}
 	}
 	else if ( lapping )
 	{
 		CGSize size = [arrowLeaderImage size];
-		[view DrawImage:arrowLeaderImage AtX:px + box_width - 5 Y:py - box_height - size.height + 5];
-		[view DrawImage:arrowLeaderImage AtX:cx Y:cy - 8];
+		if(shouldDraw)
+		{
+			[view DrawImage:arrowLeaderImage AtX:px + box_width - 5 Y:py - box_height - size.height + 5];
+			[view DrawImage:arrowLeaderImage AtX:cx Y:cy - 8];
+		}
+		else
+		{
+			[view DrawImage:arrowLeaderImage AtX:cx Y:cy - 8 WithAlpha:0.5];
+		}
 	}
-	
+
 	// Draw car
 	if(imageList)
 	{
-		UIImage *image = [imageList findItem:name];						
-		[view DrawImage:image AtX:cx - 25 Y:cy];
+		UIImage *image = [imageList findItem:name];
+		if(simplified && (lapped || lapping))
+			[view DrawImage:image AtX:cx - 25 Y:cy WithAlpha:0.5];
+		else
+			[view DrawImage:image AtX:cx - 25 Y:cy];
 	}
 	
 }
@@ -221,10 +282,14 @@ static UIImage *grassImage = nil;
 
 @implementation PitWindow
 
+@synthesize simplified;
+
 - (id) init
 {
 	if(self = [super init])
 	{
+		simplified = false;
+		
 		redCars = [[NSMutableArray alloc] init];
 		blueCars = [[NSMutableArray alloc] init];
 		
@@ -399,6 +464,19 @@ static UIImage *grassImage = nil;
 	[view FillRectangleX0:x_sc_0 - 2 Y0:x_axis X1:x_sc_0 + 2 Y1:y1];
 	[view FillRectangleX0:x_sc_1 - 2 Y0:x_axis X1:x_sc_1 + 2 Y1:y1];
 	
+	// Draw pit loss figure
+	NSString * pLossString = [NSString stringWithFormat:@"%ds", (int)(roundf(pitStopLoss * xMaxTime))];
+	float pw, ph;
+	[view UseBigFont];
+	[view GetStringBox:pLossString WidthReturn:&pw HeightReturn:&ph];
+	[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.4]];
+	[view DrawString:pLossString AtX:x_pit_0 - pw - 20 Y:y1 + 8];
+	[view DrawString:pLossString AtX:x_pit_1 + 20 Y:y1 + 8];
+	
+	float yMid = y1 + 8 + ph / 2;
+	[view LineX0:x_pit_0 - 20 Y0:yMid X1:x_pit_0 Y1:yMid];
+	[view LineX0:x_pit_1 + 20 Y0:yMid X1:x_pit_1 Y1:yMid];
+
 	// Draw kerbs
 	[view FillPatternRectangle:kerbImage X0:0 Y0:x_axis-4 X1:size.width Y1:x_axis];
 	[view FillPatternRectangle:kerbImage X0:0 Y0:y1 X1:size.width Y1:y1+4];
@@ -466,10 +544,10 @@ static UIImage *grassImage = nil;
 	int lastRow = 0;
 	int i;
 	for ( i = count - 1; i >= 0; i-- )
-		[[cars objectAtIndex:i] preDrawInView:view Height:graphicHeight Y:x_axis LastX:&lastX LastRow:&lastRow];
+		[[cars objectAtIndex:i] preDrawInView:view Simplified:simplified Height:graphicHeight Y:x_axis LastX:&lastX LastRow:&lastRow];
 	
 	for ( i = 0; i < count; i++ )
-			[[cars objectAtIndex:i] drawInView:view Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
+		[[cars objectAtIndex:i] drawInView:view Simplified:simplified Y:x_axis XMaxTime:xMaxTime ImageList:image_list];
 	
 }
 

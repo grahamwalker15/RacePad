@@ -14,11 +14,13 @@
 @synthesize textColour;
 @synthesize buttonColour;
 @synthesize outlineColour;
+@synthesize outline;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
     if ((self = [super initWithCoder:coder]))
     {
+		outline = false;
 		[self setDefaultColours];
 	}
     return self;
@@ -30,7 +32,8 @@
     self = [super initWithFrame:frame];
     if (self)
 	{
-         [self setDefaultColours];
+ 		outline = false;
+        [self setDefaultColours];
     }
     return self;
 }
@@ -56,10 +59,13 @@
 	// Create rounded path filling the bounds
 	CGRect bounds = [self bounds];
 	
-	float x0 = bounds.origin.x + 1;
-	float y0 = bounds.origin.y + 1;
-	float x1 = x0 + bounds.size.width - 2;
-	float y1 = y0 + bounds.size.height - 2;
+	if(outline)
+		bounds = CGRectInset(bounds, 2, 2);
+	
+	float x0 = bounds.origin.x + 0.5;
+	float y0 = bounds.origin.y + 0.5;
+	float x1 = x0 + bounds.size.width - 1.0 ;
+	float y1 = y0 + bounds.size.height - 1.0;
 	
 	float r = 10.0;
 	
@@ -90,10 +96,13 @@
 	CGContextFillRect(context, bounds);
 	CGContextRestoreGState (context);
 		
-	//CGContextBeginPath (context);
-	//CGContextAddPath(context, path);
-	//[outlineColour set];
-	//CGContextStrokePath (context);
+	if(outline)
+	{
+		CGContextBeginPath (context);
+		CGContextAddPath(context, path);
+		[outlineColour set];
+		CGContextStrokePath (context);
+	}
 
 	CGPathRelease(path);
 }
