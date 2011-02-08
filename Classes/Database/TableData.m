@@ -194,6 +194,7 @@
 	{
 		TableHeader *header = [[TableHeader alloc] initHWithStream:stream Colours:colours ColoursCount:coloursCount];
 		[columnHeaders addObject:header];
+		[header release];
 	}
 	
 	rows = [stream PopInt];
@@ -202,6 +203,7 @@
 		{
 			TableCell *cell = [[TableCell alloc] initWithStream:stream Colours:colours ColoursCount:coloursCount];
 			[cells addObject:cell];
+			[cell release];
 		}
 }
 

@@ -165,6 +165,7 @@
 		7F9354D012F6F1C300AB1D07 /* GameHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354CF12F6F1C300AB1D07 /* GameHelp.xib */; };
 		7F9354D212F6F1E500AB1D07 /* LapListHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354D112F6F1E500AB1D07 /* LapListHelp.xib */; };
 		7F93576612F9A87F00AB1D07 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93576512F9A87F00AB1D07 /* ShinyButton.m */; };
+		7F9543F0130097AB00DC7FB6 /* DriverInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9543EF130097AB00DC7FB6 /* DriverInfo.m */; };
 		7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10D91255E68B00770746 /* FirstViewController.m */; };
 		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
 		7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10FB1255EE1500770746 /* ThirdViewController.m */; };
@@ -445,6 +446,8 @@
 		7F9354D112F6F1E500AB1D07 /* LapListHelp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LapListHelp.xib; path = ResourceFiles/LapListHelp.xib; sourceTree = "<group>"; };
 		7F93576412F9A87F00AB1D07 /* ShinyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyButton.h; sourceTree = "<group>"; };
 		7F93576512F9A87F00AB1D07 /* ShinyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShinyButton.m; sourceTree = "<group>"; };
+		7F9543EE130097AB00DC7FB6 /* DriverInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverInfo.h; sourceTree = "<group>"; };
+		7F9543EF130097AB00DC7FB6 /* DriverInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverInfo.m; sourceTree = "<group>"; };
 		7F9C10D81255E68B00770746 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7F9C10D91255E68B00770746 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
@@ -656,6 +659,8 @@
 				7F9C67391265F50000F2FFEC /* TrackMap.m */,
 				7F8F913012E6D59F00EA04A6 /* CommentaryData.h */,
 				7F8F913112E6D59F00EA04A6 /* CommentaryData.m */,
+				7F9543EE130097AB00DC7FB6 /* DriverInfo.h */,
+				7F9543EF130097AB00DC7FB6 /* DriverInfo.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1259,6 +1264,7 @@
 				7FA2765D12F9D13D001407FD /* TimingHelpController.m in Sources */,
 				7FA2765E12F9D13D001407FD /* VideoHelpController.m in Sources */,
 				7FA27CEC130017C3001407FD /* DriverInfoViewController.m in Sources */,
+				7F9543F0130097AB00DC7FB6 /* DriverInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

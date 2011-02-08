@@ -33,6 +33,7 @@ static RacePadDatabase *instance = nil;
 @synthesize redCommentary;
 @synthesize telemetry;
 @synthesize driverNames;
+@synthesize driverInfo;
 @synthesize racePrediction;
 @synthesize competitorData;
 
@@ -50,12 +51,15 @@ static RacePadDatabase *instance = nil;
 	redCommentary = [[CommentaryData alloc] init];
 	telemetry = [[Telemetry alloc] init];
 	driverNames = [[DriverNames alloc] init];
+	driverInfo = [[DriverInfo alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
 	competitorData = [[TableData alloc] init];
 	
 	[blueCommentary fillWithDefaultData:RPD_BLUE_CAR_];
 	[redCommentary fillWithDefaultData:RPD_RED_CAR_];
 	
+	[driverInfo fillWithDefaultData];
+
 	return self;
 }
 

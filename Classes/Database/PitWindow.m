@@ -297,8 +297,11 @@ static UIImage *grassImage = nil;
 		{
 			PitWindowCar *redCar = [[PitWindowCar alloc]  init];
 			[redCars addObject:redCar];
+			[redCar release];
+			
 			PitWindowCar *blueCar = [[PitWindowCar alloc]  init];
 			[blueCars addObject:blueCar];
+			[blueCar release];
 		}
 		
 		redCarCount = 0;

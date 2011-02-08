@@ -495,6 +495,7 @@
 		{
 			TrackCar *car = [[TrackCar alloc]  init];
 			[cars addObject:car];
+			[car release];
 		}
 		
 		carCount = 0;
@@ -596,6 +597,7 @@
 		TrackLine *line = [[TrackLine alloc] init];
 		[line loadShape:stream Count:count];
 		[lines addObject:line];
+		[line release];
 	}
 	
 	while ( true )
@@ -606,6 +608,7 @@
 		TrackLabel *label = [[TrackLabel alloc] init];
 		[label loadShape:stream Count:count];
 		[labels addObject:label];
+		[label release];
 	}
 	
 	trackLength = [stream PopFloat];
@@ -651,9 +654,15 @@
 		
 		unsigned char state = [stream PopUnsignedChar];
 		if ( segNum > 1000 )
+		{
 			overallTrackState = state;
+		}
 		else
-			[segmentStates addObject:[[SegmentState alloc] init:segNum State:state]];
+		{
+			SegmentState * state = [[SegmentState alloc] init:segNum State:state];
+			[segmentStates addObject:state];
+			[state release];
+		}
 	}
 }
 

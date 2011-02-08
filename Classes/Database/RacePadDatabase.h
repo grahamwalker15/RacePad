@@ -15,6 +15,7 @@
 #import "PitWindow.h"
 #import "Telemetry.h"
 #import "DriverNames.h"
+#import "DriverInfo.h"
 #import "RacePrediction.h"
 
 // Our cars
@@ -39,6 +40,7 @@ enum OurCars
 	CommentaryData * redCommentary;
 	Telemetry *telemetry;
 	DriverNames *driverNames;
+	DriverInfo *driverInfo;
 	RacePrediction *racePrediction;
 	TableData *competitorData;
 }
@@ -56,6 +58,7 @@ enum OurCars
 @property (readonly) CommentaryData * redCommentary;
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
+@property (readonly) DriverInfo * driverInfo;
 @property (readonly) RacePrediction * racePrediction;
 @property (readonly) TableData *competitorData;
 

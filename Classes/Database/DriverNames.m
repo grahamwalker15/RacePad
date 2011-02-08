@@ -123,6 +123,7 @@
 	{
 		DriverName *driver = [[DriverName alloc] initWithStream:stream];
 		[drivers addObject:driver];
+		[driver release];
 	}
 	redCar = [stream PopInt];
 	blueCar = [stream PopInt];

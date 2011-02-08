@@ -85,11 +85,12 @@
 	// Get image list for the car images
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	ImageListStore * image_store = [database imageListStore];
-	ImageList *imageList = nil;//image_store ? [image_store findList:@"MiniCars"] : nil;
+
+	ImageList *photoImageList = image_store ? [image_store findList:@"DriverPhotos"] : nil;
 	
-	if(imageList)
+	if(photoImageList)
 	{
-		UIImage * image = [imageList findItem:abbName];
+		UIImage * image = [photoImageList findItem:abbName];
 		if(image)
 			[photo setImage:image];
 		else
@@ -99,8 +100,62 @@
 	{
 		[photo setImage:[UIImage imageNamed:@"NoPhoto.png"]];
 	}
+	
+	ImageList *helmetImageList = image_store ? [image_store findList:@"DriverHelmets"] : nil;
+	
+	if(helmetImageList)
+	{
+		UIImage * image = [helmetImageList findItem:abbName];
+		if(image)
+			[helmet setImage:image];
+		else
+			[helmet setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+	}
+	else
+	{
+		[helmet setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+	}
+	
+	ImageList *carImageList = image_store ? [image_store findList:@"MiniCars"] : nil;
+	
+	if(carImageList)
+	{
+		UIImage * image = [carImageList findItem:abbName];
+		if(image)
+			[car setImage:image];
+		else
+			[car setImage:nil];
+	}
+	else
+	{
+		[car setImage:nil];
+	}
+	
+	DriverInfoRecord * driverInfo = [[[RacePadDatabase Instance]driverInfo] driverInfoByAbbName:abbName];
+	
+	if(driverInfo)
+	{
+		[age setText:[NSString stringWithFormat:@"%d", [driverInfo age]]];
+		[races setText:[NSString stringWithFormat:@"%d", [driverInfo races]]];
+		[championships setText:[NSString stringWithFormat:@"%d", [driverInfo championships]]];
+		[wins setText:[NSString stringWithFormat:@"%d", [driverInfo wins]]];
+		[poles setText:[NSString stringWithFormat:@"%d", [driverInfo poles]]];
+		[fastestLaps setText:[NSString stringWithFormat:@"%d", [driverInfo fastestLaps]]];
+		[lastPos setText:[NSString stringWithFormat:@"%d", [driverInfo lastPos]]];
 
+		float pointsVal = [driverInfo points];		
+		if((pointsVal - truncf(pointsVal)) < 0.01)
+			[points setText:[NSString stringWithFormat:@"%d", (int)pointsVal]];
+		else
+			[points setText:[NSString stringWithFormat:@"%.1f", pointsVal]];
 		
+		float lastPointsVal = [driverInfo lastPoints];		
+		if((lastPointsVal - truncf(lastPointsVal)) < 0.01)
+			[lastPoints setText:[NSString stringWithFormat:@"%d", (int)lastPointsVal]];
+		else
+			[lastPoints setText:[NSString stringWithFormat:@"%.1f", lastPointsVal]];
+	}
+	
 	return true;
 }
 
