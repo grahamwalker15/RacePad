@@ -8,55 +8,37 @@
 
 #import "HTMLViewController.h"
 
+#import "InfoViewController.h"
 
 @implementation HTMLViewController
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        // Custom initialization
-    }
+@synthesize htmlFile;
+
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
+		// This view is always displayed as a subview
+		// Set the style for its presentation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		htmlFile = nil;		 
+	}
     return self;
 }
-*/
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-	// NSString * url_string = @"http://www.autosport.com";
-	// NSURL * url = [[NSURL alloc] initWithString:url_string];
-	
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *docsFolder = [paths objectAtIndex:0];
-	NSString *folder = [docsFolder stringByAppendingPathComponent:@"LocalHTML"];
-	NSString *fileName = [folder stringByAppendingPathComponent:@"home.htm"];
-	NSURL *url = [NSURL fileURLWithPath:fileName];
-	
-	NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
-	[(UIWebView *)self.view loadRequest:request];
-
-	// [url release];
-	[request release];
-		 
 	[super viewDidLoad];
 }
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Overriden to allow any orientation.
     return YES;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -75,10 +57,43 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	if(htmlFile)
+	{
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *docsFolder = [paths objectAtIndex:0];
+		NSString *folder = [docsFolder stringByAppendingPathComponent:@"LocalHTML"];
+		NSString *fileName = [folder stringByAppendingPathComponent:htmlFile];
+		NSURL *url = [NSURL fileURLWithPath:fileName];
+		
+		NSURLRequest * request = [[NSURLRequest alloc] initWithURL:url];
+		[webView loadRequest:request];
+		
+		[request release];
+	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+}
+
 - (void)dealloc
 {
     [super dealloc];
 }
 
+- (IBAction)backPressed:(id)sender
+{
+	[(InfoViewController *)[self parentViewController] hideChildController:true];
+}
+
+- (IBAction)previousPressed:(id)sender
+{	
+}
+
+- (IBAction)nextPressed:(id)sender
+{
+}
 
 @end

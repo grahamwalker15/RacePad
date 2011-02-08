@@ -49,11 +49,11 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	// Grab the title bar and mark it as displayed
-	[[RacePadTitleBarController Instance] displayInViewController:self];
-	
 	if(!driver_lap_list_controller_closing_)
 	{
+		// Grab the title bar and mark it as displayed
+		[[RacePadTitleBarController Instance] displayInViewController:self];
+		
 		// Register view
 		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_DRIVER_LIST_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 		[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
@@ -105,6 +105,8 @@
 
 - (void)viewDidUnload
 {
+	[driver_lap_list_controller_ release];
+	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

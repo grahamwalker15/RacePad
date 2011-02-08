@@ -104,7 +104,9 @@
 		[self getStartTime];
 	}
 	else
+	{
 		[movie release];
+	}
 	
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];

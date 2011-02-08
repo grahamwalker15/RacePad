@@ -168,7 +168,7 @@
 						</object>
 						<reference key="IBUIToolbarItems" ref="0"/>
 						<reference key="IBUIParentViewController" ref="395037606"/>
-						<string key="IBUINibName">HTMLView</string>
+						<string key="IBUINibName">InfoView</string>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 							<int key="interfaceOrientation">1</int>
 						</object>
@@ -463,7 +463,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>CompositeViewController</string>
 					<string>SettingsViewController</string>
-					<string>HTMLViewController</string>
+					<string>InfoViewController</string>
 					<string>BlueCarViewController</string>
 					<string>GameViewController</string>
 					<string>RacePadAppDelegate</string>
@@ -517,14 +517,35 @@
 					<string key="className">CarViewController</string>
 					<string key="superclassName">RacePadViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">trackMapSizeChanged</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>pitWindowSimplifyPressed:</string>
+							<string>trackMapSizeChanged</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">trackMapSizeChanged</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">trackMapSizeChanged</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>pitWindowSimplifyPressed:</string>
+							<string>trackMapSizeChanged</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">pitWindowSimplifyPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">trackMapSizeChanged</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -532,6 +553,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundView</string>
+							<string>commentaryView</string>
+							<string>pitWindowSimplifyButton</string>
 							<string>pitWindowView</string>
 							<string>telemetryView</string>
 							<string>trackMapContainer</string>
@@ -541,6 +564,8 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>BackgroundView</string>
+							<string>CommentaryView</string>
+							<string>ShinyButton</string>
 							<string>PitWindowView</string>
 							<string>TelemetryView</string>
 							<string>BackgroundView</string>
@@ -553,6 +578,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundView</string>
+							<string>commentaryView</string>
+							<string>pitWindowSimplifyButton</string>
 							<string>pitWindowView</string>
 							<string>telemetryView</string>
 							<string>trackMapContainer</string>
@@ -564,6 +591,14 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">backgroundView</string>
 								<string key="candidateClassName">BackgroundView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">commentaryView</string>
+								<string key="candidateClassName">CommentaryView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">pitWindowSimplifyButton</string>
+								<string key="candidateClassName">ShinyButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">pitWindowView</string>
@@ -588,6 +623,22 @@
 						</object>
 					</object>
 					<reference key="sourceIdentifier" ref="20660425"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ColouredButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UISupport/ColouredButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CommentaryView</string>
+					<string key="superclassName">SimpleListView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UIViews/CommentaryView.h</string>
+					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">CompositeViewController</string>
@@ -719,11 +770,15 @@
 							<string>actionPressed:</string>
 							<string>changeUserPressed:</string>
 							<string>newUserPressed:</string>
-							<string>relockPressed:</string>
+							<string>raceMSCPressed:</string>
+							<string>raceROSPressed:</string>
 							<string>resetPressed:</string>
+							<string>signOutPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -738,8 +793,10 @@
 							<string>actionPressed:</string>
 							<string>changeUserPressed:</string>
 							<string>newUserPressed:</string>
-							<string>relockPressed:</string>
+							<string>raceMSCPressed:</string>
+							<string>raceROSPressed:</string>
 							<string>resetPressed:</string>
+							<string>signOutPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -756,11 +813,19 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">relockPressed:</string>
+								<string key="name">raceMSCPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">raceROSPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">resetPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">signOutPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -779,12 +844,18 @@
 							<string>drivers2</string>
 							<string>leagueTable</string>
 							<string>newUser</string>
+							<string>orLabel</string>
 							<string>predictionBG</string>
-							<string>relock</string>
+							<string>raceMSC</string>
+							<string>raceROS</string>
 							<string>reset</string>
 							<string>result</string>
+							<string>signIn</string>
+							<string>signInLabel</string>
+							<string>signOut</string>
 							<string>status</string>
 							<string>user</string>
+							<string>users</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -798,12 +869,18 @@
 							<string>UITableView</string>
 							<string>TableDataView</string>
 							<string>UIButton</string>
+							<string>UILabel</string>
 							<string>UIImageView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UIButton</string>
 							<string>UITableView</string>
+							<string>UIButton</string>
 							<string>UILabel</string>
-							<string>UITextField</string>
+							<string>UIButton</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UITableView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -820,12 +897,18 @@
 							<string>drivers2</string>
 							<string>leagueTable</string>
 							<string>newUser</string>
+							<string>orLabel</string>
 							<string>predictionBG</string>
-							<string>relock</string>
+							<string>raceMSC</string>
+							<string>raceROS</string>
 							<string>reset</string>
 							<string>result</string>
+							<string>signIn</string>
+							<string>signInLabel</string>
+							<string>signOut</string>
 							<string>status</string>
 							<string>user</string>
+							<string>users</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -870,11 +953,19 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">orLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">predictionBG</string>
 								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">relock</string>
+								<string key="name">raceMSC</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">raceROS</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -886,12 +977,28 @@
 								<string key="candidateClassName">UITableView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">signIn</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">signInLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">signOut</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">status</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">user</string>
-								<string key="candidateClassName">UITextField</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">users</string>
+								<string key="candidateClassName">UITableView</string>
 							</object>
 						</object>
 					</object>
@@ -901,11 +1008,11 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">HTMLViewController</string>
+					<string key="className">InfoViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UIViewControllers/HTMLViewController.h</string>
+						<string key="minorKey">Classes/UIViewControllers/InfoViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -929,7 +1036,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">MovieView</string>
-					<string key="superclassName">UIView</string>
+					<string key="superclassName">BackgroundView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/UIViews/MovieView.h</string>
@@ -1005,10 +1112,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>IPAddressChanged:</string>
 							<string>connectPressed:</string>
+							<string>exitPressed:</string>
 							<string>loadPressed:</string>
+							<string>restartPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1020,7 +1131,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>IPAddressChanged:</string>
 							<string>connectPressed:</string>
+							<string>exitPressed:</string>
 							<string>loadPressed:</string>
+							<string>restartPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1033,7 +1146,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">exitPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">loadPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">restartPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -1044,15 +1165,19 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>connect</string>
 							<string>event</string>
+							<string>exit</string>
 							<string>ip_address_edit_</string>
 							<string>loadArchive</string>
+							<string>restart</string>
 							<string>status</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
 							<string>UIPickerView</string>
+							<string>UIButton</string>
 							<string>UITextField</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UILabel</string>
 						</object>
@@ -1063,8 +1188,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>connect</string>
 							<string>event</string>
+							<string>exit</string>
 							<string>ip_address_edit_</string>
 							<string>loadArchive</string>
+							<string>restart</string>
 							<string>status</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1078,11 +1205,19 @@
 								<string key="candidateClassName">UIPickerView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">exit</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">ip_address_edit_</string>
 								<string key="candidateClassName">UITextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">loadArchive</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">restart</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1094,6 +1229,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/UIViewControllers/SettingsViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ShinyButton</string>
+					<string key="superclassName">ColouredButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UISupport/ShinyButton.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

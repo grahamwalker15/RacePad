@@ -11,7 +11,22 @@
 
 @interface HTMLViewController : UIViewController
 {
+	NSString * htmlFile;
+	
+	IBOutlet UIToolbar * titleBar;
 
+	IBOutlet UIWebView * webView;
+
+	IBOutlet UIBarButtonItem * backButton;
+	IBOutlet UIBarButtonItem * InfoTitle;
+	IBOutlet UIBarButtonItem * previousButton;
+	IBOutlet UIBarButtonItem * nextButton;
 }
+
+@property (retain) NSString * htmlFile;
+
+- (IBAction)backPressed:(id)sender;
+- (IBAction)previousPressed:(id)sender;
+- (IBAction)nextPressed:(id)sender;
 
 @end
