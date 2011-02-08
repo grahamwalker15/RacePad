@@ -990,7 +990,9 @@
 			[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:TRUE];
 			
 			// Show driver info in popover
-			[self showDriverInfoPopover:selectedDriverIndex AtRect:[tableView rectForRowAtIndexPath:indexPath] InView:tableView];
+			CGRect selectedRect = [tableView rectForRowAtIndexPath:indexPath];
+			selectedRect = CGRectMake(selectedRect.origin.x + selectedRect.size.width - 30, selectedRect.origin.y, 30, selectedRect.size.height);
+			[self showDriverInfoPopover:selectedDriverIndex AtRect:selectedRect InView:tableView];
 		}		
 	}
 	
