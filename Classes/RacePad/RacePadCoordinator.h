@@ -103,6 +103,7 @@ enum ConnectionTypes
 	
 	RacePadClientSocket * socket_;
 	int connectionRetryCount;
+	bool showingConnecting;
 	
 	NSString *sessionFolder;
 	

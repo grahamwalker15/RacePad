@@ -75,6 +75,7 @@ static RacePadCoordinator * instance_ = nil;
 		connectionRetryCount = 0;
 		connectionRetryTimer = nil;
 		live = false;
+		showingConnecting = false;
 		
 		firstView = true;
 		
@@ -84,7 +85,7 @@ static RacePadCoordinator * instance_ = nil;
 		playOnBecomeActive = false;
 		jumpOnBecomeActive = false;
 		restartTime = 0;
-			}
+	}
 	
 	return self;
 }
@@ -536,6 +537,7 @@ static RacePadCoordinator * instance_ = nil;
 		if ( restartTime == 0 )
 			live = true;
 
+		showingConnecting = false;
 		[serverConnect popDown];
 	}
 	else
@@ -586,10 +588,13 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) showConnecting
 {
-	if ( socket_ != nil && connectionType != RPC_SOCKET_CONNECTION_ )
+	if ( socket_ != nil
+	  && connectionType != RPC_SOCKET_CONNECTION_
+	  && !showingConnecting )
 	{
 		if ( serverConnect == nil )
 			serverConnect = [[ServerConnect alloc] initWithNibName:@"ServerConnect" bundle:nil];
+		showingConnecting = true;
 		[registeredViewController presentModalViewController:serverConnect animated:YES];
 	}
 }
