@@ -40,7 +40,7 @@
 			[html appendString:@"<p>On the left is their helmet design followed by their position, car number "];
 			[html appendString:@"and abbreviated name."]; 
 			[html appendString:@"<p>The abbreviation is usually the first three letters of a driver's surname. "];
-			[html appendString:@"A full list of abbreviations can be found in the Info screen."];
+			[html appendString:@"A full list of abbreviations can be found under Drivers in the Info tab."];
 			[html appendString:@"<p>Double tab on a driver's name to see a full list of all of his lap times."];
 			break;
 			
@@ -84,18 +84,34 @@
 			break;
 			
 		case 6:
-			[html appendString:@"<h3>Page 6</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"In the race, the final number shows the number of pit stops made by the driver."];
+			
+			[html appendString:@"<br>In practice and qualifying, it shows the total number of laps completed."];
+			
+			[html appendString:@"<p>Tap the arrow in the right hand column to bring up a complete list of laps for that driver."];
 			break;
 			
 		case 7:
-			[html appendString:@"<h3>Page 7</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"Tap the <image src = ""PopupImageHTML.png""> button to bring up a list of race incidents. "];
+			[html appendString:@"<p>Tap on any incident from the list to jump to the time of the incident."];
 			break;
 			
 		case 8:
-			[html appendString:@"<h3>Page 8</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"These buttons show progress in the session, and the current track status."];
+
+			[html appendString:@"<p>During the race, the current lap number for the leader is displayed, together with "];
+			[html appendString:@"the total number of laps to be covered."];
+				
+			[html appendString:@"<p>The background colour indicates the current track state. White indicates normal "];
+			[html appendString:@"running, yellow means that there is a yellow flag somewhere on the circuit, and red "];
+			[html appendString:@"means that the session has been red flagged."];
+			[html appendString:@"<br>If the safety car is deployed, an "];
+			[html appendString:@"additional SC box is shown. When the race is finished, a checkered flag is shown."];
+				
+			[html appendString:@"<p>In practice and qualifying, the elapsed time in the current session is displayed."];
+				
+			[html appendString:@"<p>See the Rules section under the Info tab, for more information on session lengths and "];
+			[html appendString:@"flag rules."];
 			break;
 			
 		case 9:

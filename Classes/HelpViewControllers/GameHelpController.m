@@ -22,28 +22,37 @@
 	switch(index)
 	{
 		case 0:
-			[html appendString:@"Welcome to RacePad Help."];
-			[html appendString:@"<p>Tap on any red question mark buttons to get specific information about that area of the screen."];
+			[html appendString:@"<h3>The Game</h3>"];
+			[html appendString:@"This game allows you to compete in the race weekend, trying to out-do fellow guests "];
+			[html appendString:@"by making the best prediction of the top 10. In each session."];
+			[html appendString:@"<p>Simply drag and drop drivers into your prediction, and send it off."];
+			[html appendString:@"<p>You can then follow your progress in a league table kept up to date throughout the session."];
+			
+			[html appendString:@"<p><table>"];
+			[html appendString:@"<td width = 20><image src = ""HelpButtonHTML.png""></td>"];
+			[html appendString:@"<td width = 10>&nbsp</td>"];
+			[html appendString:@"<td>Press the red question mark buttons to get more information about each area of the screen.<td>"];
+			[html appendString:@"<p></table>"];
 			break;
 			
 		case 1:
 			[html appendString:@"<h3>Page 1</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"<p>Login"];
 			break;
 			
 		case 2:
 			[html appendString:@"<h3>Page 2</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"<p>Your prediction"];
 			break;
 			
 		case 3:
 			[html appendString:@"<h3>Page 3</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"<p>Driver lists and information."];
 			break;
 			
 		case 4:
 			[html appendString:@"<h3>Page 4</h3>"];
-			[html appendString:@"<p>Racepad Help"];
+			[html appendString:@"<p>Send"];
 			break;
 			
 		case 5:
