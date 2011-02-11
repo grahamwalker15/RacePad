@@ -67,6 +67,23 @@
 		7F610C8F13018636004DC056 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
 		7F610C9213018778004DC056 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; };
 		7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
+		7F610CF41301D470004DC056 /* InfoDrivers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CF31301D470004DC056 /* InfoDrivers.xib */; };
+		7F610CF71301D527004DC056 /* InfoDriversController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610CF61301D527004DC056 /* InfoDriversController.m */; };
+		7F610CFE1301D609004DC056 /* InfoChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610CFD1301D609004DC056 /* InfoChildController.m */; };
+		7F610EC81302BFDF004DC056 /* PopupImageHTML.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610EC71302BFDF004DC056 /* PopupImageHTML.png */; };
+		7F610F4513030073004DC056 /* LogoAabar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3A13030073004DC056 /* LogoAabar.png */; };
+		7F610F4613030073004DC056 /* LogoAllianz.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3B13030073004DC056 /* LogoAllianz.png */; };
+		7F610F4713030073004DC056 /* LogoAutonomy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3C13030073004DC056 /* LogoAutonomy.png */; };
+		7F610F4813030073004DC056 /* LogoDeutschePost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3D13030073004DC056 /* LogoDeutschePost.png */; };
+		7F610F4913030073004DC056 /* LogoGraham.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3E13030073004DC056 /* LogoGraham.png */; };
+		7F610F4A13030073004DC056 /* LogoHenriLloyd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3F13030073004DC056 /* LogoHenriLloyd.png */; };
+		7F610F4B13030073004DC056 /* LogoMIG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4013030073004DC056 /* LogoMIG.png */; };
+		7F610F4C13030073004DC056 /* LogoMonster.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4113030073004DC056 /* LogoMonster.png */; };
+		7F610F4D13030073004DC056 /* LogoPetronas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4213030073004DC056 /* LogoPetronas.png */; };
+		7F610F4E13030073004DC056 /* LogoPirelli.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4313030073004DC056 /* LogoPirelli.png */; };
+		7F610F4F13030073004DC056 /* LogoStandox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4413030073004DC056 /* LogoStandox.png */; };
+		7F610F531303052C004DC056 /* InfoPartners.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F521303052C004DC056 /* InfoPartners.xib */; };
+		7F610F56130319BC004DC056 /* InfoPartnersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610F55130319BC004DC056 /* InfoPartnersController.m */; };
 		7F62357C127B2018009A9D4F /* RacePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F62357B127B2018009A9D4F /* RacePadViewController.m */; };
 		7F6239D7127E089F009A9D4F /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6239D6127E089F009A9D4F /* MovieView.m */; };
 		7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */; };
@@ -328,6 +345,26 @@
 		7F610C9013018778004DC056 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		7F610C9113018778004DC056 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		7F610CE21301B2B0004DC056 /* MGPCar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MGPCar.png; path = Images/MGPCar.png; sourceTree = "<group>"; };
+		7F610CF31301D470004DC056 /* InfoDrivers.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoDrivers.xib; path = ResourceFiles/InfoDrivers.xib; sourceTree = "<group>"; };
+		7F610CF51301D527004DC056 /* InfoDriversController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDriversController.h; sourceTree = "<group>"; };
+		7F610CF61301D527004DC056 /* InfoDriversController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDriversController.m; sourceTree = "<group>"; };
+		7F610CFC1301D609004DC056 /* InfoChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoChildController.h; sourceTree = "<group>"; };
+		7F610CFD1301D609004DC056 /* InfoChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoChildController.m; sourceTree = "<group>"; };
+		7F610EC71302BFDF004DC056 /* PopupImageHTML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupImageHTML.png; path = Images/PopupImageHTML.png; sourceTree = "<group>"; };
+		7F610F3A13030073004DC056 /* LogoAabar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoAabar.png; path = Images/LogoAabar.png; sourceTree = "<group>"; };
+		7F610F3B13030073004DC056 /* LogoAllianz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoAllianz.png; path = Images/LogoAllianz.png; sourceTree = "<group>"; };
+		7F610F3C13030073004DC056 /* LogoAutonomy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoAutonomy.png; path = Images/LogoAutonomy.png; sourceTree = "<group>"; };
+		7F610F3D13030073004DC056 /* LogoDeutschePost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoDeutschePost.png; path = Images/LogoDeutschePost.png; sourceTree = "<group>"; };
+		7F610F3E13030073004DC056 /* LogoGraham.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoGraham.png; path = Images/LogoGraham.png; sourceTree = "<group>"; };
+		7F610F3F13030073004DC056 /* LogoHenriLloyd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoHenriLloyd.png; path = Images/LogoHenriLloyd.png; sourceTree = "<group>"; };
+		7F610F4013030073004DC056 /* LogoMIG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoMIG.png; path = Images/LogoMIG.png; sourceTree = "<group>"; };
+		7F610F4113030073004DC056 /* LogoMonster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoMonster.png; path = Images/LogoMonster.png; sourceTree = "<group>"; };
+		7F610F4213030073004DC056 /* LogoPetronas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoPetronas.png; path = Images/LogoPetronas.png; sourceTree = "<group>"; };
+		7F610F4313030073004DC056 /* LogoPirelli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoPirelli.png; path = Images/LogoPirelli.png; sourceTree = "<group>"; };
+		7F610F4413030073004DC056 /* LogoStandox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoStandox.png; path = Images/LogoStandox.png; sourceTree = "<group>"; };
+		7F610F521303052C004DC056 /* InfoPartners.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoPartners.xib; path = ResourceFiles/InfoPartners.xib; sourceTree = "<group>"; };
+		7F610F54130319BC004DC056 /* InfoPartnersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPartnersController.h; sourceTree = "<group>"; };
+		7F610F55130319BC004DC056 /* InfoPartnersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPartnersController.m; sourceTree = "<group>"; };
 		7F62357A127B2018009A9D4F /* RacePadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadViewController.h; sourceTree = "<group>"; };
 		7F62357B127B2018009A9D4F /* RacePadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadViewController.m; sourceTree = "<group>"; };
 		7F6239D5127E089F009A9D4F /* MovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieView.h; sourceTree = "<group>"; };
@@ -602,7 +639,6 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				7F610C8E13018636004DC056 /* InfoView.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -619,6 +655,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F817D031305209D00AC2444 /* HTML */,
 				7FC2F8181295911900DAC96E /* Images */,
 				7FC2F8171295910D00DAC96E /* XIB Files */,
 				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
@@ -671,6 +708,13 @@
 				7F9543EF130097AB00DC7FB6 /* DriverInfo.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		7F817D031305209D00AC2444 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HTML;
 			sourceTree = "<group>";
 		};
 		7F93564A12F8802A00AB1D07 /* HelpViewControllers */ = {
@@ -743,6 +787,12 @@
 				7FA27CEB130017C3001407FD /* DriverInfoViewController.m */,
 				7F610C9013018778004DC056 /* InfoViewController.h */,
 				7F610C9113018778004DC056 /* InfoViewController.m */,
+				7F610CF51301D527004DC056 /* InfoDriversController.h */,
+				7F610CF61301D527004DC056 /* InfoDriversController.m */,
+				7F610CFC1301D609004DC056 /* InfoChildController.h */,
+				7F610CFD1301D609004DC056 /* InfoChildController.m */,
+				7F610F54130319BC004DC056 /* InfoPartnersController.h */,
+				7F610F55130319BC004DC056 /* InfoPartnersController.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -889,6 +939,9 @@
 				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
 				7F9354CD12F6F1A700AB1D07 /* TelemetryHelp.xib */,
 				7F9354CB12F6F18200AB1D07 /* VideoHelp.xib */,
+				7F610C8E13018636004DC056 /* InfoView.xib */,
+				7F610CF31301D470004DC056 /* InfoDrivers.xib */,
+				7F610F521303052C004DC056 /* InfoPartners.xib */,
 			);
 			name = "XIB Files";
 			sourceTree = "<group>";
@@ -896,6 +949,18 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F610F3A13030073004DC056 /* LogoAabar.png */,
+				7F610F3B13030073004DC056 /* LogoAllianz.png */,
+				7F610F3C13030073004DC056 /* LogoAutonomy.png */,
+				7F610F3D13030073004DC056 /* LogoDeutschePost.png */,
+				7F610F3E13030073004DC056 /* LogoGraham.png */,
+				7F610F3F13030073004DC056 /* LogoHenriLloyd.png */,
+				7F610F4013030073004DC056 /* LogoMIG.png */,
+				7F610F4113030073004DC056 /* LogoMonster.png */,
+				7F610F4213030073004DC056 /* LogoPetronas.png */,
+				7F610F4313030073004DC056 /* LogoPirelli.png */,
+				7F610F4413030073004DC056 /* LogoStandox.png */,
+				7F610EC71302BFDF004DC056 /* PopupImageHTML.png */,
 				7F610CE21301B2B0004DC056 /* MGPCar.png */,
 				7FA27E1813002D5A001407FD /* NoHelmet.png */,
 				7FA27DA513002425001407FD /* NoPhoto.png */,
@@ -1189,6 +1254,20 @@
 				7FA27E1913002D5A001407FD /* NoHelmet.png in Resources */,
 				7F610C8F13018636004DC056 /* InfoView.xib in Resources */,
 				7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */,
+				7F610CF41301D470004DC056 /* InfoDrivers.xib in Resources */,
+				7F610EC81302BFDF004DC056 /* PopupImageHTML.png in Resources */,
+				7F610F4513030073004DC056 /* LogoAabar.png in Resources */,
+				7F610F4613030073004DC056 /* LogoAllianz.png in Resources */,
+				7F610F4713030073004DC056 /* LogoAutonomy.png in Resources */,
+				7F610F4813030073004DC056 /* LogoDeutschePost.png in Resources */,
+				7F610F4913030073004DC056 /* LogoGraham.png in Resources */,
+				7F610F4A13030073004DC056 /* LogoHenriLloyd.png in Resources */,
+				7F610F4B13030073004DC056 /* LogoMIG.png in Resources */,
+				7F610F4C13030073004DC056 /* LogoMonster.png in Resources */,
+				7F610F4D13030073004DC056 /* LogoPetronas.png in Resources */,
+				7F610F4E13030073004DC056 /* LogoPirelli.png in Resources */,
+				7F610F4F13030073004DC056 /* LogoStandox.png in Resources */,
+				7F610F531303052C004DC056 /* InfoPartners.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1279,6 +1358,9 @@
 				7FA27CEC130017C3001407FD /* DriverInfoViewController.m in Sources */,
 				7F9543F0130097AB00DC7FB6 /* DriverInfo.m in Sources */,
 				7F610C9213018778004DC056 /* InfoViewController.m in Sources */,
+				7F610CF71301D527004DC056 /* InfoDriversController.m in Sources */,
+				7F610CFE1301D609004DC056 /* InfoChildController.m in Sources */,
+				7F610F56130319BC004DC056 /* InfoPartnersController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

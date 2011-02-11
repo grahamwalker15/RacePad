@@ -337,8 +337,8 @@
 		newUser.hidden = gameStarted;
 		
 		signIn.hidden = !gameStarted;
-		raceMSC.hidden = NO;
-		raceROS.hidden = NO;
+		raceMSC.hidden = YES;//NO;
+		raceROS.hidden = YES;//NO;
 	}
 }
 

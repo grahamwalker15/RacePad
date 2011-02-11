@@ -21,9 +21,13 @@
 	// Create the child view controllers
 	
 	htmlController = [[HTMLViewController alloc] initWithNibName:@"HTMLView" bundle:nil];
+	driversController = [[InfoDriversController alloc] initWithNibName:@"InfoDrivers" bundle:nil];
+	partnersController = [[InfoPartnersController alloc] initWithNibName:@"InfoPartners" bundle:nil];
 	
 	childControllerDisplayed = false;
 	childControllerClosing = false;
+	childController = nil;
+
 	
 	[super viewDidLoad];
 }
@@ -33,7 +37,6 @@
     // Overriden to allow any orientation.
     return YES;
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -65,6 +68,8 @@
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 	
 	childControllerClosing = false;
+	childController = nil;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,12 +84,31 @@
 - (void)viewDidUnload
 {
 	[htmlController release];
+	[driversController release];
+	[partnersController release];
+	
+	childController = nil;
 	
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	if(childControllerDisplayed)
+		[childController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+	
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	if(childControllerDisplayed)
+		[childController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+	
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
 
 - (void)dealloc
 {
@@ -101,23 +125,53 @@
 
 - (IBAction) buttonPressed:(id)sender;
 {
-	[self showHTMLController:@"home.htm"];
+	if( sender == driversButton )
+	{
+		[self showChildController:driversController];
+	}
+	else if( sender == teamsButton )
+	{
+		[htmlController setHtmlFile:@"teams.htm"];
+		[self showChildController:htmlController];
+	}
+	else if( sender == circuitsButton )
+	{
+		[htmlController setHtmlFile:@"circuits.htm"];
+		[self showChildController:htmlController];
+	}
+	else if( sender == standingsButton )
+	{
+		[htmlController setHtmlFile:@"standings.htm"];
+		[self showChildController:htmlController];
+	}
+	else if( sender == rulesButton )
+	{
+		[htmlController setHtmlFile:@"rules.htm"];
+		[self showChildController:htmlController];
+	}
+	else if( sender == partnersButton )
+	{
+		[self showChildController:partnersController];
+	}
+	else
+	{
+		[htmlController setHtmlFile:@"home.htm"];
+		[self showChildController:htmlController];
+	}
 }
 
-- (void)showHTMLController:(NSString *)htmlName
+- (void)showChildController:(InfoChildController *)controller;
 {
-	if(htmlController)
+	if(controller)
 	{
-		// Set the driver we want displayed
-		[htmlController setHtmlFile:htmlName];
-		
 		// Set the style for its presentation
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentModalViewController:htmlController animated:true];
+		[self presentModalViewController:controller animated:true];
 		childControllerDisplayed = true;
+		childController = controller;
 	}
 }
 
@@ -131,6 +185,7 @@
 		// And dismiss it
 		[self dismissModalViewControllerAnimated:animated];
 		childControllerDisplayed = false;
+		childController = nil;
 	}
 }
 

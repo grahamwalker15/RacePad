@@ -9,12 +9,19 @@
 #import <UIKit/UIKit.h>
 
 #import "RacePadViewController.h"
+#import "InfoChildController.h"
 #import "HTMLViewController.h"
+#import "InfoDriversController.h"
+#import "InfoPartnersController.h"
 #import "BackgroundView.h"
 
 @interface InfoViewController : RacePadViewController
 {
 	HTMLViewController * htmlController;
+	InfoDriversController * driversController;
+	InfoPartnersController * partnersController;
+	
+	InfoChildController * childController;
 	
 	bool childControllerDisplayed;
 	bool childControllerClosing;
@@ -30,7 +37,7 @@
 
 - (IBAction) buttonPressed:(id)sender;
 
-- (void)showHTMLController:(NSString *)htmlName;
+- (void)showChildController:(InfoChildController *)controller;
 - (void)hideChildController:(bool)animated;
 
 @end

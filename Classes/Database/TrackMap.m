@@ -659,9 +659,9 @@
 		}
 		else
 		{
-			SegmentState * state = [[SegmentState alloc] init:segNum State:state];
-			[segmentStates addObject:state];
-			[state release];
+			SegmentState * segmentState = [[SegmentState alloc] init:segNum State:state];
+			[segmentStates addObject:segmentState];
+			[segmentState release];
 		}
 	}
 }
