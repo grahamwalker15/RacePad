@@ -625,14 +625,6 @@
 					<int key="connectionID">25</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">webView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="191373211"/>
-					</object>
-					<int key="connectionID">27</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">backPressed:</string>
 						<reference key="source" ref="526749201"/>
@@ -831,6 +823,14 @@
 						<reference key="destination" ref="815015672"/>
 					</object>
 					<int key="connectionID">80</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">webView1</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="191373211"/>
+					</object>
+					<int key="connectionID">81</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1283,7 +1283,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABA4AAAwzkAAA</bytes>
 					</object>
-					<string>{{340, 69}, {783, 787}}</string>
+					<string>{{340, 78}, {783, 778}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1309,7 +1309,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">80</int>
+			<int key="maxID">81</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1379,19 +1379,23 @@
 							<string>InfoTitle</string>
 							<string>backButton</string>
 							<string>backgroundView</string>
+							<string>instruction</string>
 							<string>nextButton</string>
 							<string>previousButton</string>
 							<string>titleBar</string>
-							<string>webView</string>
+							<string>webView1</string>
+							<string>webView2</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>BackgroundView</string>
+							<string>UILabel</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIToolbar</string>
+							<string>UIWebView</string>
 							<string>UIWebView</string>
 						</object>
 					</object>
@@ -1402,10 +1406,12 @@
 							<string>InfoTitle</string>
 							<string>backButton</string>
 							<string>backgroundView</string>
+							<string>instruction</string>
 							<string>nextButton</string>
 							<string>previousButton</string>
 							<string>titleBar</string>
-							<string>webView</string>
+							<string>webView1</string>
+							<string>webView2</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1422,6 +1428,10 @@
 								<string key="candidateClassName">BackgroundView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">instruction</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">nextButton</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
@@ -1434,7 +1444,11 @@
 								<string key="candidateClassName">UIToolbar</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">webView</string>
+								<string key="name">webView1</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">webView2</string>
 								<string key="candidateClassName">UIWebView</string>
 							</object>
 						</object>

@@ -14,6 +14,8 @@
 @synthesize textColour;
 @synthesize buttonColour;
 @synthesize outlineColour;
+@synthesize selectedTextColour;
+@synthesize selectedButtonColour;
 @synthesize outline;
 
 - (id)initWithCoder:(NSCoder*)coder
@@ -42,6 +44,8 @@
 {
 	[self setTextColour:[UIColor darkTextColor]];
 	[self setButtonColour:[UIColor whiteColor]];
+	[self setSelectedTextColour:[UIColor whiteColor]];
+	[self setSelectedButtonColour:[UIColor colorWithRed:0.25 green:0.4 blue:0.9 alpha:1.0]];
 	[self setOutlineColour:[UIColor blackColor]];
 }
 
@@ -52,6 +56,15 @@
 	[oldTextColour release];
 	
 	[self setTitleColor:textColour forState:UIControlStateNormal];
+}
+
+- (void) setSelectedTextColour:(UIColor *)colour
+{
+	UIColor * oldTextColour = selectedTextColour;
+	selectedTextColour = [colour retain];
+	[oldTextColour release];
+	
+	[self setTitleColor:selectedTextColour forState:UIControlStateSelected];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -92,7 +105,12 @@
 	CGContextBeginPath (context);
 	CGContextAddPath(context, path);
 	CGContextClip (context);
-	[buttonColour set];
+	
+	if([self isSelected])
+		[selectedButtonColour set];
+	else
+		[buttonColour set];
+	
 	CGContextFillRect(context, bounds);
 	CGContextRestoreGState (context);
 		

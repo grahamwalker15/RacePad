@@ -119,6 +119,36 @@
 		7F767E9112A689F1009249F7 /* CarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F767E9012A689F1009249F7 /* CarView.xib */; };
 		7F7683F912AAA06A009249F7 /* FullScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683F812AAA06A009249F7 /* FullScreen.png */; };
 		7F7683FB12AAA07D009249F7 /* SmallScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683FA12AAA07D009249F7 /* SmallScreen.png */; };
+		7F817D1413052D8A00AC2444 /* InfoPetronas.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817D1313052D8A00AC2444 /* InfoPetronas.htm */; };
+		7F817DFD1305440B00AC2444 /* InfoDeutschePost.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */; };
+		7F817E011305446200AC2444 /* InfoAabar.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E001305446200AC2444 /* InfoAabar.htm */; };
+		7F817E05130544EB00AC2444 /* InfoAutonomy.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E04130544EB00AC2444 /* InfoAutonomy.htm */; };
+		7F817E0B1305457B00AC2444 /* InfoMIG.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E0A1305457B00AC2444 /* InfoMIG.htm */; };
+		7F817E11130545F300AC2444 /* InfoAllianz.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E10130545F300AC2444 /* InfoAllianz.htm */; };
+		7F817E151305465600AC2444 /* InfoGraham.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E141305465600AC2444 /* InfoGraham.htm */; };
+		7F817E19130546AA00AC2444 /* InfoHLloyd.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E18130546AA00AC2444 /* InfoHLloyd.htm */; };
+		7F817E1D1305470500AC2444 /* InfoMonster.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E1C1305470500AC2444 /* InfoMonster.htm */; };
+		7F817E211305475F00AC2444 /* InfoPirelli.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E201305475F00AC2444 /* InfoPirelli.htm */; };
+		7F817E25130547AF00AC2444 /* InfoStandox.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E24130547AF00AC2444 /* InfoStandox.htm */; };
+		7F817E29130547EE00AC2444 /* InfoAlpine.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E28130547EE00AC2444 /* InfoAlpine.htm */; };
+		7F817E2D1305488E00AC2444 /* InfoEndless.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E2C1305488E00AC2444 /* InfoEndless.htm */; };
+		7F817E31130548DC00AC2444 /* InfoLincoln.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E30130548DC00AC2444 /* InfoLincoln.htm */; };
+		7F817E351305492100AC2444 /* InfoStarTrac.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E341305492100AC2444 /* InfoStarTrac.htm */; };
+		7F817E391305496500AC2444 /* InfoSTL.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E381305496500AC2444 /* InfoSTL.htm */; };
+		7F817E7213054CFD00AC2444 /* LogoAlpine.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E6D13054CFD00AC2444 /* LogoAlpine.png */; };
+		7F817E7313054CFD00AC2444 /* LogoEndless.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E6E13054CFD00AC2444 /* LogoEndless.png */; };
+		7F817E7413054CFD00AC2444 /* LogoLincoln.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E6F13054CFD00AC2444 /* LogoLincoln.png */; };
+		7F817E7513054CFD00AC2444 /* LogoStarTrac.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E7013054CFD00AC2444 /* LogoStarTrac.png */; };
+		7F817E7613054CFD00AC2444 /* LogoSTL.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E7113054CFD00AC2444 /* LogoSTL.png */; };
+		7F817EFA1305AA8400AC2444 /* InfoRulesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F817EF91305AA8400AC2444 /* InfoRulesController.m */; };
+		7F817EFD1305AD0B00AC2444 /* InfoRules.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F817EFC1305AD0B00AC2444 /* InfoRules.xib */; };
+		7F817F3D1305B47200AC2444 /* LogoFIA.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817F3C1305B47200AC2444 /* LogoFIA.png */; };
+		7F8180981306F42B00AC2444 /* InfoTeamsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8180971306F42B00AC2444 /* InfoTeamsController.m */; };
+		7F8180A21306F8B400AC2444 /* InfoTeams.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180A11306F8B400AC2444 /* InfoTeams.xib */; };
+		7F8180C31306FA8800AC2444 /* InfoStandingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8180C21306FA8800AC2444 /* InfoStandingsController.m */; };
+		7F8180C71306FB6F00AC2444 /* InfoStandings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180C61306FB6F00AC2444 /* InfoStandings.xib */; };
+		7F8180E41307071100AC2444 /* InfoDriverStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E31307071100AC2444 /* InfoDriverStandings.htm */; };
+		7F8180E61307072500AC2444 /* InfoTeamStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E51307072500AC2444 /* InfoTeamStandings.htm */; };
 		7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A15128776B600F13CB6 /* Icon-72.png */; };
 		7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A16128776B600F13CB6 /* Icon-Small-50.png */; };
 		7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A17128776B600F13CB6 /* Icon-Small.png */; };
@@ -253,6 +283,18 @@
 		7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBBF129AC91700DAC96E /* TelemetryView.m */; };
 		7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7F817D3F130530E400AC2444 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -413,6 +455,39 @@
 		7F767E9012A689F1009249F7 /* CarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarView.xib; path = ResourceFiles/CarView.xib; sourceTree = "<group>"; };
 		7F7683F812AAA06A009249F7 /* FullScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FullScreen.png; path = Images/FullScreen.png; sourceTree = "<group>"; };
 		7F7683FA12AAA07D009249F7 /* SmallScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SmallScreen.png; path = Images/SmallScreen.png; sourceTree = "<group>"; };
+		7F817D1313052D8A00AC2444 /* InfoPetronas.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoPetronas.htm; sourceTree = "<group>"; };
+		7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoDeutschePost.htm; sourceTree = "<group>"; };
+		7F817E001305446200AC2444 /* InfoAabar.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoAabar.htm; sourceTree = "<group>"; };
+		7F817E04130544EB00AC2444 /* InfoAutonomy.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoAutonomy.htm; sourceTree = "<group>"; };
+		7F817E0A1305457B00AC2444 /* InfoMIG.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoMIG.htm; sourceTree = "<group>"; };
+		7F817E10130545F300AC2444 /* InfoAllianz.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoAllianz.htm; sourceTree = "<group>"; };
+		7F817E141305465600AC2444 /* InfoGraham.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoGraham.htm; sourceTree = "<group>"; };
+		7F817E18130546AA00AC2444 /* InfoHLloyd.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoHLloyd.htm; sourceTree = "<group>"; };
+		7F817E1C1305470500AC2444 /* InfoMonster.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoMonster.htm; sourceTree = "<group>"; };
+		7F817E201305475F00AC2444 /* InfoPirelli.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoPirelli.htm; sourceTree = "<group>"; };
+		7F817E24130547AF00AC2444 /* InfoStandox.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoStandox.htm; sourceTree = "<group>"; };
+		7F817E28130547EE00AC2444 /* InfoAlpine.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoAlpine.htm; sourceTree = "<group>"; };
+		7F817E2C1305488E00AC2444 /* InfoEndless.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoEndless.htm; sourceTree = "<group>"; };
+		7F817E30130548DC00AC2444 /* InfoLincoln.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoLincoln.htm; sourceTree = "<group>"; };
+		7F817E341305492100AC2444 /* InfoStarTrac.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoStarTrac.htm; sourceTree = "<group>"; };
+		7F817E381305496500AC2444 /* InfoSTL.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoSTL.htm; sourceTree = "<group>"; };
+		7F817E6D13054CFD00AC2444 /* LogoAlpine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoAlpine.png; path = Images/LogoAlpine.png; sourceTree = "<group>"; };
+		7F817E6E13054CFD00AC2444 /* LogoEndless.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoEndless.png; path = Images/LogoEndless.png; sourceTree = "<group>"; };
+		7F817E6F13054CFD00AC2444 /* LogoLincoln.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoLincoln.png; path = Images/LogoLincoln.png; sourceTree = "<group>"; };
+		7F817E7013054CFD00AC2444 /* LogoStarTrac.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoStarTrac.png; path = Images/LogoStarTrac.png; sourceTree = "<group>"; };
+		7F817E7113054CFD00AC2444 /* LogoSTL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoSTL.png; path = Images/LogoSTL.png; sourceTree = "<group>"; };
+		7F817EF81305AA8400AC2444 /* InfoRulesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoRulesController.h; sourceTree = "<group>"; };
+		7F817EF91305AA8400AC2444 /* InfoRulesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoRulesController.m; sourceTree = "<group>"; };
+		7F817EFC1305AD0B00AC2444 /* InfoRules.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoRules.xib; path = ResourceFiles/InfoRules.xib; sourceTree = "<group>"; };
+		7F817F3C1305B47200AC2444 /* LogoFIA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LogoFIA.png; path = Images/LogoFIA.png; sourceTree = "<group>"; };
+		7F8180961306F42B00AC2444 /* InfoTeamsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTeamsController.h; sourceTree = "<group>"; };
+		7F8180971306F42B00AC2444 /* InfoTeamsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTeamsController.m; sourceTree = "<group>"; };
+		7F8180A11306F8B400AC2444 /* InfoTeams.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoTeams.xib; path = ResourceFiles/InfoTeams.xib; sourceTree = "<group>"; };
+		7F8180C11306FA8800AC2444 /* InfoStandingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoStandingsController.h; sourceTree = "<group>"; };
+		7F8180C21306FA8800AC2444 /* InfoStandingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoStandingsController.m; sourceTree = "<group>"; };
+		7F8180C61306FB6F00AC2444 /* InfoStandings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoStandings.xib; path = ResourceFiles/InfoStandings.xib; sourceTree = "<group>"; };
+		7F8180E31307071100AC2444 /* InfoDriverStandings.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoDriverStandings.htm; sourceTree = "<group>"; };
+		7F8180E51307072500AC2444 /* InfoTeamStandings.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamStandings.htm; sourceTree = "<group>"; };
 		7F865A15128776B600F13CB6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
 		7F865A16128776B600F13CB6 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images/Icon-Small-50.png"; sourceTree = "<group>"; };
 		7F865A17128776B600F13CB6 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images/Icon-Small.png"; sourceTree = "<group>"; };
@@ -639,6 +714,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				7F817EFC1305AD0B00AC2444 /* InfoRules.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -713,6 +789,24 @@
 		7F817D031305209D00AC2444 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				7F817D1313052D8A00AC2444 /* InfoPetronas.htm */,
+				7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */,
+				7F817E001305446200AC2444 /* InfoAabar.htm */,
+				7F817E04130544EB00AC2444 /* InfoAutonomy.htm */,
+				7F817E0A1305457B00AC2444 /* InfoMIG.htm */,
+				7F817E10130545F300AC2444 /* InfoAllianz.htm */,
+				7F817E141305465600AC2444 /* InfoGraham.htm */,
+				7F817E18130546AA00AC2444 /* InfoHLloyd.htm */,
+				7F817E1C1305470500AC2444 /* InfoMonster.htm */,
+				7F817E201305475F00AC2444 /* InfoPirelli.htm */,
+				7F817E24130547AF00AC2444 /* InfoStandox.htm */,
+				7F817E28130547EE00AC2444 /* InfoAlpine.htm */,
+				7F817E2C1305488E00AC2444 /* InfoEndless.htm */,
+				7F817E30130548DC00AC2444 /* InfoLincoln.htm */,
+				7F817E341305492100AC2444 /* InfoStarTrac.htm */,
+				7F817E381305496500AC2444 /* InfoSTL.htm */,
+				7F8180E31307071100AC2444 /* InfoDriverStandings.htm */,
+				7F8180E51307072500AC2444 /* InfoTeamStandings.htm */,
 			);
 			path = HTML;
 			sourceTree = "<group>";
@@ -793,6 +887,12 @@
 				7F610CFD1301D609004DC056 /* InfoChildController.m */,
 				7F610F54130319BC004DC056 /* InfoPartnersController.h */,
 				7F610F55130319BC004DC056 /* InfoPartnersController.m */,
+				7F817EF81305AA8400AC2444 /* InfoRulesController.h */,
+				7F817EF91305AA8400AC2444 /* InfoRulesController.m */,
+				7F8180961306F42B00AC2444 /* InfoTeamsController.h */,
+				7F8180971306F42B00AC2444 /* InfoTeamsController.m */,
+				7F8180C11306FA8800AC2444 /* InfoStandingsController.h */,
+				7F8180C21306FA8800AC2444 /* InfoStandingsController.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -942,6 +1042,8 @@
 				7F610C8E13018636004DC056 /* InfoView.xib */,
 				7F610CF31301D470004DC056 /* InfoDrivers.xib */,
 				7F610F521303052C004DC056 /* InfoPartners.xib */,
+				7F8180C61306FB6F00AC2444 /* InfoStandings.xib */,
+				7F8180A11306F8B400AC2444 /* InfoTeams.xib */,
 			);
 			name = "XIB Files";
 			sourceTree = "<group>";
@@ -949,6 +1051,12 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F817F3C1305B47200AC2444 /* LogoFIA.png */,
+				7F817E6D13054CFD00AC2444 /* LogoAlpine.png */,
+				7F817E6E13054CFD00AC2444 /* LogoEndless.png */,
+				7F817E6F13054CFD00AC2444 /* LogoLincoln.png */,
+				7F817E7013054CFD00AC2444 /* LogoStarTrac.png */,
+				7F817E7113054CFD00AC2444 /* LogoSTL.png */,
 				7F610F3A13030073004DC056 /* LogoAabar.png */,
 				7F610F3B13030073004DC056 /* LogoAllianz.png */,
 				7F610F3C13030073004DC056 /* LogoAutonomy.png */,
@@ -1077,6 +1185,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				7F817D3F130530E400AC2444 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1268,6 +1377,33 @@
 				7F610F4E13030073004DC056 /* LogoPirelli.png in Resources */,
 				7F610F4F13030073004DC056 /* LogoStandox.png in Resources */,
 				7F610F531303052C004DC056 /* InfoPartners.xib in Resources */,
+				7F817D1413052D8A00AC2444 /* InfoPetronas.htm in Resources */,
+				7F817DFD1305440B00AC2444 /* InfoDeutschePost.htm in Resources */,
+				7F817E011305446200AC2444 /* InfoAabar.htm in Resources */,
+				7F817E05130544EB00AC2444 /* InfoAutonomy.htm in Resources */,
+				7F817E0B1305457B00AC2444 /* InfoMIG.htm in Resources */,
+				7F817E11130545F300AC2444 /* InfoAllianz.htm in Resources */,
+				7F817E151305465600AC2444 /* InfoGraham.htm in Resources */,
+				7F817E19130546AA00AC2444 /* InfoHLloyd.htm in Resources */,
+				7F817E1D1305470500AC2444 /* InfoMonster.htm in Resources */,
+				7F817E211305475F00AC2444 /* InfoPirelli.htm in Resources */,
+				7F817E25130547AF00AC2444 /* InfoStandox.htm in Resources */,
+				7F817E29130547EE00AC2444 /* InfoAlpine.htm in Resources */,
+				7F817E2D1305488E00AC2444 /* InfoEndless.htm in Resources */,
+				7F817E31130548DC00AC2444 /* InfoLincoln.htm in Resources */,
+				7F817E351305492100AC2444 /* InfoStarTrac.htm in Resources */,
+				7F817E391305496500AC2444 /* InfoSTL.htm in Resources */,
+				7F817E7213054CFD00AC2444 /* LogoAlpine.png in Resources */,
+				7F817E7313054CFD00AC2444 /* LogoEndless.png in Resources */,
+				7F817E7413054CFD00AC2444 /* LogoLincoln.png in Resources */,
+				7F817E7513054CFD00AC2444 /* LogoStarTrac.png in Resources */,
+				7F817E7613054CFD00AC2444 /* LogoSTL.png in Resources */,
+				7F817EFD1305AD0B00AC2444 /* InfoRules.xib in Resources */,
+				7F817F3D1305B47200AC2444 /* LogoFIA.png in Resources */,
+				7F8180A21306F8B400AC2444 /* InfoTeams.xib in Resources */,
+				7F8180C71306FB6F00AC2444 /* InfoStandings.xib in Resources */,
+				7F8180E41307071100AC2444 /* InfoDriverStandings.htm in Resources */,
+				7F8180E61307072500AC2444 /* InfoTeamStandings.htm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1361,6 +1497,9 @@
 				7F610CF71301D527004DC056 /* InfoDriversController.m in Sources */,
 				7F610CFE1301D609004DC056 /* InfoChildController.m in Sources */,
 				7F610F56130319BC004DC056 /* InfoPartnersController.m in Sources */,
+				7F817EFA1305AA8400AC2444 /* InfoRulesController.m in Sources */,
+				7F8180981306F42B00AC2444 /* InfoTeamsController.m in Sources */,
+				7F8180C31306FA8800AC2444 /* InfoStandingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

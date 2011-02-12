@@ -288,7 +288,7 @@ static UIImage *grassImage = nil;
 {
 	if(self = [super init])
 	{
-		simplified = false;
+		simplified = true;
 		
 		redCars = [[NSMutableArray alloc] init];
 		blueCars = [[NSMutableArray alloc] init];

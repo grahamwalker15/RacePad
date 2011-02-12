@@ -10,13 +10,19 @@
 
 #import "BackgroundView.h";
 
-@interface InfoChildController : UIViewController
+@interface InfoChildController : UIViewController <UIWebViewDelegate>
 {
 	NSString * htmlFile;
 
 	IBOutlet UIToolbar * titleBar;
 	
-	IBOutlet UIWebView * webView;
+	IBOutlet UIWebView * webView1;
+	IBOutlet UIWebView * webView2;
+	
+	UIWebView * webViewFront;
+	UIWebView * webViewBack;
+	id placeHolderView;
+	float placeHolderAlpha;
 	
 	IBOutlet UIBarButtonItem * backButton;
 	IBOutlet UIBarButtonItem * InfoTitle;
@@ -24,13 +30,23 @@
 	IBOutlet UIBarButtonItem * nextButton;
 	
 	IBOutlet BackgroundView * backgroundView;
+		
+	int webViewCurrent;
+	
+	bool animatingViews;
+	UIViewAnimationTransition htmlTransition;
 }
 
 @property (retain) NSString * htmlFile;
+@property (nonatomic) UIViewAnimationTransition htmlTransition;
 
 - (void)positionOverlays;
 - (void)hideOverlays;
 - (void)showOverlays;
+
+- (void)showHTMLContent;
+- (void)animateWebView:(UIWebView *)webView;
+- (void)fadeWebView:(UIWebView *)webView;
 
 - (IBAction)backPressed:(id)sender;
 - (IBAction)previousPressed:(id)sender;

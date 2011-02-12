@@ -14,12 +14,17 @@
 	UIColor * buttonColour;
 	UIColor * outlineColour;
 	
+	UIColor * selectedTextColour;
+	UIColor * selectedButtonColour;
+
 	bool outline;
 }
 
 @property (nonatomic, retain) UIColor * textColour;
 @property (nonatomic, retain) UIColor * buttonColour;
 @property (nonatomic, retain) UIColor * outlineColour;
+@property (nonatomic, retain) UIColor * selectedTextColour;
+@property (nonatomic, retain) UIColor * selectedButtonColour;
 @property (nonatomic) bool outline;
 
 - (void) setDefaultColours;

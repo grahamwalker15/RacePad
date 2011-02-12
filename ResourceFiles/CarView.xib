@@ -92,8 +92,8 @@
 										<int key="IBUIButtonType">1</int>
 										<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
 										<string key="IBUIHighlightedTitle">Less Detail</string>
-										<string key="IBUISelectedTitle">More Detail</string>
-										<string key="IBUINormalTitle">Less Detail</string>
+										<string key="IBUISelectedTitle">Less Detail</string>
+										<string key="IBUINormalTitle">More Detail</string>
 										<object class="NSColor" key="IBUIHighlightedTitleColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -423,7 +423,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUP+AABDEAAAA</bytes>
 					</object>
-					<string>{{350, 75}, {783, 781}}</string>
+					<string>{{350, 78}, {783, 778}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -537,7 +537,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>BackgroundView</string>
 							<string>CommentaryView</string>
-							<string>UIButton</string>
+							<string>ShinyButton</string>
 							<string>PitWindowView</string>
 							<string>TelemetryView</string>
 							<string>BackgroundView</string>
@@ -570,7 +570,7 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">pitWindowSimplifyButton</string>
-								<string key="candidateClassName">UIButton</string>
+								<string key="candidateClassName">ShinyButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">pitWindowView</string>

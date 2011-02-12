@@ -22,6 +22,9 @@
 	
 	htmlController = [[HTMLViewController alloc] initWithNibName:@"HTMLView" bundle:nil];
 	driversController = [[InfoDriversController alloc] initWithNibName:@"InfoDrivers" bundle:nil];
+	teamsController = [[InfoTeamsController alloc] initWithNibName:@"InfoTeams" bundle:nil];
+	standingsController = [[InfoStandingsController alloc] initWithNibName:@"InfoStandings" bundle:nil];
+	rulesController = [[InfoRulesController alloc] initWithNibName:@"InfoRules" bundle:nil];
 	partnersController = [[InfoPartnersController alloc] initWithNibName:@"InfoPartners" bundle:nil];
 	
 	childControllerDisplayed = false;
@@ -125,37 +128,42 @@
 
 - (IBAction) buttonPressed:(id)sender;
 {
+	// Get LocalHTML folder
+	 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	 NSString *docsFolder = [paths objectAtIndex:0];
+	 NSString *folder = [docsFolder stringByAppendingPathComponent:@"LocalHTML"];
+
 	if( sender == driversButton )
 	{
 		[self showChildController:driversController];
 	}
 	else if( sender == teamsButton )
 	{
-		[htmlController setHtmlFile:@"teams.htm"];
-		[self showChildController:htmlController];
+		[self showChildController:teamsController];
 	}
 	else if( sender == circuitsButton )
 	{
-		[htmlController setHtmlFile:@"circuits.htm"];
-		[self showChildController:htmlController];
+		[self showChildController:driversController];
 	}
 	else if( sender == standingsButton )
 	{
-		[htmlController setHtmlFile:@"standings.htm"];
-		[self showChildController:htmlController];
+		[standingsController setHtmlFile:nil];
+		[self showChildController:standingsController];
 	}
 	else if( sender == rulesButton )
 	{
-		[htmlController setHtmlFile:@"rules.htm"];
-		[self showChildController:htmlController];
+		[rulesController setHtmlFile:nil];
+		[self showChildController:rulesController];
 	}
 	else if( sender == partnersButton )
 	{
+		[partnersController setHtmlFile:nil];
 		[self showChildController:partnersController];
 	}
 	else
 	{
-		[htmlController setHtmlFile:@"home.htm"];
+		NSString *fileName = [folder stringByAppendingPathComponent:@"home.htm"];
+		[htmlController setHtmlFile:fileName];
 		[self showChildController:htmlController];
 	}
 }

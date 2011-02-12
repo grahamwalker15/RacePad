@@ -1,41 +1,61 @@
-//
-//  InfoPartnersController.m
+    //
+//  InfoRulesController.m
 //  RacePad
 //
-//  Created by Gareth Griffith on 2/9/11.
+//  Created by Gareth Griffith on 2/11/11.
 //  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "InfoPartnersController.h"
+#import "InfoRulesController.h"
 
+@implementation InfoRulesController
 
-@implementation InfoPartnersController
 
 - (void)viewDidLoad
 {
-	selectedPartner = nil;
-	placeHolderView = instruction;
-	placeHolderAlpha = [placeHolderView alpha];
+	htmlTransition = UIViewAnimationTransitionFlipFromLeft;
+	selectedRules = nil;
 	
+	/*
+	[rules1 setOutline:true];
+	[rules2 setOutline:true];
+	[rules3 setOutline:true];
+	[rules4 setOutline:true];
+	[rules5 setOutline:true];
+	[rules6 setOutline:true];
+	[rules7 setOutline:true];
+	[rules8 setOutline:true];
+	[rules9 setOutline:true];
+	[rules10 setOutline:true];
+	[rules11 setOutline:true];
+	[rules12 setOutline:true];
+	*/
+	
+	placeHolderView = fiaLogo;
+	placeHolderAlpha = [placeHolderView alpha];
+
 	[super viewDidLoad];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
- }
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	selectedPartner = nil;
-	[self positionOverlays];
+	selectedRules = nil;
+	[fiaLogo setHidden:false];
+
 	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	if(selectedPartner)
-		[selectedPartner setAlpha:0.7];
+	if(selectedRules)
+		[selectedRules setSelected:false];
+	
+	selectedRules = nil;
 	
 	[super viewWillDisappear:animated];
 }
@@ -51,23 +71,31 @@
 - (void) positionOverlays
 {
 	CGRect bgFrame = [backgroundView frame];
-	CGRect logoFrame = [partner16 frame];
-	CGRect infoFrame = [webView1 frame];
-		
-	float x = (CGRectGetWidth(bgFrame) - CGRectGetWidth(infoFrame)) * 0.5;
-	float y = CGRectGetMaxY(logoFrame) + 20 ;
+	CGRect buttonFrame = [rules1 frame];
+	CGRect imageFrame = [fiaLogo frame];
 	
-	CGRect newInfoFrame = CGRectMake(x, y, CGRectGetWidth(infoFrame), CGRectGetMaxY(infoFrame) - y);
-	[webView1 setFrame:newInfoFrame];
-	[webView2 setFrame:newInfoFrame];
+	float spareWidth = CGRectGetMaxX(bgFrame) - CGRectGetMaxX(buttonFrame);
+	float spareHeight = CGRectGetHeight(bgFrame);
 	
-	if(!selectedPartner)
+	float webXMargin = spareWidth * 0.1;
+	float webYMargin = spareHeight * 0.1;
+	
+	float imageXMargin = (spareWidth - CGRectGetWidth(imageFrame)) * 0.5;
+	float imageYMargin = (spareHeight - CGRectGetHeight(imageFrame)) * 0.5;
+	
+	CGRect newWebFrame = CGRectMake(CGRectGetMaxX(buttonFrame) + webXMargin, webYMargin, spareWidth - webXMargin * 2, spareHeight - webYMargin * 2);
+	[webView1 setFrame:newWebFrame];
+	[webView2 setFrame:newWebFrame];
+	
+	CGRect newImageFrame = CGRectMake(CGRectGetMaxX(buttonFrame) + imageXMargin, imageYMargin, CGRectGetWidth(imageFrame), CGRectGetHeight(imageFrame));
+	[fiaLogo setFrame:newImageFrame];
+	
+	if(!selectedRules)
 	{
 		[webView1 setHidden:true];
 		[webView2 setHidden:true];
-		[instruction setHidden:false];
+		[fiaLogo setHidden:false];
 	}
-		
 }
 
 - (IBAction) buttonPressed:(id)sender;
@@ -76,96 +104,76 @@
 	if(animatingViews)
 		return;
 	
-	[selectedPartner setAlpha:0.7];
-	[sender setAlpha:1.0];
+	[selectedRules setSelected:false];
+	[sender setSelected:true];
 	
-	selectedPartner = sender;
+	selectedRules = sender;
 	
-	if( sender == partner1 )
+	if( sender == rules1 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoPetronas" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner2 )
+	else if( sender == rules2 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAabar" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner3 )
+	else if( sender == rules3 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAutonomy" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner4 )
+	else if( sender == rules4 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoDeutschePost" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner5 )
+	else if( sender == rules5 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoMIG" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner6 )
+	else if( sender == rules6 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAllianz" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner7 )
+	else if( sender == rules7 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoGraham" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner8 )
+	else if( sender == rules8 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoHLloyd" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner9 )
+	else if( sender == rules9 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoMonster" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner10 )
+	else if( sender == rules10 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoPirelli" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner11 )
+	else if( sender == rules11 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoStandox" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
-	else if( sender == partner12 )
+	else if( sender == rules12 )
 	{
 		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAlpine" ofType:@"htm"]];
-		[self showHTMLContent];
-	}
-	else if( sender == partner13 )
-	{
-		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoEndless" ofType:@"htm"]];
-		[self showHTMLContent];
-	}
-	else if( sender == partner14 )
-	{
-		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoLincoln" ofType:@"htm"]];
-		[self showHTMLContent];
-	}
-	else if( sender == partner15 )
-	{
-		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoStarTrac" ofType:@"htm"]];
-		[self showHTMLContent];
-	}
-	else if( sender == partner16 )
-	{
-		[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoSTL" ofType:@"htm"]];
 		[self showHTMLContent];
 	}
 	else
 	{
 		[webView1 setHidden:true];
 		[webView2 setHidden:true];
-		[instruction setHidden:false];
+		[fiaLogo setHidden:false];
 	}
 }
 

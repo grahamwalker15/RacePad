@@ -12,6 +12,9 @@
 #import "InfoChildController.h"
 #import "HTMLViewController.h"
 #import "InfoDriversController.h"
+#import "InfoTeamsController.h"
+#import "InfoStandingsController.h"
+#import "InfoRulesController.h"
 #import "InfoPartnersController.h"
 #import "BackgroundView.h"
 
@@ -19,6 +22,9 @@
 {
 	HTMLViewController * htmlController;
 	InfoDriversController * driversController;
+	InfoTeamsController * teamsController;
+	InfoStandingsController * standingsController;
+	InfoRulesController * rulesController;
 	InfoPartnersController * partnersController;
 	
 	InfoChildController * childController;

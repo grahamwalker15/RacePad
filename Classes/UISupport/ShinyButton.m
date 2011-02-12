@@ -37,8 +37,14 @@
 {
 	// Make highlight colour and shadow colour from button colour
 	
-	int component_count = CGColorGetNumberOfComponents ([buttonColour CGColor]);
-	const CGFloat *components = CGColorGetComponents([buttonColour CGColor]);
+	UIColor * baseColour;
+	if([self isSelected])
+		baseColour = [selectedButtonColour retain];
+	else
+		baseColour = [buttonColour retain];
+	
+	int component_count = CGColorGetNumberOfComponents ([baseColour CGColor]);
+	const CGFloat *components = CGColorGetComponents([baseColour CGColor]);
 	
 	CGFloat r, g, b;
 	
@@ -61,8 +67,9 @@
 		r = 0.95;
 		g = 0.95;
 		b = 0.95;
-		[buttonColour release];
-		buttonColour = [[UIColor alloc] initWithRed:r green:g blue:b alpha:1.0];
+		
+		[baseColour release];
+		baseColour = [[UIColor alloc] initWithRed:r green:g blue:b alpha:1.0];
 	}
 	
 	// Now make the highlight and shadow
@@ -122,7 +129,7 @@
 	
 	// Vertical gradient based on current background colour
 	CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-	CGColorRef colors[] = {[shadow CGColor], [highlight CGColor], [white CGColor], [highlight CGColor], [buttonColour CGColor], [shadow CGColor]};
+	CGColorRef colors[] = {[shadow CGColor], [highlight CGColor], [white CGColor], [highlight CGColor], [baseColour CGColor], [shadow CGColor]};
 	CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 6, &kCFTypeArrayCallBacks);
 	
 	CGFloat locations[] = {0.0, 0.1, 0.3, 0.4, 0.6, 1.0};
@@ -148,11 +155,14 @@
 	{
 		CGContextBeginPath (context);
 		CGContextAddPath(context, path);
+		
 		[outlineColour set];
 		CGContextStrokePath (context);
 	}
 	
 	CGPathRelease(path);
+	
+	[baseColour release];
 }
 
 @end

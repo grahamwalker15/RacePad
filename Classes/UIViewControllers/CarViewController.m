@@ -48,6 +48,9 @@
 	
 	[pitWindowSimplifyButton setButtonColour:[UIColor colorWithRed:0.6 green:0.8 blue:0.4 alpha:1.0]];
 	
+	[pitWindowSimplifyButton setSelectedButtonColour:[pitWindowSimplifyButton buttonColour]];
+	[pitWindowSimplifyButton setSelectedTextColour:[pitWindowSimplifyButton textColour]];
+	
 	commentaryExpanded = false;
 	commentaryAnimating = false;
 	
@@ -585,12 +588,12 @@
 		if([pitWindow simplified])
 		{
 			[pitWindow setSimplified:false];
-			[sender setSelected:false];
+			[sender setSelected:true];
 		}
 		else
 		{
 			[pitWindow setSimplified:true];
-			[sender setSelected:true];
+			[sender setSelected:false];
 		}
 		
 		[pitWindowView RequestRedraw];
