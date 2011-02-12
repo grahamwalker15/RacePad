@@ -59,6 +59,21 @@
 		case 3:
 			[html appendString:@"<h3>Page 3</h3>"];
 			[html appendString:@"<p>Time Slider"];
+			[html appendString:@"Tap in the middle of the screen at any time to bring up the play controls."];
+			
+			[html appendString:@"<p>You will normally be in live mode, but the play controls allow you to jump back to "];
+			[html appendString:@"any time and see the video and data from that time. We call this review mode."];
+			
+			[html appendString:@"<p>The play controls have six parts :"];
+			[html appendString:@"<br>A play/pause button"];
+			[html appendString:@"<br>A time slider which let's you move quickly through the session so far"];
+			[html appendString:@"<br>A clock showing the time that is currently playing or paused"];
+			[html appendString:@"<br>A replay button @ which automatically jumps back 20 seconds"];
+			[html appendString:@"<br>A jog control to let you move slowly backwards or forwards"];
+			[html appendString:@"<br>A Go Live button which appears once you are in review mode."];
+			
+			[html appendString:@"<p>Pressing on any of the first five controls will take you into review mode. Tap the Go "];
+			[html appendString:@"Live button to take you back to the live feeds."];
 			break;
 			
 		case 4:
@@ -92,6 +107,8 @@
 		case 7:
 			[html appendString:@"Tap the <image src = ""PopupImageHTML.png""> button to bring up a list of race incidents. "];
 			[html appendString:@"<p>Tap on any incident from the list to jump to the time of the incident."];
+			[html appendString:@"<p>Once you have finished viewing an incident, tap anywhere in the middle of the screen to bring "];
+			[html appendString:@"up the play controls, then tap the Go Live button to return to live action.."];
 			break;
 			
 		case 8:

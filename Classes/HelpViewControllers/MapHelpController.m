@@ -88,6 +88,8 @@
 		case 5:
 			[html appendString:@"Tap the <image src = ""PopupImageHTML.png""> button to bring up a list of race incidents. "];
 			[html appendString:@"<p>Tap on any incident from the list to jump to the time of the incident."];
+			[html appendString:@"<p>Once you have finished viewing an incident, tap anywhere in the middle of the screen to bring "];
+			[html appendString:@"up the play controls, then tap the Go Live button to return to live action.."];
 			break;
 			
 		case 6:
