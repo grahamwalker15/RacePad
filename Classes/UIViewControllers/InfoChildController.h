@@ -30,6 +30,7 @@
 	IBOutlet UIBarButtonItem * nextButton;
 	
 	IBOutlet BackgroundView * backgroundView;
+	IBOutlet UIImageView * tableBG;
 		
 	int webViewCurrent;
 	

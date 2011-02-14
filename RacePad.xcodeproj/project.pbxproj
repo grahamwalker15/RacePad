@@ -64,6 +64,12 @@
 		7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; };
 		7F3276F3126379B000BD1627 /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F0126379B000BD1627 /* TableData.m */; };
 		7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F2126379B000BD1627 /* RacePadDatabase.m */; };
+		7F3CC7211309153E006AEE61 /* InfoTeamRBR.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC7201309153E006AEE61 /* InfoTeamRBR.htm */; };
+		7F3CC74413092FE6006AEE61 /* FER.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74013092FE6006AEE61 /* FER.jpg */; };
+		7F3CC74513092FE6006AEE61 /* MCL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74113092FE6006AEE61 /* MCL.jpg */; };
+		7F3CC74613092FE6006AEE61 /* MGP.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74213092FE6006AEE61 /* MGP.jpg */; };
+		7F3CC74713092FE6006AEE61 /* RBR.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74313092FE6006AEE61 /* RBR.jpg */; };
+		7F3CC76F13093514006AEE61 /* MGPBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC76E13093514006AEE61 /* MGPBackground.jpg */; };
 		7F610C8F13018636004DC056 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
 		7F610C9213018778004DC056 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; };
 		7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
@@ -149,6 +155,10 @@
 		7F8180C71306FB6F00AC2444 /* InfoStandings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180C61306FB6F00AC2444 /* InfoStandings.xib */; };
 		7F8180E41307071100AC2444 /* InfoDriverStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E31307071100AC2444 /* InfoDriverStandings.htm */; };
 		7F8180E61307072500AC2444 /* InfoTeamStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E51307072500AC2444 /* InfoTeamStandings.htm */; };
+		7F83A497130979DA00A64373 /* LightTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A496130979DA00A64373 /* LightTexture.png */; };
+		7F83A4DB1309AA7D00A64373 /* InfoTeamMcLaren.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DA1309AA7D00A64373 /* InfoTeamMcLaren.htm */; };
+		7F83A4DD1309AA9300A64373 /* InfoTeamFerrari.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DC1309AA9300A64373 /* InfoTeamFerrari.htm */; };
+		7F83A4DF1309AAA600A64373 /* InfoTeamMGP.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DE1309AAA600A64373 /* InfoTeamMGP.htm */; };
 		7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A15128776B600F13CB6 /* Icon-72.png */; };
 		7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A16128776B600F13CB6 /* Icon-Small-50.png */; };
 		7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A17128776B600F13CB6 /* Icon-Small.png */; };
@@ -227,7 +237,6 @@
 		7F9C1517125759D900770746 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1516125759D900770746 /* CoreText.framework */; };
 		7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C15F51257646700770746 /* MediaPlayer.framework */; };
 		7F9C1696125A176700770746 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1695125A176700770746 /* MovieViewController.m */; };
-		7F9C169E125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */; };
 		7F9C1728125A2BD000770746 /* DataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1727125A2BD000770746 /* DataStream.m */; };
 		7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */; };
 		7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */; };
@@ -383,6 +392,12 @@
 		7F3276F0126379B000BD1627 /* TableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableData.m; sourceTree = "<group>"; };
 		7F3276F1126379B000BD1627 /* RacePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDatabase.h; sourceTree = "<group>"; };
 		7F3276F2126379B000BD1627 /* RacePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDatabase.m; sourceTree = "<group>"; };
+		7F3CC7201309153E006AEE61 /* InfoTeamRBR.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamRBR.htm; sourceTree = "<group>"; };
+		7F3CC74013092FE6006AEE61 /* FER.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = FER.jpg; sourceTree = "<group>"; };
+		7F3CC74113092FE6006AEE61 /* MCL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MCL.jpg; sourceTree = "<group>"; };
+		7F3CC74213092FE6006AEE61 /* MGP.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MGP.jpg; sourceTree = "<group>"; };
+		7F3CC74313092FE6006AEE61 /* RBR.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = RBR.jpg; sourceTree = "<group>"; };
+		7F3CC76E13093514006AEE61 /* MGPBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MGPBackground.jpg; sourceTree = "<group>"; };
 		7F610C8E13018636004DC056 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoView.xib; path = ResourceFiles/InfoView.xib; sourceTree = "<group>"; };
 		7F610C9013018778004DC056 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		7F610C9113018778004DC056 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
@@ -488,6 +503,10 @@
 		7F8180C61306FB6F00AC2444 /* InfoStandings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoStandings.xib; path = ResourceFiles/InfoStandings.xib; sourceTree = "<group>"; };
 		7F8180E31307071100AC2444 /* InfoDriverStandings.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoDriverStandings.htm; sourceTree = "<group>"; };
 		7F8180E51307072500AC2444 /* InfoTeamStandings.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamStandings.htm; sourceTree = "<group>"; };
+		7F83A496130979DA00A64373 /* LightTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightTexture.png; sourceTree = "<group>"; };
+		7F83A4DA1309AA7D00A64373 /* InfoTeamMcLaren.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamMcLaren.htm; sourceTree = "<group>"; };
+		7F83A4DC1309AA9300A64373 /* InfoTeamFerrari.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamFerrari.htm; sourceTree = "<group>"; };
+		7F83A4DE1309AAA600A64373 /* InfoTeamMGP.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamMGP.htm; sourceTree = "<group>"; };
 		7F865A15128776B600F13CB6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
 		7F865A16128776B600F13CB6 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images/Icon-Small-50.png"; sourceTree = "<group>"; };
 		7F865A17128776B600F13CB6 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images/Icon-Small.png"; sourceTree = "<group>"; };
@@ -584,7 +603,6 @@
 		7F9C15F51257646700770746 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7F9C1694125A176700770746 /* MovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieViewController.h; path = ../UIViews/MovieViewController.h; sourceTree = "<group>"; };
 		7F9C1695125A176700770746 /* MovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieViewController.m; path = ../UIViews/MovieViewController.m; sourceTree = "<group>"; };
-		7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Movie on 2010-10-04 at 16.26.mov"; sourceTree = "<group>"; };
 		7F9C1726125A2BD000770746 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
 		7F9C1727125A2BD000770746 /* DataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStream.m; sourceTree = "<group>"; };
 		7F9C1ADE125B7BD000770746 /* RacePadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadAppDelegate.h; sourceTree = "<group>"; };
@@ -734,7 +752,6 @@
 				7F817D031305209D00AC2444 /* HTML */,
 				7FC2F8181295911900DAC96E /* Images */,
 				7FC2F8171295910D00DAC96E /* XIB Files */,
-				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
 				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
 			);
 			name = Resources;
@@ -789,6 +806,12 @@
 		7F817D031305209D00AC2444 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
+				7F83A496130979DA00A64373 /* LightTexture.png */,
+				7F3CC76E13093514006AEE61 /* MGPBackground.jpg */,
+				7F3CC74013092FE6006AEE61 /* FER.jpg */,
+				7F3CC74113092FE6006AEE61 /* MCL.jpg */,
+				7F3CC74213092FE6006AEE61 /* MGP.jpg */,
+				7F3CC74313092FE6006AEE61 /* RBR.jpg */,
 				7F817D1313052D8A00AC2444 /* InfoPetronas.htm */,
 				7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */,
 				7F817E001305446200AC2444 /* InfoAabar.htm */,
@@ -807,6 +830,10 @@
 				7F817E381305496500AC2444 /* InfoSTL.htm */,
 				7F8180E31307071100AC2444 /* InfoDriverStandings.htm */,
 				7F8180E51307072500AC2444 /* InfoTeamStandings.htm */,
+				7F3CC7201309153E006AEE61 /* InfoTeamRBR.htm */,
+				7F83A4DA1309AA7D00A64373 /* InfoTeamMcLaren.htm */,
+				7F83A4DC1309AA9300A64373 /* InfoTeamFerrari.htm */,
+				7F83A4DE1309AAA600A64373 /* InfoTeamMGP.htm */,
 			);
 			path = HTML;
 			sourceTree = "<group>";
@@ -1225,7 +1252,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F9C169E125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov in Resources */,
 				7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */,
 				7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */,
 				7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */,
@@ -1404,6 +1430,16 @@
 				7F8180C71306FB6F00AC2444 /* InfoStandings.xib in Resources */,
 				7F8180E41307071100AC2444 /* InfoDriverStandings.htm in Resources */,
 				7F8180E61307072500AC2444 /* InfoTeamStandings.htm in Resources */,
+				7F3CC7211309153E006AEE61 /* InfoTeamRBR.htm in Resources */,
+				7F3CC74413092FE6006AEE61 /* FER.jpg in Resources */,
+				7F3CC74513092FE6006AEE61 /* MCL.jpg in Resources */,
+				7F3CC74613092FE6006AEE61 /* MGP.jpg in Resources */,
+				7F3CC74713092FE6006AEE61 /* RBR.jpg in Resources */,
+				7F3CC76F13093514006AEE61 /* MGPBackground.jpg in Resources */,
+				7F83A497130979DA00A64373 /* LightTexture.png in Resources */,
+				7F83A4DB1309AA7D00A64373 /* InfoTeamMcLaren.htm in Resources */,
+				7F83A4DD1309AA9300A64373 /* InfoTeamFerrari.htm in Resources */,
+				7F83A4DF1309AAA600A64373 /* InfoTeamMGP.htm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

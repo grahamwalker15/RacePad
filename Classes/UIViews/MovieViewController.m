@@ -57,10 +57,6 @@
 - (NSString *)getVideoArchiveName
 {
 	NSString *name = [[RacePadCoordinator Instance] getVideoArchiveName];
-
-	// Use a default bundled video if it can't be found
-	if(!name)
-		name = [[NSBundle mainBundle] pathForResource:@"Movie on 2010-10-04 at 16.26" ofType:@"mov"];
 	
 	return name;
 }
@@ -71,12 +67,15 @@
 	currentMovie = [[self getVideoArchiveName] retain];
 	[self getStartTime];
 		
-	moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:currentMovie]];
-	[moviePlayer setShouldAutoplay:false];
-	[moviePlayer setControlStyle:MPMovieControlStyleNone];
-	[[moviePlayer view] setUserInteractionEnabled:true];
+	if(currentMovie)
+	{
+		moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:currentMovie]];
+		[moviePlayer setShouldAutoplay:false];
+		[moviePlayer setControlStyle:MPMovieControlStyleNone];
+		[[moviePlayer view] setUserInteractionEnabled:true];
+	}
 	
-	// We'll get notification when we know the movie size - set itto zero for now
+	// We'll get notification when we know the movie size - set it to zero for now
 	movieSize = CGSizeMake(0, 0);
 	
 	// Add tap recognizer to bring up time controls

@@ -25,6 +25,11 @@
 - (void)viewDidLoad
 {
 	selectedTeam = -1;
+	
+	[tableBG removeFromSuperview];
+	[teams setBackgroundView:tableBG];
+	[teams setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
+	
 	[super viewDidLoad];
 }
 
@@ -57,15 +62,14 @@
 {
 	CGRect bgFrame = [backgroundView frame];
 	CGRect teamsFrame = [teams frame];
-	CGRect infoFrame = [webView1 frame];
 	
 	float spareWidth = CGRectGetMaxX(bgFrame) - CGRectGetMaxX(teamsFrame);
 	float spareHeight = CGRectGetHeight(bgFrame);
 	
-	float xMargin = (spareWidth - CGRectGetWidth(infoFrame)) * 0.5;
-	float yMargin = (spareHeight - CGRectGetHeight(infoFrame)) * 0.25;
+	float xMargin = spareWidth * 0.05;
+	float yMargin = spareHeight * 0.1;
 	
-	CGRect newInfoFrame = CGRectMake(CGRectGetMaxX(teamsFrame) + xMargin, yMargin, CGRectGetWidth(infoFrame), CGRectGetHeight(infoFrame));
+	CGRect newInfoFrame = CGRectMake(CGRectGetMaxX(teamsFrame) + xMargin, yMargin, spareWidth - xMargin * 2, spareHeight - yMargin * 2);
 	[webView1 setFrame:newInfoFrame];
 	[webView2 setFrame:newInfoFrame];
 }
@@ -152,7 +156,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return @"Teams";
+	return nil;//@"Teams";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -172,57 +176,57 @@
 	switch (index)
 	{
 		case 0:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoPetronas" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 1:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAabar" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamMcLaren" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 2:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAutonomy" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamFerrari" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 3:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoDeutschePost" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamMGP" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 4:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoMIG" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 5:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoGraham" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 6:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoPirelli" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 7:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoMonster" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 8:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAllianz" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 9:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoStandox" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 10:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoHLloyd" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			

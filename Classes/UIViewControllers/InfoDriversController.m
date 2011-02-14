@@ -23,7 +23,16 @@
 
 - (void)viewDidLoad
 {
+	[tableBG removeFromSuperview];
+	[drivers setBackgroundView:tableBG];
+	[drivers setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
+	
+	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"LightTexture.png"]];
+	[driverInfoBase setBackgroundColor:background];
+	[background release];
+
 	[self setDriverIndex:0];
+	
 	[super viewDidLoad];
 }
 
@@ -97,7 +106,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return @"Drivers";
+	return nil;//@"Drivers";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

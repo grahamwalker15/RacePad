@@ -51,8 +51,11 @@
 	currentMovie = [[self getVideoArchiveName] retain];
 	[self getStartTime];
 	
-	moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:currentMovie]];
-	[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
+	if(currentMovie)
+	{
+		moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:currentMovie]];
+		[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
+	}
 		
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
@@ -95,17 +98,34 @@
 {
 	// Check that we have the right movie loaded
 	NSString *movie = [[self getVideoArchiveName] retain];
-	if ( [movie compare:currentMovie] != NSOrderedSame )
+	if(movie)
 	{
-		AVPlayerItem * item = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:movie]];
-		[moviePlayer replaceCurrentItemWithPlayerItem:item];
-		[currentMovie release];
-		currentMovie = movie;
-		[self getStartTime];
+		if(!currentMovie)
+		{
+			moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:movie]];
+			[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
+			currentMovie = movie;
+		}
+		else if ( [movie compare:currentMovie] != NSOrderedSame )
+		{
+			AVPlayerItem * item = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:movie]];
+			[moviePlayer replaceCurrentItemWithPlayerItem:item];
+			[currentMovie release];
+			currentMovie = movie;
+			[self getStartTime];
+		}
+		else
+		{
+			[movie release];
+		}
 	}
 	else
 	{
-		[movie release];
+		[currentMovie release];
+		currentMovie = nil;
+		
+		[moviePlayer release];
+		moviePlayer = nil;
 	}
 	
 	// Grab the title bar
@@ -270,11 +290,7 @@
 - (NSString *)getVideoArchiveName
 {
 	NSString *name = [[RacePadCoordinator Instance] getVideoArchiveName];
-	
-	// Use a default bundled video if it can't be found
-	if(!name)
-		name = [[NSBundle mainBundle] pathForResource:@"Movie on 2010-10-04 at 16.26" ofType:@"mov"];
-	
+		
 	return name;
 }
 
