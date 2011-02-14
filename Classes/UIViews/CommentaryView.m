@@ -146,17 +146,12 @@
 	float messageTime = [[data itemAtIndex:row] timeStamp];
 	int type = [[data itemAtIndex:row] type];
 	
-	if(latestMessageTime - messageTime < 10.0)
-	{
-		if(type == ALERT_PIT_INSIGHT_)
-		   [self SetTextColour:dark_red_];
-		else
-		   [self SetTextColour:black_];
-	}
+	if(type == ALERT_PIT_INSIGHT_)
+		[self SetTextColour:dark_red_];
+	else if(latestMessageTime - messageTime < 10.0)
+		[self SetTextColour:black_];
 	else
-	{
 		[self SetTextColour:very_dark_grey_];
-	}
 	
 	[self SetBackgroundColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
 	
