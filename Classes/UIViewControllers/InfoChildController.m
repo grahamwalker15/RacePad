@@ -191,6 +191,8 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+	[webViewBack setNeedsDisplay];
+	
 	if( webViewCurrent == 0 || !webViewFront || !webViewBack)
 		[self fadeWebView:webView];
 	else
@@ -218,16 +220,25 @@
 {
 	animatingViews = true;
 	
-	[[webViewBack superview] bringSubviewToFront:webViewBack]; // Hidden, so we don't see it
-	[[webViewFront superview] bringSubviewToFront:webViewFront];
+	CGRect bounds = [[webViewBack superview] bounds];
+	CGRect webRect = [webViewBack frame];
+	
+	//[webViewBack setHidden:false];
+
+	//[[webViewBack superview] bringSubviewToFront:webViewBack]; // Hidden, so we don't see it
+	//[[webViewFront superview] bringSubviewToFront:webViewFront];
+	
+	[webViewBack setFrame:CGRectMake(CGRectGetMaxX(bounds), webRect.origin.y, CGRectGetWidth(webRect), CGRectGetHeight(webRect))];
 	
 	[webViewBack setAlpha:1.0];
 	[webViewBack setHidden:false];
+	[[webViewBack superview] bringSubviewToFront:webViewBack]; // Hidden, so we don't see it
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
-	[webViewFront setAlpha:0.0];
-	[UIView setAnimationTransition:htmlTransition forView:webViewFront cache:false];
+	//[webViewFront setAlpha:0.0];
+	//[UIView setAnimationTransition:htmlTransition forView:webViewFront cache:false];
+	[webViewBack setFrame:webRect];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(htmlSwapAnimationDidStop:finished:context:)];
 	[UIView commitAnimations];

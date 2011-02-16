@@ -196,42 +196,42 @@
 			break;
 			
 		case 4:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRenault" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 5:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamFIndia" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 6:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamWilliams" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 7:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamSauber" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 8:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamToroRosso" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 9:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamLotus" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 10:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamRBR" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamHRT" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
 		case 11:
-			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoAlpine" ofType:@"htm"]];
+			[self setHtmlFile:[[NSBundle mainBundle] pathForResource:@"InfoTeamVirgin" ofType:@"htm"]];
 			[self showHTMLContent];
 			break;
 			
