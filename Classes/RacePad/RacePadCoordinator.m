@@ -543,12 +543,13 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestUIImages];
 		
+		live = restartTime == 0;
+		double savedTime = restartTime;
+		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
+		restartTime = savedTime; // setConnectionType will have set it to 0, and SetProjectRange will need to see it.
 		
 		[self requestPrediction:[[[RacePadDatabase Instance] racePrediction] user]];
-
-		if ( restartTime == 0 )
-			live = true;
 
 		showingConnecting = false;
 		[serverConnect popDown];
@@ -1340,7 +1341,9 @@ static RacePadCoordinator * instance_ = nil;
 	jumpOnBecomeActive = true;
 	[self stopPlay];
 	
-	if ( !live )
+	if ( live )
+		restartTime = 0;
+	else
 		restartTime = currentTime;
 
 	if ( connectionType == RPC_SOCKET_CONNECTION_ )
@@ -1351,6 +1354,11 @@ static RacePadCoordinator * instance_ = nil;
 		
 		reconnectOnBecomeActive = true;
 	}
+	else
+	{
+		reconnectOnBecomeActive = false;
+	}
+
 	
 }
 
