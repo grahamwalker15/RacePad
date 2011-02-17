@@ -740,7 +740,7 @@ static RacePadCoordinator * instance_ = nil;
 				}
 				else if([existing_view Type] == RPC_TELEMETRY_VIEW_)
 				{
-					//[socket_ StreamTelemetry];
+					[socket_ StreamTelemetry];
 				}
 			}
 		}
@@ -790,7 +790,7 @@ static RacePadCoordinator * instance_ = nil;
 				}
 				else if([existing_view Type] == RPC_TELEMETRY_VIEW_)
 				{
-					//[socket_ RequestTelemetry];
+					[socket_ RequestTelemetry];
 				}
 			}
 		}

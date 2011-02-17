@@ -191,6 +191,16 @@
 	[self SimpleCommand:RPCS_GO_LIVE];
 }
 
+- (void)RequestTelemetry
+{
+	[self SimpleCommand:RPCS_REQUEST_TELEMETRY];
+}
+
+- (void)StreamTelemetry
+{
+	[self SimpleCommand:RPCS_STREAM_TELEMETRY];
+}
+
 -(void) sendPrediction: (NSString *)userName Command:(int)command
 {
 	RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];
