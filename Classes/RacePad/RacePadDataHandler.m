@@ -456,6 +456,12 @@
 			[[RacePadCoordinator Instance] badUser];
 			break;
 		}
+		case RPSC_LIVE_TIME_: // Live Time
+		{
+			float time = [stream PopFloat];
+			[[RacePadCoordinator Instance] setLiveTime:time];
+			break;
+		}
 		default:
 			break;
 	}

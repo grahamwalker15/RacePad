@@ -152,6 +152,7 @@ enum ConnectionTypes
 -(void)prepareToPlay;
 -(void)showSnapshot;
 
+-(void)userPause;
 -(void)jumpToTime:(float)time;
 
 -(void)serverConnected:(BOOL)ok;
@@ -165,6 +166,7 @@ enum ConnectionTypes
 -(void) goOffline;
 -(void) goLive: (bool)newMode;
 -(bool) liveMode;
+-(void) setLiveTime:(float)time;
 
 -(void) userExit;
 -(void) userRestart;

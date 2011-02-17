@@ -143,6 +143,20 @@ static RacePadTimeController * instance_ = nil;
 	[jog_control setTarget:instance_];
 	[jog_control setSelector:@selector(JogControlChanged:)];
 	
+	ShinyButton *liveButton = [timeController goLiveButton];	
+	[liveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
+	
+	if ( [[RacePadCoordinator Instance] liveMode] )
+	{
+		liveButton.enabled = NO;
+		[liveButton.titleLabel setText:@"Live"];
+	}
+	else
+	{
+		liveButton.enabled = YES;
+		[liveButton.titleLabel setText:@"Go Live"];
+	}
+	
 	float current_time = [[RacePadCoordinator Instance] currentTime];
 	float start_time = [[RacePadCoordinator Instance] startTime];
 	float end_time = [[RacePadCoordinator Instance] endTime];
@@ -292,6 +306,18 @@ static RacePadTimeController * instance_ = nil;
 		}
 	}
 	
+	ShinyButton *liveButton = [timeController goLiveButton];	
+	if ( [[RacePadCoordinator Instance] liveMode] )
+	{
+		liveButton.enabled = NO;
+		[liveButton.titleLabel setText:@"Live"];
+	}
+	else
+	{
+		liveButton.enabled = YES;
+		[liveButton.titleLabel setText:@"Go Live"];
+	}
+	
 	[self setHideTimer];
 }
 
@@ -305,7 +331,7 @@ static RacePadTimeController * instance_ = nil;
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	if([coordinator playing])
 	{
-		[coordinator stopPlay];
+		[coordinator userPause];
 		[self updatePlayButton];
 	}
 	else
@@ -367,5 +393,11 @@ static RacePadTimeController * instance_ = nil;
 	
 	[self setHideTimer];
 }
+
+- (IBAction)goLivePressed:(id)sender
+{
+	if ( ![[RacePadCoordinator Instance] liveMode] )
+		[[RacePadCoordinator Instance] goLive:true];
+}	
 
 @end

@@ -46,6 +46,7 @@ enum ServerCommands {
 	RPSC_UPDATE_COMPETITOR_VIEW_,	// 35
 	RPSC_REGISTERED_USER_,		// 36
 	RPSC_BAD_USER_,				// 37
+	RPSC_LIVE_TIME_,			// 38
 };
 
 @interface RacePadDataHandler : DataHandler

@@ -53,5 +53,6 @@
 - (IBAction)SliderChanged:(id)sender;
 - (IBAction)JogControlChanged:(id)sender;
 - (IBAction)ReplayPressed:(id)sender;
+- (IBAction)goLivePressed:(id)sender;
 
 @end

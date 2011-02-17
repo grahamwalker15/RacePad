@@ -177,6 +177,12 @@ static RacePadCoordinator * instance_ = nil;
 	restartTime= 0;
 }
 
+-(void) setLiveTime:(float) time
+{
+	if ( live )
+		currentTime = time;
+}
+
 -(void) clearStaticData
 {
 	[[RacePadDatabase Instance] clearStaticData];
@@ -255,6 +261,13 @@ static RacePadCoordinator * instance_ = nil;
 {
 	[self pausePlay];
 	needsPlayRestart = false;
+}
+
+-(void) userPause
+{
+	live = false;
+	[self stopPlay];
+	[settingsViewController updateConnectionType];
 }
 
 -(void)jumpToTime:(float)time
