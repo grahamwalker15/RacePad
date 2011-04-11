@@ -419,6 +419,20 @@
 			[alertData loadData:stream];
 			break;
 		}
+		case RPSC_RED_COMMENTARY_: // Red Commentary
+		{
+			CommentaryData *commentary = [[RacePadDatabase Instance] redCommentary];
+			[commentary loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			break;
+		}
+		case RPSC_BLUE_COMMENTARY_: // Red Commentary
+		{
+			CommentaryData *commentary = [[RacePadDatabase Instance] blueCommentary];
+			[commentary loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			break;
+		}
 		case RPSC_RETURN_PREDICTION_: // Race prediction for this user
 		{
 			[[[RacePadDatabase Instance] racePrediction] load:stream];

@@ -411,12 +411,14 @@ static RacePadCoordinator * instance_ = nil;
 	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
 	[[RacePadTitleBarController Instance] updateTime:currentTime + elapsed];
 	
+	/*
 	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
 	// If the registered view controller is interested in commentary, update the commentary views
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
 	{
 		[self RequestRedrawType:RPC_COMMENTARY_VIEW_];
 	}
+	*/
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -473,6 +475,8 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
+	// I think we need this so commentary updates correctly in Archive mode, as the all the commentary messages are loaded
+	// with the session, not on a time basis.
 	// If the registered view controller is interested in commentary, update the commentary views
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
 	{
