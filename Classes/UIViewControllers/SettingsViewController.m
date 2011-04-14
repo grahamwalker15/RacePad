@@ -54,22 +54,34 @@
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *docsFolder = [paths objectAtIndex:0];
-	NSString *folder = [docsFolder stringByAppendingPathComponent:[events objectAtIndex:row]];
 	
-	NSArray *contents = [fm contentsOfDirectoryAtPath:folder error:NULL];
+	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
 	int count = [contents count];
 	int preferredIndex = -1;
 	NSString *preferredSession = [[RacePadPrefs Instance] getPref:@"preferredSession"];
+	NSString *eventName = [events objectAtIndex:row];
+
 	for ( int i = 0; i < count; i++ )
 	{
-		NSString *name = [contents objectAtIndex:i];
-		NSString *file = [folder stringByAppendingPathComponent:name];
-		BOOL isDir;
-		if ( [fm fileExistsAtPath:file isDirectory:&isDir] && isDir )
+		NSString *fileName = [contents objectAtIndex:i];
+		NSArray *nameChunks = [fileName componentsSeparatedByString:@"-"];
+		if ( [nameChunks count] == 3 )
 		{
-			if ( [name compare:preferredSession] == NSOrderedSame )
-				preferredIndex = [sessions count];
-			[sessions addObject:name];
+			NSString *name = [nameChunks objectAtIndex:0];
+			NSString *session = [nameChunks objectAtIndex:1];
+			NSString *file = [nameChunks objectAtIndex:2];
+			
+			if ( [file compare:@"event.rpf"] == NSOrderedSame )
+			{
+				if ( [name compare:eventName] == NSOrderedSame )
+				{
+					if ( [session compare:preferredSession] == NSOrderedSame )
+						preferredIndex = [sessions count];
+					else if ( preferredIndex < 0 )
+						preferredIndex = [sessions count];
+					[sessions addObject:session];
+				}
+			}
 		}
 	}
 	
@@ -84,7 +96,7 @@
 		}
 	}
 	
-	NSString *eventName = [events objectAtIndex:[event selectedRowInComponent:0]];
+	eventName = [events objectAtIndex:[event selectedRowInComponent:0]];
 	NSString *sessionName = [sessions objectAtIndex:[event selectedRowInComponent:1]];
 	
 	if ( eventName != nil && [eventName length] > 0
@@ -144,6 +156,7 @@
 		sessions = [[NSMutableArray alloc] init];
 	}
 	[events removeAllObjects];
+	[sessions removeAllObjects];
 	NSFileManager *fm =	[[NSFileManager alloc]init];
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -155,24 +168,39 @@
 	NSString *preferredEvent = [[RacePadPrefs Instance] getPref:@"preferredEvent"];
 	for ( int i = 0; i < count; i++ )
 	{
-		NSString *name = [contents objectAtIndex:i];
-		NSString *file = [docsFolder stringByAppendingPathComponent:name];
-		BOOL isDir;
-		if ( [fm fileExistsAtPath:file isDirectory:&isDir] && isDir )
+		NSString *fileName = [contents objectAtIndex:i];
+		NSArray *nameChunks = [fileName componentsSeparatedByString:@"-"];
+		if ( [nameChunks count] == 3 )
 		{
-			if ( [name compare:@"LocalHTML"] != NSOrderedSame
-				&& [name compare:@"Data"] != NSOrderedSame ) // ignore the Data and LocalHTML folders
+			NSString *name = [nameChunks objectAtIndex:0];
+			NSString *file = [nameChunks objectAtIndex:2];
+		
+			if ( [file compare:@"event.rpf"] == NSOrderedSame )
 			{
-				if ( [name compare:preferredEvent] == NSOrderedSame )
-					preferredIndex = [events count];
-				[events addObject:name];
+				int eventsCount = [events count];
+				bool matched = false;
+				for ( int i = 0; i < eventsCount; i++ )
+				{
+					NSString *s = [events objectAtIndex:i];
+					if ( [s compare:name] == NSOrderedSame )
+					{
+						matched = true;
+						break;
+					}
+				}
+				if ( !matched )
+				{
+					if ( [name compare:preferredEvent] == NSOrderedSame )
+						preferredIndex = [events count];
+					else if ( preferredIndex == -1 )
+						preferredIndex = [events count];
+					[events addObject:name];
+				}
 			}
 		}
 	}
 	
-	[fm release];
-	
-	[sessions removeAllObjects];
+	[fm release];	
 	
 	if ( count )
 	{

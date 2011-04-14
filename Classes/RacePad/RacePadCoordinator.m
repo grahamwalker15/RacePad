@@ -98,7 +98,7 @@ static RacePadCoordinator * instance_ = nil;
 	[dataSources removeAllObjects];
 	[dataSources release];
 	[registeredViewController release];
-	[sessionFolder release];
+	[sessionPrefix release];
 	[downloadProgress release];
 	[serverConnect release];
 	[WorkOffline release];
@@ -428,7 +428,8 @@ static RacePadCoordinator * instance_ = nil;
 - (void) loadRPF: (NSString *)file
 {
 	// Called at the beginning to load static elements - track map, helmets etc.
-	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:file];
+	NSString *fileName = [sessionPrefix stringByAppendingString:file];
+	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:fileName];
 	[handler setTime:[handler inqTime]];
 	[handler release];
 }
@@ -488,14 +489,14 @@ static RacePadCoordinator * instance_ = nil;
 {
 	[self disconnect];
 	[self clearStaticData];
+	sessionPrefix = [NSString stringWithString:event];
+	sessionPrefix = [sessionPrefix stringByAppendingString:@"-"];
+	sessionPrefix = [sessionPrefix stringByAppendingString:session];
+	sessionPrefix = [sessionPrefix stringByAppendingString:@"-"];
+	[sessionPrefix retain];
 	[self loadRPF: @"race_pad.rpf"];
-	
-	NSString *eventFile = [event stringByAppendingPathComponent:@"event.rpf"];
-	[self loadRPF:eventFile];
-	
-	sessionFolder = [[event stringByAppendingPathComponent:session] retain];
-	NSString *sessionFile = [sessionFolder stringByAppendingPathComponent:@"session.rpf"];
-	[self loadRPF:sessionFile];
+	[self loadRPF: @"event.rpf"];
+	[self loadRPF: @"session.rpf"];
 	
 	[[RacePadPrefs Instance] setPref:@"preferredEvent" Value:event ];
 	[[RacePadPrefs Instance] setPref:@"preferredSession" Value:session];
@@ -507,11 +508,11 @@ static RacePadCoordinator * instance_ = nil;
 {
 	// Get base folder
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *rootFolder = [paths objectAtIndex:0];
-	NSString *folder = [rootFolder stringByAppendingPathComponent:sessionFolder];
+	NSString *folder = [paths objectAtIndex:0];
+	NSString *name = [sessionPrefix stringByAppendingString:@"video.m4v"];
 
 	// Try first with m4v extension
-	NSString *fileName = [folder stringByAppendingPathComponent:@"video.m4v"];
+	NSString *fileName = [folder stringByAppendingPathComponent:name];
 	
 	// check whether it exists
 	FILE * f;
@@ -522,7 +523,8 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	// If this fails, try with mp4 extension
-	fileName = [folder stringByAppendingPathComponent:@"video.mp4"];
+	name = [sessionPrefix stringByAppendingString:@"video.mp4"];
+	fileName = [folder stringByAppendingPathComponent:name];
 	if(f = fopen ( [fileName UTF8String], "rb" ))
 	{
 	   fclose(f);
@@ -1141,7 +1143,7 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
 {
-	NSString *fileName = [sessionFolder stringByAppendingPathComponent:file];
+	NSString *fileName = [sessionPrefix stringByAppendingString:file];
 	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName];
 	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
 	[dataSources addObject:rpc_source];
@@ -1299,8 +1301,8 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *folder = [paths objectAtIndex:0];
-		folder = [folder stringByAppendingPathComponent:sessionFolder];
-		NSString *fName = @"player_";
+		NSString *fName = sessionPrefix;
+		fName = [fName stringByAppendingString:@"player_"];
 		fName = [fName stringByAppendingString:name];
 		fName = [fName stringByAppendingString:@".rpf"];
 		NSString *competitorFile = [folder stringByAppendingPathComponent:fName];
@@ -1323,8 +1325,7 @@ static RacePadCoordinator * instance_ = nil;
 		NSString *fName = @"player_";
 		fName = [fName stringByAppendingString:name];
 		fName = [fName stringByAppendingString:@".rpf"];
-		NSString *competitorFile = [sessionFolder stringByAppendingPathComponent:fName];
-		[self loadRPF:competitorFile];		
+		[self loadRPF:fName];		
 	}
 
 }

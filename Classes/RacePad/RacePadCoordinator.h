@@ -105,7 +105,7 @@ enum ConnectionTypes
 	int connectionRetryCount;
 	bool showingConnecting;
 	
-	NSString *sessionFolder;
+	NSString *sessionPrefix;
 	
 	NSTimer *updateTimer;
 	NSTimer *timeControllerTimer;
