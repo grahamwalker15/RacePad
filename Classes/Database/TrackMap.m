@@ -557,6 +557,12 @@
 	xCentre = 0.0;
 	yCentre = 0.0;
 	
+	trackLength = 0;
+	s1Length = 0;
+	s2Length = 0;
+	sc1Length = 0;
+	sc2Length = 0;
+
 	int c;
 	if ( colours )
 	{
@@ -587,47 +593,46 @@
 	{
 		[inner loadShape:stream];
 		[outer loadShape:stream];
+
+		while ( true )
+		{
+			int count = [stream PopInt];
+			if ( count < 0 )
+				break;
+			TrackLine *line = [[TrackLine alloc] init];
+			[line loadShape:stream Count:count];
+			[lines addObject:line];
+			[line release];
+		}
+		
+		while ( true )
+		{
+			int count = [stream PopInt];
+			if ( count < 0 )
+				break;
+			TrackLabel *label = [[TrackLabel alloc] init];
+			[label loadShape:stream Count:count];
+			[labels addObject:label];
+			[label release];
+		}
+		
+		trackLength = [stream PopFloat];
+		s1Length = [stream PopFloat];
+		s2Length = [stream PopFloat];
+		sc1Length = [stream PopFloat];
+		sc2Length = [stream PopFloat];
+		
+		width = [inner width] > [outer width] ? [inner width] : [outer width];
+		height = [inner height] > [outer height] ? [inner height] : [outer height];
+		
+		float min_x = [inner min_x] < [outer min_x] ? [inner min_x] : [outer min_x];
+		float min_y = [inner min_y] < [outer min_y] ? [inner min_y] : [outer min_y];
+		float max_x = [inner max_x] > [outer max_x] ? [inner max_x] : [outer max_x];
+		float max_y = [inner max_y] > [outer max_y] ? [inner max_y] : [outer max_y];
+		
+		xCentre = (min_x + max_x) * 0.5;
+		yCentre = (min_y + max_y) * 0.5;
 	}
-	
-	while ( true )
-	{
-		int count = [stream PopInt];
-		if ( count < 0 )
-			break;
-		TrackLine *line = [[TrackLine alloc] init];
-		[line loadShape:stream Count:count];
-		[lines addObject:line];
-		[line release];
-	}
-	
-	while ( true )
-	{
-		int count = [stream PopInt];
-		if ( count < 0 )
-			break;
-		TrackLabel *label = [[TrackLabel alloc] init];
-		[label loadShape:stream Count:count];
-		[labels addObject:label];
-		[label release];
-	}
-	
-	trackLength = [stream PopFloat];
-	s1Length = [stream PopFloat];
-	s2Length = [stream PopFloat];
-	sc1Length = [stream PopFloat];
-	sc2Length = [stream PopFloat];
-	
-	width = [inner width] > [outer width] ? [inner width] : [outer width];
-	height = [inner height] > [outer height] ? [inner height] : [outer height];
-	
-	float min_x = [inner min_x] < [outer min_x] ? [inner min_x] : [outer min_x];
-	float min_y = [inner min_y] < [outer min_y] ? [inner min_y] : [outer min_y];
-	float max_x = [inner max_x] > [outer max_x] ? [inner max_x] : [outer max_x];
-	float max_y = [inner max_y] > [outer max_y] ? [inner max_y] : [outer max_y];
-	
-	xCentre = (min_x + max_x) * 0.5;
-	yCentre = (min_y + max_y) * 0.5;
-	
 }
 
 - (void) updateCars : (DataStream *) stream

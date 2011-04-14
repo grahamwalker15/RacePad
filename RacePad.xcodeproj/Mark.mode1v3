@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>4D423C2F135735F300561C92</string>
+						<string>4D423C6413574CED00561C92</string>
 						<key>history</key>
 						<array>
 							<string>4D423C281357352800561C92</string>
@@ -310,17 +310,20 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>080E96DDFE201D6D7F000001</string>
+								<string>7F3276EE126379B000BD1627</string>
 								<string>7F9C1AD4125B7B6B00770746</string>
 								<string>7F9C10D71255E68B00770746</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
+								<string>7FC2F8181295911900DAC96E</string>
+								<string>7FC2F8171295910D00DAC96E</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
-									<integer>5</integer>
+									<integer>21</integer>
+									<integer>3</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -363,7 +366,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RacePadCoordinator.h</string>
+								<string>TrackMap.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -371,11 +374,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RacePadCoordinator.h</string>
+										<string>TrackMap.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4D423C2E135735F300561C92</string>
+										<string>4D423C6313574CED00561C92</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -480,7 +483,6 @@
 											<string>4DA74B2C13092D11007475B8</string>
 											<string>4DA74B73130BED10007475B8</string>
 											<string>4DA74B8D130C214D007475B8</string>
-											<string>4DA74BCB130D3F39007475B8</string>
 											<string>4DA74BD1130D3F4D007475B8</string>
 											<string>4DA74BD6130D3F65007475B8</string>
 											<string>4DA8E43B12884EB900610129</string>
@@ -505,7 +507,20 @@
 											<string>4D423C211357352800561C92</string>
 											<string>4D423C221357352800561C92</string>
 											<string>4D423C231357352800561C92</string>
-											<string>4D423C241357352800561C92</string>
+											<string>4D423C36135736A000561C92</string>
+											<string>4D423C37135736A000561C92</string>
+											<string>4D423C38135736A000561C92</string>
+											<string>4D423C39135736A000561C92</string>
+											<string>4D423C3A135736A000561C92</string>
+											<string>4D423C3B135736A000561C92</string>
+											<string>4D423C3C135736A000561C92</string>
+											<string>4D423C3D135736A000561C92</string>
+											<string>4D423C3E135736A000561C92</string>
+											<string>4D423C3F135736A000561C92</string>
+											<string>4D423C40135736A000561C92</string>
+											<string>4D423C41135736A000561C92</string>
+											<string>4D423C4D13574BB700561C92</string>
+											<string>4D423C6213574CED00561C92</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -945,8 +960,6 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -973,6 +986,8 @@
 							<string>353pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
