@@ -234,10 +234,8 @@
 			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 			NSString *docsFolder = [paths objectAtIndex:0];
 			
-			NSString *folder = [stream PopString];
 			NSString *name = [stream PopString];
-			NSString *fileName = [docsFolder stringByAppendingPathComponent:folder];
-			fileName = [fileName stringByAppendingPathComponent:name];
+			NSString *fileName = [docsFolder stringByAppendingPathComponent:name];
 			
 			saveFile = fopen ( [fileName UTF8String], "wb" );
 			saveFileName = [fileName retain];
@@ -278,19 +276,10 @@
 		}
 		case RPSC_PROJECT_START_: // Project Folder
 		{
-			NSString *folder = [stream PopString];
 			NSString *eventName = [stream PopString];
 			NSString *sessionName = [stream PopString];
 			int sizeInMB = [stream PopInt];
 			
-			NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-			NSString *docsFolder = [paths objectAtIndex:0];
-			NSString *fileName = [docsFolder stringByAppendingPathComponent:folder];
-			
-			NSFileManager *fm = [[NSFileManager alloc]init];
-			[fm setDelegate:self];
-			[fm createDirectoryAtPath:fileName withIntermediateDirectories:YES attributes:nil error:NULL];
-			[fm release];
 			[[RacePadCoordinator Instance] projectDownloadStarting:eventName SessionName:sessionName SizeInMB:sizeInMB];
 			
 			sizeDownloaded = 0;
@@ -305,9 +294,8 @@
 		}
 		case RPSC_ACCEPT_PUSH_DATA_: // Accept Push Data
 		{
-			NSString *event = [stream PopString];
 			NSString *session = [stream PopString];
-			[[RacePadCoordinator Instance] acceptPushData:event Session:session];
+			[[RacePadCoordinator Instance] acceptPushData:session];
 			break;
 		}
 		case RPSC_CANCEL_PROJECT_: // Cancel Project Send

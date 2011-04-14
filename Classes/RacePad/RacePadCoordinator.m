@@ -987,7 +987,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 }
 
--(void) acceptPushData:(NSString *)event Session:(NSString *)session
+-(void) acceptPushData:session
 {
 	// For now we'll always accept
 	[socket_ acceptPushData:YES]; // Even if we don't want it, we should tell the server, so it can stop waiting

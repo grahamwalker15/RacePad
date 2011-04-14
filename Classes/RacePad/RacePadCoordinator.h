@@ -176,7 +176,7 @@ enum ConnectionTypes
 -(void) prepareToPlayFromSocket;
 -(void) showSnapshotFromSocket;
 
--(void) acceptPushData:(NSString *)event Session:(NSString *)session;
+-(void) acceptPushData:(NSString *)session;
 -(void) projectDownloadStarting:(NSString *)event SessionName:(NSString *)session SizeInMB:(int) sizeInMB;
 -(void) projectDownloadCancelled;
 -(void)	projectDownloadComplete;

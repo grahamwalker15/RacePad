@@ -197,7 +197,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>4D423C261357352800561C92</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>Compare BASE vs. Local — RacePadDataHandler.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>4D423C271357352800561C92</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>Compare BASE vs. Local — RacePadDataHandler.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>4D423C2F135735F300561C92</string>
+						<key>history</key>
+						<array>
+							<string>4D423C281357352800561C92</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1110, 605}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 227 1110 646 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -229,6 +270,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -276,14 +319,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
+									<integer>10</integer>
 									<integer>5</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 24}, {285, 682}}</string>
+							<string>{{0, 0}, {285, 682}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -315,14 +358,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RacePadCoordinator.m</string>
+								<string>RacePadCoordinator.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -330,11 +371,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RacePadCoordinator.m</string>
+										<string>RacePadCoordinator.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4D423BF91357089800561C92</string>
+										<string>4D423C2E135735F300561C92</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -380,7 +421,6 @@
 											<string>4D1845221292AAAA00D227FF</string>
 											<string>4D1845241292AAAA00D227FF</string>
 											<string>4D86EDE3129A9C7600AA49F9</string>
-											<string>4D86EE25129A9E7300AA49F9</string>
 											<string>4DE897E3129FC4E1000FEE9C</string>
 											<string>4DE898C212ACFD60000FEE9C</string>
 											<string>4DE8995212AD5173000FEE9C</string>
@@ -460,11 +500,12 @@
 											<string>4D8B33B01352EE3F00638801</string>
 											<string>4D423B961353091800561C92</string>
 											<string>4D423BE51357065D00561C92</string>
-											<string>4D423BE61357065D00561C92</string>
 											<string>4D423BE71357065D00561C92</string>
-											<string>4D423BE81357065D00561C92</string>
-											<string>4D423BE91357065D00561C92</string>
-											<string>4D423BEA1357065D00561C92</string>
+											<string>4D423C131357336400561C92</string>
+											<string>4D423C211357352800561C92</string>
+											<string>4D423C221357352800561C92</string>
+											<string>4D423C231357352800561C92</string>
+											<string>4D423C241357352800561C92</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -662,13 +703,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>4D423BF81357073A00561C92</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>4D423B8B135302EA00561C92</string>
 		<string>4D423B8C135302EA00561C92</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>4DA2E44012646AD300796E28</string>
 		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>4D423C261357352800561C92</string>
 		<string>/Users/Mark/Documents/Work/Development/RacePad/RacePad.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -886,7 +927,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
