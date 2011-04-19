@@ -12,6 +12,7 @@
 #include "RacePadCoordinator.h"
 #include "RacePadDatabase.h"
 #include "RacePadTitleBarController.h"
+#include "RacePadSponsor.h"
 #import "TrackMap.h"
 
 @implementation RacePadDataHandler
@@ -462,6 +463,13 @@
 		{
 			float time = [stream PopFloat];
 			[[RacePadCoordinator Instance] setLiveTime:time];
+			break;
+		}
+		case RPSC_SPONSOR_: //Sponsor
+		{
+			NSString *name = [stream PopString];
+			[[RacePadSponsor Instance] setSponsorName:name];
+			[[RacePadTitleBarController Instance] updateSponsor];
 			break;
 		}
 		default:

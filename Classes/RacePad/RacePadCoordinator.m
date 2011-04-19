@@ -54,7 +54,7 @@ static RacePadCoordinator * instance_ = nil;
 -(id)init
 {
 	if(self =[super init])
-	{
+	{		
 		currentTime = 14 * 3600 + 10 * 60 + 0;
 		startTime = 14 * 3600 + 0 * 60 + 0;
 		endTime = 16 * 3600 + 0 * 60 + 0;
@@ -543,7 +543,6 @@ static RacePadCoordinator * instance_ = nil;
 {
 	if ( ok )
 	{
-		[self clearStaticData];
 		[socket_ RequestEvent];
 		[socket_ RequestTrackMap];
 		[socket_ RequestPitWindowBase];
@@ -631,6 +630,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ ConnectSocket:[server UTF8String] Port:6021];
 		[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
 		[[RacePadPrefs Instance] save];
+		[self clearStaticData];
 
 		if ( showWindow )
 		{

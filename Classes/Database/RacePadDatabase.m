@@ -55,9 +55,6 @@ static RacePadDatabase *instance = nil;
 	racePrediction = [[RacePrediction alloc] init];
 	competitorData = [[TableData alloc] init];
 	
-	[blueCommentary fillWithDefaultData:RPD_BLUE_CAR_];
-	[redCommentary fillWithDefaultData:RPD_RED_CAR_];
-	
 	[driverInfo fillWithDefaultData];
 
 	return self;
@@ -73,6 +70,8 @@ static RacePadDatabase *instance = nil;
 	[pitWindow release];
 	[alertData release];
 	[rcMessages release];
+	[blueCommentary release];
+	[redCommentary release];
 	[telemetry release];
 	[driverNames release];
 	[racePrediction release];
@@ -83,11 +82,15 @@ static RacePadDatabase *instance = nil;
 
 -(void) clearStaticData
 {
-	[rcMessages release];
 	[alertData release];
+	[rcMessages release];
+	[blueCommentary release];
+	[redCommentary release];
 	[racePrediction release];
 	alertData = [[AlertData alloc] init];
 	rcMessages = [[AlertData alloc] init];
+	blueCommentary = [[CommentaryData alloc] init];
+	redCommentary = [[CommentaryData alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
 }
 

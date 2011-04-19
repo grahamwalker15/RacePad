@@ -38,6 +38,8 @@
 - (int) inqCurrentLap;
 - (void) setTrackState: (int)state;
 
+- (void) updateSponsor;
+
 - (IBAction)AlertPressed:(id)sender;
 - (IBAction)HelpPressed:(id)sender;
 

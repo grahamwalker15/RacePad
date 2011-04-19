@@ -10,6 +10,7 @@
 #import "RacePadPrefs.h"
 #import "RacePadCoordinator.h"
 #import "RacePadAppDelegate.h"
+#import "RacePadSponsor.h"
 
 @implementation WorkOffline
 
@@ -132,6 +133,8 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
+	logo.image = [[RacePadSponsor Instance] getSponsorLogo:RPS_LOGO_BIG_];
+	
 	[events removeAllObjects];
 	[sessions removeAllObjects];
 	NSFileManager *fm =	[[NSFileManager alloc]init];

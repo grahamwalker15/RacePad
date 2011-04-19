@@ -11,6 +11,7 @@
 #import "TitleBarViewController.h"
 #import "AlertViewController.h"
 #import "TrackMap.h"
+#import "RacePadSponsor.h"
 
 #import "UIConstants.h"
 
@@ -85,7 +86,14 @@ static RacePadTitleBarController * instance_ = nil;
 	float current_time = [[RacePadCoordinator Instance] currentTime];	
 	[self updateTime:current_time];
 	
+	[self updateSponsor];
+		
 	[[RacePadCoordinator Instance] SetViewDisplayed:titleBarController];
+}
+
+- (void) updateSponsor
+{
+	[[titleBarController sponsorButton] setImage:[[RacePadSponsor Instance]getSponsorLogo:RPS_LOGO_REGULAR_] forState:UIControlStateNormal];
 }
 
 - (void) hide
@@ -179,7 +187,6 @@ static RacePadTitleBarController * instance_ = nil;
 			break;
 	}
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////
 // Actions

@@ -19,6 +19,7 @@
 	IBOutlet ShinyButton *ok;
 	IBOutlet ShinyButton *online;
 	IBOutlet UIButton *settings;
+	IBOutlet UIImageView *logo;
 	
 	NSMutableArray *events;
 	NSMutableArray *sessions;
