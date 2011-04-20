@@ -126,6 +126,9 @@ enum ConnectionTypes
 	bool playOnBecomeActive;
 	bool jumpOnBecomeActive;
 	float restartTime;
+	
+	NSMutableArray *allTabs;
+	unsigned char currentSponsor;
 }
 
 @property (nonatomic) int connectionType;
@@ -230,5 +233,8 @@ enum ConnectionTypes
 
 -(void) willResignActive;
 -(void) didBecomeActive;
+
+-(void) updateTabs;
+-(void) updateSponsor;
 
 @end

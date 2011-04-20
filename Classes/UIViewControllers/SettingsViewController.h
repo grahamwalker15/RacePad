@@ -20,6 +20,7 @@
 	IBOutlet UIButton *exit;
 	IBOutlet UIPickerView *event;
 	IBOutlet UILabel *status;
+	IBOutlet UISwitch *supportVideo;
 	
 	NSMutableArray *events;
 	NSMutableArray *sessions;
@@ -30,10 +31,12 @@
 - (IBAction)loadPressed:(id)sender;
 - (IBAction)restartPressed:(id)sender;
 - (IBAction)exitPressed:(id)sender;
+- (IBAction)supportVideoChanged:(id)sender;
 
 - (void) updateEvents;
 - (void) updateServerState;
 - (void) updateConnectionType;
+- (void) updateSponsor;
 
 - (BOOL) wantTimeControls;
 

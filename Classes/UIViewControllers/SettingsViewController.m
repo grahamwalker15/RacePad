@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "RacePadCoordinator.h"
 #import	"RacePadPrefs.h"
+#import "RacePadSponsor.h"
 
 @implementation SettingsViewController
 
@@ -222,6 +223,10 @@
 	[self updateServerState];
 	[self updateConnectionType];
 	[self updateEvents];
+	NSNumber *v = [[RacePadPrefs Instance]getPref:@"supportVideo"];
+	if ( v )
+		supportVideo.on = [v boolValue];
+	[self updateSponsor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -280,6 +285,11 @@
 	[self updateServerState];
 }
 
+- (void) updateSponsor
+{
+	supportVideo.enabled = [[RacePadSponsor Instance]supportsTab:RPS_VIDEO_TAB_];
+}
+
 /////////////////////////////////////////////////////////////////////
 // Class specific methods
 
@@ -323,6 +333,14 @@
 -(IBAction)restartPressed:(id)sender
 {
 	[[RacePadCoordinator Instance] userRestart];
+}
+
+- (IBAction)supportVideoChanged:(id)sender
+{
+	NSNumber *v = [NSNumber numberWithBool:supportVideo.on ];
+	[[RacePadPrefs Instance] setPref:@"supportVideo" Value:v];
+	[[RacePadPrefs Instance] save];
+	[[RacePadCoordinator Instance] updateTabs];
 }
 
 

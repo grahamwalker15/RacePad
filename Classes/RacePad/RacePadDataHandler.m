@@ -469,7 +469,7 @@
 		{
 			NSString *name = [stream PopString];
 			[[RacePadSponsor Instance] setSponsorName:name];
-			[[RacePadTitleBarController Instance] updateSponsor];
+			[[RacePadCoordinator Instance] updateSponsor];
 			break;
 		}
 		default:

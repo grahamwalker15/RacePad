@@ -7,6 +7,8 @@
 //
 
 #import "RacePadCoordinator.h"
+#import "RacePadAppDelegate.h"
+#import "RacePadSponsor.h"
 #import "RacePadViewController.h"
 #import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
@@ -67,6 +69,7 @@ static RacePadCoordinator * instance_ = nil;
 		
 		views = [[NSMutableArray alloc] init];
 		dataSources = [[NSMutableArray alloc] init];
+		allTabs = [[NSMutableArray alloc] init];
 		
 		registeredViewController = nil;
 		registeredViewControllerTypeMask = 0;
@@ -85,6 +88,8 @@ static RacePadCoordinator * instance_ = nil;
 		playOnBecomeActive = false;
 		jumpOnBecomeActive = false;
 		restartTime = 0;
+		
+		currentSponsor = [[RacePadSponsor Instance] sponsor];
 	}
 	
 	return self;
@@ -104,26 +109,72 @@ static RacePadCoordinator * instance_ = nil;
 	[WorkOffline release];
 	[settingsViewController release];
 	[gameViewController release];
+	[allTabs release];
     [super dealloc];
 }
 
 - (void) onStartUp
 {
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	if ( tabControl )
+	{
+		NSArray	*tabs = [tabControl viewControllers];
+		for ( int i = 0; i < [tabs count]; i++ )
+			[allTabs addObject:[tabs objectAtIndex:i]];
+	}
+	
+	[self updateSponsor];
 }
 
 - (void) onDisplayFirstView
 {
-	/*
-	NSNumber *ctype= [[RacePadPrefs Instance] getPref:@"connectionType"];
-	if ( [ctype intValue] == RPC_SOCKET_CONNECTION_ )
+	[self goOffline];
+}
+
+- (void) updateTabs
+{
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	if ( tabControl )
 	{
-		NSString *address = [[RacePadPrefs Instance] getPref:@"preferredServerAddress"];
-		if ( [address length] > 0 )
-			[self SetServerAddress: address ShowWindow:YES];
+		unsigned char i;
+		NSMutableArray *tabs = [[NSMutableArray alloc] init];
+		for ( i = 0; i < RPS_ALL_TABS_; i++ )
+		{
+			BOOL supported = [[RacePadSponsor Instance]supportsTab:i];
+			if ( supported && i == RPS_VIDEO_TAB_ )
+			{
+				NSNumber *v = [[RacePadPrefs Instance] getPref:@"supportVideo"];
+				if ( v )
+					supported = [v boolValue];
+			}
+			if ( supported )
+				[tabs addObject:[allTabs objectAtIndex:i]];
+		}
+		[tabControl setViewControllers:tabs animated:YES];
 	}
-	else
-	*/
-		[self goOffline];
+}
+
+- (void) updateSponsor
+{
+	[self updateTabs];
+	[[RacePadTitleBarController Instance] updateSponsor];
+	[settingsViewController updateSponsor];
+	
+	// Go to first Tab if we've changed the sponsor
+	if ( currentSponsor != [[RacePadSponsor Instance] sponsor] )
+	{
+		currentSponsor = [[RacePadSponsor Instance] sponsor];
+		RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+		UITabBarController *tabControl = [app tabBarController];
+		if ( tabControl )
+		{
+			NSArray *tabs = [tabControl viewControllers];
+			if ( [tabs count] )
+				[tabControl setSelectedViewController:[tabs objectAtIndex:0]];
+		}
+	}
 }
 
 -(int) deviceOrientation
@@ -635,7 +686,7 @@ static RacePadCoordinator * instance_ = nil;
 		if ( showWindow )
 		{
 			// Slightly delay popping up the connect window, just in case we connect really quickly
-			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.2];
+			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.5];
 		}
 	}
 }

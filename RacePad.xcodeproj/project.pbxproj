@@ -26,6 +26,7 @@
 		4D3451AE12B9173200B15298 /* ChangeCompetitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D3451AD12B9173200B15298 /* ChangeCompetitor.m */; };
 		4D3451B412B9175500B15298 /* ChangeCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D3451B312B9175500B15298 /* ChangeCompetitor.xib */; };
 		4D423CEC13584CAA00561C92 /* RacePadSponsor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D423CEB13584CAA00561C92 /* RacePadSponsor.m */; };
+		4D423ECD135ECAC400561C92 /* RacePadLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D423ECC135ECAC400561C92 /* RacePadLogo.png */; };
 		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
 		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
@@ -352,6 +353,7 @@
 		4D3451B312B9175500B15298 /* ChangeCompetitor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChangeCompetitor.xib; path = ResourceFiles/ChangeCompetitor.xib; sourceTree = "<group>"; };
 		4D423CEA13584CAA00561C92 /* RacePadSponsor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadSponsor.h; sourceTree = "<group>"; };
 		4D423CEB13584CAA00561C92 /* RacePadSponsor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadSponsor.m; sourceTree = "<group>"; };
+		4D423ECC135ECAC400561C92 /* RacePadLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RacePadLogo.png; path = Images/RacePadLogo.png; sourceTree = "<group>"; };
 		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
 		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
 		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
@@ -1218,6 +1220,7 @@
 				7F610EC71302BFDF004DC056 /* PopupImageHTML.png */,
 				7F71A8DC12BBFCD60052C70C /* PredictionBG.png */,
 				7F068128126DDA6800C9EE5D /* preferences.png */,
+				4D423ECC135ECAC400561C92 /* RacePadLogo.png */,
 				7F767CA712A62EC9009249F7 /* RedBar.png */,
 				7F62475D12851255009A9D4F /* RedFlag.png */,
 				7FC2F764129429B400DAC96E /* Replay.png */,
@@ -1509,6 +1512,7 @@
 				7F83A54A130A7EF800A64373 /* InfoTeamHRT.htm in Resources */,
 				7F83A54C130A7FB600A64373 /* FOR.jpg in Resources */,
 				7F83A550130A812300A64373 /* InfoTeamRenault.htm in Resources */,
+				4D423ECD135ECAC400561C92 /* RacePadLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

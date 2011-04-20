@@ -27,7 +27,7 @@ static RacePadSponsor * instance_ = nil;
 {
 	if(self =[super init])
 	{
-		sponsor = RPS_FIA_;
+		sponsor = RPS_UNKNOWN_;
 		NSString *s = [[RacePadPrefs Instance] getPref:@"sponsor"];
 		if ( s && [s length] )
 			[self setSponsorName:s];
@@ -45,8 +45,10 @@ static RacePadSponsor * instance_ = nil;
 {
 	if ( [name compare:@"Mercedes"] == NSOrderedSame )
 		sponsor = RPS_MERCEDES_;
-	else
+	else if ( [name compare:@"FiA"] == NSOrderedSame )
 		sponsor = RPS_FIA_;
+	else
+		sponsor = RPS_UNKNOWN_;
 	
 	[[RacePadPrefs Instance] setPref:@"sponsor" Value:name];
 	[[RacePadPrefs Instance] save];
@@ -55,17 +57,38 @@ static RacePadSponsor * instance_ = nil;
 - (UIImage *) getSponsorLogo: (unsigned char)logo
 {
 	if ( logo == RPS_LOGO_REGULAR_ )
+	{
 		if ( sponsor == RPS_MERCEDES_ )
 			return [UIImage imageNamed:@"MGPLogo.png"];
-		else
+		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"LogoFIA.png"];
+	}
 	else if ( logo == RPS_LOGO_BIG_ )
+	{
 		if ( sponsor == RPS_MERCEDES_ )
 			return [UIImage imageNamed:@"MGPLogoBig.png"];
-		else
+		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"LogoFIA.png"];
+	}
 	
-	return [UIImage imageNamed:@"LogoFIA.png"];
+	return [UIImage imageNamed:@"RacePadLogo.png"];
+}
+
+- (bool) supportsTab: (unsigned char)tab
+{
+	if ( sponsor == RPS_UNKNOWN_ )
+		return true;
+
+	if ( sponsor == RPS_MERCEDES_ )
+		return true;
+	
+	if ( /* tab == RPS_INFO_TAB_
+	  || */ tab == RPS_DRIVER_LIST_TAB_
+	  || tab == RPS_TRACK_MAP_TAB_
+	  || tab == RPS_SETTINGS_TAB_ )
+		return true;
+	
+	return false;
 }
 
 @end
