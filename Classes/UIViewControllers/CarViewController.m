@@ -58,7 +58,6 @@
 	
 	//	Tap recognizer for background,pit window and telemetry views
 	[self addTapRecognizerToView:backgroundView];
-	[self addTapRecognizerToView:telemetryView];
 	[self addTapRecognizerToView:commentaryView];
 	[self addTapRecognizerToView:pitWindowView];
 	[self addTapRecognizerToView:pitWindowSimplifyButton];
@@ -80,7 +79,6 @@
 	
 	[super viewDidLoad];
 	
-	[[RacePadCoordinator Instance] AddView:telemetryView WithType:RPC_TELEMETRY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
@@ -99,14 +97,13 @@
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	// Register the views -- super class will do this
+	// [[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
 	// Set paramters for views
 
 	if(car == RPD_BLUE_CAR_)
 	{
-		[telemetryView setCar:RPD_BLUE_CAR_];
 		[pitWindowView setCar:RPD_BLUE_CAR_];
 		[commentaryView setCar:RPD_BLUE_CAR_];
 		[trackMapView followCar:@"MSC"];
@@ -114,7 +111,6 @@
 	}
 	else
 	{
-		[telemetryView setCar:RPD_RED_CAR_];
 		[pitWindowView setCar:RPD_RED_CAR_];
 		[commentaryView setCar:RPD_RED_CAR_];
 		[trackMapView followCar:@"ROS"];
@@ -132,7 +128,6 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 		
-	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:pitWindowView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
@@ -147,7 +142,6 @@
 	if(animationTimer)
 		[animationTimer kill];
 	
-	[[RacePadCoordinator Instance] SetViewHidden:telemetryView];
 	[[RacePadCoordinator Instance] SetViewHidden:commentaryView];
 	[[RacePadCoordinator Instance] SetViewHidden:pitWindowView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
@@ -172,10 +166,9 @@
 	
 	commentaryAnimating = true;
 	
-	[telemetryView setAlpha:0.0];
+	[self prePositionOverlays];
 	[pitWindowView setAlpha:0.0];
 	[trackMapContainer setAlpha:0.0];
-	[telemetryView setHidden:false];
 	[commentaryView setHidden:false];
 	[pitWindowView setHidden:commentaryExpanded]; // Hidden if commentary expanded
 	[trackMapContainer setHidden:false];
@@ -186,7 +179,7 @@
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(viewAnimationDidStop:finished:context:)];
-	[telemetryView setAlpha:1.0];
+	[self postPositionOverlays];
 	[pitWindowView setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
 	[trackMapContainer setAlpha:1.0];
@@ -225,58 +218,22 @@
 	return (HelpViewController *)helpController;
 }
 
+- (void) prePositionOverlays
+{
+}
+
+- (void) postPositionOverlays
+{
+}
+
 - (void)positionOverlays
 {
-	// Get the device orientation and set things up accordingly
-	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
-	
-	int inset = [backgroundView inset] + 10;
-	CGRect bg_frame = [backgroundView frame];
-	
-	int commentaryHeight = (orientation == UI_ORIENTATION_PORTRAIT_) ? 200 : 120;
-		
-	[telemetryView setFrame:CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - 20 - inset * 3)];
-	
-	if(commentaryExpanded)
-		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 + 20 - inset)];
-	else
-		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, commentaryHeight)];
-
-	[pitWindowView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + commentaryHeight - 20 + inset * 2, bg_frame.size.width - inset * 2, bg_frame.size.height / 2  - (commentaryHeight - 20) - inset * 3)];
-	
-	CGRect telemetry_frame = [telemetryView frame];
-	
-	CGRect mapRect;
-	CGRect normalMapRect;
-	float mapWidth;
-	
-	if(trackMapExpanded)
-	{
-		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
-		float normalMapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		normalMapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - normalMapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - normalMapWidth) / 2, normalMapWidth, normalMapWidth);
-	}
-	else
-	{
-		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
-		normalMapRect = mapRect;
-	}
-	
-	[trackMapContainer setFrame:mapRect];
-	[telemetryView setMapRect:CGRectOffset(normalMapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
-	
-	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
-	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
-		
-	[self addBackgroundFrames];
+	// Do this in the super class
 }
 
 - (void)addBackgroundFrames
 {
 	[backgroundView clearFrames];
-	[backgroundView addFrame:[telemetryView frame]];
 	[backgroundView addFrame:[commentaryView frame]];
 	
 	if(!commentaryExpanded)
@@ -285,10 +242,8 @@
 
 - (void)showOverlays
 {
-	[telemetryView setHidden:false];
 	[commentaryView setHidden:false];
 	[trackMapContainer setHidden:false];
-	[telemetryView setAlpha:1.0];
 	[trackMapContainer setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
 
@@ -301,7 +256,6 @@
 
 - (void)hideOverlays
 {
-	[telemetryView setHidden:true];
 	[commentaryView setHidden:true];
 	[pitWindowView setHidden:true];
 	[trackMapContainer setHidden:true];
@@ -403,39 +357,7 @@
 
 - (IBAction) trackMapSizeChanged
 {
-	// Make sure we don't animate twice
-	if([trackMapView isAnimating])
-		return;
-	
-	// Get the device orientation and set things up accordingly
-	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
-	
-	CGRect telemetry_frame = [telemetryView frame];
-	
-	trackMapExpanded = !trackMapExpanded;
-	
-	animationRectStart = [trackMapContainer frame];
-	
-	if(trackMapExpanded)
-	{
-		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
-	}
-	else
-	{
-		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
-	}
-	
-	[trackMapSizeButton setHidden:true];
-	[[RacePadCoordinator Instance] DisableViewRefresh:trackMapView];
-
-	[trackMapView setAnimationAlpha:0.0];
-	[trackMapView setIsAnimating:true];
-	[trackMapView setIsZoomView:true];
-	[trackMapView setAnimationScaleTarget:backupUserScale];
-	
-	animationTimer = [[AnimationTimer alloc] initWithDuration:0.5 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
+	// do it in super class
 }
 
 - (void) trackMapSizeAnimationDidFire:(id)alphaPtr
@@ -599,6 +521,158 @@
 		[pitWindowView RequestRedraw];
 		
 	}
+}
+
+@end
+
+@implementation TelemetryCarViewController
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	[self addTapRecognizerToView:telemetryView];
+	
+	[[RacePadCoordinator Instance] AddView:telemetryView WithType:RPC_TELEMETRY_VIEW_];	
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	
+	if(car == RPD_BLUE_CAR_)
+	{
+		[telemetryView setCar:RPD_BLUE_CAR_];
+	}
+	else
+	{
+		[telemetryView setCar:RPD_RED_CAR_];
+	}
+	
+	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+
+	[[RacePadCoordinator Instance] SetViewHidden:telemetryView];
+}
+
+- (void)prePositionOverlays
+{
+	[telemetryView setAlpha:0.0];
+	[telemetryView setHidden:false];
+}
+
+- (void) postPositionOverlays
+{
+	[telemetryView setAlpha:1.0];
+}
+
+- (void)positionOverlays
+{
+	// Get the device orientation and set things up accordingly
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
+	
+	int inset = [backgroundView inset] + 10;
+	CGRect bg_frame = [backgroundView frame];
+	
+	int commentaryHeight = (orientation == UI_ORIENTATION_PORTRAIT_) ? 200 : 120;
+	
+	[telemetryView setFrame:CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - 20 - inset * 3)];
+	
+	if(commentaryExpanded)
+		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 + 20 - inset)];
+	else
+		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, commentaryHeight)];
+	
+	[pitWindowView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + commentaryHeight - 20 + inset * 2, bg_frame.size.width - inset * 2, bg_frame.size.height / 2  - (commentaryHeight - 20) - inset * 3)];
+	
+	CGRect telemetry_frame = [telemetryView frame];
+	
+	CGRect mapRect;
+	CGRect normalMapRect;
+	float mapWidth;
+	
+	if(trackMapExpanded)
+	{
+		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		float normalMapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		normalMapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - normalMapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - normalMapWidth) / 2, normalMapWidth, normalMapWidth);
+	}
+	else
+	{
+		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+		normalMapRect = mapRect;
+	}
+	
+	[trackMapContainer setFrame:mapRect];
+	[telemetryView setMapRect:CGRectOffset(normalMapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
+	
+	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
+	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
+	
+	[self addBackgroundFrames];
+}
+
+- (void)addBackgroundFrames
+{
+	[super addBackgroundFrames];
+	[backgroundView addFrame:[telemetryView frame]];
+}
+
+- (void)showOverlays
+{
+	[super showOverlays];
+	[telemetryView setHidden:false];
+}
+
+- (void)hideOverlays
+{
+	[super hideOverlays];
+	[telemetryView setHidden:true];
+}
+
+- (IBAction) trackMapSizeChanged
+{
+	// Make sure we don't animate twice
+	if([trackMapView isAnimating])
+		return;
+	
+	// Get the device orientation and set things up accordingly
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
+	
+	CGRect telemetry_frame = [telemetryView frame];
+	
+	trackMapExpanded = !trackMapExpanded;
+	
+	animationRectStart = [trackMapContainer frame];
+	
+	if(trackMapExpanded)
+	{
+		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
+		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+	}
+	else
+	{
+		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+	}
+	
+	[trackMapSizeButton setHidden:true];
+	[[RacePadCoordinator Instance] DisableViewRefresh:trackMapView];
+	
+	[trackMapView setAnimationAlpha:0.0];
+	[trackMapView setIsAnimating:true];
+	[trackMapView setIsZoomView:true];
+	[trackMapView setAnimationScaleTarget:backupUserScale];
+	
+	animationTimer = [[AnimationTimer alloc] initWithDuration:0.5 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
 }
 
 @end

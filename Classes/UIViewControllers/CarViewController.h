@@ -23,7 +23,6 @@
 {
 	IBOutlet BackgroundView *backgroundView;
 	
-	IBOutlet TelemetryView * telemetryView;
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet CommentaryView * commentaryView;
 	IBOutlet PitWindowView * pitWindowView;
@@ -68,13 +67,20 @@
 
 @end
 
-@interface BlueCarViewController : CarViewController
+@interface TelemetryCarViewController : CarViewController
+{
+	IBOutlet TelemetryView * telemetryView;
+}
+
+@end
+
+@interface BlueCarViewController : TelemetryCarViewController
 {
 }
 
 @end
 
-@interface RedCarViewController : CarViewController
+@interface RedCarViewController : TelemetryCarViewController
 {
 }
 

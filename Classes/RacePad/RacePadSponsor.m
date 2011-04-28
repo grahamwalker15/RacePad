@@ -82,9 +82,10 @@ static RacePadSponsor * instance_ = nil;
 	if ( sponsor == RPS_MERCEDES_ )
 		return true;
 	
-	if ( /* tab == RPS_INFO_TAB_
-	  || */ tab == RPS_DRIVER_LIST_TAB_
+	if ( tab == RPS_DRIVER_LIST_TAB_
 	  || tab == RPS_TRACK_MAP_TAB_
+	  || tab == RPS_VIDEO_TAB_
+	  || tab == RPS_DRIVER_TAB_
 	  || tab == RPS_SETTINGS_TAB_ )
 		return true;
 	

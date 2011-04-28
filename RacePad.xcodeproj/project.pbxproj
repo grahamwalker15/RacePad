@@ -27,6 +27,8 @@
 		4D3451B412B9175500B15298 /* ChangeCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D3451B312B9175500B15298 /* ChangeCompetitor.xib */; };
 		4D423CEC13584CAA00561C92 /* RacePadSponsor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D423CEB13584CAA00561C92 /* RacePadSponsor.m */; };
 		4D423ECD135ECAC400561C92 /* RacePadLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D423ECC135ECAC400561C92 /* RacePadLogo.png */; };
+		4D423F661368283900561C92 /* DriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D423F651368283900561C92 /* DriverViewController.m */; };
+		4D423F8F1368319F00561C92 /* DriverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D423F8E1368319F00561C92 /* DriverView.xib */; };
 		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
 		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
@@ -354,6 +356,9 @@
 		4D423CEA13584CAA00561C92 /* RacePadSponsor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadSponsor.h; sourceTree = "<group>"; };
 		4D423CEB13584CAA00561C92 /* RacePadSponsor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadSponsor.m; sourceTree = "<group>"; };
 		4D423ECC135ECAC400561C92 /* RacePadLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RacePadLogo.png; path = Images/RacePadLogo.png; sourceTree = "<group>"; };
+		4D423F641368283900561C92 /* DriverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverViewController.h; sourceTree = "<group>"; };
+		4D423F651368283900561C92 /* DriverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverViewController.m; sourceTree = "<group>"; };
+		4D423F8E1368319F00561C92 /* DriverView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverView.xib; path = ResourceFiles/DriverView.xib; sourceTree = "<group>"; };
 		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
 		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
 		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
@@ -929,6 +934,8 @@
 				7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */,
 				7F88203D12632EB40010785D /* DriverListController.h */,
 				7F88203E12632EB40010785D /* DriverListController.m */,
+				4D423F641368283900561C92 /* DriverViewController.h */,
+				4D423F651368283900561C92 /* DriverViewController.m */,
 				4D91DE5212EDC83A005B7FE7 /* DrivingViewController.h */,
 				4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */,
 				7F9C10D81255E68B00770746 /* FirstViewController.h */,
@@ -1096,6 +1103,7 @@
 				7FA27CB412FEFDCD001407FD /* DriverInfo.xib */,
 				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
 				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
+				4D423F8E1368319F00561C92 /* DriverView.xib */,
 				4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */,
 				7F9354CF12F6F1C300AB1D07 /* GameHelp.xib */,
 				4D344E2F12B144FB00B15298 /* GameView.xib */,
@@ -1513,6 +1521,7 @@
 				7F83A54C130A7FB600A64373 /* FOR.jpg in Resources */,
 				7F83A550130A812300A64373 /* InfoTeamRenault.htm in Resources */,
 				4D423ECD135ECAC400561C92 /* RacePadLogo.png in Resources */,
+				4D423F8F1368319F00561C92 /* DriverView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1610,6 +1619,7 @@
 				7F8180981306F42B00AC2444 /* InfoTeamsController.m in Sources */,
 				7F8180C31306FA8800AC2444 /* InfoStandingsController.m in Sources */,
 				4D423CEC13584CAA00561C92 /* RacePadSponsor.m in Sources */,
+				4D423F661368283900561C92 /* DriverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
