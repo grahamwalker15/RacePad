@@ -40,7 +40,14 @@ enum ConnectionTypes
 {
 	RPC_NO_CONNECTION_,
 	RPC_SOCKET_CONNECTION_,
-	RPC_ARCHIVE_CONNECTION_
+	RPC_ARCHIVE_CONNECTION_,
+	
+	RPC_VIDEO_LIVE_CONNECTION_,
+	RPC_VIDEO_ARCHIVE_CONNECTION_,
+	
+	RPC_CONNECTION_CONNECTING_,
+	RPC_CONNECTION_SUCCEEDED_,
+	RPC_CONNECTION_FAILED_,
 } ;
 
 @interface RPCView : NSObject
@@ -105,6 +112,11 @@ enum ConnectionTypes
 	int connectionRetryCount;
 	bool showingConnecting;
 	
+	int serverConnectionStatus;
+
+	int videoConnectionType;
+	int videoConnectionStatus;
+	
 	NSString *sessionPrefix;
 	
 	NSTimer *updateTimer;
@@ -119,6 +131,8 @@ enum ConnectionTypes
 	float startTime;
 	float endTime;
 	
+	float serverTimeOffset;
+	
 	bool playing;
 	bool needsPlayRestart;
 	
@@ -126,6 +140,8 @@ enum ConnectionTypes
 	bool playOnBecomeActive;
 	bool jumpOnBecomeActive;
 	float restartTime;
+	
+	bool liveMovieSeekAllowed;
 	
 	NSMutableArray *allTabs;
 	unsigned char currentSponsor;
@@ -137,6 +153,15 @@ enum ConnectionTypes
 @property (nonatomic) float endTime;
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
+
+@property (nonatomic) int serverConnectionStatus;
+
+@property (nonatomic) int videoConnectionType;
+@property (nonatomic) int videoConnectionStatus;
+
+@property (nonatomic) bool liveMovieSeekAllowed;
+
+@property (readonly) float serverTimeOffset;
 
 @property (readonly) RacePadViewController * registeredViewController;
 @property (retain) SettingsViewController *settingsViewController;
@@ -158,18 +183,24 @@ enum ConnectionTypes
 -(void)userPause;
 -(void)jumpToTime:(float)time;
 
--(void)serverConnected:(BOOL)ok;
--(BOOL)serverConnected;
+-(void)setServerConnected:(bool)ok;
+-(bool)serverConnected;
 -(void)SetServerAddress:(NSString *)server ShowWindow:(BOOL)showWindow;
 -(void) disconnect;
 -(void)Connected;
 -(void)Disconnected:(bool) atConnect;
 -(void) connectionTimeout;
 
+- (void) videoServerOnConnectionChange;
+
+-(void)SetVideoServerAddress:(NSString *)server;
+
 -(void) goOffline;
 -(void) goLive: (bool)newMode;
 -(bool) liveMode;
 -(void) setLiveTime:(float)time;
+-(float) liveTime;
+
 
 -(void) userExit;
 -(void) userRestart;
@@ -235,6 +266,12 @@ enum ConnectionTypes
 -(void) didBecomeActive;
 
 -(void) updateTabs;
+-(void) selectTab:(int)index;
+- (int) tabCount;
+- (NSString *) tabTitle:(int)index;
+
 -(void) updateSponsor;
+
+-(void) synchroniseTime:(float)time;
 
 @end

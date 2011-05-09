@@ -55,10 +55,11 @@ static bool jog_images_initialised_ = false;
 	float xCentre = currentBounds.size.width / 2;
 	float yCentre = currentBounds.size.height / 2;
 	
-	float radius = xCentre < yCentre ? xCentre - 25 : yCentre - 25;
+	float radius = xCentre < yCentre ? xCentre - 37 : yCentre - 37;
 	
-	float xInset = radius * cos(angle) + xCentre - insetImage.size.width / 2;
-	float yInset = - radius * sin(angle) + yCentre - insetImage.size.height / 2;
+	float drawAngle = angle + M_PI * 0.5;
+	float xInset = radius * cos(drawAngle) + xCentre - insetImage.size.width / 2;
+	float yInset = - radius * sin(drawAngle) + yCentre - insetImage.size.height / 2;
 	
 	[insetImage drawAtPoint:CGPointMake(xInset, yInset)];
 }
@@ -69,7 +70,7 @@ static bool jog_images_initialised_ = false;
 
 - (void)InitialiseMembers
 {
-	angle = 0.0;
+	angle = 0;
 	target = nil;
 }
 
@@ -92,16 +93,14 @@ static bool jog_images_initialised_ = false;
 
 - (void)JogAngleChanged
 {
-	[self setNeedsDisplay];
-	
 	if(target)
 		[target performSelector:selector withObject:self];
 }
 
 - (float)value
 {
-	// Returns change -1 to 1 for a full turn
-	return change / M_PI;
+	// Returns change -1 to 1 for -90 to +90
+	return angle / (M_PI * 0.5);
 }
 
 @end
@@ -113,6 +112,8 @@ static bool jog_images_initialised_ = false;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	updateTimer = nil;
+	
 	[self addJogRecognizerToView:jogControl];
 
     [super viewDidLoad];
@@ -150,9 +151,49 @@ static bool jog_images_initialised_ = false;
 
 - (void) OnJogGestureInView:(UIView *)gestureView AngleChange:(float)angle State:(int)state
 {
-	[jogControl setChange:angle];
-	[jogControl setAngle:[jogControl angle] + angle];
+	if(state == UIGestureRecognizerStateBegan)
+	{
+		[self killUpdateTimer];	
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.04 target:self selector:@selector(updateTimerCallback:) userInfo:nil repeats:YES];		
+	}
+
+	if(state == UIGestureRecognizerStateChanged)
+	{
+		[jogControl setChange:angle];
+		
+		float newAngle = [jogControl angle] + angle;
+		
+		if(newAngle < -M_PI * 0.75)
+			newAngle = -M_PI * 0.75;
+		else if(newAngle > M_PI * 0.75)
+			newAngle = M_PI * 0.75;
+		
+		[jogControl setAngle:newAngle];
+		[jogControl setNeedsDisplay];
+	}
+	
+	if(state == UIGestureRecognizerStateEnded)
+	{
+		[self killUpdateTimer];	
+		
+		[jogControl setAngle:0.0];
+		[jogControl setNeedsDisplay];
+	}
+	
+}
+
+- (void) updateTimerCallback: (NSTimer *)theTimer
+{
 	[jogControl JogAngleChanged];
+}
+
+- (void) killUpdateTimer
+{
+	if(updateTimer)
+	{
+		[updateTimer invalidate];
+		updateTimer = nil;
+	}
 }
 
 @end

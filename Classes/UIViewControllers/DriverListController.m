@@ -131,8 +131,8 @@
 
 - (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
-	// On long tap,or selection in lap column, show lap list
-	if(double_click || long_press || col == 15)
+	// On double tap in lap column, show lap list
+	if(double_click || col == 16)
 	{
 		TableData * driverListData = [[RacePadDatabase Instance] driverListData];
 		TableCell *cell = [driverListData cell:row Col:0];
@@ -146,11 +146,11 @@
 
 - (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
-	// On single tap, invoke or remove the time controller
-	if(!double_click && !long_press)
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	// On single tap, invoke the time controller or remove the time controller
+	if(!double_click)
 	{
-		RacePadTimeController * time_controller = [RacePadTimeController Instance];
-		
 		if(![time_controller displayed])
 			[time_controller displayInViewController:self Animated:true];
 		else
@@ -169,11 +169,11 @@
 
 - (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press
 {
-	// On single tap, invoke or remove the time controller
-	if(!double_click && !long_press)
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	// On single tap, invoke the time controller or remove the time controller
+	if(!double_click)
 	{
-		RacePadTimeController * time_controller = [RacePadTimeController Instance];
-		
 		if(![time_controller displayed])
 			[time_controller displayInViewController:self Animated:true];
 		else

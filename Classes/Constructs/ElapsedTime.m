@@ -19,7 +19,7 @@
 
 - (id) init
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		[self reset];
 	}
@@ -89,7 +89,7 @@
 
 - (id) initWithInterval:(double)interval
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		interval_ = interval;;
 	}
@@ -124,7 +124,7 @@
 
 - (id) initWithMinValue:(double)min_value MaxValue:(double)max_value Interval:(double)interval
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		min_value_ = min_value;;
 		max_value_ = max_value;;
@@ -168,7 +168,7 @@
 
 - (id) initWithMinValue:(double)min_value MaxValue:(double)max_value Interval:(double)interval
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		min_value_ = min_value;;
 		max_value_ = max_value;;

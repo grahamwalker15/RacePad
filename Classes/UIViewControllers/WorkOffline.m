@@ -9,6 +9,7 @@
 #import "WorkOffline.h"
 #import "RacePadPrefs.h"
 #import "RacePadCoordinator.h"
+#import "RacePadMedia.h"
 #import "RacePadAppDelegate.h"
 #import "RacePadSponsor.h"
 
@@ -259,7 +260,16 @@
 - (IBAction)onlinePressed:(id)sender
 {
 	[self dismissModalViewControllerAnimated:NO];
-	[[RacePadCoordinator Instance] SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+	
+	NSString * serverAddress = [[RacePadPrefs Instance] getPref:@"preferredServerAddress"];
+	
+	if(serverAddress && [serverAddress length] > 0)
+		[[RacePadCoordinator Instance] SetServerAddress:serverAddress ShowWindow:YES];
+	
+	NSString * videoServerAddress = [[RacePadPrefs Instance] getPref:@"preferredVideoServerAddress"];
+	
+	if(videoServerAddress && [videoServerAddress length] > 0)
+		[[RacePadMedia Instance] connectToVideoServer];
 }
 
 - (IBAction)settingsPressed:(id)sender

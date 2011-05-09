@@ -118,7 +118,7 @@ static RacePadTimeController * instance_ = nil;
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.25];
+		[UIView setAnimationDuration:0.15];
 		[timeController.view setAlpha:1.0];
 		[jogController.view setAlpha:1.0];
 		if(addOnOptionsView)
@@ -134,6 +134,7 @@ static RacePadTimeController * instance_ = nil;
 	
 	UISlider * slider = [timeController timeSlider];
 	[slider addTarget:instance_ action:@selector(SliderChanged:) forControlEvents:UIControlEventValueChanged];
+	[slider addTarget:instance_ action:@selector(SliderFinished:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 	
 	UIBarButtonItem * replay_button = [timeController replayButton];	
 	[replay_button setTarget:instance_];
@@ -143,23 +144,18 @@ static RacePadTimeController * instance_ = nil;
 	[jog_control setTarget:instance_];
 	[jog_control setSelector:@selector(JogControlChanged:)];
 	
-	ShinyButton *liveButton = [timeController goLiveButton];	
-	[liveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
+	ShinyButton *goLiveButton = [timeController goLiveButton];	
+	[goLiveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
 	
-	if ( [[RacePadCoordinator Instance] liveMode] )
-	{
-		liveButton.enabled = NO;
-		[liveButton.titleLabel setText:@"Live"];
-	}
-	else
-	{
-		liveButton.enabled = YES;
-		[liveButton.titleLabel setText:@"Go Live"];
-	}
+	[self updateLiveButton];
 	
 	float current_time = [[RacePadCoordinator Instance] currentTime];
 	float start_time = [[RacePadCoordinator Instance] startTime];
 	float end_time = [[RacePadCoordinator Instance] endTime];
+	float live_time = [[RacePadCoordinator Instance] liveTime];
+	
+	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ && end_time > live_time)
+		end_time = live_time;
 	
 	[self setSliderMin:start_time Max:end_time];
 	[self updateTime:current_time];
@@ -180,7 +176,7 @@ static RacePadTimeController * instance_ = nil;
 	}
 
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.25];
+	[UIView setAnimationDuration:0.15];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];
@@ -293,7 +289,7 @@ static RacePadTimeController * instance_ = nil;
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	UIBarButtonItem * play_button = [timeController playButton];	
-
+	
 	if(play_button)
 	{
 		if([coordinator playing])
@@ -306,19 +302,30 @@ static RacePadTimeController * instance_ = nil;
 		}
 	}
 	
-	ShinyButton *liveButton = [timeController goLiveButton];	
+	[self updateLiveButton];
+	
+	[self setHideTimer];
+}
+
+- (void) updateLiveButton
+{
+	ShinyButton *liveButton = [timeController goLiveButton];
+	
 	if ( [[RacePadCoordinator Instance] liveMode] )
 	{
-		liveButton.enabled = NO;
-		[liveButton.titleLabel setText:@"Live"];
+		[liveButton setTitle:@"Live" forState:UIControlStateNormal];
+		[liveButton setButtonColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
+		[liveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+		[liveButton requestRedraw];
 	}
 	else
 	{
-		liveButton.enabled = YES;
-		[liveButton.titleLabel setText:@"Go Live"];
+		[liveButton setTitle:@"Go Live" forState:UIControlStateNormal];
+		[liveButton setButtonColour:[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0]];
+		[liveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+		[liveButton requestRedraw];
 	}
 	
-	[self setHideTimer];
 }
 
 
@@ -328,6 +335,8 @@ static RacePadTimeController * instance_ = nil;
 
 - (IBAction)PlayPressed:(id)sender
 {
+	[jogController killUpdateTimer];	// Just in case it got stuck on
+
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	if([coordinator playing])
 	{
@@ -346,6 +355,21 @@ static RacePadTimeController * instance_ = nil;
 
 - (IBAction)SliderChanged:(id)sender
 {
+	// Don't update movie while sliding -will do on finish
+	[[RacePadCoordinator Instance] setLiveMovieSeekAllowed:false];
+	[self actOnSliderValue];
+}
+
+- (IBAction)SliderFinished:(id)sender
+{
+	[[RacePadCoordinator Instance] setLiveMovieSeekAllowed:true];
+	[self actOnSliderValue];
+}
+
+- (void)actOnSliderValue
+{
+	[jogController killUpdateTimer];	// Just in case it got stuck on
+	
 	UISlider * slider = [timeController timeSlider];
 	float time = [slider value];
 	[[RacePadCoordinator Instance] jumpToTime:time];
@@ -363,8 +387,13 @@ static RacePadTimeController * instance_ = nil;
 
 	JogControlView * jog_control = [jogController jogControl];
 	float change = [jog_control value];
+	float sign = change < 0 ? -1.0 :1.0;
 	
-	time -= change * 2;	// 4.0 secs for full turn - -ve angle = positive time change
+	change = sign * change * change; // Square it to get finer control on slow motion
+	
+	time -= change * 0.8;	// 20 * real time for half turn - -ve angle = positive time change
+							// Called on 25 hz timer
+	
 	if(time < [coordinator startTime])
 		time = [coordinator startTime];
 	

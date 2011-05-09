@@ -36,8 +36,12 @@
 @interface JogViewController : RacePadViewController
 {
 	IBOutlet JogControlView * jogControl;
+	
+	NSTimer *updateTimer;
 }
 
 @property (readonly) JogControlView * jogControl;
 
+- (void) updateTimerCallback: (NSTimer *)theTimer;
+- (void) killUpdateTimer;
 @end

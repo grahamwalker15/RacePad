@@ -9,7 +9,7 @@
 
 #import "DataHandler.h"
 
-#define RACE_PAD_INTERFACE_VERSION 9
+#define RACE_PAD_INTERFACE_VERSION 10
 
 enum ServerCommands {
 	RPSC_VERSION_ = 1,
@@ -50,6 +50,7 @@ enum ServerCommands {
 	RPSC_RED_COMMENTARY_,		// 39
 	RPSC_BLUE_COMMENTARY_,		// 40
 	RPSC_SPONSOR_,				// 41
+	RPSC_TIME_SYNC_,			// 42
 };
 
 @interface RacePadDataHandler : DataHandler

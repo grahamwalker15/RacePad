@@ -201,6 +201,11 @@
 	[self SimpleCommand:RPCS_STREAM_TELEMETRY];
 }
 
+- (void)SynchroniseTime
+{
+	[self SimpleCommand:RPCS_SYNCHRONISE_TIME];
+}
+
 -(void) sendPrediction: (NSString *)userName Command:(int)command
 {
 	RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];

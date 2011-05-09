@@ -347,11 +347,15 @@
 
 - (void)HandleJogFrom:(UIGestureRecognizer *)gestureRecognizer
 {	
-	int state = [(UIJogGestureRecognizer *)gestureRecognizer state];
-	if(state == UIGestureRecognizerStateEnded)
-		return;
-	
 	UIView * gestureView = [gestureRecognizer view];
+	
+	int state = [(UIJogGestureRecognizer *)gestureRecognizer state];
+	
+	if(state == UIGestureRecognizerStateEnded)
+	{
+		[self OnJogGestureInView:gestureView AngleChange:0 State:state];		
+		return;
+	}
 	
 	CGPoint point = [(UIJogGestureRecognizer *)gestureRecognizer locationInView:gestureView];
 	
@@ -427,7 +431,7 @@
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-		
+			
 	if(![time_controller displayed])
 		[time_controller displayInViewController:self Animated:true];
 	else

@@ -48,6 +48,11 @@
 	[self addTapRecognizerToView:blueTelemetryView];
 	[self addTapRecognizerToView:redTelemetryView];
 	
+	//	Long Press recognizer for background and telemetry views
+	[self addLongPressRecognizerToView:backgroundView];
+	[self addLongPressRecognizerToView:blueTelemetryView];
+	[self addLongPressRecognizerToView:redTelemetryView];
+	
     //	Tap, pinch, and double tap recognizers for maps
 	[self addTapRecognizerToView:blueTrackMapView];
 	[self addPinchRecognizerToView:blueTrackMapView];

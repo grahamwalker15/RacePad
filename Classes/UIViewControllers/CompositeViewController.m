@@ -8,8 +8,11 @@
 
 #import "CompositeViewController.h"
 #import "RacePadCoordinator.h"
+#import "RacePadMedia.h"
 #import "RacePadTitleBarController.h"
 #import "RacePadTimeController.h"
+#import "ElapsedTime.h"
+#import "RacePadPrefs.h"
 
 #import "VideoHelpController.h"
 
@@ -17,6 +20,7 @@
 #import "TableDataView.h"
 #import "TrackMapView.h"
 #import "TrackMap.h"
+
 
 @implementation CompositeViewController
 
@@ -28,7 +32,9 @@
 	// Initialise display options
 	displayMap = true;
 	displayLeaderboard = true;
-
+	
+	moviePlayerLayerAdded = false;
+	
 	// Remove the optionsSwitches from the view - they will get re-added when the timecontroller is displayed
 	// Retain them so that they are always available to be displayed
 	[optionContainer retain];
@@ -46,16 +52,6 @@
 	// Set leaderboard data source and associate  with zoom map
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackZoomView];
-	
-	// Get the video archive file name from RacePadCoordinator
-	currentMovie = [[self getVideoArchiveName] retain];
-	[self getStartTime];
-	
-	if(currentMovie)
-	{
-		moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:currentMovie]];
-		[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
-	}
 		
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
@@ -66,24 +62,21 @@
 	
 	// And  for the zoom map
 	[self addTapRecognizerToView:trackZoomView];
+	[self addLongPressRecognizerToView:trackZoomView];
 	[self addDoubleTapRecognizerToView:trackZoomView];
 	[self addPinchRecognizerToView:trackZoomView];
 	
 	// And add pan view to the trackZoomView to allow dragging the container
 	[self addPanRecognizerToView:trackZoomView];
 	
-	// Add tap recognizer to overlay in order to catch taps outside map
+	// Add tap and long press recognizers to overlay in order to catch taps outside map
 	[self addTapRecognizerToView:overlayView];
+	[self addLongPressRecognizerToView:overlayView];
 
 	// Add tap and long press recognizers to the leaderboard
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
 
-	// We'll get notification when we know the movie size - set it to a default for now
-	movieSize = CGSizeMake(768, 576);
-	movieRect = CGRectMake(0, 0, 768, 576);
-	[self positionOverlays];
-	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
@@ -96,54 +89,14 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	// Check that we have the right movie loaded
-	NSString *movie = [[self getVideoArchiveName] retain];
-	if(movie)
-	{
-		if(!currentMovie)
-		{
-			moviePlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:movie]];
-			[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
-			currentMovie = movie;
-		}
-		else if ( [movie compare:currentMovie] != NSOrderedSame )
-		{
-			AVPlayerItem * item = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:movie]];
-			[moviePlayer replaceCurrentItemWithPlayerItem:item];
-			[currentMovie release];
-			currentMovie = movie;
-			[self getStartTime];
-		}
-		else
-		{
-			[movie release];
-		}
-	}
-	else
-	{
-		[currentMovie release];
-		currentMovie = nil;
-		
-		[moviePlayer release];
-		moviePlayer = nil;
-	}
-	
 	// Grab the title bar
 	[[RacePadTitleBarController Instance] displayInViewController:self];
 	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 
-	// Position the movie and order the overlays
-	CALayer *superlayer = movieView.layer;
-	moviePlayerLayer = [AVPlayerLayer playerLayerWithPlayer:moviePlayer];
-	[moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
-	[moviePlayerLayer setFrame:[movieView bounds]];
-
-	[superlayer addSublayer:moviePlayerLayer];
-
-	//[[moviePlayer view] setFrame:[movieView bounds]];
-	//[movieView addSubview:[moviePlayer view]];
-	
+	// We'll get notification when we know the movie size - set it to a default for now
+	movieSize = CGSizeMake(768, 576);
+	movieRect = CGRectMake(0, 0, 768, 576);
 	[self positionOverlays];
 	
 	[movieView bringSubviewToFront:overlayView];
@@ -152,13 +105,11 @@
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	
-	// Get notification when we know the movie size
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieSizeCallback:)
-													name:MPMovieNaturalSizeAvailableNotification
-													object:moviePlayer];
+	// Check that we have the right movie loaded
+	[[RacePadMedia Instance] verifyMovieLoaded];
 	
-	float time_of_day = [[RacePadCoordinator Instance] currentTime];
-	[self movieGotoTime:time_of_day];
+	// and register us to play it
+	[[RacePadMedia Instance] RegisterViewController:self];
 	
 	if([trackZoomView carToFollow] != nil)
 	{
@@ -196,9 +147,7 @@
 	}
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	[moviePlayer pause];
-	[moviePlayerLayer removeFromSuperlayer];
+	[[RacePadMedia Instance] ReleaseViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -237,7 +186,13 @@
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-	[moviePlayerLayer setFrame:[movieView bounds]];
+
+	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];	
+	if(moviePlayerLayer)
+	{
+		[moviePlayerLayer setFrame:[movieView bounds]];
+	}
+	
 	[UIView commitAnimations];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -245,8 +200,6 @@
 
 - (void)dealloc
 {
-	[moviePlayerLayer release];
-	[moviePlayer release];
     [super dealloc];
 }
 
@@ -258,78 +211,47 @@
 	return (HelpViewController *)helpController;
 }
 
+
 ////////////////////////////////////////////////////////////////////////////
-// Movie information
+// Movie routines
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) getStartTime
+- (void) displayMovie
 {
-	startTime = -1;
+	// DO NOT CALL DIRECTLY - THIS IS CALLED BY RACEPADMEDIA
 	
-	// Try to find a meta file
-	NSString *metaFileName = [currentMovie stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
-	metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
-	FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
-	if ( metaFile )
-	{
-		char keyword[128];
-		int value;
-		if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
-			if ( strcmp ( keyword, "VideoStartTime" ) == 0 )
-				startTime = value;
-		fclose(metaFile);
-	}
+	// Position the movie and order the overlays
+	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];
 	
-	if ( startTime == -1 )
+	if(moviePlayerLayer)
 	{
-		// Default to hard coded start time
-		startTime = 13 * 3600.0 + 43 * 60.0 + 40;
-	}
-}
-
-- (NSString *)getVideoArchiveName
-{
-	NSString *name = [[RacePadCoordinator Instance] getVideoArchiveName];
+		CALayer *superlayer = movieView.layer;
 		
-	return name;
-}
-
-////////////////////////////////////////////////////////////////////////////
-// Play controls
-////////////////////////////////////////////////////////////////////////////
-
-
-- (void) movieLoad:(NSString *)movie_name
-{
-}
-
-- (void) movieSetStartTime:(float)time
-{
-	startTime = time;
-}
-
-- (void) moviePrepareToPlay
-{
-	//[moviePlayer prepareToPlay];
-}
-
-- (void) moviePlay
-{
-	[moviePlayer play];
-}
-
-- (void) movieStop
-{
-	[moviePlayer pause];	
-}
-
-- (void) movieGotoTime:(float)time
-{
-	Float64 movie_time = time - startTime;
+		[moviePlayerLayer setFrame:[movieView bounds]];
+		[superlayer addSublayer:moviePlayerLayer];
+		
+		moviePlayerLayerAdded = true;
+	}
 	
-	CMTime cm_time = CMTimeMakeWithSeconds(movie_time, 600);
+	[movieView bringSubviewToFront:overlayView];
+	[movieView bringSubviewToFront:trackMapView];
+	[movieView bringSubviewToFront:leaderboardView];
+	[movieView bringSubviewToFront:trackZoomContainer];
+	[movieView bringSubviewToFront:trackZoomView];
 	
-	[moviePlayer seekToTime:cm_time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
+	[self positionOverlays];	
+}
+
+- (void) removeMovie
+{
+	// DO NOT CALL DIRECTLY - THIS IS CALLED BY RACEPADMEDIA
+	
+	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];
+	if(moviePlayerLayer && moviePlayerLayerAdded)
+	{
+		[moviePlayerLayer removeFromSuperlayer];
+		moviePlayerLayerAdded = false;
+	}	
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -508,6 +430,21 @@
 
 }
 
+- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	// Zooms on point in map, or chosen car in leader board
+	if(!gestureView)
+		return;
+	
+	if([gestureView isKindOfClass:[LeaderboardView class]])
+	{
+		NSString * name = [leaderboardView carNameAtX:x Y:y];
+		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
+		[trackZoomContainer setHidden:false];
+		[leaderboardView RequestRedraw];
+	}
+}
+
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	// Make sure we're on the map - do nothing otherwise
@@ -541,35 +478,6 @@
 		}
 	}
 
-	[trackMapView RequestRedraw];
-	[leaderboardView RequestRedraw];
-}
-
-- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
-{
-	// Zooms on point in map, or chosen car in leader board
-	if(!gestureView)
-		return;
-
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];	
-	
-	if([gestureView isKindOfClass:[TrackMapView class]])
-	{
-		float current_scale = [(TrackMapView *)gestureView userScale];
-		if(current_scale > 0.001)
-		{
-			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10/current_scale X:x Y:y];
-		}
-	}
-	else if([gestureView isKindOfClass:[LeaderboardView class]])
-	{
-		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
-		[trackZoomContainer setHidden:false];
-
-	}
-	
 	[trackMapView RequestRedraw];
 	[leaderboardView RequestRedraw];
 }
@@ -617,24 +525,6 @@
 
 ////////////////////////////////////////////////////////////////////////
 //  Callback functions
-
-- (void) movieSizeCallback:(NSNotification*) aNotification
-{
-	MPMoviePlayerController *player = [aNotification object];
-	movieSize = [player naturalSize];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMovieNaturalSizeAvailableNotification object:player];
-    
-	[self positionOverlays];
-}
-
-- (void) movieFinishedCallback:(NSNotification*) aNotification
-{
-	MPMoviePlayerController *player = [aNotification object];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:player];
-	[player stop];
-	[self.view removeFromSuperview];
-	[player autorelease];    
-}
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {

@@ -48,6 +48,9 @@
 @property (nonatomic) int car;
 
 - (void)positionOverlays;
+- (void) prePositionOverlays;
+- (void) postPositionOverlays;
+
 - (void)showOverlays;
 - (void)hideOverlays;
 - (void)addBackgroundFrames;

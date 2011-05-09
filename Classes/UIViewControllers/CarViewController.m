@@ -61,15 +61,14 @@
 	[self addTapRecognizerToView:commentaryView];
 	[self addTapRecognizerToView:pitWindowView];
 	[self addTapRecognizerToView:pitWindowSimplifyButton];
-	
+		
     //	Tap, pinch, and double tap recognizers for map
 	[self addTapRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	[self addDoubleTapRecognizerToView:trackMapView];
 	[self addTapRecognizerToView:trackMapSizeButton];
 	
-	// Long press, double tap, pan and pinch for pit window
- 	[self addLongPressRecognizerToView:pitWindowView];
+	// Double tap, pan and pinch for pit window
 	[self addDoubleTapRecognizerToView:pitWindowView];
 	[self addPanRecognizerToView:pitWindowView];
 	[self addPinchRecognizerToView:pitWindowView];
@@ -220,10 +219,12 @@
 
 - (void) prePositionOverlays
 {
+	// Do this in the super class
 }
 
 - (void) postPositionOverlays
 {
+	// Do this in the super class
 }
 
 - (void)positionOverlays
@@ -335,11 +336,6 @@
 			[self expandCommentaryView];
 		}
 	}
-}
-
-- (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
-{
-	// Will give info about car in pit window
 }
 
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state

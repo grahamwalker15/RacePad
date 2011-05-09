@@ -165,9 +165,9 @@
 		case RPSC_VERSION_:
 			versionNumber = [stream PopInt];
 			if ( versionNumber == RACE_PAD_INTERFACE_VERSION )
-				[[RacePadCoordinator Instance] serverConnected:YES];
+				[[RacePadCoordinator Instance] setServerConnected:YES];
 			else
-				[[RacePadCoordinator Instance] serverConnected:NO];
+				[[RacePadCoordinator Instance] setServerConnected:NO];
 			break;
 		
 		case RPSC_EVENT_:
@@ -470,6 +470,12 @@
 			NSString *name = [stream PopString];
 			[[RacePadSponsor Instance] setSponsorName:name];
 			[[RacePadCoordinator Instance] updateSponsor];
+			break;
+		}
+		case RPSC_TIME_SYNC_: // Synchronise Time
+		{
+			float time = [stream PopFloat];
+			[[RacePadCoordinator Instance] synchroniseTime:time];
 			break;
 		}
 		default:

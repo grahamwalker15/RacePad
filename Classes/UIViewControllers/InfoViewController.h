@@ -32,12 +32,12 @@
 	bool childControllerDisplayed;
 	bool childControllerClosing;
 	
-	IBOutlet UIButton * driversButton;
-	IBOutlet UIButton * teamsButton;
-	IBOutlet UIButton * circuitsButton;
-	IBOutlet UIButton * rulesButton;
-	IBOutlet UIButton * standingsButton;
-	IBOutlet UIButton * partnersButton;
+	IBOutlet ShinyButton * driversButton;
+	IBOutlet ShinyButton * teamsButton;
+	IBOutlet ShinyButton * circuitsButton;
+	IBOutlet ShinyButton * rulesButton;
+	IBOutlet ShinyButton * standingsButton;
+	IBOutlet ShinyButton * partnersButton;
 	
 }
 

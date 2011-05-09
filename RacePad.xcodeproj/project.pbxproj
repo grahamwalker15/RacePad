@@ -159,6 +159,11 @@
 		7F8180C71306FB6F00AC2444 /* InfoStandings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180C61306FB6F00AC2444 /* InfoStandings.xib */; };
 		7F8180E41307071100AC2444 /* InfoDriverStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E31307071100AC2444 /* InfoDriverStandings.htm */; };
 		7F8180E61307072500AC2444 /* InfoTeamStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E51307072500AC2444 /* InfoTeamStandings.htm */; };
+		7F83708A1373DD4600B4B3C1 /* RacePadMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8370891373DD4600B4B3C1 /* RacePadMedia.m */; };
+		7F8370BE1373E9EE00B4B3C1 /* RacePadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8370BD1373E9EE00B4B3C1 /* RacePadVideoViewController.m */; };
+		7F83732413770C9900B4B3C1 /* FIALogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83732213770C9900B4B3C1 /* FIALogo.png */; };
+		7F83732513770C9900B4B3C1 /* FIALogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83732313770C9900B4B3C1 /* FIALogoBig.png */; };
+		7F8373B713781FE000B4B3C1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8373B613781FE000B4B3C1 /* HomeViewController.m */; };
 		7F83A497130979DA00A64373 /* LightTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A496130979DA00A64373 /* LightTexture.png */; };
 		7F83A4DB1309AA7D00A64373 /* InfoTeamMcLaren.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DA1309AA7D00A64373 /* InfoTeamMcLaren.htm */; };
 		7F83A4DD1309AA9300A64373 /* InfoTeamFerrari.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DC1309AA9300A64373 /* InfoTeamFerrari.htm */; };
@@ -311,6 +316,8 @@
 		7FC2F765129429B400DAC96E /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F764129429B400DAC96E /* Replay.png */; };
 		7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBBF129AC91700DAC96E /* TelemetryView.m */; };
 		7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */; };
+		7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5CE713782A8100A82DA7 /* HomeView.xib */; };
+		7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5D2C13783F3C00A82DA7 /* home.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -529,6 +536,14 @@
 		7F8180C61306FB6F00AC2444 /* InfoStandings.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoStandings.xib; path = ResourceFiles/InfoStandings.xib; sourceTree = "<group>"; };
 		7F8180E31307071100AC2444 /* InfoDriverStandings.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoDriverStandings.htm; sourceTree = "<group>"; };
 		7F8180E51307072500AC2444 /* InfoTeamStandings.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamStandings.htm; sourceTree = "<group>"; };
+		7F8370881373DD4600B4B3C1 /* RacePadMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadMedia.h; sourceTree = "<group>"; };
+		7F8370891373DD4600B4B3C1 /* RacePadMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadMedia.m; sourceTree = "<group>"; };
+		7F8370BC1373E9EE00B4B3C1 /* RacePadVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadVideoViewController.h; sourceTree = "<group>"; };
+		7F8370BD1373E9EE00B4B3C1 /* RacePadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadVideoViewController.m; sourceTree = "<group>"; };
+		7F83732213770C9900B4B3C1 /* FIALogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FIALogo.png; path = Images/FIALogo.png; sourceTree = "<group>"; };
+		7F83732313770C9900B4B3C1 /* FIALogoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FIALogoBig.png; path = Images/FIALogoBig.png; sourceTree = "<group>"; };
+		7F8373B513781FE000B4B3C1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		7F8373B613781FE000B4B3C1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		7F83A496130979DA00A64373 /* LightTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightTexture.png; sourceTree = "<group>"; };
 		7F83A4DA1309AA7D00A64373 /* InfoTeamMcLaren.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamMcLaren.htm; sourceTree = "<group>"; };
 		7F83A4DC1309AA9300A64373 /* InfoTeamFerrari.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamFerrari.htm; sourceTree = "<group>"; };
@@ -586,6 +601,7 @@
 		7F8F913112E6D59F00EA04A6 /* CommentaryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentaryData.m; sourceTree = "<group>"; };
 		7F8F95C412E83AB700EA04A6 /* AlertInsight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertInsight.png; path = Images/AlertInsight.png; sourceTree = "<group>"; };
 		7F8F95C512E83AB700EA04A6 /* AlertLC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertLC.png; path = Images/AlertLC.png; sourceTree = "<group>"; };
+		7F913DBC134689FD002701DA /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = "<group>"; };
 		7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryBG.png; path = Images/TelemetryBG.png; sourceTree = "<group>"; };
 		7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheel.png; path = Images/TelemetrySteeringWheel.png; sourceTree = "<group>"; };
 		7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LightMetalSmall.png; path = Images/LightMetalSmall.png; sourceTree = "<group>"; };
@@ -720,6 +736,8 @@
 		7FC2FBBF129AC91700DAC96E /* TelemetryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryView.m; sourceTree = "<group>"; };
 		7FC2FBC1129AC94E00DAC96E /* TelemetryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelemetryViewController.h; sourceTree = "<group>"; };
 		7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryViewController.m; sourceTree = "<group>"; };
+		7FCD5CE713782A8100A82DA7 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HomeView.xib; path = ResourceFiles/HomeView.xib; sourceTree = "<group>"; };
+		7FCD5D2C13783F3C00A82DA7 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Images/home.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -774,7 +792,6 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				7F817EFC1305AD0B00AC2444 /* InfoRules.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -795,6 +812,7 @@
 				7FC2F8181295911900DAC96E /* Images */,
 				7FC2F8171295910D00DAC96E /* XIB Files */,
 				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+				7F913DBC134689FD002701DA /* dist.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -980,6 +998,8 @@
 				4D34502C12B7C33E00B15298 /* UserPin.m */,
 				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
 				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
+				7F8373B513781FE000B4B3C1 /* HomeViewController.h */,
+				7F8373B613781FE000B4B3C1 /* HomeViewController.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -1059,6 +1079,8 @@
 				7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */,
 				7F6246A412844742009A9D4F /* RacePadTitleBarController.h */,
 				7F6246A512844742009A9D4F /* RacePadTitleBarController.m */,
+				7F8370881373DD4600B4B3C1 /* RacePadMedia.h */,
+				7F8370891373DD4600B4B3C1 /* RacePadMedia.m */,
 			);
 			path = RacePad;
 			sourceTree = "<group>";
@@ -1087,6 +1109,8 @@
 				7F6246A712844762009A9D4F /* TitleBarViewController.h */,
 				7F6246A812844762009A9D4F /* TitleBarViewController.m */,
 				7F767D9E12A67559009249F7 /* UIConstants.h */,
+				7F8370BC1373E9EE00B4B3C1 /* RacePadVideoViewController.h */,
+				7F8370BD1373E9EE00B4B3C1 /* RacePadVideoViewController.m */,
 			);
 			path = UISupport;
 			sourceTree = "<group>";
@@ -1094,6 +1118,8 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				7FCD5CE713782A8100A82DA7 /* HomeView.xib */,
+				7F817EFC1305AD0B00AC2444 /* InfoRules.xib */,
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
 				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
@@ -1141,6 +1167,9 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FCD5D2C13783F3C00A82DA7 /* home.png */,
+				7F83732213770C9900B4B3C1 /* FIALogo.png */,
+				7F83732313770C9900B4B3C1 /* FIALogoBig.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
 				7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */,
 				7F93543612F6D7A000AB1D07 /* AlertInfo.png */,
@@ -1522,6 +1551,10 @@
 				7F83A550130A812300A64373 /* InfoTeamRenault.htm in Resources */,
 				4D423ECD135ECAC400561C92 /* RacePadLogo.png in Resources */,
 				4D423F8F1368319F00561C92 /* DriverView.xib in Resources */,
+				7F83732413770C9900B4B3C1 /* FIALogo.png in Resources */,
+				7F83732513770C9900B4B3C1 /* FIALogoBig.png in Resources */,
+				7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */,
+				7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1620,6 +1653,9 @@
 				7F8180C31306FA8800AC2444 /* InfoStandingsController.m in Sources */,
 				4D423CEC13584CAA00561C92 /* RacePadSponsor.m in Sources */,
 				4D423F661368283900561C92 /* DriverViewController.m in Sources */,
+				7F83708A1373DD4600B4B3C1 /* RacePadMedia.m in Sources */,
+				7F8370BE1373E9EE00B4B3C1 /* RacePadVideoViewController.m in Sources */,
+				7F8373B713781FE000B4B3C1 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1630,6 +1666,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = dist.plist;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1639,6 +1676,7 @@
 				INFOPLIST_FILE = "RacePad-Info.plist";
 				PRODUCT_NAME = RacePad;
 				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -1646,12 +1684,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = dist.plist;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "RacePad-Info.plist";
 				PRODUCT_NAME = RacePad;
+				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1661,11 +1701,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PREBINDING = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1674,15 +1717,18 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

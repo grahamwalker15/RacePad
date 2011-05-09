@@ -23,7 +23,7 @@ enum SponsorLogo {
 };
 
 enum AllTabs {
-	RPS_INFO_TAB_,
+	RPS_HOME_TAB_,
 	RPS_DRIVER_LIST_TAB_,
 	RPS_TRACK_MAP_TAB_,
 	RPS_VIDEO_TAB_,
@@ -31,6 +31,7 @@ enum AllTabs {
 	RPS_RED_CAR_TAB_,
 	RPS_DRIVER_TAB_,
 	RPS_GAME_TAB_,
+	RPS_INFO_TAB_,
 	RPS_SETTINGS_TAB_,
 	RPS_ALL_TABS_
 };

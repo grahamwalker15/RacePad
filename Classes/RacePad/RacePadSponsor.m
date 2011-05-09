@@ -61,14 +61,18 @@ static RacePadSponsor * instance_ = nil;
 		if ( sponsor == RPS_MERCEDES_ )
 			return [UIImage imageNamed:@"MGPLogo.png"];
 		else if ( sponsor == RPS_FIA_ )
-			return [UIImage imageNamed:@"LogoFIA.png"];
+			return [UIImage imageNamed:@"FIALogo.png"];
+		else
+			return [UIImage imageNamed:@"RacePadLogo.png"];
 	}
 	else if ( logo == RPS_LOGO_BIG_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
 			return [UIImage imageNamed:@"MGPLogoBig.png"];
 		else if ( sponsor == RPS_FIA_ )
-			return [UIImage imageNamed:@"LogoFIA.png"];
+			return [UIImage imageNamed:@"FIALogoBig.png"];
+		else
+			return [UIImage imageNamed:@"RacePadLogoBig.png"];
 	}
 	
 	return [UIImage imageNamed:@"RacePadLogo.png"];
@@ -82,15 +86,17 @@ static RacePadSponsor * instance_ = nil;
 	if ( sponsor == RPS_MERCEDES_ )
 		return true;
 	
-	if ( tab == RPS_DRIVER_LIST_TAB_
-	  || tab == RPS_TRACK_MAP_TAB_
-	  || tab == RPS_VIDEO_TAB_
-	  || tab == RPS_DRIVER_TAB_
-	  || tab == RPS_SETTINGS_TAB_ )
+	if ( tab == RPS_HOME_TAB_
+		|| tab == RPS_DRIVER_LIST_TAB_
+		|| tab == RPS_TRACK_MAP_TAB_
+		|| tab == RPS_VIDEO_TAB_
+		|| tab == RPS_DRIVER_TAB_
+		|| tab == RPS_SETTINGS_TAB_ )
 		return true;
 	
 	return false;
 }
+
 
 @end
 

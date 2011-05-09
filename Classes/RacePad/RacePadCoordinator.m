@@ -7,6 +7,7 @@
 //
 
 #import "RacePadCoordinator.h"
+#import "RacePadMedia.h"
 #import "RacePadAppDelegate.h"
 #import "RacePadSponsor.h"
 #import "RacePadViewController.h"
@@ -37,11 +38,16 @@
 @synthesize currentTime;
 @synthesize startTime;
 @synthesize endTime;
+@synthesize serverTimeOffset;
 @synthesize needsPlayRestart;
 @synthesize playing;
 @synthesize registeredViewController;
 @synthesize settingsViewController;
 @synthesize gameViewController;
+@synthesize videoConnectionType;
+@synthesize videoConnectionStatus;
+@synthesize serverConnectionStatus;
+@synthesize liveMovieSeekAllowed;
 
 static RacePadCoordinator * instance_ = nil;
 
@@ -74,11 +80,15 @@ static RacePadCoordinator * instance_ = nil;
 		registeredViewController = nil;
 		registeredViewControllerTypeMask = 0;
 		
+		serverConnectionStatus = RPC_NO_CONNECTION_;
 		connectionType = RPC_NO_CONNECTION_;
 		connectionRetryCount = 0;
 		connectionRetryTimer = nil;
 		live = false;
 		showingConnecting = false;
+		
+		videoConnectionStatus = RPC_NO_CONNECTION_;
+		videoConnectionType = RPC_NO_CONNECTION_;
 		
 		firstView = true;
 		
@@ -88,6 +98,8 @@ static RacePadCoordinator * instance_ = nil;
 		playOnBecomeActive = false;
 		jumpOnBecomeActive = false;
 		restartTime = 0;
+		
+		liveMovieSeekAllowed = true;
 		
 		currentSponsor = [[RacePadSponsor Instance] sponsor];
 	}
@@ -136,13 +148,14 @@ static RacePadCoordinator * instance_ = nil;
 {
 	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITabBarController *tabControl = [app tabBarController];
+	
 	if ( tabControl )
 	{
 		unsigned char i;
 		NSMutableArray *tabs = [[NSMutableArray alloc] init];
 		for ( i = 0; i < RPS_ALL_TABS_; i++ )
 		{
-			BOOL supported = [[RacePadSponsor Instance]supportsTab:i];
+			bool supported = [[RacePadSponsor Instance]supportsTab:i];
 			if ( supported && i == RPS_VIDEO_TAB_ )
 			{
 				NSNumber *v = [[RacePadPrefs Instance] getPref:@"supportVideo"];
@@ -154,6 +167,62 @@ static RacePadCoordinator * instance_ = nil;
 		}
 		[tabControl setViewControllers:tabs animated:YES];
 	}
+}
+
+- (void) selectTab:(int)index
+{
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	
+	if(tabControl)
+	{
+		NSArray * controllers = [tabControl viewControllers];
+		
+		if(controllers)
+		{
+			if(index < [controllers count])
+				[tabControl setSelectedIndex:index];
+		}
+	}
+}
+
+-(int) tabCount
+{
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	
+	if(tabControl)
+	{
+		NSArray * controllers = [tabControl viewControllers];
+		
+		if(controllers)
+		{
+			return [controllers count];
+		}
+	}
+	
+	return 0;	
+}
+
+-(NSString *)tabTitle:(int)index
+{
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	
+	if(tabControl)
+	{
+		UITabBar *tabBar = [tabControl tabBar];
+		
+		if(tabBar)
+		{
+			NSArray * tabBarItems = [tabBar items];
+			
+			if(index < [tabBarItems count])
+				return [[tabBarItems objectAtIndex:index] title];
+		}
+	}
+	
+	return @"";	
 }
 
 - (void) updateSponsor
@@ -230,8 +299,22 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void) setLiveTime:(float) time
 {
-	if ( live )
+	if ( live && time > 0.0)
 		currentTime = time;
+}
+
+-(float) liveTime
+{
+	float ourTime = (float)[ElapsedTime LocalTimeOfDay];
+	return ourTime + serverTimeOffset;
+}
+
+-(void) synchroniseTime:(float) time
+{
+	float ourTime = (float)[ElapsedTime LocalTimeOfDay]; 
+	
+	serverTimeOffset = time - ourTime;	// Add to our local time to get server time
+										// Subtract from server time to get our time
 }
 
 -(void) clearStaticData
@@ -263,7 +346,11 @@ static RacePadCoordinator * instance_ = nil;
 	playing = true;
 	needsPlayRestart = false;
 	
-	baseTime = (int)(currentTime * 1000.0);
+	if(live)
+		baseTime = (int)([self liveTime] * 1000.0);
+	else
+		baseTime = (int)(currentTime * 1000.0);
+	
 	elapsedTime = [[ElapsedTime alloc] init];
 	
 	if(connectionType == RPC_ARCHIVE_CONNECTION_)
@@ -271,8 +358,8 @@ static RacePadCoordinator * instance_ = nil;
 		
 	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
 
-	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[(CompositeViewController *)registeredViewController moviePlay];
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+		[[RacePadMedia Instance] moviePlay];
 }
 
 -(void)pausePlay
@@ -295,8 +382,8 @@ static RacePadCoordinator * instance_ = nil;
 	if (connectionType == RPC_SOCKET_CONNECTION_)
 		[socket_ stopStreams];	
 	
-	if(connectionType == RPC_ARCHIVE_CONNECTION_ && registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[(CompositeViewController *)registeredViewController movieStop];
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+		[[RacePadMedia Instance] movieStop];
 
 	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
 	[elapsedTime release];
@@ -502,8 +589,8 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, prepare it to play
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		//[(CompositeViewController *)registeredViewController movieGotoTime:currentTime];
-		//[(CompositeViewController *)registeredViewController moviePrepareToPlay];
+		[[RacePadMedia Instance] movieGotoTime:currentTime];
+		[[RacePadMedia Instance] moviePrepareToPlay];
 	}
 }
 
@@ -523,7 +610,7 @@ static RacePadCoordinator * instance_ = nil;
 	// If the registered view controller is interested in video, cue this too
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 	{
-		[(CompositeViewController *)registeredViewController movieGotoTime:currentTime];
+		[[RacePadMedia Instance] movieGotoTime:currentTime];
 	}
 	
 	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
@@ -590,16 +677,17 @@ static RacePadCoordinator * instance_ = nil;
 // Socket management
 ////////////////////////////////////////////////////////////////////////////////////////
 
-- (void) serverConnected:(BOOL) ok
+- (void) setServerConnected:(bool) ok
 {
 	if ( ok )
 	{
+		[socket_ SynchroniseTime];
 		[socket_ RequestEvent];
 		[socket_ RequestTrackMap];
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestUIImages];
 		
-		live = restartTime == 0;
+		live = (restartTime == 0);
 		double savedTime = restartTime;
 		
 		[self setConnectionType:RPC_SOCKET_CONNECTION_];
@@ -621,6 +709,7 @@ static RacePadCoordinator * instance_ = nil;
 		
 		[serverConnect badVersion];
 	}
+	
 	[settingsViewController updateServerState];
 }
 
@@ -651,7 +740,7 @@ static RacePadCoordinator * instance_ = nil;
 	[settingsViewController updateServerState];
 }
 
--(BOOL) serverConnected
+-(bool) serverConnected
 {
 	return socket_ != nil;
 }
@@ -677,17 +766,26 @@ static RacePadCoordinator * instance_ = nil;
 		socket_ = [[RacePadClientSocket alloc] CreateSocket];
 		
 		connectionType = RPC_NO_CONNECTION_;
-
+		
 		[socket_ ConnectSocket:[server UTF8String] Port:6021];
 		[[RacePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
 		[[RacePadPrefs Instance] save];
 		[self clearStaticData];
-
+		
 		if ( showWindow )
 		{
 			// Slightly delay popping up the connect window, just in case we connect really quickly
 			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.5];
 		}
+	}
+}
+
+- (void) SetVideoServerAddress : (NSString *) server
+{
+	if ( server && [server length] )
+	{		
+		[[RacePadPrefs Instance] setPref:@"preferredVideoServerAddress" Value:server];
+		[[RacePadPrefs Instance] save];
 	}
 }
 
@@ -724,6 +822,11 @@ static RacePadCoordinator * instance_ = nil;
 	if ( workOffline == nil )
 		workOffline = [[WorkOffline alloc] initWithNibName:@"WorkOffline" bundle:nil];
 	[registeredViewController presentModalViewController:workOffline animated:YES];
+}
+
+- (void) videoServerOnConnectionChange
+{
+	[settingsViewController updateServerState];
 }
 
 - (void) userExit
@@ -802,6 +905,17 @@ static RacePadCoordinator * instance_ = nil;
 			}
 		}
 	}
+	
+	// If the registered view controller is interested in video, cue this to play live too
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+	{
+		if ( live )
+			[[RacePadMedia Instance] movieGoLive];
+		else
+			[[RacePadMedia Instance] movieGotoTime:currentTime];
+	}
+	
+	
 }
 
 -(void)showSnapshotFromSocket
@@ -852,6 +966,14 @@ static RacePadCoordinator * instance_ = nil;
 			}
 		}
 	}
+	
+	// If the registered view controller is interested in video, cue this too
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+	{
+		if(liveMovieSeekAllowed)
+			[[RacePadMedia Instance] movieGotoTime:currentTime];
+	}
+	
 }
 
 

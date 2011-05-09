@@ -16,8 +16,6 @@
 
 @implementation PitWindowCar
 
-static UIColor *redTrail = nil;
-static UIColor *greenTrail = nil;
 static UIColor *redBG = nil;
 static UIColor *blueBG = nil;
 static UIColor *redMargin = nil;

@@ -54,9 +54,11 @@
 	// Add gesture recognizers
  	[self addTapRecognizerToView:trackMapView];
 	[self addDoubleTapRecognizerToView:trackMapView];
+	[self addLongPressRecognizerToView:trackMapView];
 	
 	//	Tap recognizer for background
 	[self addTapRecognizerToView:backgroundView];
+	[self addLongPressRecognizerToView:backgroundView];
 	
 	// Add tap and long press recognizers to the leaderboard
 	[self addTapRecognizerToView:leaderboardView];
@@ -300,28 +302,13 @@
 	{
 		return;
 	}
-	
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];
-	
+		
 	if([(TrackMapView *)gestureView isZoomView])
 	{
 		[self hideZoomMap];
 	}
 	else
 	{
-		// Don't zoom on corner for now - it's too confusing if you tap in the wrong place
-		/*
-		float current_scale = [(TrackMapView *)gestureView userScale];
-		float current_xoffset = [(TrackMapView *)gestureView userXOffset];
-		float current_yoffset = [(TrackMapView *)gestureView userYOffset];
-		
-		if(current_scale == 1.0 && current_xoffset == 0.0 && current_yoffset == 0.0)
-		{
-			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10 X:x Y:y];
-		}
-		else
-		*/
 		{
 			[(TrackMapView *)gestureView setUserXOffset:0.0];
 			[(TrackMapView *)gestureView setUserYOffset:0.0];
@@ -339,30 +326,13 @@
 	if(!gestureView)
 		return;
 	
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];	
-	
-	if([gestureView isKindOfClass:[TrackMapView class]])
-	{
-		float current_scale = [(TrackMapView *)gestureView userScale];
-		// Don't zoom on corner for now - it's too confusing if you tap in the wrong place
-		/*
-		if(current_scale > 0.001)
-		{
-			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10/current_scale X:x Y:y];
-		}
-		*/
-	}
-	else if([gestureView isKindOfClass:[LeaderboardView class]])
+	if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
 		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
 		[trackZoomContainer setHidden:false];
-		
+		[leaderboardView RequestRedraw];
 	}
-	
-	[trackMapView RequestRedraw];
-	[leaderboardView RequestRedraw];
 }
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed

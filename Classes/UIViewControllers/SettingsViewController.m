@@ -8,27 +8,11 @@
 
 #import "SettingsViewController.h"
 #import "RacePadCoordinator.h"
+#import "RacePadMedia.h"
 #import	"RacePadPrefs.h"
 #import "RacePadSponsor.h"
 
 @implementation SettingsViewController
-
-/*
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-    }
-    return self;
-}
- */
- 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
 
 - (void)viewDidLoad
 {
@@ -36,6 +20,7 @@
 	[[RacePadCoordinator Instance] setSettingsViewController:self];
 	[[RacePadCoordinator Instance] AddView:[self view] WithType:RPC_SETTINGS_VIEW_];
 	[ip_address_edit_ setText:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"]];
+	[video_ip_address_edit_ setText:[[RacePadPrefs Instance] getPref:@"preferredVideoServerAddress"]];
 }
 
 
@@ -278,6 +263,38 @@
 		[connect setTitle:@"Connect" forState:UIControlStateNormal];
 		[status setText:@"Working offline"];
 	}
+	
+	if ( [[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_SUCCEEDED_ )
+	{
+		[video_connect setTitle:@"Disconnect" forState:UIControlStateNormal];
+		[video_status setText:@"Connected to server"];
+	}
+	else
+	{
+		[video_connect setTitle:@"Connect" forState:UIControlStateNormal];
+		
+		if([[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_FAILED_ )
+		{
+			[video_status setText:@"Connection failed"];
+			[videoServerTwirl setHidden:true];
+			[videoServerTwirl stopAnimating];
+		}
+		else if([[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_CONNECTING_ )
+		{
+			[video_status setText:@"Connecting...."];
+			[videoServerTwirl setHidden:false];
+			[videoServerTwirl startAnimating];
+		}
+		else
+		{
+			[video_status setText:@"Not connected"];
+			[videoServerTwirl stopAnimating];
+			[videoServerTwirl setHidden:true];
+		}
+	}
+	
+	[serverTwirl setHidden:true];
+
 }
 
 - (void) updateConnectionType
@@ -310,6 +327,28 @@
 	{
 		NSString *text = [ip_address_edit_ text];
 		[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
+		[serverTwirl setHidden:false];
+
+	}
+}
+
+-(IBAction)videoIPAddressChanged:(id)sender
+{
+	NSString *text = [sender text];
+	[[RacePadCoordinator Instance] SetVideoServerAddress:text];
+}
+
+-(IBAction)videoConnectPressed:(id)sender
+{
+	if ( [[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_SUCCEEDED_ )
+	{
+		[[RacePadMedia Instance] disconnectVideoServer];
+	}
+	else if ( [[RacePadCoordinator Instance] videoConnectionStatus] != RPC_CONNECTION_CONNECTING_ )
+	{
+		[videoServerTwirl setHidden:false];
+		[videoServerTwirl startAnimating];
+		[[RacePadMedia Instance] connectToVideoServer];
 	}
 }
 

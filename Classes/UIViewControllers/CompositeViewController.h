@@ -10,16 +10,19 @@
 #import <AVFoundation/AVPlayer.h>
 #import <AVFoundation/AVPlayerLayer.h>
 #import <AVFoundation/AVPlayerItem.h>
+#import <AVFoundation/AVAsset.h>
+#import <AVFoundation/AVAsynchronousKeyValueLoading.h>
+
 #import <CoreMedia/CMTime.h>
 
-#import "RacePadViewController.h"
+#import "RacePadVideoViewController.h"
 #import "TrackMapView.h"
 #import "DrawingView.h"
 #import "MovieView.h"
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface CompositeViewController : RacePadViewController
+@interface CompositeViewController : RacePadVideoViewController
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;
@@ -31,32 +34,17 @@
 	IBOutlet UIView *optionContainer;;
 	IBOutlet UISegmentedControl *optionSwitches;
 
-	AVPlayer * moviePlayer;
-	AVPlayerLayer * moviePlayerLayer;
-	
 	CGSize movieSize;
 	CGRect movieRect;
-	float startTime;
 	
-	NSString *currentMovie;
-	
+	bool moviePlayerLayerAdded;
+		
 	bool displayMap;
 	bool displayLeaderboard;
 }
 
 @property (nonatomic) bool displayMap;
 @property (nonatomic) bool displayLeaderboard;
-
-- (void) movieLoad:(NSString *)movie_name;
-- (void) movieSetStartTime:(float)time;
-
-- (void) getStartTime;
-- (NSString *)getVideoArchiveName;
-
-- (void) moviePlay;
-- (void) movieStop;
-- (void) movieGotoTime:(float)time;
-- (void) moviePrepareToPlay;
 
 - (void) showOverlays;
 - (void) hideOverlays;
@@ -66,8 +54,6 @@
 - (void) hideZoomMap;
 - (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
-- (void) movieSizeCallback:(NSNotification*) aNotification;
-- (void) movieFinishedCallback:(NSNotification*) aNotification;
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (IBAction) optionSwitchesHit:(id)sender;
