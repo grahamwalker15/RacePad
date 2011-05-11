@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad
 {
+	[self setCar:-1];
 	[super viewDidLoad];
 	
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
@@ -55,10 +56,6 @@
 	// Register the views
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
 
-	if (trackMapView.carToFollow == nil)
-		[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
-	else
-		[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];

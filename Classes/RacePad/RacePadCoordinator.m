@@ -24,6 +24,7 @@
 #import "WorkOffline.h"
 #import "RacePadPrefs.h"
 #import "TabletState.h"
+#import "CommentaryView.h"
 
 #import "UIConstants.h"
 
@@ -309,11 +310,19 @@ static RacePadCoordinator * instance_ = nil;
 	return ourTime + serverTimeOffset;
 }
 
+-(void) synchroniseTime:(float) time
+{
+	float ourTime = (float)[ElapsedTime LocalTimeOfDay]; 
+	
+	serverTimeOffset = time - ourTime;	// Add to our local time to get server time
+										// Subtract from server time to get our time
+}
+
 -(float) playTime
 {
 	if(playing)
 	{
-		if(live)
+		if (live)
 			return [self liveTime];
 		else
 			return (float)baseTime * 0.001 + [elapsedTime value];
@@ -322,14 +331,6 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		return currentTime;
 	}
-}
-
--(void) synchroniseTime:(float) time
-{
-	float ourTime = (float)[ElapsedTime LocalTimeOfDay]; 
-	
-	serverTimeOffset = time - ourTime;	// Add to our local time to get server time
-										// Subtract from server time to get our time
 }
 
 -(void) clearStaticData
@@ -558,31 +559,48 @@ static RacePadCoordinator * instance_ = nil;
 		[self setTimer:currentTime + elapsed];
 }
 
+-(void) redrawCommentary
+{
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
+	{
+		int view_count = [views count];
+		
+		for ( int i = 0 ; i < view_count ; i++)
+		{
+			RPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view Displayed])
+			{
+				int type = [existing_view Type];
+				
+				if(type == RPC_COMMENTARY_VIEW_)
+				{
+					CommentaryView *commentary = [existing_view View];
+					if ( commentary )
+						[commentary drawIfChanged];
+				}
+			}
+		}
+	}
+}
+
 - (void) timeControllerTimerUpdate: (NSTimer *)theTimer
 {
 	float elapsed = [elapsedTime value];
 	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
 	[[RacePadTitleBarController Instance] updateTime:currentTime + elapsed];
 	
-	/*
-	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
-	// If the registered view controller is interested in commentary, update the commentary views
-	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
-	{
-		[self RequestRedrawType:RPC_COMMENTARY_VIEW_];
-	}
-	*/
+	[self redrawCommentary];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Local archive management
 ////////////////////////////////////////////////////////////////////////////////////////
 
-- (void) loadRPF: (NSString *)file
+- (void) loadRPF: (NSString *)file SubIndex: (NSString *)subIndex
 {
 	// Called at the beginning to load static elements - track map, helmets etc.
 	NSString *fileName = [sessionPrefix stringByAppendingString:file];
-	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:fileName];
+	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:fileName SubIndex:subIndex];
 	[handler setTime:[handler inqTime]];
 	[handler release];
 }
@@ -628,14 +646,7 @@ static RacePadCoordinator * instance_ = nil;
 		[[RacePadMedia Instance] movieGotoTime:currentTime];
 	}
 	
-	// TEMPORARY HARD CODING OF COMMENTARY UPDATE
-	// I think we need this so commentary updates correctly in Archive mode, as the all the commentary messages are loaded
-	// with the session, not on a time basis.
-	// If the registered view controller is interested in commentary, update the commentary views
-	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
-	{
-		[self RequestRedrawType:RPC_COMMENTARY_VIEW_];
-	}
+	[self redrawCommentary];
 }
 
 - (void) loadSession: (NSString *)event Session: (NSString *)session
@@ -647,9 +658,9 @@ static RacePadCoordinator * instance_ = nil;
 	sessionPrefix = [sessionPrefix stringByAppendingString:session];
 	sessionPrefix = [sessionPrefix stringByAppendingString:@"-"];
 	[sessionPrefix retain];
-	[self loadRPF: @"race_pad.rpf"];
-	[self loadRPF: @"event.rpf"];
-	[self loadRPF: @"session.rpf"];
+	[self loadRPF: @"race_pad.rpf" SubIndex:nil];
+	[self loadRPF: @"event.rpf" SubIndex:nil];
+	[self loadRPF: @"session.rpf" SubIndex:nil];
 	
 	[[RacePadPrefs Instance] setPref:@"preferredEvent" Value:event ];
 	[[RacePadPrefs Instance] setPref:@"preferredSession" Value:session];
@@ -873,7 +884,23 @@ static RacePadCoordinator * instance_ = nil;
 				NSString * driver = [existing_view Parameter];					
 				if([driver length] > 0)
 				{
-					[socket_ StreamCommentary:driver];
+					if ( ![[[RacePadDatabase Instance] commentaryFor] isEqualToString:driver] )
+					{
+						[[RacePadDatabase Instance] setCommentaryFor:driver];
+						[[[RacePadDatabase Instance] commentary] clearAll];
+						if (connectionType == RPC_SOCKET_CONNECTION_)
+							[socket_ StreamCommentary:driver];
+						else
+							[self loadRPF:@"Commentary.rpf" SubIndex:driver];
+					}
+					else
+						[[existing_view View] RequestRedraw];
+				}
+				else
+				{
+					[[RacePadDatabase Instance] setCommentaryFor:@""];
+					[[[RacePadDatabase Instance] commentary] clearAll];
+					[socket_ StreamCommentary:@""];
 				}
 			}
 		}
@@ -945,25 +972,6 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamDriverGapInfo:[[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
 				}
-				else if([existing_view Type] == RPC_COMMENTARY_VIEW_)
-				{
-					NSString * driver = [existing_view Parameter];					
-					if([driver length] > 0)
-					{
-						if ( ![[[RacePadDatabase Instance] commentaryFor] isEqualToString:driver] )
-						{
-							[[RacePadDatabase Instance] setCommentaryFor:driver];
-							[[[RacePadDatabase Instance] commentary] clearAll];
-							[socket_ StreamCommentary:driver];
-						}
-					}
-					else
-					{
-						[[RacePadDatabase Instance] setCommentaryFor:@""];
-						[[[RacePadDatabase Instance] commentary] clearAll];
-						[socket_ StreamCommentary:@""];
-					}
-				}
 			}
 		}
 	}
@@ -1028,29 +1036,6 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_DRIVER_GAP_INFO_VIEW_)
 				{
 					[socket_ RequestDriverGapInfo:[[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
-				}
-				else if([existing_view Type] == RPC_COMMENTARY_VIEW_)
-				{
-					NSString * driver = [existing_view Parameter];					
-					if([driver length] > 0)
-					{
-						if ( ![[[RacePadDatabase Instance] commentaryFor] isEqualToString:driver] )
-						{
-							[[RacePadDatabase Instance] setCommentaryFor:driver];
-							[[[RacePadDatabase Instance] commentary] clearAll];
-							[socket_ StreamCommentary:driver];
-						}
-						else
-						{
-							[[existing_view View] RequestRedraw];
-						}
-					}
-					else
-					{
-						[[RacePadDatabase Instance] setCommentaryFor:@""];
-						[[[RacePadDatabase Instance] commentary] clearAll];
-						[socket_ StreamCommentary:@""];
-					}
 				}
 			}
 		}
@@ -1406,7 +1391,7 @@ static RacePadCoordinator * instance_ = nil;
 -(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
 {
 	NSString *fileName = [sessionPrefix stringByAppendingString:file];
-	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName];
+	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName SubIndex:nil];
 	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
 	[dataSources addObject:rpc_source];
 	[rpc_source release];
@@ -1591,7 +1576,7 @@ static RacePadCoordinator * instance_ = nil;
 		NSString *fName = @"player_";
 		fName = [fName stringByAppendingString:name];
 		fName = [fName stringByAppendingString:@".rpf"];
-		[self loadRPF:fName];		
+		[self loadRPF:fName SubIndex:nil];		
 	}
 
 }

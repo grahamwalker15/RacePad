@@ -72,10 +72,12 @@ enum ServerCommands {
 	int indexBase;
 	int indexStep;
 	
+	int subIndexOffset;
+	
 }
 
 - (id) init;
-- (id) initWithPath: (NSString *)path;
+- (id) initWithPath: (NSString *)path SubIndex:(NSString *)subIndex;
 - (int) inqTime;
 - (void) setTime: (int) time;
 - (void) update: (int ) time;

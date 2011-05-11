@@ -9,7 +9,7 @@
 
 #import "CommentaryView.h"
 
-#import "RacePadTimeController.h"
+#import "RacePadCoordinator.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
 #import "CommentaryData.h"
@@ -46,10 +46,22 @@
     [super dealloc];
 }
 
+- (void) drawIfChanged
+{
+	int rowCount = [self RowCount];
+	
+	CGRect bounds = [self bounds];
+	
+	int height = bounds.size.height;
+	if ( ( rowCount != lastRowCount
+		  || height != lastHeight )
+		&& rowCount > 0 )
+		[self RequestRedraw];
+}
+
 - (void) Draw:(CGRect)region
 {
 	int rowCount = [self RowCount];
-	int rowHeight = [self RowHeight];
 	
 	CGRect bounds = [self bounds];
 	
@@ -70,7 +82,7 @@
 	CommentaryData * data;
 	data = [[RacePadDatabase Instance] commentary];
 	
-	float timeNow = [[RacePadTimeController Instance] timeNow];
+	float timeNow = [[RacePadCoordinator Instance] playTime];
 	
 	int count = 0;
 	latestMessageTime = 0.0;

@@ -23,10 +23,11 @@
 	
 	saveFile = nil;
 	index = nil;
+	subIndexOffset = 0;
 	return self;
 }
 
-- (id) initWithPath: (NSString *)path
+- (id) initWithPath: (NSString *)path SubIndex:(NSString *)subIndex
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
@@ -50,6 +51,43 @@
 			}
 			else
 			{
+				NSString *subIndexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rps"];
+				FILE *subIndexFile = fopen ( [subIndexName UTF8String], "rb" );
+				if ( subIndexFile )
+				{
+					int t;
+					fread(&t, 1, sizeof(int), subIndexFile);
+					int subIndexVersion = htonl ( t );
+					
+					if ( subIndexVersion == versionNumber )
+					{
+						while (!feof(subIndexFile))
+						{
+							fread(&t, 1, sizeof(int), subIndexFile);
+							int size = htonl ( t );
+							char *s = malloc ( size + 1 );
+							if ( size ) {
+								fread ( s, 1, size, subIndexFile );
+								s[size] = 0;
+							}
+							else {
+								s[0] = 0;
+							}
+							
+							NSString *name = [NSString stringWithUTF8String:s];
+							free ( s );
+							fread(&t, 1, sizeof(int), subIndexFile);
+							if ( [name isEqualToString: subIndex] )
+							{
+								subIndexOffset = htonl ( t );
+								[self setStreamPos: subIndexOffset];
+								break;
+							}
+						}
+					}
+					fclose(subIndexFile);
+				}
+
 				if ( [stream canPop:4] )
 				{
 					nextTime = [stream PopInt];
@@ -116,7 +154,9 @@
 - (void) setTime: (int) time
 {
 	int filePos = sizeof ( int ); // To skip the version number
-	if ( indexSize > 0 )
+	if ( subIndexOffset > 0 )
+		filePos = subIndexOffset;
+	else if ( indexSize > 0 )
 	{
 		int secsOffset = time / 1000 - indexBase;
 		int indexOffset = secsOffset / indexStep;

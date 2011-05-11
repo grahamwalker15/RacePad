@@ -82,6 +82,27 @@
 	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	
+	// Set paramters for views
+	
+	if(car == RPD_BLUE_CAR_)
+	{
+		[pitWindowView setCar:RPD_BLUE_CAR_];
+		[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
+		[trackMapView followCar:@"MSC"];
+		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
+	}
+	else if (car == RPD_RED_CAR_)
+	{
+		[pitWindowView setCar:RPD_RED_CAR_];
+		[[RacePadCoordinator Instance] SetParameter:@"RED" ForView:commentaryView];
+		[trackMapView followCar:@"ROS"];
+		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
+	}
+	else
+	{
+		[pitWindowView setCar:-1];
+		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.3]];
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -107,9 +128,16 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 		
+	if (trackMapView.carToFollow == nil)
+		[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+	else
+		[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
+
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:pitWindowView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+
+	[[RacePadCoordinator Instance] restartCommentary];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -538,7 +566,7 @@
 	{
 		[telemetryView setCar:RPD_BLUE_CAR_];
 	}
-	else
+	else if ( car == RPD_RED_CAR_ )
 	{
 		[telemetryView setCar:RPD_RED_CAR_];
 	}
