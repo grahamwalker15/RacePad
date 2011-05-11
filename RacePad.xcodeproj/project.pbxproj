@@ -293,6 +293,8 @@
 		7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */; };
 		7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58B12673E7F008A6C94 /* VideoView.xib */; };
 		7FB1C59A12673E9F008A6C94 /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB1C59912673E9F008A6C94 /* ImageListStore.m */; };
+		7FB2874D1379992100A6D6C8 /* DriverGapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2874C1379992100A6D6C8 /* DriverGapInfo.m */; };
+		7FB75AAB137A854600F7BFA0 /* DriverTextBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */; };
 		7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF8FC12648507009D37FA /* DrawingViewController.m */; };
 		7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF98012649EBE009D37FA /* TableDataView.m */; };
 		7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDFA851264B822009D37FA /* TrackMapView.m */; };
@@ -318,6 +320,7 @@
 		7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */; };
 		7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5CE713782A8100A82DA7 /* HomeView.xib */; };
 		7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5D2C13783F3C00A82DA7 /* home.png */; };
+		7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5DAE1379403A00A82DA7 /* PitBoard.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -708,6 +711,9 @@
 		7FB1C58B12673E7F008A6C94 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VideoView.xib; path = ResourceFiles/VideoView.xib; sourceTree = "<group>"; };
 		7FB1C59812673E9F008A6C94 /* ImageListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListStore.h; sourceTree = "<group>"; };
 		7FB1C59912673E9F008A6C94 /* ImageListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListStore.m; sourceTree = "<group>"; };
+		7FB2874B1379992100A6D6C8 /* DriverGapInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverGapInfo.h; sourceTree = "<group>"; };
+		7FB2874C1379992100A6D6C8 /* DriverGapInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverGapInfo.m; sourceTree = "<group>"; };
+		7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DriverTextBG.png; path = Images/DriverTextBG.png; sourceTree = "<group>"; };
 		7FBDF8FB12648507009D37FA /* DrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingViewController.h; sourceTree = "<group>"; };
 		7FBDF8FC12648507009D37FA /* DrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
 		7FBDF97F12649EBE009D37FA /* TableDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDataView.h; sourceTree = "<group>"; };
@@ -738,6 +744,7 @@
 		7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryViewController.m; sourceTree = "<group>"; };
 		7FCD5CE713782A8100A82DA7 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HomeView.xib; path = ResourceFiles/HomeView.xib; sourceTree = "<group>"; };
 		7FCD5D2C13783F3C00A82DA7 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Images/home.png; sourceTree = "<group>"; };
+		7FCD5DAE1379403A00A82DA7 /* PitBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PitBoard.png; path = Images/PitBoard.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -859,6 +866,8 @@
 				4D86EDD3129A98C000AA49F9 /* Telemetry.m */,
 				7F9C67381265F50000F2FFEC /* TrackMap.h */,
 				7F9C67391265F50000F2FFEC /* TrackMap.m */,
+				7FB2874B1379992100A6D6C8 /* DriverGapInfo.h */,
+				7FB2874C1379992100A6D6C8 /* DriverGapInfo.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1167,6 +1176,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */,
+				7FCD5DAE1379403A00A82DA7 /* PitBoard.png */,
 				7FCD5D2C13783F3C00A82DA7 /* home.png */,
 				7F83732213770C9900B4B3C1 /* FIALogo.png */,
 				7F83732313770C9900B4B3C1 /* FIALogoBig.png */,
@@ -1555,6 +1566,8 @@
 				7F83732513770C9900B4B3C1 /* FIALogoBig.png in Resources */,
 				7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */,
 				7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */,
+				7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */,
+				7FB75AAB137A854600F7BFA0 /* DriverTextBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1656,6 +1669,7 @@
 				7F83708A1373DD4600B4B3C1 /* RacePadMedia.m in Sources */,
 				7F8370BE1373E9EE00B4B3C1 /* RacePadVideoViewController.m in Sources */,
 				7F8373B713781FE000B4B3C1 /* HomeViewController.m in Sources */,
+				7FB2874D1379992100A6D6C8 /* DriverGapInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

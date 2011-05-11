@@ -201,6 +201,50 @@
 	[self SimpleCommand:RPCS_STREAM_TELEMETRY];
 }
 
+- (void)RequestDriverGapInfo:(NSString *) driver
+{
+	NSString * sentDriver;
+	if(driver && [driver length] > 0)
+		sentDriver = driver;
+	else
+		sentDriver = @"-";	// Will result in nothing coming back
+
+	int messageLength = [sentDriver length] + sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_REQUEST_DRIVER_GAP_INFO);
+	iData[2] = htonl([sentDriver length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver UTF8String], [sentDriver length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)StreamDriverGapInfo:(NSString *) driver
+{
+	NSString * sentDriver;
+	if(driver && [driver length] > 0)
+		sentDriver = driver;
+	else
+		sentDriver = @"-";	// Will result in nothing coming back
+	
+	int messageLength = [sentDriver length] + sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_STREAM_DRIVER_GAP_INFO);
+	iData[2] = htonl([sentDriver length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver UTF8String], [sentDriver length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
 - (void)SynchroniseTime
 {
 	[self SimpleCommand:RPCS_SYNCHRONISE_TIME];

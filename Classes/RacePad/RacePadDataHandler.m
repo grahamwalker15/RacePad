@@ -487,6 +487,13 @@
 			[[RacePadCoordinator Instance] synchroniseTime:time];
 			break;
 		}
+		case RPSC_DRIVER_GAP_INFO_: // Driver info plus gaps
+		{
+			DriverGapInfo *driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+			[driverGapInfo loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_GAP_INFO_VIEW_];
+			break;
+		}
 		default:
 			break;
 	}

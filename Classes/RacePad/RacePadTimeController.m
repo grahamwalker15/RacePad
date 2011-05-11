@@ -277,6 +277,7 @@ static RacePadTimeController * instance_ = nil;
 	UISlider * slider = [timeController timeSlider];
 	[slider setMaximumValue:endTime];
 }
+
 - (void) setSliderMin:(float)startTime Max:(float)endTime
 {
 	UISlider * slider = [timeController timeSlider];

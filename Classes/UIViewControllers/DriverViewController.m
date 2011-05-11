@@ -17,6 +17,7 @@
 #import "RacePadDatabase.h"
 #import "Telemetry.h"
 #import "PitWindow.h"
+#import "DriverGapInfo.h"
 
 #import "TrackMapView.h"
 #import "LeaderBoardView.h"
@@ -44,21 +45,35 @@
 	
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
+	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	
+	[super viewWillAppear:animated];
+
 	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
 
 	if (trackMapView.carToFollow == nil)
 		[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
 	else
 		[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
+	
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 
-	[super viewWillAppear:animated];
+	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+	if(driverGapInfo)
+	{
+		NSString * requestedDriver = [driverGapInfo requestedDriver];
+		
+		if(requestedDriver && [requestedDriver length] > 0)
+			[self showDriverInfo:false];
+		else
+			[self hideDriverInfo:false];
+	}
+	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -67,6 +82,7 @@
 	[super viewWillDisappear:animated];
 	
 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewHidden:self];
 }
 
 - (void)prePositionOverlays
@@ -94,18 +110,18 @@
 	
 	int inset = [backgroundView inset] + 10;
 	
-	int commentaryHeight = (orientation == UI_ORIENTATION_PORTRAIT_) ? 200 : 120;
+	int commentaryBase = 280 + inset;
+	int pitWindowHeight = 200;
+	
 	int x0 = lb_frame.origin.x + lb_frame.size.width + inset;
 		
-	if(commentaryExpanded)
-		[commentaryView setFrame:CGRectMake(x0, bg_frame.size.height / 2 - 20, bg_frame.size.width - x0 - inset, bg_frame.size.height / 2 + 20 - inset)];
-	else
-		[commentaryView setFrame:CGRectMake(x0, bg_frame.size.height / 2 - 20, bg_frame.size.width - x0 - inset, commentaryHeight)];
+	[pitWindowView setFrame:CGRectMake(x0, bg_frame.size.height - pitWindowHeight - inset, bg_frame.size.width - x0 - inset, pitWindowHeight)];
 
-	[pitWindowView setFrame:CGRectMake(x0, bg_frame.size.height / 2 + commentaryHeight - 20 + inset * 2, bg_frame.size.width - x0 - inset, bg_frame.size.height / 2  - (commentaryHeight - 20) - inset * 3)];
-	
-	CGRect telemetry_frame = CGRectMake(x0, inset, bg_frame.size.width - x0 - inset, bg_frame.size.height / 2 - 20 - inset * 3);
-	
+	if(commentaryExpanded)
+		[commentaryView setFrame:CGRectMake(x0, commentaryBase, bg_frame.size.width - x0 - inset, bg_frame.size.height - inset - commentaryBase)];
+	else
+		[commentaryView setFrame:CGRectMake(x0, commentaryBase, bg_frame.size.width - x0 - inset, bg_frame.size.height - pitWindowHeight - inset * 2 - commentaryBase)];
+
 	CGRect mapRect;
 	CGRect normalMapRect;
 	float mapWidth;
@@ -113,14 +129,14 @@
 	if(trackMapExpanded)
 	{
 		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		mapRect = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
 		float normalMapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		normalMapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - normalMapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - normalMapWidth) / 2, normalMapWidth, normalMapWidth);
+		normalMapRect = CGRectMake(bg_frame.size.width - normalMapWidth, 20, normalMapWidth, normalMapWidth);
 	}
 	else
 	{
 		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+		mapRect = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
 		normalMapRect = mapRect;
 	}
 	
@@ -159,11 +175,9 @@
 	// Get the device orientation and set things up accordingly
 	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 	
-	int inset = [backgroundView inset] + 10;
 	CGRect bg_frame = [backgroundView frame];
-		
-	CGRect telemetry_frame = CGRectMake(inset, inset, bg_frame.size.width - inset * 2, bg_frame.size.height / 2 - 20 - inset * 3);
-	
+	int inset = [backgroundView inset] + 10;
+
 	trackMapExpanded = !trackMapExpanded;
 	
 	animationRectStart = [trackMapContainer frame];
@@ -171,12 +185,12 @@
 	if(trackMapExpanded)
 	{
 		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		animationRectEnd = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
 	}
 	else
 	{
 		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
+		animationRectEnd = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
 	}
 	
 	[trackMapSizeButton setHidden:true];
@@ -190,6 +204,231 @@
 	animationTimer = [[AnimationTimer alloc] initWithDuration:0.5 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
 }
 
+////////////////////////////////////////////////////////////////////////////
+
+- (void)RequestRedraw
+{
+	bool driverFound = false;
+	
+	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+	
+	if(driverGapInfo)
+	{
+		NSString * requestedDriver = [driverGapInfo requestedDriver];
+		
+		if(requestedDriver && [requestedDriver length] > 0)
+		{
+			NSString * abbr = [driverGapInfo abbr];
+			
+			if(abbr && [abbr length] > 0)
+			{
+				driverFound = true;
+				
+				// Get image list for the driver images
+				RacePadDatabase *database = [RacePadDatabase Instance];
+				ImageListStore * image_store = [database imageListStore];
+				
+				ImageList *photoImageList = image_store ? [image_store findList:@"DriverPhotos"] : nil;
+				
+				if(photoImageList)
+				{
+					UIImage * image = [photoImageList findItem:abbr];
+					if(image)
+						[driverPhoto setImage:image];
+					else
+						[driverPhoto setImage:[UIImage imageNamed:@"NoPhoto.png"]];
+				}
+				else
+				{
+					[driverPhoto setImage:[UIImage imageNamed:@"NoPhoto.png"]];
+				}
+				
+				ImageList *helmetImageList = image_store ? [image_store findList:@"DriverHelmets"] : nil;
+				
+				if(helmetImageList)
+				{
+					UIImage * image = [helmetImageList findItem:abbr];
+					if(image)
+						[driverHelmet setImage:image];
+					else
+						[driverHelmet setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+				}
+				else
+				{
+					[driverHelmet setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+				}
+				
+				NSString * firstName = [driverGapInfo firstName];
+				NSString * surname = [driverGapInfo surname];
+				NSString * teamName = [driverGapInfo teamName];
+				
+				NSString * carAhead = [driverGapInfo carAhead];
+				NSString * carBehind = [driverGapInfo carBehind];
+				
+				int position = [driverGapInfo position];
+				
+				float gapAhead = [driverGapInfo gapAhead];
+				float gapBehind = [driverGapInfo gapBehind];
+				
+				[driverFirstNameLabel setText:firstName];
+				[driverSurnameLabel setText:surname];
+				[driverTeamLabel setText:teamName];
+				
+				[positionLabel setText:[NSString stringWithFormat:@"P%d", position]];
+				
+				if(gapAhead > 0.0)
+				{
+					[carAheadLabel setText:carAhead];			
+					[gapAheadLabel setText:[NSString stringWithFormat:@"+%.1f", gapAhead]];
+				}
+				else
+				{
+					[carAheadLabel setText:@""];
+					[gapAheadLabel setText:@""];
+				}
+
+				if(gapBehind > 0.0)
+				{
+					[carBehindLabel setText:carBehind];
+					[gapBehindLabel setText:[NSString stringWithFormat:@"-%.1f", gapBehind]];
+				}
+				else
+				{
+					[carBehindLabel setText:@""];
+					[gapBehindLabel setText:@""];
+				}
+				
+				[pitBoardContainer setHidden:false];
+				[trackMapContainer setHidden:false];
+				
+				[driverPhoto setHidden:false];
+				[driverTextBG setHidden:false];
+				
+				[driverFirstNameLabel setHidden:false];
+				[driverSurnameLabel setHidden:false];
+				[driverTeamLabel setHidden:false];
+			}
+		}
+	}
+	
+	if(!driverFound)
+	{
+		[pitBoardContainer setHidden:true];
+		[trackMapContainer setHidden:true];
+		
+		[driverPhoto setHidden:true];
+		[driverTextBG setHidden:true];
+		
+		[driverFirstNameLabel setHidden:true];
+		[driverSurnameLabel setHidden:true];
+		[driverTeamLabel setHidden:true];
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+- (void) showDriverInfo:(bool) animated
+{
+	if(![pitBoardContainer isHidden])
+		return;
+
+	if(animated)
+	{
+		[pitBoardContainer setAlpha:0.0];
+		[trackMapContainer setAlpha:0.0];
+		[driverPhoto setAlpha:0.0];
+		[driverTextBG setAlpha:0.0];
+		[driverFirstNameLabel setAlpha:0.0];
+		[driverSurnameLabel setAlpha:0.0];
+		[driverTeamLabel setAlpha:0.0];
+		
+		[pitBoardContainer setHidden:false];
+		[trackMapContainer setHidden:false];
+		[driverPhoto setHidden:false];
+		[driverTextBG setHidden:false];
+		[driverFirstNameLabel setHidden:false];
+		[driverSurnameLabel setHidden:false];
+		[driverTeamLabel setHidden:false];
+				
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:1.0];
+		[pitBoardContainer setAlpha:1.0];
+		[trackMapContainer setAlpha:1.0];
+		[driverPhoto setAlpha:1.0];
+		[driverTextBG setAlpha:1.0];
+		[driverFirstNameLabel setAlpha:1.0];
+		[driverSurnameLabel setAlpha:1.0];
+		[driverTeamLabel setAlpha:1.0];
+		[UIView commitAnimations];
+	}
+	else
+	{
+		[pitBoardContainer setHidden:false];
+		[trackMapContainer setHidden:false];
+		[driverPhoto setHidden:false];
+		[driverTextBG setHidden:false];
+		[driverFirstNameLabel setHidden:false];
+		[driverSurnameLabel setHidden:false];
+		[driverTeamLabel setHidden:false];
+	}
+}
+
+- (void) hideDriverInfo:(bool) animated
+{
+	if([pitBoardContainer isHidden])
+		return;
+	
+	if(animated)
+	{
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:1.0];
+		[pitBoardContainer setAlpha:0.0];
+		[trackMapContainer setAlpha:0.0];
+		[driverPhoto setAlpha:0.0];
+		[driverTextBG setAlpha:0.0];
+		[driverFirstNameLabel setAlpha:0.0];
+		[driverSurnameLabel setAlpha:0.0];
+		[driverTeamLabel setAlpha:0.0];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(hideZoomMapAnimationDidStop:finished:context:)];
+		[UIView commitAnimations];
+	}
+	else
+	{
+		[pitBoardContainer setHidden:true];		
+		[trackMapContainer setHidden:true];		
+		[driverPhoto setHidden:true];		
+		[driverTextBG setHidden:true];
+		[driverFirstNameLabel setHidden:true];
+		[driverSurnameLabel setHidden:true];
+		[driverTeamLabel setHidden:true];
+	}
+}
+
+- (void) hideDriverInfoAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[pitBoardContainer setHidden:true];		
+		[trackMapContainer setHidden:true];		
+		[driverPhoto setHidden:true];		
+		[driverTextBG setHidden:true];		
+		[driverFirstNameLabel setHidden:true];
+		[driverSurnameLabel setHidden:true];
+		[driverTeamLabel setHidden:true];
+
+		[pitBoardContainer setAlpha:1.0];
+		[driverPhoto setAlpha:1.0];
+		[driverTextBG setAlpha:1.0];
+		[driverFirstNameLabel setAlpha:1.0];
+		[driverSurnameLabel setAlpha:1.0];
+		[driverTeamLabel setAlpha:1.0];
+	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	if([gestureView isKindOfClass:[leaderboardView class]])
@@ -198,18 +437,34 @@
 		
 		if(name && [name length] > 0)
 		{
-			if([trackMapView.carToFollow isEqualToString:name])
+			if([[trackMapView carToFollow] isEqualToString:name])
 			{
 				[trackMapView followCar:nil];
+				[leaderboardView RequestRedraw];
+				
+				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:nil];
+				[self hideDriverInfo:true];
+				
 				[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
 			}
 			else
 			{
 				[trackMapView followCar:name];
+				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
+				[self showDriverInfo:true];
+
 				[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
+							
+				[trackMapView setUserScale:10.0];
+				[trackMapView RequestRedraw];
 			}
 			
+			// Force redraw by setting view to hidden then displayed
+			[[RacePadCoordinator Instance] SetViewHidden:self];
+			[[RacePadCoordinator Instance] SetViewDisplayed:self];
+
 			[leaderboardView RequestRedraw];
+
 			[[RacePadCoordinator Instance] restartCommentary];
 			[commentaryView RequestRedraw];
 
@@ -218,8 +473,17 @@
 		
 	}
 	
-
-	[super OnTapGestureInView:gestureView AtX:x Y:y];
+	// Reach here if either tap was outside leaderboard, or no car was found at tap point
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	
+	if(![time_controller displayed])
+	{
+		[time_controller displayInViewController:self Animated:true];
+	}
+	else
+	{
+		[time_controller hide];
+	}
 }
 
 @end

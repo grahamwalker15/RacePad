@@ -331,7 +331,6 @@
 	return if_heading_ ;
 }
 
-
 - (void) SetDefaultFormatting:(bool)if_heading
 {
 	[self SetTextColour:white_];

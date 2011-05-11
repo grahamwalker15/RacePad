@@ -33,6 +33,7 @@ enum ViewTypes
 	RPC_LEADER_BOARD_VIEW_ = 0x100,
 	RPC_GAME_VIEW_ = 0x200,
 	RPC_COMMENTARY_VIEW_ = 0x400,
+	RPC_DRIVER_GAP_INFO_VIEW_ = 0x800,
 } ;
 
 // Connection types
@@ -200,7 +201,7 @@ enum ConnectionTypes
 -(bool) liveMode;
 -(void) setLiveTime:(float)time;
 -(float) liveTime;
-
+-(float) playTime;
 
 -(void) userExit;
 -(void) userRestart;

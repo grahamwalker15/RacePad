@@ -38,6 +38,8 @@ enum ClientCommands {
 	RPCS_STREAM_TELEMETRY,			// 30
 	RPCS_SYNCHRONISE_TIME,			// 31
 	RPCS_STREAM_COMMENTARY,			// 32
+	RPCS_REQUEST_DRIVER_GAP_INFO,	// 33
+	RPCS_STREAM_DRIVER_GAP_INFO,	// 34
 };
 
 @interface RacePadClientSocket : Socket
@@ -65,6 +67,8 @@ enum ClientCommands {
 - (void) StreamPitWindow;
 - (void) RequestTelemetry;
 - (void) StreamTelemetry;
+- (void) RequestDriverGapInfo:(NSString *) driver;
+- (void) StreamDriverGapInfo:(NSString *) driver;
 - (void) SynchroniseTime;
 - (void) StreamCommentary :(NSString *) driver;
 

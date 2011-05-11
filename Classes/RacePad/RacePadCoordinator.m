@@ -309,6 +309,21 @@ static RacePadCoordinator * instance_ = nil;
 	return ourTime + serverTimeOffset;
 }
 
+-(float) playTime
+{
+	if(playing)
+	{
+		if(live)
+			return [self liveTime];
+		else
+			return (float)baseTime * 0.001 + [elapsedTime value];
+	}
+	else
+	{
+		return currentTime;
+	}
+}
+
 -(void) synchroniseTime:(float) time
 {
 	float ourTime = (float)[ElapsedTime LocalTimeOfDay]; 
@@ -926,6 +941,10 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamTelemetry];
 				}
+				else if([existing_view Type] == RPC_DRIVER_GAP_INFO_VIEW_)
+				{
+					[socket_ StreamDriverGapInfo:[[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
+				}
 				else if([existing_view Type] == RPC_COMMENTARY_VIEW_)
 				{
 					NSString * driver = [existing_view Parameter];					
@@ -1005,6 +1024,10 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_TELEMETRY_VIEW_)
 				{
 					[socket_ RequestTelemetry];
+				}
+				else if([existing_view Type] == RPC_DRIVER_GAP_INFO_VIEW_)
+				{
+					[socket_ RequestDriverGapInfo:[[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
 				}
 				else if([existing_view Type] == RPC_COMMENTARY_VIEW_)
 				{
@@ -1443,6 +1466,10 @@ static RacePadCoordinator * instance_ = nil;
 	else if (type == RPC_GAME_VIEW_ )
 	{
 		[self AddDataSourceWithType:type AndFile: @"game.rpf"];
+	}
+	else if (type == RPC_DRIVER_GAP_INFO_VIEW_ )
+	{
+		//[self AddDataSourceWithType:type AndFile: @"driver_info.rpf"];
 	}
 }
 

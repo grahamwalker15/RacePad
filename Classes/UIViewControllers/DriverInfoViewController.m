@@ -82,7 +82,7 @@
 	[driverSurname setText:surname];
 	[team setText:teamname];
 	
-	// Get image list for the car images
+	// Get image list for the driver images
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	ImageListStore * image_store = [database imageListStore];
 
