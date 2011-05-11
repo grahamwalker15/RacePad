@@ -140,5 +140,10 @@
 		[alerts addObject:item];
 	}
 }
+
+- (void) clearAll
+{
+	[alerts removeAllObjects];
+}
 				   
 @end

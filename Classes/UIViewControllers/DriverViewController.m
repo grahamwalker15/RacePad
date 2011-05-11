@@ -36,22 +36,29 @@
 	[super viewDidLoad];
 	
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
+	[leaderboardView setAssociatedTrackMapView:trackMapView];
 	
 	// Add tap and long press recognizers to the leaderboard
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
 	
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
+	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
 	
 	// Register the views
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 
+	if (trackMapView.carToFollow == nil)
+		[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+	else
+		[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+
+	[super viewWillAppear:animated];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -181,6 +188,38 @@
 	[trackMapView setAnimationScaleTarget:backupUserScale];
 	
 	animationTimer = [[AnimationTimer alloc] initWithDuration:0.5 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
+}
+
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	if([gestureView isKindOfClass:[leaderboardView class]])
+	{
+		NSString * name = [leaderboardView carNameAtX:x Y:y];
+		
+		if(name && [name length] > 0)
+		{
+			if([trackMapView.carToFollow isEqualToString:name])
+			{
+				[trackMapView followCar:nil];
+				[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+			}
+			else
+			{
+				[trackMapView followCar:name];
+				[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
+			}
+			
+			[leaderboardView RequestRedraw];
+			[[RacePadCoordinator Instance] restartCommentary];
+			[commentaryView RequestRedraw];
+
+			return;
+		}
+		
+	}
+	
+
+	[super OnTapGestureInView:gestureView AtX:x Y:y];
 }
 
 @end

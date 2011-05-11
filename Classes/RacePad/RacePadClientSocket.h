@@ -37,6 +37,7 @@ enum ClientCommands {
 	RPCS_REQUEST_TELEMETRY,			// 29
 	RPCS_STREAM_TELEMETRY,			// 30
 	RPCS_SYNCHRONISE_TIME,			// 31
+	RPCS_STREAM_COMMENTARY,			// 32
 };
 
 @interface RacePadClientSocket : Socket
@@ -65,6 +66,7 @@ enum ClientCommands {
 - (void) RequestTelemetry;
 - (void) StreamTelemetry;
 - (void) SynchroniseTime;
+- (void) StreamCommentary :(NSString *) driver;
 
 - (void) requestPrediction: (NSString *)name;
 - (void) sendPrediction;

@@ -11,13 +11,11 @@
 
 @interface CommentaryView : SimpleListView
 {
-	int car;
-	
 	int lastRowCount;
+	int lastHeight;
 	
 	float latestMessageTime;
+	
 }
-
-@property (nonatomic) int car;
 
 @end

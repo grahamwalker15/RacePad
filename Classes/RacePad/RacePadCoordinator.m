@@ -841,6 +841,30 @@ static RacePadCoordinator * instance_ = nil;
 	
 }
 
+-(void) restartCommentary
+{
+	int view_count = [views count];
+
+	for ( int i = 0 ; i < view_count ; i++)
+	{
+		RPCView * existing_view = [views objectAtIndex:i];
+		if([existing_view Displayed])
+		{
+			int type = [existing_view Type];
+			
+			if(type == RPC_COMMENTARY_VIEW_)
+			{
+				[[[RacePadDatabase Instance] commentary] clearAll];
+				NSString * driver = [existing_view Parameter];					
+				if([driver length] > 0)
+				{
+					[socket_ StreamCommentary:driver];
+				}
+			}
+		}
+	}	
+}
+
 -(void)prepareToPlayFromSocket
 {
 	if ( live )
@@ -902,6 +926,25 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamTelemetry];
 				}
+				else if([existing_view Type] == RPC_COMMENTARY_VIEW_)
+				{
+					NSString * driver = [existing_view Parameter];					
+					if([driver length] > 0)
+					{
+						if ( ![[[RacePadDatabase Instance] commentaryFor] isEqualToString:driver] )
+						{
+							[[RacePadDatabase Instance] setCommentaryFor:driver];
+							[[[RacePadDatabase Instance] commentary] clearAll];
+							[socket_ StreamCommentary:driver];
+						}
+					}
+					else
+					{
+						[[RacePadDatabase Instance] setCommentaryFor:@""];
+						[[[RacePadDatabase Instance] commentary] clearAll];
+						[socket_ StreamCommentary:@""];
+					}
+				}
 			}
 		}
 	}
@@ -962,6 +1005,29 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_TELEMETRY_VIEW_)
 				{
 					[socket_ RequestTelemetry];
+				}
+				else if([existing_view Type] == RPC_COMMENTARY_VIEW_)
+				{
+					NSString * driver = [existing_view Parameter];					
+					if([driver length] > 0)
+					{
+						if ( ![[[RacePadDatabase Instance] commentaryFor] isEqualToString:driver] )
+						{
+							[[RacePadDatabase Instance] setCommentaryFor:driver];
+							[[[RacePadDatabase Instance] commentary] clearAll];
+							[socket_ StreamCommentary:driver];
+						}
+						else
+						{
+							[[existing_view View] RequestRedraw];
+						}
+					}
+					else
+					{
+						[[RacePadDatabase Instance] setCommentaryFor:@""];
+						[[[RacePadDatabase Instance] commentary] clearAll];
+						[socket_ StreamCommentary:@""];
+					}
 				}
 			}
 		}

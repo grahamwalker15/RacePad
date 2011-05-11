@@ -73,4 +73,6 @@ enum AlertTypes
 
 - (void) loadData : (DataStream *) stream;
 
+- (void) clearAll;
+
 @end

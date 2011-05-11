@@ -51,6 +51,7 @@ enum ServerCommands {
 	RPSC_BLUE_COMMENTARY_,		// 40
 	RPSC_SPONSOR_,				// 41
 	RPSC_TIME_SYNC_,			// 42
+	RPSC_COMMENTARY_,			// 43
 };
 
 @interface RacePadDataHandler : DataHandler

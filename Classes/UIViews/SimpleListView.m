@@ -228,7 +228,16 @@
 
 - (void) RequestScrollToEnd
 {
-	scroll_to_end_requested_ = true;
+	CGRect bounds = [self bounds];
+	float yOffset = floorf([self RowHeight] * [self RowCount] - bounds.size.height);
+	
+	if(yOffset < 0)
+	{
+		[self setContentOffset:CGPointMake(0.0, 0.0) animated:false];
+		[self getCurrentBoundsInfo];
+	}
+	else
+		scroll_to_end_requested_ = true;
 }
 
 - (void) ScrollToEnd
@@ -246,11 +255,11 @@
 	if(yOffset < 0)
 		yOffset = 0;
 	
+	scroll_animating_ = true;
+	
 	[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
 	[self getCurrentBoundsInfo];
 	
-	scroll_animating_ = true;
-
 	[self RequestRedraw];
 	
 	// Set timer to catch it if the end callback isn't called for any reason
@@ -287,18 +296,21 @@
 	}
 
 	scroll_animating_ = false;
+	[self getCurrentBoundsInfo];
 	
 	if(scroll_to_end_requested_)
 		[self ScrollToEnd];
+	else
+		[self RequestRedraw];
 }
 
 - (void) setScrollTimer
 {
-	// Timer to re-enable redraws just in case scroll to end hasn't finished in 5 secs
+	// Timer to re-enable redraws just in case scroll to end hasn't finished in 3 secs
 	if(scrollTimeoutTimer)
 		[scrollTimeoutTimer invalidate];
 	
-	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];	
+	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];	
 }
 
 - (void) scrollTimerExpired:(NSTimer *)theTimer
@@ -306,9 +318,12 @@
 	scrollTimeoutTimer = nil;
 	
 	scroll_animating_ = false;
+	[self getCurrentBoundsInfo];
 	
 	if(scroll_to_end_requested_)
 		[self ScrollToEnd];
+	else
+		[self RequestRedraw];
 }
 
 - (bool) IfHeading

@@ -408,6 +408,7 @@
 			[alertData loadData:stream];
 			break;
 		}
+		/*
 		case RPSC_RED_COMMENTARY_: // Red Commentary
 		{
 			CommentaryData *commentary = [[RacePadDatabase Instance] redCommentary];
@@ -418,6 +419,14 @@
 		case RPSC_BLUE_COMMENTARY_: // Red Commentary
 		{
 			CommentaryData *commentary = [[RacePadDatabase Instance] blueCommentary];
+			[commentary loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			break;
+		}
+		*/
+		case RPSC_COMMENTARY_: // Commentary
+		{
+			CommentaryData *commentary = [[RacePadDatabase Instance] commentary];
 			[commentary loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
 			break;

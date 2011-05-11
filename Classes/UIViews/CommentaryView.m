@@ -16,13 +16,12 @@
 
 @implementation CommentaryView
 
-@synthesize car;
-
 - (id)initWithCoder:(NSCoder*)coder
 {    
     if ((self = [super initWithCoder:coder]))
     {
 		lastRowCount = 0;
+		lastHeight = 0;
 		latestMessageTime = 0.0;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
 	}
@@ -35,6 +34,7 @@
     if ((self = [super initWithFrame:frame]))
 	{
 		lastRowCount = 0;
+		lastHeight = 0;
 		latestMessageTime = 0.0;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
     }
@@ -49,11 +49,18 @@
 - (void) Draw:(CGRect)region
 {
 	int rowCount = [self RowCount];
+	int rowHeight = [self RowHeight];
 	
-	if(rowCount != lastRowCount)
+	CGRect bounds = [self bounds];
+	
+	int height = bounds.size.height;
+	if ( ( rowCount != lastRowCount
+		|| height != lastHeight )
+	  && rowCount > 0 )
 		[self RequestScrollToEnd];
 	
 	lastRowCount = rowCount;
+	lastHeight = height;
 
 	[super Draw:region];	
 }
@@ -61,10 +68,7 @@
 - (int) RowCount
 {
 	CommentaryData * data;
-	if(car == RPD_BLUE_CAR_)
-		data = [[RacePadDatabase Instance] blueCommentary];
-	else
-		data = [[RacePadDatabase Instance] redCommentary];
+	data = [[RacePadDatabase Instance] commentary];
 	
 	float timeNow = [[RacePadTimeController Instance] timeNow];
 	
@@ -73,7 +77,9 @@
 	
 	for (int i = 0 ; i < [data itemCount] ; i++)
 	{
-		if([[data itemAtIndex:i] timeStamp] <= timeNow)
+		float itemTime = [[data itemAtIndex:i] timeStamp];
+
+		if(itemTime <= timeNow)
 		{
 			count++;
 			latestMessageTime = [[data itemAtIndex:i] timeStamp];
@@ -138,10 +144,7 @@
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col
 {
 	CommentaryData * data;
-	if(car == RPD_BLUE_CAR_)
-		data = [[RacePadDatabase Instance] blueCommentary];
-	else
-		data = [[RacePadDatabase Instance] redCommentary];
+	data = [[RacePadDatabase Instance] commentary];
 	
 	float messageTime = [[data itemAtIndex:row] timeStamp];
 	int type = [[data itemAtIndex:row] type];
@@ -184,10 +187,7 @@
 		return nil;
 	
 	CommentaryData * data;
-	if(car == RPD_BLUE_CAR_)
-		data = [[RacePadDatabase Instance] blueCommentary];
-	else
-		data = [[RacePadDatabase Instance] redCommentary];
+	data = [[RacePadDatabase Instance] commentary];
 	
 	int type = [[data itemAtIndex:row] type];
 	

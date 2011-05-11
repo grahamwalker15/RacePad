@@ -274,4 +274,6 @@ enum ConnectionTypes
 
 -(void) synchroniseTime:(float)time;
 
+-(void) restartCommentary;
+
 @end

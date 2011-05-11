@@ -82,6 +82,22 @@
 	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	
+	// Set paramters for views
+	
+	if(car == RPD_BLUE_CAR_)
+	{
+		[pitWindowView setCar:RPD_BLUE_CAR_];
+		[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
+		[trackMapView followCar:@"MSC"];
+		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
+	}
+	else
+	{
+		[pitWindowView setCar:RPD_RED_CAR_];
+		[[RacePadCoordinator Instance] SetParameter:@"RED" ForView:commentaryView];
+		[trackMapView followCar:@"ROS"];
+		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -99,22 +115,6 @@
 	// Register the views -- super class will do this
 	// [[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
-	// Set paramters for views
-
-	if(car == RPD_BLUE_CAR_)
-	{
-		[pitWindowView setCar:RPD_BLUE_CAR_];
-		[commentaryView setCar:RPD_BLUE_CAR_];
-		[trackMapView followCar:@"MSC"];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
-	}
-	else
-	{
-		[pitWindowView setCar:RPD_RED_CAR_];
-		[commentaryView setCar:RPD_RED_CAR_];
-		[trackMapView followCar:@"ROS"];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
-	}
 	
 	[commentaryView SetBackgroundAlpha:0.5];
 	

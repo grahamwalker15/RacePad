@@ -273,6 +273,22 @@
 	[self sendPrediction:name Command:RPCS_CHECK_USER_NAME];
 }
 
+- (void) StreamCommentary :(NSString *) driver
+{
+	int messageLength = [driver length] + sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_STREAM_COMMENTARY);
+	iData[2] = htonl([driver length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[RacePadDataHandler alloc] init];

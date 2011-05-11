@@ -36,8 +36,8 @@ enum OurCars
 	PitWindow *pitWindow;
 	AlertData * alertData;
 	AlertData * rcMessages;
-	CommentaryData * blueCommentary;
-	CommentaryData * redCommentary;
+	CommentaryData * commentary;
+	NSString *commentaryFor;
 	Telemetry *telemetry;
 	DriverNames *driverNames;
 	DriverInfo *driverInfo;
@@ -54,8 +54,8 @@ enum OurCars
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;
 @property (readonly) AlertData * rcMessages;
-@property (readonly) CommentaryData * blueCommentary;
-@property (readonly) CommentaryData * redCommentary;
+@property (readonly) CommentaryData * commentary;
+@property (retain) NSString *commentaryFor;
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
 @property (readonly) DriverInfo * driverInfo;
