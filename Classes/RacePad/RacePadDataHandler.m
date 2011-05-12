@@ -23,7 +23,6 @@
 	
 	saveFile = nil;
 	index = nil;
-	subIndexOffset = 0;
 	return self;
 }
 
@@ -51,6 +50,7 @@
 			}
 			else
 			{
+				indexSize = 0;
 				NSString *subIndexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rps"];
 				FILE *subIndexFile = fopen ( [subIndexName UTF8String], "rb" );
 				if ( subIndexFile )
@@ -61,6 +61,15 @@
 					
 					if ( subIndexVersion == versionNumber )
 					{
+						fread(&t, 1, sizeof(int), subIndexFile);
+						indexBase = htonl ( t );
+						
+						fread(&t, 1, sizeof(int), subIndexFile);
+						indexStep = htonl ( t );
+						
+						fread(&t, 1, sizeof(int), subIndexFile);
+						int indexSizeHint = htonl ( t );
+						
 						while (!feof(subIndexFile))
 						{
 							fread(&t, 1, sizeof(int), subIndexFile);
@@ -76,13 +85,34 @@
 							
 							NSString *name = [NSString stringWithUTF8String:s];
 							free ( s );
-							fread(&t, 1, sizeof(int), subIndexFile);
 							if ( [name isEqualToString: subIndex] )
 							{
-								subIndexOffset = htonl ( t );
-								[self setStreamPos: subIndexOffset];
+								index = (int *)malloc(indexSizeHint * sizeof(int));
+								
+								int i = 0;
+								while (!feof(subIndexFile))
+								{
+									fread(&t, 1, sizeof(int), subIndexFile);
+									int offset = htonl ( t );
+									if ( offset == -1 )
+										break;
+									if (i >= indexSizeHint)
+									{
+										indexSizeHint += indexSizeHint * 0.1;
+										index = (int *)realloc(index, indexSizeHint * sizeof(int));
+									}
+									index[i++] = offset;
+									indexSize = i;
+								}
 								break;
 							}
+							else
+							{
+								fread(&t, 1, sizeof(int), subIndexFile);
+								while ( htonl ( t ) != -1 && !feof ( subIndexFile ) )
+									fread(&t, 1, sizeof(int), subIndexFile);
+							}
+
 						}
 					}
 					fclose(subIndexFile);
@@ -94,7 +124,6 @@
 			
 					NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
 					FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
-					indexSize = 0;
 					if ( indexFile != nil )
 					{
 						int t;
@@ -154,9 +183,7 @@
 - (void) setTime: (int) time
 {
 	int filePos = sizeof ( int ); // To skip the version number
-	if ( subIndexOffset > 0 )
-		filePos = subIndexOffset;
-	else if ( indexSize > 0 )
+	if ( indexSize > 0 )
 	{
 		int secsOffset = time / 1000 - indexBase;
 		int indexOffset = secsOffset / indexStep;

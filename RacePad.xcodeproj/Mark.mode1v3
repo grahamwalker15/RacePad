@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -277,16 +275,18 @@
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
-								<string>E2644B35053B69B200211256</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>183</integer>
+									<integer>53</integer>
+									<integer>47</integer>
+									<integer>1</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 2463}, {285, 682}}</string>
+							<string>{{0, 633}, {285, 682}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -318,6 +318,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -335,7 +337,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4DC9111B137AE29D00ACE72F</string>
+										<string>4DC91175137BB6F800ACE72F</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -382,7 +384,6 @@
 											<string>4D344E0212B13DF900B15298</string>
 											<string>4D344E6D12B26BB900B15298</string>
 											<string>4D344FE912B7A07E00B15298</string>
-											<string>4D34519B12B90ABF00B15298</string>
 											<string>4D34519C12B90ABF00B15298</string>
 											<string>4D34519D12B90ABF00B15298</string>
 											<string>4D34519E12B90ABF00B15298</string>
@@ -480,7 +481,6 @@
 											<string>4DA448FC137A6255006643F5</string>
 											<string>4DA44920137A7D0A006643F5</string>
 											<string>4DA44978137A8303006643F5</string>
-											<string>4DA449AF137A8890006643F5</string>
 											<string>4DA449B5137A8890006643F5</string>
 											<string>4DA449C2137A8BB4006643F5</string>
 											<string>4DA44A0C137AAA0B006643F5</string>
@@ -491,19 +491,21 @@
 											<string>4DA44A11137AAA0B006643F5</string>
 											<string>4DA44A12137AAA0B006643F5</string>
 											<string>4DA44A13137AAA0B006643F5</string>
-											<string>4DA44A14137AAA0B006643F5</string>
-											<string>4DA44A16137AAA0B006643F5</string>
 											<string>4DA44A59137AB7DE006643F5</string>
 											<string>4DA44A6A137ABFAD006643F5</string>
 											<string>4DA44A6B137ABFAD006643F5</string>
-											<string>4DA44A71137ACD0D006643F5</string>
 											<string>4DA44A8C137ACEDF006643F5</string>
 											<string>4DA44A8D137ACEDF006643F5</string>
 											<string>4DA44A8E137ACEDF006643F5</string>
 											<string>4DA44A9F137AD3F1006643F5</string>
 											<string>4DA44AA0137AD3F1006643F5</string>
 											<string>4DA44AE3137AE286006643F5</string>
-											<string>4DA44AE4137AE286006643F5</string>
+											<string>4DC91131137AEF9B00ACE72F</string>
+											<string>4DC91132137AEF9B00ACE72F</string>
+											<string>4DC9115E137BB5B600ACE72F</string>
+											<string>4DC9116F137BB6DD00ACE72F</string>
+											<string>4DC91170137BB6DD00ACE72F</string>
+											<string>4DC91171137BB6DD00ACE72F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -701,9 +703,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>4DC91173137BB6DD00ACE72F</string>
+		<string>4DC91137137AEF9B00ACE72F</string>
+		<string>4DC91138137AEF9B00ACE72F</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>4DA2E44012646AD300796E28</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/Mark/Documents/Work/Development/RacePad/RacePad.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>13 131 1413 741 0 0 1440 878 </string>
@@ -1065,7 +1071,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>4DA44AC9137AD95B006643F5</string>
+				<string>4DC91135137AEF9B00ACE72F</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

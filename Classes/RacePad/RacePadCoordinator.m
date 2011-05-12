@@ -1390,8 +1390,13 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
 {
+	[self AddDataSourceWithType:type AndFile:file AndSubIndex:nil];
+}
+
+-(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file AndSubIndex:(NSString *)subIndex
+{
 	NSString *fileName = [sessionPrefix stringByAppendingString:file];
-	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName SubIndex:nil];
+	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName SubIndex:subIndex];
 	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
 	[dataSources addObject:rpc_source];
 	[rpc_source release];
@@ -1454,7 +1459,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	else if (type == RPC_DRIVER_GAP_INFO_VIEW_ )
 	{
-		//[self AddDataSourceWithType:type AndFile: @"driver_info.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"driver_gap.rpf" AndSubIndex: [[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
 	}
 }
 

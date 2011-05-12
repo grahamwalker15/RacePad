@@ -71,9 +71,6 @@ enum ServerCommands {
 	int indexSize;
 	int indexBase;
 	int indexStep;
-	
-	int subIndexOffset;
-	
 }
 
 - (id) init;
