@@ -1,4 +1,4 @@
-    //
+//
 //  CarViewController.m
 //  RacePad
 //
@@ -16,12 +16,12 @@
 
 #import "RacePadDatabase.h"
 #import "Telemetry.h"
-#import "PitWindow.h"
+#import "TrackProfile.h"
 
 #import "TrackMapView.h"
 #import "TelemetryView.h"
 #import "CommentaryView.h"
-#import "PitWindowView.h"
+#import "TrackProfileView.h"
 #import "BackgroundView.h"
 #import "ShinyButton.h"
 
@@ -51,6 +51,8 @@
 	[pitWindowSimplifyButton setSelectedButtonColour:[pitWindowSimplifyButton buttonColour]];
 	[pitWindowSimplifyButton setSelectedTextColour:[pitWindowSimplifyButton textColour]];
 	
+	[trackProfileView setUserScale:5.0];
+
 	commentaryExpanded = false;
 	commentaryAnimating = false;
 	
@@ -59,7 +61,7 @@
 	//	Tap recognizer for background,pit window and telemetry views
 	[self addTapRecognizerToView:backgroundView];
 	[self addTapRecognizerToView:commentaryView];
-	[self addTapRecognizerToView:pitWindowView];
+	[self addTapRecognizerToView:trackProfileView];
 	[self addTapRecognizerToView:pitWindowSimplifyButton];
 		
     //	Tap, pinch, and double tap recognizers for map
@@ -69,9 +71,9 @@
 	[self addTapRecognizerToView:trackMapSizeButton];
 	
 	// Double tap, pan and pinch for pit window
-	[self addDoubleTapRecognizerToView:pitWindowView];
-	[self addPanRecognizerToView:pitWindowView];
-	[self addPinchRecognizerToView:pitWindowView];
+	[self addDoubleTapRecognizerToView:trackProfileView];
+	[self addPanRecognizerToView:trackProfileView];
+	[self addPinchRecognizerToView:trackProfileView];
 	
 	// Double tap recognizer for expanding commentary view
 	[self addDoubleTapRecognizerToView:commentaryView];
@@ -79,28 +81,28 @@
 	[super viewDidLoad];
 	
 	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
-	[[RacePadCoordinator Instance] AddView:pitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
+	[[RacePadCoordinator Instance] AddView:trackProfileView WithType:RPC_TRACK_PROFILE_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	
 	// Set paramters for views
 	
 	if(car == RPD_BLUE_CAR_)
 	{
-		[pitWindowView setCar:RPD_BLUE_CAR_];
+		[trackProfileView followCar:@"MSC"];
 		[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
 		[trackMapView followCar:@"MSC"];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
 	}
 	else if (car == RPD_RED_CAR_)
 	{
-		[pitWindowView setCar:RPD_RED_CAR_];
+		[trackProfileView followCar:@"ROS"];
 		[[RacePadCoordinator Instance] SetParameter:@"RED" ForView:commentaryView];
 		[trackMapView followCar:@"ROS"];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
 	}
 	else
 	{
-		[pitWindowView setCar:-1];
+		// [pitWindowView setCar:-1];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.3]];
 	}
 }
@@ -134,7 +136,7 @@
 		[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
 
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:pitWindowView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 
 	[[RacePadCoordinator Instance] restartCommentary];
@@ -150,7 +152,7 @@
 		[animationTimer kill];
 	
 	[[RacePadCoordinator Instance] SetViewHidden:commentaryView];
-	[[RacePadCoordinator Instance] SetViewHidden:pitWindowView];
+	[[RacePadCoordinator Instance] SetViewHidden:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
@@ -174,10 +176,10 @@
 	commentaryAnimating = true;
 	
 	[self prePositionOverlays];
-	[pitWindowView setAlpha:0.0];
+	[trackProfileView setAlpha:0.0];
 	[trackMapContainer setAlpha:0.0];
 	[commentaryView setHidden:false];
-	[pitWindowView setHidden:commentaryExpanded]; // Hidden if commentary expanded
+	[trackProfileView setHidden:commentaryExpanded]; // Hidden if commentary expanded
 	[trackMapContainer setHidden:false];
 	
 	[self positionOverlays];
@@ -187,7 +189,7 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(viewAnimationDidStop:finished:context:)];
 	[self postPositionOverlays];
-	[pitWindowView setAlpha:1.0];
+	[trackProfileView setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
 	[trackMapContainer setAlpha:1.0];
 	[UIView commitAnimations];
@@ -246,7 +248,7 @@
 	[backgroundView addFrame:[commentaryView frame]];
 	
 	if(!commentaryExpanded)
-		[backgroundView addFrame:[pitWindowView frame]];
+		[backgroundView addFrame:[trackProfileView frame]];
 }
 
 - (void)showOverlays
@@ -258,15 +260,15 @@
 
 	if(!commentaryExpanded)
 	{
-		[pitWindowView setHidden:false];
-		[pitWindowView setAlpha:1.0];
+		[trackProfileView setHidden:false];
+		[trackProfileView setAlpha:1.0];
 	}
 }
 
 - (void)hideOverlays
 {
 	[commentaryView setHidden:true];
-	[pitWindowView setHidden:true];
+	[trackProfileView setHidden:true];
 	[trackMapContainer setHidden:true];
 }
 
@@ -301,10 +303,10 @@
 			trackMapPinched = true;
 		}
 	}
-	else if([gestureView isKindOfClass:[PitWindowView class]])
+	else if([gestureView isKindOfClass:[TrackProfileView class]])
 	{
-		[(PitWindowView *)gestureView adjustScale:scale X:x Y:y];	
-		[(PitWindowView *)gestureView RequestRedraw];
+		[(TrackProfileView *)gestureView adjustScale:scale X:x Y:y];	
+		[(TrackProfileView *)gestureView RequestRedraw];
 	}
 }
 
@@ -327,11 +329,11 @@
 			trackMapPinched = false;
 		}
 	}
-	else if([gestureView isKindOfClass:[PitWindowView class]])
+	else if([gestureView isKindOfClass:[TrackProfileView class]])
 	{
-		[(PitWindowView *)gestureView setUserOffset:0.0];
-		[(PitWindowView *)gestureView setUserScale:1.0];
-		[(PitWindowView *)gestureView RequestRedraw];
+		[(TrackProfileView *)gestureView setUserOffset:0.0];
+		[(TrackProfileView *)gestureView setUserScale:5.0];
+		[(TrackProfileView *)gestureView RequestRedraw];
 	}
 	else if([gestureView isKindOfClass:[commentaryView class]])
 	{
@@ -352,10 +354,10 @@
 	if(state == UIGestureRecognizerStateEnded)
 		return;
 	
-	if([gestureView isKindOfClass:[PitWindowView class]])
+	if([gestureView isKindOfClass:[TrackProfileView class]])
 	{
-		[(PitWindowView *)gestureView adjustPanX:x Y:y];	
-		[(PitWindowView *)gestureView RequestRedraw];
+		[(TrackProfileView *)gestureView adjustPanX:x Y:y];	
+		[(TrackProfileView *)gestureView RequestRedraw];
 	}
 }
 
@@ -419,9 +421,9 @@
 	commentaryAnimating = true;
 	
 	CGRect commentaryFrame = [commentaryView frame];
-	CGRect pitWindowFrame = [pitWindowView frame];
+	CGRect trackProfileFrame = [trackProfileView frame];
 	
-	float newHeight = pitWindowFrame.origin.y + pitWindowFrame.size.height - commentaryFrame.origin.y;
+	float newHeight = trackProfileFrame.origin.y + trackProfileFrame.size.height - commentaryFrame.origin.y;
 	
 	CGRect newFrame = CGRectMake(commentaryFrame.origin.x, commentaryFrame.origin.y, commentaryFrame.size.width, newHeight);
 	
@@ -429,7 +431,7 @@
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(commentaryExpansionDidStop:finished:context:)];
-	[pitWindowView setAlpha:0.0];
+	[trackProfileView setAlpha:0.0];
 	[commentaryView setFrame:newFrame];
 	[UIView commitAnimations];
 	
@@ -444,21 +446,21 @@
 	commentaryAnimating = true;
 	
 	CGRect commentaryFrame = [commentaryView frame];
-	CGRect pitWindowFrame = [pitWindowView frame];
+	CGRect trackProfileFrame = [trackProfileView frame];
 	
 	int inset = [backgroundView inset] + 10;
-	float newHeight = pitWindowFrame.origin.y - inset * 2 - commentaryFrame.origin.y;
+	float newHeight = trackProfileFrame.origin.y - inset * 2 - commentaryFrame.origin.y;
 	
 	CGRect newFrame = CGRectMake(commentaryFrame.origin.x, commentaryFrame.origin.y, commentaryFrame.size.width, newHeight);
 	
-	[pitWindowView setAlpha:0.0];
-	[pitWindowView setHidden:false];
+	[trackProfileView setAlpha:0.0];
+	[trackProfileView setHidden:false];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(commentaryRestorationDidStop:finished:context:)];
-	[pitWindowView setAlpha:1.0];
+	[trackProfileView setAlpha:1.0];
 	[commentaryView setFrame:newFrame];
 	[UIView commitAnimations];
 	
@@ -476,7 +478,7 @@
 {
 	if([finished intValue] == 1)
 	{
-		[pitWindowView setHidden:true];
+		[trackProfileView setHidden:true];
 
 		commentaryExpanded = true;
 		commentaryAnimating = false;		
@@ -506,6 +508,7 @@
 
 - (IBAction) pitWindowSimplifyPressed:(id)sender
 {
+	/*
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	PitWindow *pitWindow = [database pitWindow];
 	
@@ -525,6 +528,7 @@
 		[pitWindowView RequestRedraw];
 		
 	}
+	*/
 }
 
 @end
@@ -538,14 +542,14 @@
 	// Set paramters for views	
 	if(car == RPD_BLUE_CAR_)
 	{
-		[pitWindowView setCar:RPD_BLUE_CAR_];
+		// [pitWindowView setCar:RPD_BLUE_CAR_];
 		[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
 		[trackMapView followCar:@"MSC"];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
 	}
 	else
 	{
-		[pitWindowView setCar:RPD_RED_CAR_];
+		// [pitWindowView setCar:RPD_RED_CAR_];
 		[[RacePadCoordinator Instance] SetParameter:@"RED" ForView:commentaryView];
 		[trackMapView followCar:@"ROS"];
 		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
@@ -610,7 +614,7 @@
 	else
 		[commentaryView setFrame:CGRectMake(inset, bg_frame.size.height / 2 - 20, bg_frame.size.width - inset * 2, commentaryHeight)];
 	
-	[pitWindowView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + commentaryHeight - 20 + inset * 2, bg_frame.size.width - inset * 2, bg_frame.size.height / 2  - (commentaryHeight - 20) - inset * 3)];
+	[trackProfileView setFrame:CGRectMake(inset, bg_frame.size.height / 2 + commentaryHeight - 20 + inset * 2, bg_frame.size.width - inset * 2, bg_frame.size.height / 2  - (commentaryHeight - 20) - inset * 3)];
 	
 	CGRect telemetry_frame = [telemetryView frame];
 	

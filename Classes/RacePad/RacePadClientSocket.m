@@ -11,6 +11,7 @@
 #import "RacePadCoordinator.h"
 #import "RacePadDatabase.h"
 #import "TrackMap.h"
+#import "TrackProfile.h"
 
 @implementation RacePadClientSocket
 
@@ -331,6 +332,21 @@
 	CFSocketSendData (socket_ref_, nil, data, 0);
 	CFRelease(data);
 	free (buf);
+}
+
+- (void)RequestTrackProfileBase
+{
+	[self SimpleCommand:RPCS_REQUEST_TRACK_PROFILE_BASE];
+}
+
+- (void)RequestTrackProfile
+{
+	[self SimpleCommand:RPCS_REQUEST_TRACK_PROFILE];
+}
+
+- (void)StreamTrackProfile
+{
+	[self SimpleCommand:RPCS_STREAM_TRACK_PROFILE];
 }
 
 - (DataHandler *) constructDataHandler

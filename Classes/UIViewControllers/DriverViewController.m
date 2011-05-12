@@ -112,7 +112,7 @@
 	
 	int x0 = lb_frame.origin.x + lb_frame.size.width + inset;
 		
-	[pitWindowView setFrame:CGRectMake(x0, bg_frame.size.height - pitWindowHeight - inset, bg_frame.size.width - x0 - inset, pitWindowHeight)];
+	[trackProfileView setFrame:CGRectMake(x0, bg_frame.size.height - pitWindowHeight - inset, bg_frame.size.width - x0 - inset, pitWindowHeight)];
 
 	if(commentaryExpanded)
 		[commentaryView setFrame:CGRectMake(x0, commentaryBase, bg_frame.size.width - x0 - inset, bg_frame.size.height - inset - commentaryBase)];
@@ -437,6 +437,7 @@
 			if([[trackMapView carToFollow] isEqualToString:name])
 			{
 				[trackMapView followCar:nil];
+				[trackProfileView followCar:nil];
 				[leaderboardView RequestRedraw];
 				
 				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:nil];
@@ -447,6 +448,7 @@
 			else
 			{
 				[trackMapView followCar:name];
+				[trackProfileView followCar:name];
 				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
 				[self showDriverInfo:true];
 

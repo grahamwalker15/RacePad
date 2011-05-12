@@ -710,6 +710,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ SynchroniseTime];
 		[socket_ RequestEvent];
 		[socket_ RequestTrackMap];
+		[socket_ RequestTrackProfileBase];
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestUIImages];
 		
@@ -960,6 +961,10 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamCars];
 				}
+				else if([existing_view Type] == RPC_TRACK_PROFILE_VIEW_)
+				{
+					[socket_ StreamTrackProfile];
+				}
 				else if([existing_view Type] == RPC_PIT_WINDOW_VIEW_)
 				{
 					[socket_ StreamPitWindow];
@@ -1024,6 +1029,10 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_TRACK_MAP_VIEW_)
 				{
 					[socket_ RequestCars];
+				}
+				else if([existing_view Type] == RPC_TRACK_PROFILE_VIEW_)
+				{
+					[socket_ RequestTrackProfile];
 				}
 				else if([existing_view Type] == RPC_PIT_WINDOW_VIEW_)
 				{
@@ -1388,11 +1397,6 @@ static RacePadCoordinator * instance_ = nil;
 // Registration etc. of data handlers for archive play
 ////////////////////////////////////////////////////////////////////////////////////////
 
--(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
-{
-	[self AddDataSourceWithType:type AndFile:file AndSubIndex:nil];
-}
-
 -(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file AndSubIndex:(NSString *)subIndex
 {
 	NSString *fileName = [sessionPrefix stringByAppendingString:file];
@@ -1400,6 +1404,11 @@ static RacePadCoordinator * instance_ = nil;
 	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
 	[dataSources addObject:rpc_source];
 	[rpc_source release];
+}
+
+-(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
+{
+	[self AddDataSourceWithType:type AndFile:file AndSubIndex:nil];
 }
 
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
@@ -1440,6 +1449,10 @@ static RacePadCoordinator * instance_ = nil;
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
 		[self AddDataSourceWithType:type AndFile: @"cars.rpf"];
+	}
+	else if (type == RPC_TRACK_PROFILE_VIEW_ )
+	{
+		[self AddDataSourceWithType:type AndFile: @"track_profile.rpf"];
 	}
 	else if (type == RPC_LAP_COUNT_VIEW_ )
 	{

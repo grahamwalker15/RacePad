@@ -14,6 +14,7 @@
 #include "RacePadTitleBarController.h"
 #include "RacePadSponsor.h"
 #import "TrackMap.h"
+#import "TrackProfile.h"
 
 @implementation RacePadDataHandler
 
@@ -561,6 +562,22 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_GAP_INFO_VIEW_];
 			break;
 		}
+			
+		case RPSC_TRACK_PROFILE_BASE_: // Track Profile Base
+		{
+			TrackProfile *track_profile = [[RacePadDatabase Instance] trackProfile];
+			[track_profile loadTrack:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
+			break;
+		}
+		case RPSC_TRACK_PROFILE_: // Track Profile
+		{
+			TrackProfile *track_profile = [[RacePadDatabase Instance] trackProfile];
+			[track_profile updateCars:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
+			break;
+		}
+			
 		default:
 			break;
 	}

@@ -11,6 +11,7 @@
 #import "AlertData.h"
 #import "CommentaryData.h"
 #import "TrackMap.h"
+#import "TrackProfile.h"
 #import "ImageListStore.h"
 #import "PitWindow.h"
 #import "Telemetry.h"
@@ -34,6 +35,7 @@ enum OurCars
 	TableData *driverData;
 	DriverGapInfo *driverGapInfo;
 	TrackMap *trackMap;
+	TrackProfile *trackProfile;
 	ImageListStore *imageListStore;
 	PitWindow *pitWindow;
 	AlertData * alertData;
@@ -53,6 +55,7 @@ enum OurCars
 @property (readonly) TableData *driverData;
 @property (readonly) DriverGapInfo * driverGapInfo;
 @property (readonly) TrackMap *trackMap;
+@property (readonly) TrackProfile *trackProfile;
 @property (readonly) ImageListStore *imageListStore;
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;

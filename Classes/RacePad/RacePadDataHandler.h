@@ -53,6 +53,9 @@ enum ServerCommands {
 	RPSC_TIME_SYNC_,			// 42
 	RPSC_COMMENTARY_,			// 43
 	RPSC_DRIVER_GAP_INFO_,		// 44
+	RPSC_NO_ACTION_,			// 45
+	RPSC_TRACK_PROFILE_BASE_,	// 46
+	RPSC_TRACK_PROFILE_,		// 47
 };
 
 @interface RacePadDataHandler : DataHandler

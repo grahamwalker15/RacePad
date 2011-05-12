@@ -12,7 +12,7 @@
 #import "ShinyButton.h"
 
 @class TelemetryView;
-@class PitWindowView;
+@class TrackProfileView;
 @class CommentaryView;
 @class TrackMapView;
 @class BackgroundView;
@@ -25,7 +25,7 @@
 	
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet CommentaryView * commentaryView;
-	IBOutlet PitWindowView * pitWindowView;
+	IBOutlet TrackProfileView * trackProfileView;
 	IBOutlet ShinyButton *pitWindowSimplifyButton;
 	
 	IBOutlet BackgroundView *trackMapContainer;

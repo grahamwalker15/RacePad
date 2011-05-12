@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">141</string>
@@ -467,14 +467,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">pitWindowView</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="708853410"/>
-					</object>
-					<int key="connectionID">26</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">trackMapSizeButton</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="471919718"/>
@@ -626,6 +618,14 @@
 						<reference key="destination" ref="210335207"/>
 					</object>
 					<int key="connectionID">67</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">trackProfileView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="708853410"/>
+					</object>
+					<int key="connectionID">68</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -870,7 +870,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUOEAABC8AAAA</bytes>
 					</object>
-					<string>{{351, 77}, {783, 778}}</string>
+					<string>{{351, 64}, {783, 792}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -933,7 +933,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUOqAABDHgAAA</bytes>
 					</object>
-					<string>PitWindowView</string>
+					<string>TrackProfileView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AQAAAABDrQAAA</bytes>
@@ -966,7 +966,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">67</int>
+			<int key="maxID">68</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1021,20 +1021,20 @@
 							<string>backgroundView</string>
 							<string>commentaryView</string>
 							<string>pitWindowSimplifyButton</string>
-							<string>pitWindowView</string>
 							<string>trackMapContainer</string>
 							<string>trackMapSizeButton</string>
 							<string>trackMapView</string>
+							<string>trackProfileView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>BackgroundView</string>
 							<string>CommentaryView</string>
 							<string>ShinyButton</string>
-							<string>PitWindowView</string>
 							<string>BackgroundView</string>
 							<string>UIButton</string>
 							<string>TrackMapView</string>
+							<string>TrackProfileView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1044,10 +1044,10 @@
 							<string>backgroundView</string>
 							<string>commentaryView</string>
 							<string>pitWindowSimplifyButton</string>
-							<string>pitWindowView</string>
 							<string>trackMapContainer</string>
 							<string>trackMapSizeButton</string>
 							<string>trackMapView</string>
+							<string>trackProfileView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1064,10 +1064,6 @@
 								<string key="candidateClassName">ShinyButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">pitWindowView</string>
-								<string key="candidateClassName">PitWindowView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">trackMapContainer</string>
 								<string key="candidateClassName">BackgroundView</string>
 							</object>
@@ -1078,6 +1074,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">trackMapView</string>
 								<string key="candidateClassName">TrackMapView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">trackProfileView</string>
+								<string key="candidateClassName">TrackProfileView</string>
 							</object>
 						</object>
 					</object>
@@ -1121,7 +1121,6 @@
 							<string>carBehindLabel</string>
 							<string>driverFirstNameLabel</string>
 							<string>driverHelmet</string>
-							<string>driverInfoContainer</string>
 							<string>driverPhoto</string>
 							<string>driverSurnameLabel</string>
 							<string>driverTeamLabel</string>
@@ -1139,7 +1138,6 @@
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIImageView</string>
-							<string>UIView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
@@ -1160,7 +1158,6 @@
 							<string>carBehindLabel</string>
 							<string>driverFirstNameLabel</string>
 							<string>driverHelmet</string>
-							<string>driverInfoContainer</string>
 							<string>driverPhoto</string>
 							<string>driverSurnameLabel</string>
 							<string>driverTeamLabel</string>
@@ -1189,10 +1186,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">driverHelmet</string>
 								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">driverInfoContainer</string>
-								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">driverPhoto</string>
@@ -1261,14 +1254,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">PitWindowView</string>
-					<string key="superclassName">DrawingView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UIViews/PitWindowView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">RacePadViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1298,6 +1283,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/UIViews/TrackMapView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TrackProfileView</string>
+					<string key="superclassName">DrawingView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UIViews/TrackProfileView.h</string>
 					</object>
 				</object>
 			</object>
