@@ -881,7 +881,6 @@ static RacePadCoordinator * instance_ = nil;
 			
 			if(type == RPC_COMMENTARY_VIEW_)
 			{
-				[[[RacePadDatabase Instance] commentary] clearAll];
 				NSString * driver = [existing_view Parameter];					
 				if([driver length] > 0)
 				{

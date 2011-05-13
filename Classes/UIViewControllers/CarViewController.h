@@ -26,12 +26,9 @@
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet CommentaryView * commentaryView;
 	IBOutlet TrackProfileView * trackProfileView;
-	IBOutlet ShinyButton *pitWindowSimplifyButton;
 	
 	IBOutlet BackgroundView *trackMapContainer;
 	IBOutlet UIButton *trackMapSizeButton;
-	
-	int car;
 	
 	bool trackMapExpanded;
 	bool trackMapPinched;
@@ -45,8 +42,6 @@
 	CGRect animationRectEnd;	
 }
 
-@property (nonatomic) int car;
-
 - (void)positionOverlays;
 - (void) prePositionOverlays;
 - (void) postPositionOverlays;
@@ -58,8 +53,6 @@
 - (IBAction) trackMapSizeChanged;
 - (void) trackMapSizeAnimationDidFire:(id)alphaPtr;
 - (void) trackMapSizeAnimationDidStop;
-
-- (IBAction) pitWindowSimplifyPressed:(id)sender;
 
 - (void) expandCommentaryView;
 - (void) restoreCommentaryView;
@@ -73,20 +66,14 @@
 @interface TelemetryCarViewController : CarViewController
 {
 	IBOutlet TelemetryView * telemetryView;
+	IBOutlet ShinyButton *mscButton;
+	IBOutlet ShinyButton *rosButton;
 }
+
+- (IBAction) chooseMSC:(id)sender;
+- (IBAction) chooseROS:(id)sender;
 
 @end
 
-@interface BlueCarViewController : TelemetryCarViewController
-{
-}
-
-@end
-
-@interface RedCarViewController : TelemetryCarViewController
-{
-}
-
-@end
 
 

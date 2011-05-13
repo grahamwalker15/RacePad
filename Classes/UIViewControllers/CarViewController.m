@@ -31,8 +31,6 @@
 
 @implementation CarViewController
 
-@synthesize car;
-
 - (void)viewDidLoad
 {
 	// Set parameters for views
@@ -46,11 +44,6 @@
 	[trackMapView setUserScale:10.0];
 	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
 	
-	[pitWindowSimplifyButton setButtonColour:[UIColor colorWithRed:0.6 green:0.8 blue:0.4 alpha:1.0]];
-	
-	[pitWindowSimplifyButton setSelectedButtonColour:[pitWindowSimplifyButton buttonColour]];
-	[pitWindowSimplifyButton setSelectedTextColour:[pitWindowSimplifyButton textColour]];
-	
 	[trackProfileView setUserScale:5.0];
 
 	commentaryExpanded = false;
@@ -62,7 +55,6 @@
 	[self addTapRecognizerToView:backgroundView];
 	[self addTapRecognizerToView:commentaryView];
 	[self addTapRecognizerToView:trackProfileView];
-	[self addTapRecognizerToView:pitWindowSimplifyButton];
 		
     //	Tap, pinch, and double tap recognizers for map
 	[self addTapRecognizerToView:trackMapView];
@@ -85,26 +77,7 @@
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	
 	// Set paramters for views
-	
-	if(car == RPD_BLUE_CAR_)
-	{
-		[trackProfileView followCar:@"MSC"];
-		[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
-		[trackMapView followCar:@"MSC"];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
-	}
-	else if (car == RPD_RED_CAR_)
-	{
-		[trackProfileView followCar:@"ROS"];
-		[[RacePadCoordinator Instance] SetParameter:@"RED" ForView:commentaryView];
-		[trackMapView followCar:@"ROS"];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
-	}
-	else
-	{
-		// [pitWindowView setCar:-1];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.3]];
-	}
+	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.3]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -506,31 +479,6 @@
 	}
 }
 
-- (IBAction) pitWindowSimplifyPressed:(id)sender
-{
-	/*
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	PitWindow *pitWindow = [database pitWindow];
-	
-	if ( pitWindow )
-	{
-		if([pitWindow simplified])
-		{
-			[pitWindow setSimplified:false];
-			[sender setSelected:true];
-		}
-		else
-		{
-			[pitWindow setSimplified:true];
-			[sender setSelected:false];
-		}
-		
-		[pitWindowView RequestRedraw];
-		
-	}
-	*/
-}
-
 @end
 
 @implementation TelemetryCarViewController
@@ -539,23 +487,23 @@
 {
 	[super viewDidLoad];
 
-	// Set paramters for views	
-	if(car == RPD_BLUE_CAR_)
-	{
-		// [pitWindowView setCar:RPD_BLUE_CAR_];
-		[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
-		[trackMapView followCar:@"MSC"];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
-	}
-	else
-	{
-		// [pitWindowView setCar:RPD_RED_CAR_];
-		[[RacePadCoordinator Instance] SetParameter:@"RED" ForView:commentaryView];
-		[trackMapView followCar:@"ROS"];
-		[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
-	}
+	[mscButton setButtonColour:[UIColor colorWithRed:0.4 green:0.4 blue:0.8 alpha:1.0]];
+	[mscButton setSelectedButtonColour:[mscButton buttonColour]];
+	[mscButton setSelectedTextColour:[mscButton textColour]];
+
+	[rosButton setButtonColour:[UIColor colorWithRed:0.8 green:0.4 blue:0.4 alpha:1.0]];
+	[rosButton setSelectedButtonColour:[rosButton buttonColour]];
+	[rosButton setSelectedTextColour:[rosButton textColour]];
+	
+	[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
+	[trackMapView followCar:@"MSC"];
+	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
+	[telemetryView setCar:RPD_BLUE_CAR_];
+	[trackProfileView followCar:@"MSC"];
 
 	[self addTapRecognizerToView:telemetryView];
+	[self addTapRecognizerToView:mscButton];
+	[self addTapRecognizerToView:rosButton];
 	
 	[[RacePadCoordinator Instance] AddView:telemetryView WithType:RPC_TELEMETRY_VIEW_];	
 }
@@ -566,14 +514,6 @@
 
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
-	if(car == RPD_BLUE_CAR_)
-	{
-		[telemetryView setCar:RPD_BLUE_CAR_];
-	}
-	else if ( car == RPD_RED_CAR_ )
-	{
-		[telemetryView setCar:RPD_RED_CAR_];
-	}
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
 }
@@ -645,6 +585,34 @@
 	[self addBackgroundFrames];
 }
 
+- (IBAction) chooseMSC:(id)sender
+{
+	[[RacePadCoordinator Instance] SetParameter:@"MSC" ForView:commentaryView];
+	[trackMapView followCar:@"MSC"];
+	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
+	[telemetryView setCar:RPD_BLUE_CAR_];
+	[trackProfileView followCar:@"MSC"];
+
+	[[RacePadCoordinator Instance] restartCommentary];
+	[trackMapView RequestRedraw];
+	[telemetryView RequestRedraw];
+	[trackProfileView RequestRedraw];
+}
+
+- (IBAction) chooseROS:(id)sender
+{
+	[[RacePadCoordinator Instance] SetParameter:@"ROS" ForView:commentaryView];
+	[trackMapView followCar:@"ROS"];
+	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
+	[telemetryView setCar:RPD_RED_CAR_];
+	[trackProfileView followCar:@"ROS"];
+	
+	[[RacePadCoordinator Instance] restartCommentary];
+	[trackMapView RequestRedraw];
+	[telemetryView RequestRedraw];
+	[trackProfileView RequestRedraw];
+}
+
 - (void)addBackgroundFrames
 {
 	[super addBackgroundFrames];
@@ -701,25 +669,4 @@
 }
 
 @end
-
-@implementation BlueCarViewController
-
-- (void)viewDidLoad
-{
-	[self setCar:RPD_BLUE_CAR_];
-	[super viewDidLoad];
-}
-
-@end
-
-@implementation RedCarViewController
-
-- (void)viewDidLoad
-{
-	[self setCar:RPD_RED_CAR_];
-	[super viewDidLoad];
-}
-
-@end
-
 

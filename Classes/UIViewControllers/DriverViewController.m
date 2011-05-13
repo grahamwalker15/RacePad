@@ -34,7 +34,6 @@
 
 - (void)viewDidLoad
 {
-	[self setCar:-1];
 	[super viewDidLoad];
 	
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
