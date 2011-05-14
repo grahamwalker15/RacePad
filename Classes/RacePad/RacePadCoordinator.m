@@ -891,7 +891,7 @@ static RacePadCoordinator * instance_ = nil;
 						if (connectionType == RPC_SOCKET_CONNECTION_)
 							[socket_ StreamCommentary:driver];
 						else
-							[self loadRPF:@"Commentary.rpf" SubIndex:driver];
+							[self loadRPF:@"commentary.rpf" SubIndex:driver];
 					}
 					else
 						[[existing_view View] RequestRedraw];

@@ -9,7 +9,7 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 4DA2E41712646ACC00796E28 /* RacePad */;
-		activeSDKPreference = iphonesimulator4.3;
+		activeSDKPreference = iphoneos4.3;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* RacePad */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* RacePad */,
@@ -602,6 +602,15 @@
 			4DC913F5137D2AF600ACE72F /* PBXTextBookmark */ = 4DC913F5137D2AF600ACE72F /* PBXTextBookmark */;
 			4DC913FB137D2C1B00ACE72F /* PBXTextBookmark */ = 4DC913FB137D2C1B00ACE72F /* PBXTextBookmark */;
 			4DC913FC137D2C1B00ACE72F /* PBXTextBookmark */ = 4DC913FC137D2C1B00ACE72F /* PBXTextBookmark */;
+			4DC91419137E900000ACE72F /* PBXTextBookmark */ = 4DC91419137E900000ACE72F /* PBXTextBookmark */;
+			4DC9141A137E900000ACE72F /* PBXTextBookmark */ = 4DC9141A137E900000ACE72F /* PBXTextBookmark */;
+			4DC9141B137E900000ACE72F /* PBXTextBookmark */ = 4DC9141B137E900000ACE72F /* PBXTextBookmark */;
+			4DC9141C137E900000ACE72F /* PBXTextBookmark */ = 4DC9141C137E900000ACE72F /* PBXTextBookmark */;
+			4DC9141E137E903C00ACE72F /* PBXTextBookmark */ = 4DC9141E137E903C00ACE72F /* PBXTextBookmark */;
+			4DC9141F137E903C00ACE72F /* PBXTextBookmark */ = 4DC9141F137E903C00ACE72F /* PBXTextBookmark */;
+			4DC91422137E906F00ACE72F /* PBXTextBookmark */ = 4DC91422137E906F00ACE72F /* PBXTextBookmark */;
+			4DC91425137E908100ACE72F /* PBXTextBookmark */ = 4DC91425137E908100ACE72F /* PBXTextBookmark */;
+			4DC91426137E908100ACE72F /* PBXTextBookmark */ = 4DC91426137E908100ACE72F /* PBXTextBookmark */;
 			4DE897E3129FC4E1000FEE9C = 4DE897E3129FC4E1000FEE9C /* PBXTextBookmark */;
 		};
 		sourceControlManager = 4DA2E44912646AD300796E28 /* Source Control */;
@@ -1278,9 +1287,9 @@
 	};
 	4D423F651368283900561C92 /* DriverViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1559, 6370}}";
-			sepNavSelRange = "{13282, 54}";
-			sepNavVisRange = "{537, 1365}";
+			sepNavIntBoundsRect = "{{0, 0}, {1328, 6383}}";
+			sepNavSelRange = "{702, 0}";
+			sepNavVisRange = "{5983, 518}";
 		};
 	};
 	4D423F7E13682F7100561C92 /* PBXTextBookmark */ = {
@@ -1356,9 +1365,9 @@
 	};
 	4D757B7C126F01B700E32C41 /* FileDataStream.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 1846}}";
-			sepNavSelRange = "{1297, 182}";
-			sepNavVisRange = "{1156, 470}";
+			sepNavIntBoundsRect = "{{0, 0}, {1224, 1807}}";
+			sepNavSelRange = "{248, 0}";
+			sepNavVisRange = "{66, 337}";
 		};
 	};
 	4D757B7F126F028900E32C41 /* DataHandler.h */ = {
@@ -1370,9 +1379,9 @@
 	};
 	4D757B80126F028900E32C41 /* DataHandler.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 676}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1224, 702}}";
 			sepNavSelRange = "{344, 0}";
-			sepNavVisRange = "{200, 493}";
+			sepNavVisRange = "{200, 320}";
 			sepNavWindowFrame = "{{15, 171}, {1110, 702}}";
 		};
 	};
@@ -1386,9 +1395,9 @@
 	};
 	4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 7553}}";
-			sepNavSelRange = "{12932, 0}";
-			sepNavVisRange = "{12870, 1269}";
+			sepNavIntBoundsRect = "{{0, 0}, {1045, 7761}}";
+			sepNavSelRange = "{783, 0}";
+			sepNavVisRange = "{497, 1129}";
 			sepNavWindowFrame = "{{84, 108}, {1110, 702}}";
 		};
 	};
@@ -2359,7 +2368,7 @@
 		ignoreCount = 0;
 		lineNumber = 55;
 		location = RacePad;
-		modificationTime = 326970385.735318;
+		modificationTime = 327061606.837299;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -2854,7 +2863,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {936, 7371}}";
 			sepNavSelRange = "{9017, 0}";
-			sepNavVisRange = "{7584, 850}";
+			sepNavVisRange = "{7584, 907}";
 		};
 	};
 	4DC9117E137BDFC900ACE72F /* TrackProfileView.h */ = {
@@ -5442,6 +5451,96 @@
 		vrLen = 1097;
 		vrLoc = 765;
 	};
+	4DC91419137E900000ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F8F905612E611CB00EA04A6 /* CommentaryView.m */;
+		name = "CommentaryView.m: 83";
+		rLen = 0;
+		rLoc = 1486;
+		rType = 0;
+		vrLen = 621;
+		vrLoc = 1460;
+	};
+	4DC9141A137E900000ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 35";
+		rLen = 0;
+		rLoc = 783;
+		rType = 0;
+		vrLen = 1051;
+		vrLoc = 452;
+	};
+	4DC9141B137E900000ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 35";
+		rLen = 0;
+		rLoc = 783;
+		rType = 0;
+		vrLen = 1051;
+		vrLoc = 483;
+	};
+	4DC9141C137E900000ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F767E6C12A68525009249F7 /* CarViewController.h */;
+		name = "CarViewController.h: 28";
+		rLen = 0;
+		rLoc = 599;
+		rType = 0;
+		vrLen = 1097;
+		vrLoc = 765;
+	};
+	4DC9141E137E903C00ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 35";
+		rLen = 0;
+		rLoc = 783;
+		rType = 0;
+		vrLen = 1105;
+		vrLoc = 483;
+	};
+	4DC9141F137E903C00ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F767E6C12A68525009249F7 /* CarViewController.h */;
+		name = "CarViewController.h: 28";
+		rLen = 0;
+		rLoc = 599;
+		rType = 0;
+		vrLen = 1097;
+		vrLoc = 765;
+	};
+	4DC91422137E906F00ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DC9117A137BDC0300ACE72F /* TrackProfile.m */;
+		name = "TrackProfile.m: 407";
+		rLen = 0;
+		rLoc = 9017;
+		rType = 0;
+		vrLen = 907;
+		vrLoc = 7584;
+	};
+	4DC91425137E908100ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 35";
+		rLen = 0;
+		rLoc = 783;
+		rType = 0;
+		vrLen = 1129;
+		vrLoc = 497;
+	};
+	4DC91426137E908100ACE72F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F767E6C12A68525009249F7 /* CarViewController.h */;
+		name = "CarViewController.h: 28";
+		rLen = 0;
+		rLoc = 599;
+		rType = 0;
+		vrLen = 1097;
+		vrLoc = 765;
+	};
 	4DE897E3129FC4E1000FEE9C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 4D807CEF12832AED00FDE400 /* ServerConnect.h */;
@@ -5508,9 +5607,9 @@
 	};
 	7F32763112634AB000BD1627 /* RacePadCoordinator.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1045, 23023}}";
-			sepNavSelRange = "{20328, 0}";
-			sepNavVisRange = "{20114, 1040}";
+			sepNavIntBoundsRect = "{{0, 0}, {1224, 22906}}";
+			sepNavSelRange = "{20753, 0}";
+			sepNavVisRange = "{20328, 696}";
 			sepNavWindowFrame = "{{130, 66}, {1110, 702}}";
 		};
 	};
@@ -5812,7 +5911,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1045, 3640}}";
 			sepNavSelRange = "{1486, 0}";
-			sepNavVisRange = "{1416, 604}";
+			sepNavVisRange = "{1460, 621}";
 			sepNavWindowFrame = "{{15, 171}, {1110, 702}}";
 		};
 	};
