@@ -16,6 +16,7 @@
 @synthesize outlineColour;
 @synthesize selectedTextColour;
 @synthesize selectedButtonColour;
+@synthesize radius;
 @synthesize outline;
 
 - (id)initWithCoder:(NSCoder*)coder
@@ -23,6 +24,7 @@
     if ((self = [super initWithCoder:coder]))
     {
 		outline = false;
+		radius = 10.0;
 		[self setDefaultColours];
 	}
     return self;
@@ -80,7 +82,7 @@
 	float x1 = x0 + bounds.size.width - 1.0 ;
 	float y1 = y0 + bounds.size.height - 1.0;
 	
-	float r = 10.0;
+	float r = radius;
 	
 	CGMutablePathRef path = CGPathCreateMutable();
 	

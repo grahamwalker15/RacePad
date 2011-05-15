@@ -31,6 +31,7 @@ enum TD_USE_FOR {
 	TD_USE_FOR_LANDSCAPE,
 	TD_USE_FOR_PORTRAIT,
 	TD_USE_FOR_BOTH,
+	TD_USE_FOR_NONE
 };
 
 @interface TableCell : NSObject

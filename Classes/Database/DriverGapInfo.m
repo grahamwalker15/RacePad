@@ -17,6 +17,7 @@
 @synthesize surname;
 @synthesize teamName;
 @synthesize position;
+@synthesize laps;
 @synthesize inPit;
 @synthesize stopped;
 @synthesize carAhead;
@@ -88,18 +89,26 @@
 
 - (void) loadData : (DataStream *) stream
 {
-	abbr = [stream PopString];
+	[abbr release];	
+	[firstName release];
+	[surname release];
+	[teamName release];
+	[carAhead release];
+	[carBehind release];
 	
-	firstName = [stream PopString];
-	surname = [stream PopString];
-	teamName = [stream PopString];
+	abbr = [[stream PopString] retain];
+	
+	firstName = [[stream PopString] retain];
+	surname = [[stream PopString] retain];
+	teamName = [[stream PopString] retain];
 	
 	position = [stream PopInt];
+	laps = [stream PopInt];
 	inPit = [stream PopBool];
 	stopped = [stream PopBool];
 	
-	carAhead = [stream PopString];
-	carBehind = [stream PopString];
+	carAhead = [[stream PopString] retain];
+	carBehind = [[stream PopString] retain];
 	
 	gapAhead = [stream PopFloat];
 	gapBehind = [stream PopFloat];

@@ -30,6 +30,19 @@
 
 #import "UIConstants.h"
 
+@implementation DriverViewControllerTimingView
+
+- (int) ColumnUse:(int)col;
+{
+	// Local override to disable interval and arrow columns
+	if(col == 8 || col == 16)
+		return TD_USE_FOR_NONE;
+	
+	return [super ColumnUse:col];
+}
+
+@end
+
 @implementation DriverViewController
 
 - (void)viewDidLoad
@@ -39,12 +52,19 @@
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackMapView];
 	
+	[timingView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+	
+	[timingView SetRowHeight:26];
+	[timingView SetHeading:true];
+	[timingView SetBackgroundAlpha:0.5];
+	
 	// Add tap and long press recognizers to the leaderboard
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
+	[self addTapRecognizerToView:allButton];
 	
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
-	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
+	[[RacePadCoordinator Instance] AddView:timingView WithType:RPC_DRIVER_LIST_VIEW_];
 	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
 }
 
@@ -53,10 +73,10 @@
 	[super viewWillAppear:animated];
 
 	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
-
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_LIST_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:timingView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 
 	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
@@ -65,10 +85,25 @@
 		NSString * requestedDriver = [driverGapInfo requestedDriver];
 		
 		if(requestedDriver && [requestedDriver length] > 0)
+		{
 			[self showDriverInfo:false];
+			[self setAllSelected:false];	
+		}
 		else
+		{
 			[self hideDriverInfo:false];
+			[self setAllSelected:true];	
+		}
 	}
+	else
+	{
+		[self hideDriverInfo:false];
+		[self setAllSelected:true];	
+	}
+
+	animating = false;
+	showPending = false;
+	hidePending = false;
 	
 }
 
@@ -78,6 +113,7 @@
 	[super viewWillDisappear:animated];
 	
 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewHidden:timingView];
 	[[RacePadCoordinator Instance] SetViewHidden:self];
 }
 
@@ -85,10 +121,21 @@
 {
 	[leaderboardView setAlpha:0.0];
 	[leaderboardView setHidden:false];
+	
+	if([trackMapView carToFollow])
+	{
+		[trackMapContainer setAlpha:0.0];
+		[trackMapContainer setHidden:false];
+	}
 }
 
 - (void) postPositionOverlays
 {
+	if([trackMapView carToFollow])
+	{
+		[trackMapContainer setAlpha:1.0];
+	}
+
 	[leaderboardView setAlpha:1.0];
 }
 
@@ -101,16 +148,21 @@
 	CGRect bg_frame = [backgroundView frame];
 	CGRect inset_frame = CGRectInset(bg_frame, bg_inset, bg_inset);
 
-	CGRect lb_frame = CGRectMake(inset_frame.origin.x + 5, inset_frame.origin.y, 60, inset_frame.size.height);
-	[leaderboardView setFrame:lb_frame];
-	
 	int inset = [backgroundView inset] + 10;
 	
+	[allButton setFrame:CGRectMake(inset_frame.origin.x + 5, inset, 60, 40)];
+	
+	CGRect lb_frame = CGRectMake(inset_frame.origin.x + 5, inset_frame.origin.y + 45, 60, inset_frame.size.height - 45);
+	[leaderboardView setFrame:lb_frame];
+	
 	int commentaryBase = 280 + inset;
+	int timingHeight = 280 - inset;
 	int pitWindowHeight = 200;
 	
 	int x0 = lb_frame.origin.x + lb_frame.size.width + inset;
 		
+	[timingView setFrame:CGRectMake(x0, inset, bg_frame.size.width - x0 - inset, timingHeight)];
+	
 	[trackProfileView setFrame:CGRectMake(x0, bg_frame.size.height - pitWindowHeight - inset, bg_frame.size.width - x0 - inset, pitWindowHeight)];
 
 	if(commentaryExpanded)
@@ -147,13 +199,22 @@
 - (void)addBackgroundFrames
 {
 	[super addBackgroundFrames];
+	
+	[backgroundView addFrame:[timingView frame]];
 }
+
 
 - (void)showOverlays
 {
 	[super showOverlays];
 	[leaderboardView setHidden:false];
 	[leaderboardView RequestRedraw];
+	
+	if([trackMapView carToFollow])
+	{
+		[trackMapContainer setHidden:false];
+		[trackMapView RequestRedraw];
+	}
 }
 
 - (void)hideOverlays
@@ -262,6 +323,9 @@
 				NSString * carBehind = [driverGapInfo carBehind];
 				
 				int position = [driverGapInfo position];
+				int laps = [driverGapInfo laps];
+				bool inPit = [driverGapInfo inPit];
+				bool stopped = [driverGapInfo stopped];
 				
 				float gapAhead = [driverGapInfo gapAhead];
 				float gapBehind = [driverGapInfo gapBehind];
@@ -270,54 +334,64 @@
 				[driverSurnameLabel setText:surname];
 				[driverTeamLabel setText:teamName];
 				
-				[positionLabel setText:[NSString stringWithFormat:@"P%d", position]];
-				
-				if(gapAhead > 0.0)
+				if(position > 0)
 				{
-					[carAheadLabel setText:carAhead];			
-					[gapAheadLabel setText:[NSString stringWithFormat:@"+%.1f", gapAhead]];
+					[positionLabel setText:[NSString stringWithFormat:@"P%d", position]];
+
+					if(inPit)
+					{
+						[carAheadLabel setText:@"IN PIT"];			
+						[carBehindLabel setText:@""];
+						[carAheadLabel setText:@""];
+						[gapAheadLabel setText:@""];
+					}
+					else if(stopped)
+					{
+						[carAheadLabel setText:@"OUT"];			
+						[carBehindLabel setText:@""];
+						[carAheadLabel setText:@""];
+						[gapAheadLabel setText:@""];
+					}
+					else
+					{
+						if(position == 1)
+						{
+							[carAheadLabel setText:@"LAPS"];			
+							[gapAheadLabel setText:[NSString stringWithFormat:@"%d", laps]];
+						}
+						else if(gapAhead > 0.0)
+						{
+							[carAheadLabel setText:carAhead];			
+							[gapAheadLabel setText:[NSString stringWithFormat:@"+%.1f", gapAhead]];
+						}
+						else
+						{
+							[carAheadLabel setText:@""];
+							[gapAheadLabel setText:@""];
+						}
+
+						if(gapBehind > 0.0)
+						{
+							[carBehindLabel setText:carBehind];
+							[gapBehindLabel setText:[NSString stringWithFormat:@"-%.1f", gapBehind]];
+						}
+						else
+						{
+							[carBehindLabel setText:@""];
+							[gapBehindLabel setText:@""];
+						}
+					}
 				}
 				else
 				{
+					[positionLabel setText:@""];
 					[carAheadLabel setText:@""];
 					[gapAheadLabel setText:@""];
-				}
-
-				if(gapBehind > 0.0)
-				{
-					[carBehindLabel setText:carBehind];
-					[gapBehindLabel setText:[NSString stringWithFormat:@"-%.1f", gapBehind]];
-				}
-				else
-				{
 					[carBehindLabel setText:@""];
 					[gapBehindLabel setText:@""];
 				}
-				
-				[pitBoardContainer setHidden:false];
-				[trackMapContainer setHidden:false];
-				
-				[driverPhoto setHidden:false];
-				[driverTextBG setHidden:false];
-				
-				[driverFirstNameLabel setHidden:false];
-				[driverSurnameLabel setHidden:false];
-				[driverTeamLabel setHidden:false];
 			}
 		}
-	}
-	
-	if(!driverFound)
-	{
-		[pitBoardContainer setHidden:true];
-		[trackMapContainer setHidden:true];
-		
-		[driverPhoto setHidden:true];
-		[driverTextBG setHidden:true];
-		
-		[driverFirstNameLabel setHidden:true];
-		[driverSurnameLabel setHidden:true];
-		[driverTeamLabel setHidden:true];
 	}
 }
 
@@ -325,11 +399,16 @@
 
 - (void) showDriverInfo:(bool) animated
 {
-	if(![pitBoardContainer isHidden])
-		return;
-
-	if(animated)
+	if(animating)
 	{
+		showPending = true;
+		return;
+	}
+	
+	if(animated && [pitBoardContainer isHidden])
+	{
+		animating = true;
+		
 		[pitBoardContainer setAlpha:0.0];
 		[trackMapContainer setAlpha:0.0];
 		[driverPhoto setAlpha:0.0];
@@ -348,6 +427,7 @@
 				
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
+		[timingView setAlpha:0.0];
 		[pitBoardContainer setAlpha:1.0];
 		[trackMapContainer setAlpha:1.0];
 		[driverPhoto setAlpha:1.0];
@@ -355,10 +435,13 @@
 		[driverFirstNameLabel setAlpha:1.0];
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(showDriverInfoAnimationDidStop:finished:context:)];
 		[UIView commitAnimations];
 	}
 	else
 	{
+		[timingView setHidden:true];
 		[pitBoardContainer setHidden:false];
 		[trackMapContainer setHidden:false];
 		[driverPhoto setHidden:false];
@@ -366,18 +449,33 @@
 		[driverFirstNameLabel setHidden:false];
 		[driverSurnameLabel setHidden:false];
 		[driverTeamLabel setHidden:false];
+		[pitBoardContainer setAlpha:1.0];
+		[trackMapContainer setAlpha:1.0];
+		[driverPhoto setAlpha:1.0];
+		[driverTextBG setAlpha:1.0];
+		[driverFirstNameLabel setAlpha:1.0];
+		[driverSurnameLabel setAlpha:1.0];
+		[driverTeamLabel setAlpha:1.0];
 	}
 }
 
 - (void) hideDriverInfo:(bool) animated
 {
-	if([pitBoardContainer isHidden])
-		return;
-	
-	if(animated)
+	if(animating)
 	{
+		hidePending = true;
+		return;
+	}
+	if(animated && ![pitBoardContainer isHidden])
+	{
+		animating = true;
+		
+		[timingView setAlpha:0.0];
+		[timingView setHidden:false];
+		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
+		[timingView setAlpha:1.0];
 		[pitBoardContainer setAlpha:0.0];
 		[trackMapContainer setAlpha:0.0];
 		[driverPhoto setAlpha:0.0];
@@ -386,11 +484,13 @@
 		[driverSurnameLabel setAlpha:0.0];
 		[driverTeamLabel setAlpha:0.0];
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(hideZoomMapAnimationDidStop:finished:context:)];
+		[UIView setAnimationDidStopSelector:@selector(hideDriverInfoAnimationDidStop:finished:context:)];
 		[UIView commitAnimations];
 	}
 	else
 	{
+		[timingView setHidden:false];
+		
 		[pitBoardContainer setHidden:true];		
 		[trackMapContainer setHidden:true];		
 		[driverPhoto setHidden:true];		
@@ -401,10 +501,29 @@
 	}
 }
 
+- (void) showDriverInfoAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[timingView setHidden:true];		
+		[timingView setAlpha:1.0];
+		
+		animating = false;
+				
+		if(hidePending)
+			[self hideDriverInfo:false];
+		
+		showPending = false;
+		hidePending = false;
+	}
+}
+
 - (void) hideDriverInfoAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
 	if([finished intValue] == 1)
 	{
+		animating = false;
+		
 		[pitBoardContainer setHidden:true];		
 		[trackMapContainer setHidden:true];		
 		[driverPhoto setHidden:true];		
@@ -412,13 +531,23 @@
 		[driverFirstNameLabel setHidden:true];
 		[driverSurnameLabel setHidden:true];
 		[driverTeamLabel setHidden:true];
-
+		
 		[pitBoardContainer setAlpha:1.0];
+		[trackMapContainer setAlpha:1.0];
 		[driverPhoto setAlpha:1.0];
 		[driverTextBG setAlpha:1.0];
 		[driverFirstNameLabel setAlpha:1.0];
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
+		
+		// Set the driver info interest to nobody
+		[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:nil];
+		
+		if(showPending)
+			[self showDriverInfo:false];
+		
+		showPending = false;
+		hidePending = false;
 	}
 }
 
@@ -427,42 +556,56 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if([gestureView isKindOfClass:[leaderboardView class]])
+	if([gestureView isKindOfClass:[ShinyButton class]]) // Prevents time controllers being invoked on button press
+	{
+		return;
+	}
+	else if([gestureView isKindOfClass:[leaderboardView class]])
 	{
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
 		
 		if(name && [name length] > 0)
 		{
+			/* Don't switch to all any more when same driver is selected. Do restart stream in case this solves unforeseen problems.
 			if([[trackMapView carToFollow] isEqualToString:name])
 			{
 				[trackMapView followCar:nil];
 				[trackProfileView followCar:nil];
 				[leaderboardView RequestRedraw];
 				
-				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:nil];
+				[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+
 				[self hideDriverInfo:true];
 				
-				[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+				[self setAllSelected:true];	
 			}
 			else
+			*/
 			{
+				NSString * oldCar = [trackMapView carToFollow];
+
 				[trackMapView followCar:name];
 				[trackProfileView followCar:name];
 				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
-				[self showDriverInfo:true];
+				
+				// Force reload of data
+				[[RacePadCoordinator Instance] SetViewHidden:self];
+				[[RacePadCoordinator Instance] SetViewDisplayed:self];
+
+				if(!oldCar)
+					[self showDriverInfo:true];
 
 				[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
 							
-				[trackMapView setUserScale:10.0];
 				[trackMapView RequestRedraw];
+				
+				[self setAllSelected:false];	
+
 			}
 			
-			// Force redraw by setting view to hidden then displayed
-			[[RacePadCoordinator Instance] SetViewHidden:self];
-			[[RacePadCoordinator Instance] SetViewDisplayed:self];
-
 			[leaderboardView RequestRedraw];
 
+			[commentaryView ResetScroll];
 			[[RacePadCoordinator Instance] restartCommentary];
 			[commentaryView RequestRedraw];
 
@@ -482,6 +625,37 @@
 	{
 		[time_controller hide];
 	}
+}
+
+- (IBAction) allButtonPressed:(id)sender
+{
+	[trackMapView followCar:nil];
+	[trackProfileView followCar:nil];
+	[leaderboardView RequestRedraw];	
+	[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+	[self hideDriverInfo:true];
+
+	[commentaryView ResetScroll];
+	[[RacePadCoordinator Instance] restartCommentary];
+	[commentaryView RequestRedraw];
+	
+	[self setAllSelected:true];	
+}
+
+- (void) setAllSelected:(bool)selected
+{
+	if(selected)
+	{
+		[allButton setButtonColour:[UIColor colorWithRed:0.6 green:0.08 blue:0.4 alpha:1.0]];
+		[allButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+		[allButton setNeedsDisplay];
+	}
+	else
+	{
+		[allButton setButtonColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+		[allButton setTextColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];	
+		[allButton setNeedsDisplay];
+	}	
 }
 
 @end

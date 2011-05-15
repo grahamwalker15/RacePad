@@ -100,7 +100,6 @@
 
 // Basic utilities
 - (void)getCurrentBoundsInfo;
-- (int)inqDeviceOrientation;
 - (CGSize)InqSize;
 
 - (bool)CreateBitmapContext;

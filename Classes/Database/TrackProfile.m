@@ -18,6 +18,10 @@
 
 @synthesize name;
 @synthesize lapProgress;
+@synthesize moving;
+@synthesize pitted;
+@synthesize stopped;
+@synthesize row;
 
 static UIColor *blueBG = nil;
 static UIColor *blueMargin = nil;
@@ -35,6 +39,13 @@ static UIImage *grassImage = nil;
 	textColour = nil;
 	
 	name = nil;
+	team = nil;
+	
+	row = 0;
+	
+	moving = false;
+	pitted = false;
+	stopped= false;
 	
 	return [super init];
 }
@@ -46,6 +57,7 @@ static UIImage *grassImage = nil;
 	[lineColour release];
 	[textColour release];
 	[name release];
+	[team release];
 	
 	[super dealloc];
 }
@@ -66,16 +78,19 @@ static UIImage *grassImage = nil;
 	[lineColour release];
 	[textColour release];
 	[name release];
+	[team release];
 
 	pointColour = nil;
 	fillColour = nil;
 	lineColour = nil;
 	textColour = nil;
 	name = nil;
-
+	team = nil;
 
 	pointColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 	lapProgress = [stream PopFloat];
+	pitted = [stream PopBool];
+	stopped = [stream PopBool];
 	moving = [stream PopBool];
 	
 	if ( moving )
@@ -85,6 +100,7 @@ static UIImage *grassImage = nil;
 		textColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 		
 		name = [[stream PopString] retain];
+		team = [[stream PopString] retain];
 	}
 }
 
@@ -94,34 +110,38 @@ static UIImage *grassImage = nil;
 	
 	CGSize size = [view bounds].size;
 	
-	float boxWidth = 48;
-	float boxHeight = 22;
+	float boxWidth = 30;
+	float boxHeight = 15;
 	
 	float ox = (lapProgress - offset);
 	if ( ox < 0 )
 		ox += 1;
 	if ( ox > 1 )
 		ox -= 1;
+	
 	float tx = [view transformX:ox];
 	
 	float px = tx * size.width;
-	float py = size.height / 2;
+	float py = size.height / 2 + 65 - row * 25;
 	
 	// Draw car
+	float imageW = 0.0;
+	float imageH = 0.0;
 	if(imageList)
 	{
-		UIImage *image = [imageList findItem:name];
-		[view DrawImage:image AtX:px Y:py - 40];
+		UIImage *image = [imageList findItem:team];
+		
+		CGSize imageSize = [image size];
+		imageW = imageSize.width;
+		imageH = imageSize.height;
+		
+		[view DrawImage:image AtX:px - imageW  Y:py - imageH];
 	}
-
-	int dotSize = 4;
-	[view SetBGColour:pointColour];
-	[view FillRectangleX0:px-dotSize Y0:py-dotSize X1:px+dotSize Y1:py+dotSize];
 	
 	if ( moving )
 	{
-		float x0 = px + 5;
-		float y0 = py + 2;
+		float x0 = px - imageW - 5;
+		float y0 = py - 15;
 		float x1 = x0 + boxWidth;
 		float y1 = y0 - boxHeight;
 		
@@ -138,6 +158,7 @@ static UIImage *grassImage = nil;
 		[view FillRectangleX0:x0 Y0:y0 X1:x1 Y1:y1];
 		
 		[view SetLineWidth:2];
+		
 		if(isFollowCar)
 			[view SetFGColour:[view white_]];
 		else
@@ -152,7 +173,7 @@ static UIImage *grassImage = nil;
 			else
 				[view SetFGColour:textColour];
 
-			[view DrawString:name AtX:px + 7 Y:py - 20];
+			[view DrawString:name AtX:x0 + 1 Y:y1];
 		}
 	}
 }
@@ -329,10 +350,17 @@ static UIImage *grassImage = nil;
 	
 	float px = tx * size.width;
 	
+	float w, h;
+	[view GetStringBox:name WidthReturn:&w HeightReturn:&h];
+
 	[view SetFGColour:[view dark_red_]];		
-	[view LineX0:px Y0:y0 X1:px Y1:y1];
+	[view LineX0:px-1 Y0:y0 X1:px-1 Y1:y1];
+	[view LineX0:px+1 Y0:y0 X1:px+1 Y1:y1];
 	[view SetFGColour:[view white_]];		
-	[view DrawString:name AtX:px + 3 Y:y0];
+	[view LineX0:px Y0:y0 X1:px Y1:y1];
+	
+	[view SetFGColour:[view white_]];		
+	[view DrawString:name AtX:px - w * 0.5 Y:y1 - h - 1];
 }
 
 -(void) drawTurn: (TrackProfileView *)view Distance:(float)distance Name:(NSString *)name Offset:(float)offset Y0:(int)y0 Y1:(int)y1
@@ -340,18 +368,25 @@ static UIImage *grassImage = nil;
 	CGSize size = [view bounds].size;
 	
 	float ox = (distance - offset);
+	
 	if ( ox < 0 )
 		ox += 1;
 	if ( ox > 1 )
 		ox -= 1;
+	
 	float tx = [view transformX:ox];
 	
 	float px = tx * size.width;
 	
-	[view SetFGColour:[view cyan_]];		
+	NSString * turnName = @"T";
+	turnName = [turnName stringByAppendingString:name];
+	
+	float w, h;
+	[view GetStringBox:turnName WidthReturn:&w HeightReturn:&h];
+	
+	[view SetFGColour:[view light_grey_]];		
 	[view LineX0:px Y0:y0 X1:px Y1:y1];
-	[view SetFGColour:[view cyan_]];		
-	[view DrawString:name AtX:px + 3 Y:y0];
+	[view DrawString:turnName AtX:px - w * 0.5 Y:y1 - h - 1];
 }
 
 - (void) drawTrack : (TrackProfileView *) view Offset:(float)offset
@@ -368,7 +403,7 @@ static UIImage *grassImage = nil;
 	CGSize size = [view InqSize];
 	
 	float axisSpace = size.height > 250 ? 30 : 25;
-	float graphicHeight = (size.height - axisSpace) / 2;
+	float graphicHeight = size.height - axisSpace * 2;
 	int y_base = size.height - axisSpace;
 	int x_axis = y_base;
 	int y1 = y_base - graphicHeight;
@@ -435,8 +470,6 @@ static UIImage *grassImage = nil;
 	[self drawTrackLine:view Distance:1 Name:@"Fin" Offset:offset Y0:x_axis Y1:y1];
 	[self drawTrackLine:view Distance:s1Length Name:@"S1" Offset:offset Y0:x_axis Y1:y1];
 	[self drawTrackLine:view Distance:s2Length Name:@"S2" Offset:offset Y0:x_axis Y1:y1];
-	[self drawTrackLine:view Distance:sc1Length Name:@"SC1" Offset:offset Y0:x_axis Y1:y1];
-	[self drawTrackLine:view Distance:sc2Length Name:@"SC2" Offset:offset Y0:x_axis Y1:y1];
 	
 	int turnCount = [turns count];
 	for ( int i = 0; i < turnCount; i++ )
@@ -447,34 +480,165 @@ static UIImage *grassImage = nil;
 
 	[view RestoreFont];
 	
+	// Add tick marks at 1 sec intervals with labels every 5
+	if(trackLength > 0.0)
+	{
+		int counter = 0;
+		float xMaxTime = 0.5 * trackLength;
+		
+		[view SaveFont];
+		[view UseMediumBoldFont];
+		[view SetFGColour:[view white_]];
+		for ( int xval = 0; xval < xMaxTime; xval += 1 )
+		{
+			double xRight = [view transformX:(0.5 + (float)xval / xMaxTime * 0.5)] * size.width;
+			double xLeft = [view transformX:(0.5 - (float)xval / xMaxTime * 0.5)] * size.width;
+			
+			if ( counter == 0 )
+			{
+				[view LineRectangleX0:xRight Y0:x_axis X1:xRight Y1:x_axis + 5]; 
+				[view LineRectangleX0:xLeft Y0:x_axis X1:xLeft Y1:x_axis + 5]; 
+				
+				counter = 4;
+				
+				if ( xval > 0 )
+				{
+					NSNumber *n = [NSNumber numberWithInt:-xval];
+					NSString *s = [n stringValue];
+					float w, h;
+					[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
+					[view DrawString:s AtX:xRight - w / 2 Y:x_axis + 4];
+					
+					n = [NSNumber numberWithInt:xval];
+					s = @"+";
+					s = [s stringByAppendingString:[n stringValue]];
+					[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
+					[view DrawString:s AtX:xLeft - w / 2 Y:x_axis + 4];
+				}
+			}
+			else
+			{
+				[view LineRectangleX0:xRight Y0:x_axis X1:xRight Y1:x_axis + 2]; 
+				[view LineRectangleX0:xLeft Y0:x_axis X1:xLeft Y1:x_axis + 2];
+				
+				counter --;
+			}
+		}
+	}
+	
+	[view RestoreFont];
+	
 	[view RestoreGraphicsState];
 }
 
 - (void) drawInView:(TrackProfileView *)view
 {	
-	double offset = 0;
-	
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	ImageListStore * image_store = [database imageListStore];
 	
 	ImageList *image_list = image_store ? [image_store findList:@"MiniCars"] : nil;
 	
-	int i;
-	for ( i = 0; i < carCount; i++ )
+	// Find the follow car and offset map to him (will stay at S/F if he's not found)
+	double offset = -0.5;
+	for ( int i = 0; i < carCount; i++ )
+	{
 		if ( [[[cars objectAtIndex:i] name] isEqualToString:[view carToFollow]] )
 		{
 			offset = [[cars objectAtIndex:i] lapProgress] - 0.5;
 			break;
 		}
+	}
 
 	[self drawTrack:view Offset:offset];
 	
-	[view UseRegularFont];
-	
-	for ( i = 0; i < carCount; i++ )
-		[[cars objectAtIndex:i] draw:view OnMap:self Offset:offset ImageList:image_list];
-	
-	[view UseRegularFont];
+	if(carCount > 0)
+	{
+		// Find the biggest gap between cars
+		double biggestGap = -999.0;
+		int biggestGapCar = -1;
+		for ( int i = 0; i < carCount; i++ )
+		{
+			int j = i < (carCount - 1) ? i + 1 : 0;
+			double lapProgress_i = [[cars objectAtIndex:i] lapProgress];
+			double lapProgress_j = [[cars objectAtIndex:j] lapProgress];
+			
+			if(lapProgress_j < lapProgress_i)
+				lapProgress_j += 1;
+			
+			double gap = lapProgress_j - lapProgress_i;
+			
+			if(gap > biggestGap)
+			{
+				biggestGap = gap;
+				biggestGapCar = i;	// Car with biggest gap ahead
+			}
+		}
+		
+		if(biggestGapCar >= 0)
+		{
+			// Now set rows, going backwards from biggestGapCar
+			[[cars objectAtIndex:biggestGapCar] setRow:0];
+			
+			int lastRow = 0;
+			
+			int carAhead = biggestGapCar;
+			double lapProgress_1 = [[cars objectAtIndex:carAhead] lapProgress] * trackLength;
+
+			while(true)
+			{				
+				int carBehind = carAhead > 0 ? carAhead - 1 : (carCount - 1);
+				
+				while(carBehind != biggestGapCar &&
+					  ![[cars objectAtIndex:carBehind] moving] &&
+					  ![[cars objectAtIndex:carBehind] stopped] &&
+					  ![[cars objectAtIndex:carBehind] pitted])
+				{
+					[[cars objectAtIndex:carBehind] setRow:0];
+					carBehind = carBehind > 0 ? carBehind - 1 : (carCount - 1);
+				}
+				
+				if(carBehind == biggestGapCar)
+					break;
+					
+				double lapProgress_2 = [[cars objectAtIndex:carBehind] lapProgress] * trackLength;
+								
+				if(lapProgress_2 > lapProgress_1)
+					lapProgress_1 += trackLength;
+				
+				double gap = lapProgress_1 - lapProgress_2;
+				
+				int row = (gap > 5.0) ? row = 0 : lastRow + 1;
+				
+				if(row > 4)
+					row = 0;
+				
+				[[cars objectAtIndex:carBehind] setRow:row];
+				
+				carAhead = carBehind;
+				lapProgress_1 = lapProgress_2;
+				lastRow = row;
+			}
+			
+			// Finally draw cars
+			[view UseControlFont];
+			
+			// Stopped cars first
+			for ( int i = 0; i < carCount; i++ )
+			{
+				if(![[cars objectAtIndex:i] moving])
+				   [[cars objectAtIndex:i] draw:view OnMap:self Offset:offset ImageList:image_list];
+			}
+			
+			// Then moving ones
+			for ( int i = 0; i < carCount; i++ )
+			{
+				if([[cars objectAtIndex:i] moving])
+				   [[cars objectAtIndex:i] draw:view OnMap:self Offset:offset ImageList:image_list];
+			}
+			
+			[view UseRegularFont];
+		}
+	}
 	
 }
 

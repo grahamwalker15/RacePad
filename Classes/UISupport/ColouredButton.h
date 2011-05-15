@@ -17,6 +17,7 @@
 	UIColor * selectedTextColour;
 	UIColor * selectedButtonColour;
 
+	float radius;
 	bool outline;
 }
 
@@ -25,6 +26,7 @@
 @property (nonatomic, retain) UIColor * outlineColour;
 @property (nonatomic, retain) UIColor * selectedTextColour;
 @property (nonatomic, retain) UIColor * selectedButtonColour;
+@property (nonatomic) float radius;
 @property (nonatomic) bool outline;
 
 - (void) setDefaultColours;

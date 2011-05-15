@@ -323,6 +323,7 @@
 		7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5CE713782A8100A82DA7 /* HomeView.xib */; };
 		7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5D2C13783F3C00A82DA7 /* home.png */; };
 		7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5DAE1379403A00A82DA7 /* PitBoard.png */; };
+		7FE5A7B9138016EF0095DD10 /* TimeJumpBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -751,6 +752,7 @@
 		7FCD5CE713782A8100A82DA7 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HomeView.xib; path = ResourceFiles/HomeView.xib; sourceTree = "<group>"; };
 		7FCD5D2C13783F3C00A82DA7 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Images/home.png; sourceTree = "<group>"; };
 		7FCD5DAE1379403A00A82DA7 /* PitBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PitBoard.png; path = Images/PitBoard.png; sourceTree = "<group>"; };
+		7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TimeJumpBG.png; path = Images/TimeJumpBG.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1186,6 +1188,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */,
 				7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */,
 				7FCD5DAE1379403A00A82DA7 /* PitBoard.png */,
 				7FCD5D2C13783F3C00A82DA7 /* home.png */,
@@ -1578,6 +1581,7 @@
 				7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */,
 				7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */,
 				7FB75AAB137A854600F7BFA0 /* DriverTextBG.png in Resources */,
+				7FE5A7B9138016EF0095DD10 /* TimeJumpBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

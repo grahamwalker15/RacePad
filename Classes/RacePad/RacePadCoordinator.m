@@ -888,6 +888,7 @@ static RacePadCoordinator * instance_ = nil;
 					{
 						[[RacePadDatabase Instance] setCommentaryFor:driver];
 						[[[RacePadDatabase Instance] commentary] clearAll];
+						
 						if (connectionType == RPC_SOCKET_CONNECTION_)
 							[socket_ StreamCommentary:driver];
 						else

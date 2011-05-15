@@ -22,11 +22,22 @@
 	
 	float lapProgress;
 	NSString *name;
+	NSString *team;
 	bool moving;
+	bool pitted;
+	bool stopped;
+	
+	int row;
 }
 
+@property (nonatomic) int row;
+
 @property (readonly) NSString * name;
+@property (readonly) NSString * team;
 @property (readonly) float lapProgress;
+@property (readonly) bool moving;
+@property (readonly) bool pitted;
+@property (readonly) bool stopped;
 
 - (id) init;
 

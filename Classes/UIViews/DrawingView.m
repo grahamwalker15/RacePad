@@ -259,15 +259,6 @@ static bool statics_initialised_ = false;
 	return current_size_;
 }
 
-- (int) inqDeviceOrientation
-{
-	CGRect bounds = [self bounds];
-	if(bounds.size.width < bounds.size.height)
-		return UI_ORIENTATION_PORTRAIT_;
-	else
-		return UI_ORIENTATION_LANDSCAPE_;	
-}
-
 - (bool)CreateBitmapContext
 {
 	if(bitmap_context_)

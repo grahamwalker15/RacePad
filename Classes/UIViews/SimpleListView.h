@@ -121,6 +121,7 @@ enum ColumnPriority {
 - (void) SetLargeFont:(bool)if_large;
 - (void) SetSwipingEnabled:(bool)value;
 
+- (void) ResetScroll;
 - (void) RequestScrollToEnd;
 - (void) ScrollToEnd;
 - (void) ScrollToRow:(int)row;

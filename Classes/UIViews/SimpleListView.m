@@ -8,6 +8,7 @@
 
 #import "SimpleListView.h"
 #import "TableData.h"
+#import "RacePadCoordinator.h"
 
 @implementation SimpleListView
 
@@ -185,7 +186,7 @@
 - (int) TableWidth
 {
 	// Get the device orientation
-	int orientation = [self inqDeviceOrientation];
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 	portraitMode = (orientation == UI_ORIENTATION_PORTRAIT_);
 
 	// Work out width
@@ -193,7 +194,9 @@
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
 	{
 		// Do we count this column?
-		if(portraitMode && [self ColumnUse:i] == TD_USE_FOR_LANDSCAPE)
+		if([self ColumnUse:i] == TD_USE_FOR_NONE)
+			continue;
+		else if(portraitMode && [self ColumnUse:i] == TD_USE_FOR_LANDSCAPE)
 			continue;
 		else if(!portraitMode && [self ColumnUse:i] == TD_USE_FOR_PORTRAIT)
 			continue;
@@ -226,6 +229,12 @@
 		[self setNeedsDisplay];
 }
 
+- (void) ResetScroll
+{
+	[self setContentOffset:CGPointZero animated:false];
+	[self getCurrentBoundsInfo];
+}
+
 - (void) RequestScrollToEnd
 {
 	CGRect bounds = [self bounds];
@@ -236,8 +245,8 @@
 		[self setContentOffset:CGPointMake(0.0, 0.0) animated:false];
 		[self getCurrentBoundsInfo];
 	}
-	else
-		scroll_to_end_requested_ = true;
+	
+	scroll_to_end_requested_ = true;
 }
 
 - (void) ScrollToEnd
@@ -414,7 +423,9 @@
 			continue;
 		
 		// Do we draw this column
-		if(portraitMode && [self ColumnUse:col] == TD_USE_FOR_LANDSCAPE)
+		if([self ColumnUse:col] == TD_USE_FOR_NONE)
+			continue;
+		else if(portraitMode && [self ColumnUse:col] == TD_USE_FOR_LANDSCAPE)
 			continue;
 		else if(!portraitMode && [self ColumnUse:col] == TD_USE_FOR_PORTRAIT)
 			continue;
@@ -541,7 +552,7 @@
 - (void) Draw:(CGRect)region
 {
 	// Get the device orientation
-	int orientation = [self inqDeviceOrientation];
+	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
 	portraitMode = (orientation == UI_ORIENTATION_PORTRAIT_);
 
 	// Prepare any data specific to a derived class
@@ -720,7 +731,9 @@
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
 	{
 		// Do we draw this column
-		if(portraitMode && [self ColumnUse:i] == TD_USE_FOR_LANDSCAPE)
+		if([self ColumnUse:i] == TD_USE_FOR_NONE)
+			continue;
+		else if(portraitMode && [self ColumnUse:i] == TD_USE_FOR_LANDSCAPE)
 			continue;
 		else if(!portraitMode && [self ColumnUse:i] == TD_USE_FOR_PORTRAIT)
 			continue;

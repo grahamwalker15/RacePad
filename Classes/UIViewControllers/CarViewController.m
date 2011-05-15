@@ -150,10 +150,8 @@
 	
 	[self prePositionOverlays];
 	[trackProfileView setAlpha:0.0];
-	[trackMapContainer setAlpha:0.0];
 	[commentaryView setHidden:false];
 	[trackProfileView setHidden:commentaryExpanded]; // Hidden if commentary expanded
-	[trackMapContainer setHidden:false];
 	
 	[self positionOverlays];
 	
@@ -164,7 +162,6 @@
 	[self postPositionOverlays];
 	[trackProfileView setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
-	[trackMapContainer setAlpha:1.0];
 	[UIView commitAnimations];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -530,10 +527,14 @@
 {
 	[telemetryView setAlpha:0.0];
 	[telemetryView setHidden:false];
+
+	[trackMapContainer setAlpha:0.0];
+	[trackMapContainer setHidden:false];
 }
 
 - (void) postPositionOverlays
 {
+	[trackMapContainer setAlpha:1.0];
 	[telemetryView setAlpha:1.0];
 }
 

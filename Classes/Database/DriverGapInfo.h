@@ -21,6 +21,7 @@
 	NSString * teamName;
 	
 	int position;
+	int laps;
 	bool inPit;
 	bool stopped;
 	
@@ -33,21 +34,22 @@
 
 @property (retain) NSString * requestedDriver;
 
-@property (retain) NSString * abbr;
+@property (readonly) NSString * abbr;
 
-@property (retain) NSString * firstName;
-@property (retain) NSString * surname;
-@property (retain) NSString * teamName;
+@property (readonly) NSString * firstName;
+@property (readonly) NSString * surname;
+@property (readonly) NSString * teamName;
 
-@property (retain) NSString * carAhead;
-@property (retain) NSString * carBehind;
+@property (readonly) NSString * carAhead;
+@property (readonly) NSString * carBehind;
 
-@property (nonatomic) int position;
-@property (nonatomic) bool inPit;
-@property (nonatomic) bool stopped;
+@property (readonly) int position;
+@property (readonly) int laps;
+@property (readonly) bool inPit;
+@property (readonly) bool stopped;
 
-@property (nonatomic) float gapAhead;
-@property (nonatomic) float gapBehind;
+@property (readonly) float gapAhead;
+@property (readonly) float gapBehind;
 
 - (void) clearData;
 - (void) loadData : (DataStream *) stream;

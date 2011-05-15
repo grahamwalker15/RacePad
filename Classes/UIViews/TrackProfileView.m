@@ -128,6 +128,8 @@
 	
 	if(userScale < 1.0)
 		userScale = 1.0;
+	else if(userScale > 12.0)
+		userScale = 12.0;
 	
 	// And set the user pan to put the focus point back where it was on the screen
 	userOffset = (centreX - 0.5) /userScale - x_in_window + 0.5;

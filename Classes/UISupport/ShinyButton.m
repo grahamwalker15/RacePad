@@ -101,7 +101,7 @@
 	float x1 = x0 + bounds.size.width - 1.0 ;
 	float y1 = y0 + bounds.size.height - 1.0;
 	
-	float rad = 10.0;
+	float rad = radius;
 	
 	CGMutablePathRef path = CGPathCreateMutable();
 	
