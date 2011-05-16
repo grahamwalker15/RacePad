@@ -1438,13 +1438,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
-		if(parameter && [parameter length] > 0 )
-		{
-			NSString *s = @"driver_";
-			s = [s stringByAppendingString:parameter];
-			s = [s stringByAppendingString:@".rpf"];
-			[self AddDataSourceWithType:type AndFile: s];
-		}
+		[self AddDataSourceWithType:type AndFile: @"drivers.rpf" AndSubIndex:parameter];
 	}
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
