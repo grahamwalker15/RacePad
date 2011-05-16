@@ -47,15 +47,17 @@
 - (void) updateTime:(float)time;
 - (void) updateSlider:(float)time;
 - (void) updateClock:(float)time;
-- (void) updatePlayButton;
+- (void) updatePlayButtons;
 - (void) updateLiveButton;
 
 - (IBAction)PlayPressed:(id)sender;
+- (IBAction)SlowMotionPlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
 - (void)actOnSliderValue;
 
 - (IBAction)JogControlChanged:(id)sender;
 - (IBAction)ReplayPressed:(id)sender;
+- (IBAction)JumpButtonPressed:(id)sender;
 - (IBAction)goLivePressed:(id)sender;
 
 @end

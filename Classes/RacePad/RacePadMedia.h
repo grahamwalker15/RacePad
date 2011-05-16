@@ -47,6 +47,10 @@ enum MovieTypes
 	bool movieSeekable;
 	bool movieSeekPending;
 	
+	bool moviePausedInPlace;
+	
+	float activePlaybackRate;
+	
 	int movieType;
 	
 	RacePadVideoViewController * registeredViewController;
@@ -73,6 +77,8 @@ enum MovieTypes
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
 
+@property (nonatomic) bool moviePausedInPlace;
+
 @property (readonly) int movieType;
 	
 - (void)onStartUp;
@@ -91,6 +97,7 @@ enum MovieTypes
 - (NSURL *) getMovieURL;
 - (NSString *)getVideoArchiveName;
 
+- (void) moviePlayAtRate:(float)playbackRate;
 - (void) moviePlay;
 - (void) movieStop;
 - (void) movieGotoTime:(float)time;

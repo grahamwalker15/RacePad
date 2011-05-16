@@ -83,13 +83,26 @@
 	[self SimpleCommand:RPCS_REQUEST_TRACK_MAP];
 }
 
-- (void)SetReferenceTime :(float) reference_time;
+- (void)SetReferenceTime :(float) reference_time
 {
 	uint32_t int_data[3];
 	int_data[0] =  htonl(12);
 	int_data[1] =  htonl(RPCS_SET_REFERENCE_TIME);
 	float *t = (float *)int_data + 2;
 	*t = reference_time;
+	int_data[2] = htonl(int_data[2]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 3);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+}
+
+- (void) SetPlaybackRate:(float)rate
+{
+	uint32_t int_data[3];
+	int_data[0] =  htonl(12);
+	int_data[1] =  htonl(RPCS_SET_PLAYBACK_RATE);
+	float *r = (float *)int_data + 2;
+	*r = rate;
 	int_data[2] = htonl(int_data[2]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 3);
 	CFSocketSendData (socket_ref_, nil, data, 0);

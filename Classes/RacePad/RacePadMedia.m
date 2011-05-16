@@ -33,6 +33,8 @@
 @synthesize moviePlayPending;
 @synthesize movieSeekable;
 @synthesize movieSeekPending;
+@synthesize moviePausedInPlace;
+
 
 @synthesize movieType;
 
@@ -64,9 +66,13 @@ static RacePadMedia * instance_ = nil;
 		movieSeekPending = false;
 		movieLoaded = false;
 		
+		moviePausedInPlace = false;
+		
 		movieStartTime = 0.0;
 		movieSeekTime = 0.0;
 		streamSeekStartTime = 0.0;
+		
+		activePlaybackRate = 1.0;
 		
 		movieType = MOVIE_TYPE_NONE_;
 	}
@@ -138,7 +144,7 @@ static RacePadMedia * instance_ = nil;
 	
 	[[RacePadCoordinator Instance] setVideoConnectionStatus:RPC_CONNECTION_CONNECTING_];
 	[[RacePadCoordinator Instance] videoServerOnConnectionChange];
-	
+		
 	moviePlayerAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
 	
 	NSString *tracksKey = @"tracks";
@@ -171,7 +177,7 @@ static RacePadMedia * instance_ = nil;
 			 
 			 // Position the movie and order the overlay in any registered view controller
 			 if(registeredViewController)
-				 [registeredViewController displayMovie];
+				 [registeredViewController displayMovieInView];
 			 
 			 movieLoaded = true;
 			 currentMovie = [[url absoluteString] retain];
@@ -187,6 +193,7 @@ static RacePadMedia * instance_ = nil;
 			 
 			 [[RacePadCoordinator Instance] videoServerOnConnectionChange];
 
+			 moviePausedInPlace= false;
 		 }
 		 else
 		 {
@@ -205,7 +212,7 @@ static RacePadMedia * instance_ = nil;
 {
 	// Delete any existing player and assets	
 	if(registeredViewController)
-		[registeredViewController removeMovie];
+		[registeredViewController removeMovieFromView];
 	
 	if(moviePlayerObserver)
 	{
@@ -234,6 +241,7 @@ static RacePadMedia * instance_ = nil;
 	movieSeekable = false;
 	movieSeekPending = false;
 	movieLoaded =false;
+	moviePausedInPlace = false;
 	
 	movieStartTime = 0.0;
 	streamSeekStartTime = 0.0;
@@ -392,12 +400,15 @@ static RacePadMedia * instance_ = nil;
 {
 }
 
-- (void) moviePlay
+- (void) moviePlayAtRate:(float)playbackRate
 {
-	if(moviePlayable)
+	activePlaybackRate = playbackRate;
+	
+	if(moviePlayable && registeredViewController)
 	{
-		[moviePlayer play];
+		[moviePlayer setRate:activePlaybackRate];
 		moviePlayPending = false;
+		moviePausedInPlace = false;
 	}
 	else
 	{
@@ -405,21 +416,33 @@ static RacePadMedia * instance_ = nil;
 	}
 }
 
+- (void) moviePlay
+{
+	[self moviePlayAtRate:activePlaybackRate];
+}
+
 - (void) movieStop
 {
+	moviePausedInPlace = false;
 	[moviePlayer pause];	
 	moviePlayPending = false;
 }
 
 - (void) movieGotoTime:(float)time
 {
-	if(movieSeekable)
+	if(movieSeekable && registeredViewController)
 	{
 		Float64 movie_time = time - movieStartTime;
+		CMTime currentMovieTime = [moviePlayer currentTime];
+		Float64 currentMovieTimeSeconds = CMTimeGetSeconds(currentMovieTime);
 		
 		if(movieType == MOVIE_TYPE_LIVE_STREAM_)
 			movie_time = movie_time + streamSeekStartTime - [[RacePadCoordinator Instance] serverTimeOffset];
 			
+		// Shouldn't need to do anything if we're just continuing after a clean pause
+		if(moviePausedInPlace && fabs(movie_time - currentMovieTimeSeconds) < 0.2)
+			return;
+		
 		NSArray *seekableTimeRanges = [moviePlayerItem seekableTimeRanges];
 		
 		if([seekableTimeRanges count] > 0)
@@ -459,7 +482,7 @@ static RacePadMedia * instance_ = nil;
 
 - (void) movieGoLive
 {
-	if(movieSeekable)
+	if(movieSeekable && registeredViewController)
 	{
 		NSArray *seekableTimeRanges = [moviePlayerItem seekableTimeRanges];
 		
@@ -545,8 +568,11 @@ static RacePadMedia * instance_ = nil;
 	if(old_registered_view_controller)
 		[old_registered_view_controller release];
 	
+	moviePausedInPlace = false;
+	
 	if(movieLoaded)
-		[registeredViewController displayMovie];
+		[registeredViewController displayMovieInView];
+	
 }
 
 -(void)ReleaseViewController:(RacePadVideoViewController *)view_controller
@@ -554,10 +580,13 @@ static RacePadMedia * instance_ = nil;
 	if(registeredViewController && registeredViewController == view_controller)
 	{
 		[moviePlayer pause];	
-		[registeredViewController removeMovie];
+		[registeredViewController removeMovieFromView];
 		
 		[registeredViewController release];
 		registeredViewController = nil;
+		
+		moviePausedInPlace = false;
+
 	}
 }
 

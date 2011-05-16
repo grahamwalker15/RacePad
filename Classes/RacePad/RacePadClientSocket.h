@@ -43,6 +43,7 @@ enum ClientCommands {
 	RPCS_REQUEST_TRACK_PROFILE_BASE,// 35
 	RPCS_REQUEST_TRACK_PROFILE,		// 36
 	RPCS_STREAM_TRACK_PROFILE,		// 37
+	RPCS_SET_PLAYBACK_RATE,			// 38
 };
 
 @interface RacePadClientSocket : Socket
@@ -53,6 +54,7 @@ enum ClientCommands {
 - (void) RequestEvent;
 - (void) RequestTrackMap;
 - (void) SetReferenceTime:(float)reference_time;
+- (void) SetPlaybackRate:(float)rate;
 - (void) goLive;
 - (void) RequestTimingPage;
 - (void) StreamTimingPage;

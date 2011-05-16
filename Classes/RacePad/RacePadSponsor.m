@@ -80,19 +80,43 @@ static RacePadSponsor * instance_ = nil;
 
 - (bool) supportsTab: (unsigned char)tab
 {
-	if ( sponsor == RPS_UNKNOWN_ )
-		return true;
+	NSNumber *v = [[RacePadPrefs Instance] getPref:@"supportVideo"];
+	bool videoSupported = v ? [v boolValue] : true;
 
-	if ( sponsor == RPS_MERCEDES_ )
+	if ( sponsor == RPS_UNKNOWN_ )
+	{
+		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
+			return false;
+		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
+			return false;
+		
 		return true;
+	}
+	else if ( sponsor == RPS_MERCEDES_ )
+	{
+		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
+			return false;
+		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
+			return false;
+		
+		return true;
+	}
+	else
+	{
+
+		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
+			return false;
+		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
+			return false;
 	
-	if ( tab == RPS_HOME_TAB_
-		|| tab == RPS_DRIVER_LIST_TAB_
-		|| tab == RPS_TRACK_MAP_TAB_
-		|| tab == RPS_VIDEO_TAB_
-		|| tab == RPS_DRIVER_TAB_
-		|| tab == RPS_SETTINGS_TAB_ )
-		return true;
+		if ( tab == RPS_HOME_TAB_
+			|| tab == RPS_DRIVER_LIST_TAB_
+			|| tab == RPS_TRACK_MAP_TAB_
+			|| tab == RPS_VIDEO_TAB_
+			|| tab == RPS_DRIVER_TAB_
+			|| tab == RPS_SETTINGS_TAB_ )
+			return true;
+	}
 	
 	return false;
 }

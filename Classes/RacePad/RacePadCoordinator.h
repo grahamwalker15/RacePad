@@ -133,6 +133,9 @@ enum ConnectionTypes
 	float startTime;
 	float endTime;
 	
+	float playbackRate;
+	float activePlaybackRate;
+	
 	float serverTimeOffset;
 	
 	bool playing;
@@ -153,6 +156,7 @@ enum ConnectionTypes
 @property (nonatomic) float currentTime;
 @property (nonatomic) float startTime;
 @property (nonatomic) float endTime;
+@property (nonatomic) float playbackRate;
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
 
@@ -184,6 +188,8 @@ enum ConnectionTypes
 
 -(void)userPause;
 -(void)jumpToTime:(float)time;
+
+-(bool)playingRealTime;
 
 -(void)setServerConnected:(bool)ok;
 -(bool)serverConnected;

@@ -39,6 +39,7 @@
 @synthesize currentTime;
 @synthesize startTime;
 @synthesize endTime;
+@synthesize playbackRate;
 @synthesize serverTimeOffset;
 @synthesize needsPlayRestart;
 @synthesize playing;
@@ -67,6 +68,9 @@ static RacePadCoordinator * instance_ = nil;
 		currentTime = 14 * 3600 + 10 * 60 + 0;
 		startTime = 14 * 3600 + 0 * 60 + 0;
 		endTime = 16 * 3600 + 0 * 60 + 0;
+		
+		playbackRate = 1.0;
+		activePlaybackRate = 1.0;
 		
 		needsPlayRestart = true;
 		playing = false;
@@ -325,7 +329,7 @@ static RacePadCoordinator * instance_ = nil;
 		if (live)
 			return [self liveTime];
 		else
-			return (float)baseTime * 0.001 + [elapsedTime value];
+			return (float)baseTime * 0.001 + [elapsedTime value] * activePlaybackRate;
 	}
 	else
 	{
@@ -356,11 +360,16 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)startPlay
 {
-	if(playing)
+	if(playing && playbackRate == activePlaybackRate)
 		return;
+	
+	if(playing)					// Change of play rate
+		[self pausePlay];;
 	
 	playing = true;
 	needsPlayRestart = false;
+	
+	activePlaybackRate = playbackRate;
 	
 	if(live)
 		baseTime = (int)([self liveTime] * 1000.0);
@@ -375,7 +384,7 @@ static RacePadCoordinator * instance_ = nil;
 	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
 
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
-		[[RacePadMedia Instance] moviePlay];
+		[[RacePadMedia Instance] moviePlayAtRate:activePlaybackRate];
 }
 
 -(void)pausePlay
@@ -383,6 +392,11 @@ static RacePadCoordinator * instance_ = nil;
 	if(!playing)
 		return;
 	
+	float elapsed = [elapsedTime value];
+	currentTime = (float)baseTime * 0.001 + elapsed * activePlaybackRate;
+	[elapsedTime release];
+	elapsedTime = nil;
+
 	if(updateTimer)
 	{
 		[updateTimer invalidate];
@@ -401,9 +415,6 @@ static RacePadCoordinator * instance_ = nil;
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 		[[RacePadMedia Instance] movieStop];
 
-	currentTime = (float)baseTime * 0.001 + [elapsedTime value];
-	[elapsedTime release];
-	elapsedTime = nil;
 	
 	[[RacePadTimeController Instance] updateTime:currentTime];
 
@@ -415,6 +426,7 @@ static RacePadCoordinator * instance_ = nil;
 {
 	[self pausePlay];
 	needsPlayRestart = false;
+	activePlaybackRate = playbackRate = 1.0;
 }
 
 -(void) userPause
@@ -427,12 +439,20 @@ static RacePadCoordinator * instance_ = nil;
 -(void)jumpToTime:(float)time
 {
 	[self stopPlay];
+	
+	[[RacePadMedia Instance] setMoviePausedInPlace:false];
+	
 	currentTime = time;
 	live = false;
 	
 	[settingsViewController updateConnectionType];
-	[[RacePadTimeController Instance] updatePlayButton];
+	[[RacePadTimeController Instance] updatePlayButtons];
 	[self showSnapshot];
+}
+
+-(bool)playingRealTime
+{
+	return (playing && activePlaybackRate > 0.99 && activePlaybackRate < 1.01);
 }
 
 -(void)setConnectionType:(int)type
@@ -461,7 +481,7 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			[self prepareToPlay];
 			[self startPlay];
-			[[RacePadTimeController Instance] updatePlayButton];
+			[[RacePadTimeController Instance] updatePlayButtons];
 		}
 	}
 	
@@ -491,7 +511,7 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			[self prepareToPlay];
 			[self startPlay];
-			[[RacePadTimeController Instance] updatePlayButton];
+			[[RacePadTimeController Instance] updatePlayButtons];
 		}
 	}
 }
@@ -535,7 +555,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	if ( eventTime > 0 )
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval:eventTime - thisTime target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:((eventTime - thisTime) / activePlaybackRate) target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
 	else
 		updateTimer = nil;
 
@@ -543,9 +563,10 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) timerUpdate: (NSTimer *)theTimer
 {
-	float elapsed = [elapsedTime value];
+	float elapsed = [elapsedTime value]  * activePlaybackRate;
 	
 	int data_source_count = [dataSources count];
+	
 	if(data_source_count > 0)
 	{
 		for ( int i = 0 ; i < data_source_count ; i++)
@@ -585,7 +606,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) timeControllerTimerUpdate: (NSTimer *)theTimer
 {
-	float elapsed = [elapsedTime value];
+	float elapsed = [elapsedTime value] * activePlaybackRate;
 	[[RacePadTimeController Instance] updateTime:currentTime + elapsed];
 	[[RacePadTitleBarController Instance] updateTime:currentTime + elapsed];
 	
@@ -911,9 +932,15 @@ static RacePadCoordinator * instance_ = nil;
 -(void)prepareToPlayFromSocket
 {
 	if ( live )
+	{
+		playbackRate = 1.0;
 		[socket_ goLive];
+	}
 	else
+	{
+		[socket_ SetPlaybackRate:playbackRate];
 		[socket_ SetReferenceTime:currentTime];
+	}
 
 	int view_count = [views count];
 	
@@ -995,6 +1022,7 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void)showSnapshotFromSocket
 {
+	[socket_ SetPlaybackRate:playbackRate];
 	[socket_ SetReferenceTime:currentTime];
 	
 	int view_count = [views count];
@@ -1179,7 +1207,7 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			[self prepareToPlay];
 			[self startPlay];
-			[[RacePadTimeController Instance] updatePlayButton];
+			[[RacePadTimeController Instance] updatePlayButtons];
 		}
 		else
 		{

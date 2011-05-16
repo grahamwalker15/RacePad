@@ -39,10 +39,12 @@
 	
 	bool moviePlayerLayerAdded;
 		
+	bool displayVideo;
 	bool displayMap;
 	bool displayLeaderboard;
 }
 
+@property (nonatomic) bool displayVideo;
 @property (nonatomic) bool displayMap;
 @property (nonatomic) bool displayLeaderboard;
 

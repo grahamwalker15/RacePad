@@ -304,7 +304,7 @@
 
 - (void) updateSponsor
 {
-	supportVideo.enabled = [[RacePadSponsor Instance]supportsTab:RPS_VIDEO_TAB_];
+	supportVideo.enabled = true;//[[RacePadSponsor Instance]supportsTab:RPS_VIDEO_TAB_];
 }
 
 /////////////////////////////////////////////////////////////////////

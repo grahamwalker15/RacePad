@@ -108,6 +108,14 @@
 	[button5  setTitle:[[RacePadCoordinator Instance] tabTitle:5] forState:UIControlStateNormal];
 	[button6  setTitle:[[RacePadCoordinator Instance] tabTitle:6] forState:UIControlStateNormal];
 	[button7  setTitle:[[RacePadCoordinator Instance] tabTitle:7] forState:UIControlStateNormal];
+
+	[button1 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[button2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[button3 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[button4 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[button5 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[button6 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[button7 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 }
 
 - (IBAction) buttonPressed:(id)sender

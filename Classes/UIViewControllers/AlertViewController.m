@@ -92,9 +92,10 @@
 	
 	[NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(dismissTimerExpired:) userInfo:nil repeats:NO];
 	
+	[[RacePadCoordinator Instance] setPlaybackRate:1.0];
 	[[RacePadCoordinator Instance] prepareToPlay];
 	[[RacePadCoordinator Instance] startPlay];
-	[[RacePadTimeController Instance] updatePlayButton];
+	[[RacePadTimeController Instance] updatePlayButtons];
 	
 	return true;
 }

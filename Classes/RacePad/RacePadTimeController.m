@@ -32,7 +32,7 @@ static RacePadTimeController * instance_ = nil;
 	if(self = [super init])
 	{	
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
-		jogController = [[JogViewController alloc] initWithNibName:@"JogControlView" bundle:nil];
+		//jogController = [[JogViewController alloc] initWithNibName:@"JogControlView" bundle:nil];
 		addOnOptionsView = nil;
 		
 		displayed = false;
@@ -49,7 +49,7 @@ static RacePadTimeController * instance_ = nil;
 - (void)dealloc
 {
 	[timeController release];
-	[jogController release];
+	//[jogController release];
 	[addOnOptionsView release];
     [super dealloc];
 }
@@ -81,13 +81,13 @@ static RacePadTimeController * instance_ = nil;
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
 	CGRect time_toolbar_bounds = [timeController.toolbar bounds];
-	CGRect jog_controller_bounds = [jogController.view bounds];
+	//CGRect jog_controller_bounds = [jogController.view bounds];
 	
 	CGRect timeFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, time_controller_bounds.size.height);
 	CGRect toolbarFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_toolbar_bounds.size.height - 30, super_bounds.size.width - 60, time_toolbar_bounds.size.height);
-	CGRect jogFrame = CGRectMake(toolbarFrame.origin.x + toolbarFrame.size.width - jog_controller_bounds.size.width, toolbarFrame.origin.y - jog_controller_bounds.size.height - 20, jog_controller_bounds.size.width, jog_controller_bounds.size.height);
+	//CGRect jogFrame = CGRectMake(toolbarFrame.origin.x + toolbarFrame.size.width - jog_controller_bounds.size.width, toolbarFrame.origin.y - jog_controller_bounds.size.height - 20, jog_controller_bounds.size.width, jog_controller_bounds.size.height);
 	[timeController.view setFrame:timeFrame];
-	[jogController.view setFrame:jogFrame];
+	//[jogController.view setFrame:jogFrame];
 	
 	if(addOnOptionsView)
 	{
@@ -99,7 +99,7 @@ static RacePadTimeController * instance_ = nil;
 	if(animated)
 	{
 		[timeController.view setAlpha:0.0];
-		[jogController.view setAlpha:0.0];
+		//[jogController.view setAlpha:0.0];
 		if(addOnOptionsView)
 		{
 			[addOnOptionsView setAlpha:0.0];
@@ -107,20 +107,25 @@ static RacePadTimeController * instance_ = nil;
 	}
 	
 	[viewController.view addSubview:timeController.view];
-	[viewController.view addSubview:jogController.view];
-	[self updatePlayButton];
+	//[viewController.view addSubview:jogController.view];
+	[self updatePlayButtons];
 	
 	if(addOnOptionsView)
 	{
 		[viewController.view addSubview:addOnOptionsView];
 	}
+	
+	if([[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_)
+		[[timeController goLiveButton] setHidden:false];
+	else
+		[[timeController goLiveButton] setHidden:true];
 
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.15];
 		[timeController.view setAlpha:1.0];
-		[jogController.view setAlpha:1.0];
+		//[jogController.view setAlpha:1.0];
 		if(addOnOptionsView)
 		{
 			[addOnOptionsView setAlpha:1.0];
@@ -140,9 +145,18 @@ static RacePadTimeController * instance_ = nil;
 	[replay_button setTarget:instance_];
 	[replay_button setAction:@selector(ReplayPressed:)];
 	
-	JogControlView * jog_control = [jogController jogControl];	
-	[jog_control setTarget:instance_];
-	[jog_control setSelector:@selector(JogControlChanged:)];
+	[[timeController minus1sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController minus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController minus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController plus1sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController plus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController plus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	
+	[[timeController slowMotionQuarterButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+	//JogControlView * jog_control = [jogController jogControl];	
+	//[jog_control setTarget:instance_];
+	//[jog_control setSelector:@selector(JogControlChanged:)];
 	
 	ShinyButton *goLiveButton = [timeController goLiveButton];	
 	[goLiveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -180,7 +194,7 @@ static RacePadTimeController * instance_ = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];
-	[jogController.view setAlpha:0.0];
+	//[jogController.view setAlpha:0.0];
 	
 	if(addOnOptionsView)
 	{
@@ -198,7 +212,7 @@ static RacePadTimeController * instance_ = nil;
 	if([finished intValue] == 1)
 	{
 		[timeController.view removeFromSuperview];
-		[jogController.view removeFromSuperview];
+		//[jogController.view removeFromSuperview];
 		displayed = false;
 		
 		// Release any existing add on from an old view controller
@@ -286,20 +300,33 @@ static RacePadTimeController * instance_ = nil;
 }
 
 
-- (void) updatePlayButton
+- (void) updatePlayButtons
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	UIBarButtonItem * play_button = [timeController playButton];	
+	UIButton * slow_button = [timeController slowMotionQuarterButton];	
 	
 	if(play_button)
 	{
-		if([coordinator playing])
+		if([coordinator playingRealTime])
 		{
 			[play_button setImage:[UIImage imageNamed:@"pause.png"]];
 		}
 		else
 		{
 			[play_button setImage:[UIImage imageNamed:@"play.png"]];
+		}
+	}
+	
+	if(slow_button)
+	{
+		if([coordinator playing] && ![coordinator playingRealTime])
+		{
+			[slow_button setImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+		}
+		else
+		{
+			[slow_button setImage:[UIImage imageNamed:@"SlowMotion.png"] forState:UIControlStateNormal];
 		}
 	}
 	
@@ -336,19 +363,48 @@ static RacePadTimeController * instance_ = nil;
 
 - (IBAction)PlayPressed:(id)sender
 {
-	[jogController killUpdateTimer];	// Just in case it got stuck on
-
+	//[jogController killUpdateTimer];	// Just in case it got stuck on
+	
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
-	if([coordinator playing])
+	if([coordinator playingRealTime])
 	{
 		[coordinator userPause];
-		[self updatePlayButton];
+		[self updatePlayButtons];
 	}
 	else
 	{
+		if([coordinator playing])
+			[coordinator pausePlay];
+		
+		[coordinator setPlaybackRate:1.0];
 		[coordinator prepareToPlay];
 		[coordinator startPlay];
-		[self updatePlayButton];
+		[self updatePlayButtons];
+	}
+	
+	[self setHideTimer];
+}
+
+- (IBAction)SlowMotionPlayPressed:(id)sender
+{
+	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
+	
+	float playbackRate = [coordinator playbackRate];
+	
+	if([coordinator playing] && ![coordinator playingRealTime])
+	{
+		[coordinator userPause];
+		[self updatePlayButtons];
+	}
+	else
+	{
+		if([coordinator playing])
+			[coordinator pausePlay];
+		
+		[coordinator setPlaybackRate:0.5];
+		[coordinator prepareToPlay];
+		[coordinator startPlay];
+		[self updatePlayButtons];
 	}
 	
 	[self setHideTimer];
@@ -369,7 +425,7 @@ static RacePadTimeController * instance_ = nil;
 
 - (void)actOnSliderValue
 {
-	[jogController killUpdateTimer];	// Just in case it got stuck on
+	//[jogController killUpdateTimer];	// Just in case it got stuck on
 	
 	UISlider * slider = [timeController timeSlider];
 	float time = [slider value];
@@ -419,7 +475,46 @@ static RacePadTimeController * instance_ = nil;
 	
 	[coordinator prepareToPlay];
 	[coordinator startPlay];
-	[self updatePlayButton];
+	[self updatePlayButtons];
+	
+	[self setHideTimer];
+}
+
+- (IBAction)JumpButtonPressed:(id)sender
+{
+	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
+	
+	[coordinator stopPlay];
+	float time = [coordinator currentTime];
+	
+	float jump = 0.0;
+	
+	if(sender == [timeController minus1sButton])
+		jump = -1.0;
+	else if(sender == [timeController minus10sButton])
+		jump = -10.0;
+	else if(sender == [timeController minus30sButton])
+		jump = -30.0;
+	else if(sender == [timeController plus1sButton])
+		jump = 1.0;
+	else if(sender == [timeController plus10sButton])
+		jump = 10.0;
+	else if(sender == [timeController plus30sButton])
+		jump = 30.0;
+																	  
+	time += jump;
+
+	UISlider * slider = [timeController timeSlider];
+	
+	if(time < [slider minimumValue])
+		time = [slider minimumValue];
+	else if(time > [slider maximumValue])
+		time = [slider maximumValue];
+			
+	[coordinator jumpToTime:time];
+	[self updateTime:time];
+	
+	[self updatePlayButtons];
 	
 	[self setHideTimer];
 }
@@ -427,7 +522,10 @@ static RacePadTimeController * instance_ = nil;
 - (IBAction)goLivePressed:(id)sender
 {
 	if ( ![[RacePadCoordinator Instance] liveMode] )
+	{
+		[[RacePadCoordinator Instance] setPlaybackRate:1.0];
 		[[RacePadCoordinator Instance] goLive:true];
+	}
 }	
 
 @end

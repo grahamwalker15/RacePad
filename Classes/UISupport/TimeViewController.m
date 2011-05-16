@@ -18,6 +18,17 @@
 @synthesize clock;
 @synthesize goLiveButton;
 
+@synthesize minus1sButton;
+@synthesize minus10sButton;
+@synthesize minus30sButton;
+
+@synthesize plus1sButton;
+@synthesize plus10sButton;
+@synthesize plus30sButton;
+
+@synthesize slowMotionHalfButton;
+@synthesize slowMotionQuarterButton;
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {

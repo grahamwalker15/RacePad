@@ -324,6 +324,9 @@
 		7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5D2C13783F3C00A82DA7 /* home.png */; };
 		7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5DAE1379403A00A82DA7 /* PitBoard.png */; };
 		7FE5A7B9138016EF0095DD10 /* TimeJumpBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */; };
+		7FE5A806138124FE0095DD10 /* HomeTabButtonBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */; };
+		7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A83113812E180095DD10 /* NewsFeed.png */; };
+		7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A9D413817F1D0095DD10 /* SlowMotion.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -753,6 +756,9 @@
 		7FCD5D2C13783F3C00A82DA7 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Images/home.png; sourceTree = "<group>"; };
 		7FCD5DAE1379403A00A82DA7 /* PitBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PitBoard.png; path = Images/PitBoard.png; sourceTree = "<group>"; };
 		7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TimeJumpBG.png; path = Images/TimeJumpBG.png; sourceTree = "<group>"; };
+		7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeTabButtonBG.png; path = Images/HomeTabButtonBG.png; sourceTree = "<group>"; };
+		7FE5A83113812E180095DD10 /* NewsFeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NewsFeed.png; path = Images/NewsFeed.png; sourceTree = "<group>"; };
+		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1188,6 +1194,9 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FE5A9D413817F1D0095DD10 /* SlowMotion.png */,
+				7FE5A83113812E180095DD10 /* NewsFeed.png */,
+				7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */,
 				7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */,
 				7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */,
 				7FCD5DAE1379403A00A82DA7 /* PitBoard.png */,
@@ -1582,6 +1591,9 @@
 				7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */,
 				7FB75AAB137A854600F7BFA0 /* DriverTextBG.png in Resources */,
 				7FE5A7B9138016EF0095DD10 /* TimeJumpBG.png in Resources */,
+				7FE5A806138124FE0095DD10 /* HomeTabButtonBG.png in Resources */,
+				7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */,
+				7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

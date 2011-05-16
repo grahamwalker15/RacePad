@@ -11,11 +11,11 @@
 @implementation RacePadVideoViewController
 
 // Override to make these do something
-- (void) displayMovie
+- (void) displayMovieInView
 {
 }
 
-- (void) removeMovie
+- (void) removeMovieFromView
 {
 }
 

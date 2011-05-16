@@ -17,6 +17,7 @@
 @implementation TrackProfileCar
 
 @synthesize name;
+@synthesize team;
 @synthesize lapProgress;
 @synthesize moving;
 @synthesize pitted;
@@ -386,6 +387,7 @@ static UIImage *grassImage = nil;
 	
 	[view SetFGColour:[view light_grey_]];		
 	[view LineX0:px Y0:y0 X1:px Y1:y1];
+	[view SetFGColour:[UIColor colorWithRed:0.5 green:0.8 blue:0.8 alpha:1.0]];		
 	[view DrawString:turnName AtX:px - w * 0.5 Y:y1 - h - 1];
 }
 
@@ -505,6 +507,7 @@ static UIImage *grassImage = nil;
 				{
 					NSNumber *n = [NSNumber numberWithInt:-xval];
 					NSString *s = [n stringValue];
+					s = [s stringByAppendingString:@"s"];
 					float w, h;
 					[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
 					[view DrawString:s AtX:xRight - w / 2 Y:x_axis + 4];
@@ -512,6 +515,7 @@ static UIImage *grassImage = nil;
 					n = [NSNumber numberWithInt:xval];
 					s = @"+";
 					s = [s stringByAppendingString:[n stringValue]];
+					s = [s stringByAppendingString:@"s"];
 					[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
 					[view DrawString:s AtX:xLeft - w / 2 Y:x_axis + 4];
 				}

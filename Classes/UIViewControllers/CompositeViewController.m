@@ -24,6 +24,7 @@
 
 @implementation CompositeViewController
 
+@synthesize displayVideo;
 @synthesize displayMap;
 @synthesize displayLeaderboard;
 
@@ -32,6 +33,7 @@
 	// Initialise display options
 	displayMap = true;
 	displayLeaderboard = true;
+	displayVideo = true;
 	
 	moviePlayerLayerAdded = false;
 	
@@ -105,11 +107,6 @@
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	
-	// Check that we have the right movie loaded
-	[[RacePadMedia Instance] verifyMovieLoaded];
-	
-	// and register us to play it
-	[[RacePadMedia Instance] RegisterViewController:self];
 	
 	if([trackZoomView carToFollow] != nil)
 	{
@@ -117,7 +114,15 @@
 		[trackZoomContainer setHidden:false];
 	}
 	
-	[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
+	if(displayVideo)
+	{
+		// Check that we have the right movie loaded
+		[[RacePadMedia Instance] verifyMovieLoaded];
+	
+		// and register us to play it
+		[[RacePadMedia Instance] RegisterViewController:self];
+		[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
+	}
 	
 	if(displayMap)
 	{
@@ -133,7 +138,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[[RacePadCoordinator Instance] SetViewHidden:movieView];
+	if(displayVideo)
+	{
+		[[RacePadCoordinator Instance] SetViewHidden:movieView];
+		[[RacePadMedia Instance] ReleaseViewController:self];
+	}
 
 	if(displayMap)
 	{
@@ -147,7 +156,6 @@
 	}
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	[[RacePadMedia Instance] ReleaseViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -216,14 +224,12 @@
 // Movie routines
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) displayMovie
-{
-	// DO NOT CALL DIRECTLY - THIS IS CALLED BY RACEPADMEDIA
-	
+- (void) displayMovieInView
+{	
 	// Position the movie and order the overlays
 	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];
 	
-	if(moviePlayerLayer)
+	if(moviePlayerLayer && !moviePlayerLayerAdded)
 	{
 		CALayer *superlayer = movieView.layer;
 		
@@ -242,10 +248,8 @@
 	[self positionOverlays];	
 }
 
-- (void) removeMovie
+- (void) removeMovieFromView
 {
-	// DO NOT CALL DIRECTLY - THIS IS CALLED BY RACEPADMEDIA
-	
 	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];
 	if(moviePlayerLayer && moviePlayerLayerAdded)
 	{
@@ -543,36 +547,100 @@
 	
 	int selectedSegment = [optionSwitches selectedSegmentIndex];
 	
-	if(selectedSegment == 0)
+	if(selectedSegment == 0)	// Video only
 	{
-		displayMap = false;
-		displayLeaderboard = false;
-		[trackMapView setHidden:true];
-		[trackZoomContainer setHidden:true];
-		[leaderboardView setHidden:true];
-		[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
-		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-		[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
-	}
-	else
-	{
-		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
-		displayMap = true;
-		displayLeaderboard = true;
-		[trackMapView setHidden:false];
-		[leaderboardView setHidden:false];
-		
-		[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
-		
-		[trackMapView RequestRedraw];
-		[leaderboardView RequestRedraw];
-		
-		if(zoomMapVisible)
+		if(displayMap)
 		{
-			[trackZoomContainer setHidden:false];
-			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
-			[trackZoomView RequestRedraw];
+			displayMap = false;
+			displayLeaderboard = false;
+			[trackMapView setHidden:true];
+			[trackZoomContainer setHidden:true];
+			[leaderboardView setHidden:true];
+			[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+			[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+			[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+		}
+		
+		if(!displayVideo)
+		{
+			// Check that we have the right movie loaded
+			[[RacePadMedia Instance] verifyMovieLoaded];
+			
+			// and register us to play it
+			[[RacePadMedia Instance] RegisterViewController:self];
+
+			// Make sure to do this last, as this will force a start of play or seek
+			[[RacePadCoordinator Instance] SetViewDisplayed:movieView];		
+			displayVideo = true;
+		}
+	}
+	else if(selectedSegment == 2)	// Map only
+	{
+		if(!displayMap)
+		{
+			bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
+			displayMap = true;
+			displayLeaderboard = true;
+			[trackMapView setHidden:false];
+			[leaderboardView setHidden:false];
+			
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+			
+			[trackMapView RequestRedraw];
+			[leaderboardView RequestRedraw];
+			
+			if(zoomMapVisible)
+			{
+				[trackZoomContainer setHidden:false];
+				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+				[trackZoomView RequestRedraw];
+			}
+		}
+		
+		if(displayVideo)
+		{
+			[[RacePadMedia Instance] ReleaseViewController:self];
+			[[RacePadCoordinator Instance] SetViewHidden:movieView];		
+			displayVideo = false;
+		}
+	}
+	else	// Video and map
+	{
+		if(!displayMap)
+		{
+			bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
+			displayMap = true;
+			displayLeaderboard = true;
+			[trackMapView setHidden:false];
+			[leaderboardView setHidden:false];
+			
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+			
+			[trackMapView RequestRedraw];
+			[leaderboardView RequestRedraw];
+			
+			if(zoomMapVisible)
+			{
+				[trackZoomContainer setHidden:false];
+				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+				[trackZoomView RequestRedraw];
+			}
+		}
+				
+		if(!displayVideo)
+		{
+			// Check that we have the right movie loaded
+			[[RacePadMedia Instance] verifyMovieLoaded];
+			
+			// and register us to play it
+			[[RacePadMedia Instance] RegisterViewController:self];
+
+			displayVideo = true;
+			
+			// Make sure to do this last, as this will force a start of play or seek
+			[[RacePadCoordinator Instance] SetViewDisplayed:movieView];		
 		}
 	}	
 

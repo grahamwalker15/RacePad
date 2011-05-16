@@ -13,7 +13,7 @@
 
 }
 
-- (void) displayMovie;
-- (void) removeMovie;
+- (void) displayMovieInView;
+- (void) removeMovieFromView;
 
 @end
