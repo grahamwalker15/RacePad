@@ -20,16 +20,15 @@
     [super dealloc];
 }
 
+-(void) setFilter:(int) type
+{
+	filter = type;
+}
+
 - (void)PrepareData
 {
 	[super PrepareData];
 	[self SetBaseColour:white_];
-}
-
-- (int) RowCount
-{
-	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-	return [alertData itemCount];
 }
 
 - (int) ColumnCount
@@ -83,12 +82,71 @@
 	}
 }
 
+- (bool) includeRow:(int) row
+{
+	if ( filter == AV_ALL_ )
+		return true;
+	
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	int type = [[alertData itemAtIndex:row] type];
+	
+	switch (type)
+	{
+		case ALERT_OVERTAKE_:
+			return filter == AV_OVERTAKE_;
+		case ALERT_PIT_STOP_:
+			return filter == AV_PIT_;
+		case ALERT_RACE_EVENT_:
+		case ALERT_USER_EVENT_:
+		case ALERT_GREEN_FLAG_:
+		case ALERT_RED_FLAG_:
+		case ALERT_SAFETY_CAR_:
+		case ALERT_CHEQUERED_FLAG_:
+			return filter == AV_EVENT_;
+		default:
+			return filter == AV_OTHER_;
+	}				
+}
+
+- (int) RowCount
+{
+	int count = 0;
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	if ( filter == AV_ALL_ )
+		return [alertData itemCount];
+	
+	for (int i = 0 ; i < [alertData itemCount] ; i++)
+		if ( [self includeRow:i] )
+			count++;
+	
+	return count;
+}
+
+- (int) filteredRowToDataRow:(int) row
+{
+	if ( filter == AV_ALL_ )
+		return row;
+	
+	int filteredRow = 0;
+	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	for (int i = 0 ; i < [alertData itemCount] ; i++)
+		if ( [self includeRow:i] )
+		{
+			if ( filteredRow == row )
+				return i;
+			filteredRow++;
+		}
+	
+	return 0;
+}
+
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col
 {
 	[self SetTextColour:black_];
 	[self SetBackgroundColour:white_];
 	
 	AlertData * alertData = [[RacePadDatabase Instance] alertData];
+	int dataRow = [self filteredRowToDataRow:row];
 
 	switch (col)
 	{
@@ -98,11 +156,11 @@
 		}
 		case 1:
 		{
-			return [NSString stringWithFormat:@"L%d", [[alertData itemAtIndex:row] lap]];
+			return [NSString stringWithFormat:@"L%d", [[alertData itemAtIndex:dataRow] lap]];
 		}
 		case 2:
 		{
-			return [[alertData itemAtIndex:row] description];
+			return [[alertData itemAtIndex:dataRow] description];
 		}
 		default:
 		{
@@ -119,7 +177,8 @@
 		return nil;
 	
 	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-	int type = [[alertData itemAtIndex:row] type];
+	int dataRow = [self filteredRowToDataRow:row];
+	int type = [[alertData itemAtIndex:dataRow] type];
 
 	switch (type)
 	{

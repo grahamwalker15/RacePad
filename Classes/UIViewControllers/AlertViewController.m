@@ -82,8 +82,9 @@
 
 - (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
+	int dataRow = [ alertView filteredRowToDataRow:row];
 	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-	float time = [[alertData itemAtIndex:row] timeStamp];
+	float time = [[alertData itemAtIndex:dataRow] timeStamp];
 	[[RacePadCoordinator Instance] jumpToTime:time];
 	[[RacePadTimeController Instance] updateClock:time];
 	
@@ -114,6 +115,13 @@
 	{
 		[parentPopover dismissPopoverAnimated:true];
 	}
+}
+
+- (IBAction) typeChosen:(id)sender
+{
+	int v = typeChooser.selectedSegmentIndex;
+	[alertView setFilter:v];
+	[alertView RequestRedraw];
 }
 
 @end

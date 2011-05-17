@@ -15,6 +15,7 @@
 {
 	IBOutlet AlertView * alertView;
 	IBOutlet UIBarButtonItem * closeButton;
+	IBOutlet UISegmentedControl * typeChooser;
 	
 	UIPopoverController * parentPopover;
 }
@@ -24,5 +25,6 @@
 - (void) dismissTimerExpired:(NSTimer *)theTimer;
 
 - (IBAction) closePressed:(id)sender;
+- (IBAction) typeChosen:(id)sender;
 
 @end
