@@ -556,7 +556,7 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	if([gestureView isKindOfClass:[ShinyButton class]]) // Prevents time controllers being invoked on button press
+	if([gestureView isKindOfClass:[UIButton class]]) // Prevents time controllers being invoked on button press
 	{
 		return;
 	}
