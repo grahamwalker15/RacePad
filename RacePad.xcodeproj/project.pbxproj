@@ -327,6 +327,7 @@
 		7FE5A806138124FE0095DD10 /* HomeTabButtonBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */; };
 		7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A83113812E180095DD10 /* NewsFeed.png */; };
 		7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A9D413817F1D0095DD10 /* SlowMotion.png */; };
+		7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -759,6 +760,7 @@
 		7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeTabButtonBG.png; path = Images/HomeTabButtonBG.png; sourceTree = "<group>"; };
 		7FE5A83113812E180095DD10 /* NewsFeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NewsFeed.png; path = Images/NewsFeed.png; sourceTree = "<group>"; };
 		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
+		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1194,6 +1196,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */,
 				7FE5A9D413817F1D0095DD10 /* SlowMotion.png */,
 				7FE5A83113812E180095DD10 /* NewsFeed.png */,
 				7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */,
@@ -1594,6 +1597,7 @@
 				7FE5A806138124FE0095DD10 /* HomeTabButtonBG.png in Resources */,
 				7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */,
 				7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */,
+				7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

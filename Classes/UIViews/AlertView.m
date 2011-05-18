@@ -50,7 +50,7 @@
 		case 1:
 			return 50;
 		case 2:
-			return 420;
+			return 620;
 		default:
 			return 0;
 	}

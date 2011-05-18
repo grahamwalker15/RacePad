@@ -26,8 +26,7 @@
 @synthesize plus10sButton;
 @synthesize plus30sButton;
 
-@synthesize slowMotionHalfButton;
-@synthesize slowMotionQuarterButton;
+@synthesize slowMotionButton;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad

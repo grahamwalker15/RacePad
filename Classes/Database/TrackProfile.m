@@ -391,7 +391,7 @@ static UIImage *grassImage = nil;
 	[view DrawString:turnName AtX:px - w * 0.5 Y:y1 - h - 1];
 }
 
-- (void) drawTrack : (TrackProfileView *) view Offset:(float)offset
+- (void) drawTrack : (TrackProfileView *)view Offset:(float)offset
 {
 	if ( kerbImage == nil )
 	{
@@ -593,9 +593,9 @@ static UIImage *grassImage = nil;
 				int carBehind = carAhead > 0 ? carAhead - 1 : (carCount - 1);
 				
 				while(carBehind != biggestGapCar &&
-					  ![[cars objectAtIndex:carBehind] moving] &&
-					  ![[cars objectAtIndex:carBehind] stopped] &&
-					  ![[cars objectAtIndex:carBehind] pitted])
+					  (![[cars objectAtIndex:carBehind] moving] ||
+					   [[cars objectAtIndex:carBehind] stopped] ||
+					   [[cars objectAtIndex:carBehind] pitted]))
 				{
 					[[cars objectAtIndex:carBehind] setRow:0];
 					carBehind = carBehind > 0 ? carBehind - 1 : (carCount - 1);
@@ -611,7 +611,7 @@ static UIImage *grassImage = nil;
 				
 				double gap = lapProgress_1 - lapProgress_2;
 				
-				int row = (gap > 5.0) ? row = 0 : lastRow + 1;
+				int row = (gap > 3.0) ? 0 : lastRow + 1;
 				
 				if(row > 4)
 					row = 0;

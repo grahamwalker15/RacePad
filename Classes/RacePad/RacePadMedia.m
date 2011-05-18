@@ -423,7 +423,7 @@ static RacePadMedia * instance_ = nil;
 
 - (void) movieStop
 {
-	moviePausedInPlace = false;
+	moviePausedInPlace = true;
 	[moviePlayer pause];	
 	moviePlayPending = false;
 }
@@ -440,7 +440,7 @@ static RacePadMedia * instance_ = nil;
 			movie_time = movie_time + streamSeekStartTime - [[RacePadCoordinator Instance] serverTimeOffset];
 			
 		// Shouldn't need to do anything if we're just continuing after a clean pause
-		if(moviePausedInPlace && fabs(movie_time - currentMovieTimeSeconds) < 0.2)
+		if(moviePausedInPlace && fabs(movie_time - currentMovieTimeSeconds) < 0.8)
 			return;
 		
 		NSArray *seekableTimeRanges = [moviePlayerItem seekableTimeRanges];
@@ -514,35 +514,68 @@ static RacePadMedia * instance_ = nil;
 {
 	if(moviePlayerObserver)
 	{
+		AVPlayerItemStatus status = [moviePlayer status];
+		if(status ==  AVPlayerItemStatusFailed)
+		{
+			NSError * error = [moviePlayer error];
+			NSString * description = [error localizedDescription];
+			NSString * reason = [error localizedFailureReason];
+			int x = 0;
+		}
+
 		[self getStartTime];
 	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+	if(!object)
+		return;
 	
-    if (object && object == moviePlayerItem && [keyPath isEqualToString:@"status"])
+    if (object == moviePlayerItem)
 	{
-		if(!moviePlayable && [object status] == AVPlayerItemStatusReadyToPlay)
+		if([keyPath isEqualToString:@"status"])
 		{
-			moviePlayable = true;
+			if(!moviePlayable && [object status] == AVPlayerItemStatusReadyToPlay)
+			{
+				moviePlayable = true;
+				
+				float time_of_day = [[RacePadCoordinator Instance] currentTime];
+				[self getStartTime];
+				
+				if(movieType == MOVIE_TYPE_ARCHIVE_ || ![[RacePadCoordinator Instance] liveMode])
+					[self movieGotoTime:time_of_day];
+				
+				if(moviePlayPending)
+					[self moviePlay];
+			}
 			
-			float time_of_day = [[RacePadCoordinator Instance] currentTime];
-			[self getStartTime];
-			
-			if(movieType == MOVIE_TYPE_ARCHIVE_ || ![[RacePadCoordinator Instance] liveMode])
-				[self movieGotoTime:time_of_day];
-			
-			if(moviePlayPending)
-				[self moviePlay];
+			if([object status] ==  AVPlayerItemStatusFailed)
+			{
+				NSError * error = [object error];
+				NSString * description = [error localizedDescription];
+				NSString * reason = [error localizedFailureReason];
+				int x = 0;
+			}
 		}
-		
-		if([object status] ==  AVPlayerItemStatusFailed)
+	}
+	
+	if (object == moviePlayer)
+	{
+		if([keyPath isEqualToString:@"status"])
 		{
-			NSError * error = [object error];
-			NSString * description = [error localizedDescription];
-			NSString * reason = [error localizedFailureReason];
-			int x = 0;
+			if([object status] == AVPlayerItemStatusReadyToPlay)
+			{
+				int x = 0;
+			}
+			
+			if([object status] ==  AVPlayerItemStatusFailed)
+			{
+				NSError * error = [object error];
+				NSString * description = [error localizedDescription];
+				NSString * reason = [error localizedFailureReason];
+				int x = 0;
+			}
 		}
 	}
 }

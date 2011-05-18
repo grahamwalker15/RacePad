@@ -152,7 +152,7 @@ static RacePadTimeController * instance_ = nil;
 	[[timeController plus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	[[timeController plus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
-	[[timeController slowMotionQuarterButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController slowMotionButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
 
 	//JogControlView * jog_control = [jogController jogControl];	
 	//[jog_control setTarget:instance_];
@@ -304,7 +304,7 @@ static RacePadTimeController * instance_ = nil;
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	UIBarButtonItem * play_button = [timeController playButton];	
-	UIButton * slow_button = [timeController slowMotionQuarterButton];	
+	UIButton * slow_button = [timeController slowMotionButton];	
 	
 	if(play_button)
 	{
@@ -322,7 +322,7 @@ static RacePadTimeController * instance_ = nil;
 	{
 		if([coordinator playing] && ![coordinator playingRealTime])
 		{
-			[slow_button setImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+			[slow_button setImage:[UIImage imageNamed:@"SlowMotionPause.png"] forState:UIControlStateNormal];
 		}
 		else
 		{
@@ -388,8 +388,6 @@ static RacePadTimeController * instance_ = nil;
 - (IBAction)SlowMotionPlayPressed:(id)sender
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
-	
-	float playbackRate = [coordinator playbackRate];
 	
 	if([coordinator playing] && ![coordinator playingRealTime])
 	{
@@ -484,6 +482,9 @@ static RacePadTimeController * instance_ = nil;
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	
+	bool playing = [coordinator playing];
+	bool playingRealTime = [coordinator playingRealTime];
+	
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
 	
@@ -514,7 +515,19 @@ static RacePadTimeController * instance_ = nil;
 	[coordinator jumpToTime:time];
 	[self updateTime:time];
 	
+	if(playing)
+	{
+		if(!playingRealTime)
+			[coordinator setPlaybackRate:0.5];
+		else
+			[coordinator setPlaybackRate:1.0];
+
+		[coordinator prepareToPlay];
+		[coordinator startPlay];
+	}
+	
 	[self updatePlayButtons];
+	
 	
 	[self setHideTimer];
 }
