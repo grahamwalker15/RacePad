@@ -59,7 +59,7 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 
 - (id)CreateSocket /*(SocketConnection * parent, char * buffer)*/;
 - (void)DeleteSocket;
-- (void)ConnectSocket : (char *) server_address Port:(int) port;
+- (void)ConnectSocket : (const char *) server_address Port:(int) port;
 
 - (void)OnConnect:(CFSocketRef) socket_ref Error:(CFSocketError) error;
 - (void)OnReceive:(CFSocketRef) socket_ref Data:(CFDataRef)data;

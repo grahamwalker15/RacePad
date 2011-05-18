@@ -56,7 +56,7 @@
 	//KillReconnectTimer();
 }
 
--(void)ConnectSocket:(char *) server_address Port:(int) port
+-(void)ConnectSocket:(const char *) server_address Port:(int) port
 {
 	//KillReconnectTimer();
 	
