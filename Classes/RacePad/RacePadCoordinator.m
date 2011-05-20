@@ -65,9 +65,9 @@ static RacePadCoordinator * instance_ = nil;
 {
 	if(self =[super init])
 	{		
-		currentTime = 14 * 3600 + 10 * 60 + 0;
-		startTime = 14 * 3600 + 0 * 60 + 0;
-		endTime = 16 * 3600 + 0 * 60 + 0;
+		currentTime = [ElapsedTime LocalTimeOfDay];
+		startTime = currentTime;
+		endTime = currentTime + 7200;
 		
 		playbackRate = 1.0;
 		activePlaybackRate = 1.0;
@@ -445,7 +445,6 @@ static RacePadCoordinator * instance_ = nil;
 	currentTime = time;
 	live = false;
 	
-	[settingsViewController updateConnectionType];
 	[[RacePadTimeController Instance] updatePlayButtons];
 	[self showSnapshot];
 }

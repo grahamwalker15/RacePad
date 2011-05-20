@@ -82,6 +82,9 @@ static RacePadSponsor * instance_ = nil;
 {
 	NSNumber *v = [[RacePadPrefs Instance] getPref:@"supportVideo"];
 	bool videoSupported = v ? [v boolValue] : true;
+	
+	if(tab == RPS_INFO_TAB_)
+		return false;
 
 	if ( sponsor == RPS_UNKNOWN_ )
 	{
@@ -103,7 +106,6 @@ static RacePadSponsor * instance_ = nil;
 	}
 	else
 	{
-
 		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
 			return false;
 		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)

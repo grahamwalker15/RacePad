@@ -27,6 +27,8 @@
 @synthesize movieSeekTime;
 
 @synthesize currentMovie;
+@synthesize currentStatus;
+@synthesize currentError;
 
 @synthesize movieLoaded;
 @synthesize moviePlayable;
@@ -34,7 +36,6 @@
 @synthesize movieSeekable;
 @synthesize movieSeekPending;
 @synthesize moviePausedInPlace;
-
 
 @synthesize movieType;
 
@@ -53,6 +54,9 @@ static RacePadMedia * instance_ = nil;
 	if(self = [super init])
 	{	
 		currentMovie = nil;
+		
+		currentStatus = RPM_NOT_CONNECTED_;
+		currentError = nil;
 		
 		moviePlayer = nil;
 		moviePlayerItem = nil;
@@ -98,6 +102,14 @@ static RacePadMedia * instance_ = nil;
 - (void)connectToVideoServer
 {
 	[[RacePadCoordinator Instance] setVideoConnectionType:RPC_VIDEO_LIVE_CONNECTION_];
+	
+	currentStatus = RPM_TRYING_TO_CONNECT_;
+	
+	[currentError release];
+	currentError = nil;
+	
+	[[RacePadCoordinator Instance] videoServerOnConnectionChange];
+
 	[self verifyMovieLoaded];
 }
 
@@ -107,9 +119,15 @@ static RacePadMedia * instance_ = nil;
 		[self unloadMovie];
 	
 	movieType = MOVIE_TYPE_NONE_;
-
+	
+	currentStatus = RPM_NOT_CONNECTED_;
+	[currentError release];
+	currentError = nil;
+	
 	[[RacePadCoordinator Instance] setVideoConnectionType:RPC_NO_CONNECTION_];
 	[[RacePadCoordinator Instance] setVideoConnectionStatus:RPC_NO_CONNECTION_];
+
+	[[RacePadCoordinator Instance] videoServerOnConnectionChange];
 }
 
 - (void)verifyMovieLoaded
@@ -182,6 +200,8 @@ static RacePadMedia * instance_ = nil;
 			 movieLoaded = true;
 			 currentMovie = [[url absoluteString] retain];
 			 
+			 currentStatus = RPM_CONNECTED_;
+			 
 			 if(movieType == MOVIE_TYPE_LIVE_STREAM_)
 			 {
 				 [[RacePadCoordinator Instance] setVideoConnectionStatus:RPC_CONNECTION_SUCCEEDED_];
@@ -198,7 +218,32 @@ static RacePadMedia * instance_ = nil;
 		 else
 		 {
 			 // Deal with the error appropriately.
+			 currentStatus = RPM_CONNECTION_FAILED_;
+			 
+			 [currentError release];
+			 currentError = nil;
+			 
+			 if(error)
+			 {
+				 NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+				 
+				 if(description)
+				 {
+					 if([error localizedFailureReason])
+					 {
+						 description = [description stringByAppendingString:@" - "];
+						 description = [description stringByAppendingString:[error localizedFailureReason]];
+		 
+					 }
+					 
+					 currentError = [description retain];
+					 [description release];
+				 }
+			 
+			 }
+
 			 [[RacePadCoordinator Instance] setVideoConnectionStatus:RPC_CONNECTION_FAILED_];
+
 			 [[RacePadCoordinator Instance] videoServerOnConnectionChange];
 
 			 [currentMovie release];
@@ -292,7 +337,7 @@ static RacePadMedia * instance_ = nil;
 		
 		movieType = MOVIE_TYPE_LIVE_STREAM_;
 	}
-	else
+	else if([[RacePadCoordinator Instance] connectionType] == RPC_ARCHIVE_CONNECTION_)
 	{
 		NSString * urlString = [self getVideoArchiveName];
 		if(urlString && [urlString length] > 0)
@@ -518,9 +563,29 @@ static RacePadMedia * instance_ = nil;
 		if(status ==  AVPlayerItemStatusFailed)
 		{
 			NSError * error = [moviePlayer error];
-			NSString * description = [error localizedDescription];
-			NSString * reason = [error localizedFailureReason];
-			int x = 0;
+			
+			[currentError release];
+			currentError = nil;
+			
+			if(error)
+			{
+				NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+				
+				if(description)
+				{
+					if([error localizedFailureReason])
+					{
+						description = [description stringByAppendingString:@" - "];
+						description = [description stringByAppendingString:[error localizedFailureReason]];
+					}
+					
+					currentError = [description retain];
+					[description release];
+				}
+				
+			}
+			
+			[[RacePadCoordinator Instance] videoServerOnConnectionChange];
 		}
 
 		[self getStartTime];
@@ -553,9 +618,28 @@ static RacePadMedia * instance_ = nil;
 			if([object status] ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
-				NSString * description = [error localizedDescription];
-				NSString * reason = [error localizedFailureReason];
-				int x = 0;
+
+				[currentError release];
+				currentError = nil;
+				
+				if(error)
+				{
+					NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+					
+					if(description)
+					{
+						if([error localizedFailureReason])
+						{
+							description = [description stringByAppendingString:@" - "];
+							description = [description stringByAppendingString:[error localizedFailureReason]];
+						}
+						
+						currentError = [description retain];
+						[description release];
+					}
+				}
+				
+				[[RacePadCoordinator Instance] videoServerOnConnectionChange];
 			}
 		}
 	}
@@ -572,9 +656,28 @@ static RacePadMedia * instance_ = nil;
 			if([object status] ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
-				NSString * description = [error localizedDescription];
-				NSString * reason = [error localizedFailureReason];
-				int x = 0;
+
+				[currentError release];
+				currentError = nil;
+				
+				if(error)
+				{
+					NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+					
+					if(description)
+					{
+						if([error localizedFailureReason])
+						{
+							description = [description stringByAppendingString:@" - "];
+							description = [description stringByAppendingString:[error localizedFailureReason]];							
+						}
+						
+						currentError = [description retain];
+						[description release];
+					}					
+				}
+				
+				[[RacePadCoordinator Instance] videoServerOnConnectionChange];
 			}
 		}
 	}

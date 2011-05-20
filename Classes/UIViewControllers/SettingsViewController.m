@@ -201,7 +201,7 @@
 		[loadArchive setEnabled:NO];
 }
 
-- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
+- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible.
 {
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_SETTINGS_VIEW_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:[self view]];
@@ -264,22 +264,46 @@
 		[status setText:@"Working offline"];
 	}
 	
-	if ( [[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_SUCCEEDED_ )
+	if ( [[RacePadMedia Instance] currentStatus] == RPM_CONNECTED_ )
 	{
 		[video_connect setTitle:@"Disconnect" forState:UIControlStateNormal];
 		[video_status setText:@"Connected to server"];
+		[videoServerTwirl stopAnimating];
+		[videoServerTwirl setHidden:true];
 	}
 	else
 	{
 		[video_connect setTitle:@"Connect" forState:UIControlStateNormal];
 		
-		if([[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_FAILED_ )
+		if( [[RacePadMedia Instance] currentStatus] == RPM_CONNECTION_ERROR_ )
 		{
-			[video_status setText:@"Connection failed"];
-			[videoServerTwirl setHidden:true];
+			NSString * reportString = [NSString  stringWithString:@"Connection error :"];
+			if([[RacePadMedia Instance] currentError])
+				reportString = [reportString stringByAppendingString:[[RacePadMedia Instance] currentError]];
+			else
+				reportString = [reportString stringByAppendingString:@"Unknown error"];
+			
+			[video_status setText:reportString];
 			[videoServerTwirl stopAnimating];
+			[videoServerTwirl setHidden:true];
+			
+			[reportString release];
 		}
-		else if([[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_CONNECTING_ )
+		else if( [[RacePadMedia Instance] currentStatus] == RPM_CONNECTION_FAILED_ )
+		{
+			NSString * reportString = [NSString stringWithString:@"Connection failed :"];
+			
+			if([[RacePadMedia Instance] currentError])
+				reportString = [reportString stringByAppendingString:[[RacePadMedia Instance] currentError]];
+			else
+				reportString = [reportString stringByAppendingString:@"Unknown error"];
+			
+			[video_status setText:reportString];
+			[videoServerTwirl stopAnimating];
+			[videoServerTwirl setHidden:true];
+			
+		}
+		else if( [[RacePadMedia Instance] currentStatus] == RPM_TRYING_TO_CONNECT_ )
 		{
 			[video_status setText:@"Connecting...."];
 			[videoServerTwirl setHidden:false];

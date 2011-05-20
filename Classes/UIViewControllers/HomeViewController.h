@@ -15,13 +15,13 @@
 
 @interface HomeViewController : RacePadViewController
 {
-	IBOutlet ShinyButton * button1;	
-	IBOutlet ShinyButton * button2;	
-	IBOutlet ShinyButton * button3;	
-	IBOutlet ShinyButton * button4;	
-	IBOutlet ShinyButton * button5;	
-	IBOutlet ShinyButton * button6;	
-	IBOutlet ShinyButton * button7;	
+	IBOutlet UIButton * button1;	
+	IBOutlet UIButton * button2;	
+	IBOutlet UIButton * button3;	
+	IBOutlet UIButton * button4;	
+	IBOutlet UIButton * button5;	
+	IBOutlet UIButton * button6;	
+	IBOutlet UIButton * button7;	
 }
 
 - (void) updateButtons;

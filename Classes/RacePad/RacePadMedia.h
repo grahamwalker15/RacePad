@@ -26,6 +26,16 @@ enum MovieTypes
 	MOVIE_TYPE_LIVE_STREAM_
 } ;
 
+// Connection status
+enum MovieConnectionTypes
+{
+	RPM_NOT_CONNECTED_,
+	RPM_CONNECTED_,
+	RPM_TRYING_TO_CONNECT_,
+	RPM_CONNECTION_FAILED_,
+	RPM_CONNECTION_ERROR_,
+} ;
+
 @interface RacePadMedia : NSObject
 {				
 	AVURLAsset * moviePlayerAsset;
@@ -40,6 +50,9 @@ enum MovieTypes
 	float streamSeekStartTime;
 	
 	NSString *currentMovie;
+	
+	int currentStatus;
+	NSString *currentError;
 	
 	bool movieLoaded;
 	bool moviePlayable;
@@ -70,6 +83,9 @@ enum MovieTypes
 @property (readonly) float movieSeekTime;
 
 @property (readonly) NSString *currentMovie;
+
+@property (readonly) int currentStatus;
+@property (readonly) NSString *currentError;
 
 @property (readonly) bool movieLoaded;
 @property (readonly) bool moviePlayable;
