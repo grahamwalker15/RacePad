@@ -14,6 +14,7 @@
 {
 	bool isZoomView;
 	bool isOverlayView;
+	bool smallSized;
 	
 	float homeXOffset;
 	float homeYOffset;	
@@ -34,6 +35,7 @@
 
 @property (nonatomic) bool isZoomView;
 @property (nonatomic) bool isOverlayView;
+@property (nonatomic) bool smallSized;
 
 @property (nonatomic) float homeXOffset;
 @property (nonatomic) float homeYOffset;

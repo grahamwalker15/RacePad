@@ -89,6 +89,12 @@
 	float boxWidth = 48;
 	float boxHeight = 22;
 	
+	if ( [view smallSized] )
+	{
+		boxWidth = 30;
+		boxHeight = 15;
+	}
+	
 	CGPoint p = CGPointMake(x, y);
 	CGPoint tp = [view TransformPoint:p];
 	
@@ -132,7 +138,10 @@
 			else
 				[view SetFGColour:textColour];
 
-			[view DrawString:name AtX:px + 7 Y:py - 20];
+			if ( [view smallSized] )
+				[view DrawString:name AtX:px + 6 Y:py - 13];
+			else
+				[view DrawString:name AtX:px + 7 Y:py - 20];
 		}
 	}
 }
@@ -778,7 +787,10 @@
 
 - (void) drawCars : (TrackMapView *) view Scale:(float)scale
 {
-	[view UseRegularFont];
+	if ( [view smallSized] )
+		[view UseControlFont];
+	else
+		[view UseRegularFont];
 	
 	int i;
 	for ( i = 0; i < carCount; i++ )

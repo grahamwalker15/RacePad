@@ -101,6 +101,8 @@
 		[self setAllSelected:true];	
 	}
 
+	[[RacePadCoordinator Instance] restartCommentary];
+
 	animating = false;
 	showPending = false;
 	hidePending = false;
@@ -173,24 +175,27 @@
 	CGRect mapRect;
 	CGRect normalMapRect;
 	float mapWidth;
+	float mapHeight;
 	
 	if(trackMapExpanded)
 	{
 		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		mapRect = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
+		mapHeight = mapWidth / 2;
+		mapRect = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapHeight);
 		float normalMapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
 		normalMapRect = CGRectMake(bg_frame.size.width - normalMapWidth, 20, normalMapWidth, normalMapWidth);
 	}
 	else
 	{
 		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
-		mapRect = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
+		mapHeight = mapWidth;
+		mapRect = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapHeight);
 		normalMapRect = mapRect;
 	}
 	
 	[trackMapContainer setFrame:mapRect];
 	
-	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
+	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapHeight)];
 	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
 		
 	[self addBackgroundFrames];
@@ -242,7 +247,7 @@
 	if(trackMapExpanded)
 	{
 		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		animationRectEnd = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth);
+		animationRectEnd = CGRectMake(bg_frame.size.width - inset - mapWidth, 20, mapWidth, mapWidth/2);
 	}
 	else
 	{

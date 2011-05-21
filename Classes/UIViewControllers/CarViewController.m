@@ -40,6 +40,7 @@
 	trackMapPinched = false;
 	backupUserScale = 1.0;	// Used for switching track map mode between zoom and full
 	[trackMapView setIsZoomView:true];
+	[trackMapView setSmallSized:true];
 	
 	[trackMapView setUserScale:10.0];
 	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
@@ -562,17 +563,20 @@
 	CGRect mapRect;
 	CGRect normalMapRect;
 	float mapWidth;
+	float mapHeight;
 	
 	if(trackMapExpanded)
 	{
 		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		mapHeight = mapWidth / 2;
+		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapHeight);
 		float normalMapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
 		normalMapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - normalMapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - normalMapWidth) / 2, normalMapWidth, normalMapWidth);
 	}
 	else
 	{
 		mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 240 : 220;
+		mapHeight = mapWidth;
 		mapRect = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth -10, telemetry_frame.origin.y + (telemetry_frame.size.height - mapWidth) / 2, mapWidth, mapWidth);
 		normalMapRect = mapRect;
 	}
@@ -580,8 +584,8 @@
 	[trackMapContainer setFrame:mapRect];
 	[telemetryView setMapRect:CGRectOffset(normalMapRect, -telemetry_frame.origin.x, -telemetry_frame.origin.y)];
 	
-	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapWidth)];
-	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
+	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapHeight)];
+	[trackMapSizeButton setFrame:CGRectMake(4, mapHeight - 24, 20, 20)];
 	
 	[self addBackgroundFrames];
 }
@@ -650,7 +654,7 @@
 	if(trackMapExpanded)
 	{
 		float mapWidth = (orientation == UI_ORIENTATION_PORTRAIT_) ? 600 : 500;
-		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth);
+		animationRectEnd = CGRectMake(telemetry_frame.origin.x + telemetry_frame.size.width - mapWidth - 10, telemetry_frame.origin.y + 10, mapWidth, mapWidth/2);
 	}
 	else
 	{
