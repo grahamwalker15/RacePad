@@ -780,8 +780,21 @@
 {
 	[view UseRegularFont];
 	
-	for ( int i = 0; i < carCount; i++ )
-		[[cars objectAtIndex:i] draw:view OnMap:self Scale:scale];
+	int i;
+	for ( i = 0; i < carCount; i++ )
+	{
+		TrackCar *car = [cars objectAtIndex:i];
+		bool isFollowCar = ([[view carToFollow] isEqualToString:[car name]]);
+		if ( !isFollowCar )
+			[car draw:view OnMap:self Scale:scale];
+	}
+	for ( i = 0; i < carCount; i++ )
+	{
+		TrackCar *car = [cars objectAtIndex:i];
+		bool isFollowCar = ([[view carToFollow] isEqualToString:[car name]]);
+		if ( isFollowCar )
+			[car draw:view OnMap:self Scale:scale];
+	}
 }
 
 - (void) drawInView:(TrackMapView *)view
