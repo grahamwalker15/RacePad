@@ -50,6 +50,8 @@
 	
 	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
 	[trackZoomContainer setHidden:true];
+	trackZoomOffsetX = 0;
+	trackZoomOffsetY = 0;
 
 	// Set leaderboard data source and associate  with zoom map
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
@@ -381,7 +383,18 @@
 
 	//CGRect zoom_frame = CGRectMake(movieViewSize.width - 320, movieViewSize.height - 320, 300, 300);
 	CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
-	[trackZoomContainer setFrame:zoom_frame];
+	CGRect offsetFrame = CGRectOffset(zoom_frame, trackZoomOffsetX, trackZoomOffsetY);
+	CGRect bgRect = [[self view] frame];
+	if ( offsetFrame.origin.x < 0 )
+		offsetFrame = CGRectOffset(offsetFrame, -offsetFrame.origin.x, 0);
+	if ( offsetFrame.origin.y < 0 )
+		offsetFrame = CGRectOffset(offsetFrame, 0, -offsetFrame.origin.y);
+	if ( offsetFrame.origin.x + offsetFrame.size.width > bgRect.origin.x + bgRect.size.width )
+		offsetFrame = CGRectOffset(offsetFrame, (bgRect.origin.x + bgRect.size.width) - (offsetFrame.origin.x + offsetFrame.size.width), 0);
+	if ( offsetFrame.origin.y + offsetFrame.size.height > bgRect.origin.y + bgRect.size.height )
+		offsetFrame = CGRectOffset(offsetFrame, 0, (bgRect.origin.y + bgRect.size.height) - (offsetFrame.origin.y + offsetFrame.size.height));
+	
+	[trackZoomContainer setFrame:offsetFrame];
 }
 
 - (void) RequestRedrawForType:(int)type
@@ -512,6 +525,8 @@
 	if(gestureView == trackZoomView)
 	{
 		CGRect frame = [trackZoomContainer frame];
+		trackZoomOffsetX += x;
+		trackZoomOffsetY += y;
 		CGRect newFrame = CGRectOffset(frame, x, y);
 		[trackZoomContainer setFrame:newFrame];
 	}

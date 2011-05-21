@@ -42,6 +42,8 @@
 	bool displayVideo;
 	bool displayMap;
 	bool displayLeaderboard;
+	
+	int trackZoomOffsetX, trackZoomOffsetY;
 }
 
 @property (nonatomic) bool displayVideo;
