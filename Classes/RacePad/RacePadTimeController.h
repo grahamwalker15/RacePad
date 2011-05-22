@@ -11,7 +11,8 @@
 @class TimeViewController;
 @class JogViewController;
 
-@interface RacePadTimeController : NSObject
+@interface RacePadTimeController : NSObject <UIGestureRecognizerDelegate>
+
 {
 	TimeViewController * timeController;
 	JogViewController * jogController;
@@ -59,5 +60,8 @@
 - (IBAction)ReplayPressed:(id)sender;
 - (IBAction)JumpButtonPressed:(id)sender;
 - (IBAction)goLivePressed:(id)sender;
+
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
+
 
 @end

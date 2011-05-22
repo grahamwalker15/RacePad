@@ -430,12 +430,7 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-			
-	if(![time_controller displayed])
-		[time_controller displayInViewController:self Animated:true];
-	else
-		[time_controller hide];
+	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -473,6 +468,29 @@
 - (void) OnJogGestureInView:(UIView *)gestureView AngleChange:(float)angle State:(int)state
 {
 }
+
+- (void) handleTimeControllerGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+
+	if(![time_controller displayed])
+	{
+		CGPoint tapScreenPoint = [[self view] convertPoint:CGPointMake(x, y) fromView:gestureView];
+
+		// Only display if y is in bottom 150 pixels of our base view
+		CGRect viewBounds = [[self view] bounds];
+		
+		if(tapScreenPoint.y > viewBounds.size.height - 150)
+		{
+			[time_controller displayInViewController:self Animated:true];
+		}
+	}
+	else
+	{
+		[time_controller hide];
+	}
+}
+
 
 @end
 

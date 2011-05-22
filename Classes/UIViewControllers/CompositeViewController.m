@@ -434,17 +434,7 @@
 	}
 	
 	// Reach here if either tap was outside leaderboard, or no car was found at tap point
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-
-	if(![time_controller displayed])
-	{
-		[time_controller displayInViewController:self Animated:true];
-	}
-	else
-	{
-		[time_controller hide];
-	}
-
+	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -470,34 +460,23 @@
 		return;
 	}
 	
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];
-	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
 		[self hideZoomMap];
 	}
 	else
 	{
-		float current_scale = [(TrackMapView *)gestureView userScale];
-		float current_xoffset = [(TrackMapView *)gestureView userXOffset];
-		float current_yoffset = [(TrackMapView *)gestureView userYOffset];
-
-		if(current_scale == 1.0 && current_xoffset == 0.0 && current_yoffset == 0.0)
-		{
-			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:10 X:x Y:y];
-		}
-		else
 		{
 			[(TrackMapView *)gestureView setUserXOffset:0.0];
 			[(TrackMapView *)gestureView setUserYOffset:0.0];
 			[(TrackMapView *)gestureView setUserScale:1.0];	
 		}
 	}
-
+	
 	[trackMapView RequestRedraw];
 	[leaderboardView RequestRedraw];
 }
+
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {

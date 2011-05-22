@@ -13,6 +13,7 @@
 #import "TableDataView.h"
 
 @class LeaderboardView;
+@class DriverLapListController;
 
 // Local version of table data view to allow override of ColumnUse
 @interface DriverViewControllerTimingView : TableDataView
@@ -25,6 +26,7 @@
 	IBOutlet UIView * pitBoardContainer;
 	
 	IBOutlet DriverViewControllerTimingView * timingView;
+	DriverLapListController * driver_lap_list_controller_;
 
 	IBOutlet UIImageView * driverPhoto;
 	IBOutlet UIImageView * driverTextBG;
@@ -35,6 +37,8 @@
 	IBOutlet UILabel * driverSurnameLabel;
 	IBOutlet UILabel * driverTeamLabel;
 	
+	IBOutlet ShinyButton * seeLapsButton;
+
 	IBOutlet UILabel * positionLabel;
 	
 	IBOutlet UILabel * carBehindLabel;
@@ -49,6 +53,9 @@
 	bool animating;
 	bool showPending;
 	bool hidePending;
+	
+	bool driver_lap_list_controller_displayed_;
+	bool driver_lap_list_controller_closing_;
 }
 
 - (void)RequestRedraw;
@@ -59,8 +66,12 @@
 - (void) hideDriverInfoAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 - (IBAction) allButtonPressed:(id)sender;
+- (IBAction) seeLapsPressed:(id)sender;
 
 - (void) setAllSelected:(bool)selected;
+
+- (void)ShowDriverLapList:(NSString *)driver;
+- (void)HideDriverLapListAnimated:(bool)animated;
 
 @end
 

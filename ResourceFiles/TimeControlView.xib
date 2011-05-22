@@ -176,7 +176,6 @@
 								<reference key="NSSuperview" ref="93152994"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<float key="IBUIAlpha">0.88028168678283691</float>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
@@ -204,9 +203,9 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
-								<object class="NSCustomResource" key="IBUINormalImage" id="835457451">
+								<object class="NSCustomResource" key="IBUINormalImage" id="390473887">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">LeftArrow.png</string>
+									<string key="NSResourceName">BigLeftArrowButton.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="608763399">
@@ -226,7 +225,7 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
-								<reference key="IBUINormalImage" ref="835457451"/>
+								<reference key="IBUINormalImage" ref="390473887"/>
 							</object>
 							<object class="IBUIButton" id="76292354">
 								<reference key="NSNextResponder" ref="93152994"/>
@@ -245,7 +244,7 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
-								<reference key="IBUINormalImage" ref="835457451"/>
+								<reference key="IBUINormalImage" ref="390473887"/>
 							</object>
 							<object class="IBUIButton" id="300171476">
 								<reference key="NSNextResponder" ref="93152994"/>
@@ -286,9 +285,9 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
-								<object class="NSCustomResource" key="IBUINormalImage" id="393460984">
+								<object class="NSCustomResource" key="IBUINormalImage" id="221625328">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">RightArrow.png</string>
+									<string key="NSResourceName">BigRightArrowButton.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="440059993">
@@ -308,7 +307,7 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
-								<reference key="IBUINormalImage" ref="393460984"/>
+								<reference key="IBUINormalImage" ref="221625328"/>
 							</object>
 							<object class="IBUIButton" id="958389903">
 								<reference key="NSNextResponder" ref="93152994"/>
@@ -327,7 +326,7 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
-								<reference key="IBUINormalImage" ref="393460984"/>
+								<reference key="IBUINormalImage" ref="221625328"/>
 							</object>
 							<object class="IBUILabel" id="931964300">
 								<reference key="NSNextResponder" ref="93152994"/>
@@ -787,7 +786,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwpwAAA</bytes>
 					</object>
-					<string>{{-203, 312}, {1024, 240}}</string>
+					<string>{{0, 312}, {1024, 240}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ShinyButton</string>
 					<string>{{385, 697}, {72, 37}}</string>
@@ -1281,17 +1280,17 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>LeftArrow.png</string>
+				<string>BigLeftArrowButton.png</string>
+				<string>BigRightArrowButton.png</string>
 				<string>Replay.png</string>
-				<string>RightArrow.png</string>
 				<string>SlowMotion.png</string>
 				<string>TimeJumpBG.png</string>
 				<string>play.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{24, 24}</string>
-				<string>{24, 24}</string>
+				<string>{36, 36}</string>
+				<string>{36, 36}</string>
 				<string>{24, 24}</string>
 				<string>{32, 32}</string>
 				<string>{140, 160}</string>

@@ -131,6 +131,8 @@
 		7F767E9112A689F1009249F7 /* CarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F767E9012A689F1009249F7 /* CarView.xib */; };
 		7F7683F912AAA06A009249F7 /* FullScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683F812AAA06A009249F7 /* FullScreen.png */; };
 		7F7683FB12AAA07D009249F7 /* SmallScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683FA12AAA07D009249F7 /* SmallScreen.png */; };
+		7F793ED41388FD10008A2CB0 /* BigLeftArrowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */; };
+		7F793ED51388FD10008A2CB0 /* BigRightArrowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */; };
 		7F817D1413052D8A00AC2444 /* InfoPetronas.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817D1313052D8A00AC2444 /* InfoPetronas.htm */; };
 		7F817DFD1305440B00AC2444 /* InfoDeutschePost.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */; };
 		7F817E011305446200AC2444 /* InfoAabar.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E001305446200AC2444 /* InfoAabar.htm */; };
@@ -517,6 +519,8 @@
 		7F767E9012A689F1009249F7 /* CarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarView.xib; path = ResourceFiles/CarView.xib; sourceTree = "<group>"; };
 		7F7683F812AAA06A009249F7 /* FullScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FullScreen.png; path = Images/FullScreen.png; sourceTree = "<group>"; };
 		7F7683FA12AAA07D009249F7 /* SmallScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SmallScreen.png; path = Images/SmallScreen.png; sourceTree = "<group>"; };
+		7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BigLeftArrowButton.png; path = Images/BigLeftArrowButton.png; sourceTree = "<group>"; };
+		7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BigRightArrowButton.png; path = Images/BigRightArrowButton.png; sourceTree = "<group>"; };
 		7F817D1313052D8A00AC2444 /* InfoPetronas.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoPetronas.htm; sourceTree = "<group>"; };
 		7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoDeutschePost.htm; sourceTree = "<group>"; };
 		7F817E001305446200AC2444 /* InfoAabar.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoAabar.htm; sourceTree = "<group>"; };
@@ -1196,6 +1200,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */,
+				7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */,
 				7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */,
 				7FE5A9D413817F1D0095DD10 /* SlowMotion.png */,
 				7FE5A83113812E180095DD10 /* NewsFeed.png */,
@@ -1598,6 +1604,8 @@
 				7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */,
 				7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */,
 				7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */,
+				7F793ED41388FD10008A2CB0 /* BigLeftArrowButton.png in Resources */,
+				7F793ED51388FD10008A2CB0 /* BigRightArrowButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

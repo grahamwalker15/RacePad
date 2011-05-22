@@ -108,6 +108,7 @@
 {
 	// There's some wierd race condition where if we try to popdown, while we're popping up, then we end up appearing
 	[self dismissModalViewControllerAnimated:YES];
+	[[RacePadCoordinator Instance] setShowingConnecting:false];
 	shouldBePoppedDown = true;
 }
 

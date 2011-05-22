@@ -112,6 +112,8 @@
 - (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer;
 - (void) OnJogGestureInView:(UIView *)gestureView AngleChange:(float)angle State:(int)state;
 
+- (void) handleTimeControllerGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+
 @end
 
 

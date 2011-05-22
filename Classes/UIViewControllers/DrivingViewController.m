@@ -203,12 +203,7 @@
 	if([gestureView isKindOfClass:[UIButton class]])
 		return;
 	
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	if(![time_controller displayed])
-		[time_controller displayInViewController:self Animated:true];
-	else
-		[time_controller hide];
+	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed

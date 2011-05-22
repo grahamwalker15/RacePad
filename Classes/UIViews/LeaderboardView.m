@@ -60,13 +60,23 @@
 	//float xmax = current_top_right_.x;
 				
 	NSString * text = [[self GetCellTextAtRow:row_index Col:2] retain];
+	NSString * pitText = [[self GetCellTextAtRow:row_index Col:1] retain];
 			
 	if(followingCar && [text isEqualToString:carToFollow])
+	{
 		[self SetBGColour:dark_magenta_];
+		[self SetFGColour:white_];
+	}
+	else if([pitText isEqualToString:@"P"])
+	{
+		[self SetBGColour:[UIColor colorWithRed:0.7 green:0.7 blue:1.0 alpha:1.0]];
+		[self SetFGColour:black_];
+	}
 	else
+	{
 		[self SetBGColour:black_];
-	
-	[self SetFGColour:white_];
+		[self SetFGColour:white_];
+	}
 				
 	[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:false];
 				
@@ -86,6 +96,7 @@
 		[self UseRegularFont];
 	}
 	
+	[self SetFGColour:white_];
 	[self SetLineWidth:2.0];
 	[self LineRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 	

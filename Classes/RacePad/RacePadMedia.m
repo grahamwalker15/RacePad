@@ -181,7 +181,7 @@ static RacePadMedia * instance_ = nil;
 			 [moviePlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
 			 
 			 moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
-			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndPause];
+			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
 			 			 
 			 // Register a time observer to get the current time while playing
 			 moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
@@ -539,7 +539,11 @@ static RacePadMedia * instance_ = nil;
 			
 			if(CMTIME_IS_VALID(range.start)  && CMTIME_IS_NUMERIC(range.start) && CMTIME_IS_VALID(range.duration)  && CMTIME_IS_NUMERIC(range.duration)  )
 			{
-				[moviePlayer seekToTime:CMTimeAdd(range.start, range.duration)];
+				float rangeStartTime = (float) CMTimeGetSeconds(range.start);
+				float rangeDuration = (float) CMTimeGetSeconds(range.duration);
+				float endOfTime = rangeStartTime + rangeDuration + 20.0;
+				
+				[moviePlayer seekToTime:CMTimeMakeWithSeconds(endOfTime, 1)];
 			}
 		}
 		movieSeekPending = false;

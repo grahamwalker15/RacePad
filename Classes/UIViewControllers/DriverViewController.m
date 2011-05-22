@@ -8,6 +8,8 @@
 
 #import "DriverViewController.h"
 
+#import "DriverLapListController.h"
+
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
@@ -58,65 +60,92 @@
 	[timingView SetHeading:true];
 	[timingView SetBackgroundAlpha:0.5];
 	
+	[seeLapsButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
+	[seeLapsButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
+	
+	[trackProfileView setDelaysContentTouches:false];
+	
 	// Add tap and long press recognizers to the leaderboard
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
 	[self addTapRecognizerToView:allButton];
+	[self addTapRecognizerToView:seeLapsButton];
 	
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	[[RacePadCoordinator Instance] AddView:timingView WithType:RPC_DRIVER_LIST_VIEW_];
 	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
+	
+	// Create a view controller for the driver lap times which may be displayed as an overlay
+	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
+	driver_lap_list_controller_displayed_ = false;
+	driver_lap_list_controller_closing_ = false;
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
-
-	// Register the views
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_LIST_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
-	
-	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:timingView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:self];
-
-	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
-	if(driverGapInfo)
+	if(!driver_lap_list_controller_closing_)
 	{
-		NSString * requestedDriver = [driverGapInfo requestedDriver];
+		[super viewWillAppear:animated];
 		
-		if(requestedDriver && [requestedDriver length] > 0)
+		// Register the views
+		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_LIST_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
+		
+		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+		[[RacePadCoordinator Instance] SetViewDisplayed:timingView];
+		[[RacePadCoordinator Instance] SetViewDisplayed:self];
+
+		DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+		if(driverGapInfo)
 		{
-			[self showDriverInfo:false];
-			[self setAllSelected:false];	
+			NSString * requestedDriver = [driverGapInfo requestedDriver];
+			
+			if(requestedDriver && [requestedDriver length] > 0)
+			{
+				[self showDriverInfo:false];
+				[self setAllSelected:false];	
+			}
+			else
+			{
+				[self hideDriverInfo:false];
+				[self setAllSelected:true];	
+			}
 		}
 		else
 		{
 			[self hideDriverInfo:false];
 			[self setAllSelected:true];	
 		}
-	}
-	else
-	{
-		[self hideDriverInfo:false];
-		[self setAllSelected:true];	
-	}
+		
+		[[RacePadCoordinator Instance] restartCommentary];
 
-	[[RacePadCoordinator Instance] restartCommentary];
-
-	animating = false;
-	showPending = false;
-	hidePending = false;
+		animating = false;
+		showPending = false;
+		hidePending = false;
+		
+	}
 	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[super viewWillDisappear:animated];
+	if(driver_lap_list_controller_displayed_)
+	{
+		driver_lap_list_controller_closing_ = true; // This prevents the resultant viewWillAppear from registering everything
+		[self HideDriverLapListAnimated:false];
+	}
 	
-	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-	[[RacePadCoordinator Instance] SetViewHidden:timingView];
-	[[RacePadCoordinator Instance] SetViewHidden:self];
+	if(!driver_lap_list_controller_closing_)
+	{
+		[super viewWillDisappear:animated];
+		
+		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+		[[RacePadCoordinator Instance] SetViewHidden:timingView];
+		[[RacePadCoordinator Instance] SetViewHidden:self];
+	}
+	
+	driver_lap_list_controller_closing_ = false;
 }
 
 - (void)prePositionOverlays
@@ -421,6 +450,7 @@
 		[driverFirstNameLabel setAlpha:0.0];
 		[driverSurnameLabel setAlpha:0.0];
 		[driverTeamLabel setAlpha:0.0];
+		[seeLapsButton setAlpha:0.0];
 		
 		[pitBoardContainer setHidden:false];
 		[trackMapContainer setHidden:false];
@@ -429,6 +459,7 @@
 		[driverFirstNameLabel setHidden:false];
 		[driverSurnameLabel setHidden:false];
 		[driverTeamLabel setHidden:false];
+		[seeLapsButton setHidden:false];
 				
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
@@ -440,6 +471,7 @@
 		[driverFirstNameLabel setAlpha:1.0];
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
+		[seeLapsButton setAlpha:1.0];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(showDriverInfoAnimationDidStop:finished:context:)];
 		[UIView commitAnimations];
@@ -461,6 +493,7 @@
 		[driverFirstNameLabel setAlpha:1.0];
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
+		[seeLapsButton setAlpha:1.0];
 	}
 }
 
@@ -488,6 +521,7 @@
 		[driverFirstNameLabel setAlpha:0.0];
 		[driverSurnameLabel setAlpha:0.0];
 		[driverTeamLabel setAlpha:0.0];
+		[seeLapsButton setAlpha:0.0];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(hideDriverInfoAnimationDidStop:finished:context:)];
 		[UIView commitAnimations];
@@ -503,6 +537,7 @@
 		[driverFirstNameLabel setHidden:true];
 		[driverSurnameLabel setHidden:true];
 		[driverTeamLabel setHidden:true];
+		[seeLapsButton setHidden:true];
 	}
 }
 
@@ -536,6 +571,7 @@
 		[driverFirstNameLabel setHidden:true];
 		[driverSurnameLabel setHidden:true];
 		[driverTeamLabel setHidden:true];
+		[seeLapsButton setHidden:true];
 		
 		[pitBoardContainer setAlpha:1.0];
 		[trackMapContainer setAlpha:1.0];
@@ -544,6 +580,7 @@
 		[driverFirstNameLabel setAlpha:1.0];
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
+		[seeLapsButton setAlpha:1.0];
 		
 		// Set the driver info interest to nobody
 		[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:nil];
@@ -620,16 +657,7 @@
 	}
 	
 	// Reach here if either tap was outside leaderboard, or no car was found at tap point
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	if(![time_controller displayed])
-	{
-		[time_controller displayInViewController:self Animated:true];
-	}
-	else
-	{
-		[time_controller hide];
-	}
+	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 }
 
 - (IBAction) allButtonPressed:(id)sender
@@ -662,6 +690,45 @@
 		[allButton setNeedsDisplay];
 	}	
 }
+
+- (IBAction) seeLapsPressed:(id)sender
+{
+	NSString * car = [trackMapView carToFollow];
+	
+	if(car && [car length] > 0)
+		[self ShowDriverLapList:car];
+}
+
+- (void)ShowDriverLapList:(NSString *)driver
+{
+	if(driver_lap_list_controller_)
+	{
+		// Set the driver we want displayed
+		[driver_lap_list_controller_ SetDriver:driver];
+		
+		// Set the style for its presentation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		// And present it
+		[self presentModalViewController:driver_lap_list_controller_ animated:true];
+		driver_lap_list_controller_displayed_ = true;
+	}
+}
+
+- (void)HideDriverLapListAnimated:(bool)animated
+{
+	if(driver_lap_list_controller_displayed_)
+	{
+		// Set the style for its animation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		
+		// And dismiss it
+		[self dismissModalViewControllerAnimated:animated];
+		driver_lap_list_controller_displayed_ = false;
+	}
+}
+
 
 @end
 

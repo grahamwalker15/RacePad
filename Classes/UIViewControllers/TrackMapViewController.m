@@ -283,16 +283,8 @@
 	}
 	
 	// Reach here if either tap was outside leaderboard, or no car was found at tap point
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	if(![time_controller displayed])
-	{
-		[time_controller displayInViewController:self Animated:true];
-	}
-	else
-	{
-		[time_controller hide];
-	}
+	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
+
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y

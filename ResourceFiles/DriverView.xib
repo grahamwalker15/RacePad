@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="12"/>
+			<integer value="30"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -190,6 +190,25 @@
 								<reference key="IBUIHighlightedColor" ref="776394781"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
+							</object>
+							<object class="IBUIButton" id="831492957">
+								<reference key="NSNextResponder" ref="1044748747"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{323, 226}, {134, 54}}</string>
+								<reference key="NSSuperview" ref="1044748747"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIFont" ref="523974818"/>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">SEE LAP TIMES</string>
+								<reference key="IBUIHighlightedTitleColor" ref="776394781"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAwLjcyMjM2MTc0ODMgMC4wNDI5NTUxMTIxNQA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="651465744"/>
 							</object>
 							<object class="IBUIView" id="43591436">
 								<reference key="NSNextResponder" ref="1044748747"/>
@@ -639,6 +658,23 @@
 					</object>
 					<int key="connectionID">74</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">seeLapsButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="831492957"/>
+					</object>
+					<int key="connectionID">76</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">seeLapsPressed:</string>
+						<reference key="source" ref="831492957"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">77</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -686,6 +722,7 @@
 							<reference ref="468394540"/>
 							<reference ref="526665693"/>
 							<reference ref="13173612"/>
+							<reference ref="831492957"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -815,6 +852,11 @@
 						<reference key="object" ref="13173612"/>
 						<reference key="parent" ref="1044748747"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">75</int>
+						<reference key="object" ref="831492957"/>
+						<reference key="parent" ref="1044748747"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -873,6 +915,9 @@
 					<string>72.CustomClassName</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.IBViewBoundsToFrameTransform</string>
+					<string>75.CustomClassName</string>
+					<string>75.IBPluginDependency</string>
+					<string>75.IBViewBoundsToFrameTransform</string>
 					<string>8.CustomClassName</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
@@ -891,7 +936,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUOEAABC8AAAA</bytes>
 					</object>
-					<string>{{483, 67}, {783, 778}}</string>
+					<string>{{421, 52}, {783, 778}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -967,6 +1012,11 @@
 					<string>ShinyButton</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform"/>
+					<string>ShinyButton</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUG4AABC+gAAA</bytes>
+					</object>
 					<string>TrackMapView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -990,7 +1040,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">74</int>
+			<int key="maxID">77</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1110,14 +1160,35 @@
 					<string key="className">DriverViewController</string>
 					<string key="superclassName">CarViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">allButtonPressed:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>allButtonPressed:</string>
+							<string>seeLapsPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">allButtonPressed:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">allButtonPressed:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>allButtonPressed:</string>
+							<string>seeLapsPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">allButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">seeLapsPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -1139,6 +1210,7 @@
 							<string>pitBoardContainer</string>
 							<string>pitBoardImage</string>
 							<string>positionLabel</string>
+							<string>seeLapsButton</string>
 							<string>timingView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1158,6 +1230,7 @@
 							<string>UIView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
+							<string>ShinyButton</string>
 							<string>DriverViewControllerTimingView</string>
 						</object>
 					</object>
@@ -1180,6 +1253,7 @@
 							<string>pitBoardContainer</string>
 							<string>pitBoardImage</string>
 							<string>positionLabel</string>
+							<string>seeLapsButton</string>
 							<string>timingView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1243,6 +1317,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">positionLabel</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">seeLapsButton</string>
+								<string key="candidateClassName">ShinyButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">timingView</string>

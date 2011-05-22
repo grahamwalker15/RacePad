@@ -59,6 +59,7 @@ static bool statics_initialised_ = false;
 {    
     if ((self = [super initWithCoder:coder]))
     {
+		[self setDelaysContentTouches:false];
 		[self setContentMode:UIViewContentModeRedraw];
 		[self setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 		[self InitialiseDrawingViewMembers];
@@ -72,6 +73,7 @@ static bool statics_initialised_ = false;
 {
     if ((self = [super initWithFrame:frame]))
 	{
+		[self setDelaysContentTouches:false];
 		[self setContentMode:UIViewContentModeRedraw];
 		[self InitialiseDrawingViewMembers];
     }

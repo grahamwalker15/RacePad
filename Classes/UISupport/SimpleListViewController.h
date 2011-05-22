@@ -19,5 +19,6 @@
 - (bool) HandleSelectCol:(int)col;
 - (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press;
 - (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (void) HandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
 @end

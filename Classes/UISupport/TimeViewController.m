@@ -33,6 +33,7 @@
 {
 	[goLiveButton setButtonColour:[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0]];
 	[goLiveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+		
     [super viewDidLoad];
 }
 
@@ -61,5 +62,7 @@
 {
     [super dealloc];
 }
+
+
 
 @end

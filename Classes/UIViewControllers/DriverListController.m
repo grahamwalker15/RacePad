@@ -144,45 +144,14 @@
 	return false;
 }
 
-- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
-{
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	// On single tap, invoke the time controller or remove the time controller
-	if(!double_click)
-	{
-		if(![time_controller displayed])
-			[time_controller displayInViewController:self Animated:true];
-		else
-			[time_controller hide];
-		
-		return true;
-	}
-	
-	return true;
-}
-
 - (bool) HandleSelectHeading
 {
 	return false;
 }
 
-- (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press
+- (void) HandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	
-	// On single tap, invoke the time controller or remove the time controller
-	if(!double_click)
-	{
-		if(![time_controller displayed])
-			[time_controller displayInViewController:self Animated:true];
-		else
-			[time_controller hide];
-		
-		return true;
-	}
-	
-	return true;
+	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void)ShowDriverLapList:(NSString *)driver

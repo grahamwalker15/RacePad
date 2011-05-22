@@ -96,6 +96,10 @@
 	return false;
 }
 
+- (void) HandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+}
+
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	int row = -1;
@@ -121,13 +125,19 @@
 				
 				if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
 				{
-					[self HandleSelectRow:row DoubleClick:false LongPress:false];
+					if(![self HandleSelectRow:row DoubleClick:false LongPress:false])
+					{
+						[self HandleTapGestureInView:gestureView AtX:x Y:y];
+					}
 				}
 			}
 		}
 		else
 		{
-			[self HandleSelectBackgroundDoubleClick:false LongPress:false];
+			if(![self HandleSelectBackgroundDoubleClick:false LongPress:false])
+			{
+				[self HandleTapGestureInView:gestureView AtX:x Y:y];
+			}
 		}
 	}
 }

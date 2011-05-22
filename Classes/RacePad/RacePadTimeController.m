@@ -40,6 +40,14 @@ static RacePadTimeController * instance_ = nil;
 		hideTimer = nil;
 		
 		timeNow = 0.0;
+		
+		// Add a tap gesture recogniser to the time controller view to allow hiding of controls
+		UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
+		[recognizer setCancelsTouchesInView:false];
+		[recognizer setDelegate:self];
+		[[timeController view] addGestureRecognizer:recognizer];
+		[recognizer release];
+		
 	}
 	
 	return self;
@@ -115,10 +123,10 @@ static RacePadTimeController * instance_ = nil;
 		[viewController.view addSubview:addOnOptionsView];
 	}
 	
-	if([[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_)
-		[[timeController goLiveButton] setHidden:false];
-	else
+	if([[RacePadCoordinator Instance] connectionType] == RPC_ARCHIVE_CONNECTION_)
 		[[timeController goLiveButton] setHidden:true];
+	else
+		[[timeController goLiveButton] setHidden:false];
 
 	if(animated)
 	{
@@ -145,14 +153,14 @@ static RacePadTimeController * instance_ = nil;
 	[replay_button setTarget:instance_];
 	[replay_button setAction:@selector(ReplayPressed:)];
 	
-	[[timeController minus1sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[[timeController minus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[[timeController minus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[[timeController plus1sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[[timeController plus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[[timeController plus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController minus1sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
+	[[timeController minus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
+	[[timeController minus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
+	[[timeController plus1sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
+	[[timeController plus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
+	[[timeController plus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
 	
-	[[timeController slowMotionButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[timeController slowMotionButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchDown];
 
 	//JogControlView * jog_control = [jogController jogControl];	
 	//[jog_control setTarget:instance_];
@@ -528,7 +536,6 @@ static RacePadTimeController * instance_ = nil;
 	
 	[self updatePlayButtons];
 	
-	
 	[self setHideTimer];
 }
 
@@ -539,6 +546,25 @@ static RacePadTimeController * instance_ = nil;
 		[[RacePadCoordinator Instance] setPlaybackRate:1.0];
 		[[RacePadCoordinator Instance] goLive:true];
 	}
-}	
+}
+
+//////////////////////////////////////////////////////////
+
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	UIView * tapView = [gestureRecognizer view];
+	CGPoint tapPoint = [gestureRecognizer locationInView:tapView];
+	
+	[self hide];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+	if(touch && [touch view] == [timeController view])
+		return true;
+	
+	return false;
+}
+
 
 @end

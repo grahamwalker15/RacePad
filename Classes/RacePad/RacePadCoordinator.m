@@ -35,6 +35,8 @@
 
 @implementation RacePadCoordinator
 
+@synthesize appVersionNumber;
+
 @synthesize connectionType;
 @synthesize currentTime;
 @synthesize startTime;
@@ -49,6 +51,7 @@
 @synthesize videoConnectionType;
 @synthesize videoConnectionStatus;
 @synthesize serverConnectionStatus;
+@synthesize showingConnecting;
 @synthesize liveMovieSeekAllowed;
 
 static RacePadCoordinator * instance_ = nil;
@@ -64,7 +67,9 @@ static RacePadCoordinator * instance_ = nil;
 -(id)init
 {
 	if(self =[super init])
-	{		
+	{	
+		appVersionNumber = 1.1;
+		
 		currentTime = [ElapsedTime LocalTimeOfDay];
 		startTime = currentTime;
 		endTime = currentTime + 7200;
@@ -89,7 +94,7 @@ static RacePadCoordinator * instance_ = nil;
 		connectionType = RPC_NO_CONNECTION_;
 		connectionRetryCount = 0;
 		connectionRetryTimer = nil;
-		live = false;
+		live = true;
 		showingConnecting = false;
 		
 		videoConnectionStatus = RPC_NO_CONNECTION_;
@@ -414,7 +419,6 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
 		[[RacePadMedia Instance] movieStop];
-
 	
 	[[RacePadTimeController Instance] updateTime:currentTime];
 
@@ -502,11 +506,13 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if ( live  )
 	{
+/*
 		if ( connectionType == RPC_NO_CONNECTION_ )
 		{
 			needsPlayRestart = true;
 		}
-		else
+		else if ( connectionType == RPC_SOCKET_CONNECTION_ )
+ */
 		{
 			[self prepareToPlay];
 			[self startPlay];
@@ -527,6 +533,8 @@ static RacePadCoordinator * instance_ = nil;
 		[self prepareToPlayFromSocket];
 	else if(connectionType == RPC_ARCHIVE_CONNECTION_)
 		[self prepareToPlayArchives];
+	else
+		[self prepareToPlayUnconnected];
 }
 
 -(void)showSnapshot
@@ -535,6 +543,8 @@ static RacePadCoordinator * instance_ = nil;
 		[self showSnapshotFromSocket];
 	else if(connectionType == RPC_ARCHIVE_CONNECTION_)
 		[self showSnapshotOfArchives];
+	else
+		[self showSnapshotUnconnected];
 }
 
 - (void) setTimer: (float)thisTime
@@ -671,6 +681,8 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) loadSession: (NSString *)event Session: (NSString *)session
 {
+	[self goLive:false];
+	
 	[self disconnect];
 	[self clearStaticData];
 	sessionPrefix = [NSString stringWithString:event];
@@ -851,7 +863,7 @@ static RacePadCoordinator * instance_ = nil;
 
 - (void) Disconnected: (bool) atConnect
 {
-	// If failed at connect (because WiFi is switched of say), then the connect window will already be up
+	// If failed at connect (because WiFi is switched off say), then the connect window will already be up
 	// So, let timer do it do it's thing
 	if ( !atConnect)
 	{
@@ -940,7 +952,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ SetPlaybackRate:playbackRate];
 		[socket_ SetReferenceTime:currentTime];
 	}
-
+	
 	int view_count = [views count];
 	
 	if(view_count > 0)
@@ -1084,6 +1096,31 @@ static RacePadCoordinator * instance_ = nil;
 			[[RacePadMedia Instance] movieGotoTime:currentTime];
 	}
 	
+}
+
+-(void)prepareToPlayUnconnected
+{
+	if ( live )
+		playbackRate = 1.0;
+	
+	// If the registered view controller is interested in video, cue this to play
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+	{
+		if ( live )
+			[[RacePadMedia Instance] movieGoLive];
+		else
+			[[RacePadMedia Instance] movieGotoTime:currentTime];
+	}
+}
+
+-(void)showSnapshotUnconnected
+{
+	// If the registered view controller is interested in video, cue this
+	if(registeredViewController && (registeredViewControllerTypeMask & RPC_VIDEO_VIEW_) > 0)
+	{
+		if(liveMovieSeekAllowed)
+			[[RacePadMedia Instance] movieGotoTime:currentTime];
+	}
 }
 
 
@@ -1640,7 +1677,7 @@ static RacePadCoordinator * instance_ = nil;
 		restartTime = 0;
 	else
 		restartTime = currentTime;
-
+	
 	if ( connectionType == RPC_SOCKET_CONNECTION_ )
 	{
 		[self setConnectionType:RPC_NO_CONNECTION_];

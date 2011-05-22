@@ -150,7 +150,11 @@ enum ConnectionTypes
 	
 	NSMutableArray *allTabs;
 	unsigned char currentSponsor;
+	
+	float appVersionNumber;
 }
+
+@property (readonly) float appVersionNumber;
 
 @property (nonatomic) int connectionType;
 @property (nonatomic) float currentTime;
@@ -161,6 +165,7 @@ enum ConnectionTypes
 @property (nonatomic) bool needsPlayRestart;
 
 @property (nonatomic) int serverConnectionStatus;
+@property (nonatomic) bool showingConnecting;
 
 @property (nonatomic) int videoConnectionType;
 @property (nonatomic) int videoConnectionStatus;
@@ -231,6 +236,9 @@ enum ConnectionTypes
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;
+
+-(void) prepareToPlayUnconnected;
+-(void) showSnapshotUnconnected;
 
 -(void)setTimer: (float)thisTime;
 -(void)timerUpdate: (NSTimer *)theTimer;

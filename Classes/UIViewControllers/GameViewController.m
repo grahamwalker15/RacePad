@@ -1188,16 +1188,7 @@
 	/*
 	 if ( gestureView == [self view] || gestureView == leagueTable )
 	 {
-	 RacePadTimeController * time_controller = [RacePadTimeController Instance];
-	 
-	 if(![time_controller displayed])
-	 {
-	 [time_controller displayInViewController:self Animated:true];
-	 }
-	 else
-	 {
-	 [time_controller hide];
-	 }
+		[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 	 }
 	 */
 }
