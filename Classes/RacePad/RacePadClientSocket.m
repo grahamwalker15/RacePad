@@ -11,7 +11,6 @@
 #import "RacePadCoordinator.h"
 #import "RacePadDatabase.h"
 #import "TrackMap.h"
-#import "TrackProfile.h"
 
 @implementation RacePadClientSocket
 
@@ -347,19 +346,14 @@
 	free (buf);
 }
 
-- (void)RequestTrackProfileBase
-{
-	[self SimpleCommand:RPCS_REQUEST_TRACK_PROFILE_BASE];
-}
-
 - (void)RequestTrackProfile
 {
-	[self SimpleCommand:RPCS_REQUEST_TRACK_PROFILE];
+	[self SimpleCommand:RPCS_REQUEST_CARS];
 }
 
 - (void)StreamTrackProfile
 {
-	[self SimpleCommand:RPCS_STREAM_TRACK_PROFILE];
+	[self SimpleCommand:RPCS_STREAM_CARS];
 }
 
 - (DataHandler *) constructDataHandler

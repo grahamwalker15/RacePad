@@ -16,7 +16,6 @@
 
 #import "RacePadDatabase.h"
 #import "Telemetry.h"
-#import "TrackProfile.h"
 
 #import "TrackMapView.h"
 #import "TelemetryView.h"

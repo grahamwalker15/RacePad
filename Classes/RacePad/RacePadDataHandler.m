@@ -14,7 +14,6 @@
 #include "RacePadTitleBarController.h"
 #include "RacePadSponsor.h"
 #import "TrackMap.h"
-#import "TrackProfile.h"
 
 @implementation RacePadDataHandler
 
@@ -251,6 +250,7 @@
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];
 			[track_map loadTrack:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
 			break;
 		}
 		case RPSC_WHOLE_TIMING_PAGE_: // Timing Page 1 (whole page)
@@ -289,6 +289,7 @@
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];
 			[track_map updateCars:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
 			break;
 		}
 			
@@ -560,21 +561,6 @@
 			DriverGapInfo *driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
 			[driverGapInfo loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_GAP_INFO_VIEW_];
-			break;
-		}
-			
-		case RPSC_TRACK_PROFILE_BASE_: // Track Profile Base
-		{
-			TrackProfile *track_profile = [[RacePadDatabase Instance] trackProfile];
-			[track_profile loadTrack:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
-			break;
-		}
-		case RPSC_TRACK_PROFILE_: // Track Profile
-		{
-			TrackProfile *track_profile = [[RacePadDatabase Instance] trackProfile];
-			[track_profile updateCars:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
 			break;
 		}
 			

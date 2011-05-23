@@ -742,7 +742,6 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ SynchroniseTime];
 		[socket_ RequestEvent];
 		[socket_ RequestTrackMap];
-		[socket_ RequestTrackProfileBase];
 		[socket_ RequestPitWindowBase];
 		[socket_ RequestUIImages];
 		

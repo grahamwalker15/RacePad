@@ -50,7 +50,6 @@
 		4D91DF1812EDF122005B7FE7 /* DrivingWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */; };
 		4D91DFF612EF3E5D005B7FE7 /* DrivingWheelOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
-		4DC9117B137BDC0300ACE72F /* TrackProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9117A137BDC0300ACE72F /* TrackProfile.m */; };
 		4DC91180137BDFC900ACE72F /* TrackProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9117F137BDFC900ACE72F /* TrackProfileView.m */; };
 		4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; };
 		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
@@ -412,8 +411,6 @@
 		4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DrivingWheelOutline.png; path = Images/DrivingWheelOutline.png; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
-		4DC91179137BDC0300ACE72F /* TrackProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackProfile.h; sourceTree = "<group>"; };
-		4DC9117A137BDC0300ACE72F /* TrackProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackProfile.m; sourceTree = "<group>"; };
 		4DC9117E137BDFC900ACE72F /* TrackProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackProfileView.h; sourceTree = "<group>"; };
 		4DC9117F137BDFC900ACE72F /* TrackProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackProfileView.m; sourceTree = "<group>"; };
 		4DE8989512ACFA79000FEE9C /* DriverNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverNames.h; sourceTree = "<group>"; };
@@ -888,8 +885,6 @@
 				4D86EDD3129A98C000AA49F9 /* Telemetry.m */,
 				7F9C67381265F50000F2FFEC /* TrackMap.h */,
 				7F9C67391265F50000F2FFEC /* TrackMap.m */,
-				4DC91179137BDC0300ACE72F /* TrackProfile.h */,
-				4DC9117A137BDC0300ACE72F /* TrackProfile.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1708,7 +1703,6 @@
 				7F8370BE1373E9EE00B4B3C1 /* RacePadVideoViewController.m in Sources */,
 				7F8373B713781FE000B4B3C1 /* HomeViewController.m in Sources */,
 				7FB2874D1379992100A6D6C8 /* DriverGapInfo.m in Sources */,
-				4DC9117B137BDC0300ACE72F /* TrackProfile.m in Sources */,
 				4DC91180137BDFC900ACE72F /* TrackProfileView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

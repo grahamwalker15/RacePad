@@ -9,7 +9,7 @@
 #import "TrackProfileView.h"
 #import "BackgroundView.h"
 #import "RacePadDatabase.h"
-#import "TrackProfile.h"
+#import "TrackMap.h"
 
 
 @implementation TrackProfileView
@@ -94,11 +94,11 @@
 - (void) drawTrack
 {
 	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackProfile *trackProfile = [database trackProfile];
+	TrackMap *trackMap = [database trackMap];
 	
-	if ( trackProfile )
+	if ( trackMap )
 	{		
-		[trackProfile drawInView:self];
+		[trackMap drawInProfileView:self];
 	}
 }
 

@@ -11,6 +11,8 @@
 @class DataStream;
 @class TrackMapView;
 @class TrackMap;
+@class TrackProfileView;
+@class ImageList;
 
 enum TrackMapLineType {
 	TM_L_INKNOWN,
@@ -39,20 +41,33 @@ enum TrackState {
 	UIColor *lineColour;
 	UIColor *textColour;
 	
-	float x, y;
+	float x, y, lapProgress;
 	int dotSize;
 	NSString *name;
+	NSString *team;
 	bool moving;
+	bool pitted;
+	bool stopped;
+	
+	int row;
 }
 
 @property (readonly) NSString * name;
+@property (readonly) NSString * team;
 @property (readonly) float x;
 @property (readonly) float y;
+@property (readonly) float lapProgress;
+@property (readonly) bool moving;
+@property (readonly) bool pitted;
+@property (readonly) bool stopped;
+
+@property (nonatomic) int row;
 
 - (id) init;
 
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
 - (void) draw:(TrackMapView *)view OnMap:(TrackMap *)trackMap Scale:(float)scale;
+- (void) drawProfile:(TrackProfileView *)view Offset:(float)offset ImageList:(ImageList *)imageList;
 
 @end
 
@@ -142,6 +157,20 @@ enum TrackState {
 @end
 
 
+@interface TrackTurn : NSObject
+{
+	
+	float distance;
+	NSString *name;
+}
+
+@property (readonly) float distance;
+@property (readonly) NSString * name;
+
+- (void) load : (DataStream *) stream;
+
+@end
+
 @interface TrackMap : NSObject
 {
 	
@@ -160,10 +189,20 @@ enum TrackState {
 	float sc1Length;
 	float sc2Length;
 	
+	float trackProfileLength;
+	float s1ProfileLength;
+	float s2ProfileLength;
+	float sc1ProfileLength;
+	float sc2ProfileLength;
+	float pitStopLoss;
+	float pitStopLossMargin;
+	float pitStopLossSC;
+
 	NSMutableArray *lines;
 	NSMutableArray *labels;
 
 	NSMutableArray *cars;
+	NSMutableArray *turns;
 	UIColor **colours;
 	int coloursCount;
 	
@@ -179,6 +218,12 @@ enum TrackState {
 @property (nonatomic) float sc1Length;
 @property (nonatomic) float sc2Length;
 
+@property (nonatomic) float trackProfileLength;
+@property (nonatomic) float s1ProfileLength;
+@property (nonatomic) float s2ProfileLength;
+@property (nonatomic) float sc1ProfileLength;
+@property (nonatomic) float sc2ProfileLength;
+
 - (void) loadTrack : (DataStream *) stream;
 - (void) updateCars : (DataStream *) stream;
 
@@ -186,6 +231,7 @@ enum TrackState {
 - (NSString *) nearestCarInView:(UIView *)view ToX:(float)x Y:(float)y;
 
 - (void) drawInView:(TrackMapView *)view;
+- (void) drawInProfileView:(TrackProfileView *)view;
 
 - (void) constructTransformMatrixForView:(TrackMapView *)view;
 - (void) constructTransformMatrixForView:(TrackMapView *)view WithCentreX:(float)x Y:(float)y Rotation:(float) rotation;

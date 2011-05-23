@@ -9,7 +9,7 @@
 
 #import "DataHandler.h"
 
-#define RACE_PAD_INTERFACE_VERSION 10
+#define RACE_PAD_INTERFACE_VERSION 11
 
 enum ServerCommands {
 	RPSC_VERSION_ = 1,
@@ -54,8 +54,6 @@ enum ServerCommands {
 	RPSC_COMMENTARY_,			// 43
 	RPSC_DRIVER_GAP_INFO_,		// 44
 	RPSC_NO_ACTION_,			// 45
-	RPSC_TRACK_PROFILE_BASE_,	// 46
-	RPSC_TRACK_PROFILE_,		// 47
 };
 
 @interface RacePadDataHandler : DataHandler
