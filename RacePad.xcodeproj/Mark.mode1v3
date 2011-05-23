@@ -268,25 +268,23 @@
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>7F3276EE126379B000BD1627</string>
-								<string>7F9C1AD4125B7B6B00770746</string>
-								<string>7F9C1B75125CA10A00770746</string>
-								<string>7F9C10D71255E68B00770746</string>
 								<string>7F9C10DF1255E6A900770746</string>
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
-								<string>E2644B35053B69B200211256</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>184</integer>
-									<integer>181</integer>
+									<integer>27</integer>
+									<integer>3</integer>
+									<integer>1</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 2704}, {285, 662}}</string>
+							<string>{{0, 43}, {285, 662}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -325,7 +323,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RacePadClientSocket.h</string>
+								<string>TrackMap.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -333,11 +331,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RacePadClientSocket.h</string>
+										<string>TrackMap.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>4DCC270F138AC2C300F9FF76</string>
+										<string>4DCC2740138AC72F00F9FF76</string>
 										<key>history</key>
 										<array>
 											<string>4D7925B212683E770089BFA6</string>
@@ -420,13 +418,13 @@
 											<string>4DCC2704138AC2C300F9FF76</string>
 											<string>4DCC2705138AC2C300F9FF76</string>
 											<string>4DCC2706138AC2C300F9FF76</string>
-											<string>4DCC2707138AC2C300F9FF76</string>
 											<string>4DCC2708138AC2C300F9FF76</string>
 											<string>4DCC2709138AC2C300F9FF76</string>
-											<string>4DCC270B138AC2C300F9FF76</string>
 											<string>4DCC270C138AC2C300F9FF76</string>
 											<string>4DCC270D138AC2C300F9FF76</string>
-											<string>4DCC270E138AC2C300F9FF76</string>
+											<string>4DCC2726138AC37500F9FF76</string>
+											<string>4DCC2727138AC37500F9FF76</string>
+											<string>4DCC2728138AC37500F9FF76</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -624,13 +622,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>4DCC273F138AC71F00F9FF76</string>
 		<string>4DCC2712138AC2C300F9FF76</string>
 		<string>4DCC2713138AC2C300F9FF76</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>4DA2E44012646AD300796E28</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/Mark/Documents/Work/Development/RacePad/RacePad.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>27 139 1410 721 0 0 1440 878 </string>
@@ -756,8 +755,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {594, 366}}</string>
-											<string>{{594, 0}, {691, 366}}</string>
+											<string>{{0, 0}, {601, 493}}</string>
+											<string>{{601, 0}, {684, 493}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -772,8 +771,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1285, 366}}</string>
-											<string>{{0, 366}, {1285, 320}}</string>
+											<string>{{0, 0}, {1285, 493}}</string>
+											<string>{{0, 493}, {1285, 193}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -803,10 +802,10 @@
 										<string>Value</string>
 										<real>210</real>
 										<string>Summary</string>
-										<real>267</real>
+										<real>260</real>
 									</array>
 									<key>Frame</key>
-									<string>{{594, 0}, {691, 366}}</string>
+									<string>{{601, 0}, {684, 493}}</string>
 									<key>RubberWindowFrame</key>
 									<string>52 126 1285 727 0 0 1440 878 </string>
 								</dict>

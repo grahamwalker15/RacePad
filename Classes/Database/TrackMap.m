@@ -551,6 +551,7 @@ static UIImage *grassImage = nil;
 	else if ( a > 45 && a <= 135 )
 	{
 		x_off = cos(a_rad) * w * dsr2 - w * 0.5;
+		y_off = 0;
 	}
 	else if ( a > 135 && a <= 255 )
 	{
@@ -949,9 +950,11 @@ static UIImage *grassImage = nil;
 	{
 		TrackLabel *label = [labels objectAtIndex:i];
 
+		/*
 		if ( [label lineType] == TM_L_TIMING_LINE )
 			[view UseBoldFont];
 		else
+		 */
 			[view UseMediumBoldFont];
 		
 		float x, y;
