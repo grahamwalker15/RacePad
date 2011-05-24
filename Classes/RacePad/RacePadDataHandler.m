@@ -26,11 +26,13 @@
 	return self;
 }
 
-- (id) initWithPath: (NSString *)path SubIndex:(NSString *)subIndex
+- (id) initWithPath: (NSString *)archive SessionPrefix:(NSString *)sessionPrefix SubIndex:(NSString *)chunk
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
-	NSString *fileName = [folder stringByAppendingPathComponent:path];
+
+	NSString *fName = [sessionPrefix stringByAppendingString:archive];
+	NSString *fileName = [folder stringByAppendingPathComponent:fName];
 	
 	if ( self = [super initWithPath:fileName] )
 	{
@@ -50,114 +52,66 @@
 			}
 			else
 			{
+				// Now find the index for the specified chunk
 				indexSize = 0;
-				NSString *subIndexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rps"];
-				FILE *subIndexFile = fopen ( [subIndexName UTF8String], "rb" );
-				if ( subIndexFile )
-				{
-					int t;
-					fread(&t, 1, sizeof(int), subIndexFile);
-					int subIndexVersion = htonl ( t );
-					
-					if ( subIndexVersion == versionNumber )
-					{
-						fread(&t, 1, sizeof(int), subIndexFile);
-						indexBase = htonl ( t );
-						
-						fread(&t, 1, sizeof(int), subIndexFile);
-						indexStep = htonl ( t );
-						
-						fread(&t, 1, sizeof(int), subIndexFile);
-						int indexSizeHint = htonl ( t );
-						
-						while (!feof(subIndexFile))
-						{
-							fread(&t, 1, sizeof(int), subIndexFile);
-							int size = htonl ( t );
-							char *s = malloc ( size + 1 );
-							if ( size ) {
-								fread ( s, 1, size, subIndexFile );
-								s[size] = 0;
-							}
-							else {
-								s[0] = 0;
-							}
-							
-							NSString *name = [NSString stringWithUTF8String:s];
-							free ( s );
-							if ( [name isEqualToString: subIndex] )
-							{
-								index = (int *)malloc(indexSizeHint * sizeof(int));
-								
-								int i = 0;
-								while (!feof(subIndexFile))
-								{
-									fread(&t, 1, sizeof(int), subIndexFile);
-									int offset = htonl ( t );
-									if ( offset == -1 )
-										break;
-									if (i >= indexSizeHint)
-									{
-										indexSizeHint += indexSizeHint * 0.1;
-										index = (int *)realloc(index, indexSizeHint * sizeof(int));
-									}
-									index[i++] = offset;
-									indexSize = i;
-								}
-								break;
-							}
-							else
-							{
-								fread(&t, 1, sizeof(int), subIndexFile);
-								while ( htonl ( t ) != -1 && !feof ( subIndexFile ) )
-									fread(&t, 1, sizeof(int), subIndexFile);
-							}
 
-						}
-					}
-					fclose(subIndexFile);
-				}
-
+				int indexHome = 0;
+				if ( [stream canPop:4] )
+					indexHome = [stream PopInt];
+				
+				int chunkCount = 0;
+				[self setStreamPos: indexHome];
 				if ( [stream canPop:4] )
 				{
-					nextTime = [stream PopInt];
-			
-					NSString *indexName = [fileName stringByReplacingOccurrencesOfString:@".rpf" withString:@".rpi"];
-					FILE *indexFile = fopen ( [indexName UTF8String], "rb" );
-					if ( indexFile != nil )
+					chunkCount = [stream PopInt];
+					indexHome += 4;
+				}
+				
+				for ( int ci = 0; ci < chunkCount; ci++ )
+				{
+					[self setStreamPos: indexHome];
+					if ( [stream canPop:4] )
 					{
-						int t;
-						fread(&t, 1, sizeof(int), indexFile);
-						int indexVersion = htonl ( t );
+						NSString *chunkName = [stream PopString];
+						indexBase = [stream PopInt];
+						indexStep = [stream PopInt];
+						int indexSizeHint = [stream PopInt];
 						
-						if ( indexVersion == versionNumber )
+						if ( [chunkName isEqualToString:chunk] )
 						{
-							fread(&t, 1, sizeof(int), indexFile);
-							indexBase = htonl ( t );
-
-							fread(&t, 1, sizeof(int), indexFile);
-							indexStep = htonl ( t );
-
-							fread(&t, 1, sizeof(int), indexFile);
-							int indexSizeHint = htonl ( t );
-							
 							index = (int *)malloc(indexSizeHint * sizeof(int));
-							
-							int i = 0;
-							while (!feof(indexFile))
+
+							for ( int i = 0; i < indexSizeHint; i++ )
 							{
-								fread(&t, 1, sizeof(int), indexFile);
-								if (i >= indexSizeHint)
+								if ( [stream canPop:4] )
 								{
-									indexSizeHint += indexSizeHint * 0.1;
-									index = (int *)realloc(index, indexSizeHint * sizeof(int));
+									index[i] = [stream PopInt];
+									indexSize ++;
 								}
-								index[i++] = htonl ( t );
-								indexSize = i;
+								else
+									break;
 							}
+							break;
 						}
-						
-						fclose(indexFile);
+						else
+						{
+							indexHome += indexSizeHint * 4 + 16 + [chunkName length];
+						}
+					}
+					else
+					{
+						break;
+					}
+
+				}
+				
+				if ( indexSize > 0 )
+				{
+					[stream setPos:index[0]];
+					if ( [stream canPop:4] )
+					{
+						nextTime = [stream PopInt];
+				
 					}
 				}
 			}
@@ -186,23 +140,36 @@
 	if ( indexSize > 0 )
 	{
 		int secsOffset = time / 1000 - indexBase;
-		int indexOffset = secsOffset / indexStep;
-		if ( indexOffset >= indexSize )
-			indexOffset = indexSize - 1;
+		int indexOffset = 0;
+		if ( indexStep )
+		{
+			indexOffset = secsOffset / indexStep;
+			if ( indexOffset >= indexSize )
+				indexOffset = indexSize - 1;
+			if ( indexOffset < 0 )
+				indexOffset = 0;
+		}
 		filePos = index[indexOffset];
-	}
 	
-	[self setStreamPos: filePos];
-	if ( [stream canPop:4] )
-	{
-		nextTime = [stream PopInt];
+		if ( filePos > 0 )
+		{
+			[self setStreamPos: filePos];
+			if ( [stream canPop:4] )
+			{
+				nextTime = [stream PopInt];
+			}
+			else
+			{
+				nextTime = 0;
+			}
+		}
+		else 
+		{
+			nextTime = 0;
+		}
+
+		[self update:time];
 	}
-	else
-	{
-		nextTime = 0;
-	}
-	
-	[self update:time];
 }
 
 - (void) update:(int)time

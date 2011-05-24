@@ -627,11 +627,17 @@ static RacePadCoordinator * instance_ = nil;
 // Local archive management
 ////////////////////////////////////////////////////////////////////////////////////////
 
-- (void) loadRPF: (NSString *)file SubIndex: (NSString *)subIndex
+- (void) loadRPF: (NSString *)archive File:(NSString *)file SubIndex: (NSString *)subIndex
 {
+	NSString *chunk = file;
+	if ( subIndex != nil )
+	{
+		chunk = [chunk stringByAppendingString:@"_"];
+		chunk = [chunk stringByAppendingString:subIndex];
+	}
+	
 	// Called at the beginning to load static elements - track map, helmets etc.
-	NSString *fileName = [sessionPrefix stringByAppendingString:file];
-	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:fileName SubIndex:subIndex];
+	RacePadDataHandler *handler = [[RacePadDataHandler alloc] initWithPath:archive SessionPrefix:sessionPrefix SubIndex:chunk];
 	[handler setTime:[handler inqTime]];
 	[handler release];
 }
@@ -691,9 +697,9 @@ static RacePadCoordinator * instance_ = nil;
 	sessionPrefix = [sessionPrefix stringByAppendingString:session];
 	sessionPrefix = [sessionPrefix stringByAppendingString:@"-"];
 	[sessionPrefix retain];
-	[self loadRPF: @"race_pad.rpf" SubIndex:nil];
-	[self loadRPF: @"event.rpf" SubIndex:nil];
-	[self loadRPF: @"session.rpf" SubIndex:nil];
+	[self loadRPF: @"race_pad.rpa" File:@"race_pad" SubIndex:nil];
+	[self loadRPF: @"race_pad.rpa" File:@"event" SubIndex:nil];
+	[self loadRPF: @"race_pad.rpa" File:@"session" SubIndex:nil];
 	
 	[[RacePadPrefs Instance] setPref:@"preferredEvent" Value:event ];
 	[[RacePadPrefs Instance] setPref:@"preferredSession" Value:session];
@@ -921,7 +927,7 @@ static RacePadCoordinator * instance_ = nil;
 				if (connectionType == RPC_SOCKET_CONNECTION_)
 					[socket_ StreamCommentary:driver];
 				else
-					[self loadRPF:@"commentary.rpf" SubIndex:driver];
+					[self loadRPF:@"race_pad.rpa" File:@"commentary" SubIndex:driver];
 				[[existing_view View] RequestRedraw];
 			}
 		}
@@ -1449,18 +1455,23 @@ static RacePadCoordinator * instance_ = nil;
 // Registration etc. of data handlers for archive play
 ////////////////////////////////////////////////////////////////////////////////////////
 
--(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file AndSubIndex:(NSString *)subIndex
+-(void)AddDataSourceWithType:(int)type AndArchive:(NSString *)archive AndFile:(NSString *)file AndSubIndex:(NSString *)subIndex
 {
-	NSString *fileName = [sessionPrefix stringByAppendingString:file];
-	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:fileName SubIndex:subIndex];
-	RPCDataSource * rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:fileName];
+	NSString *chunk = file;
+	if ( subIndex != nil )
+	{
+		chunk = [chunk stringByAppendingString:@"_"];
+		chunk = [chunk stringByAppendingString:subIndex];
+	}
+	RacePadDataHandler * data_handler = [[RacePadDataHandler alloc] initWithPath:archive SessionPrefix:sessionPrefix SubIndex:chunk];
+	RPCDataSource *rpc_source = [[RPCDataSource alloc] initWithDataHandler:data_handler Type:type Filename:chunk];
 	[dataSources addObject:rpc_source];
 	[rpc_source release];
 }
 
 -(void)AddDataSourceWithType:(int)type AndFile:(NSString *)file
 {
-	[self AddDataSourceWithType:type AndFile:file AndSubIndex:nil];
+	[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile:file AndSubIndex:nil];
 }
 
 -(void)AddDataSourceWithType:(int)type AndParameter:(NSString *)parameter
@@ -1482,43 +1493,43 @@ static RacePadCoordinator * instance_ = nil;
 	// Reach here if it wasn't found - so we'll add a new one
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
-		[self AddDataSourceWithType:type AndFile: @"timing.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"timing"];
 	}
 	else if (type == RPC_LEADER_BOARD_VIEW_)
 	{
-		[self AddDataSourceWithType:type AndFile: @"leader.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"leader"];
 	}
 	else if (type == RPC_LAP_LIST_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"drivers.rpf" AndSubIndex:parameter];
+		[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile: @"driver" AndSubIndex:parameter];
 	}
 	else if (type == RPC_TRACK_MAP_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"cars.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"cars"];
 	}
 	else if (type == RPC_TRACK_PROFILE_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"track_profile.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"cars"];
 	}
 	else if (type == RPC_LAP_COUNT_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"lap_count.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"lap_count"];
 	}
 	else if (type == RPC_PIT_WINDOW_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"pit_window.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"pit_window"];
 	}
 	else if (type == RPC_TELEMETRY_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"telemetry.rpf"];
+		[self AddDataSourceWithType:type AndFile: @"telemetry"];
 	}
 	else if (type == RPC_GAME_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"game.rpf"];
+		[self AddDataSourceWithType:type AndArchive:@"game.rpa" AndFile: @"game" AndSubIndex: nil];
 	}
 	else if (type == RPC_DRIVER_GAP_INFO_VIEW_ )
 	{
-		[self AddDataSourceWithType:type AndFile: @"driver_gap.rpf" AndSubIndex: [[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
+		[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile: @"driver_gap" AndSubIndex: [[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
 	}
 }
 
@@ -1614,20 +1625,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ checkUserName:name];
 	else
 	{
-		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *folder = [paths objectAtIndex:0];
-		NSString *fName = sessionPrefix;
-		fName = [fName stringByAppendingString:@"player_"];
-		fName = [fName stringByAppendingString:name];
-		fName = [fName stringByAppendingString:@".rpf"];
-		NSString *competitorFile = [folder stringByAppendingPathComponent:fName];
-		NSFileManager *fm =	[[NSFileManager alloc]init];
-		BOOL isDir;
-		if ( [fm fileExistsAtPath:competitorFile isDirectory:&isDir] )
-			[self badUser];
-		else
-			[gameViewController cancelledRegister];
-		[fm release];
+		[gameViewController cancelledRegister];
 	}
 }
 
@@ -1637,10 +1635,7 @@ static RacePadCoordinator * instance_ = nil;
 		[socket_ requestPrediction:name];
 	else
 	{
-		NSString *fName = @"player_";
-		fName = [fName stringByAppendingString:name];
-		fName = [fName stringByAppendingString:@".rpf"];
-		[self loadRPF:fName SubIndex:nil];		
+		[self loadRPF:@"race_pad.rpa" File:@"player" SubIndex:name];		
 	}
 
 }

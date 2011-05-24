@@ -234,7 +234,7 @@ enum ConnectionTypes
 -(void) projectDownloadProgress:(int) sizeInMB;
 -(void) cancelDownload;
 
--(void)loadRPF:(NSString *)file SubIndex:(NSString *)subIndex;
+-(void)loadRPF:(NSString *)archive File:(NSString *)file SubIndex:(NSString *)subIndex;
 -(void)loadSession:(NSString *)event Session: (NSString *)session;
 -(NSString *)getVideoArchiveName;
 

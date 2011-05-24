@@ -75,7 +75,7 @@ enum ServerCommands {
 }
 
 - (id) init;
-- (id) initWithPath: (NSString *)path SubIndex:(NSString *)subIndex;
+- (id) initWithPath: (NSString *)archive SessionPrefix:(NSString *)sessionPrefix SubIndex:(NSString *)chunk;
 - (int) inqTime;
 - (void) setTime: (int) time;
 - (void) update: (int ) time;

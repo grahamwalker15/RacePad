@@ -97,7 +97,7 @@
 			NSString *session = [nameChunks objectAtIndex:1];
 			NSString *file = [nameChunks objectAtIndex:2];
 			
-			if ( [file compare:@"event.rpf"] == NSOrderedSame )
+			if ( [file compare:@"race_pad.rpa"] == NSOrderedSame )
 			{
 				if ( [name compare:eventName] == NSOrderedSame )
 				{
@@ -156,7 +156,7 @@
 			NSString *name = [nameChunks objectAtIndex:0];
 			NSString *file = [nameChunks objectAtIndex:2];
 			
-			if ( [file compare:@"event.rpf"] == NSOrderedSame )
+			if ( [file compare:@"race_pad.rpa"] == NSOrderedSame )
 			{
 				int eventsCount = [events count];
 				bool matched = false;
