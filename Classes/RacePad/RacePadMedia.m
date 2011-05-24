@@ -401,7 +401,8 @@ static RacePadMedia * instance_ = nil;
 		movieStartTime = -1;
 		
 		// Try to find a meta file
-		NSString *metaFileName = [currentMovie stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
+		NSString * urlString = [self getVideoArchiveName];
+		NSString *metaFileName = [urlString stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
 		metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
 		FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
 		if ( metaFile )
