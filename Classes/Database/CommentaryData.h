@@ -12,8 +12,13 @@
 
 @interface CommentaryData : AlertData
 {
+	
+	NSString *commentaryFor;
 
 }
+
+@property (retain) NSString *commentaryFor;
+
 
 - (void) fillWithDefaultData:(int)car;
 

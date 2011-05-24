@@ -39,7 +39,6 @@ enum OurCars
 	AlertData * alertData;
 	AlertData * rcMessages;
 	CommentaryData * commentary;
-	NSString *commentaryFor;
 	Telemetry *telemetry;
 	DriverNames *driverNames;
 	DriverInfo *driverInfo;
@@ -58,7 +57,6 @@ enum OurCars
 @property (readonly) AlertData * alertData;
 @property (readonly) AlertData * rcMessages;
 @property (readonly) CommentaryData * commentary;
-@property (retain) NSString *commentaryFor;
 @property (readonly) Telemetry * telemetry;
 @property (readonly) DriverNames * driverNames;
 @property (readonly) DriverInfo * driverInfo;

@@ -20,9 +20,10 @@
     [super dealloc];
 }
 
--(void) setFilter:(int) type
+-(void) setFilter:(int) type Driver:(NSString *)inDriver
 {
 	filter = type;
+	driver = inDriver;
 }
 
 - (void)PrepareData
@@ -33,7 +34,7 @@
 
 - (int) ColumnCount
 {
-	return 3;
+	return 5;
 }
 
 - (int) RowHeight
@@ -51,6 +52,10 @@
 			return 50;
 		case 2:
 			return 620;
+		case 3:
+			return 0;
+		case 4:
+			return 0;
 		default:
 			return 0;
 	}
@@ -64,6 +69,8 @@
 
 - (int) ColumnUse:(int)col;
 {
+	if ( col == 3 || col == 4 )
+		return TD_USE_FOR_NONE;
 	return TD_USE_FOR_BOTH;
 }
 
@@ -77,6 +84,10 @@
 			return SLV_TEXT_CELL_;
 		case 2:
 			return SLV_TEXT_CELL_;
+		case 3:
+			return SLV_TEXT_CELL_;
+		case 4:
+			return SLV_TEXT_CELL_;
 		default:
 			return SLV_TEXT_CELL_;
 	}
@@ -89,6 +100,19 @@
 	
 	AlertData * alertData = [[RacePadDatabase Instance] alertData];
 	int type = [[alertData itemAtIndex:row] type];
+	
+	if ( filter == AV_DRIVER_ )
+	{
+		if ( driver == nil )
+			return true;
+		
+		AlertDataItem *data = [alertData itemAtIndex:row];
+		if ( data
+		  && ( [[data focus] isEqualToString:driver]  || [[data focus2] isEqualToString:driver] ) )
+			return true;
+		
+		return false;
+	}
 	
 	switch (type)
 	{
@@ -161,6 +185,14 @@
 		case 2:
 		{
 			return [[alertData itemAtIndex:dataRow] description];
+		}
+		case 3:
+		{
+			return [[alertData itemAtIndex:dataRow] focus];
+		}
+		case 4:
+		{
+			return [[alertData itemAtIndex:dataRow] focus2];
 		}
 		default:
 		{

@@ -16,6 +16,7 @@
 @synthesize timeStamp;
 @synthesize lap;
 @synthesize focus;
+@synthesize focus2;
 @synthesize description;
 
 - (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn
@@ -52,6 +53,7 @@
 	lap = [stream PopInt];
 	timeStamp = [stream PopFloat];
 	focus = [[stream PopString] retain];
+	focus2 = [[stream PopString] retain];
 	description = [[stream PopString] retain];
 	
 	return self;
@@ -61,6 +63,7 @@
 {
 	[description release];
 	[focus release];
+	[focus2 release];
 	[super dealloc];
 }
 

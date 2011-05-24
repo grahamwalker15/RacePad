@@ -93,15 +93,19 @@
 		
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 		[[RacePadCoordinator Instance] SetViewDisplayed:timingView];
-		[[RacePadCoordinator Instance] SetViewDisplayed:self];
+
+		NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
+		
+		[trackMapView followCar:carToFollow];
+		[trackProfileView followCar:carToFollow];
+		[[[RacePadDatabase Instance] commentary] setCommentaryFor:carToFollow];
 
 		DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
 		if(driverGapInfo)
 		{
-			NSString * requestedDriver = [driverGapInfo requestedDriver];
-			
-			if(requestedDriver && [requestedDriver length] > 0)
+			if(carToFollow)
 			{
+				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:carToFollow];
 				[self showDriverInfo:false];
 				[self setAllSelected:false];	
 			}
@@ -117,7 +121,7 @@
 			[self setAllSelected:true];	
 		}
 		
-		[[RacePadCoordinator Instance] restartCommentary];
+		[[RacePadCoordinator Instance] SetViewDisplayed:self];
 
 		animating = false;
 		showPending = false;
@@ -125,6 +129,7 @@
 		
 	}
 	
+	[[RacePadCoordinator Instance] restartCommentary];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -225,7 +230,7 @@
 	[trackMapContainer setFrame:mapRect];
 	
 	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapHeight)];
-	[trackMapSizeButton setFrame:CGRectMake(4, mapWidth - 24, 20, 20)];
+	[trackMapSizeButton setFrame:CGRectMake(4, mapHeight - 24, 20, 20)];
 		
 	[self addBackgroundFrames];
 }
@@ -608,48 +613,30 @@
 		
 		if(name && [name length] > 0)
 		{
-			/* Don't switch to all any more when same driver is selected. Do restart stream in case this solves unforeseen problems.
-			if([[trackMapView carToFollow] isEqualToString:name])
-			{
-				[trackMapView followCar:nil];
-				[trackProfileView followCar:nil];
-				[leaderboardView RequestRedraw];
-				
-				[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+			NSString * oldCar = [trackMapView carToFollow];
 
-				[self hideDriverInfo:true];
-				
-				[self setAllSelected:true];	
-			}
-			else
-			*/
-			{
-				NSString * oldCar = [trackMapView carToFollow];
+			[[RacePadCoordinator Instance] setCarToFollow:name];
+			[trackMapView followCar:name];
+			[trackProfileView followCar:name];
+			[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
+			
+			// Force reload of data
+			[[RacePadCoordinator Instance] SetViewHidden:self];
+			[[RacePadCoordinator Instance] SetViewDisplayed:self];
 
-				[trackMapView followCar:name];
-				[trackProfileView followCar:name];
-				[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
-				
-				// Force reload of data
-				[[RacePadCoordinator Instance] SetViewHidden:self];
-				[[RacePadCoordinator Instance] SetViewDisplayed:self];
+			if(!oldCar)
+				[self showDriverInfo:true];
 
-				if(!oldCar)
-					[self showDriverInfo:true];
-
-				[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
-							
-				[trackMapView RequestRedraw];
-				
-				[self setAllSelected:false];	
-
-			}
+			[[[RacePadDatabase Instance] commentary] setCommentaryFor:name];
+						
+			[trackMapView RequestRedraw];
+			
+			[self setAllSelected:false];	
 			
 			[leaderboardView RequestRedraw];
 
 			[commentaryView ResetScroll];
 			[[RacePadCoordinator Instance] restartCommentary];
-			[commentaryView RequestRedraw];
 
 			return;
 		}
@@ -665,12 +652,12 @@
 	[trackMapView followCar:nil];
 	[trackProfileView followCar:nil];
 	[leaderboardView RequestRedraw];	
-	[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
+	[[RacePadCoordinator Instance] setCarToFollow:nil];
+	[[[RacePadDatabase Instance] commentary] setCommentaryFor:nil];
 	[self hideDriverInfo:true];
 
 	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] restartCommentary];
-	[commentaryView RequestRedraw];
 	
 	[self setAllSelected:true];	
 }

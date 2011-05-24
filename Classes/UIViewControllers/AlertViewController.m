@@ -120,7 +120,7 @@
 - (IBAction) typeChosen:(id)sender
 {
 	int v = typeChooser.selectedSegmentIndex;
-	[alertView setFilter:v];
+	[alertView setFilter:v Driver:[[RacePadCoordinator Instance]carToFollow]];
 	[alertView RequestRedraw];
 }
 

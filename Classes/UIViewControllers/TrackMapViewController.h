@@ -24,6 +24,7 @@
 	IBOutlet TrackMapView * trackZoomView;
 	IBOutlet LeaderboardView *leaderboardView;
 	
+	int trackZoomOffsetX, trackZoomOffsetY;
 }
 
 - (void) showOverlays;

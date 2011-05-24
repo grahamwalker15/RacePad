@@ -14,15 +14,17 @@ enum AlertFilter {
 	AV_PIT_,
 	AV_OVERTAKE_,
 	AV_EVENT_,
-	AV_OTHER_
+	AV_OTHER_,
+	AV_DRIVER_,
 };
 
 @interface AlertView : SimpleListView
 {
 	int filter;
+	NSString *driver;
 }
 
--(void) setFilter:(int) type;
+-(void) setFilter:(int) type Driver:(NSString *)driver;
 -(int) filteredRowToDataRow:(int)row;
 
 @end

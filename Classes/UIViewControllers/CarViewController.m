@@ -103,16 +103,11 @@
 	// Force background refresh
 	[backgroundView RequestRedraw];
 		
-	if (trackMapView.carToFollow == nil)
-		[[RacePadCoordinator Instance] SetParameter:@"RACE" ForView:commentaryView];
-	else
-		[[RacePadCoordinator Instance] SetParameter:trackMapView.carToFollow ForView:commentaryView];
+	[[[RacePadDatabase Instance] commentary] setCommentaryFor:trackMapView.carToFollow];
 
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-
-	[[RacePadCoordinator Instance] restartCommentary];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -487,7 +482,7 @@
 	[rosButton setSelectedButtonColour:[rosButton buttonColour]];
 	[rosButton setSelectedTextColour:[rosButton textColour]];
 	
-	[[RacePadCoordinator Instance] SetParameter:@"BLUE" ForView:commentaryView];
+	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"MSC"];
 	[trackMapView followCar:@"MSC"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
 	[telemetryView setCar:RPD_BLUE_CAR_];
@@ -506,8 +501,8 @@
 
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
-	
 	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
+	[[RacePadCoordinator Instance] restartCommentary];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -586,12 +581,13 @@
 
 - (IBAction) chooseMSC:(id)sender
 {
-	[[RacePadCoordinator Instance] SetParameter:@"MSC" ForView:commentaryView];
+	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"MSC"];
 	[trackMapView followCar:@"MSC"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
 	[telemetryView setCar:RPD_BLUE_CAR_];
 	[trackProfileView followCar:@"MSC"];
 
+	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] restartCommentary];
 	[trackMapView RequestRedraw];
 	[telemetryView RequestRedraw];
@@ -600,12 +596,13 @@
 
 - (IBAction) chooseROS:(id)sender
 {
-	[[RacePadCoordinator Instance] SetParameter:@"ROS" ForView:commentaryView];
+	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"ROS"];
 	[trackMapView followCar:@"ROS"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
 	[telemetryView setCar:RPD_RED_CAR_];
 	[trackProfileView followCar:@"ROS"];
 	
+	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] restartCommentary];
 	[trackMapView RequestRedraw];
 	[telemetryView RequestRedraw];

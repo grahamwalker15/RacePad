@@ -11,6 +11,8 @@
 
 @implementation CommentaryData
 
+@synthesize commentaryFor;
+
 - (void) fillWithDefaultData:(int)car
 {
 

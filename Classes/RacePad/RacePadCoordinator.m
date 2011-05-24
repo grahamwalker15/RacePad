@@ -53,6 +53,7 @@
 @synthesize serverConnectionStatus;
 @synthesize showingConnecting;
 @synthesize liveMovieSeekAllowed;
+@synthesize carToFollow;
 
 static RacePadCoordinator * instance_ = nil;
 
@@ -912,28 +913,16 @@ static RacePadCoordinator * instance_ = nil;
 			
 			if(type == RPC_COMMENTARY_VIEW_)
 			{
-				NSString * driver = [existing_view Parameter];					
-				if([driver length] > 0)
-				{
-					if ( ![[[RacePadDatabase Instance] commentaryFor] isEqualToString:driver] )
-					{
-						[[RacePadDatabase Instance] setCommentaryFor:driver];
-						[[[RacePadDatabase Instance] commentary] clearAll];
-						
-						if (connectionType == RPC_SOCKET_CONNECTION_)
-							[socket_ StreamCommentary:driver];
-						else
-							[self loadRPF:@"commentary.rpf" SubIndex:driver];
-					}
-					else
-						[[existing_view View] RequestRedraw];
-				}
+				NSString * driver = [[[RacePadDatabase Instance] commentary] commentaryFor];
+				if ( driver == nil )
+					driver = @"RACE";
+				[[[RacePadDatabase Instance] commentary] clearAll];
+				
+				if (connectionType == RPC_SOCKET_CONNECTION_)
+					[socket_ StreamCommentary:driver];
 				else
-				{
-					[[RacePadDatabase Instance] setCommentaryFor:@""];
-					[[[RacePadDatabase Instance] commentary] clearAll];
-					[socket_ StreamCommentary:@""];
-				}
+					[self loadRPF:@"commentary.rpf" SubIndex:driver];
+				[[existing_view View] RequestRedraw];
 			}
 		}
 	}	

@@ -73,7 +73,6 @@ enum ClientCommands {
 - (void) StreamDriverGapInfo:(NSString *) driver;
 - (void) SynchroniseTime;
 - (void) StreamCommentary :(NSString *) driver;
-- (void) RequestTrackProfileBase;
 - (void) StreamTrackProfile;
 - (void) RequestTrackProfile;
 

@@ -45,6 +45,8 @@
 	
 	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
 	[trackZoomContainer setHidden:true];
+	trackZoomOffsetX = 0;
+	trackZoomOffsetY = 0;
 	
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 
@@ -101,9 +103,17 @@
 	[backgroundView RequestRedraw];
 	
 	// Set up zoom mapif necessary
-	if([trackZoomView carToFollow] != nil)
+	NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
+	
+	if(carToFollow == nil)
+	{
+		[trackZoomView setCarToFollow:nil];
+		[trackZoomContainer setHidden:true];
+	}
+	else
 	{
 		[trackZoomView setUserScale:10.0];
+		[trackZoomView followCar:carToFollow];
 		[trackZoomContainer setHidden:false];
 	}
 	
@@ -243,8 +253,20 @@
 	CGRect lb_frame = CGRectMake(map_frame.origin.x + 5, map_frame.origin.y, 60, map_frame.size.height);
 	[leaderboardView setFrame:lb_frame];
 	
+	// CGRect zoom_frame = CGRectMake(map_frame.origin.x + 80, map_frame.origin.y + map_frame.size.height - 320, 300, 300);
 	CGRect zoom_frame = CGRectMake(map_frame.origin.x + 80, map_frame.origin.y + map_frame.size.height - 320, 300, 300);
-	[trackZoomContainer setFrame:zoom_frame];
+	CGRect offsetFrame = CGRectOffset(zoom_frame, trackZoomOffsetX, trackZoomOffsetY);
+	CGRect bgRect = [[self view] frame];
+	if ( offsetFrame.origin.x < 0 )
+		offsetFrame = CGRectOffset(offsetFrame, -offsetFrame.origin.x, 0);
+	if ( offsetFrame.origin.y < 0 )
+		offsetFrame = CGRectOffset(offsetFrame, 0, -offsetFrame.origin.y);
+	if ( offsetFrame.origin.x + offsetFrame.size.width > bgRect.origin.x + bgRect.size.width )
+		offsetFrame = CGRectOffset(offsetFrame, (bgRect.origin.x + bgRect.size.width) - (offsetFrame.origin.x + offsetFrame.size.width), 0);
+	if ( offsetFrame.origin.y + offsetFrame.size.height > bgRect.origin.y + bgRect.size.height )
+		offsetFrame = CGRectOffset(offsetFrame, 0, (bgRect.origin.y + bgRect.size.height) - (offsetFrame.origin.y + offsetFrame.size.height));
+	
+	[trackZoomContainer setFrame:offsetFrame];
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -261,11 +283,13 @@
 		{
 			if([[trackZoomView carToFollow] isEqualToString:name])
 			{
+				[[RacePadCoordinator Instance] setCarToFollow:nil];
 				[self hideZoomMap];
 				[leaderboardView RequestRedraw];
 			}
 			else
 			{
+				[[RacePadCoordinator Instance] setCarToFollow:name];
 				[trackZoomView followCar:name];
 				
 				if(!zoomMapVisible)
@@ -297,6 +321,7 @@
 		
 	if([(TrackMapView *)gestureView isZoomView])
 	{
+		[[RacePadCoordinator Instance] setCarToFollow:nil];
 		[self hideZoomMap];
 	}
 	else
@@ -320,9 +345,17 @@
 	
 	if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
+		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
+		
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
-		[trackZoomContainer setHidden:false];
+		[[RacePadCoordinator Instance] setCarToFollow:name];
+		[trackZoomView followCar:name];
+		
+		if(!zoomMapVisible)
+			[self showZoomMap];
+		
+		[trackZoomView setUserScale:10.0];
+		[trackZoomView RequestRedraw];
 		[leaderboardView RequestRedraw];
 	}
 }
@@ -353,6 +386,8 @@
 	if(gestureView == trackZoomView)
 	{
 		CGRect frame = [trackZoomContainer frame];
+		trackZoomOffsetX += x;
+		trackZoomOffsetY += y;
 		CGRect newFrame = CGRectOffset(frame, x, y);
 		[trackZoomContainer setFrame:newFrame];
 	}

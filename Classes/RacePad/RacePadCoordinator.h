@@ -148,6 +148,8 @@ enum ConnectionTypes
 	
 	bool liveMovieSeekAllowed;
 	
+	NSString * carToFollow;
+
 	NSMutableArray *allTabs;
 	unsigned char currentSponsor;
 	
@@ -177,6 +179,8 @@ enum ConnectionTypes
 @property (readonly) RacePadViewController * registeredViewController;
 @property (retain) SettingsViewController *settingsViewController;
 @property (retain) GameViewController *gameViewController;
+
+@property (nonatomic, retain) NSString * carToFollow;
 
 +(RacePadCoordinator *)Instance;
 

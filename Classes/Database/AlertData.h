@@ -43,6 +43,7 @@ enum AlertTypes
 {
 	int type;
 	NSString *  focus;
+	NSString *  focus2;
 	int lap;
 	float time_stamp;
 	NSString * description;	
@@ -50,6 +51,7 @@ enum AlertTypes
 
 @property (nonatomic) int type;
 @property (nonatomic, retain) NSString *  focus;
+@property (nonatomic, retain) NSString *  focus2;
 @property (nonatomic) int lap;
 @property (nonatomic) float timeStamp;
 @property (nonatomic, retain) NSString * description;	

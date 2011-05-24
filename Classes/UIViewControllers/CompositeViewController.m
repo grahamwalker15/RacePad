@@ -109,10 +109,17 @@
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	
+	NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
 	
-	if([trackZoomView carToFollow] != nil)
+	if(carToFollow == nil)
+	{
+		[trackZoomView setCarToFollow:nil];
+		[trackZoomContainer setHidden:true];
+	}
+	else
 	{
 		[trackZoomView setUserScale:10.0];
+		[trackZoomView followCar:carToFollow];
 		[trackZoomContainer setHidden:false];
 	}
 	
@@ -413,11 +420,13 @@
 		{
 			if([[trackZoomView carToFollow] isEqualToString:name])
 			{
+				[[RacePadCoordinator Instance] setCarToFollow:nil];
 				[self hideZoomMap];
 				[leaderboardView RequestRedraw];
 			}
 			else
 			{
+				[[RacePadCoordinator Instance] setCarToFollow:name];
 				[trackZoomView followCar:name];
 				
 				if(!zoomMapVisible)
@@ -445,9 +454,17 @@
 	
 	if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
+		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
+
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[[(LeaderboardView *)gestureView associatedTrackMapView] followCar:name];
-		[trackZoomContainer setHidden:false];
+		[[RacePadCoordinator Instance] setCarToFollow:name];
+		[trackZoomView followCar:name];
+
+		if(!zoomMapVisible)
+			[self showZoomMap];
+		
+		[trackZoomView setUserScale:10.0];
+		[trackZoomView RequestRedraw];
 		[leaderboardView RequestRedraw];
 	}
 }
@@ -462,6 +479,7 @@
 	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
+		[[RacePadCoordinator Instance] setCarToFollow:nil];
 		[self hideZoomMap];
 	}
 	else
