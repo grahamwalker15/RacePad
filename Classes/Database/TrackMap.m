@@ -1364,7 +1364,7 @@ static UIImage *grassImage = nil;
 	[view FillRectangleX0:x_sc_1 - 2 Y0:x_axis X1:x_sc_1 + 2 Y1:y1];
 	
 	// Draw pit loss figure
-	NSString * pLossString = [NSString stringWithFormat:@"%ds", (int)(roundf(pitStopLoss * trackLength))];
+	NSString * pLossString = [NSString stringWithFormat:@"%ds", (int)(roundf(pitStopLoss * trackProfileLength))];
 	float pw, ph;
 	[view UseBigFont];
 	[view GetStringBox:pLossString WidthReturn:&pw HeightReturn:&ph];
@@ -1393,8 +1393,8 @@ static UIImage *grassImage = nil;
 	
 	[view UseMediumBoldFont];
 	[self drawTrackLine:view Distance:1 Name:@"Fin" Offset:offset Y0:x_axis Y1:y1];
-	[self drawTrackLine:view Distance:s1Length Name:@"S1" Offset:offset Y0:x_axis Y1:y1];
-	[self drawTrackLine:view Distance:s2Length Name:@"S2" Offset:offset Y0:x_axis Y1:y1];
+	[self drawTrackLine:view Distance:s1ProfileLength Name:@"S1" Offset:offset Y0:x_axis Y1:y1];
+	[self drawTrackLine:view Distance:s2ProfileLength Name:@"S2" Offset:offset Y0:x_axis Y1:y1];
 	
 	int turnCount = [turns count];
 	for ( int i = 0; i < turnCount; i++ )
@@ -1406,10 +1406,10 @@ static UIImage *grassImage = nil;
 	[view RestoreFont];
 	
 	// Add tick marks at 1 sec intervals with labels every 5
-	if(trackLength > 0.0)
+	if(trackProfileLength > 0.0)
 	{
 		int counter = 0;
-		float xMaxTime = 0.5 * trackLength;
+		float xMaxTime = 0.5 * trackProfileLength;
 		
 		[view SaveFont];
 		[view UseMediumBoldFont];
@@ -1509,7 +1509,7 @@ static UIImage *grassImage = nil;
 			int lastRow = 0;
 			
 			int carAhead = biggestGapCar;
-			double lapProgress_1 = [[cars objectAtIndex:carAhead] lapProgress] * trackLength;
+			double lapProgress_1 = [[cars objectAtIndex:carAhead] lapProgress] * trackProfileLength;
 			
 			while(true)
 			{				
@@ -1527,10 +1527,10 @@ static UIImage *grassImage = nil;
 				if(carBehind == biggestGapCar)
 					break;
 				
-				double lapProgress_2 = [[cars objectAtIndex:carBehind] lapProgress] * trackLength;
+				double lapProgress_2 = [[cars objectAtIndex:carBehind] lapProgress] * trackProfileLength;
 				
 				if(lapProgress_2 > lapProgress_1)
-					lapProgress_1 += trackLength;
+					lapProgress_1 += trackProfileLength;
 				
 				double gap = lapProgress_1 - lapProgress_2;
 				
