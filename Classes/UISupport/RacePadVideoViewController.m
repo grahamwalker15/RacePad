@@ -19,4 +19,8 @@
 {
 }
 
+- (void) notifyMovieInformation
+{
+}
+
 @end

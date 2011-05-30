@@ -26,6 +26,7 @@
 	IBOutlet UIButton * plus30sButton;
 	
 	IBOutlet UIButton * slowMotionButton;
+	IBOutlet UIButton * normalPlayButton;
 	
 	IBOutlet ShinyButton * goLiveButton;
 
@@ -48,5 +49,6 @@
 @property (readonly)  UIButton * plus30sButton;
 
 @property (readonly)  UIButton * slowMotionButton;
+@property (readonly)  UIButton * normalPlayButton;
 
 @end

@@ -62,6 +62,7 @@
 	
 	[seeLapsButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
 	[seeLapsButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
+	[seeLapsButton setShine:0.1];
 	
 	[trackProfileView setDelaysContentTouches:false];
 	
@@ -86,13 +87,14 @@
 {
 	if(!driver_lap_list_controller_closing_)
 	{
-		[super viewWillAppear:animated];
 		
 		// Register the views
-		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_LIST_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
+		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_DRIVER_LIST_VIEW_ | RPC_DRIVER_GAP_INFO_VIEW_)];
 		
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 		[[RacePadCoordinator Instance] SetViewDisplayed:timingView];
+
+		[super viewWillAppear:animated];
 
 		NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
 		
@@ -127,9 +129,9 @@
 		showPending = false;
 		hidePending = false;
 		
+		[[RacePadCoordinator Instance] restartCommentary];
 	}
 	
-	[[RacePadCoordinator Instance] restartCommentary];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

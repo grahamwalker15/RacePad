@@ -25,13 +25,13 @@
 
 @synthesize movieStartTime;
 @synthesize movieSeekTime;
+@synthesize liveVideoDelay;
 
 @synthesize currentMovie;
 @synthesize currentStatus;
 @synthesize currentError;
 
 @synthesize movieLoaded;
-@synthesize moviePlayable;
 @synthesize moviePlayPending;
 @synthesize movieSeekable;
 @synthesize movieSeekPending;
@@ -64,11 +64,13 @@ static RacePadMedia * instance_ = nil;
 		moviePlayerLayer = nil;
 		moviePlayerObserver = nil;
 		
-		moviePlayable = false;
 		moviePlayPending = false;
 		movieSeekable = false;
 		movieSeekPending = false;
+		movieGoLivePending = false;
 		movieLoaded = false;
+		moviePlayable = false;
+		moviePlayAllowed = false;
 		
 		moviePausedInPlace = false;
 		
@@ -77,6 +79,9 @@ static RacePadMedia * instance_ = nil;
 		streamSeekStartTime = 0.0;
 		
 		activePlaybackRate = 1.0;
+		liveVideoDelay = 0.0;
+		
+		movieResyncCountdown = 5;
 		
 		movieType = MOVIE_TYPE_NONE_;
 	}
@@ -184,7 +189,9 @@ static RacePadMedia * instance_ = nil;
 			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
 			 			 
 			 // Register a time observer to get the current time while playing
+			 movieStartTime = -1.0;
 			 moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
+			 [moviePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
 			 
 			 // Make a movie player layer to receive the movie
 			 if(!moviePlayerLayer)
@@ -270,6 +277,10 @@ static RacePadMedia * instance_ = nil;
 		[moviePlayerItem removeObserver:self forKeyPath:@"status"];
 	}
 	
+	if(moviePlayer)
+	{
+		[moviePlayer removeObserver:self forKeyPath:@"status"];
+	}
 	
 	[moviePlayerLayer release];
 	[moviePlayer release];
@@ -281,7 +292,6 @@ static RacePadMedia * instance_ = nil;
 	moviePlayerItem = nil;
 	moviePlayerAsset = nil;
 	
-	moviePlayable = false;
 	moviePlayPending = false;
 	movieSeekable = false;
 	movieSeekPending = false;
@@ -302,7 +312,6 @@ static RacePadMedia * instance_ = nil;
 	[[RacePadCoordinator Instance] videoServerOnConnectionChange];
 	
 }
-
 
 ////////////////////////////////////////////////////////////////////////////
 // Movie information
@@ -358,13 +367,14 @@ static RacePadMedia * instance_ = nil;
 		
 		if(item)
 		{
-			CMTime currentCMTime = [item currentTime];
+			//CMTime currentCMTime = [item currentTime];
+			CMTime currentCMTime = [moviePlayer currentTime];			
 			
-			float currentTime = 0.0;
+			float currentMovieTime = 0.0;
 			
 			if(CMTIME_IS_VALID(currentCMTime)  && CMTIME_IS_NUMERIC(currentCMTime))
 			{
-				currentTime = (float) CMTimeGetSeconds(currentCMTime);
+				currentMovieTime = (float) CMTimeGetSeconds(currentCMTime);
 			}
 			
 			NSArray *seekableTimeRanges = [item seekableTimeRanges];
@@ -379,27 +389,66 @@ static RacePadMedia * instance_ = nil;
 				{
 					float duration = (float) CMTimeGetSeconds( range.duration );
 					float streamStartTime = CMTimeGetSeconds( range.start );
-					float startTime = (float)[ElapsedTime LocalTimeOfDay] - duration;
-
-					streamSeekStartTime = streamStartTime;
+					float timeNow = (float)[ElapsedTime LocalTimeOfDay];
+					float startTime = timeNow - duration;
 					
-					if(!movieSeekable || startTime < movieStartTime)
+					if(duration > 0.0)
 					{
-						movieStartTime = startTime;
+						currentMovieTime -= streamStartTime;
+
+						streamSeekStartTime = streamStartTime;
 						
-						movieSeekable= true;
+						if(!movieSeekable || startTime < movieStartTime)
+						{
+							movieStartTime = startTime;
+							
+							movieSeekable= true;
+							
+							if(movieSeekPending)
+								[self movieGotoTime:movieSeekTime];
+						}
 						
-						if(movieSeekPending)
-							[self movieGotoTime:movieSeekTime];
+						currentMovieTime += movieStartTime;
+						
+						/*
+						if([[RacePadCoordinator Instance] liveMode])
+						{
+							liveVideoDelay = timeNow - currentMovieTime;
+
+							if(liveVideoDelay > 20.0)
+							{
+								movieResyncCountdown--;
+								if(movieResyncCountdown <= 0)
+								{
+									[self movieStop];
+									[self movieGoLive];
+									[self moviePlay];
+									movieResyncCountdown = 20;
+								}
+								else
+								{
+									movieResyncCountdown = 20;
+								}
+							}
+						}
+						*/
+						
+						//if(registeredViewController)
+						//	[registeredViewController notifyMovieInformation];
 					}
+
 				}
 			}
 		}
+		else
+		{
+			// Item is nil
+			// Try to re-connect current item to player
+			[moviePlayer replaceCurrentItemWithPlayerItem:moviePlayerItem];
+		}
 	}
-	else
+	else if(movieStartTime < 0.0)	// Archive & we haven't read metadata yet
 	{
-		movieStartTime = -1;
-		
 		// Try to find a meta file
 		NSString * urlString = [self getVideoArchiveName];
 		NSString *metaFileName = [urlString stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
@@ -415,7 +464,7 @@ static RacePadMedia * instance_ = nil;
 			fclose(metaFile);
 		}
 		
-		if ( movieStartTime == -1 )
+		if ( movieStartTime < 0 )
 		{
 			// Default to hard coded start time
 			movieStartTime = 13 * 3600.0 + 43 * 60.0 + 40;
@@ -450,7 +499,7 @@ static RacePadMedia * instance_ = nil;
 {
 	activePlaybackRate = playbackRate;
 	
-	if(moviePlayable && registeredViewController)
+	if([self moviePlayable] && registeredViewController)
 	{
 		[moviePlayer setRate:activePlaybackRate];
 		moviePlayPending = false;
@@ -472,6 +521,7 @@ static RacePadMedia * instance_ = nil;
 	moviePausedInPlace = true;
 	[moviePlayer pause];	
 	moviePlayPending = false;
+	movieGoLivePending = false;
 }
 
 - (void) movieGotoTime:(float)time
@@ -528,6 +578,18 @@ static RacePadMedia * instance_ = nil;
 
 - (void) movieGoLive
 {
+	if(moviePlayer && [moviePlayer status] != AVPlayerItemStatusReadyToPlay)
+	{
+		movieGoLivePending = true;
+		return;
+	}
+	
+	if(moviePlayerItem && [moviePlayerItem status] != AVPlayerItemStatusReadyToPlay)
+	{
+		movieGoLivePending = true;
+		return;
+	}
+	
 	if(movieSeekable && registeredViewController)
 	{
 		NSArray *seekableTimeRanges = [moviePlayerItem seekableTimeRanges];
@@ -543,11 +605,15 @@ static RacePadMedia * instance_ = nil;
 				float rangeStartTime = (float) CMTimeGetSeconds(range.start);
 				float rangeDuration = (float) CMTimeGetSeconds(range.duration);
 				float endOfTime = rangeStartTime + rangeDuration + 20.0;
+				if(endOfTime < 12 * 3600.0)
+					endOfTime = 12 * 3600.0;
 				
 				[moviePlayer seekToTime:CMTimeMakeWithSeconds(endOfTime, 1)];
 			}
 		}
 		movieSeekPending = false;
+		moviePausedInPlace = false;
+		movieGoLivePending = false;
 	}
 	else
 	{
@@ -555,6 +621,21 @@ static RacePadMedia * instance_ = nil;
 		movieSeekTime = -1.0;
 	}
 	
+}
+
+- (bool) moviePlayable
+{
+	if(!moviePlayer || [moviePlayer status] != AVPlayerItemStatusReadyToPlay)
+	{
+		return false;
+	}
+	
+	if(!moviePlayerItem || [moviePlayerItem status] != AVPlayerItemStatusReadyToPlay)
+	{
+		return false;
+	}
+	
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -593,7 +674,22 @@ static RacePadMedia * instance_ = nil;
 			[[RacePadCoordinator Instance] videoServerOnConnectionChange];
 		}
 
-		[self getStartTime];
+		if(movieStartTime < 0.001)
+			[self getStartTime];
+		
+		if(movieResyncCountdown > 0)
+		{
+			movieResyncCountdown--;
+			if(movieResyncCountdown == 0)
+			{
+				if([[RacePadCoordinator Instance] liveMode])
+				{
+					[self movieStop];
+					[self movieGoLive];
+					[self moviePlay];
+				}
+			}
+		}
 	}
 }
 
@@ -606,12 +702,18 @@ static RacePadMedia * instance_ = nil;
 	{
 		if([keyPath isEqualToString:@"status"])
 		{
-			if(!moviePlayable && [object status] == AVPlayerItemStatusReadyToPlay)
+			if(!moviePlayable && moviePlayAllowed && [object status] == AVPlayerItemStatusReadyToPlay)
 			{
 				moviePlayable = true;
 				
 				float time_of_day = [[RacePadCoordinator Instance] currentTime];
 				[self getStartTime];
+				
+				if(movieGoLivePending)
+				{
+					[self movieGoLive];
+					movieGoLivePending = false;
+				}
 				
 				if(movieType == MOVIE_TYPE_ARCHIVE_ || ![[RacePadCoordinator Instance] liveMode])
 					[self movieGotoTime:time_of_day];
@@ -653,9 +755,18 @@ static RacePadMedia * instance_ = nil;
 	{
 		if([keyPath isEqualToString:@"status"])
 		{
-			if([object status] == AVPlayerItemStatusReadyToPlay)
+			if(!moviePlayable && moviePlayAllowed && [object status] == AVPlayerItemStatusReadyToPlay)
 			{
-				int x = 0;
+				moviePlayable = true;
+				
+				if(movieGoLivePending)
+				{
+					[self movieGoLive];
+					movieGoLivePending = false;
+				}
+				
+				if(moviePlayPending)
+					[self moviePlay];
 			}
 			
 			if([object status] ==  AVPlayerItemStatusFailed)
@@ -709,7 +820,10 @@ static RacePadMedia * instance_ = nil;
 	if(old_registered_view_controller)
 		[old_registered_view_controller release];
 	
-	moviePausedInPlace = false;
+	moviePausedInPlace = false;	
+	moviePlayAllowed = true;
+	
+	movieResyncCountdown = 5;
 	
 	if(movieLoaded)
 		[registeredViewController displayMovieInView];
@@ -727,7 +841,10 @@ static RacePadMedia * instance_ = nil;
 		registeredViewController = nil;
 		
 		moviePausedInPlace = false;
+		moviePlayable = false;
+		moviePlayAllowed = false;
 
+		movieResyncCountdown = 5;
 	}
 }
 

@@ -87,6 +87,8 @@
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
+	[[RacePadCoordinator Instance] setVideoViewController:self];
+	
 	[super viewDidLoad];
 }
 
@@ -108,6 +110,7 @@
 	[movieView bringSubviewToFront:leaderboardView];
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
+	[movieView bringSubviewToFront:videoDelayLabel];
 	
 	NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
 	
@@ -143,6 +146,9 @@
 	{
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 	}
+
+	// We disable the screen locking - because that seems to close the socket
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -165,6 +171,9 @@
 	}
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
+
+	// re-enable the screen locking
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -253,6 +262,7 @@
 	[movieView bringSubviewToFront:leaderboardView];
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
+	[movieView bringSubviewToFront:videoDelayLabel];
 	
 	[self positionOverlays];	
 }
@@ -265,6 +275,20 @@
 		[moviePlayerLayer removeFromSuperlayer];
 		moviePlayerLayerAdded = false;
 	}	
+}
+
+- (void) notifyMovieInformation
+{
+	 if([[RacePadCoordinator Instance] liveMode])
+	{
+		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay : %.1f", [[RacePadMedia Instance] liveVideoDelay]];
+		[videoDelayLabel setText:videoDelayString];
+		[videoDelayLabel setHidden:false];
+	}
+	else
+	{
+		[videoDelayLabel setHidden:true];
+	}
 }
 
 /////////////////////////////////////////////////////////////////////

@@ -66,8 +66,8 @@
 @interface TelemetryCarViewController : CarViewController
 {
 	IBOutlet TelemetryView * telemetryView;
-	IBOutlet ShinyButton *mscButton;
-	IBOutlet ShinyButton *rosButton;
+	IBOutlet UIButton *mscButton;
+	IBOutlet UIButton *rosButton;
 }
 
 - (IBAction) chooseMSC:(id)sender;

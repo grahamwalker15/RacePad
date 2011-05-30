@@ -217,7 +217,6 @@
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];
 			[track_map loadTrack:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
 			break;
 		}
 		case RPSC_WHOLE_TIMING_PAGE_: // Timing Page 1 (whole page)
@@ -256,7 +255,6 @@
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];
 			[track_map updateCars:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_PROFILE_VIEW_];
 			break;
 		}
 			

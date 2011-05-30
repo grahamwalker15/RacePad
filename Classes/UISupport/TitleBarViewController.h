@@ -12,6 +12,8 @@
 
 @interface TitleBarViewController : UIViewController
 {
+	IBOutlet UIToolbar * toolbar;
+	
 	IBOutlet UIButton * sponsorButton;
 	IBOutlet UIButton * clock;
 	IBOutlet UIButton * eventName;
@@ -20,8 +22,14 @@
 	IBOutlet UIButton * helpButton;
 	IBOutlet UIBarButtonItem * helpBarButton;
 	IBOutlet UIButton * trackStateButton;
+	IBOutlet UIBarButtonItem * playStateBarItem;
+	IBOutlet UIButton * playStateButton;
+
+	NSArray * allItems;
+
 }
 
+@property (readonly) UIToolbar * toolbar;
 @property (readonly) UIButton * sponsorButton;
 @property (readonly) UIBarButtonItem * alertButton;
 @property (readonly) UIBarButtonItem * helpBarButton;
@@ -30,6 +38,10 @@
 @property (readonly) UIButton * eventName;
 @property (readonly) ShinyButton * lapCounter;
 @property (readonly) UIButton * trackStateButton;
+@property (readonly) UIBarButtonItem * playStateBarItem;
+@property (readonly) UIButton * playStateButton;
+
+@property (readonly) NSArray * allItems;
 
 - (void)RequestRedraw;
 

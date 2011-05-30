@@ -132,6 +132,10 @@
 		7F7683FB12AAA07D009249F7 /* SmallScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683FA12AAA07D009249F7 /* SmallScreen.png */; };
 		7F793ED41388FD10008A2CB0 /* BigLeftArrowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */; };
 		7F793ED51388FD10008A2CB0 /* BigRightArrowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */; };
+		7F794029138BCBDF008A2CB0 /* LiveIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F794028138BCBDF008A2CB0 /* LiveIndicator.png */; };
+		7F7940E3138BEABF008A2CB0 /* BigPlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7940E2138BEABF008A2CB0 /* BigPlayButton.png */; };
+		7F79411D138C0972008A2CB0 /* MSCTelemetry.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F79411B138C0971008A2CB0 /* MSCTelemetry.png */; };
+		7F79411E138C0972008A2CB0 /* NicoTelemetry.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F79411C138C0971008A2CB0 /* NicoTelemetry.png */; };
 		7F817D1413052D8A00AC2444 /* InfoPetronas.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817D1313052D8A00AC2444 /* InfoPetronas.htm */; };
 		7F817DFD1305440B00AC2444 /* InfoDeutschePost.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */; };
 		7F817E011305446200AC2444 /* InfoAabar.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E001305446200AC2444 /* InfoAabar.htm */; };
@@ -518,6 +522,10 @@
 		7F7683FA12AAA07D009249F7 /* SmallScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SmallScreen.png; path = Images/SmallScreen.png; sourceTree = "<group>"; };
 		7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BigLeftArrowButton.png; path = Images/BigLeftArrowButton.png; sourceTree = "<group>"; };
 		7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BigRightArrowButton.png; path = Images/BigRightArrowButton.png; sourceTree = "<group>"; };
+		7F794028138BCBDF008A2CB0 /* LiveIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LiveIndicator.png; path = Images/LiveIndicator.png; sourceTree = "<group>"; };
+		7F7940E2138BEABF008A2CB0 /* BigPlayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BigPlayButton.png; path = Images/BigPlayButton.png; sourceTree = "<group>"; };
+		7F79411B138C0971008A2CB0 /* MSCTelemetry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MSCTelemetry.png; path = Images/MSCTelemetry.png; sourceTree = "<group>"; };
+		7F79411C138C0971008A2CB0 /* NicoTelemetry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NicoTelemetry.png; path = Images/NicoTelemetry.png; sourceTree = "<group>"; };
 		7F817D1313052D8A00AC2444 /* InfoPetronas.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoPetronas.htm; sourceTree = "<group>"; };
 		7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoDeutschePost.htm; sourceTree = "<group>"; };
 		7F817E001305446200AC2444 /* InfoAabar.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoAabar.htm; sourceTree = "<group>"; };
@@ -1195,6 +1203,10 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F79411B138C0971008A2CB0 /* MSCTelemetry.png */,
+				7F79411C138C0971008A2CB0 /* NicoTelemetry.png */,
+				7F7940E2138BEABF008A2CB0 /* BigPlayButton.png */,
+				7F794028138BCBDF008A2CB0 /* LiveIndicator.png */,
 				7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */,
 				7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */,
 				7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */,
@@ -1601,6 +1613,10 @@
 				7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */,
 				7F793ED41388FD10008A2CB0 /* BigLeftArrowButton.png in Resources */,
 				7F793ED51388FD10008A2CB0 /* BigRightArrowButton.png in Resources */,
+				7F794029138BCBDF008A2CB0 /* LiveIndicator.png in Resources */,
+				7F7940E3138BEABF008A2CB0 /* BigPlayButton.png in Resources */,
+				7F79411D138C0972008A2CB0 /* MSCTelemetry.png in Resources */,
+				7F79411E138C0972008A2CB0 /* NicoTelemetry.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

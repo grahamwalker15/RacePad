@@ -15,5 +15,6 @@
 
 - (void) displayMovieInView;
 - (void) removeMovieFromView;
+- (void) notifyMovieInformation;
 
 @end

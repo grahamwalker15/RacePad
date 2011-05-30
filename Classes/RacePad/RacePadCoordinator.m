@@ -47,6 +47,7 @@
 @synthesize playing;
 @synthesize registeredViewController;
 @synthesize settingsViewController;
+@synthesize videoViewController;
 @synthesize gameViewController;
 @synthesize videoConnectionType;
 @synthesize videoConnectionStatus;
@@ -132,6 +133,7 @@ static RacePadCoordinator * instance_ = nil;
 	[WorkOffline release];
 	[settingsViewController release];
 	[gameViewController release];
+	[videoViewController release];
 	[allTabs release];
     [super dealloc];
 }
@@ -234,6 +236,32 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	
 	return @"";	
+}
+
+- (void) selectVideoTab
+{
+	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
+	UITabBarController *tabControl = [app tabBarController];
+	
+	if(tabControl)
+	{
+		NSArray * controllers = [tabControl viewControllers];
+		
+		if(controllers)
+		{
+			int index = 0;
+			for(UIViewController * controller in controllers)
+			{
+				if(controller && [controller isKindOfClass:[CompositeViewController class]])
+				{
+					[tabControl setSelectedIndex:index];
+					break;
+				}
+				
+				index++;
+			}
+		}
+	}
 }
 
 - (void) updateSponsor
@@ -432,6 +460,7 @@ static RacePadCoordinator * instance_ = nil;
 	[self pausePlay];
 	needsPlayRestart = false;
 	activePlaybackRate = playbackRate = 1.0;
+	[[RacePadTitleBarController Instance] updateLiveIndicator];
 }
 
 -(void) userPause
@@ -439,6 +468,7 @@ static RacePadCoordinator * instance_ = nil;
 	live = false;
 	[self stopPlay];
 	[settingsViewController updateConnectionType];
+	[[RacePadTitleBarController Instance] updateLiveIndicator];
 }
 
 -(void)jumpToTime:(float)time
@@ -451,6 +481,7 @@ static RacePadCoordinator * instance_ = nil;
 	live = false;
 	
 	[[RacePadTimeController Instance] updatePlayButtons];
+	[[RacePadTitleBarController Instance] updateLiveIndicator];
 	[self showSnapshot];
 }
 
@@ -480,12 +511,15 @@ static RacePadCoordinator * instance_ = nil;
 	if ( play )
 	{
 		if ( connectionType == RPC_NO_CONNECTION_ )
+		{
 			needsPlayRestart = true;
+		}
 		else
 		{
 			[self prepareToPlay];
 			[self startPlay];
 			[[RacePadTimeController Instance] updatePlayButtons];
+			[[RacePadTitleBarController Instance] updateLiveIndicator];
 		}
 	}
 	
@@ -507,19 +541,14 @@ static RacePadCoordinator * instance_ = nil;
 	
 	if ( live  )
 	{
-/*
-		if ( connectionType == RPC_NO_CONNECTION_ )
-		{
-			needsPlayRestart = true;
-		}
-		else if ( connectionType == RPC_SOCKET_CONNECTION_ )
- */
-		{
-			[self prepareToPlay];
-			[self startPlay];
-			[[RacePadTimeController Instance] updatePlayButtons];
-		}
+		[self prepareToPlay];
+		[self startPlay];
+		[[RacePadTimeController Instance] updatePlayButtons];
+		[[RacePadTitleBarController Instance] updateLiveIndicator];
 	}
+		
+	[[RacePadTitleBarController Instance] updateLiveIndicator];
+
 }
 
 -(void)prepareToPlay
@@ -993,10 +1022,6 @@ static RacePadCoordinator * instance_ = nil;
 				{
 					[socket_ StreamCars];
 				}
-				else if([existing_view Type] == RPC_TRACK_PROFILE_VIEW_)
-				{
-					[socket_ StreamTrackProfile];
-				}
 				else if([existing_view Type] == RPC_PIT_WINDOW_VIEW_)
 				{
 					[socket_ StreamPitWindow];
@@ -1062,10 +1087,6 @@ static RacePadCoordinator * instance_ = nil;
 				else if([existing_view Type] == RPC_TRACK_MAP_VIEW_)
 				{
 					[socket_ RequestCars];
-				}
-				else if([existing_view Type] == RPC_TRACK_PROFILE_VIEW_)
-				{
-					[socket_ RequestTrackProfile];
 				}
 				else if([existing_view Type] == RPC_PIT_WINDOW_VIEW_)
 				{
@@ -1257,10 +1278,22 @@ static RacePadCoordinator * instance_ = nil;
 		
 		// If this was the last displayed view, stop the play timers, but record the fact
 		// that we are playing so that it will restart when the next view is loaded
-		if(playing && [self DisplayedViewCount] <= 0)
+		
+		// If it is not the last view, restart all the others
+		if(playing)
 		{
-			[self stopPlay]; // This will stop the server streaming
-			needsPlayRestart = true;
+			if([self DisplayedViewCount] <= 0)
+			{
+				[self stopPlay]; // This will stop the server streaming
+				needsPlayRestart = true;
+			}
+			else
+			{
+				[self pausePlay];
+				[self prepareToPlay];
+				[self startPlay];
+				[[RacePadTimeController Instance] updatePlayButtons];
+			}
 		}
 		
 		// Release the data handler
@@ -1504,10 +1537,6 @@ static RacePadCoordinator * instance_ = nil;
 		[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile: @"driver" AndSubIndex:parameter];
 	}
 	else if (type == RPC_TRACK_MAP_VIEW_ )
-	{
-		[self AddDataSourceWithType:type AndFile: @"cars"];
-	}
-	else if (type == RPC_TRACK_PROFILE_VIEW_ )
 	{
 		[self AddDataSourceWithType:type AndFile: @"cars"];
 	}

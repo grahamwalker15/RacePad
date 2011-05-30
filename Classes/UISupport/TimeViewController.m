@@ -27,6 +27,7 @@
 @synthesize plus30sButton;
 
 @synthesize slowMotionButton;
+@synthesize normalPlayButton;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad

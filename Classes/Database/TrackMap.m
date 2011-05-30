@@ -1011,6 +1011,25 @@ static UIImage *grassImage = nil;
 	
 	[view UseRegularFont];
 	
+	if ( [view isZoomView] )
+	{
+		NSString *followCar = [view carToFollow];
+		if ( followCar != nil )
+		{
+			[view SetFGColour:[view white_]];
+		
+			[view DrawString:followCar AtX:3 Y:3];
+			
+			if ( ![self carExistsByName:followCar] )
+			{
+				[view UseBigFont];
+				float tWidth, tHeight;
+				CGSize size = [view InqSize];
+				[view GetStringBox:@"In Pit" WidthReturn:&tWidth HeightReturn:&tHeight];
+				[view DrawString:@"In Pit" AtX:(size.width - tWidth) / 2 Y:(size.height - tHeight)/2];
+			}
+		}
+	}
 }
 
 - (bool) carExistsByName:(NSString *)name

@@ -13,10 +13,11 @@ enum AlertFilter {
 	AV_ALL_,
 	AV_PIT_,
 	AV_OVERTAKE_,
+	AV_INCIDENT_,
 	AV_EVENT_,
 	AV_OTHER_,
 	AV_DRIVER_,
-};
+};	// Keepin same order as segments in nib file
 
 @interface AlertView : SimpleListView
 {

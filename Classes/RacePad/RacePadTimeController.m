@@ -160,6 +160,7 @@ static RacePadTimeController * instance_ = nil;
 	[[timeController plus10sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
 	[[timeController plus30sButton] addTarget:instance_ action:@selector(JumpButtonPressed:) forControlEvents:UIControlEventTouchDown];
 	
+	[[timeController normalPlayButton] addTarget:instance_ action:@selector(PlayPressed:) forControlEvents:UIControlEventTouchDown];
 	[[timeController slowMotionButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchDown];
 
 	//JogControlView * jog_control = [jogController jogControl];	
@@ -312,6 +313,7 @@ static RacePadTimeController * instance_ = nil;
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	UIBarButtonItem * play_button = [timeController playButton];	
+	UIButton * normal_play_button = [timeController normalPlayButton];	
 	UIButton * slow_button = [timeController slowMotionButton];	
 	
 	if(play_button)
@@ -319,10 +321,12 @@ static RacePadTimeController * instance_ = nil;
 		if([coordinator playingRealTime])
 		{
 			[play_button setImage:[UIImage imageNamed:@"pause.png"]];
+			[normal_play_button setImage:[UIImage imageNamed:@"SlowMotionPause.png"] forState:UIControlStateNormal];
 		}
 		else
 		{
 			[play_button setImage:[UIImage imageNamed:@"play.png"]];
+			[normal_play_button setImage:[UIImage imageNamed:@"BigPlayButton.png"] forState:UIControlStateNormal];
 		}
 	}
 	
@@ -469,6 +473,7 @@ static RacePadTimeController * instance_ = nil;
 {
 	RacePadCoordinator * coordinator = [RacePadCoordinator Instance];
 	
+	// Stop play and go to right place
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
 	
@@ -479,6 +484,10 @@ static RacePadTimeController * instance_ = nil;
 	[coordinator jumpToTime:time];
 	[self updateTime:time];
 	
+	// Go to video tab if available (will do nothing if it isn't)
+	[coordinator selectVideoTab];
+	
+	// Play
 	[coordinator prepareToPlay];
 	[coordinator startPlay];
 	[self updatePlayButtons];

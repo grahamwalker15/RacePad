@@ -120,6 +120,10 @@
 			return filter == AV_OVERTAKE_;
 		case ALERT_PIT_STOP_:
 			return filter == AV_PIT_;
+		case ALERT_INCIDENT_:
+		case ALERT_CAR_STOPPED_:
+		case ALERT_CAR_CONTINUED_:
+			return filter == AV_INCIDENT_;
 		case ALERT_RACE_EVENT_:
 		case ALERT_USER_EVENT_:
 		case ALERT_GREEN_FLAG_:
@@ -127,6 +131,7 @@
 		case ALERT_SAFETY_CAR_:
 		case ALERT_CHEQUERED_FLAG_:
 			return filter == AV_EVENT_;
+
 		default:
 			return filter == AV_OTHER_;
 	}				

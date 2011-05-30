@@ -35,12 +35,15 @@ static RacePadTitleBarController * instance_ = nil;
 		
 		alertController = [[AlertViewController alloc] initWithNibName:@"AlertControlView" bundle:nil];
 		alertPopover = [[UIPopoverController alloc] initWithContentViewController:alertController];
+		[alertPopover setDelegate:self];
 		[alertController setParentPopover:alertPopover];
-		
+				
 		helpController = nil;
 		helpPopover = nil;
 				
 		lapCount = 0;
+		
+		liveMode = true;
 	}
 	
 	return self;
@@ -77,11 +80,10 @@ static RacePadTitleBarController * instance_ = nil;
 	[alert_button setTarget:self];
 	[alert_button setAction:@selector(AlertPressed:)];
 	
-	UIButton * lap_button = [titleBarController lapCounter];
-	[lap_button addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[titleBarController playStateButton] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[titleBarController lapCounter] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
-	UIButton * help_button = [titleBarController helpButton];
-	[help_button addTarget:self action:@selector(HelpPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[titleBarController helpButton] addTarget:self action:@selector(HelpPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	float current_time = [[RacePadCoordinator Instance] currentTime];	
 	[self updateTime:current_time];
@@ -94,6 +96,44 @@ static RacePadTitleBarController * instance_ = nil;
 - (void) updateSponsor
 {
 	[[titleBarController sponsorButton] setImage:[[RacePadSponsor Instance]getSponsorLogo:RPS_LOGO_REGULAR_] forState:UIControlStateNormal];
+}
+
+- (void) updateLiveIndicator
+{
+	if([[RacePadCoordinator Instance] liveMode])
+		[self showLiveIndicator];
+	else
+		[self hideLiveIndicator];
+		
+}
+
+- (void) hideLiveIndicator
+{
+	if(liveMode)
+	{
+		NSMutableArray * items = [[NSMutableArray alloc] init];
+		
+		UIBarButtonItem * liveIndicator = [titleBarController playStateBarItem];
+		
+		for (UIBarButtonItem * item in [titleBarController allItems])
+		{
+			if(item != liveIndicator)
+				[items addObject:item];
+		}
+		
+		[[titleBarController toolbar] setItems:items animated:true];
+		
+		liveMode = false;
+	}
+}
+
+- (void) showLiveIndicator
+{
+	if(!liveMode)
+	{
+		[[titleBarController toolbar] setItems:[titleBarController allItems] animated:true];
+		liveMode = true;
+	}
 }
 
 - (void) hide
@@ -198,15 +238,18 @@ static RacePadTitleBarController * instance_ = nil;
 
 - (IBAction)AlertPressed:(id)sender
 {
-	CGSize popoverSize;
-	if([[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_)
-		popoverSize = CGSizeMake(700,800);
-	else
-		popoverSize = CGSizeMake(700,600);
-	
-	[alertPopover setPopoverContentSize:popoverSize];
-	
-	[alertPopover presentPopoverFromBarButtonItem:[titleBarController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+	if(![alertPopover isPopoverVisible])
+	{
+		CGSize popoverSize;
+		if([[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_)
+			popoverSize = CGSizeMake(700,800);
+		else
+			popoverSize = CGSizeMake(700,600);
+		
+		[alertPopover setPopoverContentSize:popoverSize];
+		
+		[alertPopover presentPopoverFromBarButtonItem:[titleBarController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+	}
 }
 
 - (IBAction)HelpPressed:(id)sender

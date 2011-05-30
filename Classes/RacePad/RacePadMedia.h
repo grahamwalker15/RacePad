@@ -48,6 +48,7 @@ enum MovieConnectionTypes
 	float movieStartTime;
 	float movieSeekTime;
 	float streamSeekStartTime;
+	float liveVideoDelay;
 	
 	NSString *currentMovie;
 	
@@ -56,11 +57,15 @@ enum MovieConnectionTypes
 	
 	bool movieLoaded;
 	bool moviePlayable;
+	bool moviePlayAllowed;
+	
 	bool moviePlayPending;
 	bool movieSeekable;
 	bool movieSeekPending;
+	bool movieGoLivePending;
 	
 	bool moviePausedInPlace;
+	int movieResyncCountdown;
 	
 	float activePlaybackRate;
 	
@@ -81,6 +86,7 @@ enum MovieConnectionTypes
 
 @property (readonly) float movieStartTime;
 @property (readonly) float movieSeekTime;
+@property (readonly) float liveVideoDelay;
 
 @property (readonly) NSString *currentMovie;
 
@@ -88,7 +94,6 @@ enum MovieConnectionTypes
 @property (readonly) NSString *currentError;
 
 @property (readonly) bool movieLoaded;
-@property (readonly) bool moviePlayable;
 @property (readonly) bool moviePlayPending;
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
@@ -119,6 +124,8 @@ enum MovieConnectionTypes
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) moviePrepareToPlay;
+
+- (bool) moviePlayable;
 
 - (void) timeObserverCallback:(CMTime) cmTime;
 

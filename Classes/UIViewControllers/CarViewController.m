@@ -73,7 +73,7 @@
 	[super viewDidLoad];
 	
 	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
-	[[RacePadCoordinator Instance] AddView:trackProfileView WithType:RPC_TRACK_PROFILE_VIEW_];
+	[[RacePadCoordinator Instance] AddView:trackProfileView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	
 	// Set paramters for views
@@ -474,19 +474,30 @@
 {
 	[super viewDidLoad];
 
-	[mscButton setButtonColour:[UIColor colorWithRed:0.4 green:0.4 blue:0.8 alpha:1.0]];
-	[mscButton setSelectedButtonColour:[mscButton buttonColour]];
-	[mscButton setSelectedTextColour:[mscButton textColour]];
+	//[mscButton setButtonColour:[UIColor colorWithRed:0.4 green:0.4 blue:0.8 alpha:1.0]];
+	//[mscButton setSelectedButtonColour:[mscButton buttonColour]];
+	//[mscButton setSelectedTextColour:[mscButton textColour]];
 
-	[rosButton setButtonColour:[UIColor colorWithRed:0.8 green:0.4 blue:0.4 alpha:1.0]];
-	[rosButton setSelectedButtonColour:[rosButton buttonColour]];
-	[rosButton setSelectedTextColour:[rosButton textColour]];
+	//[rosButton setButtonColour:[UIColor colorWithRed:0.8 green:0.4 blue:0.4 alpha:1.0]];
+	//[rosButton setSelectedButtonColour:[rosButton buttonColour]];
+	//[rosButton setSelectedTextColour:[rosButton textColour]];
 	
+	/*
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"MSC"];
 	[trackMapView followCar:@"MSC"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
 	[telemetryView setCar:RPD_BLUE_CAR_];
 	[trackProfileView followCar:@"MSC"];
+	 */
+	
+	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"ROS"];
+	[trackMapView followCar:@"ROS"];
+	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
+	[telemetryView setCar:RPD_RED_CAR_];
+	[trackProfileView followCar:@"ROS"];
+	
+	[mscButton setAlpha:1.0];
+	[rosButton setAlpha:0.25];
 
 	[self addTapRecognizerToView:telemetryView];
 	[self addTapRecognizerToView:mscButton];
@@ -549,6 +560,10 @@
 	
 	CGRect telemetry_frame = [telemetryView frame];
 	
+	float buttonOffset = (orientation == UI_ORIENTATION_PORTRAIT_) ? 140 : 160;
+	[rosButton setCenter:CGPointMake(CGRectGetMidX(telemetry_frame) - buttonOffset - 20, 40) ];
+	[mscButton setCenter:CGPointMake(CGRectGetMidX(telemetry_frame) + buttonOffset, 40) ];
+	
 	CGRect mapRect;
 	CGRect normalMapRect;
 	float mapWidth;
@@ -592,6 +607,9 @@
 	[trackMapView RequestRedraw];
 	[telemetryView RequestRedraw];
 	[trackProfileView RequestRedraw];
+	
+	[mscButton setAlpha:1.0];
+	[rosButton setAlpha:0.25];
 }
 
 - (IBAction) chooseROS:(id)sender
@@ -607,6 +625,9 @@
 	[trackMapView RequestRedraw];
 	[telemetryView RequestRedraw];
 	[trackProfileView RequestRedraw];
+
+	[mscButton setAlpha:0.25];
+	[rosButton setAlpha:1.0];
 }
 
 - (void)addBackgroundFrames

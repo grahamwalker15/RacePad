@@ -11,6 +11,8 @@
 
 @implementation TitleBarViewController
 
+@synthesize toolbar;
+@synthesize allItems;
 @synthesize sponsorButton;
 @synthesize alertButton;
 @synthesize helpBarButton;
@@ -19,6 +21,8 @@
 @synthesize clock;
 @synthesize lapCounter;
 @synthesize trackStateButton;
+@synthesize playStateBarItem;
+@synthesize playStateButton;
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad
@@ -28,6 +32,8 @@
 	 //Tell race pad co-ordinator that we'll be interested in updates
 	 [[RacePadCoordinator Instance] AddView:self WithType:RPC_LAP_COUNT_VIEW_];
 
+	 allItems = [[toolbar items] retain];
+	 
 	 [super viewDidLoad];
  }
  
@@ -50,7 +56,10 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+ 	[allItems release];
+	allItems = nil;
+	
+	[super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

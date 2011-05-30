@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="12"/>
+			<integer value="52"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -274,7 +274,7 @@
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="727949393"/>
 					</object>
-					<object class="IBUILabel" id="1011725108">
+					<object class="IBUILabel" id="102571380">
 						<reference key="NSNextResponder" ref="239256000"/>
 						<int key="NSvFlags">260</int>
 						<string key="NSFrame">{{14, 595}, {218, 20}}</string>
@@ -285,7 +285,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<string key="IBUIText"> © SBG Race Information Systems 2011</string>
-						<object class="NSFont" key="IBUIFont" id="1055993445">
+						<object class="NSFont" key="IBUIFont" id="547242707">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">10</double>
 							<int key="NSfFlags">16</int>
@@ -294,7 +294,7 @@
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 					</object>
-					<object class="IBUILabel" id="634643896">
+					<object class="IBUILabel" id="94959945">
 						<reference key="NSNextResponder" ref="239256000"/>
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{267, 593}, {218, 20}}</string>
@@ -304,8 +304,8 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText"> Version 1.4 </string>
-						<reference key="IBUIFont" ref="1055993445"/>
+						<string key="IBUIText"> Version 1.92 </string>
+						<reference key="IBUIFont" ref="547242707"/>
 						<reference key="IBUIHighlightedColor" ref="237720530"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -459,8 +459,8 @@
 							<reference ref="808503418"/>
 							<reference ref="68372473"/>
 							<reference ref="718744900"/>
-							<reference ref="1011725108"/>
-							<reference ref="634643896"/>
+							<reference ref="102571380"/>
+							<reference ref="94959945"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -529,12 +529,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">51</int>
-						<reference key="object" ref="1011725108"/>
+						<reference key="object" ref="102571380"/>
 						<reference key="parent" ref="239256000"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">52</int>
-						<reference key="object" ref="634643896"/>
+						<reference key="object" ref="94959945"/>
 						<reference key="parent" ref="239256000"/>
 					</object>
 				</object>

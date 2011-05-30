@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SettingsViewController.h"
+#import "CompositeViewController.h"
 #import "GameViewController.h"
-
 
 @class RacePadViewController;
 @class RacePadClientSocket;
@@ -33,8 +33,7 @@ enum ViewTypes
 	RPC_LEADER_BOARD_VIEW_ = 0x100,
 	RPC_GAME_VIEW_ = 0x200,
 	RPC_COMMENTARY_VIEW_ = 0x400,
-	RPC_DRIVER_GAP_INFO_VIEW_ = 0x800,
-	RPC_TRACK_PROFILE_VIEW_ = 0x1000,
+	RPC_DRIVER_GAP_INFO_VIEW_ = 0x800
 } ;
 
 // Connection types
@@ -107,6 +106,7 @@ enum ConnectionTypes
 	WorkOffline *workOffline;
 	SettingsViewController *settingsViewController;
 	GameViewController *gameViewController;
+	CompositeViewController *videoViewController;
 	
 	bool firstView;
 	
@@ -179,6 +179,7 @@ enum ConnectionTypes
 @property (readonly) RacePadViewController * registeredViewController;
 @property (retain) SettingsViewController *settingsViewController;
 @property (retain) GameViewController *gameViewController;
+@property (retain) CompositeViewController *videoViewController;
 
 @property (nonatomic, retain) NSString * carToFollow;
 
@@ -289,6 +290,8 @@ enum ConnectionTypes
 -(void) selectTab:(int)index;
 - (int) tabCount;
 - (NSString *) tabTitle:(int)index;
+- (void) selectVideoTab;
+
 
 -(void) updateSponsor;
 

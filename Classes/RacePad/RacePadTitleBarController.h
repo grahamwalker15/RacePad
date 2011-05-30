@@ -16,12 +16,14 @@
 	TitleBarViewController * titleBarController;
 	AlertViewController * alertController;
 	UIPopoverController * alertPopover;
-	
+		
 	HelpViewController * helpController;
 	UIPopoverController * helpPopover;
 	
 	int lapCount;
 	int currentLap;
+	
+	bool liveMode;
 }
 
 + (RacePadTitleBarController *)Instance;
@@ -37,6 +39,10 @@
 - (void) setCurrentLap: (int)lap;
 - (int) inqCurrentLap;
 - (void) setTrackState: (int)state;
+
+- (void) updateLiveIndicator;
+- (void) hideLiveIndicator;
+- (void) showLiveIndicator;
 
 - (void) updateSponsor;
 

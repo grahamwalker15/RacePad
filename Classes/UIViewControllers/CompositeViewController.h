@@ -30,6 +30,8 @@
 	IBOutlet BackgroundView * trackZoomContainer;
 	IBOutlet TrackMapView * trackZoomView;
 	IBOutlet LeaderboardView *leaderboardView;
+	
+	IBOutlet UILabel * videoDelayLabel;
 
 	IBOutlet UIView *optionContainer;;
 	IBOutlet UISegmentedControl *optionSwitches;
