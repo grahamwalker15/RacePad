@@ -10,8 +10,13 @@
 
 @interface RacePadVideoViewController : RacePadViewController
 {
-
+	IBOutlet UILabel * loadingLabel;
+	IBOutlet UIActivityIndicatorView * loadingTwirl;	
+	IBOutlet UILabel * videoDelayLabel;
 }
+
+- (void) showLoadingIndicators;
+- (void) hideLoadingIndicators;
 
 - (void) displayMovieInView;
 - (void) removeMovieFromView;

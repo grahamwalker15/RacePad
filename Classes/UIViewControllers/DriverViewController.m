@@ -69,6 +69,11 @@
 	// Add tap and long press recognizers to the leaderboard
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
+	
+	// Add double tap recognizer to timing view for lap list
+	[self addDoubleTapRecognizerToView:timingView];
+	
+	// Add tap recognizers to buttons to prevent them bringing up ti;e controls
 	[self addTapRecognizerToView:allButton];
 	[self addTapRecognizerToView:seeLapsButton];
 	
@@ -647,6 +652,37 @@
 	
 	// Reach here if either tap was outside leaderboard, or no car was found at tap point
 	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
+}
+
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	// This class just handles double taps in the timingView.
+	// All others are passed to the parent.
+	if(gestureView && [gestureView isKindOfClass:[DriverViewControllerTimingView class]])
+	{
+		int row = -1;
+		int col = -1;
+		
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		{
+			bool if_heading = [(SimpleListView *)gestureView IfHeading];
+			
+			if(!if_heading || row != 0)
+			{
+				if(if_heading)
+					row --;
+				
+				TableData * driverListData = [[RacePadDatabase Instance] driverListData];
+				TableCell *cell = [driverListData cell:row Col:0];
+				NSString *driver = [cell string];
+				[self ShowDriverLapList:driver];
+			}
+		}	
+	}
+	else
+	{
+		[super OnDoubleTapGestureInView:gestureView AtX:x Y:y];
+	}
 }
 
 - (IBAction) allButtonPressed:(id)sender

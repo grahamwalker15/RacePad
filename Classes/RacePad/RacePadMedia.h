@@ -44,6 +44,7 @@ enum MovieConnectionTypes
 	AVPlayerLayer * moviePlayerLayer;
 	
 	id moviePlayerObserver;
+	NSTimer * playTimer;
 	
 	float movieStartTime;
 	float movieSeekTime;
@@ -124,6 +125,10 @@ enum MovieConnectionTypes
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) moviePrepareToPlay;
+
+- (void) startPlayTimer;
+- (void) stopPlayTimer;
+- (void) playTimerExpired: (NSTimer *)theTimer;
 
 - (bool) moviePlayable;
 

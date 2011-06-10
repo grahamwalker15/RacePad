@@ -111,7 +111,10 @@
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	[movieView bringSubviewToFront:videoDelayLabel];
+	[movieView bringSubviewToFront:loadingLabel];
+	[movieView bringSubviewToFront:loadingTwirl];
 	
+	NSString *currentCarToFollow = [trackZoomView carToFollow];
 	NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
 	
 	if(carToFollow == nil)
@@ -119,11 +122,18 @@
 		[trackZoomView setCarToFollow:nil];
 		[trackZoomContainer setHidden:true];
 	}
-	else
+	else if(currentCarToFollow) // Only follow global car if we were already following someone
 	{
 		[trackZoomView setUserScale:10.0];
 		[trackZoomView followCar:carToFollow];
-		[trackZoomContainer setHidden:false];
+		if(displayMap)
+		{
+			[trackZoomContainer setHidden:false];
+		}
+		else
+		{
+			[trackZoomContainer setHidden:true];
+		}
 	}
 	
 	if(displayVideo)
@@ -146,7 +156,7 @@
 	{
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 	}
-
+	
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
@@ -263,6 +273,8 @@
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	[movieView bringSubviewToFront:videoDelayLabel];
+	[movieView bringSubviewToFront:loadingLabel];
+	[movieView bringSubviewToFront:loadingTwirl];
 	
 	[self positionOverlays];	
 }
@@ -279,7 +291,7 @@
 
 - (void) notifyMovieInformation
 {
-	 if([[RacePadCoordinator Instance] liveMode])
+	if([[RacePadCoordinator Instance] liveMode])
 	{
 		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay : %.1f", [[RacePadMedia Instance] liveVideoDelay]];
 		[videoDelayLabel setText:videoDelayString];
@@ -622,6 +634,7 @@
 			
 			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 			[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 			
 			[trackMapView RequestRedraw];
 			[leaderboardView RequestRedraw];
@@ -629,7 +642,6 @@
 			if(zoomMapVisible)
 			{
 				[trackZoomContainer setHidden:false];
-				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 				[trackZoomView RequestRedraw];
 			}
 		}
@@ -653,6 +665,7 @@
 			
 			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 			[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 			
 			[trackMapView RequestRedraw];
 			[leaderboardView RequestRedraw];
@@ -660,7 +673,6 @@
 			if(zoomMapVisible)
 			{
 				[trackZoomContainer setHidden:false];
-				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 				[trackZoomView RequestRedraw];
 			}
 		}

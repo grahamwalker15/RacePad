@@ -82,6 +82,7 @@ static RacePadMedia * instance_ = nil;
 		liveVideoDelay = 0.0;
 		
 		movieResyncCountdown = 5;
+		playTimer = nil;
 		
 		movieType = MOVIE_TYPE_NONE_;
 	}
@@ -638,6 +639,48 @@ static RacePadMedia * instance_ = nil;
 	return true;
 }
 
+- (void) startPlayTimer;
+{
+	// A 5 second timer kicked off at start of live play.
+	// Stream will resync on expiration.
+	if(playTimer)
+		[playTimer invalidate];
+	
+	playTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playTimerExpired:) userInfo:nil repeats:NO];
+
+	if(registeredViewController)
+		[registeredViewController showLoadingIndicators];
+
+}
+
+- (void) stopPlayTimer
+{
+	if(playTimer)
+	{
+		[playTimer invalidate];
+		playTimer = nil;
+	}
+
+	if(registeredViewController)
+		[registeredViewController hideLoadingIndicators];
+}
+
+- (void) playTimerExpired: (NSTimer *)theTimer
+{
+	if([[RacePadCoordinator Instance] liveMode])
+	{
+		[self movieStop];
+		[self movieGoLive];
+		[self moviePlay];
+	}
+	
+	if(registeredViewController)
+		[registeredViewController hideLoadingIndicators];
+
+	playTimer = nil;
+
+}
+
 ////////////////////////////////////////////////////////////////////////
 //  Callback functions
 
@@ -677,19 +720,6 @@ static RacePadMedia * instance_ = nil;
 		if(movieStartTime < 0.001)
 			[self getStartTime];
 		
-		if(movieResyncCountdown > 0)
-		{
-			movieResyncCountdown--;
-			if(movieResyncCountdown == 0)
-			{
-				if([[RacePadCoordinator Instance] liveMode])
-				{
-					[self movieStop];
-					[self movieGoLive];
-					[self moviePlay];
-				}
-			}
-		}
 	}
 }
 
@@ -826,14 +856,20 @@ static RacePadMedia * instance_ = nil;
 	movieResyncCountdown = 5;
 	
 	if(movieLoaded)
+	{
 		[registeredViewController displayMovieInView];
-	
+		
+		if([[RacePadCoordinator Instance] liveMode])
+			[self startPlayTimer];
+	}
 }
 
 -(void)ReleaseViewController:(RacePadVideoViewController *)view_controller
 {
 	if(registeredViewController && registeredViewController == view_controller)
 	{
+		[self stopPlayTimer];
+
 		[moviePlayer pause];	
 		[registeredViewController removeMovieFromView];
 		
@@ -843,8 +879,6 @@ static RacePadMedia * instance_ = nil;
 		moviePausedInPlace = false;
 		moviePlayable = false;
 		moviePlayAllowed = false;
-
-		movieResyncCountdown = 5;
 	}
 }
 

@@ -461,6 +461,7 @@ static RacePadCoordinator * instance_ = nil;
 	needsPlayRestart = false;
 	activePlaybackRate = playbackRate = 1.0;
 	[[RacePadTitleBarController Instance] updateLiveIndicator];
+	[[RacePadMedia Instance] stopPlayTimer];
 }
 
 -(void) userPause

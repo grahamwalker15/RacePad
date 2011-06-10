@@ -10,6 +10,20 @@
 
 @implementation RacePadVideoViewController
 
+- (void) showLoadingIndicators
+{
+	[loadingLabel setHidden:false];
+	[loadingTwirl setHidden:false];
+	[loadingTwirl startAnimating];
+}
+
+- (void) hideLoadingIndicators
+{
+	[loadingLabel setHidden:true];
+	[loadingTwirl setHidden:true];
+	[loadingTwirl stopAnimating];
+}
+
 // Override to make these do something
 - (void) displayMovieInView
 {

@@ -121,6 +121,7 @@
 {
 	int v = typeChooser.selectedSegmentIndex;
 	[alertView setFilter:v Driver:[[RacePadCoordinator Instance]carToFollow]];
+	[alertView ResetScroll];
 	[alertView RequestRedraw];
 }
 
