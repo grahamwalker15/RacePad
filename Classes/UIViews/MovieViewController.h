@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 #import "MovieView.h"
 
-@interface MovieViewController : RacePadViewController
+@interface MovieViewController : BasePadViewController
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;

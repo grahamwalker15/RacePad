@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 
 @interface JogControlView : UIView
 {
@@ -33,7 +33,7 @@
 
 
 
-@interface JogViewController : RacePadViewController
+@interface JogViewController : BasePadViewController
 {
 	IBOutlet JogControlView * jogControl;
 	

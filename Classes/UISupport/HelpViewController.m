@@ -7,12 +7,19 @@
 //
 
 #import "HelpViewController.h"
-#import "RacePadCoordinator.h"
+#import "BasePadCoordinator.h"
 
 
 @implementation HelpViewController
 
 @synthesize parentPopover;
+
+static id helpMaster = nil;
+
++ (void) specifyHelpMaster:(id) master
+{
+	helpMaster = master;
+}
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,9 +70,11 @@
 	[helpText9 setDelegate:self];
 	[helpText10 setDelegate:self];
 	
-	if([[RacePadCoordinator Instance] playing])
+	if ( helpMaster
+	  && [helpMaster conformsToProtocol:@protocol(HelpViewMaster)]
+	  && [helpMaster helpMasterPlaying])
 	{
-		[[RacePadCoordinator Instance] pausePlay];
+		[helpMaster helpMasterPausePlay];
 		needsRestartAfterLoad = true;
 	}
 	else
@@ -337,7 +346,9 @@
 		if(needsRestartAfterLoad)
 		{
 			needsRestartAfterLoad = false;
-			[[RacePadCoordinator Instance] startPlay];
+			if ( helpMaster
+			  && [helpMaster conformsToProtocol:@protocol(HelpViewMaster)] )
+				[helpMaster helpMasterStartPlay];
 		}
 	}
 }
@@ -358,7 +369,9 @@
 	if(needsRestartAfterLoad)
 	{
 		needsRestartAfterLoad = false;
-		[[RacePadCoordinator Instance] startPlay];
+		if ( helpMaster
+		  && [helpMaster conformsToProtocol:@protocol(HelpViewMaster)] )
+			[helpMaster helpMasterStartPlay];
 	}
 }
 

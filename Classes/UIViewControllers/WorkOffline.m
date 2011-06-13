@@ -7,9 +7,9 @@
 //
 
 #import "WorkOffline.h"
-#import "RacePadPrefs.h"
+#import "BasePadPrefs.h"
 #import "RacePadCoordinator.h"
-#import "RacePadMedia.h"
+#import "BasePadMedia.h"
 #import "RacePadAppDelegate.h"
 #import "RacePadSponsor.h"
 
@@ -84,7 +84,7 @@
 	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
 	int count = [contents count];
 	int preferredIndex = -1;
-	NSString *preferredSession = [[RacePadPrefs Instance] getPref:@"preferredSession"];
+	NSString *preferredSession = [[BasePadPrefs Instance] getPref:@"preferredSession"];
 	NSString *eventName = [events objectAtIndex:row];
 	
 	for ( int i = 0; i < count; i++ )
@@ -134,7 +134,7 @@
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	logo.image = [[RacePadSponsor Instance] getSponsorLogo:RPS_LOGO_BIG_];
+	logo.image = [[RacePadSponsor Instance] getSponsorLogo:BPS_LOGO_BIG_];
 	
 	[events removeAllObjects];
 	[sessions removeAllObjects];
@@ -146,7 +146,7 @@
 	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
 	int count = [contents count];
 	int preferredIndex = -1;
-	NSString *preferredEvent = [[RacePadPrefs Instance] getPref:@"preferredEvent"];
+	NSString *preferredEvent = [[BasePadPrefs Instance] getPref:@"preferredEvent"];
 	for ( int i = 0; i < count; i++ )
 	{
 		NSString *fileName = [contents objectAtIndex:i];
@@ -261,15 +261,15 @@
 {
 	[self dismissModalViewControllerAnimated:NO];
 	
-	NSString * serverAddress = [[RacePadPrefs Instance] getPref:@"preferredServerAddress"];
+	NSString * serverAddress = [[BasePadPrefs Instance] getPref:@"preferredServerAddress"];
 	
 	if(serverAddress && [serverAddress length] > 0)
 		[[RacePadCoordinator Instance] SetServerAddress:serverAddress ShowWindow:YES];
 	
-	NSString * videoServerAddress = [[RacePadPrefs Instance] getPref:@"preferredVideoServerAddress"];
+	NSString * videoServerAddress = [[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"];
 	
 	if(videoServerAddress && [videoServerAddress length] > 0)
-		[[RacePadMedia Instance] connectToVideoServer];
+		[[BasePadMedia Instance] connectToVideoServer];
 }
 
 - (IBAction)settingsPressed:(id)sender

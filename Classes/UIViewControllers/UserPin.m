@@ -8,7 +8,7 @@
 
 #import "UserPin.h"
 #import "RacePadCoordinator.h"
-#import "RacePadPrefs.h"
+#import "BasePadPrefs.h"
 #import "RacePadAppDelegate.h"
 #import "GameViewController.h"
 

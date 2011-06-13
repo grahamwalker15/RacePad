@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 
 @class TelemetryView;
 @class TrackMapView;
 @class BackgroundView;
 
-@interface DrivingViewController : RacePadViewController
+@interface DrivingViewController : BasePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
 	

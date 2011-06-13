@@ -8,7 +8,7 @@
 
 #import "ServerConnect.h"
 #import "RacePadCoordinator.h"
-#import "RacePadPrefs.h"
+#import "BasePadPrefs.h"
 #import "RacePadAppDelegate.h"
 
 @implementation ServerConnect
@@ -132,7 +132,7 @@
 	
 	// on re-try, give it 15 secs
 	timer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
-	[[RacePadCoordinator Instance] SetServerAddress:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO];
+	[[RacePadCoordinator Instance] SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO];
 }
 
 -(void) settingsPressed:(id)sender

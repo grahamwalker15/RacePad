@@ -8,7 +8,7 @@
 
 #import "RacePadCoordinator.h"
 #import "RacePadTimeController.h"
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 #import "TimeViewController.h"
 #import "JogViewController.h"
 
@@ -16,7 +16,6 @@
 
 static RacePadTimeController * instance_ = nil;
 
-@synthesize displayed;
 @synthesize timeNow;
 
 +(RacePadTimeController *)Instance
@@ -30,7 +29,7 @@ static RacePadTimeController * instance_ = nil;
 -(id)init
 {
 	if(self = [super init])
-	{	
+	{		
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
 		//jogController = [[JogViewController alloc] initWithNibName:@"JogControlView" bundle:nil];
 		addOnOptionsView = nil;
@@ -68,7 +67,7 @@ static RacePadTimeController * instance_ = nil;
 {
 }
 
-- (void) displayInViewController:(RacePadViewController *)viewController Animated:(bool)animated
+- (void) displayInViewController:(BasePadViewController *)viewController Animated:(bool)animated
 {	
 	// Can't display if we're in the middle of hiding
 	if(hiding)
@@ -123,7 +122,7 @@ static RacePadTimeController * instance_ = nil;
 		[viewController.view addSubview:addOnOptionsView];
 	}
 	
-	if([[RacePadCoordinator Instance] connectionType] == RPC_ARCHIVE_CONNECTION_)
+	if([[RacePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
 		[[timeController goLiveButton] setHidden:true];
 	else
 		[[timeController goLiveButton] setHidden:false];
@@ -177,7 +176,7 @@ static RacePadTimeController * instance_ = nil;
 	float end_time = [[RacePadCoordinator Instance] endTime];
 	float live_time = [[RacePadCoordinator Instance] liveTime];
 	
-	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ && end_time > live_time)
+	if ( [[RacePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_ && end_time > live_time)
 		end_time = live_time;
 	
 	[self setSliderMin:start_time Max:end_time];

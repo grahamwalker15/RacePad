@@ -15,14 +15,14 @@
 
 #import <CoreMedia/CMTime.h>
 
-#import "RacePadVideoViewController.h"
+#import "BasePadVideoViewController.h"
 #import "TrackMapView.h"
 #import "DrawingView.h"
 #import "MovieView.h"
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface CompositeViewController : RacePadVideoViewController
+@interface CompositeViewController : BasePadVideoViewController
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;

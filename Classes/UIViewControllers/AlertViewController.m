@@ -9,7 +9,7 @@
 #import "AlertViewController.h"
 #import "AlertData.h"
 #import "RacePadCoordinator.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 #import "RacePadDatabase.h"
 
 @implementation AlertViewController
@@ -86,7 +86,7 @@
 	AlertData * alertData = [[RacePadDatabase Instance] alertData];
 	float time = [[alertData itemAtIndex:dataRow] timeStamp];
 	[[RacePadCoordinator Instance] jumpToTime:time];
-	[[RacePadTimeController Instance] updateClock:time];
+	[[BasePadTimeController Instance] updateClock:time];
 	
 	[alertView SelectRow:row];
 	[alertView RequestRedraw];
@@ -96,7 +96,7 @@
 	[[RacePadCoordinator Instance] setPlaybackRate:1.0];
 	[[RacePadCoordinator Instance] prepareToPlay];
 	[[RacePadCoordinator Instance] startPlay];
-	[[RacePadTimeController Instance] updatePlayButtons];
+	[[BasePadTimeController Instance] updatePlayButtons];
 	
 	return true;
 }
@@ -120,7 +120,7 @@
 - (IBAction) typeChosen:(id)sender
 {
 	int v = typeChooser.selectedSegmentIndex;
-	[alertView setFilter:v Driver:[[RacePadCoordinator Instance]carToFollow]];
+	[alertView setFilter:v Driver:[[BasePadCoordinator Instance]nameToFollow]];
 	[alertView ResetScroll];
 	[alertView RequestRedraw];
 }

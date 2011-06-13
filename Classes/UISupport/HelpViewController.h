@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HelpViewMaster
+
+- (bool) helpMasterPlaying;
+- (void) helpMasterPausePlay;
+- (void) helpMasterStartPlay;
+
+@end
+
 
 @interface HelpViewController : UIViewController <UIWebViewDelegate, UIPopoverControllerDelegate>
 {
@@ -65,5 +73,7 @@
 
 - (void) setLoadTimer;
 - (void) loadTimerExpired:(NSTimer *)theTimer;
+
++ (void) specifyHelpMaster:(id) master;
 
 @end

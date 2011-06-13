@@ -8,11 +8,11 @@
 
 #import "CompositeViewController.h"
 #import "RacePadCoordinator.h"
-#import "RacePadMedia.h"
+#import "BasePadMedia.h"
 #import "RacePadTitleBarController.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 #import "ElapsedTime.h"
-#import "RacePadPrefs.h"
+#import "BasePadPrefs.h"
 
 #import "VideoHelpController.h"
 
@@ -115,7 +115,7 @@
 	[movieView bringSubviewToFront:loadingTwirl];
 	
 	NSString *currentCarToFollow = [trackZoomView carToFollow];
-	NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
+	NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
 	
 	if(carToFollow == nil)
 	{
@@ -139,10 +139,10 @@
 	if(displayVideo)
 	{
 		// Check that we have the right movie loaded
-		[[RacePadMedia Instance] verifyMovieLoaded];
+		[[BasePadMedia Instance] verifyMovieLoaded];
 	
 		// and register us to play it
-		[[RacePadMedia Instance] RegisterViewController:self];
+		[[BasePadMedia Instance] RegisterViewController:self];
 		[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
 	}
 	
@@ -166,7 +166,7 @@
 	if(displayVideo)
 	{
 		[[RacePadCoordinator Instance] SetViewHidden:movieView];
-		[[RacePadMedia Instance] ReleaseViewController:self];
+		[[BasePadMedia Instance] ReleaseViewController:self];
 	}
 
 	if(displayMap)
@@ -223,7 +223,7 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 
-	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];	
 	if(moviePlayerLayer)
 	{
 		[moviePlayerLayer setFrame:[movieView bounds]];
@@ -255,7 +255,7 @@
 - (void) displayMovieInView
 {	
 	// Position the movie and order the overlays
-	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];
+	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];
 	
 	if(moviePlayerLayer && !moviePlayerLayerAdded)
 	{
@@ -281,7 +281,7 @@
 
 - (void) removeMovieFromView
 {
-	AVPlayerLayer * moviePlayerLayer = [[RacePadMedia Instance] moviePlayerLayer];
+	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];
 	if(moviePlayerLayer && moviePlayerLayerAdded)
 	{
 		[moviePlayerLayer removeFromSuperlayer];
@@ -293,7 +293,7 @@
 {
 	if([[RacePadCoordinator Instance] liveMode])
 	{
-		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay : %.1f", [[RacePadMedia Instance] liveVideoDelay]];
+		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay : %.1f", [[BasePadMedia Instance] liveVideoDelay]];
 		[videoDelayLabel setText:videoDelayString];
 		[videoDelayLabel setHidden:false];
 	}
@@ -456,13 +456,13 @@
 		{
 			if([[trackZoomView carToFollow] isEqualToString:name])
 			{
-				[[RacePadCoordinator Instance] setCarToFollow:nil];
+				[[RacePadCoordinator Instance] setNameToFollow:nil];
 				[self hideZoomMap];
 				[leaderboardView RequestRedraw];
 			}
 			else
 			{
-				[[RacePadCoordinator Instance] setCarToFollow:name];
+				[[RacePadCoordinator Instance] setNameToFollow:name];
 				[trackZoomView followCar:name];
 				
 				if(!zoomMapVisible)
@@ -493,7 +493,7 @@
 		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
 
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[[RacePadCoordinator Instance] setCarToFollow:name];
+		[[RacePadCoordinator Instance] setNameToFollow:name];
 		[trackZoomView followCar:name];
 
 		if(!zoomMapVisible)
@@ -515,7 +515,7 @@
 	
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[[RacePadCoordinator Instance] setCarToFollow:nil];
+		[[RacePadCoordinator Instance] setNameToFollow:nil];
 		[self hideZoomMap];
 	}
 	else
@@ -591,7 +591,7 @@
 {
 	// Switches are displayed via the time controller
 	// Reset the hide timer on this
-	[[RacePadTimeController Instance] setHideTimer];
+	[[BasePadTimeController Instance] setHideTimer];
 	
 	int selectedSegment = [optionSwitches selectedSegmentIndex];
 	
@@ -612,10 +612,10 @@
 		if(!displayVideo)
 		{
 			// Check that we have the right movie loaded
-			[[RacePadMedia Instance] verifyMovieLoaded];
+			[[BasePadMedia Instance] verifyMovieLoaded];
 			
 			// and register us to play it
-			[[RacePadMedia Instance] RegisterViewController:self];
+			[[BasePadMedia Instance] RegisterViewController:self];
 
 			// Make sure to do this last, as this will force a start of play or seek
 			[[RacePadCoordinator Instance] SetViewDisplayed:movieView];		
@@ -648,7 +648,7 @@
 		
 		if(displayVideo)
 		{
-			[[RacePadMedia Instance] ReleaseViewController:self];
+			[[BasePadMedia Instance] ReleaseViewController:self];
 			[[RacePadCoordinator Instance] SetViewHidden:movieView];		
 			displayVideo = false;
 		}
@@ -680,10 +680,10 @@
 		if(!displayVideo)
 		{
 			// Check that we have the right movie loaded
-			[[RacePadMedia Instance] verifyMovieLoaded];
+			[[BasePadMedia Instance] verifyMovieLoaded];
 			
 			// and register us to play it
-			[[RacePadMedia Instance] RegisterViewController:self];
+			[[BasePadMedia Instance] RegisterViewController:self];
 
 			displayVideo = true;
 			

@@ -11,7 +11,7 @@
 #import "MapHelpController.h"
 
 #import "RacePadCoordinator.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 #import "RacePadTitleBarController.h"
 #import "RacePadDatabase.h"
 #import "TableDataView.h"
@@ -103,7 +103,7 @@
 	[backgroundView RequestRedraw];
 	
 	// Set up zoom mapif necessary
-	NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
+	NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
 	
 	if(carToFollow == nil)
 	{
@@ -283,13 +283,13 @@
 		{
 			if([[trackZoomView carToFollow] isEqualToString:name])
 			{
-				[[RacePadCoordinator Instance] setCarToFollow:nil];
+				[[RacePadCoordinator Instance] setNameToFollow:nil];
 				[self hideZoomMap];
 				[leaderboardView RequestRedraw];
 			}
 			else
 			{
-				[[RacePadCoordinator Instance] setCarToFollow:name];
+				[[RacePadCoordinator Instance] setNameToFollow:name];
 				[trackZoomView followCar:name];
 				
 				if(!zoomMapVisible)
@@ -321,7 +321,7 @@
 		
 	if([(TrackMapView *)gestureView isZoomView])
 	{
-		[[RacePadCoordinator Instance] setCarToFollow:nil];
+		[[RacePadCoordinator Instance] setNameToFollow:nil];
 		[self hideZoomMap];
 	}
 	else
@@ -348,7 +348,7 @@
 		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
 		
 		NSString * name = [leaderboardView carNameAtX:x Y:y];
-		[[RacePadCoordinator Instance] setCarToFollow:name];
+		[[RacePadCoordinator Instance] setNameToFollow:name];
 		[trackZoomView followCar:name];
 		
 		if(!zoomMapVisible)

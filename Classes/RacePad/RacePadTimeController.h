@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BasePadViewController.h"
 
 @class TimeViewController;
 @class JogViewController;
 
-@interface RacePadTimeController : NSObject <UIGestureRecognizerDelegate>
-
+@interface RacePadTimeController : NSObject <UIGestureRecognizerDelegate, TimeControllerInstance>
 {
 	TimeViewController * timeController;
 	JogViewController * jogController;
@@ -63,5 +63,8 @@
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 
+- (bool) timeControllerDisplayed;
+- (void) displayTimeControllerInViewController:(UIViewController *)viewController Animated:(bool)animated;
+- (void) hideTimeController;
 
 @end

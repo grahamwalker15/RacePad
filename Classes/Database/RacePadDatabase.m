@@ -20,13 +20,11 @@ static RacePadDatabase *instance = nil;
 	return instance;
 }
 
-@synthesize eventName;
 @synthesize driverListData;
 @synthesize leaderBoardData;
 @synthesize driverData;
 @synthesize driverGapInfo;
 @synthesize trackMap;
-@synthesize imageListStore;
 @synthesize pitWindow;
 @synthesize alertData;
 @synthesize rcMessages;
@@ -39,23 +37,25 @@ static RacePadDatabase *instance = nil;
 
 - (RacePadDatabase *)init
 {
-	driverListData = [[TableData alloc] init];
-	leaderBoardData = [[TableData alloc] init];
-	driverData = [[TableData alloc] init];
-	driverGapInfo = [[DriverGapInfo alloc] init];
-	trackMap = [[TrackMap alloc] init];
-	imageListStore = [[ImageListStore alloc] init];
-	pitWindow = [[PitWindow alloc] init];
-	alertData = [[AlertData alloc] init];
-	rcMessages = [[AlertData alloc] init];
-	commentary = [[CommentaryData alloc] init];
-	telemetry = [[Telemetry alloc] init];
-	driverNames = [[DriverNames alloc] init];
-	driverInfo = [[DriverInfo alloc] init];
-	racePrediction = [[RacePrediction alloc] init];
-	competitorData = [[TableData alloc] init];
-	
-	[driverInfo fillWithDefaultData];
+	if ( [super init] == self )
+	{
+		driverListData = [[TableData alloc] init];
+		leaderBoardData = [[TableData alloc] init];
+		driverData = [[TableData alloc] init];
+		driverGapInfo = [[DriverGapInfo alloc] init];
+		trackMap = [[TrackMap alloc] init];
+		pitWindow = [[PitWindow alloc] init];
+		alertData = [[AlertData alloc] init];
+		rcMessages = [[AlertData alloc] init];
+		commentary = [[CommentaryData alloc] init];
+		telemetry = [[Telemetry alloc] init];
+		driverNames = [[DriverNames alloc] init];
+		driverInfo = [[DriverInfo alloc] init];
+		racePrediction = [[RacePrediction alloc] init];
+		competitorData = [[TableData alloc] init];
+		
+		[driverInfo fillWithDefaultData];
+	}
 
 	return self;
 }
@@ -67,7 +67,6 @@ static RacePadDatabase *instance = nil;
 	[driverData release];
 	[driverGapInfo release];
 	[trackMap release];
-	[imageListStore release];
 	[pitWindow release];
 	[alertData release];
 	[rcMessages release];

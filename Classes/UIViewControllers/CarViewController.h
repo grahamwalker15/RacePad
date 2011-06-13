@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 #import "ShinyButton.h"
 
 @class TelemetryView;
@@ -19,7 +19,7 @@
 
 @class AnimationTimer;
 
-@interface CarViewController : RacePadViewController
+@interface CarViewController : BasePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
 	

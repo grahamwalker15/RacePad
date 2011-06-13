@@ -14,7 +14,7 @@
 #import	"RacePadDatabase.h"
 #import "UserPin.h"
 #import "RacePadTitleBarController.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 
 @implementation GameViewController
 
@@ -180,7 +180,7 @@
 
 - (unsigned char) inqGameStatus
 {
-	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
+	if ( [[RacePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_ )
 	{
 		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 		return p.gameStatus;

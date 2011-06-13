@@ -8,7 +8,7 @@
 
 #import "PitWindowViewController.h"
 #import "RacePadCoordinator.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 #import "RacePadTitleBarController.h"
 #import "RacePadDatabase.h"
 #import "PitWindowView.h"

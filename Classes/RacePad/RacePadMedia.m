@@ -833,7 +833,7 @@ static RacePadMedia * instance_ = nil;
 ////////////////////////////////////////////////////////////////////////
 //  View Controller registration
 
--(void)RegisterViewController:(RacePadVideoViewController *)view_controller
+-(void)RegisterViewController:(BasePadVideoViewController *)view_controller
 {
 	// If nil is passed, just release any existing one
 	if(!view_controller)
@@ -864,7 +864,7 @@ static RacePadMedia * instance_ = nil;
 	}
 }
 
--(void)ReleaseViewController:(RacePadVideoViewController *)view_controller
+-(void)ReleaseViewController:(BasePadVideoViewController *)view_controller
 {
 	if(registeredViewController && registeredViewController == view_controller)
 	{

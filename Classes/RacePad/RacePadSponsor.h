@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BasePadSponsor.h"
 
 // Sponsors 
 
@@ -15,11 +16,6 @@ enum Sponsors
 	RPS_UNKNOWN_,
 	RPS_MERCEDES_,
 	RPS_FIA_,
-};
-
-enum SponsorLogo {
-	RPS_LOGO_BIG_,
-	RPS_LOGO_REGULAR_,
 };
 
 enum AllTabs {
@@ -35,13 +31,13 @@ enum AllTabs {
 	RPS_ALL_TABS_
 };
 
-@interface RacePadSponsor : NSObject
+@interface RacePadSponsor : BasePadSponsor
 {
 }
 
-@property (nonatomic) unsigned char sponsor;
-
 +(RacePadSponsor *)Instance;
+
+- (int) allTabCount;
 
 -(UIImage *)getSponsorLogo: (unsigned char) logo;
 - (bool) supportsTab:(unsigned char) tab;

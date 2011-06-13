@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BasePadDatabase.h"
 #import "TableData.h"
 #import "AlertData.h"
 #import "CommentaryData.h"
@@ -26,15 +27,13 @@ enum OurCars
 	RPD_RED_CAR_
 } ;
 
-@interface RacePadDatabase : NSObject
+@interface RacePadDatabase : BasePadDatabase
 {
-	NSString *eventName;
 	TableData *driverListData;
 	TableData *leaderBoardData;
 	TableData *driverData;
 	DriverGapInfo *driverGapInfo;
 	TrackMap *trackMap;
-	ImageListStore *imageListStore;
 	PitWindow *pitWindow;
 	AlertData * alertData;
 	AlertData * rcMessages;
@@ -46,13 +45,11 @@ enum OurCars
 	TableData *competitorData;
 }
 
-@property (retain) NSString *eventName;
 @property (readonly) TableData *driverListData;
 @property (readonly) TableData *leaderBoardData;
 @property (readonly) TableData *driverData;
 @property (readonly) DriverGapInfo * driverGapInfo;
 @property (readonly) TrackMap *trackMap;
-@property (readonly) ImageListStore *imageListStore;
 @property (readonly) PitWindow *pitWindow;
 @property (readonly) AlertData * alertData;
 @property (readonly) AlertData * rcMessages;

@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 
 @class PitWindowView;
 @class BackgroundView;
 
-@interface PitWindowViewController : RacePadViewController
+@interface PitWindowViewController : BasePadViewController
 {
 	IBOutlet BackgroundView * backgroundView;
 	IBOutlet PitWindowView * redPitWindowView;	

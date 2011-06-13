@@ -9,7 +9,7 @@
 #import "CarViewController.h"
 
 #import "RacePadCoordinator.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 #import "RacePadTitleBarController.h"
 
 #import "TelemetryHelpController.h"

@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 #import "SimpleListViewController.h"
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 
 @class TableDataView;
 
-@interface DriverLapListController : RacePadViewController
+@interface DriverLapListController : BasePadViewController
 {
 	IBOutlet UIToolbar * title_bar_;
 	IBOutlet TableDataView * lap_list_view_;

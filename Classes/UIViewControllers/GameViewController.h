@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 #import "NewCompetitor.h"
 #import "ChangeCompetitor.h"
 #import "TableDataView.h"
@@ -18,7 +18,7 @@
 
 @class	UserPin;
 
-@interface GameViewController : RacePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
+@interface GameViewController : BasePadViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
 {
 	IBOutlet BackgroundView *background;
 	

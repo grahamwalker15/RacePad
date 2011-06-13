@@ -13,6 +13,21 @@
 
 // Virtual class to ensure that all of our view controllers have certain methods
 
+@interface BasePadTimeController : NSObject <UIGestureRecognizerDelegate>
+{
+	bool displayed;
+}
+
+@property(nonatomic) bool displayed;
+
++(BasePadTimeController *)Instance;
+
+- (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated;
+- (void) hide;
+
+@end
+
+
 // Declare our own drag drop gesture recognizer
 @interface UIDragDropGestureRecognizer : UIPanGestureRecognizer
 {

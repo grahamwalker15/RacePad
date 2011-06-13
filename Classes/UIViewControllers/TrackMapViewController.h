@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 
 @class TrackMapView;
 @class BackgroundView;
 @class TableDataView;
 @class LeaderboardView;
 
-@interface TrackMapViewController : RacePadViewController
+@interface TrackMapViewController : BasePadViewController
 {
 	
 	IBOutlet TrackMapView *trackMapView;

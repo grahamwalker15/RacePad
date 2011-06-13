@@ -7,7 +7,6 @@
 //
 
 #import "TitleBarViewController.h"
-#import "RacePadCoordinator.h"
 
 @implementation TitleBarViewController
 
@@ -19,7 +18,7 @@
 @synthesize helpButton;
 @synthesize eventName;
 @synthesize clock;
-@synthesize lapCounter;
+@synthesize timeCounter;
 @synthesize trackStateButton;
 @synthesize playStateBarItem;
 @synthesize playStateButton;
@@ -27,11 +26,8 @@
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad
  {
-	 [lapCounter setShine:1.0];
+	 [timeCounter setShine:1.0];
 	 
-	 //Tell race pad co-ordinator that we'll be interested in updates
-	 [[RacePadCoordinator Instance] AddView:self WithType:RPC_LAP_COUNT_VIEW_];
-
 	 allItems = [[toolbar items] retain];
 	 
 	 [super viewDidLoad];

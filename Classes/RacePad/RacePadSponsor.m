@@ -7,11 +7,9 @@
 //
 
 #import "RacePadSponsor.h"
-#import "RacePadPrefs.h"
+#import "BasePadPrefs.h"
 
 @implementation RacePadSponsor
-
-@synthesize sponsor;
 
 static RacePadSponsor * instance_ = nil;
 
@@ -27,10 +25,6 @@ static RacePadSponsor * instance_ = nil;
 {
 	if(self =[super init])
 	{
-		sponsor = RPS_UNKNOWN_;
-		NSString *s = [[RacePadPrefs Instance] getPref:@"sponsor"];
-		if ( s && [s length] )
-			[self setSponsorName:s];
 	}
 	
 	return self;
@@ -39,6 +33,11 @@ static RacePadSponsor * instance_ = nil;
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (int) allTabCount
+{
+	return RPS_ALL_TABS_;
 }
 
 - (void) setSponsorName: (NSString *)name
@@ -50,13 +49,13 @@ static RacePadSponsor * instance_ = nil;
 	else
 		sponsor = RPS_UNKNOWN_;
 	
-	[[RacePadPrefs Instance] setPref:@"sponsor" Value:name];
-	[[RacePadPrefs Instance] save];
+	[[BasePadPrefs Instance] setPref:@"sponsor" Value:name];
+	[[BasePadPrefs Instance] save];
 }
 
 - (UIImage *) getSponsorLogo: (unsigned char)logo
 {
-	if ( logo == RPS_LOGO_REGULAR_ )
+	if ( logo == BPS_LOGO_REGULAR_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
 			return [UIImage imageNamed:@"MGPLogo.png"];
@@ -65,7 +64,7 @@ static RacePadSponsor * instance_ = nil;
 		else
 			return [UIImage imageNamed:@"RacePadLogo.png"];
 	}
-	else if ( logo == RPS_LOGO_BIG_ )
+	else if ( logo == BPS_LOGO_BIG_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
 			return [UIImage imageNamed:@"MGPLogoBig.png"];
@@ -80,7 +79,7 @@ static RacePadSponsor * instance_ = nil;
 
 - (bool) supportsTab: (unsigned char)tab
 {
-	NSNumber *v = [[RacePadPrefs Instance] getPref:@"supportVideo"];
+	NSNumber *v = [[BasePadPrefs Instance] getPref:@"supportVideo"];
 	bool videoSupported = v ? [v boolValue] : true;
 	
 	if(tab == RPS_INFO_TAB_)

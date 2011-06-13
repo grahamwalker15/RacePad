@@ -8,8 +8,8 @@
 
 #import "SettingsViewController.h"
 #import "RacePadCoordinator.h"
-#import "RacePadMedia.h"
-#import	"RacePadPrefs.h"
+#import "BasePadMedia.h"
+#import	"BasePadPrefs.h"
 #import "RacePadSponsor.h"
 
 @implementation SettingsViewController
@@ -19,8 +19,8 @@
     [super viewDidLoad];
 	[[RacePadCoordinator Instance] setSettingsViewController:self];
 	[[RacePadCoordinator Instance] AddView:[self view] WithType:RPC_SETTINGS_VIEW_];
-	[ip_address_edit_ setText:[[RacePadPrefs Instance] getPref:@"preferredServerAddress"]];
-	[video_ip_address_edit_ setText:[[RacePadPrefs Instance] getPref:@"preferredVideoServerAddress"]];
+	[ip_address_edit_ setText:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"]];
+	[video_ip_address_edit_ setText:[[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"]];
 }
 
 
@@ -44,7 +44,7 @@
 	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
 	int count = [contents count];
 	int preferredIndex = -1;
-	NSString *preferredSession = [[RacePadPrefs Instance] getPref:@"preferredSession"];
+	NSString *preferredSession = [[BasePadPrefs Instance] getPref:@"preferredSession"];
 	NSString *eventName = [events objectAtIndex:row];
 
 	for ( int i = 0; i < count; i++ )
@@ -151,7 +151,7 @@
 	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
 	int count = [contents count];
 	int preferredIndex = -1;
-	NSString *preferredEvent = [[RacePadPrefs Instance] getPref:@"preferredEvent"];
+	NSString *preferredEvent = [[BasePadPrefs Instance] getPref:@"preferredEvent"];
 	for ( int i = 0; i < count; i++ )
 	{
 		NSString *fileName = [contents objectAtIndex:i];
@@ -208,7 +208,7 @@
 	[self updateServerState];
 	[self updateConnectionType];
 	[self updateEvents];
-	NSNumber *v = [[RacePadPrefs Instance]getPref:@"supportVideo"];
+	NSNumber *v = [[BasePadPrefs Instance]getPref:@"supportVideo"];
 	if ( v )
 		supportVideo.on = [v boolValue];
 	[self updateSponsor];
@@ -253,7 +253,7 @@
 
 - (void) updateServerState
 {
-	if ( [[RacePadCoordinator Instance] connectionType] == RPC_SOCKET_CONNECTION_ )
+	if ( [[RacePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_ )
 	{
 		[connect setTitle:@"Disconnect" forState:UIControlStateNormal];
 		[status setText:@"Connected to server"];
@@ -264,7 +264,7 @@
 		[status setText:@"Working offline"];
 	}
 	
-	if ( [[RacePadMedia Instance] currentStatus] == RPM_CONNECTED_ )
+	if ( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTED_ )
 	{
 		[video_connect setTitle:@"Disconnect" forState:UIControlStateNormal];
 		[video_status setText:@"Connected to server"];
@@ -275,11 +275,11 @@
 	{
 		[video_connect setTitle:@"Connect" forState:UIControlStateNormal];
 		
-		if( [[RacePadMedia Instance] currentStatus] == RPM_CONNECTION_ERROR_ )
+		if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_ERROR_ )
 		{
 			NSString * reportString = [NSString  stringWithString:@"Connection error :"];
-			if([[RacePadMedia Instance] currentError])
-				reportString = [reportString stringByAppendingString:[[RacePadMedia Instance] currentError]];
+			if([[BasePadMedia Instance] currentError])
+				reportString = [reportString stringByAppendingString:[[BasePadMedia Instance] currentError]];
 			else
 				reportString = [reportString stringByAppendingString:@"Unknown error"];
 			
@@ -289,12 +289,12 @@
 			
 			[reportString release];
 		}
-		else if( [[RacePadMedia Instance] currentStatus] == RPM_CONNECTION_FAILED_ )
+		else if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_FAILED_ )
 		{
 			NSString * reportString = [NSString stringWithString:@"Connection failed :"];
 			
-			if([[RacePadMedia Instance] currentError])
-				reportString = [reportString stringByAppendingString:[[RacePadMedia Instance] currentError]];
+			if([[BasePadMedia Instance] currentError])
+				reportString = [reportString stringByAppendingString:[[BasePadMedia Instance] currentError]];
 			else
 				reportString = [reportString stringByAppendingString:@"Unknown error"];
 			
@@ -303,7 +303,7 @@
 			[videoServerTwirl setHidden:true];
 			
 		}
-		else if( [[RacePadMedia Instance] currentStatus] == RPM_TRYING_TO_CONNECT_ )
+		else if( [[BasePadMedia Instance] currentStatus] == BPM_TRYING_TO_CONNECT_ )
 		{
 			[video_status setText:@"Connecting...."];
 			[videoServerTwirl setHidden:false];
@@ -364,15 +364,15 @@
 
 -(IBAction)videoConnectPressed:(id)sender
 {
-	if ( [[RacePadCoordinator Instance] videoConnectionStatus] == RPC_CONNECTION_SUCCEEDED_ )
+	if ( [[RacePadCoordinator Instance] videoConnectionStatus] == BPC_CONNECTION_SUCCEEDED_ )
 	{
-		[[RacePadMedia Instance] disconnectVideoServer];
+		[[BasePadMedia Instance] disconnectVideoServer];
 	}
-	else if ( [[RacePadCoordinator Instance] videoConnectionStatus] != RPC_CONNECTION_CONNECTING_ )
+	else if ( [[RacePadCoordinator Instance] videoConnectionStatus] != BPC_CONNECTION_CONNECTING_ )
 	{
 		[videoServerTwirl setHidden:false];
 		[videoServerTwirl startAnimating];
-		[[RacePadMedia Instance] connectToVideoServer];
+		[[BasePadMedia Instance] connectToVideoServer];
 	}
 }
 
@@ -401,8 +401,8 @@
 - (IBAction)supportVideoChanged:(id)sender
 {
 	NSNumber *v = [NSNumber numberWithBool:supportVideo.on ];
-	[[RacePadPrefs Instance] setPref:@"supportVideo" Value:v];
-	[[RacePadPrefs Instance] save];
+	[[BasePadPrefs Instance] setPref:@"supportVideo" Value:v];
+	[[BasePadPrefs Instance] save];
 	[[RacePadCoordinator Instance] updateTabs];
 }
 

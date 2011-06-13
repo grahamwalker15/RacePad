@@ -11,7 +11,7 @@
 #import "DriverLapListController.h"
 
 #import "RacePadCoordinator.h"
-#import "RacePadTimeController.h"
+#import "BasePadTimeController.h"
 #import "RacePadTitleBarController.h"
 
 #import "TelemetryHelpController.h"
@@ -101,7 +101,7 @@
 
 		[super viewWillAppear:animated];
 
-		NSString *carToFollow = [[RacePadCoordinator Instance] carToFollow];
+		NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
 		
 		[trackMapView followCar:carToFollow];
 		[trackProfileView followCar:carToFollow];
@@ -622,7 +622,7 @@
 		{
 			NSString * oldCar = [trackMapView carToFollow];
 
-			[[RacePadCoordinator Instance] setCarToFollow:name];
+			[[RacePadCoordinator Instance] setNameToFollow:name];
 			[trackMapView followCar:name];
 			[trackProfileView followCar:name];
 			[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
@@ -690,7 +690,7 @@
 	[trackMapView followCar:nil];
 	[trackProfileView followCar:nil];
 	[leaderboardView RequestRedraw];	
-	[[RacePadCoordinator Instance] setCarToFollow:nil];
+	[[RacePadCoordinator Instance] setNameToFollow:nil];
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:nil];
 	[self hideDriverInfo:true];
 

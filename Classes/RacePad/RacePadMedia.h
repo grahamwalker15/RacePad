@@ -16,7 +16,7 @@
 
 #import <CoreMedia/CMTime.h>
 
-#import "RacePadVideoViewController.h"
+#import "BasePadVideoViewController.h"
 
 // Movie types
 enum MovieTypes
@@ -72,7 +72,7 @@ enum MovieConnectionTypes
 	
 	int movieType;
 	
-	RacePadVideoViewController * registeredViewController;
+	BasePadVideoViewController * registeredViewController;
 
 }
 	
@@ -134,7 +134,7 @@ enum MovieConnectionTypes
 
 - (void) timeObserverCallback:(CMTime) cmTime;
 
--(void)RegisterViewController:(RacePadVideoViewController *)view_controller;
--(void)ReleaseViewController:(RacePadVideoViewController *)view_controller;
+-(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
+-(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;
 
 @end

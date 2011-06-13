@@ -9,7 +9,7 @@
 #import "NewCompetitor.h"
 #import "GameViewController.h"
 #import "RacePadCoordinator.h"
-#import "RacePadPrefs.h"
+#import "BasePadPrefs.h"
 #import "RacePadAppDelegate.h"
 #import "RacePrediction.h"
 #import "RacePadDatabase.h"

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 #import "InfoChildController.h"
 #import "HTMLViewController.h"
 #import "InfoDriversController.h"
@@ -18,7 +18,7 @@
 #import "InfoPartnersController.h"
 #import "BackgroundView.h"
 
-@interface InfoViewController : RacePadViewController
+@interface InfoViewController : BasePadViewController
 {
 	HTMLViewController * htmlController;
 	InfoDriversController * driversController;

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 #import "DrawingView.h"
 
-@interface DrawingViewController : RacePadViewController
+@interface DrawingViewController : BasePadViewController
 {
 	IBOutlet DrawingView * drawingView;
 }

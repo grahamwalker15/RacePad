@@ -7,15 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BasePadAppDelegate.h"
 
-@interface RacePadAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
+@interface RacePadAppDelegate : BasePadAppDelegate
 {
-    UIWindow *window;
-    UITabBarController *tabBarController;
 }
-
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-
 
 @end

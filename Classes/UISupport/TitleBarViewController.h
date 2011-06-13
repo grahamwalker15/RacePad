@@ -17,7 +17,7 @@
 	IBOutlet UIButton * sponsorButton;
 	IBOutlet UIButton * clock;
 	IBOutlet UIButton * eventName;
-	IBOutlet ShinyButton * lapCounter;
+	IBOutlet ShinyButton * timeCounter;
 	IBOutlet UIBarButtonItem * alertButton;
 	IBOutlet UIButton * helpButton;
 	IBOutlet UIBarButtonItem * helpBarButton;
@@ -36,7 +36,7 @@
 @property (readonly) UIButton * helpButton;
 @property (readonly) UIButton * clock;
 @property (readonly) UIButton * eventName;
-@property (readonly) ShinyButton * lapCounter;
+@property (readonly) ShinyButton * timeCounter;
 @property (readonly) UIButton * trackStateButton;
 @property (readonly) UIBarButtonItem * playStateBarItem;
 @property (readonly) UIButton * playStateButton;

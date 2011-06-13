@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RacePadViewController.h"
+#import "BasePadViewController.h"
 
-@interface SimpleListViewController : RacePadViewController
+@interface SimpleListViewController : BasePadViewController
 {
 }
 

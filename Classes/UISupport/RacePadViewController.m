@@ -7,11 +7,43 @@
 //
 
 #import "RacePadViewController.h"
-#import "RacePadTimeController.h"
 #import "DrawingView.h"
 #import "JogViewController.h"
 #import "QuartzCore/QuartzCore.h"
 
+
+@implementation BasePadTimeController
+
+static BasePadTimeController * instance_ = nil;
+
+@synthesize displayed;
+
++(BasePadTimeController *)Instance
+{
+	return instance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{
+		instance_ = self;
+	}
+	
+	return self;
+}
+
+- (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated
+{
+	// override me
+}
+
+- (void) hide
+{
+	// override me
+}
+
+@end
 
 @implementation RacePadViewController
 
@@ -471,7 +503,7 @@
 
 - (void) handleTimeControllerGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	RacePadTimeController * time_controller = [RacePadTimeController Instance];
+	BasePadTimeController * time_controller = [BasePadTimeController Instance];
 
 	if(![time_controller displayed])
 	{
