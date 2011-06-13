@@ -9,10 +9,10 @@
 
 #import "RacePadDataHandler.h"
 #import "DataStream.h"
-#include "RacePadCoordinator.h"
-#include "RacePadDatabase.h"
-#include "RacePadTitleBarController.h"
-#include "RacePadSponsor.h"
+#import "RacePadCoordinator.h"
+#import "RacePadDatabase.h"
+#import "RacePadTitleBarController.h"
+#import "RacePadSponsor.h"
 #import "TrackMap.h"
 
 @implementation RacePadDataHandler

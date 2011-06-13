@@ -1814,6 +1814,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SYMROOT = ../RacePad.build;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -1832,6 +1833,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SYMROOT = ../RacePad.build;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
