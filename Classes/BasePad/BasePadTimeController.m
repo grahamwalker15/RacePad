@@ -234,12 +234,17 @@ static BasePadTimeController * instance_ = nil;
 			addOnOptionsView = nil;
 		}
 		
-		hiding = false;
-		
+		// Reset the hiding flag after half a second so that the controls don't appear and disappear on double tap
+		[self performSelector:@selector(resetHidingFlag) withObject:nil afterDelay: 0.5];
 	}
 }
 
 - (void) flagTimerExpired:(NSTimer *)theTimer
+{
+	[self resetHidingFlag];
+}
+
+- (void) resetHidingFlag
 {
 	hiding = false;
 }

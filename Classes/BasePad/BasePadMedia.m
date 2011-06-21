@@ -27,6 +27,9 @@
 @synthesize movieSeekTime;
 @synthesize liveVideoDelay;
 
+@synthesize restartCount;
+@synthesize resyncCount;
+
 @synthesize currentMovie;
 @synthesize currentStatus;
 @synthesize currentError;
@@ -81,7 +84,18 @@ static BasePadMedia * instance_ = nil;
 		activePlaybackRate = 1.0;
 		liveVideoDelay = 0.0;
 		
-		movieResyncCountdown = 5;
+		restartCount = 0;
+		resyncCount = 0;
+		
+		lastMoviePlayTime = 0.0;
+		lastResyncTime = 0.0;
+		lastLiveVideoDelay = 0.0;
+		
+		moviePlayElapsedTime = nil;
+		
+		movieRecentlyResynced = false;
+		
+		playStartTimer = nil;
 		playTimer = nil;
 		
 		movieType = MOVIE_TYPE_NONE_;
@@ -111,8 +125,11 @@ static BasePadMedia * instance_ = nil;
 	
 	currentStatus = BPM_TRYING_TO_CONNECT_;
 	
-	[currentError release];
-	currentError = nil;
+	if(currentError)
+	{
+		[currentError release];
+		currentError = nil;
+	}
 	
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 
@@ -127,8 +144,14 @@ static BasePadMedia * instance_ = nil;
 	movieType = MOVIE_TYPE_NONE_;
 	
 	currentStatus = BPM_NOT_CONNECTED_;
-	[currentError release];
-	currentError = nil;
+	
+	moviePlayable = false;
+	
+	if(currentError)
+	{
+		[currentError release];
+		currentError = nil;
+	}
 	
 	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
@@ -228,12 +251,15 @@ static BasePadMedia * instance_ = nil;
 			 // Deal with the error appropriately.
 			 currentStatus = BPM_CONNECTION_FAILED_;
 			 
-			 [currentError release];
-			 currentError = nil;
+			 if(currentError)
+			 {
+				 [currentError release];
+				 currentError = nil;
+			 }
 			 
 			 if(error)
 			 {
-				 NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+				 NSString * description = [NSString stringWithString:[error localizedDescription]];
 				 
 				 if(description)
 				 {
@@ -245,7 +271,6 @@ static BasePadMedia * instance_ = nil;
 					 }
 					 
 					 currentError = [description retain];
-					 [description release];
 				 }
 			 
 			 }
@@ -295,6 +320,7 @@ static BasePadMedia * instance_ = nil;
 	
 	moviePlayPending = false;
 	movieSeekable = false;
+	moviePlayable = false;
 	movieSeekPending = false;
 	movieLoaded =false;
 	moviePausedInPlace = false;
@@ -406,36 +432,16 @@ static BasePadMedia * instance_ = nil;
 							movieSeekable= true;
 							
 							if(movieSeekPending)
-								[self movieGotoTime:movieSeekTime];
+							{
+								if(movieSeekTime < 0)
+									[self movieSeekToLive];
+								else
+									[self movieGotoTime:movieSeekTime];
+							}		
 						}
 						
 						currentMovieTime += movieStartTime;
 						
-						/*
-						if([[BasePadCoordinator Instance] liveMode])
-						{
-							liveVideoDelay = timeNow - currentMovieTime;
-
-							if(liveVideoDelay > 20.0)
-							{
-								movieResyncCountdown--;
-								if(movieResyncCountdown <= 0)
-								{
-									[self movieStop];
-									[self movieGoLive];
-									[self moviePlay];
-									movieResyncCountdown = 20;
-								}
-								else
-								{
-									movieResyncCountdown = 20;
-								}
-							}
-						}
-						*/
-						
-						//if(registeredViewController)
-						//	[registeredViewController notifyMovieInformation];
 					}
 
 				}
@@ -476,7 +482,7 @@ static BasePadMedia * instance_ = nil;
 		if(movieSeekPending)
 		{
 			if(movieSeekTime < 0)
-				[self movieGoLive];
+				[self movieSeekToLive];
 			else
 				[self movieGotoTime:movieSeekTime];
 		}		
@@ -579,6 +585,12 @@ static BasePadMedia * instance_ = nil;
 
 - (void) movieGoLive
 {
+	if(!moviePlayer || !moviePlayerItem)
+	{
+		movieGoLivePending = true;
+		return;
+	}
+	
 	if(moviePlayer && [moviePlayer status] != AVPlayerItemStatusReadyToPlay)
 	{
 		movieGoLivePending = true;
@@ -591,30 +603,43 @@ static BasePadMedia * instance_ = nil;
 		return;
 	}
 	
+	[self movieSeekToLive];
+	
+	movieGoLivePending = false;
+	
+	[self startLivePlayTimer];
+
+}
+
+- (void) movieSeekToLive
+{
+	if(!moviePlayer || !moviePlayerItem)
+	{
+		movieSeekPending = true;
+		movieSeekTime = -1.0;
+		return;
+	}
+	
+	if(moviePlayer && [moviePlayer status] != AVPlayerItemStatusReadyToPlay)
+	{
+		movieSeekPending = true;
+		movieSeekTime = -1.0;
+		return;
+	}
+	
+	if(moviePlayerItem && [moviePlayerItem status] != AVPlayerItemStatusReadyToPlay)
+	{
+		movieSeekPending = true;
+		movieSeekTime = -1.0;
+		return;
+	}
+	
 	if(movieSeekable && registeredViewController)
 	{
-		NSArray *seekableTimeRanges = [moviePlayerItem seekableTimeRanges];
+		[moviePlayer seekToTime:kCMTimePositiveInfinity];
 		
-		if([seekableTimeRanges count] > 0)
-		{
-			NSValue * value = [seekableTimeRanges objectAtIndex:0];
-			CMTimeRange range;
-			[value getValue:&range];
-			
-			if(CMTIME_IS_VALID(range.start)  && CMTIME_IS_NUMERIC(range.start) && CMTIME_IS_VALID(range.duration)  && CMTIME_IS_NUMERIC(range.duration)  )
-			{
-				float rangeStartTime = (float) CMTimeGetSeconds(range.start);
-				float rangeDuration = (float) CMTimeGetSeconds(range.duration);
-				float endOfTime = rangeStartTime + rangeDuration + 20.0;
-				if(endOfTime < 12 * 3600.0)
-					endOfTime = 12 * 3600.0;
-				
-				[moviePlayer seekToTime:CMTimeMakeWithSeconds(endOfTime, 1)];
-			}
-		}
 		movieSeekPending = false;
 		moviePausedInPlace = false;
-		movieGoLivePending = false;
 	}
 	else
 	{
@@ -622,6 +647,18 @@ static BasePadMedia * instance_ = nil;
 		movieSeekTime = -1.0;
 	}
 	
+}
+
+- (void) movieResyncLive
+{
+	if([[BasePadCoordinator Instance] liveMode])
+	{
+		[self movieStop];
+		[self movieGoLive];
+		[self moviePlay];
+	}
+
+	movieRecentlyResynced = true;
 }
 
 - (bool) moviePlayable
@@ -639,47 +676,133 @@ static BasePadMedia * instance_ = nil;
 	return true;
 }
 
-- (void) startPlayTimer;
+- (void) startLivePlayTimer;
 {
 	// A 5 second timer kicked off at start of live play.
 	// Stream will resync on expiration.
-	if(playTimer)
-		[playTimer invalidate];
+	[self stopPlayTimers];
 	
-	playTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playTimerExpired:) userInfo:nil repeats:NO];
+	playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
 
 	if(registeredViewController)
 		[registeredViewController showLoadingIndicators];
 
 }
 
-- (void) stopPlayTimer
+- (void) stopPlayTimers
 {
+	if(playStartTimer)
+	{
+		[playStartTimer invalidate];
+		playStartTimer = nil;
+	}
+	
 	if(playTimer)
 	{
 		[playTimer invalidate];
 		playTimer = nil;
 	}
-
-	if(registeredViewController)
-		[registeredViewController hideLoadingIndicators];
-}
-
-- (void) playTimerExpired: (NSTimer *)theTimer
-{
-	if([[BasePadCoordinator Instance] liveMode])
+	
+	if(moviePlayElapsedTime)
 	{
-		[self movieStop];
-		[self movieGoLive];
-		[self moviePlay];
+		[moviePlayElapsedTime release];
+		moviePlayElapsedTime = nil;
 	}
 	
 	if(registeredViewController)
 		[registeredViewController hideLoadingIndicators];
-
-	playTimer = nil;
-
 }
+
+- (void) playStartTimerExpired: (NSTimer *)theTimer
+{
+	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
+	[self movieResyncLive];
+	
+	if(registeredViewController)
+		[registeredViewController hideLoadingIndicators];
+	
+	playStartTimer = nil;
+	
+	if(moviePlayElapsedTime)
+		[moviePlayElapsedTime release];
+	
+	moviePlayElapsedTime = [[ElapsedTime alloc] init];
+	
+	if(playTimer)
+		[playTimer invalidate];
+	
+	playTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(livePlayTimerFired:) userInfo:nil repeats:YES];
+	movieRecentlyResynced = true;
+}
+
+- (void) livePlayTimerFired: (NSTimer *)theTimer
+{
+	if([[BasePadCoordinator Instance] liveMode])
+	{
+		// Check the player status is still OK
+		if(![self moviePlayable])
+		{
+			[self restartConnection];
+			return;
+		}
+				
+		// Then check time hasn't slipped
+		CMTime currentCMTime = [moviePlayer currentTime];
+		if(CMTIME_IS_VALID(currentCMTime)  && CMTIME_IS_NUMERIC(currentCMTime))
+		{
+			Float64 moviePlayTime = CMTimeGetSeconds(currentCMTime);
+			
+			if(moviePlayTime > 0.0)
+			{
+				float timeNow = [moviePlayElapsedTime value];
+						 
+				if(movieRecentlyResynced)
+				{
+					lastMoviePlayTime = moviePlayTime;
+					lastResyncTime = timeNow;
+					lastLiveVideoDelay = liveVideoDelay;
+					liveVideoDelay = 0.0;
+					movieRecentlyResynced = false;
+				}
+				else
+				{
+					float elapsedTime = timeNow - lastResyncTime;
+					float playedTime = moviePlayTime - lastMoviePlayTime;
+					liveVideoDelay = elapsedTime > playedTime ? elapsedTime - playedTime : 0.0;
+					if(liveVideoDelay > 2.0)
+					{
+						[self movieResyncLive];
+						resyncCount ++;
+					}
+				}
+
+				if(registeredViewController)
+					[registeredViewController notifyMovieInformation];
+				
+				return;
+			}
+		}
+		
+		// Fall through to here if live and time is not valid
+		[self restartConnection];
+
+	}
+}
+
+- (void) restartConnection
+{
+	[self movieStop];
+	[self stopPlayTimers];
+	
+	[self disconnectVideoServer];
+	[self connectToVideoServer];
+	
+	[self movieGoLive];
+	[self moviePlay];
+	
+	restartCount++;
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 //  Callback functions
@@ -693,12 +816,15 @@ static BasePadMedia * instance_ = nil;
 		{
 			NSError * error = [moviePlayer error];
 			
-			[currentError release];
-			currentError = nil;
+			if(currentError)
+			{
+				[currentError release];
+				currentError = nil;
+			}
 			
 			if(error)
 			{
-				NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+				NSString * description = [NSString stringWithString:[error localizedDescription]];
 				
 				if(description)
 				{
@@ -709,7 +835,6 @@ static BasePadMedia * instance_ = nil;
 					}
 					
 					currentError = [description retain];
-					[description release];
 				}
 				
 			}
@@ -732,9 +857,10 @@ static BasePadMedia * instance_ = nil;
 	{
 		if([keyPath isEqualToString:@"status"])
 		{
-			if(!moviePlayable && moviePlayAllowed && [object status] == AVPlayerItemStatusReadyToPlay)
+			int status = [object status];
+			if(!moviePlayable && moviePlayAllowed && status == AVPlayerItemStatusReadyToPlay)
 			{
-				moviePlayable = true;
+				moviePlayable = [self moviePlayable];
 				
 				float time_of_day = [[BasePadCoordinator Instance] currentTime];
 				[self getStartTime];
@@ -742,7 +868,6 @@ static BasePadMedia * instance_ = nil;
 				if(movieGoLivePending)
 				{
 					[self movieGoLive];
-					movieGoLivePending = false;
 				}
 				
 				if(movieType == MOVIE_TYPE_ARCHIVE_ || ![[BasePadCoordinator Instance] liveMode])
@@ -752,16 +877,19 @@ static BasePadMedia * instance_ = nil;
 					[self moviePlay];
 			}
 			
-			if([object status] ==  AVPlayerItemStatusFailed)
+			if(status ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
 
-				[currentError release];
-				currentError = nil;
+				if(currentError)
+				{
+					[currentError release];
+					currentError = nil;
+				}
 				
 				if(error)
 				{
-					NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+					NSString * description = [NSString stringWithString:[error localizedDescription]];
 					
 					if(description)
 					{
@@ -772,7 +900,6 @@ static BasePadMedia * instance_ = nil;
 						}
 						
 						currentError = [description retain];
-						[description release];
 					}
 				}
 				
@@ -787,12 +914,11 @@ static BasePadMedia * instance_ = nil;
 		{
 			if(!moviePlayable && moviePlayAllowed && [object status] == AVPlayerItemStatusReadyToPlay)
 			{
-				moviePlayable = true;
+				moviePlayable = [self moviePlayable];
 				
 				if(movieGoLivePending)
 				{
 					[self movieGoLive];
-					movieGoLivePending = false;
 				}
 				
 				if(moviePlayPending)
@@ -803,12 +929,15 @@ static BasePadMedia * instance_ = nil;
 			{
 				NSError * error = [object error];
 
-				[currentError release];
-				currentError = nil;
+				if(currentError)
+				{
+					[currentError release];
+					currentError = nil;
+				}
 				
 				if(error)
 				{
-					NSString * description = [[NSString alloc] initWithString:[error localizedDescription]];
+					NSString * description = [NSString stringWithString:[error localizedDescription]];
 					
 					if(description)
 					{
@@ -819,7 +948,6 @@ static BasePadMedia * instance_ = nil;
 						}
 						
 						currentError = [description retain];
-						[description release];
 					}					
 				}
 				
@@ -852,15 +980,10 @@ static BasePadMedia * instance_ = nil;
 	
 	moviePausedInPlace = false;	
 	moviePlayAllowed = true;
-	
-	movieResyncCountdown = 5;
-	
+		
 	if(movieLoaded)
 	{
 		[registeredViewController displayMovieInView];
-		
-		if([[BasePadCoordinator Instance] liveMode])
-			[self startPlayTimer];
 	}
 }
 
@@ -868,7 +991,7 @@ static BasePadMedia * instance_ = nil;
 {
 	if(registeredViewController && registeredViewController == view_controller)
 	{
-		[self stopPlayTimer];
+		[self stopPlayTimers];
 
 		[moviePlayer pause];	
 		[registeredViewController removeMovieFromView];

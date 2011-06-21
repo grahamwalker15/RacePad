@@ -30,6 +30,9 @@
 
 - (void)viewDidLoad
 {	
+	
+	[super viewDidLoad];
+
 	// Initialise display options
 	displayMap = true;
 	displayLeaderboard = true;
@@ -88,8 +91,6 @@
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
 	[[RacePadCoordinator Instance] setVideoViewController:self];
-	
-	[super viewDidLoad];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -293,7 +294,7 @@
 {
 	if([[RacePadCoordinator Instance] liveMode])
 	{
-		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay : %.1f", [[BasePadMedia Instance] liveVideoDelay]];
+		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay (%d / %d) : %.1f", [[BasePadMedia Instance] resyncCount], [[BasePadMedia Instance] restartCount], [[BasePadMedia Instance] liveVideoDelay]];
 		[videoDelayLabel setText:videoDelayString];
 		[videoDelayLabel setHidden:false];
 	}

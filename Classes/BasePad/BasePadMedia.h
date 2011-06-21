@@ -36,6 +36,7 @@ enum MovieConnectionTypes
 	BPM_CONNECTION_ERROR_,
 } ;
 
+@class ElapsedTime;
 @interface BasePadMedia : NSObject
 {				
 	AVURLAsset * moviePlayerAsset;
@@ -44,12 +45,24 @@ enum MovieConnectionTypes
 	AVPlayerLayer * moviePlayerLayer;
 	
 	id moviePlayerObserver;
+	NSTimer * playStartTimer;
 	NSTimer * playTimer;
 	
 	float movieStartTime;
 	float movieSeekTime;
 	float streamSeekStartTime;
+	
 	float liveVideoDelay;
+	
+	Float64 lastMoviePlayTime;
+	float lastLiveVideoDelay;
+	float lastResyncTime;
+	bool movieRecentlyResynced;
+	
+	int resyncCount;
+	int restartCount;
+	
+	ElapsedTime * moviePlayElapsedTime;
 	
 	NSString *currentMovie;
 	
@@ -88,6 +101,8 @@ enum MovieConnectionTypes
 @property (readonly) float movieStartTime;
 @property (readonly) float movieSeekTime;
 @property (readonly) float liveVideoDelay;
+@property (readonly) int resyncCount;
+@property (readonly) int restartCount;
 
 @property (readonly) NSString *currentMovie;
 
@@ -124,11 +139,15 @@ enum MovieConnectionTypes
 - (void) movieStop;
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
+- (void) movieSeekToLive;
 - (void) moviePrepareToPlay;
+- (void) movieResyncLive;
 
-- (void) startPlayTimer;
-- (void) stopPlayTimer;
-- (void) playTimerExpired: (NSTimer *)theTimer;
+- (void) startLivePlayTimer;
+- (void) stopPlayTimers;
+- (void) playStartTimerExpired: (NSTimer *)theTimer;
+- (void) livePlayTimerFired: (NSTimer *)theTimer;
+- (void) restartConnection;
 
 - (bool) moviePlayable;
 

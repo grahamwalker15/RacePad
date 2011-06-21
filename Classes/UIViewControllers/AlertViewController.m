@@ -32,13 +32,14 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+	
 	[alertView SetHeading:false];
 	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:alertView];
 	[self addLongPressRecognizerToView:alertView];
-	
-    [super viewDidLoad];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

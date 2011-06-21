@@ -39,6 +39,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	// Set the types on the two map views
 	[trackMapView setIsZoomView:false];
 	[trackZoomView setIsZoomView:true];
@@ -79,8 +81,6 @@
 	
 	// And add pan view to the trackZoomView to allow dragging the container
 	[self addPanRecognizerToView:trackZoomView];
-
-	[super viewDidLoad];
 	
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];

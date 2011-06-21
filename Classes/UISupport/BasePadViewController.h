@@ -60,6 +60,8 @@
 	float lastGesturePanX;
 	float lastGesturePanY;
 	
+	bool doubleTapEnabled;
+	
 	NSTimer *doubleTapTimer;
 	CGPoint tapPoint;
 	UIView * tapView;

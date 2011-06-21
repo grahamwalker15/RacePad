@@ -24,13 +24,13 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	selectedTeam = -1;
 	
 	[tableBG removeFromSuperview];
 	[teams setBackgroundView:tableBG];
-	[teams setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
-	
-	[super viewDidLoad];
+	[teams setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];	
 }
 
 - (void)viewDidUnload

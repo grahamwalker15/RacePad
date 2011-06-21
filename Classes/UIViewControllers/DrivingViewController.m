@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	// Set parameters for views
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
@@ -52,9 +54,7 @@
 	[self addTapRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
 	[self addDoubleTapRecognizerToView:trackMapView];
-	
-	[super viewDidLoad];
-	
+		
 	[[RacePadCoordinator Instance] AddView:telemetryView WithType:RPC_TELEMETRY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 }

@@ -26,11 +26,12 @@
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad
  {
+	 [super viewDidLoad];
+
 	 [timeCounter setShine:1.0];
 	 
 	 allItems = [[toolbar items] retain];
 	 
-	 [super viewDidLoad];
  }
  
 

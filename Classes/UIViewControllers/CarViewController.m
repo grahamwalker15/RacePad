@@ -32,6 +32,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+	
 	// Set parameters for views
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
@@ -69,8 +71,6 @@
 	
 	// Double tap recognizer for expanding commentary view
 	[self addDoubleTapRecognizerToView:commentaryView];
-	
-	[super viewDidLoad];
 	
 	[[RacePadCoordinator Instance] AddView:commentaryView WithType:RPC_COMMENTARY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackProfileView WithType:RPC_TRACK_MAP_VIEW_];

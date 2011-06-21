@@ -10,7 +10,6 @@
 
 #import "BasePadViewController.h"
 
-#import "ShinyButton.h"
 #import "BackgroundView.h"
 
 @interface HomeViewController : BasePadViewController

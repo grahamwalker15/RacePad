@@ -13,6 +13,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	htmlTransition = UIViewAnimationTransitionFlipFromLeft;
 	selectedRules = nil;
 	
@@ -34,7 +36,6 @@
 	placeHolderView = fiaLogo;
 	placeHolderAlpha = [placeHolderView alpha];
 
-	[super viewDidLoad];
 }
 
 - (void)viewDidUnload

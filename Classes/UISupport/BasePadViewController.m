@@ -23,9 +23,12 @@ static id timeControllerInstance = nil;
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
 	//	Create and configure the gesture recognizers. Add each to the controlled view as a gesture recognizer.
 	
 	doubleTapTimer = nil;
+	doubleTapEnabled = false;
 	
  	lastGestureScale = 1.0;
 	lastGestureAngle = 0.0;
@@ -33,8 +36,6 @@ static id timeControllerInstance = nil;
 	lastGesturePanY = 0.0;
 	
 	helpController = nil;
-
-    [super viewDidLoad];
 }
 
 
@@ -118,8 +119,12 @@ static id timeControllerInstance = nil;
 	// Double Tap recognizer
 	UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDoubleTapFrom:)];
 	[(UITapGestureRecognizer *)recognizer setNumberOfTapsRequired:2];
+	
+	// And finally add the recognizer and release it
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
+	
+	doubleTapEnabled = true;
 	
 	if([view isKindOfClass:[DrawingView class]])
 		[(DrawingView *)view SetDoubleTapEnabled:true];
@@ -209,13 +214,13 @@ static id timeControllerInstance = nil;
 	tapView = [gestureRecognizer view];
 	tapPoint = [gestureRecognizer locationInView:tapView];
 	
-	if([tapView isKindOfClass:[DrawingView class]] && ![(DrawingView *)tapView DoubleTapEnabled])
+	if(doubleTapEnabled)
 	{
-		[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
+		doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
 	}
 	else
 	{
-		doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
+		[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
 	}
 }
 
@@ -240,7 +245,7 @@ static id timeControllerInstance = nil;
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	// Don't rspond to end state
+	// Don't respond to end state
 	if([gestureRecognizer state] == UIGestureRecognizerStateEnded)
 		return;
 	
@@ -432,7 +437,7 @@ static id timeControllerInstance = nil;
 
 // Action callbacks - these should be overridden if you want any specific actions
 
-// Only the single tap does anything by default - it brings up the ti;e controls
+// Only the single tap does anything by default - it brings up the time controls
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {

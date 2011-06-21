@@ -36,6 +36,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GRASS_];
 
 	// Add gesture recognizers
@@ -56,7 +58,6 @@
 	//	Add tap recognizer for background
 	[self addTapRecognizerToView:backgroundView];
 	
-	[super viewDidLoad];
 	[[RacePadCoordinator Instance] AddView:redPitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 	[[RacePadCoordinator Instance] AddView:bluePitWindowView WithType:RPC_PIT_WINDOW_VIEW_];
 }

@@ -23,6 +23,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	[tableBG removeFromSuperview];
 	[drivers setBackgroundView:tableBG];
 	[drivers setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
@@ -31,9 +33,7 @@
 	[driverInfoBase setBackgroundColor:background];
 	[background release];
 
-	[self setDriverIndex:0];
-	
-	[super viewDidLoad];
+	[self setDriverIndex:0];	
 }
 
 - (void)viewDidUnload

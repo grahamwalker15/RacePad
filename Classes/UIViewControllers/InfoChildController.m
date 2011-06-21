@@ -41,10 +41,10 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	[webView1 setDelegate:self];
 	[webView2 setDelegate:self];
-	
-	[super viewDidLoad];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

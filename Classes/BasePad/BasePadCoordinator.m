@@ -444,7 +444,7 @@ static BasePadCoordinator * instance_ = nil;
 	needsPlayRestart = false;
 	activePlaybackRate = playbackRate = 1.0;
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
-	[[BasePadMedia Instance] stopPlayTimer];
+	[[BasePadMedia Instance] stopPlayTimers];
 }
 
 -(void) userPause

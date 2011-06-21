@@ -75,6 +75,7 @@ static BasePadTitleBarController * instance_ = nil;
 	[[BasePadCoordinator Instance] SetViewDisplayed:titleBarController];
 }
 
+
 - (void) updateSponsor
 {
 	[[titleBarController sponsorButton] setImage:[[BasePadSponsor Instance]getSponsorLogo:BPS_LOGO_REGULAR_] forState:UIControlStateNormal];
@@ -91,31 +92,17 @@ static BasePadTitleBarController * instance_ = nil;
 
 - (void) hideLiveIndicator
 {
-	if(liveMode)
-	{
-		NSMutableArray * items = [[NSMutableArray alloc] init];
-		
-		UIBarButtonItem * liveIndicator = [titleBarController playStateBarItem];
-		
-		for (UIBarButtonItem * item in [titleBarController allItems])
-		{
-			if(item != liveIndicator)
-				[items addObject:item];
-		}
-		
-		[[titleBarController toolbar] setItems:items animated:true];
-		
-		liveMode = false;
-	}
+	UIButton * liveIndicator = [titleBarController playStateButton];
+	[liveIndicator setImage:[UIImage imageNamed:@"ReplayIndicator.png"] forState:UIControlStateNormal];
+	liveMode = false;
+	
 }
 
 - (void) showLiveIndicator
 {
-	if(!liveMode)
-	{
-		[[titleBarController toolbar] setItems:[titleBarController allItems] animated:true];
-		liveMode = true;
-	}
+	UIButton * liveIndicator = [titleBarController playStateButton];
+	[liveIndicator setImage:[UIImage imageNamed:@"LiveIndicator.png"] forState:UIControlStateNormal];
+	liveMode = true;
 }
 
 - (void) hide

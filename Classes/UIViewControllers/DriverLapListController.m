@@ -43,6 +43,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+	
  	// Set up the table data for SimpleListView
 	[lap_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverData]];
 	
@@ -58,8 +60,6 @@
 
 	[self addRightSwipeRecognizerToView:swipe_catcher_view_];
 	[self addLeftSwipeRecognizerToView:swipe_catcher_view_];
-	
-	[super viewDidLoad];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:lap_list_view_ WithType:RPC_LAP_LIST_VIEW_];

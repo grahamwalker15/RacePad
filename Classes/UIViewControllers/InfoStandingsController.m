@@ -14,12 +14,13 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	selectedButton = nil;
 		
 	//placeHolderView = fiaLogo;
 	//placeHolderAlpha = [placeHolderView alpha];
 	
-	[super viewDidLoad];
 }
 
 - (void)viewDidUnload

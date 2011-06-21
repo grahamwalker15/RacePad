@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
 	[backgroundView setStyle:BG_STYLE_TRANSPARENT_];
 	[online setButtonColour:[UIColor colorWithRed:0.3 green:1.0 blue:0.3 alpha:1.0]];
 	[online setShine:0.5];
@@ -35,7 +37,6 @@
 	[online setOutline:true];
 	[ok setOutline:true];
 	
-    [super viewDidLoad];
 }
 
 

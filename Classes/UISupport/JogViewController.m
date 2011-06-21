@@ -112,11 +112,12 @@ static bool jog_images_initialised_ = false;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
 	updateTimer = nil;
 	
 	[self addJogRecognizerToView:jogControl];
 
-    [super viewDidLoad];
 }
 
 

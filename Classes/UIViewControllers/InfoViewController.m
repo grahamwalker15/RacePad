@@ -15,6 +15,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	// Set parameters for views
 	//[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
@@ -31,8 +33,6 @@
 	childControllerClosing = false;
 	childController = nil;
 
-	
-	[super viewDidLoad];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

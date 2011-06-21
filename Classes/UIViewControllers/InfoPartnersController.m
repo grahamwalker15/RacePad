@@ -13,11 +13,11 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	selectedPartner = nil;
 	placeHolderView = instruction;
-	placeHolderAlpha = [placeHolderView alpha];
-	
-	[super viewDidLoad];
+	placeHolderAlpha = [placeHolderView alpha];	
 }
 
 - (void)viewDidUnload

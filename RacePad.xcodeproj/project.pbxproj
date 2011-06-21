@@ -282,6 +282,7 @@
 		7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1F15125F18A000770746 /* SimpleListView.m */; };
 		7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */; };
 		7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C684F12671CD200F2FFEC /* HTMLViewController.m */; };
+		7F9FA92413A26F9D008292CE /* ReplayIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9FA92313A26F9D008292CE /* ReplayIndicator.png */; };
 		7FA2765912F9D13D001407FD /* GameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2764E12F9D13D001407FD /* GameHelpController.m */; };
 		7FA2765A12F9D13D001407FD /* LapListHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765012F9D13D001407FD /* LapListHelpController.m */; };
 		7FA2765B12F9D13D001407FD /* MapHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765212F9D13D001407FD /* MapHelpController.m */; };
@@ -714,6 +715,7 @@
 		7F9C67391265F50000F2FFEC /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
 		7F9C684E12671CD200F2FFEC /* HTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLViewController.h; sourceTree = "<group>"; };
 		7F9C684F12671CD200F2FFEC /* HTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLViewController.m; sourceTree = "<group>"; };
+		7F9FA92313A26F9D008292CE /* ReplayIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReplayIndicator.png; path = Images/ReplayIndicator.png; sourceTree = "<group>"; };
 		7FA2764D12F9D13D001407FD /* GameHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelpController.h; sourceTree = "<group>"; };
 		7FA2764E12F9D13D001407FD /* GameHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHelpController.m; sourceTree = "<group>"; };
 		7FA2764F12F9D13D001407FD /* LapListHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapListHelpController.h; sourceTree = "<group>"; };
@@ -1239,6 +1241,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F9FA92313A26F9D008292CE /* ReplayIndicator.png */,
 				7F79411B138C0971008A2CB0 /* MSCTelemetry.png */,
 				7F79411C138C0971008A2CB0 /* NicoTelemetry.png */,
 				7F7940E2138BEABF008A2CB0 /* BigPlayButton.png */,
@@ -1653,6 +1656,7 @@
 				7F7940E3138BEABF008A2CB0 /* BigPlayButton.png in Resources */,
 				7F79411D138C0972008A2CB0 /* MSCTelemetry.png in Resources */,
 				7F79411E138C0972008A2CB0 /* NicoTelemetry.png in Resources */,
+				7F9FA92413A26F9D008292CE /* ReplayIndicator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

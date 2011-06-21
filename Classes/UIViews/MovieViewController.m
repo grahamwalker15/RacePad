@@ -63,6 +63,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+
 	// Get the video archive file name from RacePadCoordinator
 	currentMovie = [[self getVideoArchiveName] retain];
 	[self getStartTime];
@@ -97,7 +99,6 @@
     [player play];
 	*/
 		
-	[super viewDidLoad];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

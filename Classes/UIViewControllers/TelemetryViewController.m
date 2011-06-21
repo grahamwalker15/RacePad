@@ -1,4 +1,4 @@
-    //
+//
 //  TelemetryViewController.m
 //  RacePad
 //
@@ -26,6 +26,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
 	// Set parameters for views
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	
@@ -61,9 +63,7 @@
 	[self addTapRecognizerToView:redTrackMapView];
 	[self addPinchRecognizerToView:redTrackMapView];
 	[self addDoubleTapRecognizerToView:redTrackMapView];
-	
-    [super viewDidLoad];
- 
+	 
 	[[RacePadCoordinator Instance] AddView:blueTelemetryView WithType:RPC_TELEMETRY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:redTelemetryView WithType:RPC_TELEMETRY_VIEW_];
 	[[RacePadCoordinator Instance] AddView:blueTrackMapView WithType:RPC_TRACK_MAP_VIEW_];
