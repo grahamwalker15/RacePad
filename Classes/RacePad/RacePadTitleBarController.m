@@ -37,6 +37,9 @@ static RacePadTitleBarController * instance_ = nil;
 		[alertController setParentPopover:alertPopover];
 		
 		lapCount = 0;
+
+		//Tell race pad co-ordinator that we'll be interested in updates
+		[[RacePadCoordinator Instance] AddView:titleBarController WithType:RPC_LAP_COUNT_VIEW_];
 	}
 	
 	return self;
@@ -66,9 +69,6 @@ static RacePadTitleBarController * instance_ = nil;
 	
 	[[titleBarController playStateButton] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
 	[[titleBarController timeCounter] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
-	
-	//Tell race pad co-ordinator that we'll be interested in updates
-	[[RacePadCoordinator Instance] AddView:titleBarController WithType:RPC_LAP_COUNT_VIEW_];
 }
 
 - (void) hide
