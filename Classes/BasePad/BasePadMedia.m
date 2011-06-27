@@ -606,8 +606,6 @@ static BasePadMedia * instance_ = nil;
 	[self movieSeekToLive];
 	
 	movieGoLivePending = false;
-	
-	[self startLivePlayTimer];
 
 }
 
@@ -678,15 +676,17 @@ static BasePadMedia * instance_ = nil;
 
 - (void) startLivePlayTimer;
 {
-	// A 5 second timer kicked off at start of live play.
-	// Stream will resync on expiration.
-	[self stopPlayTimers];
-	
-	playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
+	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
+	{
+		// A 5 second timer kicked off at start of live play.
+		// Stream will resync on expiration.
+		[self stopPlayTimers];
+		
+		playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
 
-	if(registeredViewController)
-		[registeredViewController showLoadingIndicators];
-
+		if(registeredViewController)
+			[registeredViewController showLoadingIndicators];
+	}
 }
 
 - (void) stopPlayTimers
@@ -715,6 +715,13 @@ static BasePadMedia * instance_ = nil;
 
 - (void) playStartTimerExpired: (NSTimer *)theTimer
 {
+	// If there is a go live or play still pending, just kick off the timer again
+	if(movieGoLivePending || moviePlayPending)
+	{
+		[self startLivePlayTimer];
+		return;
+	}
+
 	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
 	[self movieResyncLive];
 	
@@ -799,6 +806,8 @@ static BasePadMedia * instance_ = nil;
 	
 	[self movieGoLive];
 	[self moviePlay];
+		
+	[self startLivePlayTimer];
 	
 	restartCount++;
 }
