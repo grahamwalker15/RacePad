@@ -62,7 +62,7 @@
 	for ( i = 0; i < count; i++ )
 	{
 		x[i] = [stream PopFloat];
-		y[i] = [stream PopFloat];
+		y[i] = 1 - [stream PopFloat];
 	}
 	
 	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
@@ -157,7 +157,7 @@
 	}
 	
 	playerX = [stream PopFloat];
-	playerY = [stream PopFloat];
+	playerY = 1 - [stream PopFloat];
 	[player release];
 	player = [[stream PopString] retain];
 	[playerColour release];
