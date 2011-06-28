@@ -11,7 +11,6 @@
 #import "RacePadAppDelegate.h"
 #import "RacePadSponsor.h"
 #import "BasePadViewController.h"
-#import "RacePadTimeController.h"
 #import "RacePadTitleBarController.h"
 #import "RacePadClientSocket.h"
 #import "RacePadDataHandler.h"

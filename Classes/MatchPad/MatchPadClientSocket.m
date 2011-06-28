@@ -10,6 +10,7 @@
 #import "MatchPadDataHandler.h"
 #import "MatchPadCoordinator.h"
 #import "MatchPadDatabase.h"
+#import "PlayerStatsController.h"
 #import "Pitch.h"
 
 @implementation MatchPadClientSocket
@@ -43,6 +44,51 @@
 - (void)StreamPitch
 {
 	[self SimpleCommand:MPCS_STREAM_PITCH];
+}
+
+- (void)RequestScore
+{
+	[self SimpleCommand:MPCS_REQUEST_SCORE];
+}
+
+- (void)StreamScore
+{
+	[self SimpleCommand:MPCS_STREAM_SCORE];
+}
+
+- (void)RequestTeams
+{
+	[self SimpleCommand:MPCS_REQUEST_TEAMS];
+}
+
+- (void)RequestPlayerStats
+{
+	int messageLength = 1 + sizeof(uint32_t) * 2;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(MPCS_REQUEST_PLAYER_STATS);
+	buf[sizeof(uint32_t) * 2] = [[[MatchPadCoordinator Instance] playerStatsController] home];
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)StreamPlayerStats
+{
+	int messageLength = 1 + sizeof(uint32_t) * 2;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(MPCS_STREAM_PLAYER_STATS);
+	buf[sizeof(uint32_t) * 2] = [[[MatchPadCoordinator Instance] playerStatsController] home];
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
 }
 
 - (DataHandler *) constructDataHandler

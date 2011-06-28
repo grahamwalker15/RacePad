@@ -8,7 +8,7 @@
 
 #import "TableDataView.h"
 
-#import "MatchPadDatabase.h"
+#import "BasePadDatabase.h"
 #import "ImageListStore.h"
 #import "TableData.h"
 
@@ -16,6 +16,7 @@
 @implementation TableDataView
 
 @synthesize table_data_;
+@synthesize smallHeadings;
 
 - (void)dealloc
 {
@@ -114,6 +115,7 @@
 		
 		if ( cell )
 		{
+			[self UseRegularFont];
 			[self SetTextColour:[cell fg]];
 			[self SetBackgroundColour:[cell	bg]];
 			[self SetAlignment:[cell alignment]];
@@ -142,7 +144,7 @@
 			
 			if(name && [name length] > 0 && image_list_name && [image_list_name length] > 0)
 			{			
-				MatchPadDatabase *database = [MatchPadDatabase Instance];
+				BasePadDatabase *database = [BasePadDatabase Instance];
 				ImageListStore * image_store = [database imageListStore];
 				
 				if (image_store)			
@@ -191,6 +193,10 @@
 		TableHeader *columnHeader = [table_data_ columnHeader:col];
 		if ( columnHeader )
 		{
+			if ( smallHeadings )
+				[self UseMediumBoldFont];
+			else
+				[self UseRegularFont];
 			[self SetTextColour:[columnHeader fg]];
 			[self SetBackgroundColour:[columnHeader	bg]];
 			[self SetAlignment:[columnHeader alignment]];

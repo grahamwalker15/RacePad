@@ -41,12 +41,43 @@
 			[[MatchPadTitleBarController Instance] setEventName:string];
 			break;
 		}
-
+		case MPSC_TEAMS_:
+		{
+			NSString *home = [stream PopString];
+			NSString *away = [stream PopString];
+			[[MatchPadDatabase Instance] setHomeTeam:home];
+			[[MatchPadDatabase Instance] setAwayTeam:away];
+			break;
+		}
+			
 		case MPSC_PITCH_: // Pitch
 		{
 			Pitch *pitch = [[MatchPadDatabase Instance] pitch];
 			[pitch loadPitch:stream];
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PITCH_VIEW_];
+			break;
+		}
+
+		case MPSC_SCORE_:
+		{
+			int home = [stream PopInt];
+			int away = [stream PopInt];
+			[[MatchPadTitleBarController Instance] setScore:home Away:away];
+			break;
+		}
+			
+		case MPSC_WHOLE_PLAYER_STATS_:
+		{
+			TableData *player_stats = [[MatchPadDatabase Instance] playerStatsData];
+			[player_stats loadData:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_STATS_VIEW_];
+			break;
+		}
+		case MPSC_UPDATE_PLAYER_STATS_:
+		{
+			TableData *player_stats = [[MatchPadDatabase Instance] playerStatsData];
+			[player_stats updateData:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_STATS_VIEW_];
 			break;
 		}
 		default:

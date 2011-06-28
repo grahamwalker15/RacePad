@@ -423,6 +423,16 @@ static bool statics_initialised_ = false;
 	}
 }
 
+- (void)SetDashedLine:(float) length
+{
+	if(current_context_)
+	{
+		CGFloat lengths[2];
+		lengths[0] = lengths[1] = length;
+		CGContextSetLineDash (current_context_, 0.0, lengths, 2);
+	}
+}
+
 - (void)SetDropShadowXOffset:(float)xoffset YOffset:(float)yoffset Blur:(float)blur  // N.B. Need a save/restore around it to switch off
 {
 	if(current_context_)
@@ -589,6 +599,28 @@ static bool statics_initialised_ = false;
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
 {
 	[self LineRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
+}
+
+- (void)LineCircle:(float)x0 Y0:(float)y0 Radius:(float)r;
+{
+	if(current_context_)
+	{
+		[fg_ set];
+		CGContextBeginPath (current_context_);
+		CGContextAddArc(current_context_, x0, y0, r, 0, M_PI * 2, true);
+		CGContextStrokePath (current_context_);
+	}
+}
+
+- (void)LineArc:(float)x0 Y0:(float)y0 StartAngle:(float)startAngle EndAngle:(float)endAngle Clockwise:(bool) clockwise Radius:(float)r;
+{
+	if(current_context_)
+	{
+		[fg_ set];
+		CGContextBeginPath (current_context_);
+		CGContextAddArc(current_context_, x0, y0, r, startAngle, endAngle, clockwise);
+		CGContextStrokePath (current_context_);
+	}
 }
 
 - (void)EtchRectangle:(CGRect)rect EtchIn:(bool)etch_in
@@ -899,6 +931,12 @@ static bool statics_initialised_ = false;
 {
 	if(current_context_)
 		CGContextScaleCTM(current_context_, scale, scale);
+}
+
+- (void)SetScaleX:(float)scale_x Y:(float)scale_y
+{
+	if(current_context_)
+		CGContextScaleCTM(current_context_, scale_x, scale_y);
 }
 
 - (void)SetTranslateX:(float)x Y:(float)y

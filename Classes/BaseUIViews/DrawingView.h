@@ -155,6 +155,8 @@
 - (void)FillGlassRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)FillPatternRectangle:(UIImage *)image X0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
 - (void)LineRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1;
+- (void)LineCircle:(float)x0 Y0:(float)y0 Radius:(float)r;
+- (void)LineArc:(float)x0 Y0:(float)y0 StartAngle:(float)startAngle EndAngle:(float)endAngle Clockwise:(bool) clockwise Radius:(float)r;
 
 - (void)EtchRectangle:(CGRect)rect EtchIn:(bool)etch_in;
 

@@ -12,6 +12,8 @@ enum ClientCommands {
 	MPCS_REQUEST_VERSION = BPCS_REQUEST_VERSION, // 1
 	MPCS_REQUEST_EVENT,				// 2
 	MPCS_SET_REFERENCE_TIME = BPCS_SET_REFERENCE_TIME,	// 4
+	MPCS_REQUEST_PLAYER_STATS,		// 5
+	MPCS_STREAM_PLAYER_STATS,		// 6
 	MPCS_REQUEST_UI_IMAGES = BPCS_REQUEST_UI_IMAGES, // 8
 	MPCS_ACCEPT_PUSH_DATA = BPCS_ACCEPT_PUSH_DATA, // 14
 	MPCS_STOP_STREAMS = BPCS_STOP_STREAMS, // 15
@@ -23,6 +25,9 @@ enum ClientCommands {
 	MPCS_SET_PLAYBACK_RATE = BPCS_SET_PLAYBACK_RATE, // 35
 	MPCS_STREAM_PITCH,				// 36
 	MPCS_REQUEST_PITCH,				// 37
+	MPCS_STREAM_SCORE,				// 38
+	MPCS_REQUEST_SCORE,				// 39
+	MPCS_REQUEST_TEAMS,				//40
 };
 
 @interface MatchPadClientSocket : BasePadClientSocket
@@ -33,6 +38,14 @@ enum ClientCommands {
 
 - (void) RequestPitch;
 - (void) StreamPitch;
+
+- (void) RequestScore;
+- (void) StreamScore;
+
+- (void) RequestTeams;
+
+- (void) RequestPlayerStats;
+- (void) StreamPlayerStats;
 
 - (void) StreamCommentary :(NSString *) driver;
 

@@ -14,6 +14,8 @@
 enum ServerCommands {
 	MPSC_VERSION_ = BPSC_VERSION_, // 1
 	MPSC_EVENT_,				// 2
+	MPSC_WHOLE_PLAYER_STATS_,	// 3
+	MPSC_UPDATE_PLAYER_STATS_,	// 3
 	MPSC_IMAGE_LIST_ITEM_ = BPSC_IMAGE_LIST_ITEM_,	// 8
 	MPSC_FILE_START_ = BPSC_FILE_START_,			// 9
 	MPSC_FILE_CHUNK_ = BPSC_FILE_CHUNK_,			// 10
@@ -29,6 +31,8 @@ enum ServerCommands {
 	MPSC_TIME_SYNC_ = BPSC_TIME_SYNC_,			// 42
 	MPSC_NO_ACTION_ = BPSC_NO_ACTION_,			// 45
 	MPSC_PITCH_,								// 46
+	MPSC_SCORE_,								// 47
+	MPSC_TEAMS_,								// 48
 };
 
 @interface MatchPadDataHandler : BasePadDataHandler

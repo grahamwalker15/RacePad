@@ -62,6 +62,10 @@
 		4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */; };
 		4D91DF1812EDF122005B7FE7 /* DrivingWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */; };
 		4D91DFF612EF3E5D005B7FE7 /* DrivingWheelOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */; };
+		4DA5FA5F13B33BFC0005F15A /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5813B33BFC0005F15A /* DrawingView.m */; };
+		4DA5FA6013B33BFC0005F15A /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5A13B33BFC0005F15A /* MovieView.m */; };
+		4DA5FA6113B33BFC0005F15A /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5C13B33BFC0005F15A /* SimpleListView.m */; };
+		4DA5FA6213B33BFC0005F15A /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5E13B33BFC0005F15A /* TableDataView.m */; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
 		4DC91180137BDFC900ACE72F /* TrackProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9117F137BDFC900ACE72F /* TrackProfileView.m */; };
 		4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; };
@@ -107,7 +111,6 @@
 		7F610F4F13030073004DC056 /* LogoStandox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4413030073004DC056 /* LogoStandox.png */; };
 		7F610F531303052C004DC056 /* InfoPartners.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F521303052C004DC056 /* InfoPartners.xib */; };
 		7F610F56130319BC004DC056 /* InfoPartnersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610F55130319BC004DC056 /* InfoPartnersController.m */; };
-		7F6239D7127E089F009A9D4F /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6239D6127E089F009A9D4F /* MovieView.m */; };
 		7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */; };
 		7F6244F31282EFB5009A9D4F /* CompositeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6244F21282EFB5009A9D4F /* CompositeView.xib */; };
 		7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246A21284471E009A9D4F /* MGPLogo.png */; };
@@ -267,8 +270,6 @@
 		7F93576612F9A87F00AB1D07 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93576512F9A87F00AB1D07 /* ShinyButton.m */; };
 		7F9543F0130097AB00DC7FB6 /* DriverInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9543EF130097AB00DC7FB6 /* DriverInfo.m */; };
 		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
-		7F9C12C212560D0300770746 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C12BC12560D0300770746 /* EAGLView.m */; };
-		7F9C12C312560D0300770746 /* ESRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C12BE12560D0300770746 /* ESRenderer.m */; };
 		7F9C12CE12560D5700770746 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CD12560D5700770746 /* QuartzCore.framework */; };
 		7F9C12D012560D6600770746 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CF12560D6600770746 /* OpenGLES.framework */; };
 		7F9C1515125759D900770746 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1514125759D900770746 /* CoreFoundation.framework */; };
@@ -278,8 +279,6 @@
 		7F9C1728125A2BD000770746 /* DataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1727125A2BD000770746 /* DataStream.m */; };
 		7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */; };
 		7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */; };
-		7F9C1B56125B82CA00770746 /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1B55125B82CA00770746 /* DrawingView.m */; };
-		7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1F15125F18A000770746 /* SimpleListView.m */; };
 		7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */; };
 		7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C684F12671CD200F2FFEC /* HTMLViewController.m */; };
 		7F9FA92413A26F9D008292CE /* ReplayIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9FA92313A26F9D008292CE /* ReplayIndicator.png */; };
@@ -308,7 +307,6 @@
 		7FB2874D1379992100A6D6C8 /* DriverGapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2874C1379992100A6D6C8 /* DriverGapInfo.m */; };
 		7FB75AAB137A854600F7BFA0 /* DriverTextBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */; };
 		7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF8FC12648507009D37FA /* DrawingViewController.m */; };
-		7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF98012649EBE009D37FA /* TableDataView.m */; };
 		7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDFA851264B822009D37FA /* TrackMapView.m */; };
 		7FC2EAB8128C926C00DAC96E /* AlertChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */; };
 		7FC2EAB9128C926C00DAC96E /* AlertGreenFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */; };
@@ -444,6 +442,14 @@
 		4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DrivingView.xib; path = ResourceFiles/DrivingView.xib; sourceTree = "<group>"; };
 		4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DrivingWheel.png; path = Images/DrivingWheel.png; sourceTree = "<group>"; };
 		4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DrivingWheelOutline.png; path = Images/DrivingWheelOutline.png; sourceTree = "<group>"; };
+		4DA5FA5713B33BFC0005F15A /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
+		4DA5FA5813B33BFC0005F15A /* DrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
+		4DA5FA5913B33BFC0005F15A /* MovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieView.h; sourceTree = "<group>"; };
+		4DA5FA5A13B33BFC0005F15A /* MovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieView.m; sourceTree = "<group>"; };
+		4DA5FA5B13B33BFC0005F15A /* SimpleListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListView.h; sourceTree = "<group>"; };
+		4DA5FA5C13B33BFC0005F15A /* SimpleListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListView.m; sourceTree = "<group>"; };
+		4DA5FA5D13B33BFC0005F15A /* TableDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDataView.h; sourceTree = "<group>"; };
+		4DA5FA5E13B33BFC0005F15A /* TableDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableDataView.m; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
 		4DC9117E137BDFC900ACE72F /* TrackProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackProfileView.h; sourceTree = "<group>"; };
@@ -501,8 +507,6 @@
 		7F610F521303052C004DC056 /* InfoPartners.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoPartners.xib; path = ResourceFiles/InfoPartners.xib; sourceTree = "<group>"; };
 		7F610F54130319BC004DC056 /* InfoPartnersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPartnersController.h; sourceTree = "<group>"; };
 		7F610F55130319BC004DC056 /* InfoPartnersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPartnersController.m; sourceTree = "<group>"; };
-		7F6239D5127E089F009A9D4F /* MovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieView.h; sourceTree = "<group>"; };
-		7F6239D6127E089F009A9D4F /* MovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieView.m; sourceTree = "<group>"; };
 		7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeViewController.h; sourceTree = "<group>"; };
 		7F6244F01282EF9E009A9D4F /* CompositeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeViewController.m; sourceTree = "<group>"; };
 		7F6244F21282EFB5009A9D4F /* CompositeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CompositeView.xib; path = ResourceFiles/CompositeView.xib; sourceTree = "<group>"; };
@@ -690,10 +694,6 @@
 		7F9543EF130097AB00DC7FB6 /* DriverInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverInfo.m; sourceTree = "<group>"; };
 		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
 		7F9C10DB1255E68B00770746 /* TrackMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMapViewController.m; sourceTree = "<group>"; };
-		7F9C12BB12560D0300770746 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
-		7F9C12BC12560D0300770746 /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
-		7F9C12BD12560D0300770746 /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
-		7F9C12BE12560D0300770746 /* ESRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRenderer.m; sourceTree = "<group>"; };
 		7F9C12CD12560D5700770746 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7F9C12CF12560D6600770746 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		7F9C1514125759D900770746 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -707,10 +707,6 @@
 		7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadAppDelegate.m; sourceTree = "<group>"; };
 		7F9C1AF2125B7D5900770746 /* RacePadClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadClientSocket.h; sourceTree = "<group>"; };
 		7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadClientSocket.m; sourceTree = "<group>"; };
-		7F9C1B54125B82CA00770746 /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
-		7F9C1B55125B82CA00770746 /* DrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
-		7F9C1F14125F18A000770746 /* SimpleListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListView.h; sourceTree = "<group>"; };
-		7F9C1F15125F18A000770746 /* SimpleListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListView.m; sourceTree = "<group>"; };
 		7F9C67381265F50000F2FFEC /* TrackMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMap.h; sourceTree = "<group>"; };
 		7F9C67391265F50000F2FFEC /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
 		7F9C684E12671CD200F2FFEC /* HTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLViewController.h; sourceTree = "<group>"; };
@@ -750,8 +746,6 @@
 		7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DriverTextBG.png; path = Images/DriverTextBG.png; sourceTree = "<group>"; };
 		7FBDF8FB12648507009D37FA /* DrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingViewController.h; sourceTree = "<group>"; };
 		7FBDF8FC12648507009D37FA /* DrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
-		7FBDF97F12649EBE009D37FA /* TableDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDataView.h; sourceTree = "<group>"; };
-		7FBDF98012649EBE009D37FA /* TableDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableDataView.m; sourceTree = "<group>"; };
 		7FBDFA841264B822009D37FA /* TrackMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapView.h; sourceTree = "<group>"; };
 		7FBDFA851264B822009D37FA /* TrackMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMapView.m; sourceTree = "<group>"; };
 		7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertChequeredFlag.png; path = Images/AlertChequeredFlag.png; sourceTree = "<group>"; };
@@ -811,8 +805,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4D5A365C13A5F689007C4AA9 /* BasePadData */,
 				4D5A359F13A23CB4007C4AA9 /* BasePad */,
+				4D5A365C13A5F689007C4AA9 /* BasePadData */,
+				4DA5FA5413B33BD60005F15A /* BaseUIViews */,
 				7F9C1725125A2B9000770746 /* Constructs */,
 				7F3276EE126379B000BD1627 /* Database */,
 				7F93564A12F8802A00AB1D07 /* HelpViewControllers */,
@@ -918,6 +913,21 @@
 				4D5A366213A5F6B4007C4AA9 /* TableData.m */,
 			);
 			path = BasePadData;
+			sourceTree = "<group>";
+		};
+		4DA5FA5413B33BD60005F15A /* BaseUIViews */ = {
+			isa = PBXGroup;
+			children = (
+				4DA5FA5713B33BFC0005F15A /* DrawingView.h */,
+				4DA5FA5813B33BFC0005F15A /* DrawingView.m */,
+				4DA5FA5913B33BFC0005F15A /* MovieView.h */,
+				4DA5FA5A13B33BFC0005F15A /* MovieView.m */,
+				4DA5FA5B13B33BFC0005F15A /* SimpleListView.h */,
+				4DA5FA5C13B33BFC0005F15A /* SimpleListView.m */,
+				4DA5FA5D13B33BFC0005F15A /* TableDataView.h */,
+				4DA5FA5E13B33BFC0005F15A /* TableDataView.m */,
+			);
+			path = BaseUIViews;
 			sourceTree = "<group>";
 		};
 		7F3276EE126379B000BD1627 /* Database */ = {
@@ -1089,22 +1099,10 @@
 				7F86601E128ABEB900F13CB6 /* AlertView.m */,
 				7F8F905512E611CB00EA04A6 /* CommentaryView.h */,
 				7F8F905612E611CB00EA04A6 /* CommentaryView.m */,
-				7F9C1B54125B82CA00770746 /* DrawingView.h */,
-				7F9C1B55125B82CA00770746 /* DrawingView.m */,
-				7F9C12BB12560D0300770746 /* EAGLView.h */,
-				7F9C12BC12560D0300770746 /* EAGLView.m */,
-				7F9C12BD12560D0300770746 /* ESRenderer.h */,
-				7F9C12BE12560D0300770746 /* ESRenderer.m */,
 				7F86658E128C51DA00F13CB6 /* LeaderboardView.h */,
 				7F86658F128C51DA00F13CB6 /* LeaderboardView.m */,
-				7F6239D5127E089F009A9D4F /* MovieView.h */,
-				7F6239D6127E089F009A9D4F /* MovieView.m */,
 				4D1563F112898CD0000E959D /* PitWindowView.h */,
 				4D1563F212898CD0000E959D /* PitWindowView.m */,
-				7F9C1F14125F18A000770746 /* SimpleListView.h */,
-				7F9C1F15125F18A000770746 /* SimpleListView.m */,
-				7FBDF97F12649EBE009D37FA /* TableDataView.h */,
-				7FBDF98012649EBE009D37FA /* TableDataView.m */,
 				7FC2FBBE129AC91700DAC96E /* TelemetryView.h */,
 				7FC2FBBF129AC91700DAC96E /* TelemetryView.m */,
 				7FBDFA841264B822009D37FA /* TrackMapView.h */,
@@ -1669,20 +1667,15 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */,
-				7F9C12C212560D0300770746 /* EAGLView.m in Sources */,
-				7F9C12C312560D0300770746 /* ESRenderer.m in Sources */,
 				7F9C1696125A176700770746 /* MovieViewController.m in Sources */,
 				7F9C1728125A2BD000770746 /* DataStream.m in Sources */,
 				7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */,
 				7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */,
-				7F9C1B56125B82CA00770746 /* DrawingView.m in Sources */,
-				7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */,
 				7F88203F12632EB40010785D /* DriverListController.m in Sources */,
 				7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */,
 				7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */,
 				7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */,
 				7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */,
-				7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */,
 				7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */,
 				7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */,
 				7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */,
@@ -1695,7 +1688,6 @@
 				7F11F64D127197B800C88544 /* ElapsedTime.m in Sources */,
 				7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */,
 				7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */,
-				7F6239D7127E089F009A9D4F /* MovieView.m in Sources */,
 				4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */,
 				7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */,
 				4D807CF212832AED00FDE400 /* ServerConnect.m in Sources */,
@@ -1764,6 +1756,10 @@
 				4D5A366313A5F6B4007C4AA9 /* BasePadDatabase.m in Sources */,
 				4D5A366413A5F6B4007C4AA9 /* ImageListStore.m in Sources */,
 				4D5A366513A5F6B4007C4AA9 /* TableData.m in Sources */,
+				4DA5FA5F13B33BFC0005F15A /* DrawingView.m in Sources */,
+				4DA5FA6013B33BFC0005F15A /* MovieView.m in Sources */,
+				4DA5FA6113B33BFC0005F15A /* SimpleListView.m in Sources */,
+				4DA5FA6213B33BFC0005F15A /* TableDataView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import "MatchPadTitleBarController.h"
 #import "MatchPadCoordinator.h"
+#import "MatchPadDatabase.h"
 #import "TitleBarViewController.h"
 #import "MatchPadSponsor.h"
 
@@ -29,6 +30,8 @@ static MatchPadTitleBarController * instance_ = nil;
 {
 	if(self = [super init])
 	{	
+		//Tell match pad co-ordinator that we'll be interested in updates
+		[[MatchPadCoordinator Instance] AddView:titleBarController WithType:MPC_SCORE_VIEW_];
 	}
 	
 	return self;
@@ -37,7 +40,27 @@ static MatchPadTitleBarController * instance_ = nil;
 
 - (void)dealloc
 {
+	[homeTeam release];
+	[awayTeam release];
     [super dealloc];
+}
+
+- (void) displayInViewController:(UIViewController *)viewController
+{	
+	[super displayInViewController:viewController];
+}
+
+- (void) updateEvent
+{
+	NSString *t = [NSString stringWithFormat:@"%@ %d - %d %@", [[MatchPadDatabase Instance]homeTeam], homeScore, awayScore, [[MatchPadDatabase Instance]awayTeam]];
+	[self setEventName:t];
+}
+
+- (void) setScore: (int)home Away: (int)away
+{
+	homeScore = home;
+	awayScore = away;
+	[self updateEvent];
 }
 
 @end

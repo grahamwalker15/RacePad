@@ -23,6 +23,7 @@
 #import "WorkOffline.h"
 #import "BasePadPrefs.h"
 #import "TabletState.h"
+#import "PlayerStatsController.h"
 
 #import "UIConstants.h"
 
@@ -32,6 +33,8 @@
 
 
 @implementation MatchPadCoordinator
+
+@synthesize playerStatsController;
 
 static MatchPadCoordinator * instance_ = nil;
 
@@ -66,6 +69,7 @@ static MatchPadCoordinator * instance_ = nil;
 {
 	[(MatchPadClientSocket*)socket_ SynchroniseTime];
 	[(MatchPadClientSocket*)socket_ RequestEvent];
+	[(MatchPadClientSocket*)socket_ RequestTeams];
 	[(MatchPadClientSocket*)socket_ RequestUIImages];
 }
 
@@ -83,7 +87,7 @@ static MatchPadCoordinator * instance_ = nil;
 
 - (NSString *)archiveName
 {
-	return @"match_pad.rpa";
+	return @"match_pad.mpa";
 }
 
 - (NSString *)baseChunkName
@@ -112,6 +116,14 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ StreamPitch];
 	}
+	else if([existing_view Type] == MPC_SCORE_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ StreamScore];
+	}
+	else if([existing_view Type] == MPC_PLAYER_STATS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ StreamPlayerStats];
+	}
 }
 
 -(void) requestData:(BPCView *)existing_view
@@ -120,6 +132,14 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ RequestPitch];
 	}
+	else if([existing_view Type] == MPC_SCORE_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ RequestScore];
+	}
+	else if([existing_view Type] == MPC_PLAYER_STATS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ RequestPlayerStats];
+	}
 }
 
 - (void) addDataSource:(int)type Parameter:(NSString *)parameter
@@ -127,6 +147,17 @@ static MatchPadCoordinator * instance_ = nil;
 	if (type == MPC_PITCH_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"pitch"];
+	}
+	else if (type == MPC_SCORE_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"score"];
+	}
+	else if (type == MPC_PLAYER_STATS_VIEW_)
+	{
+		if ( playerStatsController.home )
+			[self AddDataSourceWithType:type AndFile: @"HomePlayerStats"];
+		else
+			[self AddDataSourceWithType:type AndFile: @"AwayPlayerStats"];
 	}
 }
 

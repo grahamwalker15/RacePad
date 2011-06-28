@@ -18,19 +18,25 @@
 @class DownloadProgress;
 @class ServerConnect;
 @class WorkOffline;
+@class PlayerStatsController;
 
 // View types
 enum ViewTypes
 {
+	MPC_VIDEO_VIEW_ = BPC_VIDEO_VIEW_,
+	MPC_SETTINGS_VIEW_ = BPC_SETTINGS_VIEW_,
 	MPC_PITCH_VIEW_ = 0x4,
-	MPC_VIDEO_VIEW_ = 0x8,
-	MPC_SETTINGS_VIEW_ = 0x10,
+	MPC_PLAYER_STATS_VIEW_ = 0x8,
 	MPC_COMMENTARY_VIEW_ = 0x400,
+	MPC_SCORE_VIEW_ = 0x800,
 } ;
 
 @interface MatchPadCoordinator : BasePadCoordinator
 {
+	PlayerStatsController *playerStatsController;
 }
+
+@property (retain) PlayerStatsController *playerStatsController;
 
 +(MatchPadCoordinator *)Instance;
 

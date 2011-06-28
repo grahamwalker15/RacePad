@@ -215,9 +215,8 @@
 
 - (void) positionOverlays
 {
-	int inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
-	CGRect map_frame = CGRectInset(bg_frame, inset, inset);
+	CGRect map_frame = CGRectInset(bg_frame, 20, 20); // The grass is drawn 20 pixels inside the BGView
 	[pitchView setFrame:map_frame];
 	
 	// CGRect zoom_frame = CGRectMake(map_frame.origin.x + 80, map_frame.origin.y + map_frame.size.height - 320, 300, 300);

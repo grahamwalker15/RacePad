@@ -10,6 +10,9 @@
 
 @implementation MatchPadDatabase
 
+@synthesize homeTeam;
+@synthesize awayTeam;
+
 static MatchPadDatabase *instance = nil;
 
 + (MatchPadDatabase *)Instance
@@ -21,10 +24,15 @@ static MatchPadDatabase *instance = nil;
 }
 
 @synthesize pitch;
+@synthesize playerStatsData;
 
 - (MatchPadDatabase *)init
 {
 	pitch = [[Pitch alloc] init];
+	playerStatsData = [[TableData alloc] init];
+	
+	[self setHomeTeam:@"Home"];
+	[self setAwayTeam:@"Away"];
 	
 	return self;
 }
@@ -32,12 +40,17 @@ static MatchPadDatabase *instance = nil;
 - (void) dealloc
 {
 	[pitch release];
+	[playerStatsData release];
 	
 	[super dealloc];
 }
 
 -(void) clearStaticData
 {
+	[self setHomeTeam:@"Home"];
+	[self setAwayTeam:@"Away"];
+	homeTeam = nil;
+	awayTeam = nil;
 }
 
 @end

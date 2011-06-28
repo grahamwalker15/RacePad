@@ -42,6 +42,10 @@
 	NSMutableArray *lines;
 	UIColor **colours;
 	int coloursCount;
+	
+	float playerX, playerY;
+	NSString *player;
+	UIColor *playerColour;
 }
 
 - (void) loadPitch : (DataStream *) stream;
