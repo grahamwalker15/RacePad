@@ -82,6 +82,12 @@ static RacePadCoordinator * instance_ = nil;
 	[self requestPrediction:[[[RacePadDatabase Instance] racePrediction] user]];
 }
 
+- (void) notifyNewConnection
+{
+	[self clearStaticData];
+	[self requestInitialData];
+}
+
 -(void) updateDriverNames
 {
 }

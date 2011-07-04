@@ -54,6 +54,7 @@ enum ServerCommands {
 	RPSC_COMMENTARY_,			// 43
 	RPSC_DRIVER_GAP_INFO_,		// 44
 	RPSC_NO_ACTION_ = BPSC_NO_ACTION_,			// 45
+	RPSC_NOTIFY_NEW_CONNECTION_,				// 46
 };
 
 @interface RacePadDataHandler : BasePadDataHandler

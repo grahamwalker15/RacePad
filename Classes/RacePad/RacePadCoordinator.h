@@ -66,4 +66,6 @@ enum ViewTypes
 - (void) registeredUser;
 - (void) badUser;
 
+- (void) notifyNewConnection;
+
 @end

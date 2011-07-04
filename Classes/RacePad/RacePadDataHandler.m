@@ -227,6 +227,11 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_GAP_INFO_VIEW_];
 			break;
 		}
+		case RPSC_NOTIFY_NEW_CONNECTION_:
+		{
+			[[RacePadCoordinator Instance] notifyNewConnection];
+			break;
+		}
 			
 		default:
 			[super handleCommand:command];
