@@ -132,7 +132,7 @@
 	
 	// on re-try, give it 15 secs
 	timer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(timeout:) userInfo:nil repeats:NO];
-	[[MatchPadCoordinator Instance] SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO];
+	[[MatchPadCoordinator Instance] SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO LightRestart:false];
 }
 
 -(void) settingsPressed:(id)sender

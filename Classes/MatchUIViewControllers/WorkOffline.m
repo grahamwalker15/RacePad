@@ -264,7 +264,7 @@
 	NSString * serverAddress = [[BasePadPrefs Instance] getPref:@"preferredServerAddress"];
 	
 	if(serverAddress && [serverAddress length] > 0)
-		[[MatchPadCoordinator Instance] SetServerAddress:serverAddress ShowWindow:YES];
+		[[MatchPadCoordinator Instance] SetServerAddress:serverAddress ShowWindow:YES LightRestart:false];
 	
 	NSString * videoServerAddress = [[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"];
 	

@@ -337,7 +337,7 @@
 -(IBAction)IPAddressChanged:(id)sender
 {
 	NSString *text = [sender text];
-	[[MatchPadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
+	[[MatchPadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
 }
 
 -(IBAction)connectPressed:(id)sender
@@ -350,7 +350,7 @@
 	else
 	{
 		NSString *text = [ip_address_edit_ text];
-		[[MatchPadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
+		[[MatchPadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
 		[serverTwirl setHidden:false];
 
 	}
