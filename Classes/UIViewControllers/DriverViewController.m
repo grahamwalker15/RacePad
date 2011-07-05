@@ -104,6 +104,12 @@
 		NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
 		
 		[trackMapView followCar:carToFollow];
+		if ( ![[trackProfileView carToFollow] isEqualToString:carToFollow] )
+		{
+			[trackProfileView setUserOffset:0.0];
+			[trackProfileView setUserScale:5.0];
+			[trackProfileView RequestRedraw];
+		}
 		[trackProfileView followCar:carToFollow];
 		[[[RacePadDatabase Instance] commentary] setCommentaryFor:carToFollow];
 
@@ -624,7 +630,10 @@
 
 			[[RacePadCoordinator Instance] setNameToFollow:name];
 			[trackMapView followCar:name];
+			[trackProfileView setUserOffset:0.0];
+			[trackProfileView setUserScale:5.0];
 			[trackProfileView followCar:name];
+			[trackProfileView RequestRedraw];
 			[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
 			
 			// Force reload of data
@@ -688,7 +697,10 @@
 - (IBAction) allButtonPressed:(id)sender
 {
 	[trackMapView followCar:nil];
+	[trackProfileView setUserOffset:0.0];
+	[trackProfileView setUserScale:5.0];
 	[trackProfileView followCar:nil];
+	[trackProfileView RequestRedraw];
 	[leaderboardView RequestRedraw];	
 	[[RacePadCoordinator Instance] setNameToFollow:nil];
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:nil];

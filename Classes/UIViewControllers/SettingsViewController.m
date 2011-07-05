@@ -337,7 +337,7 @@
 -(IBAction)IPAddressChanged:(id)sender
 {
 	NSString *text = [sender text];
-	[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
+	[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
 }
 
 -(IBAction)connectPressed:(id)sender
@@ -350,7 +350,7 @@
 	else
 	{
 		NSString *text = [ip_address_edit_ text];
-		[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES];
+		[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
 		[serverTwirl setHidden:false];
 
 	}

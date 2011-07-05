@@ -51,6 +51,7 @@ static RacePadCoordinator * instance_ = nil;
 	if(self =[super init])
 	{
 		gameViewController = nil;
+		lightRestart = false;
 	}
 	
 	return self;
@@ -74,7 +75,8 @@ static RacePadCoordinator * instance_ = nil;
 	[(RacePadClientSocket*)socket_ RequestEvent];
 	[(RacePadClientSocket*)socket_ RequestTrackMap];
 	[(RacePadClientSocket*)socket_ RequestPitWindowBase];
-	[(RacePadClientSocket*)socket_ RequestUIImages];
+	if ( !lightRestart )
+		[(RacePadClientSocket*)socket_ RequestUIImages];
 }
 
 - (void) requestConnectedData

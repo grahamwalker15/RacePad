@@ -53,6 +53,7 @@
 @synthesize showingConnecting;
 @synthesize liveMovieSeekAllowed;
 @synthesize nameToFollow;
+@synthesize lightRestart;
 
 static BasePadCoordinator * instance_ = nil;
 
@@ -774,7 +775,7 @@ static BasePadCoordinator * instance_ = nil;
 		[self setConnectionType:BPC_SOCKET_CONNECTION_];
 		restartTime = savedTime; // setConnectionType will have set it to 0, and SetProjectRange will need to see it.
 		
-		[self requestInitialData];
+		[self requestConnectedData];
 
 		showingConnecting = false;
 		[serverConnect popDown];
@@ -799,7 +800,7 @@ static BasePadCoordinator * instance_ = nil;
 	if(connectionRetryCount < 10)
 	{
 		connectionRetryCount++;
-		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO];
+		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO LightRestart:false];
 	}
 	else
 	{
@@ -849,7 +850,7 @@ static BasePadCoordinator * instance_ = nil;
 	return [[BasePadClientSocket alloc] CreateSocket]; // Override Me
 }
 
-- (void) SetServerAddress : (NSString *) server ShowWindow:(BOOL)showWindow
+- (void) SetServerAddress : (NSString *) server ShowWindow:(BOOL)showWindow LightRestart:(bool) lRestart
 {
 	if ( server && [server length] )
 	{
@@ -862,6 +863,7 @@ static BasePadCoordinator * instance_ = nil;
 		[[BasePadPrefs Instance] setPref:@"preferredServerAddress" Value:server];
 		[[BasePadPrefs Instance] save];
 		[self clearStaticData];
+		lightRestart = lRestart;
 		
 		if ( showWindow )
 		{
@@ -903,7 +905,7 @@ static BasePadCoordinator * instance_ = nil;
 		socket_ = nil;
 		
 		[self setConnectionType:BPC_NO_CONNECTION_];
-		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES LightRestart:false];
 		[settingsViewController updateServerState];
 	}
 }
@@ -1554,7 +1556,7 @@ static BasePadCoordinator * instance_ = nil;
 	if ( reconnectOnBecomeActive )
 	{
 		needsPlayRestart = playOnBecomeActive;
-		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES];
+		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES LightRestart:true];
 		[settingsViewController updateServerState];
 	}
 	else

@@ -139,6 +139,8 @@ enum ConnectionTypes
 	NSMutableArray *allTabs;
 	unsigned char currentSponsor;
 	
+	bool lightRestart;
+
 	float appVersionNumber;
 }
 
@@ -167,6 +169,7 @@ enum ConnectionTypes
 @property (retain) CompositeViewController *videoViewController;
 
 @property (nonatomic, retain) NSString * nameToFollow;
+@property (nonatomic) bool lightRestart;
 
 +(BasePadCoordinator *)Instance;
 
@@ -189,7 +192,7 @@ enum ConnectionTypes
 
 -(void)setServerConnected:(bool)ok;
 -(bool)serverConnected;
--(void)SetServerAddress:(NSString *)server ShowWindow:(BOOL)showWindow;
+-(void)SetServerAddress:(NSString *)server ShowWindow:(BOOL)showWindow LightRestart:(bool)lightRestart;
 -(void) disconnect;
 -(void)Connected;
 -(void)Disconnected:(bool) atConnect;
