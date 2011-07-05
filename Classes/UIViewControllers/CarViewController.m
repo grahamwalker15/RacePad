@@ -600,6 +600,9 @@
 	[trackMapView followCar:@"MSC"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
 	[telemetryView setCar:RPD_BLUE_CAR_];
+	[trackProfileView setUserOffset:0.0];
+	[trackProfileView setUserScale:5.0];
+	[trackProfileView RequestRedraw];
 	[trackProfileView followCar:@"MSC"];
 
 	[commentaryView ResetScroll];
@@ -618,6 +621,9 @@
 	[trackMapView followCar:@"ROS"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
 	[telemetryView setCar:RPD_RED_CAR_];
+	[trackProfileView setUserOffset:0.0];
+	[trackProfileView setUserScale:5.0];
+	[trackProfileView RequestRedraw];
 	[trackProfileView followCar:@"ROS"];
 	
 	[commentaryView ResetScroll];
