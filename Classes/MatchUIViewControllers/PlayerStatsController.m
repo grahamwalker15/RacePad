@@ -13,6 +13,7 @@
 #import "MatchPadTitleBarController.h"
 #import "MatchPadDatabase.h"
 #import "TableData.h"
+#import "PlayerGraphViewController.h"
 
 
 @implementation PlayerStatsController
@@ -43,32 +44,48 @@
 	// Tell the RacePadCoordinator that we're interested in data for this view
 	[[MatchPadCoordinator Instance] AddView:player_stats_view_ WithType:MPC_PLAYER_STATS_VIEW_];
 	[[MatchPadCoordinator Instance] setPlayerStatsController: self];
+
+	// Create a view controller for the driver lap times which may be displayed as an overlay
+	playerGraphViewController = [[PlayerGraphViewController alloc] initWithNibName:@"PlayerGraphView" bundle:nil];
+	playerGraphViewControllerDisplayed = false;
+	playerGraphViewControllerClosing = false;
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
-	// Grab the title bar and mark it as displayed
-	[[MatchPadTitleBarController Instance] displayInViewController:self];
-	
-	// Register view
-	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PLAYER_STATS_VIEW_)];
-	[[MatchPadCoordinator Instance] SetViewDisplayed:player_stats_view_];
-	
-	[homeButton setTitle:[[MatchPadDatabase Instance]homeTeam] forState:UIControlStateNormal];
-	[awayButton setTitle:[[MatchPadDatabase Instance]awayTeam] forState:UIControlStateNormal];
-	
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	if ( !playerGraphViewControllerClosing )
+	{
+		// Grab the title bar and mark it as displayed
+		[[MatchPadTitleBarController Instance] displayInViewController:self];
+		
+		// Register view
+		[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PLAYER_STATS_VIEW_)];
+		[[MatchPadCoordinator Instance] SetViewDisplayed:player_stats_view_];
+		
+		[homeButton setTitle:[[MatchPadDatabase Instance]homeTeam] forState:UIControlStateNormal];
+		[awayButton setTitle:[[MatchPadDatabase Instance]awayTeam] forState:UIControlStateNormal];
+		
+		// We disable the screen locking - because that seems to close the socket
+		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
 {
-	[[MatchPadCoordinator Instance] SetViewHidden:player_stats_view_];
-	//[[RacePadTitleBarController Instance] hide];
-	[[MatchPadCoordinator Instance] ReleaseViewController:self];
+	if(playerGraphViewControllerDisplayed)
+	{
+		playerGraphViewControllerClosing = true; // This prevents the resultant viewWillAppear from registering everything
+		[self HidePlayerGraph:false];
+	}
 	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	if(!playerGraphViewControllerClosing)
+	{
+		[[MatchPadCoordinator Instance] SetViewHidden:player_stats_view_];
+		[[MatchPadCoordinator Instance] ReleaseViewController:self];
+	
+		// re-enable the screen locking
+		[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+	}
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -108,6 +125,16 @@
 
 - (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
+	// On double tap in lap column, show lap list
+	if(double_click)
+	{
+		TableData * playerStatsData = [[MatchPadDatabase Instance] playerStatsData];
+		TableCell *cell = [playerStatsData cell:row Col:0];
+		int player = [[cell string] intValue];
+		[self ShowPlayerGraph:player];
+		return true;
+	}
+	
 	return false;
 }
 
@@ -145,6 +172,36 @@
 	
 	[[MatchPadCoordinator Instance] SetViewHidden:player_stats_view_];
 	[[MatchPadCoordinator Instance] SetViewDisplayed:player_stats_view_];
+}
+
+- (void)ShowPlayerGraph:(int)player
+{
+	if(playerGraphViewController)
+	{
+		// Set the driver we want displayed
+		[[[MatchPadDatabase Instance]playerGraph] setRequestedPlayer:player];
+		
+		// Set the style for its presentation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		// And present it
+		[self presentModalViewController:playerGraphViewController animated:true];
+		playerGraphViewControllerDisplayed = true;
+	}
+}
+
+- (void)HidePlayerGraph:(bool)animated
+{
+	if(playerGraphViewControllerDisplayed)
+	{
+		// Set the style for its animation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		
+		// And dismiss it
+		[self dismissModalViewControllerAnimated:animated];
+		playerGraphViewControllerDisplayed = false;
+	}
 }
 
 @end

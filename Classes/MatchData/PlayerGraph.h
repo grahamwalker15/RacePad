@@ -1,0 +1,60 @@
+//
+//  PlayerGraph.h
+//  MatchPad
+//
+//  Created by Mark Riches on 12/10/2010.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@class DataStream;
+@class PlayerGraphView;
+@class PlayerGraph;
+@class ImageList;
+
+
+@interface PlayerGraphLine : NSObject
+{
+	
+	CGMutablePathRef path;
+	UIColor *colour;
+}
+
+@property (readonly) CGMutablePathRef path;
+@property (readonly) UIColor *colour;
+
+- (void) loadShape : (DataStream *) stream Count: (int) count Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
+
+@end
+
+@interface PlayerGraph : NSObject
+{
+	
+	float xCentre;
+	float yCentre;
+	
+	float width;
+	float height;
+	
+	NSMutableArray *lines;
+	UIColor **colours;
+	int coloursCount;
+
+	int requestedPlayer;
+	
+	NSString *playerName;
+	int nextPlayer;
+	int prevPlayer;
+}
+
+@property (nonatomic) int requestedPlayer;
+@property (nonatomic, retain) NSString * playerName;
+@property (nonatomic) int nextPlayer;
+@property (nonatomic) int prevPlayer;
+
+- (void) loadGraph : (DataStream *) stream;
+
+- (void) drawInView:(PlayerGraphView *)view;
+
+@end

@@ -27,7 +27,9 @@ enum ClientCommands {
 	MPCS_REQUEST_PITCH,				// 37
 	MPCS_STREAM_SCORE,				// 38
 	MPCS_REQUEST_SCORE,				// 39
-	MPCS_REQUEST_TEAMS,				//40
+	MPCS_REQUEST_TEAMS,				// 40
+	MPCS_REQUEST_PLAYER_GRAPH,		// 41
+	MPCS_STREAM_PLAYER_GRAPH,		// 42
 };
 
 @interface MatchPadClientSocket : BasePadClientSocket
@@ -46,6 +48,9 @@ enum ClientCommands {
 
 - (void) RequestPlayerStats;
 - (void) StreamPlayerStats;
+
+- (void) RequestPlayerGraph:(int)player;
+- (void) StreamPlayerGraph:(int)player;
 
 - (void) StreamCommentary :(NSString *) driver;
 

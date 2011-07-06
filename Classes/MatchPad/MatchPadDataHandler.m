@@ -80,6 +80,13 @@
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_STATS_VIEW_];
 			break;
 		}
+		case MPSC_PLAYER_GRAPH_:
+		{
+			PlayerGraph *playerGraph = [[MatchPadDatabase Instance] playerGraph];
+			[playerGraph loadGraph:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_GRAPH_VIEW_];
+			break;
+		}
 		default:
 			[super handleCommand:command];
 	}

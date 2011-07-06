@@ -124,6 +124,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ StreamPlayerStats];
 	}
+	else if([existing_view Type] == MPC_PLAYER_GRAPH_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ StreamPlayerGraph:[[[MatchPadDatabase Instance]playerGraph]requestedPlayer]];
+	}
 }
 
 -(void) requestData:(BPCView *)existing_view
@@ -139,6 +143,10 @@ static MatchPadCoordinator * instance_ = nil;
 	else if([existing_view Type] == MPC_PLAYER_STATS_VIEW_)
 	{
 		[(MatchPadClientSocket *)socket_ RequestPlayerStats];
+	}
+	else if([existing_view Type] == MPC_PLAYER_GRAPH_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ RequestPlayerGraph:[[[MatchPadDatabase Instance]playerGraph]requestedPlayer]];
 	}
 }
 
@@ -158,6 +166,13 @@ static MatchPadCoordinator * instance_ = nil;
 			[self AddDataSourceWithType:type AndFile: @"HomePlayerStats"];
 		else
 			[self AddDataSourceWithType:type AndFile: @"AwayPlayerStats"];
+	}
+	else if (type == MPC_PLAYER_GRAPH_VIEW_)
+	{
+		NSString *name = @"PlayerGraph";
+		NSNumber *number = [NSNumber numberWithInt:[[[MatchPadDatabase Instance]playerGraph]requestedPlayer]];
+		name = [name stringByAppendingString:[number stringValue]];
+		[self AddDataSourceWithType:type AndFile: name];
 	}
 }
 

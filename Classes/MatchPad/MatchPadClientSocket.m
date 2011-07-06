@@ -91,6 +91,36 @@
 	free (buf);
 }
 
+- (void)RequestPlayerGraph:(int) player
+{
+	int messageLength = sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(MPCS_REQUEST_PLAYER_GRAPH);
+	iData[2] = htonl(player);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)StreamPlayerGraph:(int) player
+{
+	int messageLength = sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(MPCS_STREAM_PLAYER_GRAPH);
+	iData[2] = htonl(player);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[MatchPadDataHandler alloc] init];

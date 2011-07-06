@@ -29,6 +29,7 @@ enum ViewTypes
 	MPC_PLAYER_STATS_VIEW_ = 0x8,
 	MPC_COMMENTARY_VIEW_ = 0x400,
 	MPC_SCORE_VIEW_ = 0x800,
+	MPC_PLAYER_GRAPH_VIEW_ = 0x1000,
 } ;
 
 @interface MatchPadCoordinator : BasePadCoordinator

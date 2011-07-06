@@ -11,6 +11,10 @@
 		4D02A4E413B4E93C0010E06B /* PlayerStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D02A4E313B4E93C0010E06B /* PlayerStatsView.xib */; };
 		4D02A5E913B8DDAF0010E06B /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D02A5E713B8DDAF0010E06B /* Default-Landscape.png */; };
 		4D02A5EA13B8DDAF0010E06B /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D02A5E813B8DDAF0010E06B /* Default-Portrait.png */; };
+		4D0EE1CF13C3579500797845 /* PlayerGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0EE1CE13C3579500797845 /* PlayerGraphView.m */; };
+		4D0EE1D213C35E9C00797845 /* PlayerGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0EE1D113C35E9C00797845 /* PlayerGraphViewController.m */; };
+		4D0EE1F713C3612200797845 /* PlayerGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0EE1F613C3612200797845 /* PlayerGraph.m */; };
+		4D0EE23E13C374C200797845 /* PlayerGraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D0EE23D13C374C200797845 /* PlayerGraphView.xib */; };
 		4D19D92713A626380035F28E /* BasePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92213A626380035F28E /* BasePadDatabase.m */; };
 		4D19D92813A626380035F28E /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92413A626380035F28E /* ImageListStore.m */; };
 		4D19D92913A626380035F28E /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92613A626380035F28E /* TableData.m */; };
@@ -156,6 +160,13 @@
 		4D02A4E313B4E93C0010E06B /* PlayerStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayerStatsView.xib; path = ResourceFiles/MatchXIB/PlayerStatsView.xib; sourceTree = "<group>"; };
 		4D02A5E713B8DDAF0010E06B /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		4D02A5E813B8DDAF0010E06B /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		4D0EE1CD13C3579500797845 /* PlayerGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerGraphView.h; sourceTree = "<group>"; };
+		4D0EE1CE13C3579500797845 /* PlayerGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerGraphView.m; sourceTree = "<group>"; };
+		4D0EE1D013C35E9C00797845 /* PlayerGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerGraphViewController.h; sourceTree = "<group>"; };
+		4D0EE1D113C35E9C00797845 /* PlayerGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerGraphViewController.m; sourceTree = "<group>"; };
+		4D0EE1F513C3612200797845 /* PlayerGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerGraph.h; sourceTree = "<group>"; };
+		4D0EE1F613C3612200797845 /* PlayerGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerGraph.m; sourceTree = "<group>"; };
+		4D0EE23D13C374C200797845 /* PlayerGraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlayerGraphView.xib; path = ResourceFiles/MatchXIB/PlayerGraphView.xib; sourceTree = "<group>"; };
 		4D1349C7128A939800A6E375 /* ArrowLeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowLeader.png; path = ResourceFiles/ArrowLeader.png; sourceTree = "<group>"; };
 		4D19D92113A626380035F28E /* BasePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadDatabase.h; sourceTree = "<group>"; };
 		4D19D92213A626380035F28E /* BasePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadDatabase.m; sourceTree = "<group>"; };
@@ -568,6 +579,8 @@
 				4DBE26A213A10C820051C9B3 /* MatchPadDatabase.m */,
 				4DBE26A313A10C820051C9B3 /* Pitch.h */,
 				4DBE26A413A10C820051C9B3 /* Pitch.m */,
+				4D0EE1F513C3612200797845 /* PlayerGraph.h */,
+				4D0EE1F613C3612200797845 /* PlayerGraph.m */,
 			);
 			path = MatchData;
 			sourceTree = "<group>";
@@ -583,6 +596,8 @@
 				4DBE26CF13A10CA40051C9B3 /* HomeViewController.m */,
 				4DBE26D013A10CA40051C9B3 /* PitchViewController.h */,
 				4DBE26D113A10CA40051C9B3 /* PitchViewController.m */,
+				4D0EE1D013C35E9C00797845 /* PlayerGraphViewController.h */,
+				4D0EE1D113C35E9C00797845 /* PlayerGraphViewController.m */,
 				4D02A4CB13B4E0270010E06B /* PlayerStatsController.h */,
 				4D02A4CC13B4E0270010E06B /* PlayerStatsController.m */,
 				4DBE26D213A10CA40051C9B3 /* ServerConnect.h */,
@@ -598,6 +613,8 @@
 		4DBE22D713A0DB030051C9B3 /* MatchUIViews */ = {
 			isa = PBXGroup;
 			children = (
+				4D0EE1CD13C3579500797845 /* PlayerGraphView.h */,
+				4D0EE1CE13C3579500797845 /* PlayerGraphView.m */,
 				4DBE26E813A10CD20051C9B3 /* PitchView.h */,
 				4DBE26E913A10CD20051C9B3 /* PitchView.m */,
 			);
@@ -718,6 +735,7 @@
 				4DBE231813A0DE440051C9B3 /* HomeView.xib */,
 				4DBE231913A0DE440051C9B3 /* MainWindow.xib */,
 				4DBE232A13A0DF780051C9B3 /* PitchView.xib */,
+				4D0EE23D13C374C200797845 /* PlayerGraphView.xib */,
 				4D02A4E313B4E93C0010E06B /* PlayerStatsView.xib */,
 				4DBE231A13A0DE440051C9B3 /* ServerConnect.xib */,
 				4DBE231B13A0DE440051C9B3 /* SettingsView.xib */,
@@ -914,6 +932,7 @@
 				4D02A4E413B4E93C0010E06B /* PlayerStatsView.xib in Resources */,
 				4D02A5E913B8DDAF0010E06B /* Default-Landscape.png in Resources */,
 				4D02A5EA13B8DDAF0010E06B /* Default-Portrait.png in Resources */,
+				4D0EE23E13C374C200797845 /* PlayerGraphView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -978,6 +997,9 @@
 				4DA5FA4F13B33B960005F15A /* SimpleListView.m in Sources */,
 				4DA5FA5013B33B960005F15A /* TableDataView.m in Sources */,
 				4D02A4CD13B4E0270010E06B /* PlayerStatsController.m in Sources */,
+				4D0EE1CF13C3579500797845 /* PlayerGraphView.m in Sources */,
+				4D0EE1D213C35E9C00797845 /* PlayerGraphViewController.m in Sources */,
+				4D0EE1F713C3612200797845 /* PlayerGraph.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

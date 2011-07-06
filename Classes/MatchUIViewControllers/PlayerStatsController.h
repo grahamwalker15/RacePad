@@ -12,11 +12,18 @@
 #import "TableDataView.h"
 #import "ShinyButton.h"
 
+@class PlayerGraphViewController;
+
 @interface PlayerStatsController : SimpleListViewController
 {
 	IBOutlet TableDataView * player_stats_view_;
 	IBOutlet ShinyButton *homeButton;
 	IBOutlet ShinyButton *awayButton;
+	
+	PlayerGraphViewController *playerGraphViewController;
+	
+	bool playerGraphViewControllerDisplayed;
+	bool playerGraphViewControllerClosing;
 	
 	bool home;
 }
@@ -26,5 +33,7 @@
 - (IBAction)homePressed:(id)sender;
 - (IBAction)awayPressed:(id)sender;
 
+- (void)ShowPlayerGraph:(int)player;
+- (void)HidePlayerGraph:(bool)animated;
 
 @end
