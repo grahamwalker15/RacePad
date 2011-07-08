@@ -139,8 +139,6 @@
 		animating = false;
 		showPending = false;
 		hidePending = false;
-		
-		[[RacePadCoordinator Instance] restartCommentary];
 	}
 	
 }

@@ -656,6 +656,8 @@ static BasePadCoordinator * instance_ = nil;
 		}
 	}
 	
+	[self restartCommentary];
+	
 	// If the registered view controller is interested in video, prepare it to play
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 	{
@@ -676,6 +678,8 @@ static BasePadCoordinator * instance_ = nil;
 			[[source dataHandler] setTime:(int)(currentTime * 1000.0)];
 		}
 	}
+	
+	[self restartCommentary];
 	
 	// If the registered view controller is interested in video, cue this too
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
@@ -981,6 +985,8 @@ static BasePadCoordinator * instance_ = nil;
 		}
 	}
 	
+	[self restartCommentary];
+	
 	// If the registered view controller is interested in video, cue this to play live too
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 	{
@@ -1019,6 +1025,8 @@ static BasePadCoordinator * instance_ = nil;
 			}
 		}
 	}
+	
+	[self restartCommentary];
 	
 	// If the registered view controller is interested in video, cue this too
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)

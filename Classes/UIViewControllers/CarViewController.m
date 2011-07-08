@@ -513,7 +513,6 @@
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
-	[[RacePadCoordinator Instance] restartCommentary];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
