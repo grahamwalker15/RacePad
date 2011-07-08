@@ -56,6 +56,20 @@
 							<object class="IBUIBarButtonItem" id="571713395">
 								<string key="IBUITitle">Go Back</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<float key="IBUIWidth">72</float>
+								<int key="IBUIStyle">2</int>
+								<reference key="IBUIToolbar" ref="208749269"/>
+							</object>
+							<object class="IBUIBarButtonItem" id="117591478">
+								<string key="IBUITitle">Effectiveness</string>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<float key="IBUIWidth">100</float>
+								<int key="IBUIStyle">2</int>
+								<reference key="IBUIToolbar" ref="208749269"/>
+							</object>
+							<object class="IBUIBarButtonItem" id="297207783">
+								<string key="IBUITitle">Passes</string>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<float key="IBUIWidth">100</float>
 								<int key="IBUIStyle">2</int>
 								<reference key="IBUIToolbar" ref="208749269"/>
@@ -68,7 +82,7 @@
 							<object class="IBUIBarButtonItem" id="462989204">
 								<string key="IBUITitle">Player Graph</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<float key="IBUIWidth">494</float>
+								<float key="IBUIWidth">326</float>
 								<reference key="IBUIToolbar" ref="208749269"/>
 							</object>
 							<object class="IBUIBarButtonItem" id="191721932">
@@ -95,6 +109,17 @@
 								<reference key="IBUIToolbar" ref="208749269"/>
 							</object>
 						</object>
+					</object>
+					<object class="IBUIView" id="4440266">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrame">{{0, 44}, {768, 938}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIView" id="898870789">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -4627,6 +4652,46 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 					</object>
 					<int key="connectionID">67</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">EffectivenessButton:</string>
+						<reference key="source" ref="117591478"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">72</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">effectiveness_button_</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="117591478"/>
+					</object>
+					<int key="connectionID">73</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">PassesButton:</string>
+						<reference key="source" ref="297207783"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">74</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">passes_button_</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="297207783"/>
+					</object>
+					<int key="connectionID">75</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">backgroundView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="4440266"/>
+					</object>
+					<int key="connectionID">77</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4655,6 +4720,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="898870789"/>
 							<reference ref="208749269"/>
+							<reference ref="4440266"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4678,6 +4744,8 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<reference ref="571713395"/>
 							<reference ref="175117941"/>
 							<reference ref="191721932"/>
+							<reference ref="117591478"/>
+							<reference ref="297207783"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -4716,6 +4784,21 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<reference key="object" ref="511891205"/>
 						<reference key="parent" ref="898870789"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">68</int>
+						<reference key="object" ref="117591478"/>
+						<reference key="parent" ref="208749269"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">70</int>
+						<reference key="object" ref="297207783"/>
+						<reference key="parent" ref="208749269"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">76</int>
+						<reference key="object" ref="4440266"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4741,6 +4824,11 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 					<string>54.IBPluginDependency</string>
 					<string>66.IBPluginDependency</string>
 					<string>66.IBViewBoundsToFrameTransform</string>
+					<string>68.IBPluginDependency</string>
+					<string>70.IBPluginDependency</string>
+					<string>76.CustomClassName</string>
+					<string>76.IBPluginDependency</string>
+					<string>76.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4769,6 +4857,13 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AQAAAABBsAAAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>BackgroundView</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAxHqAAA</bytes>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -4787,7 +4882,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">67</int>
+			<int key="maxID">77</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4832,11 +4927,15 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>BackButton:</string>
+							<string>EffectivenessButton:</string>
 							<string>NextButton:</string>
+							<string>PassesButton:</string>
 							<string>PreviousButton:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4847,7 +4946,9 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>BackButton:</string>
+							<string>EffectivenessButton:</string>
 							<string>NextButton:</string>
+							<string>PassesButton:</string>
 							<string>PreviousButton:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4857,7 +4958,15 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">EffectivenessButton:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">NextButton:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">PassesButton:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -4871,8 +4980,11 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>back_button_</string>
+							<string>backgroundView</string>
+							<string>effectiveness_button_</string>
 							<string>graphView</string>
 							<string>next_button_</string>
+							<string>passes_button_</string>
 							<string>previous_button_</string>
 							<string>swipe_catcher_view_</string>
 							<string>title_</string>
@@ -4881,7 +4993,10 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIBarButtonItem</string>
+							<string>BackgroundView</string>
+							<string>UIBarButtonItem</string>
 							<string>PlayerGraphView</string>
+							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIView</string>
@@ -4894,8 +5009,11 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>back_button_</string>
+							<string>backgroundView</string>
+							<string>effectiveness_button_</string>
 							<string>graphView</string>
 							<string>next_button_</string>
+							<string>passes_button_</string>
 							<string>previous_button_</string>
 							<string>swipe_catcher_view_</string>
 							<string>title_</string>
@@ -4908,11 +5026,23 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">backgroundView</string>
+								<string key="candidateClassName">BackgroundView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">effectiveness_button_</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">graphView</string>
 								<string key="candidateClassName">PlayerGraphView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">next_button_</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">passes_button_</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

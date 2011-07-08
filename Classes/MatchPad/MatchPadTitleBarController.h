@@ -19,7 +19,6 @@
 
 + (MatchPadTitleBarController *)Instance;
 
-- (void) setHomeTeam: (NSString *)home AwayTeam: (NSString *)away;
 - (void) setScore: (int)home Away: (int)away;
 
 @end

@@ -126,7 +126,8 @@ static MatchPadCoordinator * instance_ = nil;
 	}
 	else if([existing_view Type] == MPC_PLAYER_GRAPH_VIEW_)
 	{
-		[(MatchPadClientSocket *)socket_ StreamPlayerGraph:[[[MatchPadDatabase Instance]playerGraph]requestedPlayer]];
+		PlayerGraph *graph = [[MatchPadDatabase Instance]playerGraph];
+		[(MatchPadClientSocket *)socket_ StreamPlayerGraph:[graph requestedPlayer] GraphType:[graph graphType]];
 	}
 }
 
@@ -146,7 +147,8 @@ static MatchPadCoordinator * instance_ = nil;
 	}
 	else if([existing_view Type] == MPC_PLAYER_GRAPH_VIEW_)
 	{
-		[(MatchPadClientSocket *)socket_ RequestPlayerGraph:[[[MatchPadDatabase Instance]playerGraph]requestedPlayer]];
+		PlayerGraph *graph = [[MatchPadDatabase Instance]playerGraph];
+		[(MatchPadClientSocket *)socket_ RequestPlayerGraph:[graph requestedPlayer] GraphType:[graph graphType]];
 	}
 }
 
@@ -169,8 +171,11 @@ static MatchPadCoordinator * instance_ = nil;
 	}
 	else if (type == MPC_PLAYER_GRAPH_VIEW_)
 	{
-		NSString *name = @"PlayerGraph";
+		NSString *name = @"PlayerGraph-";
+		NSNumber *graphType = [NSNumber numberWithInt:[[[MatchPadDatabase Instance]playerGraph]graphType]];
 		NSNumber *number = [NSNumber numberWithInt:[[[MatchPadDatabase Instance]playerGraph]requestedPlayer]];
+		name = [name stringByAppendingString:[graphType stringValue]];
+		name = [name stringByAppendingString:@"-"];
 		name = [name stringByAppendingString:[number stringValue]];
 		[self AddDataSourceWithType:type AndFile: name];
 	}

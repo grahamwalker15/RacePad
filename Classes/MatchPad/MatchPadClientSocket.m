@@ -91,30 +91,32 @@
 	free (buf);
 }
 
-- (void)RequestPlayerGraph:(int) player
+- (void)RequestPlayerGraph:(int) player GraphType:(unsigned char)graphType
 {
-	int messageLength = sizeof(uint32_t) * 3;
+	int messageLength = sizeof(uint32_t) * 3 + 1;
 	unsigned char *buf = malloc(messageLength);
 	int *iData = (int *)buf;
 	
 	iData[0] = htonl(messageLength);
 	iData[1] = htonl(MPCS_REQUEST_PLAYER_GRAPH);
 	iData[2] = htonl(player);
+	buf[sizeof(uint32_t) * 3] = graphType;
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	CFSocketSendData (socket_ref_, nil, data, 0);
 	CFRelease(data);
 	free (buf);
 }
 
-- (void)StreamPlayerGraph:(int) player
+- (void)StreamPlayerGraph:(int) player GraphType:(unsigned char)graphType
 {
-	int messageLength = sizeof(uint32_t) * 3;
+	int messageLength = sizeof(uint32_t) * 3 + 1;
 	unsigned char *buf = malloc(messageLength);
 	int *iData = (int *)buf;
 	
 	iData[0] = htonl(messageLength);
 	iData[1] = htonl(MPCS_STREAM_PLAYER_GRAPH);
 	iData[2] = htonl(player);
+	buf[sizeof(uint32_t) * 3] = graphType;
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	CFSocketSendData (socket_ref_, nil, data, 0);
 	CFRelease(data);

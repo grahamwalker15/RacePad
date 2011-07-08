@@ -13,6 +13,10 @@
 @class PlayerGraph;
 @class ImageList;
 
+enum GraphType {
+	PGV_EFFECTIVENESS,
+	PGV_PASSES
+};
 
 @interface PlayerGraphLine : NSObject
 {
@@ -42,6 +46,7 @@
 	int coloursCount;
 
 	int requestedPlayer;
+	unsigned char graph_type;
 	
 	NSString *playerName;
 	int nextPlayer;
@@ -49,6 +54,7 @@
 }
 
 @property (nonatomic) int requestedPlayer;
+@property (nonatomic) unsigned char graphType;
 @property (nonatomic, retain) NSString * playerName;
 @property (nonatomic) int nextPlayer;
 @property (nonatomic) int prevPlayer;

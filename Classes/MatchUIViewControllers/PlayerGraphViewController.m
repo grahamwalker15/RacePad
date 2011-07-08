@@ -14,6 +14,7 @@
 #import "MatchPadDatabase.h"
 #import "PlayerGraphView.h"
 #import "PlayerStatsController.h"
+#import "BackgroundView.h"
 
 @implementation PlayerGraphViewController
 
@@ -37,6 +38,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+
 	// Add gesture recognizers
  	[self addTapRecognizerToView:graphView];
 	[self addDoubleTapRecognizerToView:graphView];
@@ -53,9 +56,9 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	UIViewController *parent = [self parentViewController];
-	// Grab the title bar
-	// [[MatchPadTitleBarController Instance] displayInViewController:self];
+	CGRect bg_frame = [backgroundView frame];
+	CGRect map_frame = CGRectInset(bg_frame, 20, 20); // The grass is drawn 20 pixels inside the BGView
+	[graphView setFrame:map_frame];
 	
 	// Register the views
 	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PLAYER_GRAPH_VIEW_)];
@@ -144,6 +147,24 @@
 		[[[MatchPadDatabase Instance] playerGraph] setRequestedPlayer:next];
 		[[MatchPadCoordinator Instance] SetViewDisplayed:graphView];
 	}
+}
+
+- (IBAction)EffectivenessButton:(id)sender
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:graphView];
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	[backgroundView RequestRedraw];
+	[[[MatchPadDatabase Instance] playerGraph] setGraphType:PGV_EFFECTIVENESS];
+	[[MatchPadCoordinator Instance] SetViewDisplayed:graphView];
+}
+
+- (IBAction)PassesButton:(id)sender
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:graphView];
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GRASS_];
+	[backgroundView RequestRedraw];
+	[[[MatchPadDatabase Instance] playerGraph] setGraphType:PGV_PASSES];
+	[[MatchPadCoordinator Instance] SetViewDisplayed:graphView];
 }
 
 - (void) RequestRedrawForType:(int)type

@@ -49,8 +49,8 @@ enum ClientCommands {
 - (void) RequestPlayerStats;
 - (void) StreamPlayerStats;
 
-- (void) RequestPlayerGraph:(int)player;
-- (void) StreamPlayerGraph:(int)player;
+- (void) RequestPlayerGraph:(int)player GraphType:(unsigned char)graphType;
+- (void) StreamPlayerGraph:(int)player GraphType:(unsigned char)graphType;
 
 - (void) StreamCommentary :(NSString *) driver;
 
