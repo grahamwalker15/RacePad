@@ -173,6 +173,14 @@
 		case RPSC_COMMENTARY_: // Commentary
 		{
 			CommentaryData *commentary = [[RacePadDatabase Instance] commentary];
+			[commentary clearAll];
+			[commentary loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			break;
+		}
+		case RPSC_COMMENTARY_UPDATE_: // Commentary update
+		{
+			CommentaryData *commentary = [[RacePadDatabase Instance] commentary];
 			[commentary loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
 			break;

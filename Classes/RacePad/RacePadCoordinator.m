@@ -285,7 +285,6 @@ static RacePadCoordinator * instance_ = nil;
 				NSString *name = [[[RacePadDatabase Instance] commentary] commentaryFor];
 				if ( name == nil )
 					name = @"RACE";
-				[[[RacePadDatabase Instance] commentary] clearAll];
 				
 				if (connectionType == BPC_SOCKET_CONNECTION_)
 					[socket_ StreamCommentary:name];
