@@ -11,12 +11,14 @@
 #import "TableData.h"
 #import "Pitch.h"
 #import "PlayerGraph.h"
+#import "AlertData.h"
 
 @interface MatchPadDatabase : BasePadDatabase
 {
 	Pitch *pitch;
 	PlayerGraph *playerGraph;
 	TableData *playerStatsData;
+	AlertData *alertData;
 	
 	NSString *homeTeam;
 	NSString *awayTeam;
@@ -27,6 +29,7 @@
 @property (readonly) Pitch *pitch;
 @property (readonly) PlayerGraph *playerGraph;
 @property (readonly) TableData *playerStatsData;
+@property (readonly) AlertData *alertData;
 
 + (MatchPadDatabase *)Instance;
 - (void) clearStaticData;

@@ -7,6 +7,7 @@
 //
 
 #import "BasePadTitleBarController.h"
+#import "AlertViewController.h"
 
 @interface MatchPadTitleBarController : BasePadTitleBarController
 {
@@ -15,10 +16,14 @@
 	
 	int homeScore;
 	int awayScore;
+	
+	AlertViewController * alertController;
+	UIPopoverController * alertPopover;
 }
 
 + (MatchPadTitleBarController *)Instance;
 
 - (void) setScore: (int)home Away: (int)away;
 
+- (IBAction)AlertPressed:(id)sender;
 @end

@@ -87,6 +87,12 @@
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_GRAPH_VIEW_];
 			break;
 		}
+		case MPSC_MESSAGES_: // Alerts
+		{
+			AlertData *alertData = [[MatchPadDatabase Instance] alertData];
+			[alertData loadData:stream];
+			break;
+		}
 		default:
 			[super handleCommand:command];
 	}
