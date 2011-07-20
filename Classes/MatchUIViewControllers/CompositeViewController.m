@@ -40,30 +40,15 @@
 	
 	// Set the types on the two map views
 	[pitchView setIsZoomView:false];
-	[pitchZoomView setIsZoomView:true];
 	
-	[pitchView setIsOverlayView:true];
+	[pitchView setIsOverlayView:false];
 	
-	[pitchZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
-	[pitchZoomContainer setHidden:true];
-	pitchZoomOffsetX = 0;
-	pitchZoomOffsetY = 0;
-
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:pitchView];
 	[self addLongPressRecognizerToView:pitchView];
 	[self addDoubleTapRecognizerToView:pitchView];
 	[self addPanRecognizerToView:pitchView];
 	[self addPinchRecognizerToView:pitchView];
-	
-	// And  for the zoom map
-	[self addTapRecognizerToView:pitchZoomView];
-	[self addLongPressRecognizerToView:pitchZoomView];
-	[self addDoubleTapRecognizerToView:pitchZoomView];
-	[self addPinchRecognizerToView:pitchZoomView];
-	
-	// And add pan view to the pitchZoomView to allow dragging the container
-	[self addPanRecognizerToView:pitchZoomView];
 	
 	// Add tap and long press recognizers to overlay in order to catch taps outside map
 	[self addTapRecognizerToView:overlayView];
@@ -72,7 +57,6 @@
 	// Tell the MatchPadCoordinator that we will be interested in data for this view
 	[[MatchPadCoordinator Instance] AddView:movieView WithType:MPC_VIDEO_VIEW_];
 	[[MatchPadCoordinator Instance] AddView:pitchView WithType:MPC_PITCH_VIEW_];
-	[[MatchPadCoordinator Instance] AddView:pitchZoomView WithType:MPC_PITCH_VIEW_];
 	
 	[[MatchPadCoordinator Instance] setVideoViewController:self];
 	
@@ -90,15 +74,10 @@
 	// We'll get notification when we know the movie size - set it to a default for now
 	movieSize = CGSizeMake(768, 576);
 	movieRect = CGRectMake(0, 0, 768, 576);
-	[self positionOverlays];
+	[self positionViews];
 	
 	[movieView bringSubviewToFront:overlayView];
-	[movieView bringSubviewToFront:pitchView];
-	[movieView bringSubviewToFront:pitchZoomContainer];
-	[movieView bringSubviewToFront:pitchZoomView];
 	[movieView bringSubviewToFront:videoDelayLabel];
-	
-	[pitchZoomContainer setHidden:true];
 	
 	if(displayVideo)
 	{
@@ -113,7 +92,6 @@
 	if(displayPitch)
 	{
 		[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
-		[[MatchPadCoordinator Instance] SetViewDisplayed:pitchZoomView];
 	}
 	
 	// We disable the screen locking - because that seems to close the socket
@@ -131,7 +109,6 @@
 	if(displayPitch)
 	{
 		[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
-		[[MatchPadCoordinator Instance] SetViewHidden:pitchZoomView];
 	}
 	
 	[[MatchPadCoordinator Instance] ReleaseViewController:self];
@@ -172,6 +149,8 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+	[self positionViews];
+	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelegate:self];
@@ -224,12 +203,9 @@
 	}
 	
 	[movieView bringSubviewToFront:overlayView];
-	[movieView bringSubviewToFront:pitchView];
-	[movieView bringSubviewToFront:pitchZoomContainer];
-	[movieView bringSubviewToFront:pitchZoomView];
 	[movieView bringSubviewToFront:videoDelayLabel];
 	
-	[self positionOverlays];	
+	// [self positionOverlays];	
 }
 
 - (void) removeMovieFromView
@@ -266,18 +242,10 @@
 
 - (void) showOverlays
 {
-	bool showZoomMap = ([pitchZoomView playerToFollow] != nil);
-	
 	if(displayPitch)
 	{
 		[pitchView setAlpha:0.0];
 		[pitchView setHidden:false];
-		
-		if(showZoomMap)
-		{
-			[pitchZoomContainer setAlpha:0.0];
-			[pitchZoomContainer setHidden:false];
-		}
 	}
 	
 	[UIView beginAnimations:nil context:nil];
@@ -285,11 +253,6 @@
 	if(displayPitch)
 	{
 		[pitchView setAlpha:1.0];
-		
-		if(showZoomMap)
-		{
-			[pitchZoomContainer setAlpha:1.0];
-		}
 	}
 	
 	[UIView commitAnimations];
@@ -298,42 +261,25 @@
 - (void) hideOverlays
 {
 	[pitchView setHidden:true];
-	[pitchZoomContainer setHidden:true];
 }
 
-- (void) showZoomMap
-{
-	[pitchZoomContainer setAlpha:0.0];
-	[pitchZoomContainer setHidden:false];
-	
-	[UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-	[pitchZoomContainer setAlpha:1.0];
-	[UIView commitAnimations];
-}
+- (void) positionViews
+{	
+	CGRect bg_frame = [backgroundView frame];
+	if ( displayPitch )
+		if ( displayVideo )
+		{
+			CGRect viewRect = CGRectMake(0, 0, bg_frame.size.width, bg_frame.size.height / 4 * 3 );
+			CGRect pitchRect = CGRectMake(0, viewRect.size.height, bg_frame.size.width, bg_frame.size.height / 4);
+			[movieView setFrame:viewRect];
+			[pitchView setFrame:pitchRect];
+		}
+		else
+			[pitchView setFrame:bg_frame];
+	else
+		[movieView setFrame:bg_frame];
 
-- (void) hideZoomMap
-{
-	[UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-	[pitchZoomContainer setAlpha:0.0];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(hideZoomMapAnimationDidStop:finished:context:)];
-	[UIView commitAnimations];
-}
-
-- (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
-{
-	if([finished intValue] == 1)
-	{
-		[pitchZoomContainer setHidden:true];
-		[pitchZoomContainer setAlpha:1.0];
-		[pitchZoomView setPlayerToFollow:nil];
-	}
-}
-
-- (void) positionOverlays
-{
+		
 	// Work out movie position
 	CGRect movieViewBounds = [movieView bounds];
 	CGSize  movieViewSize = movieViewBounds.size;
@@ -359,22 +305,7 @@
 		movieRect = CGRectMake(xOrigin, movieViewBounds.origin.y, newWidth, movieViewSize.height);
 	}
 	
-	[pitchView setFrame:movieRect];
-	
-	//CGRect zoom_frame = CGRectMake(movieViewSize.width - 320, movieViewSize.height - 320, 300, 300);
-	CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
-	CGRect offsetFrame = CGRectOffset(zoom_frame, pitchZoomOffsetX, pitchZoomOffsetY);
-	CGRect bgRect = [[self view] frame];
-	if ( offsetFrame.origin.x < 0 )
-		offsetFrame = CGRectOffset(offsetFrame, -offsetFrame.origin.x, 0);
-	if ( offsetFrame.origin.y < 0 )
-		offsetFrame = CGRectOffset(offsetFrame, 0, -offsetFrame.origin.y);
-	if ( offsetFrame.origin.x + offsetFrame.size.width > bgRect.origin.x + bgRect.size.width )
-		offsetFrame = CGRectOffset(offsetFrame, (bgRect.origin.x + bgRect.size.width) - (offsetFrame.origin.x + offsetFrame.size.width), 0);
-	if ( offsetFrame.origin.y + offsetFrame.size.height > bgRect.origin.y + bgRect.size.height )
-		offsetFrame = CGRectOffset(offsetFrame, 0, (bgRect.origin.y + bgRect.size.height) - (offsetFrame.origin.y + offsetFrame.size.height));
-	
-	[pitchZoomContainer setFrame:offsetFrame];
+	// [pitchView setFrame:];
 }
 
 - (void) RequestRedrawForType:(int)type
@@ -402,19 +333,9 @@
 		return;
 	}
 	
-	if([(PitchView *)gestureView isZoomView])
-	{
-		[[MatchPadCoordinator Instance] setNameToFollow:nil];
-		[self hideZoomMap];
-	}
-	else
-	{
-		{
-			[(PitchView *)gestureView setUserXOffset:0.0];
-			[(PitchView *)gestureView setUserYOffset:0.0];
-			[(PitchView *)gestureView setUserScale:1.0];	
-		}
-	}
+	[(PitchView *)gestureView setUserXOffset:0.0];
+	[(PitchView *)gestureView setUserYOffset:0.0];
+	[(PitchView *)gestureView setUserScale:1.0];	
 	
 	[pitchView RequestRedraw];
 }
@@ -441,17 +362,7 @@
 	// Ignore lifting finger
 	if(state == UIGestureRecognizerStateEnded)
 		return;
-	
-	// If we're on the track zoom, drag the container
-	if(gestureView == pitchZoomView)
-	{
-		CGRect frame = [pitchZoomContainer frame];
-		pitchZoomOffsetX += x;
-		pitchZoomOffsetY += y;
-		CGRect newFrame = CGRectOffset(frame, x, y);
-		[pitchZoomContainer setFrame:newFrame];
-	}
-	
+		
 	// If we're on the track map, pan the map
 	if(gestureView == pitchView)
 	{
@@ -470,7 +381,7 @@
 {
 	if([finished intValue] == 1)
 	{
-		[self positionOverlays];
+		// [self positionOverlays];
 		[self showOverlays];
 	}
 }
@@ -489,9 +400,7 @@
 		{
 			displayPitch = false;
 			[pitchView setHidden:true];
-			[pitchZoomContainer setHidden:true];
 			[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
-			[[MatchPadCoordinator Instance] SetViewHidden:pitchZoomView];
 		}
 		
 		if(!displayVideo)
@@ -511,20 +420,12 @@
 	{
 		if(!displayPitch)
 		{
-			bool zoomMapVisible = ([pitchZoomView playerToFollow] != nil);
 			displayPitch = true;
 			[pitchView setHidden:false];
 			
 			[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
 			
 			[pitchView RequestRedraw];
-
-			if(zoomMapVisible)
-			{
-				[pitchZoomContainer setHidden:false];
-				[[MatchPadCoordinator Instance] SetViewDisplayed:pitchZoomView];
-				[pitchZoomView RequestRedraw];
-			}
 		}
 		
 		if(displayVideo)
@@ -538,20 +439,12 @@
 	{
 		if(!displayPitch)
 		{
-			bool zoomMapVisible = ([pitchZoomView playerToFollow] != nil);
 			displayPitch = true;
 			[pitchView setHidden:false];
 			
 			[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
 			
 			[pitchView RequestRedraw];
-
-			if(zoomMapVisible)
-			{
-				[pitchZoomContainer setHidden:false];
-				[[MatchPadCoordinator Instance] SetViewDisplayed:pitchZoomView];
-				[pitchZoomView RequestRedraw];
-			}
 		}
 				
 		if(!displayVideo)
@@ -567,8 +460,21 @@
 			// Make sure to do this last, as this will force a start of play or seek
 			[[MatchPadCoordinator Instance] SetViewDisplayed:movieView];		
 		}
-	}	
-
+	}
+	[self positionViews];
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelegate:self];
+	// [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	
+	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];	
+	if(moviePlayerLayer)
+	{
+		[moviePlayerLayer setFrame:[movieView bounds]];
+	}
+	
+	[UIView commitAnimations];
 }
 
 @end
