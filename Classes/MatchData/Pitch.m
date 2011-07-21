@@ -15,16 +15,22 @@
 
 @implementation PitchLine
 
-@synthesize path;
 @synthesize colour;
 @synthesize lineType;
+@synthesize x0;
+@synthesize y0;
+@synthesize x1;
+@synthesize y1;
 
 - (id) init
 {
 	if(self = [super init])
 	{
-		path = nil;
 		colour = nil;
+		x0 = 0;
+		y0 = 0;
+		x1 = 0;
+		y1 = 0;
 	}
 	
 	return self;
@@ -32,9 +38,7 @@
 
 - (void) clear
 {
-	CGPathRelease(path);
 	[colour release];
-	path = NULL;
 }
 
 - (void) dealloc
@@ -55,21 +59,26 @@
 
 -(void) loadShape:(DataStream *)stream Count:(int)count Colours: (UIColor **)colours ColoursCount:(int)coloursCount
 {
-	float *x = malloc(sizeof(float) * count);
-	float *y = malloc(sizeof(float) * count);
-	
 	int i;
 	for ( i = 0; i < count; i++ )
 	{
-		x[i] = [stream PopFloat];
-		y[i] = 1 - [stream PopFloat];
+		if ( i == 0 )
+		{
+			x0 = [stream PopFloat];
+			y0 = 1 - [stream PopFloat];
+		}
+		else if ( i == 1 )
+		{
+			x1 = [stream PopFloat];
+			y1 = 1 - [stream PopFloat];
+		}
+		else
+		{
+			[stream PopFloat];
+			[stream PopFloat];
+		}
 	}
 	
-	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
-	
-	free ( x );
-	free ( y );
-
 	colour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 	lineType = [stream PopUnsignedChar];
 }
@@ -88,6 +97,10 @@
 		
 		width = 0.0;
 		height = 0.0;
+		
+		playerBG = [DrawingView CreateColourRed:220 Green:220 Blue:220];
+		pitchColour = [DrawingView CreateColourRed:118 Green:158 Blue:58];
+		[self initialisePerspective];
 	}
 	
 	return self;
@@ -168,55 +181,107 @@
 	
 }
 
-- (void) drawLines: (PitchView *) view XScale: (float) xScale YScale: (float) yScale XOffset:(float) xOffset YOffset:(float) yOffset
+-(void) initialisePerspective
+{
+	float x3 = 0;
+	float y3 = 1;
+	float x2 = 1;
+	float y2 = 1;
+	float x1 = 0.8;
+	float y1 = 0;
+	float x0 = 0.2;
+	float y0 = 0;
+	
+	float dx1 = x1-x2;
+	float dy1 = y1-y2;
+	float dx2 = x3-x2;
+	float dy2 = y3-y2;
+	float dx3 = x0-x1+x2-x3;
+	float dy3 = y0-y1+y2-y3;
+	
+	if (dx3 == 0 && dy3 == 0) {
+		a11 = x1-x0;
+		a21 = x2-x1;
+		a31 = x0;
+		a12 = y1-y0;
+		a22 = y2-y1;
+		a32 = y0;
+		a13 = a23 = 0;
+	} else {
+		a13 = (dx3*dy2-dx2*dy3)/(dx1*dy2-dy1*dx2);
+		a23 = (dx1*dy3-dy1*dx3)/(dx1*dy2-dy1*dx2);
+		a11 = x1-x0+a13*x1;
+		a21 = x3-x0+a23*x3;
+		a31 = x0;
+		a12 = y1-y0+a13*y1;
+		a22 = y3-y0+a23*y3;
+		a32 = y0;
+	}
+}
+
+- (void) transformPoint:(float *)x Y:(float *)y
+{
+	float f = 1.0f / (a13 * *x+ a23 * *y + 1);
+	*x = (a11 * *x + a21 * *y + a31) * f;
+	*y = (a12 * *x + a22 * *y + a32) * f;
+}
+
+- (void) viewLine: (PitchView *) view X0:(float)x0 Y0:(float) y0 X1:(float)x1 Y1:(float) y1
+{
+	[self transformPoint:&x0 Y:&y0];
+	[self transformPoint:&x1 Y:&y1];
+	[view LineX0:x0 Y0:y0 X1:x1 Y1:y1];
+}
+
+- (void) drawPitch: (PitchView *) view XScale: (float) xScale YScale: (float) yScale XOffset:(float) xOffset YOffset:(float) yOffset LineScale:(float)lineScale
 {
 	[view SaveGraphicsState];
 	
-	[view SetLineWidth:1];
+	[view SetLineWidth:1.5/lineScale];
 	[view SetFGColour:[view white_]];
 	// Edges
-	[view LineX0:0 * xScale + xOffset Y0:0 * yScale + yOffset X1:0 * xScale + xOffset Y1:1 * yScale + yOffset];
-	[view LineX0:0 * xScale + xOffset Y0:1 * yScale + yOffset X1:1 * xScale + xOffset Y1:1 * yScale + yOffset];
-	[view LineX0:1 * xScale + xOffset Y0:1 * yScale + yOffset X1:1 * xScale + xOffset Y1:0 * yScale + yOffset];
-	[view LineX0:1 * xScale + xOffset Y0:0 * yScale + yOffset X1:0 * xScale + xOffset Y1:0 * yScale + yOffset];
+	[self viewLine:view X0:0 * xScale + xOffset Y0:0 * yScale + yOffset X1:0 * xScale + xOffset Y1:1 * yScale + yOffset];
+	[self viewLine:view X0:0 * xScale + xOffset Y0:1 * yScale + yOffset X1:1 * xScale + xOffset Y1:1 * yScale + yOffset];
+	[self viewLine:view X0:1 * xScale + xOffset Y0:1 * yScale + yOffset X1:1 * xScale + xOffset Y1:0 * yScale + yOffset];
+	[self viewLine:view X0:1 * xScale + xOffset Y0:0 * yScale + yOffset X1:0 * xScale + xOffset Y1:0 * yScale + yOffset];
 	
 	// Centre Line
-	[view LineX0:0.5 * xScale + xOffset Y0:0 * yScale + yOffset X1:0.5 * xScale + xOffset Y1:1 * yScale + yOffset];
+	[self viewLine:view X0:0.5 * xScale + xOffset Y0:0 * yScale + yOffset X1:0.5 * xScale + xOffset Y1:1 * yScale + yOffset];
 	// Centre Circle
-	[view LineCircle:0.5 * xScale + xOffset Y0:0.5 * yScale + yOffset Radius:0.085 * xScale];
-	[view LineCircle:0.5 * xScale + xOffset Y0:0.5 * yScale + yOffset Radius:0.002 * xScale];
+	// [view LineCircle:0.5 * xScale + xOffset Y0:0.5 * yScale + yOffset Radius:0.085 * xScale];
+	// [view LineCircle:0.5 * xScale + xOffset Y0:0.5 * yScale + yOffset Radius:0.002 * xScale];
 	
 	// LH Penalty Area
-	[view LineX0:0 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.17 * xScale + xOffset Y1:0.211 * yScale + yOffset];
-	[view LineX0:0.17 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.17 * xScale + xOffset Y1:0.789 * yScale + yOffset];
-	[view LineX0:0.17 * xScale + xOffset Y0:0.789 * yScale + yOffset X1:0 * xScale + xOffset Y1:0.789 * yScale + yOffset];
-	[view LineArc:0.115 * xScale + xOffset Y0:0.5 * yScale + yOffset StartAngle:DegreesToRadians(45) EndAngle:DegreesToRadians(315) Clockwise:true Radius:0.077 * xScale];
+	[self viewLine:view X0:0 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.17 * xScale + xOffset Y1:0.211 * yScale + yOffset];
+	[self viewLine:view X0:0.17 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.17 * xScale + xOffset Y1:0.789 * yScale + yOffset];
+	[self viewLine:view X0:0.17 * xScale + xOffset Y0:0.789 * yScale + yOffset X1:0 * xScale + xOffset Y1:0.789 * yScale + yOffset];
+	// [view LineArc:0.115 * xScale + xOffset Y0:0.5 * yScale + yOffset StartAngle:DegreesToRadians(45) EndAngle:DegreesToRadians(315) Clockwise:true Radius:0.077 * xScale];
 	// LH Goal Area
-	[view LineX0:0 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.058 * xScale + xOffset Y1:0.368 * yScale + yOffset];
-	[view LineX0:0.058 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.058 * xScale + xOffset Y1:0.632 * yScale + yOffset];
-	[view LineX0:0.058 * xScale + xOffset Y0:0.632 * yScale + yOffset X1:0 * xScale + xOffset Y1:0.632 * yScale + yOffset];
+	[self viewLine:view X0:0 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.058 * xScale + xOffset Y1:0.368 * yScale + yOffset];
+	[self viewLine:view X0:0.058 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.058 * xScale + xOffset Y1:0.632 * yScale + yOffset];
+	[self viewLine:view X0:0.058 * xScale + xOffset Y0:0.632 * yScale + yOffset X1:0 * xScale + xOffset Y1:0.632 * yScale + yOffset];
 	
 	// RH Penalty Area
-	[view LineX0:1 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.83 * xScale + xOffset Y1:0.211 * yScale + yOffset];
-	[view LineX0:0.83 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.83 * xScale + xOffset Y1:0.789 * yScale + yOffset];
-	[view LineX0:0.83 * xScale + xOffset Y0:0.789 * yScale + yOffset X1:1 * xScale + xOffset Y1:0.789 * yScale + yOffset];
-	[view LineArc:0.885 * xScale + xOffset Y0:0.5 * yScale + yOffset StartAngle:DegreesToRadians(135) EndAngle:DegreesToRadians(225) Clockwise:false Radius:0.077 * xScale];
+	[self viewLine:view X0:1 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.83 * xScale + xOffset Y1:0.211 * yScale + yOffset];
+	[self viewLine:view X0:0.83 * xScale + xOffset Y0:0.211 * yScale + yOffset X1:0.83 * xScale + xOffset Y1:0.789 * yScale + yOffset];
+	[self viewLine:view X0:0.83 * xScale + xOffset Y0:0.789 * yScale + yOffset X1:1 * xScale + xOffset Y1:0.789 * yScale + yOffset];
+	// [view LineArc:0.885 * xScale + xOffset Y0:0.5 * yScale + yOffset StartAngle:DegreesToRadians(135) EndAngle:DegreesToRadians(225) Clockwise:false Radius:0.077 * xScale];
 	// RH Goal Area
-	[view LineX0:1 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.942 * xScale + xOffset Y1:0.368 * yScale + yOffset];
-	[view LineX0:0.942 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.942 * xScale + xOffset Y1:0.632 * yScale + yOffset];
-	[view LineX0:0.942 * xScale + xOffset Y0:0.632 * yScale + yOffset X1:1 * xScale + xOffset Y1:0.632 * yScale + yOffset];
+	[self viewLine:view X0:1 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.942 * xScale + xOffset Y1:0.368 * yScale + yOffset];
+	[self viewLine:view X0:0.942 * xScale + xOffset Y0:0.368 * yScale + yOffset X1:0.942 * xScale + xOffset Y1:0.632 * yScale + yOffset];
+	[self viewLine:view X0:0.942 * xScale + xOffset Y0:0.632 * yScale + yOffset X1:1 * xScale + xOffset Y1:0.632 * yScale + yOffset];
 	
-	[view SetLineWidth:2];
+	[view SetLineWidth:3/lineScale];
 	// LH Goal
-	[view LineX0:0 * xScale + xOffset Y0:0.442 * yScale + yOffset X1:0 * xScale + xOffset Y1:0.558 * yScale + yOffset];
+	[self viewLine:view X0:0 * xScale + xOffset Y0:0.442 * yScale + yOffset X1:0 * xScale + xOffset Y1:0.558 * yScale + yOffset];
 
 	// RH Goal
-	[view LineX0:1 * xScale + xOffset Y0:0.442 * yScale + yOffset X1:1 * xScale + xOffset Y1:0.558 * yScale + yOffset];
+	[self viewLine:view X0:1 * xScale + xOffset Y0:0.442 * yScale + yOffset X1:1 * xScale + xOffset Y1:0.558 * yScale + yOffset];
 	
 	[view RestoreGraphicsState];
 }
 
-- (void) drawPitch: (PitchView *) view Scale: (float) scale
+- (void) drawPasses: (PitchView *) view Scale: (float) scale
 {
 	[view SaveGraphicsState];
 		
@@ -225,16 +290,14 @@
 	int count = [lines count];
 	for ( i = 0; i < count; i++)
 	{
-		[view BeginPath];
 		PitchLine *line = [lines objectAtIndex:i];
-		[view LoadPath:[line path]];
-		[view SetLineWidth:2 / scale];
+		[view SetLineWidth:3 / scale];
 		[view SetFGColour:[line colour]];
 		if ( [line lineType] == 2 )
-			[view SetDashedLine:5.0/scale];
+			[view SetDashedLine:8.0/scale];
 		else
 			[view SetSolidLine];
-		[view LineCurrentPath];
+		[self viewLine:view X0:[line x0] Y0:[line y0] X1:[line x1] Y1:[line y1]];
 	}
 	
 	[view RestoreGraphicsState];
@@ -298,21 +361,61 @@
 	float xOffset = [view homeXOffset] + [view userXOffset] * viewSize.width;
 	float yOffset = [view homeYOffset] + [view userYOffset] * viewSize.height;
 	
+	float x[4], y[4];
+	x[0] = 0;
+	y[0] = 0;
+	x[1] = 0;
+	y[1] = 1;
+	x[2] = 1;
+	y[2] = 1;
+	x[3] = 1;
+	y[3] = 0;
+	for ( int i = 0; i < 4; i++ )
+	{
+		[self transformPoint:x+i Y:y+i];
+		x[i] = x[i] * x_scale + xOffset;
+		y[i] = y[i] * y_scale + yOffset;
+	}
+	
+	CGMutablePathRef path = CGPathCreateMutable();
+	
+	CGPathMoveToPoint (path, nil, (CGFloat)x[0], (CGFloat)y[0]);
+	
+	for ( int i = 1 ; i < 4 ; i++)
+		CGPathAddLineToPoint (path, nil, (CGFloat)x[i], (CGFloat)y[i]);
+
+	[view SetBGColour:pitchColour];
+	[view FillPath:path];
+
+	CGPathRelease(path);
+
 	// Draw pitch outline in un-scaled space - because of the circles!
-	[self drawLines:view XScale:x_scale YScale:y_scale XOffset:xOffset YOffset:yOffset];
+	// [self drawLines:view XScale:x_scale YScale:y_scale XOffset:xOffset YOffset:yOffset];
 	
 	[self constructTransformMatrixForView:view];
 	
-	float scale = x_scale < y_scale ? x_scale : y_scale;
-	[self drawPitch:view Scale:scale];
+	float scale = x_scale > y_scale ? x_scale : y_scale;
+	[self drawPitch:view XScale:1 YScale:1 XOffset:0 YOffset:0 LineScale:scale];
+	[self drawPasses:view Scale:scale];
 	
 	[view RestoreGraphicsState];
 
 	if ( [player length] )
 	{
+		float x = playerX;
+		float y = playerY;
+		[self transformPoint:&x Y:&y];
+		x = x * x_scale + 10;
+		y = y * y_scale + 10;
+		float sWidth, sHeight;
+		[view GetStringBox:player WidthReturn:&sWidth HeightReturn:&sHeight];
+		[view SetBGColour:playerBG];
+		[view SetAlpha:0.4];
+		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+		[view SetAlpha:1.0];
 		[view UseRegularFont];
 		[view SetFGColour:playerColour];
-		[view DrawString:player AtX:playerX * x_scale + 10 Y:playerY * y_scale + 10];
+		[view DrawString:player AtX:x Y:y];
 	}
 	
 }

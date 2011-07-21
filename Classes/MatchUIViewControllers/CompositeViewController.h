@@ -26,8 +26,7 @@
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;
 	IBOutlet PitchView * pitchView;
-	IBOutlet BackgroundView * pitchZoomContainer;
-	IBOutlet PitchView * pitchZoomView;
+	IBOutlet BackgroundView *backgroundView;
 	
 	IBOutlet UIView *optionContainer;;
 	IBOutlet UISegmentedControl *optionSwitches;
@@ -40,7 +39,6 @@
 	bool displayVideo;
 	bool displayPitch;
 	
-	int pitchZoomOffsetX, pitchZoomOffsetY;
 }
 
 @property (nonatomic) bool displayVideo;
@@ -48,11 +46,7 @@
 
 - (void) showOverlays;
 - (void) hideOverlays;
-- (void) positionOverlays;
-
-- (void) showZoomMap;
-- (void) hideZoomMap;
-- (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) positionViews;
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 

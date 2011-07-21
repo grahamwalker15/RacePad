@@ -16,15 +16,17 @@
 
 @interface PitchLine : NSObject
 {
-	
-	CGMutablePathRef path;
 	UIColor *colour;
 	unsigned char lineType;
+	float x0, y0, x1, y1;
 }
 
-@property (readonly) CGMutablePathRef path;
 @property (readonly) UIColor *colour;
 @property (readonly) unsigned char lineType;
+@property (readonly) float x0;
+@property (readonly) float y0;
+@property (readonly) float x1;
+@property (readonly) float y1;
 
 - (void) loadShape : (DataStream *) stream Count: (int) count Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
 
@@ -46,7 +48,13 @@
 	float playerX, playerY;
 	NSString *player;
 	UIColor *playerColour;
+	UIColor *playerBG;
+	UIColor *pitchColour;
+
+	float a13, a23, a11, a21, a31, a12, a22, a32;
 }
+
+- (void) initialisePerspective;
 
 - (void) loadPitch : (DataStream *) stream;
 
