@@ -98,7 +98,7 @@
 		width = 0.0;
 		height = 0.0;
 		
-		playerBG = [DrawingView CreateColourRed:220 Green:220 Blue:220];
+		// playerBG = [DrawingView CreateColourRed:220 Green:220 Blue:220];
 		pitchColour = [DrawingView CreateColourRed:118 Green:158 Blue:58];
 		[self initialisePerspective];
 	}
@@ -175,10 +175,44 @@
 	player = [[stream PopString] retain];
 	[playerColour release];
 	playerColour = NULL;
+	[playerBG release];
+	playerBG = NULL;
 	unsigned char index = [stream PopUnsignedChar];
 	if ( index < coloursCount )
 		playerColour = [colours[index] retain];
+	index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		playerBG = [colours[index] retain];
 	
+	nextPlayerX = [stream PopFloat];
+	nextPlayerY = 1 - [stream PopFloat];
+	[nextPlayer release];
+	nextPlayer = [[stream PopString] retain];
+	[nextPlayerColour release];
+	nextPlayerColour = NULL;
+	[nextPlayerBG release];
+	nextPlayerBG = NULL;
+	index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		nextPlayerColour = [colours[index] retain];
+	index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		nextPlayerBG = [colours[index] retain];
+	
+	thirdX = [stream PopFloat];
+	thirdY = 1 - [stream PopFloat];
+	[third release];
+	third = [[stream PopString] retain];
+	[thirdColour release];
+	thirdColour = NULL;
+	[thirdBG release];
+	thirdBG = NULL;
+	index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		thirdColour = [colours[index] retain];
+	index = [stream PopUnsignedChar];
+	if ( index < coloursCount )
+		thirdBG = [colours[index] retain];
 }
 
 -(void) initialisePerspective
@@ -231,6 +265,12 @@
 	[self transformPoint:&x0 Y:&y0];
 	[self transformPoint:&x1 Y:&y1];
 	[view LineX0:x0 Y0:y0 X1:x1 Y1:y1];
+}
+
+- (void) viewSpot: (PitchView *) view X0:(float)x0 Y0:(float) y0 LineScale:(float) lineScale
+{
+	[self transformPoint:&x0 Y:&y0];
+	[view LineCircle:x0 Y0:y0 Radius:5/lineScale];
 }
 
 - (void) drawPitch: (PitchView *) view XScale: (float) xScale YScale: (float) yScale XOffset:(float) xOffset YOffset:(float) yOffset LineScale:(float)lineScale
@@ -293,11 +333,18 @@
 		PitchLine *line = [lines objectAtIndex:i];
 		[view SetLineWidth:3 / scale];
 		[view SetFGColour:[line colour]];
-		if ( [line lineType] == 2 )
-			[view SetDashedLine:8.0/scale];
+		if ( [line lineType] == 3 )
+		{
+			[self viewSpot:view X0:[line x0] Y0:[line y0] LineScale:scale];
+		}
 		else
-			[view SetSolidLine];
-		[self viewLine:view X0:[line x0] Y0:[line y0] X1:[line x1] Y1:[line y1]];
+		{
+			if ( [line lineType] == 2 )
+				[view SetDashedLine:8.0/scale];
+			else
+				[view SetSolidLine];
+			[self viewLine:view X0:[line x0] Y0:[line y0] X1:[line x1] Y1:[line y1]];
+		}
 	}
 	
 	[view RestoreGraphicsState];
@@ -313,9 +360,9 @@
 	CGSize viewSize = map_rect.size;
 	
 	// Make the map as big as possible in the rectangle
-	// The pitch is inset 10 pixels all round
-	float x_scale = viewSize.width - 20;
-	float y_scale = viewSize.height - 20;
+	// The pitch is inset 25 pixels all round
+	float x_scale = viewSize.width - 50;
+	float y_scale = viewSize.height - 50;
 	
 	float mapXOffset, mapYOffset;
 	
@@ -337,8 +384,8 @@
 	 mapYOffset = viewSize.height * 0.5 + yCentre ;
 	 }
 	 */
-	mapXOffset = 10;
-	mapYOffset = 10;
+	mapXOffset = 25;
+	mapYOffset = 25;
 	
 	[view setHomeScaleX:x_scale];
 	[view setHomeScaleY:y_scale];
@@ -362,14 +409,14 @@
 	float yOffset = [view homeYOffset] + [view userYOffset] * viewSize.height;
 	
 	float x[4], y[4];
-	x[0] = 0;
-	y[0] = 0;
-	x[1] = 0;
-	y[1] = 1;
-	x[2] = 1;
-	y[2] = 1;
-	x[3] = 1;
-	y[3] = 0;
+	x[0] = -0.1;
+	y[0] = -0.1;
+	x[1] = -0.1;
+	y[1] = 1.1;
+	x[2] = 1.1;
+	y[2] = 1.1;
+	x[3] = 1.1;
+	y[3] = -0.1;
 	for ( int i = 0; i < 4; i++ )
 	{
 		[self transformPoint:x+i Y:y+i];
@@ -399,16 +446,43 @@
 	[self drawPasses:view Scale:scale];
 	
 	[view RestoreGraphicsState];
+	
+	float centreX = 0;
+	float centreY = 0;
+	
+	if ( [player length] )
+	{
+		if ( [nextPlayer length] )
+			if ( [third length] )
+			{
+				centreX = (playerX + nextPlayerX + thirdX) / 3;
+				centreY = (playerY + nextPlayerY + thirdY) / 3;
+			}
+			else
+			{
+				centreX = (playerX + nextPlayerX ) / 2;
+				centreY = (playerY + nextPlayerY ) / 2;
+			}
+		else
+		{
+			centreX = (playerX + thirdX ) / 2;
+			centreY = (playerY + thirdY ) / 2;
+		}
+	}
 
 	if ( [player length] )
 	{
 		float x = playerX;
 		float y = playerY;
 		[self transformPoint:&x Y:&y];
-		x = x * x_scale + 10;
-		y = y * y_scale + 10;
+		x = x * x_scale + 25;
+		y = y * y_scale + 25;
 		float sWidth, sHeight;
 		[view GetStringBox:player WidthReturn:&sWidth HeightReturn:&sHeight];
+		if ( playerX < centreX )
+			x -= sWidth;
+		if ( playerY < centreY )
+			y -= sHeight;
 		[view SetBGColour:playerBG];
 		[view SetAlpha:0.4];
 		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
@@ -416,6 +490,48 @@
 		[view UseRegularFont];
 		[view SetFGColour:playerColour];
 		[view DrawString:player AtX:x Y:y];
+	}
+	if ( [nextPlayer length] )
+	{
+		float x = nextPlayerX;
+		float y = nextPlayerY;
+		[self transformPoint:&x Y:&y];
+		x = x * x_scale + 25;
+		y = y * y_scale + 25;
+		float sWidth, sHeight;
+		[view GetStringBox:nextPlayer WidthReturn:&sWidth HeightReturn:&sHeight];
+		if ( nextPlayerX <= centreX )
+			x -= sWidth;
+		if ( nextPlayerY <= centreY )
+			y -= sHeight;
+		[view SetBGColour:nextPlayerBG];
+		[view SetAlpha:0.4];
+		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+		[view SetAlpha:1.0];
+		[view UseRegularFont];
+		[view SetFGColour:nextPlayerColour];
+		[view DrawString:nextPlayer AtX:x Y:y];
+	}
+	if ( [third length] )
+	{
+		float x = thirdX;
+		float y = thirdY;
+		[self transformPoint:&x Y:&y];
+		x = x * x_scale + 25;
+		y = y * y_scale + 25;
+		float sWidth, sHeight;
+		[view GetStringBox:third WidthReturn:&sWidth HeightReturn:&sHeight];
+		if ( thirdX <= centreX )
+			x -= sWidth;
+		if ( thirdY <= centreY )
+			y -= sHeight;
+		[view SetBGColour:thirdBG];
+		[view SetAlpha:0.4];
+		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+		[view SetAlpha:1.0];
+		[view UseRegularFont];
+		[view SetFGColour:thirdColour];
+		[view DrawString:third AtX:x Y:y];
 	}
 	
 }

@@ -49,6 +49,14 @@
 	NSString *player;
 	UIColor *playerColour;
 	UIColor *playerBG;
+	float nextPlayerX, nextPlayerY;
+	NSString *nextPlayer;
+	UIColor *nextPlayerColour;
+	UIColor *nextPlayerBG;
+	float thirdX, thirdY;
+	NSString *third;
+	UIColor *thirdColour;
+	UIColor *thirdBG;
 	UIColor *pitchColour;
 
 	float a13, a23, a11, a21, a31, a12, a22, a32;
