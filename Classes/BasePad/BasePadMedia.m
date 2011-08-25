@@ -119,6 +119,12 @@ static BasePadMedia * instance_ = nil;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+- (void)resetConnectionCounts
+{
+	resyncCount = 0;
+	restartCount = 0;
+}
+
 - (void)connectToVideoServer
 {
 	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_VIDEO_LIVE_CONNECTION_];

@@ -49,9 +49,9 @@
 		case 0:
 			return 30;
 		case 1:
-			return 50;
+			return 60;
 		case 2:
-			return 620;
+			return 610;
 		case 3:
 			return 0;
 		case 4:
@@ -185,7 +185,19 @@
 		}
 		case 1:
 		{
-			return [NSString stringWithFormat:@"L%d", [[alertData itemAtIndex:dataRow] lap]];
+			int lap = [[alertData itemAtIndex:dataRow] lap];
+			float timeStamp = [[alertData itemAtIndex:dataRow] timeStamp];
+			
+			if(lap > 0)
+			{
+				return [NSString stringWithFormat:@"L%d", lap];
+			}
+			else
+			{
+				int h = (int)(timeStamp / 3600.0); timeStamp -= h * 3600;
+				int m = (int)(timeStamp / 60.0);
+				return [NSString stringWithFormat:@"%d:%02d", h, m];
+			}
 		}
 		case 2:
 		{

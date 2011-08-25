@@ -29,6 +29,7 @@
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet BackgroundView * trackZoomContainer;
 	IBOutlet TrackMapView * trackZoomView;
+	IBOutlet UIButton * trackZoomCloseButton;
 	IBOutlet LeaderboardView *leaderboardView;
 	
 	IBOutlet UIView *optionContainer;;
@@ -60,6 +61,7 @@
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
+- (IBAction) closeButtonHit:(id)sender;
 - (IBAction) optionSwitchesHit:(id)sender;
 
 @end

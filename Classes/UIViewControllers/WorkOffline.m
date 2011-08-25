@@ -270,7 +270,10 @@
 	NSString * videoServerAddress = [[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"];
 	
 	if(videoServerAddress && [videoServerAddress length] > 0)
+	{
 		[[BasePadMedia Instance] connectToVideoServer];
+		[[BasePadMedia Instance] resetConnectionCounts];
+	}
 }
 
 - (IBAction)settingsPressed:(id)sender

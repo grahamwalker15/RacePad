@@ -119,9 +119,9 @@
 		case 0:
 			return 30;
 		case 1:
-			return 50;
+			return 60;
 		case 2:
-			return (bounds.size.width - 80);
+			return (bounds.size.width - 90);
 		default:
 			return 0;
 	}
@@ -178,7 +178,19 @@
 		}
 		case 1:
 		{
-			return [NSString stringWithFormat:@"L%d", [[data itemAtIndex:row] lap]];
+			int lap = [[data itemAtIndex:row] lap];
+			float timeStamp = [[data itemAtIndex:row] timeStamp];
+			
+			if(lap > 0)
+			{
+				return [NSString stringWithFormat:@"L%d", lap];
+			}
+			else
+			{
+				int h = (int)(timeStamp / 3600.0); timeStamp -= h * 3600;
+				int m = (int)(timeStamp / 60.0);
+				return [NSString stringWithFormat:@"%d:%02d", h, m];
+			}
 		}
 		case 2:
 		{
@@ -238,6 +250,10 @@
 			return [UIImage imageNamed:@"AlertLC.png"];
 		case ALERT_INFO_:
 			return [UIImage imageNamed:@"AlertInfo.png"];
+		case ALERT_PERFORMANCE_GREEN_:
+			return [UIImage imageNamed:@"AlertGreenInfo.png"];
+		case ALERT_PERFORMANCE_PURPLE_:
+			return [UIImage imageNamed:@"AlertPurpleInfo.png"];
 		default:
 			return [UIImage imageNamed:@"AlertPin.png"];
 	}			

@@ -123,6 +123,8 @@ enum MovieConnectionTypes
 - (void)connectToVideoServer;
 - (void)disconnectVideoServer;
 
+-(void)resetConnectionCounts;
+
 - (void)verifyMovieLoaded;
 
 - (void) loadMovie:(NSURL *)url;

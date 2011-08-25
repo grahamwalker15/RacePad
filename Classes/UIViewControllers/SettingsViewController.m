@@ -373,6 +373,7 @@
 		[videoServerTwirl setHidden:false];
 		[videoServerTwirl startAnimating];
 		[[BasePadMedia Instance] connectToVideoServer];
+		[[BasePadMedia Instance] resetConnectionCounts];
 	}
 }
 

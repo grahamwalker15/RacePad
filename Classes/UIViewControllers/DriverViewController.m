@@ -645,6 +645,9 @@
 						
 			[trackMapView RequestRedraw];
 			
+			[trackProfileView setUserOffset:0.0];
+			[trackProfileView RequestRedraw];			
+			
 			[self setAllSelected:false];	
 			
 			[leaderboardView RequestRedraw];

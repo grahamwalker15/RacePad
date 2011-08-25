@@ -695,4 +695,10 @@
 
 }
 
+- (IBAction) closeButtonHit:(id)sender
+{
+	[[RacePadCoordinator Instance] setNameToFollow:nil];
+	[self hideZoomMap];
+}
+
 @end
