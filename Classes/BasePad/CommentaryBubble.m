@@ -104,7 +104,11 @@ static int fadeOffAfter = 7;
 			|| ( timeNow > commentaryController.commentaryView.lastDisplayedTime && commentaryController.commentaryView.latestMessageTime > commentaryController.commentaryView.lastDisplayedTime ) )
 		{
 			int rowCount, firstRow;
-			commentaryController.commentaryView.timeWindow = showLastNSecs;
+			
+			if ( [[BasePadCoordinator Instance] helpMasterPlaying] )
+				commentaryController.commentaryView.timeWindow = showLastNSecs;
+			else
+				commentaryController.commentaryView.timeWindow = 0;
 			[commentaryController.commentaryView countRows:&rowCount FirstRow:&firstRow];
 			if ( rowCount > 0 )
 			{
