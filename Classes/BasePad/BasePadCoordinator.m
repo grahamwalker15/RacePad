@@ -24,6 +24,7 @@
 #import "WorkOffline.h"
 #import "BasePadPrefs.h"
 #import "TabletState.h"
+#import "CommentaryBubble.h"
 
 #import "UIConstants.h"
 
@@ -165,12 +166,14 @@ static BasePadCoordinator * instance_ = nil;
 		for ( i = 0; i < all_tabs; i++ )
 		{
 			bool supported = [[BasePadSponsor Instance]supportsTab:i];
+			/*
 			if ( supported && i == [[BasePadSponsor Instance] videoTab] )
 			{
 				NSNumber *v = [[BasePadPrefs Instance] getPref:@"supportVideo"];
 				if ( v )
 					supported = [v boolValue];
 			}
+			*/
 			if ( supported )
 				[tabs addObject:[allTabs objectAtIndex:i]];
 		}
@@ -467,6 +470,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	[[BasePadTimeController Instance] updatePlayButtons];
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+	[[CommentaryBubble Instance] resetBubbleTimings];
 	[self showSnapshot];
 }
 
@@ -896,7 +900,7 @@ static BasePadCoordinator * instance_ = nil;
 
 - (void) Connected
 {
-	[socket_ RequestVersion];
+	// [socket_ RequestVersion];
 }
 
 - (void) Disconnected: (bool) atConnect

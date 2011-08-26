@@ -11,6 +11,7 @@
 #import "BasePadMedia.h"
 #import	"BasePadPrefs.h"
 #import "RacePadSponsor.h"
+#import "CommentaryBubble.h"
 
 @implementation SettingsViewController
 
@@ -211,7 +212,10 @@
 	NSNumber *v = [[BasePadPrefs Instance]getPref:@"supportVideo"];
 	if ( v )
 		supportVideo.on = [v boolValue];
+	supportBubble.on = [[CommentaryBubble Instance] bubblePref];
 	[self updateSponsor];
+
+	[[CommentaryBubble Instance] noBubbles];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -329,6 +333,7 @@
 - (void) updateSponsor
 {
 	supportVideo.enabled = true;//[[RacePadSponsor Instance]supportsTab:RPS_VIDEO_TAB_];
+	supportBubble.enabled = true;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -405,6 +410,12 @@
 	[[BasePadPrefs Instance] setPref:@"supportVideo" Value:v];
 	[[BasePadPrefs Instance] save];
 	[[RacePadCoordinator Instance] updateTabs];
+}
+
+- (IBAction)supportBubbleChanged:(id)sender
+{
+	bool on = supportBubble.on;
+	[[CommentaryBubble Instance] setBubblePref:on];
 }
 
 

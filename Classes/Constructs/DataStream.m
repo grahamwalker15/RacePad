@@ -11,9 +11,12 @@
 
 @implementation DataStream
 
+@synthesize versionNumber;
+
 -(id) init
 {
 	index = 0;
+	versionNumber = 0;
 	return self;
 }
 

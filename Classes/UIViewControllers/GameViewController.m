@@ -15,6 +15,7 @@
 #import "UserPin.h"
 #import "RacePadTitleBarController.h"
 #import "BasePadTimeController.h"
+#import "CommentaryBubble.h"
 
 @implementation GameViewController
 
@@ -94,7 +95,7 @@
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
 {
 	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
+	[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary:false];
 	
 	// Register this UI as current
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
@@ -107,6 +108,8 @@
 	[self showViews];
 
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
+
+	[[CommentaryBubble Instance] noBubbles];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];

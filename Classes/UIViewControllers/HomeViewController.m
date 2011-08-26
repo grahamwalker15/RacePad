@@ -11,6 +11,7 @@
 #import "RacePadTitleBarController.h"
 #import "RacePadCoordinator.h"
 #import "RacePadSponsor.h"
+#import "CommentaryBubble.h"
 
 @implementation HomeViewController
 
@@ -30,13 +31,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
+	[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary:false];
 		
 	// Register the view controller
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_COUNT_VIEW_];
 	
 	[self updateButtons];
 		
+	[[CommentaryBubble Instance] noBubbles];
+
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }

@@ -117,7 +117,7 @@
 		[movie release];
 
 	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
+	[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary:false];
 		
 	// Register the view
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_LAP_COUNT_VIEW_)];

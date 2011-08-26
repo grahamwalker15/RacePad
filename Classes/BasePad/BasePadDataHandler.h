@@ -9,8 +9,6 @@
 
 #import "DataHandler.h"
 
-#define RACE_PAD_INTERFACE_VERSION 11
-
 enum BaseServerCommands {
 	BPSC_VERSION_ = 1,
 	BPSC_IMAGE_LIST_ITEM_ = 8,
@@ -31,8 +29,6 @@ enum BaseServerCommands {
 
 @interface BasePadDataHandler : DataHandler
 {
-	
-	int versionNumber;
 	int nextTime;
 	
 	FILE *saveFile;
@@ -49,6 +45,9 @@ enum BaseServerCommands {
 
 - (id) init;
 - (id) initWithPath: (NSString *)archive SessionPrefix:(NSString *)sessionPrefix SubIndex:(NSString *)chunk;
+
+- (bool) okVersion;
+
 - (int) inqTime;
 - (void) setTime: (int) time;
 - (void) update: (int ) time;

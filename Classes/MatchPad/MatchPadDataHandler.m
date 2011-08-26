@@ -29,6 +29,11 @@
 	[super dealloc];
 }
 
+- (void) okVersion
+{
+	return versionNumber <= MATCH_PAD_INTERFACE_VERSION;
+}
+
 - (void)handleCommand:(int) command
 {
 	switch (command)

@@ -13,8 +13,10 @@
 @interface DataStream : NSObject
 {
 	int index;
+	int versionNumber;
 }
 
+@property int versionNumber;
 
 - (id)init;
 - (int) inqIndex;

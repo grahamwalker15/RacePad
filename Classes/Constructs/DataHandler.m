@@ -35,6 +35,7 @@
 - (void) newTransfer:(int)size {
 	[stream release];
 	stream = [[BufferedDataStream alloc] initWithSize:size];
+	stream.versionNumber = versionNumber;
 }
 
 - (void) setStreamPos: (int) pos {

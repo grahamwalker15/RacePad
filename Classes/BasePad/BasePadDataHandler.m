@@ -45,12 +45,13 @@
 		{
 			versionNumber = [stream PopInt];
 			
-			if ( versionNumber != RACE_PAD_INTERFACE_VERSION )
+			if ( ![self okVersion] )
 			{
 				[self closeStream];
 			}
 			else
 			{
+				[stream setVersionNumber: versionNumber];
 				// Now find the index for the specified chunk
 				indexSize = 0;
 
@@ -128,6 +129,11 @@
 	[super dealloc];
 }
 
+- (bool) okVersion
+{
+	return false;
+}
+
 - (int) inqTime
 {
 	return nextTime;
@@ -203,8 +209,11 @@
 	{
 		case BPSC_VERSION_:
 			versionNumber = [stream PopInt];
-			if ( versionNumber == RACE_PAD_INTERFACE_VERSION )
+			if ( [self okVersion] )
+			{
+				[stream setVersionNumber:versionNumber];
 				[[BasePadCoordinator Instance] setServerConnected:YES];
+			}
 			else
 				[[BasePadCoordinator Instance] setServerConnected:NO];
 			break;

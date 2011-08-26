@@ -81,7 +81,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
+	[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary:false];
 	
 	// Set paramters for views
 	[blueTelemetryView setCar:RPD_BLUE_CAR_];

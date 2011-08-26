@@ -8,7 +8,7 @@
 
 #import "AlertData.h"
 #import "DataStream.h"
-
+#import "RacePadDataHandler.h"
 
 @implementation AlertDataItem
 
@@ -18,6 +18,7 @@
 @synthesize focus;
 @synthesize focus2;
 @synthesize description;
+@synthesize confidence;
 
 - (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn
 {
@@ -28,6 +29,7 @@
 		timeStamp = timeStampIn;
 		focus = [focusIn retain];
 		description = [descriptionIn retain];
+		confidence = 5;
 	}	   
 	
 	return self;
@@ -42,6 +44,7 @@
 		timeStamp = hIn * 3600.0 + mIn * 60.0 + sIn;
 		focus = [focusIn retain];
 		description = [descriptionIn retain];
+		confidence = 5;
 	}	   
 	
 	return self;
@@ -55,6 +58,10 @@
 	focus = [[stream PopString] retain];
 	focus2 = [[stream PopString] retain];
 	description = [[stream PopString] retain];
+	if ( stream.versionNumber >= RACE_PAD_COMMENTARY_IMPORTANCE )
+		confidence = [stream PopInt];
+	else
+		confidence = 5;
 	
 	return self;
 }

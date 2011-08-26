@@ -23,6 +23,8 @@
 #import "TrackProfileView.h"
 #import "BackgroundView.h"
 #import "ShinyButton.h"
+#import "CommentaryBubble.h"
+#import "DriverViewController.h"
 
 #import "AnimationTimer.h"
 
@@ -33,6 +35,8 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+	
+	grabTitle = true;
 	
 	// Set parameters for views
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
@@ -89,9 +93,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
-		
+	if ( grabTitle )
+	{
+		// Grab the title bar
+		[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary: false];
+	}
+	
 	[commentaryView SetBackgroundAlpha:0.5];
 	
 	animationTimer = nil;
@@ -109,6 +116,8 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 
+	[[CommentaryBubble Instance] noBubbles];
+	
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
@@ -155,8 +164,6 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(viewAnimationDidStop:finished:context:)];
 	[self postPositionOverlays];
-	[trackProfileView setAlpha:1.0];
-	[commentaryView setAlpha:1.0];
 	[UIView commitAnimations];
 	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -428,10 +435,7 @@
 
 - (void) viewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
-	if([finished intValue] == 1)
-	{
-		commentaryAnimating = false;		
-	}
+	commentaryAnimating = false;		
 }
 
 - (void) commentaryExpansionDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -490,14 +494,9 @@
 	[trackProfileView followCar:@"MSC"];
 	 */
 	
-	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"ROS"];
-	[trackMapView followCar:@"ROS"];
-	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
-	[telemetryView setCar:RPD_RED_CAR_];
-	[trackProfileView followCar:@"ROS"];
+	grabTitle = false;
 	
-	[mscButton setAlpha:1.0];
-	[rosButton setAlpha:0.25];
+	[self chooseCar:[[RacePadCoordinator Instance] nameToFollow]];
 
 	[self addTapRecognizerToView:telemetryView];
 	[self addTapRecognizerToView:mscButton];
@@ -530,10 +529,19 @@
 
 	[trackMapContainer setAlpha:0.0];
 	[trackMapContainer setHidden:false];
+	
+	[trackProfileView setAlpha:0.0];
+	[trackProfileView setHidden:false];
+	
+	[commentaryView setAlpha:0.0];
+	[commentaryView setHidden:false];
 }
 
 - (void) postPositionOverlays
 {
+	[trackProfileView setAlpha:1.0];
+	[commentaryView setAlpha:1.0];
+
 	[trackMapContainer setAlpha:1.0];
 	[telemetryView setAlpha:1.0];
 }
@@ -595,6 +603,7 @@
 
 - (IBAction) chooseMSC:(id)sender
 {
+	[[RacePadCoordinator Instance] setNameToFollow:@"MSC"];
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"MSC"];
 	[trackMapView followCar:@"MSC"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
@@ -612,10 +621,13 @@
 	
 	[mscButton setAlpha:1.0];
 	[rosButton setAlpha:0.25];
+	
+	[title_ setTitle:@"MSC Telemetry"];
 }
 
 - (IBAction) chooseROS:(id)sender
 {
+	[[RacePadCoordinator Instance] setNameToFollow:@"ROS"];
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"ROS"];
 	[trackMapView followCar:@"ROS"];
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.3 blue:0.3 alpha:0.3]];
@@ -633,6 +645,25 @@
 
 	[mscButton setAlpha:0.25];
 	[rosButton setAlpha:1.0];
+	
+	[title_ setTitle:@"ROS Telemetry"];
+}
+
+- (bool) supportsCar:(NSString *)name
+{
+	if ( [name isEqualToString: @"ROS"]
+	  || [name isEqualToString: @"MSC"] )
+		return true;
+	
+	return false;
+}
+
+- (void) chooseCar:(NSString *)name
+{
+	if ( [name isEqualToString: @"ROS"] )
+		[self chooseROS:nil];
+	else if ( [name isEqualToString: @"MSC"] )
+		[self chooseMSC:nil];
 }
 
 - (void)addBackgroundFrames
@@ -688,6 +719,12 @@
 	[trackMapView setAnimationScaleTarget:backupUserScale];
 	
 	animationTimer = [[AnimationTimer alloc] initWithDuration:0.5 Target:self LoopSelector:@selector(trackMapSizeAnimationDidFire:) FinishSelector:@selector(trackMapSizeAnimationDidStop)];
+}
+
+- (IBAction)BackButton:(id)sender
+{
+	DriverViewController *parent = (DriverViewController *) [self parentViewController];
+	[parent HideTelemetryAnimated:true];
 }
 
 @end

@@ -13,8 +13,18 @@
 #import "RacePadDatabase.h"
 #import "TableData.h"
 #import "CommentaryData.h"
+#import "ElapsedTime.h"
 
 @implementation CommentaryView
+
+@synthesize timeWindow;
+@synthesize smallFont;
+@synthesize minPriority;
+@synthesize lastUpdateTime;
+@synthesize latestMessageTime;
+@synthesize firstMessageTime;
+@synthesize firstDisplayedTime;
+@synthesize lastDisplayedTime;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
@@ -23,6 +33,11 @@
 		lastRowCount = 0;
 		lastHeight = 0;
 		latestMessageTime = 0.0;
+		firstRow = 0;
+		timeWindow = 0;
+		smallFont = false;
+		minPriority = 0;
+		lastUpdateTime = 0;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
 	}
 	
@@ -36,8 +51,13 @@
 		lastRowCount = 0;
 		lastHeight = 0;
 		latestMessageTime = 0.0;
+		firstRow = 0;
+		timeWindow = 0;
+		smallFont = false;
+		minPriority = 0;
+		lastUpdateTime = 0;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
-    }
+   }
     return self;
 }
 
@@ -48,56 +68,99 @@
 
 - (void) drawIfChanged
 {
-	int rowCount = [self RowCount];
+	int rowCount, fRow;
+	[self countRows: &rowCount FirstRow: &fRow];
 	
 	CGRect bounds = [self bounds];
 	
 	int height = bounds.size.height;
 	if ( ( rowCount != lastRowCount
-		  || height != lastHeight )
+		  || height != lastHeight
+		  || fRow != firstRow )
 		&& rowCount > 0 )
+	{
+		lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 		[self RequestRedraw];
+	}
 }
 
 - (void) Draw:(CGRect)region
 {
-	int rowCount = [self RowCount];
+	int rowCount, fRow;
+	[self countRows: &rowCount FirstRow: &fRow];
 	
 	CGRect bounds = [self bounds];
 	
 	int height = bounds.size.height;
 	if ( ( rowCount != lastRowCount
-		|| height != lastHeight )
+		|| height != lastHeight
+		|| fRow != firstRow )
 	  && rowCount > 0 )
 		[self RequestScrollToEnd];
 	
 	lastRowCount = rowCount;
 	lastHeight = height;
+	firstRow = fRow;
+	
+	firstDisplayedTime = firstMessageTime;
+	lastDisplayedTime = latestMessageTime;
 
 	[super Draw:region];	
 }
 
+- (void) resetTimings
+{
+	firstDisplayedTime = 0;
+	lastDisplayedTime = 0;
+}
+
 - (int) RowCount
+{
+	int count, fRow;
+	[self countRows:&count FirstRow:&fRow];
+	return count;
+}
+
+- (void) countRows: (int*) count FirstRow: (int *) fRow
 {
 	CommentaryData * data;
 	data = [[RacePadDatabase Instance] commentary];
 	
 	float timeNow = [[RacePadCoordinator Instance] playTime];
 	
-	int count = 0;
+	*count = 0;
+	*fRow = 0;
+	bool first = true;
 	latestMessageTime = 0.0;
+	firstMessageTime = 0.0;
 	
 	for (int i = 0 ; i < [data itemCount] ; i++)
 	{
-		float itemTime = [[data itemAtIndex:i] timeStamp];
-
-		if(itemTime <= timeNow)
+		AlertDataItem *item = [data itemAtIndex:i];
+		float itemTime = [item timeStamp];
+		
+		if ( timeWindow <= 0
+		  || itemTime >= timeNow - timeWindow )
 		{
-			count++;
-			latestMessageTime = [[data itemAtIndex:i] timeStamp];
+			if ( itemTime <= timeNow
+			  && item.confidence >= minPriority )
+			{
+				if ( first )
+				{
+					firstMessageTime = itemTime;
+					*fRow = i;
+				}
+				else
+					if ( itemTime < firstMessageTime )
+						firstMessageTime = itemTime;
+
+				first = false;
+				*count = *count + 1;
+				if ( itemTime > latestMessageTime )
+					latestMessageTime = itemTime;
+			}
 		}
 	}
-	return count;
 }
 
 - (int) ColumnCount
@@ -107,6 +170,9 @@
 
 - (int) RowHeight
 {
+	if ( smallFont )
+		return 18;
+	
 	return 28;
 }
 
@@ -114,17 +180,30 @@
 {
 	CGRect bounds = [self bounds];
 	
-	switch (col)
-	{
-		case 0:
-			return 30;
-		case 1:
-			return 60;
-		case 2:
-			return (bounds.size.width - 90);
-		default:
-			return 0;
-	}
+	if ( smallFont )
+		switch (col)
+		{
+			case 0:
+				return 20;
+			case 1:
+				return 30;
+			case 2:
+				return (bounds.size.width - 50);
+			default:
+				return 0;
+		}
+	else
+		switch (col)
+		{
+			case 0:
+				return 30;
+			case 1:
+				return 60;
+			case 2:
+				return (bounds.size.width - 90);
+			default:
+				return 0;
+		}
 }
 
 - (int) ColumnType:(int)col;
@@ -136,6 +215,15 @@
 - (int) ColumnUse:(int)col;
 {
 	return TD_USE_FOR_BOTH;
+}
+
+- (void) SetDefaultFormatting:(bool)if_heading
+{
+	[super SetDefaultFormatting:if_heading];
+	if ( smallFont )
+	{
+		[self UseControlFont];
+	}
 }
 
 - (int) InqCellTypeAtRow:(int)row Col:(int)col
@@ -153,13 +241,44 @@
 	}
 }
 
+- (void) PrepareRow:(int)row
+{
+	CommentaryData * data;
+	data = [[RacePadDatabase Instance] commentary];
+	
+	float timeNow = [[RacePadCoordinator Instance] playTime];
+	
+	int count = 0;
+	
+	for (int i = 0 ; i < [data itemCount] ; i++)
+	{
+		AlertDataItem *item = [data itemAtIndex:i];
+		float itemTime = [item timeStamp];
+		
+		if ( timeWindow <= 0
+			|| itemTime >= timeNow - timeWindow )
+		{
+			if ( itemTime <= timeNow
+			  && item.confidence >= minPriority )
+			{
+				if ( row == count )
+				{
+					currentRow = i;
+					return;
+				}
+				count++;
+			}
+		}
+	}
+}
+
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col
 {
 	CommentaryData * data;
 	data = [[RacePadDatabase Instance] commentary];
 	
-	float messageTime = [[data itemAtIndex:row] timeStamp];
-	int type = [[data itemAtIndex:row] type];
+	float messageTime = [[data itemAtIndex:currentRow] timeStamp];
+	int type = [[data itemAtIndex:currentRow] type];
 	
 	if(type == ALERT_PIT_INSIGHT_)
 		[self SetTextColour:dark_red_];
@@ -168,7 +287,7 @@
 	else
 		[self SetTextColour:very_dark_grey_];
 	
-	[self SetBackgroundColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
+	[self SetBackgroundColour:white_];
 	
 	switch (col)
 	{
@@ -194,7 +313,7 @@
 		}
 		case 2:
 		{
-			return [[data itemAtIndex:row] description];
+			return [[data itemAtIndex:currentRow] description];
 		}
 		default:
 		{
@@ -205,7 +324,7 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	[self SetBackgroundColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
+	[self SetBackgroundColour:white_];
 	
 	if(col != 0)
 		return nil;
@@ -213,7 +332,7 @@
 	CommentaryData * data;
 	data = [[RacePadDatabase Instance] commentary];
 	
-	int type = [[data itemAtIndex:row] type];
+	int type = [[data itemAtIndex:currentRow] type];
 	
 	switch (type)
 	{

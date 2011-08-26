@@ -16,6 +16,7 @@
 #import "RacePadTitleBarController.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
+#import "CommentaryBubble.h"
 
 
 @implementation DriverListController
@@ -52,12 +53,14 @@
 	if(!driver_lap_list_controller_closing_)
 	{
 		// Grab the title bar and mark it as displayed
-		[[RacePadTitleBarController Instance] displayInViewController:self];
+		[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary:true];
 		
 		// Register view
 		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_DRIVER_LIST_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 		[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 		
+		[[CommentaryBubble Instance] allowBubbles:[self view]];
+
 		// We disable the screen locking - because that seems to close the socket
 		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	}

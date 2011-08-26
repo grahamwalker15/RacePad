@@ -29,5 +29,8 @@
 - (void) setTrackState: (int)state;
 
 - (IBAction)AlertPressed:(id)sender;
+- (IBAction)CommentaryPressed:(id)sender;
+
+- (void) displayInViewController:(UIViewController *)viewController SupportCommentary: (bool) supportCommentary;
 
 @end

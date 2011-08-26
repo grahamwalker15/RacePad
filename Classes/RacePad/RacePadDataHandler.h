@@ -9,7 +9,11 @@
 
 #import "BasePadDataHandler.h"
 
-#define RACE_PAD_INTERFACE_VERSION 11
+enum DataVersion {
+	RACE_PAD_SPA_2011 = 11,
+	RACE_PAD_COMMENTARY_IMPORTANCE = 12,
+	RACE_PAD_INTERFACE_VERSION = 12
+};
 
 enum ServerCommands {
 	RPSC_VERSION_ = BPSC_VERSION_, // 1

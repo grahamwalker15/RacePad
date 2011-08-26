@@ -74,7 +74,7 @@
 	[[TabletState Instance] setBaseRotation: viewOrientation];
 	
 	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
+	[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary:false];
 	
 	// Register the views
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];

@@ -14,6 +14,7 @@
 @synthesize allItems;
 @synthesize sponsorButton;
 @synthesize alertButton;
+@synthesize commentaryButton;
 @synthesize helpBarButton;
 @synthesize helpButton;
 @synthesize eventName;

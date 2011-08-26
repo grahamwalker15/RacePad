@@ -24,6 +24,7 @@
 	IBOutlet UILabel *status;
 	IBOutlet UILabel *video_status;
 	IBOutlet UISwitch *supportVideo;
+	IBOutlet UISwitch *supportBubble;
 
 	IBOutlet UIActivityIndicatorView *serverTwirl;
 	IBOutlet UIActivityIndicatorView *videoServerTwirl;
@@ -40,6 +41,7 @@
 - (IBAction)restartPressed:(id)sender;
 - (IBAction)exitPressed:(id)sender;
 - (IBAction)supportVideoChanged:(id)sender;
+- (IBAction)supportBubbleChanged:(id)sender;
 
 - (void) updateEvents;
 - (void) updateServerState;

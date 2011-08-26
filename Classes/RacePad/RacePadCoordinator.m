@@ -24,6 +24,7 @@
 #import "BasePadPrefs.h"
 #import "TabletState.h"
 #import "CommentaryView.h"
+#import	"CommentaryBubble.h"
 
 #import "UIConstants.h"
 
@@ -247,7 +248,8 @@ static RacePadCoordinator * instance_ = nil;
 
 -(void) redrawCommentary
 {
-	if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
+	bool matched = false;
+	// if(registeredViewController && (registeredViewControllerTypeMask & RPC_COMMENTARY_VIEW_) > 0)
 	{
 		int view_count = [views count];
 		
@@ -258,20 +260,29 @@ static RacePadCoordinator * instance_ = nil;
 			{
 				int type = [existing_view Type];
 				
-				if(type == RPC_COMMENTARY_VIEW_)
+				if ( type == RPC_COMMENTARY_VIEW_ )
 				{
 					CommentaryView *commentary = [existing_view View];
 					if ( commentary )
+					{
 						[commentary drawIfChanged];
+						matched = true;
+					}
 				}
 			}
 		}
+	}
+	
+	if ( matched )
+	{
+		[[CommentaryBubble Instance] showIfNeeded];
 	}
 }
 
 -(void) restartCommentary
 {
 	int view_count = [views count];
+	bool first = true;
 	
 	for ( int i = 0 ; i < view_count ; i++)
 	{
@@ -280,16 +291,20 @@ static RacePadCoordinator * instance_ = nil;
 		{
 			int type = [existing_view Type];
 			
-			if(type == RPC_COMMENTARY_VIEW_)
+			if ( type == RPC_COMMENTARY_VIEW_ )
 			{
-				NSString *name = [[[RacePadDatabase Instance] commentary] commentaryFor];
-				if ( name == nil )
-					name = @"RACE";
-				
-				if (connectionType == BPC_SOCKET_CONNECTION_)
-					[socket_ StreamCommentary:name];
-				else
-					[self loadBPF:[self archiveName] File:@"commentary" SubIndex:name];
+				if ( first )
+				{
+					NSString *name = [[[RacePadDatabase Instance] commentary] commentaryFor];
+					if ( name == nil )
+						name = @"RACE";
+					
+					if (connectionType == BPC_SOCKET_CONNECTION_)
+						[socket_ StreamCommentary:name];
+					else
+						[self loadBPF:[self archiveName] File:@"commentary" SubIndex:name];
+					first = false;
+				}
 				[[existing_view View] RequestRedraw];
 			}
 		}

@@ -12,6 +12,7 @@
 #import "AlertViewController.h"
 #import "TrackMap.h"
 #import "RacePadSponsor.h"
+#import "CommentaryBubble.h"
 
 #import "UIConstants.h"
 
@@ -59,13 +60,17 @@ static RacePadTitleBarController * instance_ = nil;
 {
 }
 
-- (void) displayInViewController:(UIViewController *)viewController
+- (void) displayInViewController:(UIViewController *)viewController SupportCommentary: (bool) supportCommentary
 {	
 	[super displayInViewController:viewController];
 	
 	UIBarButtonItem * alert_button = [titleBarController alertButton];	
 	[alert_button setTarget:self];
 	[alert_button setAction:@selector(AlertPressed:)];
+	UIBarButtonItem * commentary_button = [titleBarController commentaryButton];	
+	[commentary_button setTarget:self];
+	[commentary_button setAction:@selector(CommentaryPressed:)];
+	commentary_button.enabled = supportCommentary && [[CommentaryBubble Instance] bubblePref];
 	
 	[[titleBarController playStateButton] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
 	[[titleBarController timeCounter] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -167,6 +172,11 @@ static RacePadTitleBarController * instance_ = nil;
 		
 		[alertPopover presentPopoverFromBarButtonItem:[titleBarController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
 	}
+}
+
+- (IBAction)CommentaryPressed:(id)sender
+{
+	[[CommentaryBubble Instance] toggleShow];
 }
 
 @end

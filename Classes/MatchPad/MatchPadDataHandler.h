@@ -9,7 +9,11 @@
 
 #import "BasePadDataHandler.h"
 
-#define MATCH_PAD_INTERFACE_VERSION 1
+enum DataVersion {
+	MATCH_PAD_INITAL_VERSION = 11,
+	MATCH_PAD_INTERFACE_VERSION = 11
+};
+
 
 enum ServerCommands {
 	MPSC_VERSION_ = BPSC_VERSION_, // 1

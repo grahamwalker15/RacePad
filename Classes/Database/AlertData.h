@@ -50,6 +50,7 @@ enum AlertTypes
 	int lap;
 	float time_stamp;
 	NSString * description;	
+	int confidence;
 }
 
 @property (nonatomic) int type;
@@ -58,6 +59,7 @@ enum AlertTypes
 @property (nonatomic) int lap;
 @property (nonatomic) float timeStamp;
 @property (nonatomic, retain) NSString * description;	
+@property (nonatomic) int confidence;
 
 - (id) initWithType:(int)typeIn Lap:(int)lapIn TimeStamp:(float)timeStampIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;
 - (id) initWithType:(int)typeIn Lap:(int)lapIn H:(float)hIn M:(float)mIn S:(float)sIn Focus:(NSString * )focusIn Description:(NSString *)descriptionIn;

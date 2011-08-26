@@ -39,7 +39,8 @@
 	
 	AnimationTimer * animationTimer;
 	CGRect animationRectStart;
-	CGRect animationRectEnd;	
+	CGRect animationRectEnd;
+	bool grabTitle;
 }
 
 - (void)positionOverlays;
@@ -68,10 +69,17 @@
 	IBOutlet TelemetryView * telemetryView;
 	IBOutlet UIButton *mscButton;
 	IBOutlet UIButton *rosButton;
+	
+	IBOutlet UIBarButtonItem * back_button_;
+	IBOutlet UIBarButtonItem * title_;
 }
+
+- (bool) supportsCar: (NSString *)name;
+- (void) chooseCar: (NSString *)name;
 
 - (IBAction) chooseMSC:(id)sender;
 - (IBAction) chooseROS:(id)sender;
+- (IBAction) BackButton:(id)sender;
 
 @end
 

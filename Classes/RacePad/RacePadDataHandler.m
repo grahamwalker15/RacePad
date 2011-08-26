@@ -29,6 +29,11 @@
 	[super dealloc];
 }
 
+- (bool) okVersion
+{
+	return versionNumber <= RACE_PAD_INTERFACE_VERSION;
+}
+
 - (void)handleCommand:(int) command
 {
 	switch (command)

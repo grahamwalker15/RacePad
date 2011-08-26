@@ -27,6 +27,7 @@
 #import "PitWindowView.h"
 #import "BackgroundView.h"
 #import "ShinyButton.h"
+#import "RacePadSponsor.h"
 
 #import "AnimationTimer.h"
 
@@ -63,6 +64,10 @@
 	[seeLapsButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
 	[seeLapsButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
 	[seeLapsButton setShine:0.1];
+
+	[telemetryButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
+	[telemetryButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
+	[telemetryButton setShine:0.1];
 	
 	[trackProfileView setDelaysContentTouches:false];
 	
@@ -76,6 +81,7 @@
 	// Add tap recognizers to buttons to prevent them bringing up ti;e controls
 	[self addTapRecognizerToView:allButton];
 	[self addTapRecognizerToView:seeLapsButton];
+	[self addTapRecognizerToView:telemetryButton];
 	
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	[[RacePadCoordinator Instance] AddView:timingView WithType:RPC_DRIVER_LIST_VIEW_];
@@ -85,7 +91,9 @@
 	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
 	driver_lap_list_controller_displayed_ = false;
 	driver_lap_list_controller_closing_ = false;
+	telemetry_controller_displayed_ = false;
 	
+	telemetry_controller_ = [[TelemetryCarViewController alloc] initWithNibName:@"CarView" bundle:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -152,6 +160,12 @@
 		[self HideDriverLapListAnimated:false];
 	}
 	
+	if(telemetry_controller_displayed_)
+	{
+		driver_lap_list_controller_closing_ = true; // This prevents the resultant viewWillAppear from registering everything
+		[self HideTelemetryAnimated:false];
+	}
+	
 	if(!driver_lap_list_controller_closing_)
 	{
 		[super viewWillDisappear:animated];
@@ -162,6 +176,22 @@
 	}
 	
 	driver_lap_list_controller_closing_ = false;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	if ( telemetry_controller_displayed_ )
+		[telemetry_controller_ willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	if ( telemetry_controller_displayed_ )
+		[telemetry_controller_ didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)prePositionOverlays
@@ -467,6 +497,7 @@
 		[driverSurnameLabel setAlpha:0.0];
 		[driverTeamLabel setAlpha:0.0];
 		[seeLapsButton setAlpha:0.0];
+		[telemetryButton setAlpha:0.0];
 		
 		[pitBoardContainer setHidden:false];
 		[trackMapContainer setHidden:false];
@@ -476,6 +507,7 @@
 		[driverSurnameLabel setHidden:false];
 		[driverTeamLabel setHidden:false];
 		[seeLapsButton setHidden:false];
+		[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
 				
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
@@ -488,6 +520,7 @@
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
 		[seeLapsButton setAlpha:1.0];
+		[telemetryButton setAlpha:1.0];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(showDriverInfoAnimationDidStop:finished:context:)];
 		[UIView commitAnimations];
@@ -510,6 +543,7 @@
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
 		[seeLapsButton setAlpha:1.0];
+		[telemetryButton setAlpha:1.0];
 	}
 }
 
@@ -538,6 +572,7 @@
 		[driverSurnameLabel setAlpha:0.0];
 		[driverTeamLabel setAlpha:0.0];
 		[seeLapsButton setAlpha:0.0];
+		[telemetryButton setAlpha:0.0];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(hideDriverInfoAnimationDidStop:finished:context:)];
 		[UIView commitAnimations];
@@ -554,6 +589,7 @@
 		[driverSurnameLabel setHidden:true];
 		[driverTeamLabel setHidden:true];
 		[seeLapsButton setHidden:true];
+		[telemetryButton setHidden:true];
 	}
 }
 
@@ -588,6 +624,7 @@
 		[driverSurnameLabel setHidden:true];
 		[driverTeamLabel setHidden:true];
 		[seeLapsButton setHidden:true];
+		[telemetryButton setHidden:true];
 		
 		[pitBoardContainer setAlpha:1.0];
 		[trackMapContainer setAlpha:1.0];
@@ -597,6 +634,7 @@
 		[driverSurnameLabel setAlpha:1.0];
 		[driverTeamLabel setAlpha:1.0];
 		[seeLapsButton setAlpha:1.0];
+		[telemetryButton setAlpha:1.0];
 		
 		// Set the driver info interest to nobody
 		[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:nil];
@@ -639,7 +677,13 @@
 			[[RacePadCoordinator Instance] SetViewDisplayed:self];
 
 			if(!oldCar)
+			{
 				[self showDriverInfo:true];
+			}
+			else
+			{
+				[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
+			}
 
 			[[[RacePadDatabase Instance] commentary] setCommentaryFor:name];
 						
@@ -745,8 +789,8 @@
 		[driver_lap_list_controller_ SetDriver:driver];
 		
 		// Set the style for its presentation
-		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		[driver_lap_list_controller_ setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[driver_lap_list_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
 		[self presentModalViewController:driver_lap_list_controller_ animated:true];
@@ -767,6 +811,40 @@
 	}
 }
 
+
+- (IBAction) telemetryPressed:(id)sender
+{
+	NSString * car = [trackMapView carToFollow];
+	
+	if(car && [car length] > 0)
+
+	if(telemetry_controller_)
+	{
+		// Set the driver we want displayed
+		[telemetry_controller_ chooseCar:[[RacePadCoordinator Instance]nameToFollow]];
+		
+		// Set the style for its presentation
+		[telemetry_controller_ setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[telemetry_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		// And present it
+		[self presentModalViewController:telemetry_controller_ animated:true];
+		telemetry_controller_displayed_ = true;
+	}
+}
+
+- (void)HideTelemetryAnimated:(bool)animated
+{
+	if(telemetry_controller_displayed_)
+	{
+		// Set the style for its animation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		
+		// And dismiss it
+		[self dismissModalViewControllerAnimated:animated];
+		telemetry_controller_displayed_ = false;
+	}
+}
 
 @end
 

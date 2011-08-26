@@ -24,6 +24,7 @@
 	IBOutlet UIButton * trackStateButton;
 	IBOutlet UIBarButtonItem * playStateBarItem;
 	IBOutlet UIButton * playStateButton;
+	IBOutlet UIBarButtonItem * commentaryButton;
 
 	NSArray * allItems;
 
@@ -32,6 +33,7 @@
 @property (readonly) UIToolbar * toolbar;
 @property (readonly) UIButton * sponsorButton;
 @property (readonly) UIBarButtonItem * alertButton;
+@property (readonly) UIBarButtonItem * commentaryButton;
 @property (readonly) UIBarButtonItem * helpBarButton;
 @property (readonly) UIButton * helpButton;
 @property (readonly) UIButton * clock;

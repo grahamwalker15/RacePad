@@ -18,6 +18,8 @@ static BasePadTimeController * instance_ = nil;
 
 @synthesize timeNow;
 @synthesize displayed;
+@synthesize timeController;
+
 
 +(BasePadTimeController *)Instance
 {

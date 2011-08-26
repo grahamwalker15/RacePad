@@ -23,6 +23,7 @@ enum BPViewTypes
 {
 	BPC_VIDEO_VIEW_ = 0x1,
 	BPC_SETTINGS_VIEW_ = 0x2,
+	BPC_COMMENTARY_VIEW_ = 0x4,
 } ;
 
 // Connection types

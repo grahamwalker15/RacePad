@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">141</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="88"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -271,7 +271,7 @@
 					<object class="IBUIButton" id="82916434">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{180, 472}, {120, 37}}</string>
+						<string key="NSFrame">{{180, 448}, {120, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -290,7 +290,7 @@
 					<object class="IBUIPickerView" id="753568176">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">294</int>
-						<string key="NSFrame">{{180, 248}, {209, 216}}</string>
+						<string key="NSFrame">{{180, 224}, {209, 216}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIShowsSelectionIndicator">YES</bool>
@@ -298,7 +298,7 @@
 					<object class="IBUISwitch" id="152710582">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{237, 539}, {94, 27}}</string>
+						<string key="NSFrame">{{285, 504}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -309,18 +309,49 @@
 					<object class="IBUILabel" id="739619996">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{180, 542}, {49, 21}}</string>
+						<string key="NSFrame">{{174, 507}, {103, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-						<string key="IBUIText">Video:</string>
+						<string key="IBUIText">Video</string>
 						<reference key="IBUITextColor" ref="284419355"/>
 						<reference key="IBUIHighlightedColor" ref="698153580"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUITextAlignment">2</int>
+					</object>
+					<object class="IBUISwitch" id="175184848">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{285, 547}, {94, 27}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<bool key="IBUIOn">YES</bool>
+					</object>
+					<object class="IBUILabel" id="751946904">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{174, 539}, {103, 43}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<string key="IBUIText">Popup Commentary</string>
+						<reference key="IBUITextColor" ref="284419355"/>
+						<reference key="IBUIHighlightedColor" ref="698153580"/>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUINumberOfLines">2</int>
+						<int key="IBUITextAlignment">2</int>
+						<int key="IBUILineBreakMode">0</int>
 					</object>
 					<object class="IBUIActivityIndicatorView" id="238584266">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -575,6 +606,23 @@
 					</object>
 					<int key="connectionID">90</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">supportBubble</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="175184848"/>
+					</object>
+					<int key="connectionID">94</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">supportBubbleChanged:</string>
+						<reference key="source" ref="175184848"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">95</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -599,7 +647,6 @@
 							<reference ref="983843249"/>
 							<reference ref="548553291"/>
 							<reference ref="837677455"/>
-							<reference ref="152710582"/>
 							<reference ref="739619996"/>
 							<reference ref="570787687"/>
 							<reference ref="330980058"/>
@@ -607,6 +654,9 @@
 							<reference ref="1045783703"/>
 							<reference ref="238584266"/>
 							<reference ref="502249091"/>
+							<reference ref="751946904"/>
+							<reference ref="152710582"/>
+							<reference ref="175184848"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -715,6 +765,16 @@
 						<reference key="object" ref="502249091"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">91</int>
+						<reference key="object" ref="175184848"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">92</int>
+						<reference key="object" ref="751946904"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -759,12 +819,16 @@
 					<string>87.IBPluginDependency</string>
 					<string>87.IBViewBoundsToFrameTransform</string>
 					<string>88.IBPluginDependency</string>
+					<string>91.IBPluginDependency</string>
+					<string>91.IBViewBoundsToFrameTransform</string>
+					<string>92.IBPluginDependency</string>
+					<string>92.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>SettingsViewController</string>
 					<string>UIResponder</string>
-					<string>{{357, 78}, {783, 778}}</string>
+					<string>{{357, 64}, {783, 792}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -805,11 +869,11 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDbQAAw++AAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABDrYAAxARAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDNAAAw+4AAA</bytes>
+						<bytes key="NSTransformStruct">AUM0AABD/YAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -832,6 +896,14 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABEGMAAwr4AAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDrYAAxAxAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDUQAAxAdAAA</bytes>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -850,22 +922,22 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">90</int>
+			<int key="maxID">95</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">RacePadViewController</string>
+					<string key="className">BasePadViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UISupport/RacePadViewController.h</string>
+						<string key="minorKey">Classes/UISupport/BasePadViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">SettingsViewController</string>
-					<string key="superclassName">RacePadViewController</string>
+					<string key="superclassName">BasePadViewController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -875,12 +947,14 @@
 							<string>exitPressed:</string>
 							<string>loadPressed:</string>
 							<string>restartPressed:</string>
+							<string>supportBubbleChanged:</string>
 							<string>supportVideoChanged:</string>
 							<string>videoConnectPressed:</string>
 							<string>videoIPAddressChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -900,6 +974,7 @@
 							<string>exitPressed:</string>
 							<string>loadPressed:</string>
 							<string>restartPressed:</string>
+							<string>supportBubbleChanged:</string>
 							<string>supportVideoChanged:</string>
 							<string>videoConnectPressed:</string>
 							<string>videoIPAddressChanged:</string>
@@ -924,6 +999,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">restartPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">supportBubbleChanged:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -952,6 +1031,7 @@
 							<string>restart</string>
 							<string>serverTwirl</string>
 							<string>status</string>
+							<string>supportBubble</string>
 							<string>supportVideo</string>
 							<string>videoServerTwirl</string>
 							<string>video_connect</string>
@@ -968,6 +1048,7 @@
 							<string>UIButton</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UILabel</string>
+							<string>UISwitch</string>
 							<string>UISwitch</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
@@ -987,6 +1068,7 @@
 							<string>restart</string>
 							<string>serverTwirl</string>
 							<string>status</string>
+							<string>supportBubble</string>
 							<string>supportVideo</string>
 							<string>videoServerTwirl</string>
 							<string>video_connect</string>
@@ -1026,6 +1108,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">status</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">supportBubble</string>
+								<string key="candidateClassName">UISwitch</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">supportVideo</string>

@@ -19,6 +19,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 #import "TrackMap.h"
+#import "CommentaryBubble.h"
 
 @implementation TrackMapViewController
 
@@ -91,7 +92,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Grab the title bar
-	[[RacePadTitleBarController Instance] displayInViewController:self];
+	[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary: true];
 	
 	// Register the views
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
@@ -120,6 +121,8 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+
+	[[CommentaryBubble Instance] allowBubbles:[self view]];
 
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -286,6 +289,8 @@
 				[[RacePadCoordinator Instance] setNameToFollow:nil];
 				[self hideZoomMap];
 				[leaderboardView RequestRedraw];
+				[[[RacePadDatabase Instance] commentary] setCommentaryFor:nil];
+				[[RacePadCoordinator Instance] restartCommentary];
 			}
 			else
 			{
@@ -298,6 +303,8 @@
 				[trackZoomView setUserScale:10.0];
 				[trackZoomView RequestRedraw];
 				[leaderboardView RequestRedraw];
+				[[[RacePadDatabase Instance] commentary] setCommentaryFor:name];
+				[[RacePadCoordinator Instance] restartCommentary];
 			}
 			
 			return;

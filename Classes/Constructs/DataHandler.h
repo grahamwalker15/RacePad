@@ -14,6 +14,7 @@
 @interface DataHandler : NSObject
 {
 	DataStream *stream;
+	int versionNumber;
 }
 
 

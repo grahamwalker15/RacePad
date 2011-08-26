@@ -30,6 +30,7 @@
 
 @property(nonatomic) bool displayed;
 @property(nonatomic, readonly) float timeNow;
+@property (readonly, retain) TimeViewController *timeController;
 
 +(BasePadTimeController *)Instance;
 

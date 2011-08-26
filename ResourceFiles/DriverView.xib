@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">141</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="30"/>
+			<integer value="12"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -194,7 +194,7 @@
 							<object class="IBUIButton" id="831492957">
 								<reference key="NSNextResponder" ref="1044748747"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{323, 226}, {134, 54}}</string>
+								<string key="NSFrame">{{298, 226}, {114, 54}}</string>
 								<reference key="NSSuperview" ref="1044748747"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -202,7 +202,7 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<reference key="IBUIFont" ref="523974818"/>
 								<int key="IBUIButtonType">1</int>
-								<string key="IBUINormalTitle">SEE LAP TIMES</string>
+								<string key="IBUINormalTitle">LAP TIMES</string>
 								<reference key="IBUIHighlightedTitleColor" ref="776394781"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -358,7 +358,6 @@
 								<reference key="NSSuperview" ref="1044748747"/>
 								<reference key="IBUIBackgroundColor" ref="854673127"/>
 								<bool key="IBUIOpaque">NO</bool>
-								<float key="IBUIAlpha">0.4154929518699646</float>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<object class="IBUIScrollView" id="708853410">
@@ -418,6 +417,28 @@
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							</object>
+							<object class="IBUIButton" id="968911388">
+								<reference key="NSNextResponder" ref="1044748747"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{420, 226}, {60, 53}}</string>
+								<reference key="NSSuperview" ref="1044748747"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIFont" ref="523974818"/>
+								<int key="IBUIButtonType">1</int>
+								<reference key="IBUIHighlightedTitleColor" ref="776394781"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="651465744"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">wheel_icon.png</string>
+								</object>
 							</object>
 						</object>
 						<string key="NSFrame">{{0, 44}, {768, 960}}</string>
@@ -675,6 +696,23 @@
 					</object>
 					<int key="connectionID">77</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">telemetryButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="968911388"/>
+					</object>
+					<int key="connectionID">79</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">telemetryPressed:</string>
+						<reference key="source" ref="968911388"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">80</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -723,6 +761,7 @@
 							<reference ref="526665693"/>
 							<reference ref="13173612"/>
 							<reference ref="831492957"/>
+							<reference ref="968911388"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -857,6 +896,11 @@
 						<reference key="object" ref="831492957"/>
 						<reference key="parent" ref="1044748747"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">78</int>
+						<reference key="object" ref="968911388"/>
+						<reference key="parent" ref="1044748747"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -918,6 +962,9 @@
 					<string>75.CustomClassName</string>
 					<string>75.IBPluginDependency</string>
 					<string>75.IBViewBoundsToFrameTransform</string>
+					<string>78.CustomClassName</string>
+					<string>78.IBPluginDependency</string>
+					<string>78.IBViewBoundsToFrameTransform</string>
 					<string>8.CustomClassName</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
@@ -936,7 +983,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUOEAABC8AAAA</bytes>
 					</object>
-					<string>{{421, 52}, {783, 778}}</string>
+					<string>{{421, 64}, {783, 792}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1017,6 +1064,11 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUG4AABC+gAAA</bytes>
 					</object>
+					<string>ShinyButton</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABD1gAAw3UAAA</bytes>
+					</object>
 					<string>TrackMapView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1040,7 +1092,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">77</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1054,8 +1106,16 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">BasePadViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UISupport/BasePadViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">CarViewController</string>
-					<string key="superclassName">RacePadViewController</string>
+					<string key="superclassName">BasePadViewController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">trackMapSizeChanged</string>
 						<string key="NS.object.0">id</string>
@@ -1153,7 +1213,7 @@
 					<string key="superclassName">UIScrollView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UIViews/DrawingView.h</string>
+						<string key="minorKey">Classes/BaseUIViews/DrawingView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1165,9 +1225,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>allButtonPressed:</string>
 							<string>seeLapsPressed:</string>
+							<string>telemetryPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -1178,6 +1240,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>allButtonPressed:</string>
 							<string>seeLapsPressed:</string>
+							<string>telemetryPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1187,6 +1250,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">seeLapsPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">telemetryPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -1211,6 +1278,7 @@
 							<string>pitBoardImage</string>
 							<string>positionLabel</string>
 							<string>seeLapsButton</string>
+							<string>telemetryButton</string>
 							<string>timingView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1230,6 +1298,7 @@
 							<string>UIView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
+							<string>ShinyButton</string>
 							<string>ShinyButton</string>
 							<string>DriverViewControllerTimingView</string>
 						</object>
@@ -1254,6 +1323,7 @@
 							<string>pitBoardImage</string>
 							<string>positionLabel</string>
 							<string>seeLapsButton</string>
+							<string>telemetryButton</string>
 							<string>timingView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1323,6 +1393,10 @@
 								<string key="candidateClassName">ShinyButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">telemetryButton</string>
+								<string key="candidateClassName">ShinyButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">timingView</string>
 								<string key="candidateClassName">DriverViewControllerTimingView</string>
 							</object>
@@ -1358,14 +1432,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">RacePadViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UISupport/RacePadViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">ShinyButton</string>
 					<string key="superclassName">ColouredButton</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1378,7 +1444,7 @@
 					<string key="superclassName">DrawingView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UIViews/SimpleListView.h</string>
+						<string key="minorKey">Classes/BaseUIViews/SimpleListView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1397,7 +1463,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UIViews/TableDataView.h</string>
+						<string key="minorKey">Classes/BaseUIViews/TableDataView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1674,6 +1740,7 @@
 				<string>NoHelmet.png</string>
 				<string>NoPhoto.png</string>
 				<string>PitBoard.png</string>
+				<string>wheel_icon.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1682,6 +1749,7 @@
 				<string>{60, 60}</string>
 				<string>{120, 160}</string>
 				<string>{180, 200}</string>
+				<string>{24, 24}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">141</string>
