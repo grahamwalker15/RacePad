@@ -41,6 +41,7 @@
 static UIFont * title_font_ = nil;
 static UIFont * big_font_ = nil;
 static UIFont * control_font_ = nil;
+static UIFont * larger_control_font_ = nil;
 static UIFont * bold_font_ = nil;
 static UIFont * medium_bold_font_ = nil;
 static UIFont * regular_font_ = nil;
@@ -198,6 +199,7 @@ static bool statics_initialised_ = false;
 		title_font_ = [UIFont boldSystemFontOfSize:36.0];
 		big_font_ = [UIFont boldSystemFontOfSize:32.0];
 		control_font_ = [UIFont boldSystemFontOfSize:12.0];
+		larger_control_font_ = [UIFont boldSystemFontOfSize:13.0];
 		bold_font_ = [UIFont boldSystemFontOfSize:20.0];
 		medium_bold_font_ = [UIFont boldSystemFontOfSize:16.0];
 		regular_font_ = [UIFont boldSystemFontOfSize:20.0];
@@ -890,6 +892,11 @@ static bool statics_initialised_ = false;
 - (void)UseControlFont
 {
 	current_font_ = control_font_;
+}
+
+- (void)UseLargerControlFont
+{
+	current_font_ = larger_control_font_;
 }
 
 - (void)UseBoldFont

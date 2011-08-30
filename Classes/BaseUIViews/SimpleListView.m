@@ -238,7 +238,16 @@
 - (void) RequestScrollToEnd
 {
 	CGRect bounds = [self bounds];
-	float yOffset = floorf([self RowHeight] * [self RowCount] - bounds.size.height);
+
+	int row_count = [self RowCount];
+	int row_height = [self RowHeight];
+	
+	float table_height = row_count * row_height;
+	float table_width = [self TableWidth];
+	
+	[self SetContentWidth:table_width AndHeight:table_height];
+	
+	float yOffset = floorf(table_height - bounds.size.height);
 	
 	if(yOffset < 0)
 	{

@@ -100,16 +100,16 @@ static int fadeOffAfter = 7;
 	if(!commentaryController.shown && bubbleView)
 	{
 		float timeNow = [[BasePadCoordinator Instance] playTime];
+		int rowCount, firstRow;
+		
+		if ( [[BasePadCoordinator Instance] helpMasterPlaying] )
+			commentaryController.commentaryView.timeWindow = timeNow - showLastNSecs;
+		else
+			commentaryController.commentaryView.timeWindow = 0;
+		[commentaryController.commentaryView countRows:&rowCount FirstRow:&firstRow];
 		if ( ( timeNow < commentaryController.commentaryView.firstDisplayedTime && commentaryController.commentaryView.firstMessageTime < commentaryController.commentaryView.firstDisplayedTime )
-			|| ( timeNow > commentaryController.commentaryView.lastDisplayedTime && commentaryController.commentaryView.latestMessageTime > commentaryController.commentaryView.lastDisplayedTime ) )
+		  || ( timeNow > commentaryController.commentaryView.lastDisplayedTime && commentaryController.commentaryView.latestMessageTime > commentaryController.commentaryView.lastDisplayedTime ) )
 		{
-			int rowCount, firstRow;
-			
-			if ( [[BasePadCoordinator Instance] helpMasterPlaying] )
-				commentaryController.commentaryView.timeWindow = showLastNSecs;
-			else
-				commentaryController.commentaryView.timeWindow = 0;
-			[commentaryController.commentaryView countRows:&rowCount FirstRow:&firstRow];
 			if ( rowCount > 0 )
 			{
 				[self showNow];
@@ -149,13 +149,17 @@ static int fadeOffAfter = 7;
 	{
 		double last_update = commentaryController.commentaryView.lastUpdateTime;
 		double time_now = [ElapsedTime TimeOfDay];
-		if ( time_now - last_update >= fadeOffAfter )
+		int showFor = fadeOffAfter;
+		if ( commentaryController.commentaryView.timeWindow > 0
+		  && commentaryController.commentaryView.lastRowCount > 5 )
+			showFor = (int) (showFor * 1.5 + 0.5);
+		if ( time_now - last_update >= showFor )
 		{
 			[commentaryController popDown:true];
 			popdownTimer = nil;
 		}
 		else
-			popdownTimer = [NSTimer scheduledTimerWithTimeInterval:last_update + fadeOffAfter - time_now target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
+			popdownTimer = [NSTimer scheduledTimerWithTimeInterval:last_update + showFor - time_now target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
 	}
 }
 

@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -45,7 +45,7 @@
 					<object class="IBUIScrollView" id="923030405">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">282</int>
-						<string key="NSFrame">{{7, 6}, {387, 67}}</string>
+						<string key="NSFrame">{{7, 6}, {437, 67}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="114149989">
 							<int key="NSColorSpace">3</int>
@@ -59,7 +59,7 @@
 					<object class="IBUIButton" id="614771829">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{384, 0}, {17, 17}}</string>
+						<string key="NSFrame">{{427, 0}, {17, 17}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<reference key="IBUIBackgroundColor" ref="114149989"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -92,7 +92,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{400, 79}</string>
+				<string key="NSFrameSize">{452, 77}</string>
 				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="114149989"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -212,7 +212,7 @@
 						<bytes key="NSTransformStruct">AUOuAAAAAAAAA</bytes>
 					</object>
 					<string>BackgroundView</string>
-					<string>{{553, 192}, {400, 79}}</string>
+					<string>{{553, 194}, {452, 77}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>

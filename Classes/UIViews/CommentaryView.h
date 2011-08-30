@@ -24,6 +24,7 @@
 	float firstDisplayedTime;
 	float lastDisplayedTime;
 	int currentRow;
+	bool updating;
 	
 }
 
@@ -35,7 +36,10 @@
 @property float firstMessageTime;
 @property float firstDisplayedTime;
 @property float lastDisplayedTime;
+@property int lastRowCount;
+@property bool updating;
 
+- (void) initalDraw;
 -(void) drawIfChanged;
 -(void) countRows:(int *)count FirstRow:(int *)fRow;
 

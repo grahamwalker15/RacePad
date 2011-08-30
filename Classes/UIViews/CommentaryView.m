@@ -25,6 +25,8 @@
 @synthesize firstMessageTime;
 @synthesize firstDisplayedTime;
 @synthesize lastDisplayedTime;
+@synthesize lastRowCount;
+@synthesize updating;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
@@ -38,6 +40,7 @@
 		smallFont = false;
 		minPriority = 0;
 		lastUpdateTime = 0;
+		updating = true;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
 	}
 	
@@ -56,6 +59,7 @@
 		smallFont = false;
 		minPriority = 0;
 		lastUpdateTime = 0;
+		updating = true;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
    }
     return self;
@@ -68,17 +72,34 @@
 
 - (void) drawIfChanged
 {
-	int rowCount, fRow;
-	[self countRows: &rowCount FirstRow: &fRow];
-	
-	CGRect bounds = [self bounds];
-	
-	int height = bounds.size.height;
-	if ( ( rowCount != lastRowCount
-		  || height != lastHeight
-		  || fRow != firstRow )
-		&& rowCount > 0 )
+	if ( updating )
 	{
+		int rowCount, fRow;
+		[self countRows: &rowCount FirstRow: &fRow];
+		
+		CGRect bounds = [self bounds];
+		
+		int height = bounds.size.height;
+		if ( ( rowCount != lastRowCount
+			  || height != lastHeight
+			  || fRow != firstRow )
+			&& rowCount > 0 )
+		{
+			[self RequestScrollToEnd];
+			lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
+			[self RequestRedraw];
+		}
+	}
+}
+
+- (void) initalDraw
+{
+	if ( updating )
+	{
+		int rowCount, fRow;
+		[self countRows: &rowCount FirstRow: &fRow];
+		
+		[self RequestScrollToEnd];
 		lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 		[self RequestRedraw];
 	}
@@ -86,26 +107,22 @@
 
 - (void) Draw:(CGRect)region
 {
-	int rowCount, fRow;
-	[self countRows: &rowCount FirstRow: &fRow];
-	
-	CGRect bounds = [self bounds];
-	
-	int height = bounds.size.height;
-	if ( ( rowCount != lastRowCount
-		|| height != lastHeight
-		|| fRow != firstRow )
-	  && rowCount > 0 )
-		[self RequestScrollToEnd];
-	
-	lastRowCount = rowCount;
-	lastHeight = height;
-	firstRow = fRow;
-	
-	firstDisplayedTime = firstMessageTime;
-	lastDisplayedTime = latestMessageTime;
+	if ( updating )
+	{
+		int rowCount, fRow;
+		[self countRows: &rowCount FirstRow: &fRow];
+		
+		CGRect bounds = [self bounds];
+		
+		lastRowCount = rowCount;
+		lastHeight = bounds.size.height;
+		firstRow = fRow;
+		
+		firstDisplayedTime = firstMessageTime;
+		lastDisplayedTime = latestMessageTime;
 
-	[super Draw:region];	
+		[super Draw:region];
+	}
 }
 
 - (void) resetTimings
@@ -139,8 +156,7 @@
 		AlertDataItem *item = [data itemAtIndex:i];
 		float itemTime = [item timeStamp];
 		
-		if ( timeWindow <= 0
-		  || itemTime >= timeNow - timeWindow )
+		if ( itemTime >= timeWindow )
 		{
 			if ( itemTime <= timeNow
 			  && item.confidence >= minPriority )
@@ -186,9 +202,9 @@
 			case 0:
 				return 20;
 			case 1:
-				return 30;
+				return 38;
 			case 2:
-				return (bounds.size.width - 50);
+				return (bounds.size.width - 58);
 			default:
 				return 0;
 		}
@@ -222,7 +238,7 @@
 	[super SetDefaultFormatting:if_heading];
 	if ( smallFont )
 	{
-		[self UseControlFont];
+		[self UseLargerControlFont];
 	}
 }
 
@@ -255,8 +271,7 @@
 		AlertDataItem *item = [data itemAtIndex:i];
 		float itemTime = [item timeStamp];
 		
-		if ( timeWindow <= 0
-			|| itemTime >= timeNow - timeWindow )
+		if ( itemTime >= timeWindow )
 		{
 			if ( itemTime <= timeNow
 			  && item.confidence >= minPriority )

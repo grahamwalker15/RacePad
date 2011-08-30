@@ -24,6 +24,7 @@
 	
 	[commentaryView SetHeading:false];
 	commentaryView.smallFont = true;
+	commentaryView.updating = false;
 	[commentaryView SetBackgroundAlpha:0];
 	
 	shown = false;
@@ -74,7 +75,8 @@
 - (void) popUp
 {
 	shown = true;
-	[commentaryView drawIfChanged];
+	commentaryView.updating = true;
+	[commentaryView initalDraw];
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.3];
 	[[self view] setAlpha: 1];
@@ -85,13 +87,17 @@
 {
 	if ( shown && animate )
 	{
+		commentaryView.updating = false;
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.3];
 		[[self view] setAlpha: 0];
 		[UIView commitAnimations];
 	}
 	else
+	{
+		commentaryView.updating = false;
 		[[self view] setAlpha: 0];
+	}
 	shown = false;
 }
 

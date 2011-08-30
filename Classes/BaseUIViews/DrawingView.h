@@ -205,6 +205,7 @@
 - (void)UseTitleFont;
 - (void)UseBigFont;
 - (void)UseControlFont;
+- (void)UseLargerControlFont;
 - (void)UseBoldFont;
 - (void)UseMediumBoldFont;
 - (void)UseRegularFont;
