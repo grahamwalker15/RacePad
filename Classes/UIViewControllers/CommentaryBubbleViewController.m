@@ -26,6 +26,7 @@
 	commentaryView.smallFont = true;
 	commentaryView.updating = false;
 	[commentaryView SetBackgroundAlpha:0];
+	commentaryView.bubbleController = self;
 	
 	shown = false;
 	[(BackgroundView *)[self view] setStyle:BG_STYLE_ROUNDED_STRAP_];
@@ -70,6 +71,29 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (void) sizeCommentary: (int) rowCount FromHeight: (int) fromHeight
+{
+	if ( rowCount <= 0 )
+		return;
+	
+	if ( rowCount > 5 )
+		rowCount = 5;
+	
+	int height = rowCount * [commentaryView RowHeight];
+	if ( height < fromHeight )
+		return;
+	
+	CGRect frame = [[self view] frame];
+	CGRect bFrame = [closeButton frame];
+	CGRect vFrame = CGRectMake ( frame.origin.x, frame.origin.y, frame.size.width, height + 8 );
+	CGRect cFrame = CGRectMake ( 4, 4, frame.size.width - 8, height );
+	CGRect nbFrame = CGRectMake ( vFrame.size.width - bFrame.size.width, 0, bFrame.size.width, bFrame.size.height );
+
+	[[self view] setFrame:vFrame];
+	[commentaryView setFrame:cFrame];
+	[closeButton setFrame:nbFrame];
 }
 
 - (void) popUp

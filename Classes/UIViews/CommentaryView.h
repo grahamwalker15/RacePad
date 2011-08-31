@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SimpleListView.h"
 
+@class CommentaryBubbleViewController;
+
 @interface CommentaryView : SimpleListView
 {
 	int lastRowCount;
@@ -26,6 +28,7 @@
 	int currentRow;
 	bool updating;
 	
+	CommentaryBubbleViewController *bubbleController;
 }
 
 @property float timeWindow;
@@ -38,6 +41,7 @@
 @property float lastDisplayedTime;
 @property int lastRowCount;
 @property bool updating;
+@property (nonatomic, retain) CommentaryBubbleViewController *bubbleController;
 
 - (void) initalDraw;
 -(void) drawIfChanged;

@@ -19,8 +19,8 @@
 
 static CommentaryBubble * instance_ = nil;
 
-static int showLastNSecs = 10;
-static int fadeOffAfter = 7;
+static int showLastNSecs = 8;
+static int fadeOffAfter = 8;
 
 +(CommentaryBubble *)Instance
 {

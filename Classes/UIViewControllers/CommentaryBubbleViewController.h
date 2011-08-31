@@ -26,6 +26,8 @@
 - (void) popUp;
 - (void) popDown: (bool) animate;
 
+- (void) sizeCommentary: (int) rowCount FromHeight: (int) fromHeight;
+
 - (IBAction) closePressed:(id)sender;
 
 @end

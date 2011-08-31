@@ -14,6 +14,7 @@
 #import "TableData.h"
 #import "CommentaryData.h"
 #import "ElapsedTime.h"
+#import "CommentaryBubbleViewController.h"
 
 @implementation CommentaryView
 
@@ -27,6 +28,7 @@
 @synthesize lastDisplayedTime;
 @synthesize lastRowCount;
 @synthesize updating;
+@synthesize bubbleController;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
@@ -67,6 +69,7 @@
 
 - (void)dealloc
 {
+	[bubbleController release];
     [super dealloc];
 }
 
@@ -85,6 +88,8 @@
 			  || fRow != firstRow )
 			&& rowCount > 0 )
 		{
+			if ( bubbleController )
+				[bubbleController sizeCommentary: rowCount FromHeight:height];
 			[self RequestScrollToEnd];
 			lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 			[self RequestRedraw];
@@ -99,6 +104,8 @@
 		int rowCount, fRow;
 		[self countRows: &rowCount FirstRow: &fRow];
 		
+		if ( bubbleController )
+			[bubbleController sizeCommentary: rowCount FromHeight:0];
 		[self RequestScrollToEnd];
 		lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 		[self RequestRedraw];
