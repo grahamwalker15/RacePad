@@ -131,10 +131,10 @@
 	teamName1 = [[stream PopString] retain];
 	
 	
-	totalLapCount = [stream PopInt];
 	completedLapCount = [stream PopInt];
-	laps = [[NSMutableArray alloc] initWithCapacity:completedLapCount];
-	for ( int i = 0; i < completedLapCount; i++ )
+	totalLapCount = [stream PopInt];
+	laps = [[NSMutableArray alloc] initWithCapacity:totalLapCount + 1];
+	for ( int i = 0; i <= totalLapCount; i++ )
 	{
 		HeadToHeadLap *lap = [[HeadToHeadLap alloc] initWithStream: stream];
 		[laps addObject:lap];

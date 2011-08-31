@@ -257,7 +257,13 @@ static RacePadCoordinator * instance_ = nil;
 	else if(type == RPC_HEAD_TO_HEAD_VIEW_)
 	{
 		HeadToHead *h2h = [[RacePadDatabase Instance] headToHead];
-		NSString *subIndex = [NSString stringWithFormat:@"%s_%s",[[h2h driver0] UTF8String],[[h2h driver1] UTF8String]];
+		NSString *driver0 = h2h.driver0;
+		NSString *driver1 = h2h.driver1;
+		if ( !driver0 )
+			driver0 = @"";
+		if ( !driver1 )
+			driver1 = @"";
+		NSString *subIndex = [NSString stringWithFormat:@"%s_%s",[driver0 UTF8String],[driver1 UTF8String]];
 		[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile: @"head_to_head" AndSubIndex: subIndex];
 	}
 }
