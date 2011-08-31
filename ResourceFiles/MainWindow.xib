@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="7"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -63,19 +64,20 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUIViewController" key="IBUISelectedViewController" id="933789700">
-					<string key="IBUITitle">Follow Driver</string>
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="333858558">
-						<string key="IBUITitle">Follow Driver</string>
-						<object class="NSCustomResource" key="IBUIImage">
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="375350305">
+					<string key="IBUITitle">Head to Head</string>
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="626473067">
+						<string key="IBUITitle">Head To Head</string>
+						<object class="NSCustomResource" key="IBUIImage" id="237127096">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">NewsFeed.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIToolbarItems" ref="0"/>
 					<reference key="IBUIParentViewController" ref="395037606"/>
-					<string key="IBUINibName">DriverView</string>
+					<string key="IBUINibName">HeadToHeadView</string>
 					<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 						<int key="interfaceOrientation">1</int>
 					</object>
@@ -93,6 +95,7 @@
 								<string key="NSResourceName">home.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="395037606"/>
 						<string key="IBUINibName">HomeView</string>
@@ -111,6 +114,7 @@
 								<string key="NSResourceName">clock.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="395037606"/>
 						<string key="IBUINibName">DriverListView</string>
@@ -129,6 +133,7 @@
 								<string key="NSResourceName">track-icon.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="395037606"/>
 						<string key="IBUINibName">TrackMapView</string>
@@ -147,6 +152,7 @@
 								<string key="NSResourceName">monitor.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIToolbarItems" ref="0"/>
 						<reference key="IBUIParentViewController" ref="395037606"/>
@@ -157,7 +163,24 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
-					<reference ref="933789700"/>
+					<object class="IBUIViewController" id="933789700">
+						<string key="IBUITitle">Follow Driver</string>
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="333858558">
+							<string key="IBUITitle">Follow Driver</string>
+							<reference key="IBUIImage" ref="237127096"/>
+							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
+						</object>
+						<reference key="IBUIToolbarItems" ref="0"/>
+						<reference key="IBUIParentViewController" ref="395037606"/>
+						<string key="IBUINibName">DriverView</string>
+						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+							<int key="interfaceOrientation">1</int>
+						</object>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<bool key="IBUIHorizontal">NO</bool>
+					</object>
+					<reference ref="375350305"/>
 					<object class="IBUIViewController" id="179465433">
 						<string key="IBUITitle">Game</string>
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="711726989">
@@ -167,6 +190,7 @@
 								<string key="NSResourceName">trophy.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIToolbarItems" ref="0"/>
 						<reference key="IBUIParentViewController" ref="395037606"/>
@@ -186,6 +210,7 @@
 								<string key="NSResourceName">newspaper.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIToolbarItems" ref="0"/>
 						<reference key="IBUIParentViewController" ref="395037606"/>
@@ -205,6 +230,7 @@
 								<string key="NSResourceName">preferences.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIToolbarItems" ref="0"/>
 						<reference key="IBUIParentViewController" ref="395037606"/>
@@ -305,6 +331,7 @@
 							<reference ref="933789700"/>
 							<reference ref="80188321"/>
 							<reference ref="687392854"/>
+							<reference ref="375350305"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -426,6 +453,21 @@
 						<reference key="object" ref="674252410"/>
 						<reference key="parent" ref="687392854"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">35</int>
+						<reference key="object" ref="375350305"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="626473067"/>
+						</object>
+						<reference key="parent" ref="395037606"/>
+						<string key="objectName">Head To Head View Controller</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">36</int>
+						<reference key="object" ref="626473067"/>
+						<reference key="parent" ref="375350305"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -447,6 +489,7 @@
 					<string>33.CustomClassName</string>
 					<string>33.IBPluginDependency</string>
 					<string>34.IBPluginDependency</string>
+					<string>35.CustomClassName</string>
 					<string>4.CustomClassName</string>
 					<string>4.IBPluginDependency</string>
 					<string>7.IBEditorWindowLastContentRect</string>
@@ -473,6 +516,7 @@
 					<string>DriverListController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>HeadToHeadViewController</string>
 					<string>RacePadAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{387, 64}, {783, 792}}</string>
@@ -499,7 +543,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">34</int>
+			<int key="maxID">36</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -706,14 +750,35 @@
 					<string key="className">CompositeViewController</string>
 					<string key="superclassName">BasePadVideoViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">optionSwitchesHit:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>closeButtonHit:</string>
+							<string>optionSwitchesHit:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">optionSwitchesHit:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">optionSwitchesHit:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>closeButtonHit:</string>
+							<string>optionSwitchesHit:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">closeButtonHit:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">optionSwitchesHit:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -726,6 +791,7 @@
 							<string>optionSwitches</string>
 							<string>overlayView</string>
 							<string>trackMapView</string>
+							<string>trackZoomCloseButton</string>
 							<string>trackZoomContainer</string>
 							<string>trackZoomView</string>
 						</object>
@@ -737,6 +803,7 @@
 							<string>UISegmentedControl</string>
 							<string>UIView</string>
 							<string>TrackMapView</string>
+							<string>UIButton</string>
 							<string>BackgroundView</string>
 							<string>TrackMapView</string>
 						</object>
@@ -751,6 +818,7 @@
 							<string>optionSwitches</string>
 							<string>overlayView</string>
 							<string>trackMapView</string>
+							<string>trackZoomCloseButton</string>
 							<string>trackZoomContainer</string>
 							<string>trackZoomView</string>
 						</object>
@@ -779,6 +847,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">trackMapView</string>
 								<string key="candidateClassName">TrackMapView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">trackZoomCloseButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">trackZoomContainer</string>
@@ -1477,12 +1549,14 @@
 							<string>exitPressed:</string>
 							<string>loadPressed:</string>
 							<string>restartPressed:</string>
+							<string>supportBubbleChanged:</string>
 							<string>supportVideoChanged:</string>
 							<string>videoConnectPressed:</string>
 							<string>videoIPAddressChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1502,6 +1576,7 @@
 							<string>exitPressed:</string>
 							<string>loadPressed:</string>
 							<string>restartPressed:</string>
+							<string>supportBubbleChanged:</string>
 							<string>supportVideoChanged:</string>
 							<string>videoConnectPressed:</string>
 							<string>videoIPAddressChanged:</string>
@@ -1526,6 +1601,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">restartPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">supportBubbleChanged:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1554,6 +1633,7 @@
 							<string>restart</string>
 							<string>serverTwirl</string>
 							<string>status</string>
+							<string>supportBubble</string>
 							<string>supportVideo</string>
 							<string>videoServerTwirl</string>
 							<string>video_connect</string>
@@ -1570,6 +1650,7 @@
 							<string>UIButton</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UILabel</string>
+							<string>UISwitch</string>
 							<string>UISwitch</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
@@ -1589,6 +1670,7 @@
 							<string>restart</string>
 							<string>serverTwirl</string>
 							<string>status</string>
+							<string>supportBubble</string>
 							<string>supportVideo</string>
 							<string>videoServerTwirl</string>
 							<string>video_connect</string>
@@ -1628,6 +1710,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">status</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">supportBubble</string>
+								<string key="candidateClassName">UISwitch</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">supportVideo</string>

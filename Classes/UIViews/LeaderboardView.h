@@ -16,10 +16,13 @@
 {
 	id tableData;
 	TrackMapView * associatedTrackMapView;
+	
+	NSString *highlightCar; // Follow this car if there is no associatedTrackMap
 }
 
 @property (nonatomic, retain, setter=SetTableDataClass) id tableData;
 @property (nonatomic, retain) TrackMapView * associatedTrackMapView;
+@property (nonatomic, retain) NSString * highlightCar;
 
 - (int) RowHeight;
 - (int) RowCount;

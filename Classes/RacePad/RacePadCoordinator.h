@@ -35,7 +35,8 @@ enum ViewTypes
 	RPC_TELEMETRY_VIEW_ = 0x100,
 	RPC_LEADER_BOARD_VIEW_ = 0x200,
 	RPC_GAME_VIEW_ = 0x400,
-	RPC_DRIVER_GAP_INFO_VIEW_ = 0x800
+	RPC_DRIVER_GAP_INFO_VIEW_ = 0x800,
+	RPC_HEAD_TO_HEAD_VIEW_ = 0x1000,
 };
 
 @interface RacePadCoordinator : BasePadCoordinator

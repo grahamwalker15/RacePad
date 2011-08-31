@@ -66,6 +66,10 @@
 		4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */; };
 		4D91DF1812EDF122005B7FE7 /* DrivingWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */; };
 		4D91DFF612EF3E5D005B7FE7 /* DrivingWheelOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */; };
+		4D94B6D0140D215100EC2EE0 /* HeadToHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D94B6CF140D215100EC2EE0 /* HeadToHeadView.xib */; };
+		4D94B6D8140D241F00EC2EE0 /* HeadToHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D94B6D7140D241F00EC2EE0 /* HeadToHeadViewController.m */; };
+		4D94B6DE140D31E400EC2EE0 /* HeadToHead.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D94B6DD140D31E400EC2EE0 /* HeadToHead.m */; };
+		4D94B6F0140D36FC00EC2EE0 /* HeadToHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D94B6EF140D36FC00EC2EE0 /* HeadToHeadView.m */; };
 		4DA5FA5F13B33BFC0005F15A /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5813B33BFC0005F15A /* DrawingView.m */; };
 		4DA5FA6013B33BFC0005F15A /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5A13B33BFC0005F15A /* MovieView.m */; };
 		4DA5FA6113B33BFC0005F15A /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5C13B33BFC0005F15A /* SimpleListView.m */; };
@@ -452,6 +456,13 @@
 		4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DrivingView.xib; path = ResourceFiles/DrivingView.xib; sourceTree = "<group>"; };
 		4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DrivingWheel.png; path = Images/DrivingWheel.png; sourceTree = "<group>"; };
 		4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DrivingWheelOutline.png; path = Images/DrivingWheelOutline.png; sourceTree = "<group>"; };
+		4D94B6CF140D215100EC2EE0 /* HeadToHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HeadToHeadView.xib; path = ResourceFiles/HeadToHeadView.xib; sourceTree = "<group>"; };
+		4D94B6D6140D241F00EC2EE0 /* HeadToHeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadToHeadViewController.h; sourceTree = "<group>"; };
+		4D94B6D7140D241F00EC2EE0 /* HeadToHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadToHeadViewController.m; sourceTree = "<group>"; };
+		4D94B6DC140D31E400EC2EE0 /* HeadToHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadToHead.h; sourceTree = "<group>"; };
+		4D94B6DD140D31E400EC2EE0 /* HeadToHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadToHead.m; sourceTree = "<group>"; };
+		4D94B6EE140D36FC00EC2EE0 /* HeadToHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadToHeadView.h; sourceTree = "<group>"; };
+		4D94B6EF140D36FC00EC2EE0 /* HeadToHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadToHeadView.m; sourceTree = "<group>"; };
 		4DA5FA5713B33BFC0005F15A /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
 		4DA5FA5813B33BFC0005F15A /* DrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
 		4DA5FA5913B33BFC0005F15A /* MovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieView.h; sourceTree = "<group>"; };
@@ -955,6 +966,8 @@
 				7F9543EF130097AB00DC7FB6 /* DriverInfo.m */,
 				4DE8989512ACFA79000FEE9C /* DriverNames.h */,
 				4DE8989612ACFA79000FEE9C /* DriverNames.m */,
+				4D94B6DC140D31E400EC2EE0 /* HeadToHead.h */,
+				4D94B6DD140D31E400EC2EE0 /* HeadToHead.m */,
 				4D782600128989B100BE0329 /* PitWindow.h */,
 				4D782601128989B100BE0329 /* PitWindow.m */,
 				7F3276F1126379B000BD1627 /* RacePadDatabase.h */,
@@ -1066,6 +1079,8 @@
 				4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */,
 				4D344E2A12B144E300B15298 /* GameViewController.h */,
 				4D344E2B12B144E300B15298 /* GameViewController.m */,
+				4D94B6D6140D241F00EC2EE0 /* HeadToHeadViewController.h */,
+				4D94B6D7140D241F00EC2EE0 /* HeadToHeadViewController.m */,
 				7F8373B513781FE000B4B3C1 /* HomeViewController.h */,
 				7F8373B613781FE000B4B3C1 /* HomeViewController.m */,
 				7F9C684E12671CD200F2FFEC /* HTMLViewController.h */,
@@ -1113,6 +1128,8 @@
 				7F86601E128ABEB900F13CB6 /* AlertView.m */,
 				7F8F905512E611CB00EA04A6 /* CommentaryView.h */,
 				7F8F905612E611CB00EA04A6 /* CommentaryView.m */,
+				4D94B6EE140D36FC00EC2EE0 /* HeadToHeadView.h */,
+				4D94B6EF140D36FC00EC2EE0 /* HeadToHeadView.m */,
 				7F86658E128C51DA00F13CB6 /* LeaderboardView.h */,
 				7F86658F128C51DA00F13CB6 /* LeaderboardView.m */,
 				4D1563F112898CD0000E959D /* PitWindowView.h */,
@@ -1218,6 +1235,7 @@
 				4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */,
 				7F9354CF12F6F1C300AB1D07 /* GameHelp.xib */,
 				4D344E2F12B144FB00B15298 /* GameView.xib */,
+				4D94B6CF140D215100EC2EE0 /* HeadToHeadView.xib */,
 				7FCD5CE713782A8100A82DA7 /* HomeView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
 				7F610CF31301D470004DC056 /* InfoDrivers.xib */,
@@ -1673,6 +1691,7 @@
 				7F9FA92413A26F9D008292CE /* ReplayIndicator.png in Resources */,
 				4D56AF6214052EF300DFA0BF /* CommentaryBubbleView.xib in Resources */,
 				4D2B79091406B7F7007950AA /* Commentary.png in Resources */,
+				4D94B6D0140D215100EC2EE0 /* HeadToHeadView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1780,6 +1799,9 @@
 				4DA5FA6213B33BFC0005F15A /* TableDataView.m in Sources */,
 				4D56AF5914052EB900DFA0BF /* CommentaryBubble.m in Sources */,
 				4D56AF5E14052ED600DFA0BF /* CommentaryBubbleViewController.m in Sources */,
+				4D94B6D8140D241F00EC2EE0 /* HeadToHeadViewController.m in Sources */,
+				4D94B6DE140D31E400EC2EE0 /* HeadToHead.m in Sources */,
+				4D94B6F0140D36FC00EC2EE0 /* HeadToHeadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

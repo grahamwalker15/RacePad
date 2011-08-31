@@ -139,6 +139,66 @@
 	free (buf);
 }
 
+- (void)RequestHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1
+{
+	NSString * sentDriver0;
+	if(driver0 && [driver0 length] > 0)
+		sentDriver0 = driver0;
+	else
+		sentDriver0 = @"-";	// Will result in nothing coming back
+	NSString * sentDriver1;
+	if(driver1 && [driver1 length] > 0)
+		sentDriver1 = driver1;
+	else
+		sentDriver1 = @"-";	// Will result in nothing coming back
+	
+	int messageLength = [sentDriver0 length] + [sentDriver1 length] + sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_REQUEST_HEAD_TO_HEAD);
+	iData[2] = htonl([sentDriver0 length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver0 UTF8String], [sentDriver0 length]);
+	int *d = (int *) (buf + sizeof(uint32_t) * 3 + [sentDriver0 length]);
+	*d = htonl([sentDriver1 length]);
+	memcpy(buf + sizeof(uint32_t) * 4 + [sentDriver0 length], [sentDriver1 UTF8String], [sentDriver1 length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)StreamHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1
+{
+	NSString * sentDriver0;
+	if(driver0 && [driver0 length] > 0)
+		sentDriver0 = driver0;
+	else
+		sentDriver0 = @"-";	// Will result in nothing coming back
+	NSString * sentDriver1;
+	if(driver1 && [driver1 length] > 0)
+		sentDriver1 = driver1;
+	else
+		sentDriver1 = @"-";	// Will result in nothing coming back
+	
+	int messageLength = [sentDriver0 length] + [sentDriver1 length] + sizeof(uint32_t) * 4;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_STREAM_HEAD_TO_HEAD);
+	iData[2] = htonl([sentDriver0 length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver0 UTF8String], [sentDriver0 length]);
+	int *d = (int *) (buf + sizeof(uint32_t) * 3 + [sentDriver0 length]);
+	*d = htonl([sentDriver1 length]);
+	memcpy(buf + sizeof(uint32_t) * 4 + [sentDriver0 length], [sentDriver1 UTF8String], [sentDriver1 length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
 -(void) sendPrediction: (NSString *)userName Command:(int)command
 {
 	RacePrediction *racePrediction = [[RacePadDatabase Instance] racePrediction];

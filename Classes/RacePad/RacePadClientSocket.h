@@ -41,6 +41,8 @@ enum ClientCommands {
 	RPCS_REQUEST_DRIVER_GAP_INFO,	// 33
 	RPCS_STREAM_DRIVER_GAP_INFO,	// 34
 	RPCS_SET_PLAYBACK_RATE = BPCS_SET_PLAYBACK_RATE, // 35
+	RPCS_REQUEST_HEAD_TO_HEAD,		// 36
+	RPCS_STREAM_HEAD_TO_HEAD,		// 37
 };
 
 @interface RacePadClientSocket : BasePadClientSocket
@@ -65,6 +67,8 @@ enum ClientCommands {
 - (void) StreamDriverGapInfo:(NSString *) driver;
 - (void) StreamTrackProfile;
 - (void) RequestTrackProfile;
+- (void) RequestHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
+- (void) StreamHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
 
 - (void) requestPrediction: (NSString *)name;
 - (void) sendPrediction;

@@ -17,6 +17,7 @@
 #import "DriverGapInfo.h"
 #import "DriverInfo.h"
 #import "RacePrediction.h"
+#import "HeadToHead.h"
 
 // Our cars
 enum OurCars
@@ -41,6 +42,7 @@ enum OurCars
 	DriverInfo *driverInfo;
 	RacePrediction *racePrediction;
 	TableData *competitorData;
+	HeadToHead *headToHead;
 }
 
 @property (readonly) TableData *driverListData;
@@ -57,6 +59,8 @@ enum OurCars
 @property (readonly) DriverInfo * driverInfo;
 @property (readonly) RacePrediction * racePrediction;
 @property (readonly) TableData *competitorData;
+@property (readonly) HeadToHead *headToHead;
+
 
 + (RacePadDatabase *)Instance;
 - (void) clearStaticData;

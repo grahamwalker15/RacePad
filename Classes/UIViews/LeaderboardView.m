@@ -16,6 +16,7 @@
 
 @synthesize tableData;
 @synthesize associatedTrackMapView;
+@synthesize highlightCar;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
@@ -30,6 +31,7 @@
 - (void)dealloc
 {
 	[tableData release];
+	[highlightCar release];
 	
     [super dealloc];
 }
@@ -48,6 +50,12 @@
 		carToFollow = [associatedTrackMapView carToFollow];
 		followingCar = [carToFollow length] > 0;
 	}
+	else
+	{
+		carToFollow = highlightCar;
+		followingCar = [carToFollow length] > 0;
+	}
+
 
 	[self SaveGraphicsState];
 	

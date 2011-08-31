@@ -240,6 +240,13 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_GAP_INFO_VIEW_];
 			break;
 		}
+		case RPSC_HEAD_TO_HEAD_: // Head To Head
+		{
+			HeadToHead *headToHead = [[RacePadDatabase Instance] headToHead];
+			[headToHead loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_HEAD_TO_HEAD_VIEW_];
+			break;
+		}
 		case RPSC_NOTIFY_NEW_CONNECTION_:
 		{
 			[[RacePadCoordinator Instance] notifyNewConnection];

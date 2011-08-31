@@ -34,6 +34,7 @@ static RacePadDatabase *instance = nil;
 @synthesize driverInfo;
 @synthesize racePrediction;
 @synthesize competitorData;
+@synthesize headToHead;
 
 - (RacePadDatabase *)init
 {
@@ -53,6 +54,7 @@ static RacePadDatabase *instance = nil;
 		driverInfo = [[DriverInfo alloc] init];
 		racePrediction = [[RacePrediction alloc] init];
 		competitorData = [[TableData alloc] init];
+		headToHead = [[HeadToHead alloc] init];
 		
 		[driverInfo fillWithDefaultData];
 	}
@@ -75,6 +77,7 @@ static RacePadDatabase *instance = nil;
 	[driverNames release];
 	[racePrediction release];
 	[competitorData release];
+	[headToHead release];
 	
 	[super dealloc];
 }

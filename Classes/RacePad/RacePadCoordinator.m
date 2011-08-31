@@ -164,6 +164,11 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[(RacePadClientSocket*)socket_ StreamDriverGapInfo:[[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
 	}
+	else if([existing_view Type] == RPC_HEAD_TO_HEAD_VIEW_)
+	{
+		HeadToHead *h2h = [[RacePadDatabase Instance] headToHead];
+		[(RacePadClientSocket*)socket_ StreamHeadToHead:[h2h driver0] Driver1:[h2h driver1]];
+	}
 }
 
 -(void) requestData:(BPCView *)existing_view
@@ -204,6 +209,11 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[(RacePadClientSocket*)socket_ RequestDriverGapInfo:[[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
 	}
+	else if([existing_view Type] == RPC_HEAD_TO_HEAD_VIEW_)
+	{
+		HeadToHead *h2h = [[RacePadDatabase Instance] headToHead];
+		[(RacePadClientSocket*)socket_ RequestHeadToHead:[h2h driver0] Driver1:[h2h driver1]];
+	}
 }
 
 - (void) addDataSource:(int)type Parameter:(NSString *)parameter
@@ -243,6 +253,12 @@ static RacePadCoordinator * instance_ = nil;
 	else if (type == RPC_DRIVER_GAP_INFO_VIEW_ )
 	{
 		[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile: @"driver_gap" AndSubIndex: [[[RacePadDatabase Instance] driverGapInfo] requestedDriver]];
+	}
+	else if(type == RPC_HEAD_TO_HEAD_VIEW_)
+	{
+		HeadToHead *h2h = [[RacePadDatabase Instance] headToHead];
+		NSString *subIndex = [NSString stringWithFormat:@"%s_%s",[[h2h driver0] UTF8String],[[h2h driver1] UTF8String]];
+		[self AddDataSourceWithType:type AndArchive:@"race_pad.rpa" AndFile: @"head_to_head" AndSubIndex: subIndex];
 	}
 }
 
