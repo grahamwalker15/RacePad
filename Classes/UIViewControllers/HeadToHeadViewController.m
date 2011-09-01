@@ -160,9 +160,9 @@
 	[leaderboardView setFrame:lb_frame];
 	
 	CGRect photoRect = [driverContainer1 bounds];
-	CGRect p1_frame = CGRectMake(inset_frame.origin.x + 80, 5, photoRect.size.width, photoRect.size.height);
+	CGRect p1_frame = CGRectMake(inset_frame.origin.x + 80, 30, photoRect.size.width, photoRect.size.height);
 	[driverContainer1 setFrame:p1_frame];
-	CGRect p2_frame = CGRectMake(inset_frame.origin.x + 80, inset_frame.size.height - photoRect.size.height - 5, photoRect.size.width, photoRect.size.height);
+	CGRect p2_frame = CGRectMake(inset_frame.origin.x + 80, inset_frame.size.height - photoRect.size.height - 30, photoRect.size.width, photoRect.size.height);
 	[driverContainer2 setFrame:p2_frame];
 	
 	[self addBackgroundFrames];

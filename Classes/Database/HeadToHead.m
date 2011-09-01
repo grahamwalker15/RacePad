@@ -195,7 +195,7 @@
 	float xAxisSpace = 25;
 	float yAxisSpace = 50;
 	float graphicWidth = size.width - yAxisSpace;
-	float graphicHeight = (size.height - xAxisSpace) * 0.5;
+	float graphicHeight = (size.height - xAxisSpace * 3) * 0.5;
 	int x_axis = size.height * 0.5 - xAxisSpace * 0.5;
 		
 	CGMutablePathRef drawingArea = [DrawingView CreateRectPathX0:0 Y0:0 X1:graphicWidth Y1:size.height];
@@ -273,7 +273,7 @@
 		}
 	}
 	
-	// Draw X axis background
+	// Draw X axis background and driver strap backgrounds
 	[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.2]];
 	[view SetBGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.2]];
 	for ( int lap = 1; lap <= totalLapCount; lap++ )
@@ -283,6 +283,12 @@
 		
 		[view FillShadedRectangleX0:x1 Y0:x_axis X1:x2 Y1:x_axis + xAxisSpace WithHighlight:false];
 		[view LineRectangleX0:x1 Y0:x_axis X1:x2 Y1:x_axis + xAxisSpace]; 
+		
+		[view FillShadedRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace WithHighlight:false];
+		[view LineRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace]; 
+
+		[view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace WithHighlight:false];
+		[view LineRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace]; 
 	}
 
 	// Draw X Axis
@@ -334,6 +340,8 @@
 			if(lap)
 			{
 				float gap = [lap gap];
+				bool pit0 = [lap pit0];
+				bool pit1 = [lap pit1];
 					
 				if(fabsf(gap) > 0.001)
 				{
@@ -355,8 +363,35 @@
 					float x1 = [view transformX:((float)i - 1.0) / (float)totalLapCount] * graphicWidth;
 					float x2 = [view transformX:((float)i) / (float)totalLapCount] * graphicWidth;
 					
+					[view SetFGColour:[view white_]];
 					[view FillShadedRectangleX0:x1 Y0:y1 X1:x2 Y1:y2 WithHighlight:false];
-					[view LineRectangleX0:x1 Y0:y1 X1:x2 Y1:y2]; 
+					[view LineRectangleX0:x1 Y0:y1 X1:x2 Y1:y2];
+					
+					if(pit0)
+					{
+						[view SetFGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.2]];
+						[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.2]];
+						[view FillShadedRectangleX0:x1 Y0:x_axis X1:x2 Y1:xAxisSpace WithHighlight:false];
+						[view LineRectangleX0:x1 Y0:x_axis X1:x2 Y1:xAxisSpace];
+						
+						[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.7]];
+						[view SetFGColour:[view white_]];
+						[view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace WithHighlight:false];
+						[view LineRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace];
+					}
+					
+					if(pit1)
+					{
+						[view SetFGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.2]];
+						[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.2]];
+						[view FillShadedRectangleX0:x1 Y0:x_axis + xAxisSpace X1:x2 Y1:size.height - xAxisSpace WithHighlight:false];
+						[view LineRectangleX0:x1 Y0:x_axis + xAxisSpace X1:x2 Y1:size.height - xAxisSpace];
+						
+						[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.7]];
+						[view SetFGColour:[view white_]];
+						[view FillShadedRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace WithHighlight:false];
+						[view LineRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace];
+					}
 				}
 			}
 		}		
