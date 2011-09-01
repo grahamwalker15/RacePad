@@ -46,6 +46,14 @@
 			[[RacePadTitleBarController Instance] setEventName:string];
 			break;
 		}
+		case RPSC_SESSION_:
+		{
+			RacePadDatabase *database = [RacePadDatabase Instance];
+			int session = [stream PopInt];
+			[database setSession:session];
+			[[RacePadCoordinator Instance] updateTabs];
+			break;
+		}
 		case RPSC_TRACK_MAP_: // Track Map
 		{
 			TrackMap *track_map = [[RacePadDatabase Instance] trackMap];

@@ -26,6 +26,14 @@ enum OurCars
 	RPD_RED_CAR_
 } ;
 
+enum SessionTypes {
+	RPD_SESSION_RACE_,
+	RPD_SESSION_QUALLY_,
+	RPD_SESSION_PRACTIVE_,
+	RPD_SESSION_TEST_,
+	RPD_SESSION_OTHER_,
+};
+
 @interface RacePadDatabase : BasePadDatabase
 {
 	TableData *driverListData;
@@ -43,6 +51,8 @@ enum OurCars
 	RacePrediction *racePrediction;
 	TableData *competitorData;
 	HeadToHead *headToHead;
+	
+	int session;
 }
 
 @property (readonly) TableData *driverListData;
@@ -61,6 +71,7 @@ enum OurCars
 @property (readonly) TableData *competitorData;
 @property (readonly) HeadToHead *headToHead;
 
+@property int session;
 
 + (RacePadDatabase *)Instance;
 - (void) clearStaticData;

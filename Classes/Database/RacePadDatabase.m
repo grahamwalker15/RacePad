@@ -36,10 +36,13 @@ static RacePadDatabase *instance = nil;
 @synthesize competitorData;
 @synthesize headToHead;
 
+@synthesize session;
+
 - (RacePadDatabase *)init
 {
 	if ( [super init] == self )
 	{
+		session = RPD_SESSION_RACE_;
 		driverListData = [[TableData alloc] init];
 		leaderBoardData = [[TableData alloc] init];
 		driverData = [[TableData alloc] init];
@@ -88,10 +91,15 @@ static RacePadDatabase *instance = nil;
 	[rcMessages release];
 	[commentary release];
 	[racePrediction release];
+	[headToHead release];
+	
+	session = RPD_SESSION_RACE_;
+	
 	alertData = [[AlertData alloc] init];
 	rcMessages = [[AlertData alloc] init];
 	commentary = [[CommentaryData alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
+	headToHead = [[HeadToHead alloc] init];
 }
 
 @end

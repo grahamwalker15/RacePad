@@ -8,6 +8,7 @@
 
 #import "RacePadSponsor.h"
 #import "BasePadPrefs.h"
+#import "RacePadDatabase.h"
 
 @implementation RacePadSponsor
 
@@ -101,6 +102,9 @@ static RacePadSponsor * instance_ = nil;
 		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
 			return false;
 		
+		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
+			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
+		
 		return true;
 	}
 	else
@@ -110,6 +114,9 @@ static RacePadSponsor * instance_ = nil;
 		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
 			return false;
 	
+		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
+			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
+					
 		if ( tab == RPS_HOME_TAB_
 			|| tab == RPS_DRIVER_LIST_TAB_
 			|| tab == RPS_TRACK_MAP_TAB_
