@@ -52,6 +52,9 @@ static id helpMaster = nil;
 
 - (void)viewDidLoad
 {
+	
+	[super viewDidLoad];
+
 	[self positionViews];
 
 	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"PredictionBG.png"]];
@@ -99,8 +102,6 @@ static id helpMaster = nil;
 	[self getHTMLForView:helpText8 WithIndex:8];
 	[self getHTMLForView:helpText9 WithIndex:9];
 	[self getHTMLForView:helpText10 WithIndex:10];
-	
-	[super viewDidLoad];
 }
 
 - (void)viewWillAppear:(BOOL)animated
