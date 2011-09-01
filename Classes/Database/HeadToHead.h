@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class DataStream;
+@class HeadToHeadView;
 
 @interface HeadToHeadLap : NSObject
 {
@@ -72,5 +73,7 @@
 
 - (void) clearData;
 - (void) loadData : (DataStream *) stream;
+
+- (void) drawInView : (HeadToHeadView *)view;
 
 @end

@@ -183,12 +183,9 @@ static id timeControllerInstance = nil;
 	[recognizer release];
 }
 
--(void) addDragRecognizerToView:(UIView *)view WithTarget:(UIView *)targetView 
+-(void) addDragRecognizerToView:(UIView *)view 
 {	
 	//Drag and drop - implemented as pan recognizer
-	// Works only on UITableViews
-	if(!view || ![view isKindOfClass:[UITableView class]])
-		return;
 	
 	UIDragDropGestureRecognizer * recognizer = [[UIDragDropGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDragFrom:)];
 	[view addGestureRecognizer:recognizer];

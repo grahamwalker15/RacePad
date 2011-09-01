@@ -12,7 +12,18 @@
 
 @interface HeadToHeadView : DrawingView
 {
+	float userOffset;
+	float userScale;
 }
+
+@property (nonatomic) float userOffset;
+@property (nonatomic) float userScale;
+
+- (void)InitialiseMembers;
+
+- (void) adjustScale:(float)scale X:(float)x Y:(float)y;
+- (void) adjustPanX:(float)x Y:(float)y;
+- (float) transformX:(float)x;
 
 @end
 

@@ -87,9 +87,9 @@
 	[self addTapRecognizerToView:raceMSC];
 	[self addTapRecognizerToView:raceROS];
 	
-	[self addDragRecognizerToView:result WithTarget:result];
-	[self addDragRecognizerToView:drivers1 WithTarget:result];
-	[self addDragRecognizerToView:drivers2 WithTarget:result];
+	[self addDragRecognizerToView:result];
+	[self addDragRecognizerToView:drivers1];
+	[self addDragRecognizerToView:drivers2];
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing

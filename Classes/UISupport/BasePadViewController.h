@@ -94,7 +94,7 @@
 -(void) addRightSwipeRecognizerToView:(UIView *)view;
 -(void) addLeftSwipeRecognizerToView:(UIView *)view;
 -(void) addPanRecognizerToView:(UIView *)view;
--(void) addDragRecognizerToView:(UIView *)view WithTarget:(UIView *)targetView;
+-(void) addDragRecognizerToView:(UIView *)view;
 -(void) addJogRecognizerToView:(UIView *)view;
 
 // Gesture recognizer callbacks

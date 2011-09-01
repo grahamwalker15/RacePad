@@ -2,8 +2,8 @@
 //  HeadToHeadViewController.h
 //  RacePad
 //
-//  Created by Gareth Griffith on 12/1/10.
-//  Copyright 2010 SBG Racing Services Ltd. All rights reserved.
+//  Created by Gareth Griffith on 8/30/11.
+//  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,40 +11,79 @@
 #import "BasePadViewController.h"
 #import "ShinyButton.h"
 
-@class HeadToHeadView;
 @class LeaderboardView;
+@class HeadToHeadView;
+@class DriverLapListController;
 @class BackgroundView;
+
+@class AnimationTimer;
 
 @interface HeadToHeadViewController : BasePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
-	
-	IBOutlet UIImageView * driver0Photo;
-	IBOutlet UIImageView * driver0TextBG;
-	IBOutlet UILabel * driver0FirstNameLabel;
-	IBOutlet UILabel * driver0SurnameLabel;
-	IBOutlet UILabel * driver0TeamLabel;
 
-	IBOutlet UIImageView * driver1Photo;
-	IBOutlet UIImageView * driver1TextBG;
-	IBOutlet UILabel * driver1FirstNameLabel;
-	IBOutlet UILabel * driver1SurnameLabel;
-	IBOutlet UILabel * driver1TeamLabel;
+	IBOutlet UIView * driverContainer1;
+	IBOutlet UIView * driverContainer2;
 	
-	IBOutlet LeaderboardView * leaderboard0View;
-	IBOutlet LeaderboardView * leaderboard1View;
+	IBOutlet UIImageView * driverPhoto1;
+	IBOutlet UIImageView * driverTextBG1;
+	IBOutlet UIImageView * pitBoardImage1;
+	IBOutlet UIImageView * driverHelmet1;
 	
+	IBOutlet UILabel * driverFirstNameLabel1;
+	IBOutlet UILabel * driverSurnameLabel1;
+	IBOutlet UILabel * driverTeamLabel1;
+	
+	IBOutlet ShinyButton * seeLapsButton1;
+		
+	IBOutlet UIImageView * driverPhoto2;
+	IBOutlet UIImageView * driverTextBG2;
+	IBOutlet UIImageView * pitBoardImage2;
+	IBOutlet UIImageView * driverHelmet2;
+	
+	IBOutlet UILabel * driverFirstNameLabel2;
+	IBOutlet UILabel * driverSurnameLabel2;
+	IBOutlet UILabel * driverTeamLabel2;
+	
+	IBOutlet ShinyButton * seeLapsButton2;
+	
+	IBOutlet LeaderboardView * leaderboardView;
 	IBOutlet HeadToHeadView * headToHeadView;
+
+	IBOutlet UIView * draggedDriverCell;
+	IBOutlet UILabel * draggedDriverText;
+	
+	NSString * draggedDriverName;
+
+	DriverLapListController * driver_lap_list_controller_;
+	
+	bool animating;
+	bool showPending;
+	bool hidePending;
+	
+	bool driver_lap_list_controller_displayed_;
+	bool telemetry_controller_displayed_;
+	bool driver_lap_list_controller_closing_;
+	
 }
 
+- (void)positionOverlays;
 - (void) prePositionOverlays;
 - (void) postPositionOverlays;
-- (void)positionOverlays;
 
 - (void)showOverlays;
 - (void)hideOverlays;
 - (void)addBackgroundFrames;
 
+- (void)RequestRedraw;
+
+
+- (IBAction) allButtonPressed:(id)sender;
+- (IBAction) seeLapsPressed:(id)sender;
+
+- (void) setAllSelected:(bool)selected;
+
+- (void)ShowDriverLapList:(NSString *)driver;
+- (void)HideDriverLapListAnimated:(bool)animated;
+
 @end
-
-

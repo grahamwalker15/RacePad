@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10K549</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
-		<string key="IBDocument.AppKitVersion">1038.36</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">141</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="7"/>
+			<integer value="35"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -68,9 +68,9 @@
 					<string key="IBUITitle">Head to Head</string>
 					<object class="IBUITabBarItem" key="IBUITabBarItem" id="626473067">
 						<string key="IBUITitle">Head To Head</string>
-						<object class="NSCustomResource" key="IBUIImage" id="237127096">
+						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">NewsFeed.png</string>
+							<string key="NSResourceName">17-bar-chart.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUITabBar"/>
@@ -167,7 +167,10 @@
 						<string key="IBUITitle">Follow Driver</string>
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="333858558">
 							<string key="IBUITitle">Follow Driver</string>
-							<reference key="IBUIImage" ref="237127096"/>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">NewsFeed.png</string>
+							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							<reference key="IBUITabBar"/>
 						</object>
@@ -519,7 +522,7 @@
 					<string>HeadToHeadViewController</string>
 					<string>RacePadAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{387, 64}, {783, 792}}</string>
+					<string>{{387, 77}, {783, 779}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TrackMapViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1335,6 +1338,233 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/UIViewControllers/GameViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">HeadToHeadView</string>
+					<string key="superclassName">DrawingView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UIViews/HeadToHeadView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">HeadToHeadViewController</string>
+					<string key="superclassName">BasePadViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>allButtonPressed:</string>
+							<string>seeLapsPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>allButtonPressed:</string>
+							<string>seeLapsPressed:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">allButtonPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">seeLapsPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>backgroundView</string>
+							<string>draggedDriverCell</string>
+							<string>draggedDriverText</string>
+							<string>driverContainer1</string>
+							<string>driverContainer2</string>
+							<string>driverFirstNameLabel1</string>
+							<string>driverFirstNameLabel2</string>
+							<string>driverHelmet1</string>
+							<string>driverHelmet2</string>
+							<string>driverPhoto1</string>
+							<string>driverPhoto2</string>
+							<string>driverSurnameLabel1</string>
+							<string>driverSurnameLabel2</string>
+							<string>driverTeamLabel1</string>
+							<string>driverTeamLabel2</string>
+							<string>driverTextBG1</string>
+							<string>driverTextBG2</string>
+							<string>headToHeadView</string>
+							<string>leaderboardView</string>
+							<string>pitBoardImage1</string>
+							<string>pitBoardImage2</string>
+							<string>seeLapsButton1</string>
+							<string>seeLapsButton2</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>BackgroundView</string>
+							<string>UIView</string>
+							<string>UILabel</string>
+							<string>UIView</string>
+							<string>UIView</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>HeadToHeadView</string>
+							<string>LeaderboardView</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>ShinyButton</string>
+							<string>ShinyButton</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>backgroundView</string>
+							<string>draggedDriverCell</string>
+							<string>draggedDriverText</string>
+							<string>driverContainer1</string>
+							<string>driverContainer2</string>
+							<string>driverFirstNameLabel1</string>
+							<string>driverFirstNameLabel2</string>
+							<string>driverHelmet1</string>
+							<string>driverHelmet2</string>
+							<string>driverPhoto1</string>
+							<string>driverPhoto2</string>
+							<string>driverSurnameLabel1</string>
+							<string>driverSurnameLabel2</string>
+							<string>driverTeamLabel1</string>
+							<string>driverTeamLabel2</string>
+							<string>driverTextBG1</string>
+							<string>driverTextBG2</string>
+							<string>headToHeadView</string>
+							<string>leaderboardView</string>
+							<string>pitBoardImage1</string>
+							<string>pitBoardImage2</string>
+							<string>seeLapsButton1</string>
+							<string>seeLapsButton2</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">backgroundView</string>
+								<string key="candidateClassName">BackgroundView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">draggedDriverCell</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">draggedDriverText</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverContainer1</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverContainer2</string>
+								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverFirstNameLabel1</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverFirstNameLabel2</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverHelmet1</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverHelmet2</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverPhoto1</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverPhoto2</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverSurnameLabel1</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverSurnameLabel2</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverTeamLabel1</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverTeamLabel2</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverTextBG1</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">driverTextBG2</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">headToHeadView</string>
+								<string key="candidateClassName">HeadToHeadView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">leaderboardView</string>
+								<string key="candidateClassName">LeaderboardView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">pitBoardImage1</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">pitBoardImage2</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">seeLapsButton1</string>
+								<string key="candidateClassName">ShinyButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">seeLapsButton2</string>
+								<string key="candidateClassName">ShinyButton</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/UIViewControllers/HeadToHeadViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2205,6 +2435,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>17-bar-chart.png</string>
 				<string>NewsFeed.png</string>
 				<string>clock.png</string>
 				<string>home.png</string>
@@ -2216,6 +2447,7 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{29, 24}</string>
 				<string>{24, 24}</string>
 				<string>{24, 24}</string>
 				<string>{24, 24}</string>
