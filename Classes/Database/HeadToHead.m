@@ -18,17 +18,17 @@ static UIImage *redPosArrowImage = nil;
 @synthesize gap;
 @synthesize pos0;
 @synthesize pos1;
-@synthesize pit0;
-@synthesize pit1;
+@synthesize flags0;
+@synthesize flags1;
 
 - (HeadToHeadLap *) initWithStream: (DataStream *) stream
 {
 	if ( [super init] == self )
 	{
 		pos0 = [stream PopInt];
-		pit0 = [stream PopBool];
+		flags0 = [stream PopInt];
 		pos1 = [stream PopInt];
-		pit1 = [stream PopBool];
+		flags1 = [stream PopInt];
 		gap = [stream PopFloat];
 	}
 	
@@ -269,13 +269,31 @@ static UIImage *redPosArrowImage = nil;
 			HeadToHeadLap * lap = [laps objectAtIndex:i];
 			if(lap)
 			{
-				if(i > 10 && i <= 15 || i > 40 && i <= 45)
-				{
-					float x1 = [view transformX:((float)i - 1.0) / (float)totalLapCount] * graphicWidth;
-					float x2 = [view transformX:((float)i ) / (float)totalLapCount] * graphicWidth;
+				float x1 = [view transformX:((float)i - 1.0) / (float)totalLapCount] * graphicWidth;
+				float x2 = [view transformX:((float)i ) / (float)totalLapCount] * graphicWidth;
 		
-					[view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:size.height WithHighlight:false];
-					[view LineRectangleX0:x1 Y0:0 X1:x2 Y1:size.height];
+				bool sc0 = (lap.flags0 & H2H_SC_) > 0;
+				bool sc1 = (lap.flags1 & H2H_SC_) > 0;
+				
+				if(sc0)
+				{
+					[view FillShadedRectangleX0:x1 Y0:x_axis X1:x2 Y1:0 WithHighlight:false];
+					[view LineRectangleX0:x1 Y0:x_axis X1:x2 Y1:0];
+					
+					// [view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace WithHighlight:false];
+					// [view LineRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace];
+				}
+				
+				if(sc1)
+				{
+					// [view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:size.height WithHighlight:false];
+					// [view LineRectangleX0:x1 Y0:0 X1:x2 Y1:size.height];
+					
+					[view FillShadedRectangleX0:x1 Y0:x_axis + xAxisSpace X1:x2 Y1:size.height WithHighlight:false];
+					[view LineRectangleX0:x1 Y0:x_axis + xAxisSpace X1:x2 Y1:size.height];
+					
+					// [view FillShadedRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace WithHighlight:false];
+					// [view LineRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace];
 				}
 			}
 		}
@@ -392,8 +410,8 @@ static UIImage *redPosArrowImage = nil;
 
 				int pos0 = [lap pos0];
 				int pos1 = [lap pos1];
-				bool pit0 = [lap pit0];
-				bool pit1 = [lap pit1];
+				bool pit0 = (lap.flags0 & H2H_PIT_) > 0;
+				bool pit1 = (lap.flags1 & H2H_PIT_) > 0;
 					
 				if(pit0)
 				{

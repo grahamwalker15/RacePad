@@ -11,20 +11,25 @@
 @class DataStream;
 @class HeadToHeadView;
 
+enum H2HFlag {
+	H2H_PIT_ = 1,
+	H2H_SC_ = 2,
+};
+
 @interface HeadToHeadLap : NSObject
 {
 	float gap;
 	int pos0;
 	int pos1;
-	bool pit0;
-	bool pit1;
+	int flags0;
+	int flags1;
 }
 
 @property float gap;
 @property int pos0;
 @property int pos1;
-@property bool pit0;
-@property bool pit1;
+@property int flags0;
+@property int flags1;
 
 - (HeadToHeadLap *) initWithStream: (DataStream *) stream;
 
