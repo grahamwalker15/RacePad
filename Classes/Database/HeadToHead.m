@@ -279,21 +279,12 @@ static UIImage *redPosArrowImage = nil;
 				{
 					[view FillShadedRectangleX0:x1 Y0:x_axis X1:x2 Y1:0 WithHighlight:false];
 					[view LineRectangleX0:x1 Y0:x_axis X1:x2 Y1:0];
-					
-					// [view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace WithHighlight:false];
-					// [view LineRectangleX0:x1 Y0:0 X1:x2 Y1:xAxisSpace];
 				}
 				
 				if(sc1)
 				{
-					// [view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:size.height WithHighlight:false];
-					// [view LineRectangleX0:x1 Y0:0 X1:x2 Y1:size.height];
-					
 					[view FillShadedRectangleX0:x1 Y0:x_axis + xAxisSpace X1:x2 Y1:size.height WithHighlight:false];
 					[view LineRectangleX0:x1 Y0:x_axis + xAxisSpace X1:x2 Y1:size.height];
-					
-					// [view FillShadedRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace WithHighlight:false];
-					// [view LineRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - xAxisSpace];
 				}
 			}
 		}
