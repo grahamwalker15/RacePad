@@ -354,7 +354,7 @@
 
 			if(gestureView == leaderboardView)
 			{
-				CGPoint point = [recognizer locationInView:leaderboardView];
+				CGPoint point = [recognizer downPoint];
 				NSString * name = [leaderboardView carNameAtX:point.x Y:point.y];
 					
 				if(name && [name length] > 0)
