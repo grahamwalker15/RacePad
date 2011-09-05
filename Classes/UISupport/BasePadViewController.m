@@ -70,9 +70,11 @@ static id timeControllerInstance = nil;
 
 - (HelpViewController *) helpController
 {
+	/*
 	if(!helpController)
 		helpController = [[HelpViewController alloc] initWithNibName:@"DefaultHelpView" bundle:nil];
-
+	*/
+	
 	return helpController;
 }
 

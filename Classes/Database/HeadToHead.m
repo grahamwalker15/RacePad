@@ -144,6 +144,14 @@ static UIImage *redPosArrowImage = nil;
 	}
 }
 
+- (void) clearStaticData
+{
+	completedLapCount = 0;
+	totalLapCount = 0;
+	[laps release];
+	laps = nil;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Drawing
@@ -431,7 +439,8 @@ static UIImage *redPosArrowImage = nil;
 				}
 				else
 				{
-					if(i == 1 || pos0 != prevPos0)
+					if ( pos0
+					  && ( i == 1 || pos0 != prevPos0 ) )
 					{
 						if(drawArrows)
 						{
@@ -482,7 +491,8 @@ static UIImage *redPosArrowImage = nil;
 				}
 				else
 				{
-					if(i == 1 || pos1 != prevPos1)
+					if ( pos1
+					  && ( i == 1 || pos1 != prevPos1 ) )
 					{
 						if(drawArrows)
 						{

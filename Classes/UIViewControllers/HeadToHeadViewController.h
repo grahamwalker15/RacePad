@@ -18,6 +18,12 @@
 
 @class AnimationTimer;
 
+enum H2HDragSource {
+	H2H_VC_LEADERBOARD_,
+	H2H_VC_DRIVER1_,
+	H2H_VC_DRIVER2_
+};
+
 @interface HeadToHeadViewController : BasePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
@@ -54,6 +60,7 @@
 	IBOutlet UILabel * draggedDriverText;
 	
 	NSString * draggedDriverName;
+	unsigned char dragSource;
 
 	DriverLapListController * driver_lap_list_controller_;
 	
@@ -77,11 +84,7 @@
 
 - (void)RequestRedraw;
 
-
-- (IBAction) allButtonPressed:(id)sender;
 - (IBAction) seeLapsPressed:(id)sender;
-
-- (void) setAllSelected:(bool)selected;
 
 - (void)ShowDriverLapList:(NSString *)driver;
 - (void)HideDriverLapListAnimated:(bool)animated;

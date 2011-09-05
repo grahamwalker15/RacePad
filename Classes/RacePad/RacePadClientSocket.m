@@ -152,7 +152,7 @@
 	else
 		sentDriver1 = @"-";	// Will result in nothing coming back
 	
-	int messageLength = [sentDriver0 length] + [sentDriver1 length] + sizeof(uint32_t) * 3;
+	int messageLength = [sentDriver0 length] + [sentDriver1 length] + sizeof(uint32_t) * 4;
 	unsigned char *buf = malloc(messageLength);
 	int *iData = (int *)buf;
 	

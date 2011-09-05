@@ -16,6 +16,7 @@
 
 @synthesize commentaryView;
 @synthesize shown;
+@synthesize growUp;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -87,7 +88,11 @@
 	
 	CGRect frame = [[self view] frame];
 	CGRect bFrame = [closeButton frame];
-	CGRect vFrame = CGRectMake ( frame.origin.x, frame.origin.y, frame.size.width, height + 8 );
+	CGRect vFrame;
+	if ( growUp )
+		vFrame = CGRectMake ( frame.origin.x, frame.origin.y + frame.size.height - height - 8, frame.size.width, height + 8 );
+	else
+		vFrame = CGRectMake ( frame.origin.x, frame.origin.y, frame.size.width, height + 8 );
 	CGRect cFrame = CGRectMake ( 4, 4, frame.size.width - 8, height );
 	CGRect nbFrame = CGRectMake ( vFrame.size.width - bFrame.size.width, 0, bFrame.size.width, bFrame.size.height );
 

@@ -65,9 +65,10 @@ static int fadeOffAfter = 8;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-- (void) allowBubbles:(UIView *)view
+- (void) allowBubbles:(UIView *)view BottomRight: (bool) br
 {
 	bubbleView = view;
+	bottomRight = br;
 	[[BasePadCoordinator Instance] SetViewDisplayed:commentaryController.commentaryView]; // It isn't actually displayed - but it's as if it is
 	[commentaryController.view removeFromSuperview];
 	[commentaryController popDown:false];
@@ -88,8 +89,12 @@ static int fadeOffAfter = 8;
 	{
 		CGRect super_bounds = [bubbleView bounds];
 		CGRect bubble_bounds = [commentaryController.view bounds];
-		bubble_bounds = CGRectMake(super_bounds.origin.x + 20, super_bounds.origin.y + 50, bubble_bounds.size.width, bubble_bounds.size.height);
+		if ( bottomRight )
+			bubble_bounds = CGRectMake(super_bounds.origin.x + super_bounds.size.width - bubble_bounds.size.width - 20, super_bounds.origin.y + super_bounds.size.height - 50, bubble_bounds.size.width, 10);
+		else
+			bubble_bounds = CGRectMake(super_bounds.origin.x + 20, super_bounds.origin.y + 50, bubble_bounds.size.width, bubble_bounds.size.height);
 		[commentaryController.view setFrame:bubble_bounds];
+		commentaryController.growUp = bottomRight;
 		[commentaryController popUp];
 		popdownTimer = [NSTimer scheduledTimerWithTimeInterval:fadeOffAfter target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
 	}

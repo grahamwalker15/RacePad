@@ -18,10 +18,12 @@
 	IBOutlet ShinyButton *closeButton;
 	
 	bool shown;
+	bool growUp;
 }
 
 @property (nonatomic, retain) CommentaryView * commentaryView;
 @property (nonatomic, readonly) bool shown;
+@property (nonatomic) bool growUp;
 
 - (void) popUp;
 - (void) popDown: (bool) animate;

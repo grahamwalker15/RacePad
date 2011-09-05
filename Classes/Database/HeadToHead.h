@@ -79,6 +79,8 @@ enum H2HFlag {
 - (void) clearData;
 - (void) loadData : (DataStream *) stream;
 
+- (void) clearStaticData;
+
 - (void) drawInView : (HeadToHeadView *)view;
 
 @end

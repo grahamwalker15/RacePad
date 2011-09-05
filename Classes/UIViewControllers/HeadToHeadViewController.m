@@ -78,7 +78,7 @@
 	if(!driver_lap_list_controller_closing_)
 	{
 		// Grab the title bar
-		[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary: false];
+		[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary: true];
 		
 		[super viewWillAppear:animated];
 		
@@ -90,8 +90,7 @@
 		[[RacePadCoordinator Instance] SetViewDisplayed:headToHeadView];
 		[[RacePadCoordinator Instance] SetViewDisplayed:self];
 		
-		// [[CommentaryBubble Instance] allowBubbles:backgroundView];
-		[[CommentaryBubble Instance] noBubbles];
+		[[CommentaryBubble Instance] allowBubbles:backgroundView BottomRight: true];
 		
 		// We disable the screen locking - because that seems to close the socket
 		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -147,14 +146,9 @@
 
 - (void)positionOverlays
 {
-	// Get the device orientation and set things up accordingly
-	int orientation = [[RacePadCoordinator Instance] deviceOrientation];
-	
 	int bg_inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
 	CGRect inset_frame = CGRectInset(bg_frame, bg_inset, bg_inset);
-	
-	int inset = [backgroundView inset] + 10;
 	
 	CGRect lb_frame = CGRectMake(inset_frame.origin.x + 5, inset_frame.origin.y + 45, 60, inset_frame.size.height - 45);
 	[leaderboardView setFrame:lb_frame];
@@ -199,6 +193,7 @@
 		ImageList *photoImageList = image_store ? [image_store findList:@"DriverPhotos"] : nil;
 
 		NSString * driver0 = [headToHead driver0];
+		NSString * driver1 = [headToHead driver1];
 		if(driver0 && [driver0 length] > 0)
 		{
 			if(photoImageList)
@@ -222,8 +217,17 @@
 			[driverSurnameLabel1 setText:surname];
 			[driverTeamLabel1 setText:teamName];	
 		}
-		
-		NSString * driver1 = [headToHead driver1];
+		else 
+		{
+			[driverPhoto1 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
+			if(driver1 && [driver1 length] > 0)
+				[driverSurnameLabel1 setText:@"Leader"];
+			else
+				[driverSurnameLabel1 setText:@""];
+			[driverFirstNameLabel1 setText:@""];
+			[driverTeamLabel1 setText:@""];	
+		}
+
 		if(driver1 && [driver1 length] > 0)
 		{
 			if(photoImageList)
@@ -246,6 +250,16 @@
 			[driverFirstNameLabel2 setText:firstName];
 			[driverSurnameLabel2 setText:surname];
 			[driverTeamLabel2 setText:teamName];	
+		}
+		else 
+		{
+			[driverPhoto2 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
+			if(driver0 && [driver0 length] > 0)
+				[driverSurnameLabel2 setText:@"Leader"];
+			else
+				[driverSurnameLabel2 setText:@""];
+			[driverFirstNameLabel2 setText:@""];
+			[driverTeamLabel2 setText:@""];	
 		}
 	}
 }
@@ -272,11 +286,17 @@
 			{
 				if(![headToHead driver0])
 				{
-					[headToHead setDriver0:name];
+					headToHead.driver0 = name;
+					// If they are now the same, then set the other to leader
+					if ( [headToHead.driver1 isEqualToString:name] )
+						headToHead.driver1 = nil;
 				}
 				else
 				{
-					[headToHead setDriver1:name];
+					headToHead.driver1 = name;
+					// If they are now the same, then set the other to leader
+					if ( [headToHead.driver0 isEqualToString:name] )
+						headToHead.driver0 = nil;
 				}
 					
 				[[RacePadCoordinator Instance] SetViewHidden:self];
@@ -360,6 +380,7 @@
 				if(name && [name length] > 0)
 				{
 					draggedDriverName = [name retain];
+					dragSource = H2H_VC_LEADERBOARD_;
 				}
 			}
 			else if(gestureView == driverContainer1)
@@ -367,6 +388,7 @@
 				if(headToHead && [headToHead driver0] && [[headToHead driver0] length] > 0)
 				{
 					draggedDriverName = [[headToHead driver0] retain];
+					dragSource = H2H_VC_DRIVER1_;
 				}
 			}
 			else if(gestureView == driverContainer2)
@@ -374,6 +396,7 @@
 				if(headToHead && [headToHead driver1] && [[headToHead driver1] length] > 0)
 				{
 					draggedDriverName = [[headToHead driver1] retain];
+					dragSource = H2H_VC_DRIVER2_;
 				}
 			}
 			
@@ -425,7 +448,19 @@
 					
 					if([driverContainer1 pointInside:point withEvent:nil])
 					{
-						[headToHead setDriver0:draggedDriverName];
+						// If we've come from 2, then swap
+						if ( dragSource == H2H_VC_DRIVER2_ )
+						{
+							headToHead.driver1 = headToHead.driver0;
+						}
+						else
+						{
+							// If they are now the same, then set the other to leader
+							if ( [headToHead.driver1 isEqualToString:draggedDriverName] )
+								headToHead.driver1 = nil;
+						}
+						headToHead.driver0 = draggedDriverName;
+
 						dropped = true;
 					}
 					else
@@ -433,6 +468,17 @@
 						point = [recognizer locationInView:driverContainer2];
 						if([driverContainer2 pointInside:point withEvent:nil])
 						{
+							// If we've come from 1, then swap
+							if ( dragSource == H2H_VC_DRIVER1_ )
+							{
+								headToHead.driver0 = headToHead.driver1;
+							}
+							else
+							{
+								// If they are now the same, then set the other to leader
+								if ( [headToHead.driver0 isEqualToString:draggedDriverName] )
+									headToHead.driver0 = nil;
+							}
 							[headToHead setDriver1:draggedDriverName];
 							dropped = true;
 						}

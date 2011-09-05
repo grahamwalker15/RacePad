@@ -91,7 +91,6 @@ static RacePadDatabase *instance = nil;
 	[rcMessages release];
 	[commentary release];
 	[racePrediction release];
-	[headToHead release];
 	
 	session = RPD_SESSION_RACE_;
 	
@@ -99,7 +98,8 @@ static RacePadDatabase *instance = nil;
 	rcMessages = [[AlertData alloc] init];
 	commentary = [[CommentaryData alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
-	headToHead = [[HeadToHead alloc] init];
+
+	[headToHead clearStaticData];
 }
 
 @end

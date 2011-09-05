@@ -16,6 +16,7 @@
 	UIPopoverController * commentaryPopover;
 	
 	UIView *bubbleView;
+	bool bottomRight;
 	
 	NSTimer *popdownTimer;
 	NSMutableArray *passThroughViews;
@@ -30,7 +31,7 @@
 - (void) showIfNeeded;
 - (void) toggleShow;
 - (void) popDown;
-- (void) allowBubbles: (UIView *) view;
+- (void) allowBubbles: (UIView *) view BottomRight: (bool) br;
 - (void) noBubbles;
 - (void) resetBubbleTimings;
 
