@@ -167,6 +167,9 @@ static UIImage *redPosArrowImage = nil;
 	// Find maximum gap
 	float maxGap = 0.0;
 	
+	bool driver0Present = (driver0 && [driver0 length] > 0);
+	bool driver1Present = (driver1 && [driver1 length] > 0);
+	
 	if(totalLapCount > 0)
 	{
 		for(int i = 0 ; i < totalLapCount ; i++)
@@ -316,12 +319,23 @@ static UIImage *redPosArrowImage = nil;
 					if(gap > 0)
 					{
 						y1 = x_axis;
-						[view SetBGColour:[UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.7]];
+						
+						// Colour green if both drivers present or just top driver
+						// If only bottom driver is present, positive gap means behind, so colour red
+						if(driver0Present)
+							[view SetBGColour:[UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.7]];
+						else
+							[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.7]];
 					}
 					else
 					{
 						y1 = x_axis + xAxisSpace;
-						[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.7]];
+						// Colour green if both drivers present or just bottom driver
+						// If only top driver is present, negative gap means behind, so colour red
+						if(driver1Present)
+							[view SetBGColour:[UIColor colorWithRed:0.0 green:0.8 blue:0.0 alpha:0.7]];
+						else
+							[view SetBGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.7]];
 					}
 
 					y2 = y1 - (float)gap / maxGap * graphicHeight;
