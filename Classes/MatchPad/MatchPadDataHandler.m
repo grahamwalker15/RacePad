@@ -29,7 +29,7 @@
 	[super dealloc];
 }
 
-- (void) okVersion
+- (bool) okVersion
 {
 	return versionNumber <= MATCH_PAD_INTERFACE_VERSION;
 }

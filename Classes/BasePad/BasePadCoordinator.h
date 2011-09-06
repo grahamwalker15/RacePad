@@ -279,6 +279,7 @@ enum ConnectionTypes
 
 -(void) synchroniseTime:(float)time;
 
+- (void) resetCommentaryTimings;
 -(void) restartCommentary;
 
 -(void) clearStaticData;

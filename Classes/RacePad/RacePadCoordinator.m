@@ -268,6 +268,11 @@ static RacePadCoordinator * instance_ = nil;
 	}
 }
 
+- (void) resetCommentaryTimings
+{
+	[[CommentaryBubble Instance] resetBubbleTimings];
+}
+
 -(void) redrawCommentary
 {
 	bool matched = false;

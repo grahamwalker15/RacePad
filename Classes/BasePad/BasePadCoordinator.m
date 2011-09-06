@@ -24,7 +24,6 @@
 #import "WorkOffline.h"
 #import "BasePadPrefs.h"
 #import "TabletState.h"
-#import "CommentaryBubble.h"
 
 #import "UIConstants.h"
 
@@ -470,7 +469,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	[[BasePadTimeController Instance] updatePlayButtons];
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
-	[[CommentaryBubble Instance] resetBubbleTimings];
+	[self resetCommentaryTimings];
 	[self showSnapshot];
 }
 
@@ -606,6 +605,11 @@ static BasePadCoordinator * instance_ = nil;
 	
 	if ( playing )
 		[self setTimer:currentTime + elapsed];
+}
+
+- (void) resetCommentaryTimings
+{
+	// Override Me
 }
 
 -(void) redrawCommentary
