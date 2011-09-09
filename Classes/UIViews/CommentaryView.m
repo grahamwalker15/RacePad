@@ -73,6 +73,13 @@
     [super dealloc];
 }
 
+- (void) RequestRedraw
+{
+	[self RequestScrollToEnd];
+	lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
+	[super RequestRedraw];
+}
+
 - (void) drawIfChanged
 {
 	if ( updating )
@@ -90,8 +97,6 @@
 		{
 			if ( bubbleController )
 				[bubbleController sizeCommentary: rowCount FromHeight:height];
-			[self RequestScrollToEnd];
-			lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 			[self RequestRedraw];
 		}
 	}
@@ -106,8 +111,6 @@
 		
 		if ( bubbleController )
 			[bubbleController sizeCommentary: rowCount FromHeight:0];
-		[self RequestScrollToEnd];
-		lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 		[self RequestRedraw];
 	}
 }
