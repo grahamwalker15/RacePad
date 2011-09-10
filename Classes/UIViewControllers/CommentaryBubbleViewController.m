@@ -105,7 +105,7 @@
 {
 	shown = true;
 	commentaryView.updating = true;
-	[commentaryView initalDraw];
+	[commentaryView initialDraw];
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.3];
 	[[self view] setAlpha: 1];

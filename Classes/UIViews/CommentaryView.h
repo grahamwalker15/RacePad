@@ -43,7 +43,7 @@
 @property bool updating;
 @property (nonatomic, retain) CommentaryBubbleViewController *bubbleController;
 
-- (void) initalDraw;
+- (void) initialDraw;
 -(void) drawIfChanged;
 -(void) countRows:(int *)count FirstRow:(int *)fRow;
 

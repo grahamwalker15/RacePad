@@ -75,7 +75,8 @@
 
 - (void) RequestRedraw
 {
-	[self RequestScrollToEnd];
+	if ( !scroll_animating_)
+		[self RequestScrollToEnd];
 	lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 	[super RequestRedraw];
 }
@@ -102,7 +103,7 @@
 	}
 }
 
-- (void) initalDraw
+- (void) initialDraw
 {
 	if ( updating )
 	{

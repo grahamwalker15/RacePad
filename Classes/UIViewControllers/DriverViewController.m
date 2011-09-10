@@ -665,6 +665,7 @@
 			NSString * oldCar = [trackMapView carToFollow];
 
 			[[RacePadCoordinator Instance] setNameToFollow:name];
+			[[[RacePadDatabase Instance] commentary] setCommentaryFor:name];
 			[trackMapView followCar:name];
 			[trackProfileView setUserOffset:0.0];
 			[trackProfileView setUserScale:5.0];
@@ -684,8 +685,6 @@
 			{
 				[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
 			}
-
-			[[[RacePadDatabase Instance] commentary] setCommentaryFor:name];
 						
 			[trackMapView RequestRedraw];
 			
@@ -696,8 +695,8 @@
 			
 			[leaderboardView RequestRedraw];
 
-			[commentaryView ResetScroll];
-			[[RacePadCoordinator Instance] restartCommentary];
+			// [commentaryView ResetScroll];
+			// [[RacePadCoordinator Instance] restartCommentary];
 
 			return;
 		}
