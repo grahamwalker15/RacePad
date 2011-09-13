@@ -126,12 +126,14 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+	[[CommentaryBubble Instance] willRotateInterface];
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[self positionOverlays];
+	[[CommentaryBubble Instance] didRotateInterface];
 
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }

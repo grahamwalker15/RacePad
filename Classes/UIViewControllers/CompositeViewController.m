@@ -217,6 +217,7 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	[self hideOverlays];
+	[[CommentaryBubble Instance] willRotateInterface];
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -235,6 +236,7 @@
 	
 	[UIView commitAnimations];
 	
+	[[CommentaryBubble Instance] didRotateInterface];
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 

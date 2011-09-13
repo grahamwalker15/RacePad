@@ -48,7 +48,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Overriden to allow any orientation.
-    return YES;
+    return NO;
 }
 
 
@@ -74,6 +74,15 @@
     [super dealloc];
 }
 
+- (void) resetWidth
+{
+	int width = 490;
+	CGRect frame = [[self view] frame];
+	CGRect vFrame = CGRectMake ( frame.origin.x, frame.origin.y, width, [commentaryView RowHeight] + 8 );
+	
+	[[self view] setFrame:vFrame];
+}
+
 - (void) sizeCommentary: (int) rowCount FromHeight: (int) fromHeight
 {
 	if ( rowCount <= 0 )
@@ -83,6 +92,7 @@
 		rowCount = 5;
 	
 	int height = rowCount * [commentaryView RowHeight];
+	int width = 490;
 	if ( height <= fromHeight )
 		return;
 	
@@ -90,10 +100,10 @@
 	CGRect bFrame = [closeButton frame];
 	CGRect vFrame;
 	if ( growUp )
-		vFrame = CGRectMake ( frame.origin.x, frame.origin.y + frame.size.height - height - 8, frame.size.width, height + 8 );
+		vFrame = CGRectMake ( frame.origin.x, frame.origin.y + frame.size.height - height - 8, width, height + 8 );
 	else
-		vFrame = CGRectMake ( frame.origin.x, frame.origin.y, frame.size.width, height + 8 );
-	CGRect cFrame = CGRectMake ( 4, 4, frame.size.width - 8, height );
+		vFrame = CGRectMake ( frame.origin.x, frame.origin.y, width, height + 8 );
+	CGRect cFrame = CGRectMake ( 4, 4, width - 8, height );
 	CGRect nbFrame = CGRectMake ( vFrame.size.width - bFrame.size.width, 0, bFrame.size.width, bFrame.size.height );
 
 	[[self view] setFrame:vFrame];

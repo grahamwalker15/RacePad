@@ -93,8 +93,15 @@
     return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[[CommentaryBubble Instance] willRotateInterface];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+	[[CommentaryBubble Instance] didRotateInterface];
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 

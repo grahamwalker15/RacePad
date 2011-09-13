@@ -67,12 +67,15 @@ static int fadeOffAfter = 8;
 
 - (void) allowBubbles:(UIView *)view BottomRight: (bool) br
 {
+	bool shown = bubbleView && commentaryController.shown;
 	bubbleView = view;
 	bottomRight = br;
 	[[BasePadCoordinator Instance] SetViewDisplayed:commentaryController.commentaryView]; // It isn't actually displayed - but it's as if it is
 	[commentaryController.view removeFromSuperview];
 	[commentaryController popDown:false];
 	[view addSubview:commentaryController.view];
+	if ( shown )
+		[self showNow];
 }
 
 - (void) noBubbles
@@ -102,7 +105,7 @@ static int fadeOffAfter = 8;
 
 - (void)showIfNeeded
 {
-	if(!commentaryController.shown && bubbleView)
+	if(!commentaryController.shown && bubbleView && !shownBeforeRotate)
 	{
 		float timeNow = [[BasePadCoordinator Instance] playTime];
 		int rowCount, firstRow;
@@ -172,5 +175,22 @@ static int fadeOffAfter = 8;
 {
 	[commentaryController.commentaryView resetTimings];
 }
+
+- (void) willRotateInterface
+{
+	shownBeforeRotate = bubbleView && commentaryController.shown;
+	[self popDown];
+}
+
+- (void) didRotateInterface
+{
+	[commentaryController resetWidth];
+	if ( shownBeforeRotate )
+	{
+		[self showNow];
+	}
+	shownBeforeRotate = false;
+}
+
 
 @end

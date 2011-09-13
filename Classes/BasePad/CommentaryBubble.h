@@ -22,6 +22,8 @@
 	NSMutableArray *passThroughViews;
 	
 	bool bubblePref;
+	
+	bool shownBeforeRotate;
 }
 
 @property bool bubblePref;
@@ -34,5 +36,8 @@
 - (void) allowBubbles: (UIView *) view BottomRight: (bool) br;
 - (void) noBubbles;
 - (void) resetBubbleTimings;
+- (void) showNow;
+- (void) willRotateInterface;
+- (void) didRotateInterface;
 
 @end
