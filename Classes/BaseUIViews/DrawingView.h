@@ -112,6 +112,7 @@
 // Request a redraw on next cycle
 - (void)RequestRedraw;
 - (void)RequestRedrawInRect:(CGRect)rect;
+- (void) RequestRedrawForUpdate; // Default will RequestRedraw - but indicates an external request rather than an internal one
 
 // Recraw window (N.B. THESE METHODS SHOULD BE OVERRIDDEN)
 - (void)Draw;

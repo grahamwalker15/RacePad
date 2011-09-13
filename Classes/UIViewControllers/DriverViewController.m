@@ -674,8 +674,11 @@
 			[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:name];
 			
 			// Force reload of data
+			[[RacePadCoordinator Instance] SetViewHidden:commentaryView];
 			[[RacePadCoordinator Instance] SetViewHidden:self];
+			[commentaryView ResetScroll];
 			[[RacePadCoordinator Instance] SetViewDisplayed:self];
+			[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 
 			if(!oldCar)
 			{
@@ -694,9 +697,6 @@
 			[self setAllSelected:false];	
 			
 			[leaderboardView RequestRedraw];
-
-			// [commentaryView ResetScroll];
-			// [[RacePadCoordinator Instance] restartCommentary];
 
 			return;
 		}

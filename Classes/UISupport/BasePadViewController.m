@@ -88,8 +88,17 @@ static id timeControllerInstance = nil;
 	return YES;
 }
 
+- (void) RequestRedraw
+{
+}
+
 - (void) RequestRedrawForType:(int)type
 {
+}
+
+- (void) RequestRedrawForUpdate
+{
+	[self RequestRedraw];
 }
 
 // View display configuration

@@ -83,7 +83,7 @@
 		rowCount = 5;
 	
 	int height = rowCount * [commentaryView RowHeight];
-	if ( height < fromHeight )
+	if ( height <= fromHeight )
 		return;
 	
 	CGRect frame = [[self view] frame];

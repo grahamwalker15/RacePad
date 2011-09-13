@@ -63,6 +63,7 @@ enum ColumnPriority {
 	bool swiping_enabled_;
 	
 	bool scroll_to_end_requested_;
+	bool reset_scroll_requested_;
 	bool scroll_animating_;
 	NSTimer *scrollTimeoutTimer;
 		

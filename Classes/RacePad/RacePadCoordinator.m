@@ -309,7 +309,6 @@ static RacePadCoordinator * instance_ = nil;
 -(void) restartCommentary
 {
 	int view_count = [views count];
-	bool first = true;
 	
 	for ( int i = 0 ; i < view_count ; i++)
 	{
@@ -320,19 +319,15 @@ static RacePadCoordinator * instance_ = nil;
 			
 			if ( type == RPC_COMMENTARY_VIEW_ )
 			{
-				if ( first )
-				{
-					NSString *name = [[[RacePadDatabase Instance] commentary] commentaryFor];
-					if ( name == nil )
-						name = @"RACE";
-					
-					if (connectionType == BPC_SOCKET_CONNECTION_)
-						[socket_ StreamCommentary:name];
-					else
-						[self loadBPF:[self archiveName] File:@"commentary" SubIndex:name];
-					first = false;
-				}
-				[[existing_view View] RequestRedraw];
+				NSString *name = [[[RacePadDatabase Instance] commentary] commentaryFor];
+				if ( name == nil )
+					name = @"RACE";
+				
+				if (connectionType == BPC_SOCKET_CONNECTION_)
+					[socket_ StreamCommentary:name];
+				else
+					[self loadBPF:[self archiveName] File:@"commentary" SubIndex:name];
+				break;
 			}
 		}
 	}	

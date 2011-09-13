@@ -46,5 +46,6 @@
 @property (readonly) NSArray * allItems;
 
 - (void)RequestRedraw;
+- (void)RequestRedrawForUpdate;
 
 @end

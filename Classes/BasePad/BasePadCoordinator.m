@@ -1340,7 +1340,7 @@ static BasePadCoordinator * instance_ = nil;
 
 			if( [existing_view Type] == type && [existing_view Displayed] && [existing_view RefreshEnabled])
 			{
-				[[existing_view View] RequestRedraw];
+				[[existing_view View] RequestRedrawForUpdate];
 			}
 		}
 	}

@@ -73,4 +73,9 @@
 	
 }
 
+- (void)RequestRedrawForUpdate
+{
+	
+}
+
 @end

@@ -128,6 +128,7 @@
 	wet_tyre_ = [DrawingView CreateColourRed:110 Green:0 Blue:150];
 	
 	scroll_to_end_requested_ = false;
+	reset_scroll_requested_ = false;
 	scroll_animating_ = false;
 	scrollTimeoutTimer = nil;
 }
@@ -231,12 +232,17 @@
 
 - (void) ResetScroll
 {
-	[self setContentOffset:CGPointZero animated:false];
-	[self getCurrentBoundsInfo];
+	reset_scroll_requested_ = true;
 }
 
 - (void) RequestScrollToEnd
 {
+	if ( scroll_animating_ )
+	{
+		scroll_to_end_requested_ = true;
+		return;
+	}
+	
 	CGRect bounds = [self bounds];
 
 	int row_count = [self RowCount];
@@ -254,8 +260,13 @@
 		[self setContentOffset:CGPointMake(0.0, 0.0) animated:false];
 		[self getCurrentBoundsInfo];
 	}
-	
-	scroll_to_end_requested_ = true;
+	else
+	{
+		if ( reset_scroll_requested_ )
+			[self setContentOffset:CGPointZero animated:false];
+		[self ScrollToEnd];
+	}
+	reset_scroll_requested_ = false;
 }
 
 - (void) ScrollToEnd
@@ -273,15 +284,19 @@
 	if(yOffset < 0)
 		yOffset = 0;
 	
-	scroll_animating_ = true;
+	CGPoint currentOffset = [self contentOffset];
+	if ( currentOffset.y != yOffset )
+	{
+		scroll_animating_ = true;
+		
+		[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
+		[self getCurrentBoundsInfo];
 	
-	[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
-	[self getCurrentBoundsInfo];
-	
-	[self RequestRedraw];
-	
-	// Set timer to catch it if the end callback isn't called for any reason
-	[self setScrollTimer];
+		// Set timer to catch it if the end callback isn't called for any reason
+		[self setScrollTimer];
+	}
+	else
+		[self RequestRedraw];
 }
 
 - (void) ScrollToRow:(int)row
@@ -313,13 +328,12 @@
 		scrollTimeoutTimer = nil;
 	}
 
-	scroll_animating_ = false;
 	[self getCurrentBoundsInfo];
 	
+	scroll_animating_ = false;
+
 	if(scroll_to_end_requested_)
-		[self ScrollToEnd];
-	else
-		[self RequestRedraw];
+		[self performSelector:@selector(RequestScrollToEnd) withObject:nil afterDelay: 0.1];
 }
 
 - (void) setScrollTimer
@@ -328,20 +342,20 @@
 	if(scrollTimeoutTimer)
 		[scrollTimeoutTimer invalidate];
 	
-	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];	
+	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];	
 }
 
 - (void) scrollTimerExpired:(NSTimer *)theTimer
 {
 	scrollTimeoutTimer = nil;
 	
-	scroll_animating_ = false;
 	[self getCurrentBoundsInfo];
 	
+	scroll_animating_ = false;
+
 	if(scroll_to_end_requested_)
-		[self ScrollToEnd];
-	else
-		[self RequestRedraw];
+		[self RequestScrollToEnd];
+
 }
 
 - (bool) IfHeading
@@ -625,12 +639,6 @@
 	}
 	
 	[self EndDrawing];
-	
-	if(scroll_to_end_requested_)
-	{
-		[self ScrollToEnd];		
-	}
-	
 }
 
 - (void) DrawBase

@@ -112,6 +112,7 @@
 		
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:trackMapView.carToFollow];
 
+	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];

@@ -73,12 +73,24 @@
     [super dealloc];
 }
 
-- (void) RequestRedraw
+- (void) redrawAtEnd
 {
-	if ( !scroll_animating_)
-		[self RequestScrollToEnd];
+	[self RequestScrollToEnd];
 	lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
-	[super RequestRedraw];
+}
+
+- (void) RequestRedrawForUpdate
+{
+	int rowCount, fRow;
+	[self countRows: &rowCount FirstRow: &fRow];
+	
+	CGRect bounds = [self bounds];
+	
+	int height = bounds.size.height;
+	if ( bubbleController )
+		[bubbleController sizeCommentary: rowCount FromHeight:height];
+	[self redrawAtEnd];
+	// [super RequestRedrawForUpdate];
 }
 
 - (void) drawIfChanged
@@ -98,7 +110,7 @@
 		{
 			if ( bubbleController )
 				[bubbleController sizeCommentary: rowCount FromHeight:height];
-			[self RequestRedraw];
+			[self redrawAtEnd];
 		}
 	}
 }
@@ -112,7 +124,7 @@
 		
 		if ( bubbleController )
 			[bubbleController sizeCommentary: rowCount FromHeight:0];
-		[self RequestRedraw];
+		[self redrawAtEnd];
 	}
 }
 
@@ -169,7 +181,7 @@
 		
 		if ( itemTime >= timeWindow )
 		{
-			if ( itemTime <= timeNow
+			if ( itemTime <= timeNow + 0.5
 			  && item.confidence >= minPriority )
 			{
 				if ( first )
@@ -180,7 +192,7 @@
 				else
 					if ( itemTime < firstMessageTime )
 						firstMessageTime = itemTime;
-
+				
 				first = false;
 				*count = *count + 1;
 				if ( itemTime > latestMessageTime )
@@ -284,7 +296,7 @@
 		
 		if ( itemTime >= timeWindow )
 		{
-			if ( itemTime <= timeNow
+			if ( itemTime <= timeNow + 0.5
 			  && item.confidence >= minPriority )
 			{
 				if ( row == count )
@@ -323,8 +335,8 @@
 		}
 		case 1:
 		{
-			int lap = [[data itemAtIndex:row] lap];
-			float timeStamp = [[data itemAtIndex:row] timeStamp];
+			int lap = [[data itemAtIndex:currentRow] lap];
+			float timeStamp = [[data itemAtIndex:currentRow] timeStamp];
 			
 			if(lap > 0)
 			{

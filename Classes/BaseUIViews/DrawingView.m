@@ -345,6 +345,11 @@ static bool statics_initialised_ = false;
 	[self setNeedsDisplayInRect:rect];
 }
 
+- (void) RequestRedrawForUpdate
+{
+	[self RequestRedraw];
+}
+
 - (void)Draw
 {
 	[self Draw:[self bounds]];

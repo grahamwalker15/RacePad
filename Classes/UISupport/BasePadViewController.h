@@ -80,6 +80,8 @@
 
 // Virtual method to be overwritten in order to update any title bars etc.
 - (void) RequestRedrawForType:(int)type;
+- (void) RequestRedrawForUpdate;
+- (void) RequestRedraw;
 
 // View display configuration
 -(void) addDropShadowToView:(UIView *)view WithOffsetX:(float)x Y:(float)y Blur:(float)blur;

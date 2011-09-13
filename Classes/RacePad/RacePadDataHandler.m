@@ -14,6 +14,7 @@
 #import "RacePadTitleBarController.h"
 #import "RacePadSponsor.h"
 #import "TrackMap.h"
+#import	"CommentaryBubble.h"
 
 @implementation RacePadDataHandler
 
@@ -196,6 +197,12 @@
 			CommentaryData *commentary = [[RacePadDatabase Instance] commentary];
 			[commentary loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			break;
+		}
+		case RPSC_COMMENTARY_NO_CHANGE_: // Commentary no_change
+		{
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			[[CommentaryBubble Instance] showIfNeeded];
 			break;
 		}
 		case RPSC_RETURN_PREDICTION_: // Race prediction for this user
