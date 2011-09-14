@@ -402,19 +402,22 @@
 				}
 			}
 			
-			[self.view addSubview:draggedDriverCell];
-			[self addDropShadowToView:draggedDriverCell WithOffsetX:5 Y:5 Blur:3];
-					
-			CGRect cellRect = [draggedDriverCell bounds];
-			CGPoint downPoint = [recognizer locationInView:[self view]];
-			CGRect dragFrame = CGRectMake(downPoint.x - cellRect.size.width / 2, downPoint.y - cellRect.size.height / 2, cellRect.size.width, cellRect.size.height);
-			[draggedDriverCell setFrame:dragFrame];
-					
-			[draggedDriverText setText:draggedDriverName];
-								
-			[leaderboardView setHighlightCar:draggedDriverName];
-			[leaderboardView RequestRedraw];
-
+			if(draggedDriverName)
+			{
+				[self.view addSubview:draggedDriverCell];
+				[self addDropShadowToView:draggedDriverCell WithOffsetX:5 Y:5 Blur:3];
+						
+				CGRect cellRect = [draggedDriverCell bounds];
+				CGPoint downPoint = [recognizer locationInView:[self view]];
+				CGRect dragFrame = CGRectMake(downPoint.x - cellRect.size.width / 2, downPoint.y - cellRect.size.height / 2, cellRect.size.width, cellRect.size.height);
+				[draggedDriverCell setFrame:dragFrame];
+						
+				[draggedDriverText setText:draggedDriverName];
+									
+				[leaderboardView setHighlightCar:draggedDriverName];
+				[leaderboardView RequestRedraw];
+			}
+			
 			break;
 		}
 			
@@ -444,31 +447,32 @@
 				{
 				
 					// Check whether we are over a drop zone
-					CGPoint point = [recognizer locationInView:driverContainer1];
+					CGPoint point = [recognizer locationInView:headToHeadView];
 					
 					bool dropped = false;
 					
-					if([driverContainer1 pointInside:point withEvent:nil])
+					// Are we in the head to head?
+					if ( [headToHeadView pointInside:point withEvent:nil] )
 					{
-						// If we've come from 2, then swap
-						if ( dragSource == H2H_VC_DRIVER2_ )
+						// In top half is Driver 1
+						if(point.y < headToHeadView.bounds.size.height / 2)
 						{
-							headToHead.driver1 = headToHead.driver0;
+							// If we've come from 2, then swap
+							if ( dragSource == H2H_VC_DRIVER2_ )
+							{
+								headToHead.driver1 = headToHead.driver0;
+							}
+							else
+							{
+								// If they are now the same, then set the other to leader
+								if ( [headToHead.driver1 isEqualToString:draggedDriverName] )
+									headToHead.driver1 = nil;
+							}
+							headToHead.driver0 = draggedDriverName;
+
+							dropped = true;
 						}
 						else
-						{
-							// If they are now the same, then set the other to leader
-							if ( [headToHead.driver1 isEqualToString:draggedDriverName] )
-								headToHead.driver1 = nil;
-						}
-						headToHead.driver0 = draggedDriverName;
-
-						dropped = true;
-					}
-					else
-					{
-						point = [recognizer locationInView:driverContainer2];
-						if([driverContainer2 pointInside:point withEvent:nil])
 						{
 							// If we've come from 1, then swap
 							if ( dragSource == H2H_VC_DRIVER1_ )
