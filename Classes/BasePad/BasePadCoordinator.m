@@ -469,6 +469,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	[[BasePadTimeController Instance] updatePlayButtons];
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+	[[BasePadTitleBarController Instance] updateTime:currentTime];
 	[self resetCommentaryTimings];
 	[self showSnapshot];
 }

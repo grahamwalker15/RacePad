@@ -67,6 +67,7 @@ static RacePadCoordinator * instance_ = nil;
 -(void) clearStaticData
 {
 	[super clearStaticData];
+	[[RacePadTitleBarController Instance] setLapCount:0]; // To put it back into time mode
 	[self updatePrediction];
 }
 
