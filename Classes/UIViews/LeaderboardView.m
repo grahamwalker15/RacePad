@@ -80,6 +80,11 @@
 		[self SetBGColour:[UIColor colorWithRed:0.7 green:0.7 blue:1.0 alpha:1.0]];
 		[self SetFGColour:black_];
 	}
+	else if([pitText isEqualToString:@"E"])
+	{
+		[self SetBGColour:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0]];
+		[self SetFGColour:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
+	}
 	else
 	{
 		[self SetBGColour:black_];
