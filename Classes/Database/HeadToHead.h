@@ -19,6 +19,7 @@ enum H2HFlag {
 @interface HeadToHeadLap : NSObject
 {
 	float gap;
+	float blueFlagGap;
 	int pos0;
 	int pos1;
 	int flags0;
@@ -26,6 +27,7 @@ enum H2HFlag {
 }
 
 @property float gap;
+@property float blueFlagGap;
 @property int pos0;
 @property int pos1;
 @property int flags0;

@@ -9,6 +9,7 @@
 #import "HeadToHead.h"
 #import "HeadToHeadView.h"
 #import "DataStream.h"
+#import "RacePadDataHandler.h"
 
 static UIImage *greenPosArrowImage = nil;
 static UIImage *redPosArrowImage = nil;
@@ -16,6 +17,7 @@ static UIImage *redPosArrowImage = nil;
 @implementation HeadToHeadLap
 
 @synthesize gap;
+@synthesize blueFlagGap;
 @synthesize pos0;
 @synthesize pos1;
 @synthesize flags0;
@@ -30,6 +32,10 @@ static UIImage *redPosArrowImage = nil;
 		pos1 = [stream PopInt];
 		flags1 = [stream PopInt];
 		gap = [stream PopFloat];
+		if ( stream.versionNumber >= RACE_PAD_HEAD_TO_HEAD_BLUE_FLAG )
+			blueFlagGap = [stream PopFloat];
+		else
+			blueFlagGap = 0.0;
 	}
 	
 	return self;
@@ -311,7 +317,11 @@ static UIImage *redPosArrowImage = nil;
 			if(lap)
 			{
 				float gap = [lap gap];
+				float blueFlagGap = [lap blueFlagGap];
 					
+				float x1 = [view transformX:((float)i - 1.0) / (float)totalLapCount] * graphicWidth;
+				float x2 = [view transformX:((float)i) / (float)totalLapCount] * graphicWidth;
+
 				if(fabsf(gap) > 0.001)
 				{
 					float y1, y2;
@@ -339,11 +349,26 @@ static UIImage *redPosArrowImage = nil;
 					}
 
 					y2 = y1 - (float)gap / maxGap * graphicHeight;
-
-					float x1 = [view transformX:((float)i - 1.0) / (float)totalLapCount] * graphicWidth;
-					float x2 = [view transformX:((float)i) / (float)totalLapCount] * graphicWidth;
 					
 					[view SetFGColour:[view white_]];
+					[view FillShadedRectangleX0:x1 Y0:y1 X1:x2 Y1:y2 WithHighlight:false];
+					[view LineRectangleX0:x1 Y0:y1 X1:x2 Y1:y2];
+				}
+				
+				if(fabsf(blueFlagGap) > 0.001)
+				{
+					float y1, y2;
+					
+					if(blueFlagGap > 0)
+						y1 = x_axis;
+					else
+						y1 = x_axis + xAxisSpace;
+					
+					y2 = y1 - (float)blueFlagGap / maxGap * graphicHeight;
+					
+					[view SetBGColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.8 alpha:0.5]];
+
+					[view SetFGColour:[UIColor colorWithRed:0.6 green:0.6 blue:0.8 alpha:0.7]];
 					[view FillShadedRectangleX0:x1 Y0:y1 X1:x2 Y1:y2 WithHighlight:false];
 					[view LineRectangleX0:x1 Y0:y1 X1:x2 Y1:y2];
 				}
