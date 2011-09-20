@@ -121,6 +121,7 @@
 		case ALERT_PIT_STOP_:
 			return filter == AV_PIT_;
 		case ALERT_INCIDENT_:
+		case ALERT_OFF_TRACK_:
 		case ALERT_CAR_STOPPED_:
 		case ALERT_CAR_CONTINUED_:
 			return filter == AV_INCIDENT_;

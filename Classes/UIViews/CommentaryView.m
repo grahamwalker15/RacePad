@@ -76,6 +76,7 @@
 - (void) redrawAtEnd
 {
 	[self RequestScrollToEnd];
+	
 	lastUpdateTime = [ElapsedTime TimeOfDay] - ([[RacePadCoordinator Instance] playTime] - latestMessageTime);
 }
 
