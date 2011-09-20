@@ -24,6 +24,8 @@
 	IBOutlet TrackMapView * trackZoomView;
 	IBOutlet LeaderboardView *leaderboardView;
 	
+	IBOutlet UIButton * trackZoomCloseButton;
+
 	int trackZoomOffsetX, trackZoomOffsetY;
 }
 
@@ -34,5 +36,8 @@
 - (void) showZoomMap;
 - (void) hideZoomMap;
 - (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+
+- (IBAction) closeButtonHit:(id)sender;
+
 
 @end
