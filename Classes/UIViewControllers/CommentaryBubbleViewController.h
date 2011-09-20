@@ -15,7 +15,7 @@
 @interface CommentaryBubbleViewController : UIViewController
 {
 	IBOutlet CommentaryView *commentaryView;
-	IBOutlet ShinyButton *closeButton;
+	IBOutlet UIButton *closeButton;
 	
 	bool shown;
 	bool growUp;
