@@ -264,13 +264,20 @@ static id timeControllerInstance = nil;
 
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer
 {
+	UIView * gestureView = [gestureRecognizer view];
+
 	if([(UIPinchGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateEnded)
 	{
 		lastGestureScale = 1.0;
 		return;
 	}
 	
-	UIView * gestureView = [gestureRecognizer view];
+	if([(UIPinchGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateBegan)
+	{
+		gestureStartPoint = [gestureRecognizer locationInView:gestureView];
+		lastGestureScale = 1.0;
+	}
+	
 	CGPoint point = [gestureRecognizer locationInView:gestureView];
 	float scale = [(UIPinchGestureRecognizer *)gestureRecognizer scale];
 	float speed = [(UIPinchGestureRecognizer *)gestureRecognizer velocity];
@@ -321,6 +328,11 @@ static id timeControllerInstance = nil;
 	UIView * gestureView = [gestureRecognizer view];
 	CGPoint pan = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureView];
 	CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureView];
+	
+	if(state == UIGestureRecognizerStateBegan)
+	{
+		gestureStartPoint = [gestureRecognizer locationInView:gestureView];
+	}
 	
 	float thisGesturePanX = pan.x;
 	float thisGesturePanY = pan.y;

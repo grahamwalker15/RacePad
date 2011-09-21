@@ -326,7 +326,11 @@
 	
 	if([gestureView isKindOfClass:[HeadToHeadView class]])
 	{
-		[(HeadToHeadView *)gestureView adjustScale:scale X:x Y:y];	
+		if(gestureStartPoint.x > [gestureView bounds].size.width - 50)
+			[(HeadToHeadView *)gestureView adjustScaleY:scale X:x Y:y];	
+		else
+			[(HeadToHeadView *)gestureView adjustScaleX:scale X:x Y:y];	
+
 		[(HeadToHeadView *)gestureView RequestRedraw];
 	}
 }
@@ -338,8 +342,10 @@
 	
 	if([gestureView isKindOfClass:[HeadToHeadView class]])
 	{
-		[(HeadToHeadView *)gestureView setUserOffset:0.0];
-		[(HeadToHeadView *)gestureView setUserScale:1.0];
+		[(HeadToHeadView *)gestureView setUserOffsetX:0.0];
+		[(HeadToHeadView *)gestureView setUserScaleX:1.0];
+		[(HeadToHeadView *)gestureView setUserOffsetY:0.0];
+		[(HeadToHeadView *)gestureView setUserScaleY:1.0];
 		[(HeadToHeadView *)gestureView RequestRedraw];
 	}
 }
@@ -352,7 +358,11 @@
 	
 	if([gestureView isKindOfClass:[HeadToHeadView class]])
 	{
-		[(HeadToHeadView *)gestureView adjustPanX:x Y:y];	
+		if(gestureStartPoint.x > [gestureView bounds].size.width - 50)
+			[(HeadToHeadView *)gestureView adjustPanY:y];
+		else
+			[(HeadToHeadView *)gestureView adjustPanX:x];
+		
 		[(HeadToHeadView *)gestureView RequestRedraw];
 	}
 }

@@ -16,8 +16,10 @@
 
 @implementation HeadToHeadView
 
-@synthesize userOffset;
-@synthesize userScale;
+@synthesize userOffsetX;
+@synthesize userScaleX;
+@synthesize userOffsetY;
+@synthesize userScaleY;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -50,8 +52,10 @@
 
 - (void)InitialiseMembers
 {
-	userOffset = 0.0;
-	userScale = 1.0;
+	userOffsetX = 0.0;
+	userScaleX = 1.0;
+	userOffsetY = 0.0;
+	userScaleY = 1.0;
 }
 
 - (void) drawHeadToHead
@@ -71,13 +75,13 @@
 	[self drawHeadToHead];	
 }
 
-- (void) adjustScale:(float)scale X:(float)x Y:(float)y
+- (void) adjustScaleX:(float)scale X:(float)x Y:(float)y
 {
 	if(current_size_.width < 1 || current_size_.height < 1)
 		return;
 	
-	float currentUserPan = userOffset;
-	float currentUserScale = userScale;
+	float currentUserPan = userOffsetX;
+	float currentUserScale = userScaleX;
 	float centreX = x / current_size_.width ;
 	
 	if(fabsf(currentUserScale) < 0.001 || fabsf(scale) < 0.001)
@@ -87,39 +91,110 @@
 	float x_in_window = (centreX - 0.5) / currentUserScale + 0.5 - currentUserPan;
 	
 	// Now work out the new scale	
-	userScale = currentUserScale * scale;
+	userScaleX = currentUserScale * scale;
 	
-	if(userScale < 1.0)
-		userScale = 1.0;
-	else if(userScale > 12.0)
-		userScale = 12.0;
+	if(userScaleX < 1.0)
+		userScaleX = 1.0;
+	else if(userScaleX > 12.0)
+		userScaleX = 12.0;
 	
 	// And set the user pan to put the focus point back where it was on the screen
-	userOffset = (centreX - 0.5) /userScale - x_in_window + 0.5;
+	userOffsetX = (centreX - 0.5) /userScaleX - x_in_window + 0.5;
 	
-	if(userOffset > (0.5 - 0.5 / userScale))
-		userOffset = (0.5 - 0.5 / userScale);
-	else if(userOffset < (0.5 / userScale - 0.5))
-		userOffset = (0.5 / userScale - 0.5);
+	if(userOffsetX > (0.5 - 0.5 / userScaleX))
+		userOffsetX = (0.5 - 0.5 / userScaleX);
+	else if(userOffsetX < (0.5 / userScaleX - 0.5))
+		userOffsetX = (0.5 / userScaleX - 0.5);
 	
 }
 
-- (void) adjustPanX:(float)x Y:(float)y
+- (void) adjustScaleY:(float)scale X:(float)x Y:(float)y
 {
-	if(current_size_.width < 1 || current_size_.height < 1 || userScale < 1.0)
+	// Do nothing for the moment
+	return;
+	
+	if(current_size_.width < 1 || current_size_.height < 1)
 		return;
 	
-	userOffset = (userOffset * userScale * current_size_.width + x) / (current_size_.width * userScale);
+	float currentUserPan = userOffsetY;
+	float currentUserScale = userScaleY;
+	float centreY = y / current_size_.height ;
 	
-	if(userOffset > (0.5 - 0.5 / userScale))
-		userOffset = (0.5 - 0.5 / userScale);
-	else if(userOffset < (0.5 / userScale - 0.5))
-		userOffset = (0.5 / userScale - 0.5);
+	if(fabsf(currentUserScale) < 0.001 || fabsf(scale) < 0.001)
+		return;
+	
+	// Calculate where the centre point is in the untransformed window
+	float y_in_window = (centreY - 0.5) / currentUserScale + 0.5 - currentUserPan;
+	
+	// Now work out the new scale	
+	userScaleY = currentUserScale * scale;
+	
+	if(userScaleY < 1.0)
+		userScaleY = 1.0;
+	else if(userScaleY > 12.0)
+		userScaleY = 12.0;
+	
+	// And set the user pan to put the focus point back where it was on the screen
+	userOffsetY = (centreY - 0.5) /userScaleY - y_in_window + 0.5;
+	
+	if(userOffsetY > (0.5 - 0.5 / userScaleY))
+		userOffsetY = (0.5 - 0.5 / userScaleY);
+	else if(userOffsetY < (0.5 / userScaleY - 0.5))
+		userOffsetY = (0.5 / userScaleY - 0.5);
+	
+}
+
+- (void) adjustPanX:(float)x
+{
+	if(current_size_.width < 1 || current_size_.height < 1 || userScaleX < 1.0)
+		return;
+	
+	userOffsetX = (userOffsetX * userScaleX * current_size_.width + x) / (current_size_.width * userScaleX);
+	
+	if(userOffsetX > (0.5 - 0.5 / userScaleX))
+		userOffsetX = (0.5 - 0.5 / userScaleX);
+	else if(userOffsetX < (0.5 / userScaleX - 0.5))
+		userOffsetX = (0.5 / userScaleX - 0.5);
+}
+
+- (void) adjustPanY:(float)y
+{
+	// Simplify for the moment
+	 
+	if(current_size_.width < 1 || current_size_.height < 1 || userScaleY < 1.0)
+		return;
+	
+	userOffsetY += (y / current_size_.height);
+	
+	if(userOffsetY > 0.5)
+		userOffsetY = 0.5;
+	else if(userOffsetY < -0.5)
+		userOffsetY = -0.5;
+
+	/*
+	userOffsetY = (userOffsetY * userScaleY * current_size_.width + y) / (current_size_.width * userScaleY);
+	
+	if(userOffsetY > (0.5 - 0.5 / userScaleY))
+		userOffsetY = (0.5 - 0.5 / userScaleY);
+	else if(userOffsetY < (0.5 / userScaleY - 0.5))
+		userOffsetY = (0.5 / userScaleY - 0.5);
+	*/
 }
 
 - (float) transformX:(float)x
 {
-	return (x - 0.5 + userOffset) * userScale + 0.5;
+	return (x - 0.5 + userOffsetX) * userScaleX + 0.5;
+}
+
+- (float) transformY:(float)y
+{
+	//return (y - 0.5 + userOffsetY) * userScaleY + 0.5;
+	return y * userScaleY;
+}
+
+- (float) yOffset
+{
+	return 	userOffsetY * current_size_.height;
 }
 
 @end

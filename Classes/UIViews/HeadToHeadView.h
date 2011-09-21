@@ -12,18 +12,26 @@
 
 @interface HeadToHeadView : DrawingView
 {
-	float userOffset;
-	float userScale;
+	float userOffsetX;
+	float userScaleX;
+	float userOffsetY;
+	float userScaleY;
 }
 
-@property (nonatomic) float userOffset;
-@property (nonatomic) float userScale;
+@property (nonatomic) float userOffsetX;
+@property (nonatomic) float userScaleX;
+@property (nonatomic) float userOffsetY;
+@property (nonatomic) float userScaleY;
 
 - (void)InitialiseMembers;
 
-- (void) adjustScale:(float)scale X:(float)x Y:(float)y;
-- (void) adjustPanX:(float)x Y:(float)y;
+- (void) adjustScaleX:(float)scale X:(float)x Y:(float)y;
+- (void) adjustScaleY:(float)scale X:(float)x Y:(float)y;
+- (void) adjustPanX:(float)x;
+- (void) adjustPanY:(float)y;
 - (float) transformX:(float)x;
+- (float) transformY:(float)y;
+- (float) yOffset;
 
 @end
 
