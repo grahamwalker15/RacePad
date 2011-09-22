@@ -15,6 +15,7 @@
 #import "RacePadCoordinator.h"
 #import "RacePadDatabase.h"
 #import "TableData.h"
+#import "CommentaryBubble.h"
 
 @implementation DriverLapListController
 
@@ -70,6 +71,7 @@
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_LIST_VIEW_];
 	[[RacePadCoordinator Instance] SetParameter:driver_ ForView:lap_list_view_];
 	[[RacePadCoordinator Instance] SetViewDisplayed:lap_list_view_];
+	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -82,6 +84,18 @@
 {
     // Overriden to allow any orientation.
     return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	[[CommentaryBubble Instance] willRotateInterface];
+	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[[CommentaryBubble Instance] didRotateInterface];
+	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)didReceiveMemoryWarning

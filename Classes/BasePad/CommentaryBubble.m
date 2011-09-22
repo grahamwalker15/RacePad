@@ -84,6 +84,11 @@ static int fadeOffAfter = 8;
 	[[BasePadCoordinator Instance] SetViewHidden:commentaryController.commentaryView];
 	[commentaryController.view removeFromSuperview];
 	[commentaryController popDown:false];
+	if(popdownTimer)
+	{
+		[popdownTimer invalidate];
+		popdownTimer = nil;
+	}
 }
 
 - (void)showNow
