@@ -213,7 +213,7 @@ static UIImage *redPosArrowImage = nil;
 	float yAxisSpace = 50;
 	float graphicWidth = size.width - yAxisSpace;
 	float graphicHeight = (size.height - xAxisSpace * 3) * 0.5;
-	int x_axis = size.height * 0.5 - xAxisSpace * 0.5;
+	int x_axis = size.height * 0.5 - xAxisSpace * 0.5 + [view yOffset];
 		
 	CGMutablePathRef drawingArea = [DrawingView CreateRectPathX0:0 Y0:0 X1:graphicWidth Y1:size.height];
 	
