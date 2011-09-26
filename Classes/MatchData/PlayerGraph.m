@@ -16,6 +16,10 @@
 
 @synthesize path;
 @synthesize colour;
+@synthesize x0;
+@synthesize y0;
+@synthesize x1;
+@synthesize y1;
 
 - (id) init
 {
@@ -23,6 +27,10 @@
 	{
 		path = nil;
 		colour = nil;
+		x0 = 0;
+		y0 = 0;
+		x1 = 0;
+		y1 = 0;
 	}
 	
 	return self;
@@ -30,7 +38,6 @@
 
 - (void) clear
 {
-	CGPathRelease(path);
 	[colour release];
 	path = NULL;
 }
@@ -53,21 +60,26 @@
 
 -(void) loadShape:(DataStream *)stream Count:(int)count Colours: (UIColor **)colours ColoursCount:(int)coloursCount
 {
-	float *x = malloc(sizeof(float) * count);
-	float *y = malloc(sizeof(float) * count);
-	
 	int i;
 	for ( i = 0; i < count; i++ )
 	{
-		x[i] = [stream PopFloat];
-		y[i] = 1 - [stream PopFloat];
+		if ( i == 0 )
+		{
+			x0 = [stream PopFloat];
+			y0 = 1 - [stream PopFloat];
+		}
+		else if ( i == 1 )
+		{
+			x1 = [stream PopFloat];
+			y1 = 1 - [stream PopFloat];
+		}
+		else
+		{
+			[stream PopFloat];
+			[stream PopFloat];
+		}
 	}
 	
-	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
-	
-	free ( x );
-	free ( y );
-
 	colour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 }
 
@@ -164,6 +176,21 @@
 	nextPlayer = [stream PopInt];
 }
 
+- (void) arrowHead: (PlayerGraphView *) view Line: (PlayerGraphLine *) line Scale: (float) scale
+{
+	float l = 8 / scale;
+	
+	double angle = atan2 ( line.y1 - line.y0, line.x1 - line.x0 );
+	double a1 = angle + M_PI/8;
+	double dx = cos ( a1 ) * l;
+	double dy = sin ( a1 ) * l;
+	[view LineX0:line.x1 - dx Y0:line.y1 - dy X1:line.x1 Y1:line.y1];
+	double a2 = angle - M_PI/8;
+	dx = cos ( a2 ) * l;
+	dy = sin ( a2 ) * l;
+	[view LineX0:line.x1 - dx Y0:line.y1 - dy X1:line.x1 Y1:line.y1];
+}
+
 - (void) drawGraph: (PlayerGraphView *) view Scale: (float) scale
 {
 	[view SaveGraphicsState];
@@ -175,10 +202,14 @@
 	{
 		[view BeginPath];
 		PlayerGraphLine *line = [lines objectAtIndex:i];
-		[view LoadPath:[line path]];
 		[view SetLineWidth:2 / scale];
 		[view SetFGColour:[line colour]];
-		[view LineCurrentPath];
+		[view LineX0:line.x0 Y0:line.y0 X1:line.x1 Y1:line.y1];
+		if ( graphType == PGV_PASSES )
+		{
+			[view SetLineWidth:1 / scale];
+			[self arrowHead:view Line:line Scale:scale];
+		}
 	}
 	
 	[view RestoreGraphicsState];

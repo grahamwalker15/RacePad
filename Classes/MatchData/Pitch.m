@@ -335,6 +335,7 @@
 		[view SetFGColour:[line colour]];
 		if ( [line lineType] == 3 )
 		{
+			[view SetSolidLine];
 			[self viewSpot:view X0:[line x0] Y0:[line y0] LineScale:scale];
 		}
 		else
@@ -447,28 +448,17 @@
 	
 	[view RestoreGraphicsState];
 	
-	float centreX = 0;
-	float centreY = 0;
+	float centreX = (playerX + nextPlayerX ) / 2;
+	float centreY = (playerY + nextPlayerY ) / 2;
 	
-	if ( [player length] )
+	if ( [third length] && ![nextPlayer length] )
 	{
-		if ( [nextPlayer length] )
-			if ( [third length] )
-			{
-				centreX = (playerX + nextPlayerX + thirdX) / 3;
-				centreY = (playerY + nextPlayerY + thirdY) / 3;
-			}
-			else
-			{
-				centreX = (playerX + nextPlayerX ) / 2;
-				centreY = (playerY + nextPlayerY ) / 2;
-			}
-		else
-		{
-			centreX = (playerX + thirdX ) / 2;
-			centreY = (playerY + thirdY ) / 2;
-		}
+		centreX = (playerX + thirdX ) / 2;
+		centreY = (playerY + thirdY ) / 2;
 	}
+		
+	CGRect player_rect;
+	CGRect next_rect;
 
 	if ( [player length] )
 	{
@@ -486,6 +476,7 @@
 		[view SetBGColour:playerBG];
 		[view SetAlpha:0.4];
 		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+		player_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
 		[view SetAlpha:1.0];
 		[view UseRegularFont];
 		[view SetFGColour:playerColour];
@@ -507,6 +498,7 @@
 		[view SetBGColour:nextPlayerBG];
 		[view SetAlpha:0.4];
 		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+		next_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
 		[view SetAlpha:1.0];
 		[view UseRegularFont];
 		[view SetFGColour:nextPlayerColour];
@@ -521,10 +513,33 @@
 		y = y * y_scale + 25;
 		float sWidth, sHeight;
 		[view GetStringBox:third WidthReturn:&sWidth HeightReturn:&sHeight];
-		if ( thirdX <= centreX )
-			x -= sWidth;
-		if ( thirdY <= centreY )
-			y -= sHeight;
+		if ( [nextPlayer length] )
+		{
+			// try to find a place that doesn't overlap
+			for ( int i = 0; i < 4; i++ )
+			{
+				x = thirdX;
+				y = thirdY;
+				[self transformPoint:&x Y:&y];
+				x = x * x_scale + 25;
+				y = y * y_scale + 25;
+				if ( i == 1 || i == 3 )
+					x -= sWidth;
+				if ( i == 2 || i == 3 )
+					y -= sHeight;
+				CGRect third_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
+				if ( !CGRectIntersectsRect(player_rect, third_rect)
+				  && !CGRectIntersectsRect(next_rect, third_rect) )
+					break;
+			}
+		}
+		else // put it where next would be
+		{
+			if ( thirdX <= centreX )
+				x -= sWidth;
+			if ( thirdY <= centreY )
+				y -= sHeight;
+		}
 		[view SetBGColour:thirdBG];
 		[view SetAlpha:0.4];
 		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];

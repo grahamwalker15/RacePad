@@ -20,13 +20,16 @@ enum GraphType {
 
 @interface PlayerGraphLine : NSObject
 {
-	
-	CGMutablePathRef path;
 	UIColor *colour;
+	float x0, y0, x1, y1;
 }
 
 @property (readonly) CGMutablePathRef path;
 @property (readonly) UIColor *colour;
+@property (readonly) float x0;
+@property (readonly) float y0;
+@property (readonly) float x1;
+@property (readonly) float y1;
 
 - (void) loadShape : (DataStream *) stream Count: (int) count Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
 
