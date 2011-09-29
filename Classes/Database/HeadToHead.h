@@ -14,6 +14,17 @@
 enum H2HFlag {
 	H2H_PIT_ = 1,
 	H2H_SC_ = 2,
+	H2H_TYRE_OFFSET_ = 3,
+	H2H_TYRE_MASK_ = 7,
+};
+
+enum H2HTyre {
+	H2H_TYRE_H_ = 1,
+	H2H_TYRE_M_,
+	H2H_TYRE_S_,
+	H2H_TYRE_SS_,
+	H2H_TYRE_I_,
+	H2H_TYRE_W_,
 };
 
 @interface HeadToHeadLap : NSObject
@@ -34,6 +45,8 @@ enum H2HFlag {
 @property int flags1;
 
 - (HeadToHeadLap *) initWithStream: (DataStream *) stream;
+- (int) tyreColour0;
+- (int) tyreColour1;
 
 @end
 

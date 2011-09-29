@@ -41,6 +41,16 @@ static UIImage *redPosArrowImage = nil;
 	return self;
 }
 
+- (int) tyreColour0
+{
+	return (flags0 >> H2H_TYRE_OFFSET_) & H2H_TYRE_MASK_;
+}
+
+- (int) tyreColour1
+{
+	return (flags1 >> H2H_TYRE_OFFSET_) & H2H_TYRE_MASK_;
+}
+
 @end
 
 
@@ -161,6 +171,20 @@ static UIImage *redPosArrowImage = nil;
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Drawing
+
+- (UIColor *) tyreColour : (int) tyre
+{
+	switch ( tyre ) {
+		case H2H_TYRE_H_: return [UIColor colorWithRed:0.7 green:0.7 blue:0.85 alpha:0.8];
+		case H2H_TYRE_M_: return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
+		case H2H_TYRE_S_: return [UIColor colorWithRed:1.0 green:1.0 blue:0 alpha:0.8];
+		case H2H_TYRE_SS_: return [UIColor colorWithRed:1.0 green:0 blue:0 alpha:0.8];
+		case H2H_TYRE_I_: return [UIColor colorWithRed:0.3 green:1.0 blue:1.0 alpha:0.8];
+		case H2H_TYRE_W_: return [UIColor colorWithRed:0.8 green:0 blue:1.0 alpha:0.8];
+	}
+	
+	return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0];
+}
 
 - (void) drawInView : (HeadToHeadView *)view
 {
@@ -503,7 +527,14 @@ static UIImage *redPosArrowImage = nil;
 						prevPos0 = pos0;
 					}
 				}
-
+				// Draw the tyre colour
+				int tyre0 = [lap tyreColour0];
+				if ( tyre0 )
+				{
+					[view SetBGColour:[self tyreColour:tyre0]];
+					[view FillShadedRectangleX0:x1 Y0:0 X1:x2 Y1:3 WithHighlight:false];
+				}
+				
 				if(pit1)
 				{
 					[view SetFGColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.9 alpha:0.2]];
@@ -554,6 +585,13 @@ static UIImage *redPosArrowImage = nil;
 						
 						prevPos1 = pos1;
 					 }
+				}
+				// Draw the tyre colour
+				int tyre1 = [lap tyreColour1];
+				if ( tyre1 )
+				{
+					[view SetBGColour:[self tyreColour:tyre1]];
+					[view FillShadedRectangleX0:x1 Y0:size.height X1:x2 Y1:size.height - 3 WithHighlight:false];
 				}
 			}
 		}		
