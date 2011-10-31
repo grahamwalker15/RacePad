@@ -259,6 +259,7 @@
 	{
 		[self setContentOffset:CGPointMake(0.0, 0.0) animated:false];
 		[self getCurrentBoundsInfo];
+		[self RequestRedraw];
 	}
 	else
 	{
