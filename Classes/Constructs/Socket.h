@@ -37,13 +37,13 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 	int status_;
 	int error_;
 	
-	unsigned int reconnection_timer_;
-	unsigned int disconnection_timer_;
-	
 	char server_address_[32];
 	int port_;
 	
 	CFRunLoopSourceRef run_loop_source_;
+	
+	NSTimer *verifyTimer;
+	double lastReceiveTime;
 	
 	bool new_transfer_;
 	DataHandler *transferData;
@@ -69,5 +69,7 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 - (void)Connected;
 - (void)Disconnected:(bool) atConnect;
 - (DataHandler *) constructDataHandler;
+
+- (void) verifySocketTimer: (NSTimer *)theTimer;
 
 @end

@@ -11,6 +11,7 @@
 #import <arpa/inet.h>
 #import "DataHandler.h"
 #import "DataStream.h"
+#import "ElapsedTime.h"
 
 
 @implementation Socket
@@ -30,9 +31,6 @@
 	
 	run_loop_source_ = nil;
 	
-	reconnection_timer_ = 0;
-	disconnection_timer_ = 0;
-	
 	new_transfer_ = true;
 	
 	sizeBytesReceived = 0;
@@ -44,6 +42,12 @@
 
 -(void)DeleteSocket
 {
+	if(verifyTimer)
+	{
+		[verifyTimer invalidate];
+		verifyTimer = nil;
+	}
+	
 	if(run_loop_source_)
 	{
 		CFRunLoopRemoveSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
@@ -53,13 +57,11 @@
 		CFRelease(run_loop_source_);
 	CFSocketInvalidate(socket_ref_);
 	CFRelease(socket_ref_);
-	//KillReconnectTimer();
+	socket_ref_ = nil;
 }
 
 -(void)ConnectSocket:(const char *) server_address Port:(int) port
 {
-	//KillReconnectTimer();
-	
 	strcpy(server_address_, server_address);
 	port_ = port;
 	
@@ -93,6 +95,8 @@
 				if(run_loop_source_)
 				{
 					CFRunLoopAddSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
+					lastReceiveTime = [ElapsedTime LocalTimeOfDay];
+					verifyTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(verifySocketTimer:) userInfo:nil repeats:YES];
 				}
 			}
 			else
@@ -119,6 +123,14 @@
 - (void)OnDisconnect:(bool) atConnect
 {
 	status_ = SOCKET_ERROR_;
+	
+	// Must invalidate the timer here so that the timer is not holding an instance of the socket
+	if(verifyTimer)
+	{
+		[verifyTimer invalidate];
+		verifyTimer = nil;
+	}
+	
 	[self Disconnected: atConnect];
 }
 
@@ -133,6 +145,8 @@
 		[self OnDisconnect:false];
 		return;
 	}
+	
+	lastReceiveTime = [ElapsedTime LocalTimeOfDay];
 	
 	while ( data_size > 0 )
 	{
@@ -221,6 +235,28 @@
     [super dealloc];
 }
 
+- (void) verifySocketTimer: (NSTimer *)theTimer
+{
+	/*
+	if ( CFSocketIsValid(socket_ref_) )
+	{
+		uint32_t int_data[2];
+		int_data[0] =  htonl(8);
+		int_data[1] =  0;
+		CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 2);
+		int error = CFSocketSendData (socket_ref_, nil, data, 0);
+		CFRelease(data);
+		if ( error != kCFSocketSuccess )
+			[self OnDisconnect:false];
+	}
+	else
+	 [self OnDisconnect:false];
+	*/
+	
+	if ( [ElapsedTime LocalTimeOfDay] - lastReceiveTime > 10 )
+		[self OnDisconnect:false];
+}
+
 @end
 	
 
@@ -271,3 +307,5 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 	}
 
 }
+
+
