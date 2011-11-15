@@ -65,7 +65,7 @@
 	iData[2] = htonl([driver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -112,7 +112,7 @@
 	iData[2] = htonl([sentDriver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver UTF8String], [sentDriver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -134,7 +134,7 @@
 	iData[2] = htonl([sentDriver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver UTF8String], [sentDriver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -164,7 +164,7 @@
 	*d = htonl([sentDriver1 length]);
 	memcpy(buf + sizeof(uint32_t) * 4 + [sentDriver0 length], [sentDriver1 UTF8String], [sentDriver1 length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -194,7 +194,7 @@
 	*d = htonl([sentDriver1 length]);
 	memcpy(buf + sizeof(uint32_t) * 4 + [sentDriver0 length], [sentDriver1 UTF8String], [sentDriver1 length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -220,7 +220,7 @@
 		[self pushBuffer: &b Int:prediction[i]];
 	
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -246,7 +246,7 @@
 	[self pushBuffer: &b String:user];
 
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }

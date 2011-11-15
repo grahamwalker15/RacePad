@@ -56,6 +56,7 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 	
 }
 
+- (void) Disconnect; // Important: call this instead of release
 
 - (id)CreateSocket /*(SocketConnection * parent, char * buffer)*/;
 - (void)DeleteSocket;
@@ -70,6 +71,7 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 - (void)Disconnected:(bool) atConnect;
 - (DataHandler *) constructDataHandler;
 
+- (void) SendData: (CFDataRef) data;
 - (void) verifySocketTimer: (NSTimer *)theTimer;
 
 @end

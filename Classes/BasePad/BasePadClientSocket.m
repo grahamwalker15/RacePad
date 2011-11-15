@@ -27,7 +27,7 @@
 	[self pushBuffer: &b String:deviceName];
 	
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 	
@@ -45,7 +45,7 @@
 	int_data[0] =  htonl(8);
 	int_data[1] =  htonl(command);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 2);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 }
 
@@ -91,7 +91,7 @@
 	iData[1] = htonl(BPCS_ACCEPT_PUSH_DATA);
 	buf [sizeof(uint32_t) * 2] = send == YES?1:0;
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }
@@ -125,7 +125,7 @@
 	*t = reference_time;
 	int_data[2] = htonl(int_data[2]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 3);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 }
 
@@ -138,7 +138,7 @@
 	*r = rate;
 	int_data[2] = htonl(int_data[2]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 3);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 }
 
@@ -153,7 +153,7 @@
 	iData[2] = htonl([driver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	CFSocketSendData (socket_ref_, nil, data, 0);
+	[self SendData: data];
 	CFRelease(data);
 	free (buf);
 }

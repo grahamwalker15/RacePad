@@ -117,7 +117,7 @@ static BasePadCoordinator * instance_ = nil;
 
 - (void)dealloc
 {
-	[socket_ release];
+	[socket_ Disconnect];
 	[views removeAllObjects];
 	[views release];
 	[dataSources removeAllObjects];
@@ -795,7 +795,7 @@ static BasePadCoordinator * instance_ = nil;
 	}
 	else
 	{
-		[socket_ release];
+		[socket_ Disconnect];
 		socket_ = nil;
 		
 		[self setConnectionType:BPC_NO_CONNECTION_];
@@ -825,7 +825,7 @@ static BasePadCoordinator * instance_ = nil;
 
 - (void) connectionTimeout
 {
-	[socket_ release];
+	[socket_ Disconnect];
 	socket_ = nil;
 	
 	[self setConnectionType:BPC_NO_CONNECTION_];
@@ -867,7 +867,7 @@ static BasePadCoordinator * instance_ = nil;
 {
 	if ( server && [server length] )
 	{
-		[socket_ release];
+		[socket_ Disconnect];
 		socket_ = [self createClientSocket];
 		
 		connectionType = BPC_NO_CONNECTION_;
@@ -899,7 +899,7 @@ static BasePadCoordinator * instance_ = nil;
 {
 	[self setConnectionType: BPC_NO_CONNECTION_];
 
-	[socket_ release];
+	[socket_ Disconnect];
 	socket_ = nil;
 }
 
@@ -914,9 +914,14 @@ static BasePadCoordinator * instance_ = nil;
 	// So, let timer do it do it's thing
 	if ( !atConnect)
 	{
-		[socket_ release];
+		[socket_ Disconnect];
 		socket_ = nil;
 		
+		if ( live )
+			restartTime = 0;
+		else
+			restartTime = currentTime;
+
 		[self setConnectionType:BPC_NO_CONNECTION_];
 		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES LightRestart:false];
 		[settingsViewController updateServerState];
@@ -1555,7 +1560,7 @@ static BasePadCoordinator * instance_ = nil;
 	if ( connectionType == BPC_SOCKET_CONNECTION_ )
 	{
 		[self setConnectionType:BPC_NO_CONNECTION_];
-		[socket_ release];
+		[socket_ Disconnect];
 		socket_ = nil;
 		
 		reconnectOnBecomeActive = true;

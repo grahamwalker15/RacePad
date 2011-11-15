@@ -96,7 +96,7 @@
 				{
 					CFRunLoopAddSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
 					lastReceiveTime = [ElapsedTime LocalTimeOfDay];
-					verifyTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(verifySocketTimer:) userInfo:nil repeats:YES];
+					verifyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verifySocketTimer:) userInfo:nil repeats:YES];
 				}
 			}
 			else
@@ -120,16 +120,21 @@
 	}
 }
 
-- (void)OnDisconnect:(bool) atConnect
+- (void) Disconnect
 {
-	status_ = SOCKET_ERROR_;
-	
 	// Must invalidate the timer here so that the timer is not holding an instance of the socket
 	if(verifyTimer)
 	{
 		[verifyTimer invalidate];
 		verifyTimer = nil;
 	}
+	
+	[self release];
+}
+
+- (void)OnDisconnect:(bool) atConnect
+{
+	status_ = SOCKET_ERROR_;
 	
 	[self Disconnected: atConnect];
 }
@@ -235,25 +240,15 @@
     [super dealloc];
 }
 
+- (void) SendData: (CFDataRef) data
+{
+	if ( CFSocketIsValid(socket_ref_) )
+		CFSocketSendData (socket_ref_, nil, data, 0);
+}
+
 - (void) verifySocketTimer: (NSTimer *)theTimer
 {
-	/*
-	if ( CFSocketIsValid(socket_ref_) )
-	{
-		uint32_t int_data[2];
-		int_data[0] =  htonl(8);
-		int_data[1] =  0;
-		CFDataRef data = CFDataCreate (NULL, (const UInt8 *) &int_data, sizeof(uint32_t) * 2);
-		int error = CFSocketSendData (socket_ref_, nil, data, 0);
-		CFRelease(data);
-		if ( error != kCFSocketSuccess )
-			[self OnDisconnect:false];
-	}
-	else
-	 [self OnDisconnect:false];
-	*/
-	
-	if ( [ElapsedTime LocalTimeOfDay] - lastReceiveTime > 10 )
+	if ( [ElapsedTime LocalTimeOfDay] - lastReceiveTime > 3 )
 		[self OnDisconnect:false];
 }
 
