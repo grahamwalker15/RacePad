@@ -21,6 +21,8 @@
 @synthesize moviePlayer;
 @synthesize moviePlayerLayer;
 
+@synthesize audioPlayer;
+
 @synthesize moviePlayerObserver;
 
 @synthesize movieStartTime;
@@ -31,6 +33,7 @@
 @synthesize resyncCount;
 
 @synthesize currentMovie;
+@synthesize currentAudio;
 @synthesize currentStatus;
 @synthesize currentError;
 
@@ -41,6 +44,10 @@
 @synthesize moviePausedInPlace;
 
 @synthesize movieType;
+
+@synthesize audioPlayPending;
+@synthesize audioSeekPending;
+@synthesize audioStartTime;
 
 static BasePadMedia * instance_ = nil;
 
@@ -67,6 +74,8 @@ static BasePadMedia * instance_ = nil;
 		moviePlayerLayer = nil;
 		moviePlayerObserver = nil;
 		
+		audioPlayer = nil;
+		
 		moviePlayPending = false;
 		movieSeekable = false;
 		movieSeekPending = false;
@@ -81,6 +90,11 @@ static BasePadMedia * instance_ = nil;
 		movieSeekTime = 0.0;
 		streamSeekStartTime = 0.0;
 		
+		audioPlayPending = false;
+		audioSeekPending = false;
+		
+		audioStartTime = 0.0;
+
 		activePlaybackRate = 1.0;
 		liveVideoDelay = 0.0;
 		
@@ -186,6 +200,24 @@ static BasePadMedia * instance_ = nil;
 	}
 }
 
+- (void)verifyAudioLoaded
+{
+	// Check that we have the right audio loaded
+	NSURL * url = [self getAudioURL];	
+	if(url)
+	{
+		NSString * newAudio = [url absoluteString];
+		if(!currentAudio || [newAudio compare:currentAudio] != NSOrderedSame )
+		{
+			[self loadAudio:url];
+		}
+	}
+	else
+	{
+		[self unloadAudio];
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////////
 // Movie loading and unloading
 ////////////////////////////////////////////////////////////////////////////
@@ -197,7 +229,7 @@ static BasePadMedia * instance_ = nil;
 	
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_CONNECTING_];
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-		
+	
 	moviePlayerAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
 	
 	NSString *tracksKey = @"tracks";
@@ -217,7 +249,7 @@ static BasePadMedia * instance_ = nil;
 			 
 			 moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
 			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
-			 			 
+			 
 			 // Register a time observer to get the current time while playing
 			 movieStartTime = -1.0;
 			 moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
@@ -249,7 +281,7 @@ static BasePadMedia * instance_ = nil;
 			 }
 			 
 			 [[BasePadCoordinator Instance] videoServerOnConnectionChange];
-
+			 
 			 moviePausedInPlace= false;
 		 }
 		 else
@@ -273,18 +305,18 @@ static BasePadMedia * instance_ = nil;
 					 {
 						 description = [description stringByAppendingString:@" - "];
 						 description = [description stringByAppendingString:[error localizedFailureReason]];
-		 
+						 
 					 }
 					 
 					 currentError = [description retain];
 				 }
-			 
+				 
 			 }
-
+			 
 			 [[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
-
+			 
 			 [[BasePadCoordinator Instance] videoServerOnConnectionChange];
-
+			 
 			 [currentMovie release];
 			 currentMovie = nil;
 		 }
@@ -336,7 +368,7 @@ static BasePadMedia * instance_ = nil;
 	
 	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-
+	
 	movieType = MOVIE_TYPE_NONE_;
 	
 	[currentMovie release];
@@ -347,15 +379,59 @@ static BasePadMedia * instance_ = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////
-// Movie information
+// Audio loading and unloading
 ////////////////////////////////////////////////////////////////////////////
 
-- (NSString *)getVideoArchiveName
+- (void) loadAudio:(NSURL *)url
 {
-	NSString *name = [[BasePadCoordinator Instance] getVideoArchiveName];
+	[self unloadAudio];
+	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
 	
-	return name;
+	if(audioPlayer)
+	{
+		//[audioPlayer setEnableRate:true];
+		//[audioPlayer set setE:true];
+		
+		currentAudio = [[url absoluteString] retain];
+		
+		// Try to find a meta file
+		NSString *metaFileName = [currentAudio stringByReplacingOccurrencesOfString:@".mp3" withString:@".amd"];
+		FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
+		if ( metaFile )
+		{
+			char keyword[128];
+			int value;
+			if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
+				if ( strcmp ( keyword, "AudioStartTime" ) == 0 )
+					audioStartTime = value;
+			fclose(metaFile);
+		}
+		
+	}
+
 }
+
+- (void) unloadAudio
+{
+	if(audioPlayer)
+	{
+		[audioPlayer release];
+		
+		audioPlayer = nil;
+
+		audioPlayPending = false;
+		audioSeekPending = false;
+
+		audioStartTime = 0.0;
+		
+		[currentAudio release];
+		currentAudio = nil;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Movie and Audio information
+////////////////////////////////////////////////////////////////////////////
 
 - (NSURL *)getMovieURL
 {
@@ -381,11 +457,27 @@ static BasePadMedia * instance_ = nil;
 	}
 	else if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
 	{
-		NSString * urlString = [self getVideoArchiveName];
+		NSString * urlString = [[BasePadCoordinator Instance] getVideoArchiveName];
 		if(urlString && [urlString length] > 0)
 			url = [NSURL fileURLWithPath:urlString];	// auto released
 		
 		movieType = MOVIE_TYPE_ARCHIVE_;
+	}
+	
+	return url;
+	
+}
+
+- (NSURL *)getAudioURL
+{
+	NSURL * url = nil;;
+	
+	// Only applicable for archive name
+	if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
+	{
+		NSString * urlString = [[BasePadCoordinator Instance] getAudioArchiveName];
+		if(urlString && [urlString length] > 0)
+			url = [NSURL fileURLWithPath:urlString];	// auto released
 	}
 	
 	return url;
@@ -463,7 +555,7 @@ static BasePadMedia * instance_ = nil;
 	else if(movieStartTime < 0.0)	// Archive & we haven't read metadata yet
 	{
 		// Try to find a meta file
-		NSString * urlString = [self getVideoArchiveName];
+		NSString * urlString = [[BasePadCoordinator Instance] getVideoArchiveName];
 		NSString *metaFileName = [urlString stringByReplacingOccurrencesOfString:@".m4v" withString:@".vmd"];
 		metaFileName = [metaFileName stringByReplacingOccurrencesOfString:@".mp4" withString:@".vmd"];
 		FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
@@ -818,6 +910,58 @@ static BasePadMedia * instance_ = nil;
 	restartCount++;
 }
 
+////////////////////////////////////////////////////////////////////////
+//  Audio controls
+
+- (void) audioPlayAtRate:(float)playbackRate
+{
+	if(audioPlayer)
+	{
+		[audioPlayer setRate:playbackRate];
+		[audioPlayer play];
+	}
+}
+
+- (void) audioPlay
+{
+	if(audioPlayer)
+	{
+		[audioPlayer play];
+	}
+}
+
+- (void) audioStop
+{
+	if(audioPlayer)
+	{
+		[audioPlayer pause];
+	}
+}
+
+- (void) audioGotoTime:(float)time
+
+{
+	if(audioPlayer)
+	{
+		Float64 audioTime = time - audioStartTime;
+		
+		double duration = [audioPlayer duration];
+		if(audioTime > duration)
+			audioTime = duration;
+		else if(audioTime < 0.0)
+			audioTime = 0.0;
+		
+		[audioPlayer setCurrentTime:(NSTimeInterval)audioTime];
+	}
+}
+
+- (void) audioPrepareToPlay
+{
+	if(audioPlayer)
+	{
+		[audioPlayer prepareToPlay];
+	}
+}
 
 ////////////////////////////////////////////////////////////////////////
 //  Callback functions

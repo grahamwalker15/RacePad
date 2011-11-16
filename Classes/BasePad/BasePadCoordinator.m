@@ -405,6 +405,10 @@ static BasePadCoordinator * instance_ = nil;
 
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		[[BasePadMedia Instance] moviePlayAtRate:activePlaybackRate];
+	
+	if(connectionType == BPC_ARCHIVE_CONNECTION_)
+		[[BasePadMedia Instance] audioPlayAtRate:activePlaybackRate];
+
 }
 
 -(void)pausePlay
@@ -434,6 +438,9 @@ static BasePadCoordinator * instance_ = nil;
 	
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		[[BasePadMedia Instance] movieStop];
+	
+	if(connectionType == BPC_ARCHIVE_CONNECTION_)
+		[[BasePadMedia Instance] audioStop];
 	
 	[[BasePadTimeController Instance] updateTime:currentTime];
 
@@ -673,6 +680,9 @@ static BasePadCoordinator * instance_ = nil;
 		[[BasePadMedia Instance] movieGotoTime:currentTime];
 		[[BasePadMedia Instance] moviePrepareToPlay];
 	}
+	
+	[[BasePadMedia Instance] audioGotoTime:currentTime];
+	[[BasePadMedia Instance] audioPrepareToPlay];
 }
 
 - (void) showSnapshotOfArchives
@@ -729,6 +739,8 @@ static BasePadCoordinator * instance_ = nil;
 	[[BasePadPrefs Instance] setPref:@"preferredSession" Value:session];
 	
 	[self setConnectionType:BPC_ARCHIVE_CONNECTION_];
+	
+	[[BasePadMedia Instance] verifyAudioLoaded];
 }
 
 -(NSString *)getVideoArchiveName
@@ -737,7 +749,7 @@ static BasePadCoordinator * instance_ = nil;
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
 	NSString *name = [sessionPrefix stringByAppendingString:@"video.m4v"];
-
+	
 	// Try first with m4v extension
 	NSString *fileName = [folder stringByAppendingPathComponent:name];
 	
@@ -745,8 +757,8 @@ static BasePadCoordinator * instance_ = nil;
 	FILE * f;
 	if(f = fopen ( [fileName UTF8String], "rb" ))
 	{
-	   fclose(f);
-	   return fileName;
+		fclose(f);
+		return fileName;
 	}
 	
 	// If this fails, try with mp4 extension
@@ -754,11 +766,31 @@ static BasePadCoordinator * instance_ = nil;
 	fileName = [folder stringByAppendingPathComponent:name];
 	if(f = fopen ( [fileName UTF8String], "rb" ))
 	{
-	   fclose(f);
-	   return fileName;
+		fclose(f);
+		return fileName;
 	}
 	
 	// If neither is present, return nil
+	return nil;
+}
+
+-(NSString *)getAudioArchiveName
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *folder = [paths objectAtIndex:0];
+	NSString *name = [sessionPrefix stringByAppendingString:@"audio.mp3"];
+	NSString *fileName = [folder stringByAppendingPathComponent:name];
+	
+	// check whether it exists
+	FILE * f;
+	if(f = fopen ( [fileName UTF8String], "rb" ))
+	{
+		fclose(f);
+		return fileName;
+	}
+		
+	// If it is not present, return nil
 	return nil;
 }
 

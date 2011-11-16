@@ -228,6 +228,7 @@ enum ConnectionTypes
 -(void)loadBPF:(NSString *)archive File:(NSString *)file SubIndex:(NSString *)subIndex;
 -(void)loadSession:(NSString *)event Session: (NSString *)session;
 -(NSString *)getVideoArchiveName;
+-(NSString *)getAudioArchiveName;
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;
