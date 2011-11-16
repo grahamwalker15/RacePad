@@ -59,7 +59,7 @@
 		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_DRIVER_LIST_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 		[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 		
-		[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight:false];
+		[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight:true];
 
 		// We disable the screen locking - because that seems to close the socket
 		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
