@@ -45,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[alertView SelectRow:-1];
+	[self UpdateList];
 	[super viewWillAppear:animated];
 }
 
@@ -118,12 +119,17 @@
 	}
 }
 
-- (IBAction) typeChosen:(id)sender
+- (void) UpdateList
 {
 	int v = typeChooser.selectedSegmentIndex;
 	[alertView setFilter:v Driver:[[BasePadCoordinator Instance]nameToFollow]];
 	[alertView ResetScroll];
 	[alertView RequestRedraw];
+}
+
+- (IBAction) typeChosen:(id)sender
+{
+	[self UpdateList];
 }
 
 @end
