@@ -72,7 +72,7 @@ static RacePadTitleBarController * instance_ = nil;
 	[commentary_button setAction:@selector(CommentaryPressed:)];
 	commentary_button.enabled = supportCommentary && [[CommentaryBubble Instance] bubblePref];
 	
-	[[titleBarController playStateButton] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[[titleBarController playStateButton] addTarget:self action:@selector(PlayStatePressed:) forControlEvents:UIControlEventTouchUpInside];
 	[[titleBarController timeCounter] addTarget:self action:@selector(AlertPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -171,6 +171,22 @@ static RacePadTitleBarController * instance_ = nil;
 		[alertPopover setPopoverContentSize:popoverSize];
 		
 		[alertPopover presentPopoverFromBarButtonItem:[titleBarController alertButton] permittedArrowDirections:UIPopoverArrowDirectionAny animated:true];
+	}
+}
+
+- (IBAction)PlayStatePressed:(id)sender
+{
+	if([[BasePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_)
+	{
+		if ( ![[BasePadCoordinator Instance] liveMode] )
+		{
+			[[BasePadCoordinator Instance] setPlaybackRate:1.0];
+			[[BasePadCoordinator Instance] goLive:true];
+		}
+	}
+	else
+	{
+		[self AlertPressed:sender];
 	}
 }
 

@@ -389,8 +389,7 @@ static BasePadMedia * instance_ = nil;
 	
 	if(audioPlayer)
 	{
-		//[audioPlayer setEnableRate:true];
-		//[audioPlayer set setE:true];
+		// ONLY AVAILABLE IN IOS 5.0 : [audioPlayer setEnableRate:true];
 		
 		currentAudio = [[url absoluteString] retain];
 		
@@ -917,7 +916,7 @@ static BasePadMedia * instance_ = nil;
 {
 	if(audioPlayer)
 	{
-		[audioPlayer setRate:playbackRate];
+		// ONLY AVAILABLE IN IOS 5.0 : [audioPlayer setRate:playbackRate];
 		[audioPlayer play];
 	}
 }
