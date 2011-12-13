@@ -15,6 +15,7 @@
 
 @interface PlayerGraphViewController : BasePadViewController
 {
+	IBOutlet BackgroundView *mainBackgroundView;
 	IBOutlet BackgroundView *backgroundView;
 	IBOutlet PlayerGraphView *graphView;
 

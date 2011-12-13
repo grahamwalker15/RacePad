@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
-		<string key="IBDocument.AppKitVersion">1038.36</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">141</string>
@@ -160,11 +160,11 @@
 							</object>
 							<object class="NSCustomResource">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">AlertCorner.png</string>
+								<string key="NSResourceName">AlertFKCorner.png</string>
 							</object>
 							<object class="NSCustomResource">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">AlertYellowCard.png</string>
+								<string key="NSResourceName">Alert2ndYellow.png</string>
 							</object>
 							<reference ref="4"/>
 							<reference ref="4"/>
@@ -752,11 +752,11 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>AlertCorner.png</string>
+				<string>Alert2ndYellow.png</string>
+				<string>AlertFKCorner.png</string>
 				<string>AlertGoal.png</string>
 				<string>AlertInfo.png</string>
 				<string>AlertPlayer.png</string>
-				<string>AlertYellowCard.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

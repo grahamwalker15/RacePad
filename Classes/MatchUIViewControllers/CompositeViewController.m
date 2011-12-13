@@ -33,6 +33,9 @@
 	
 	moviePlayerLayerAdded = false;
 	
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	[movieView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+
 	// Remove the optionsSwitches from the view - they will get re-added when the timecontroller is displayed
 	// Retain them so that they are always available to be displayed
 	[optionContainer retain];

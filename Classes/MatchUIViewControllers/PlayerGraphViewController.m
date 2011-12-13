@@ -38,6 +38,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+	[mainBackgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
 
 	// Add gesture recognizers

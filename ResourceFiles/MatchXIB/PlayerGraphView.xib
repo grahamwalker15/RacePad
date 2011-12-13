@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">851</string>
-		<string key="IBDocument.AppKitVersion">1038.36</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">141</string>
@@ -4692,6 +4692,14 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 					</object>
 					<int key="connectionID">77</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mainBackgroundView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="766721923"/>
+					</object>
+					<int key="connectionID">78</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4835,7 +4843,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 					<string>PlayerGraphViewController</string>
 					<string>UIResponder</string>
 					<string>BackgroundView</string>
-					<string>{{385, 64}, {783, 792}}</string>
+					<string>{{385, 77}, {783, 779}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -4882,7 +4890,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">77</int>
+			<int key="maxID">78</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4983,6 +4991,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<string>backgroundView</string>
 							<string>effectiveness_button_</string>
 							<string>graphView</string>
+							<string>mainBackgroundView</string>
 							<string>next_button_</string>
 							<string>passes_button_</string>
 							<string>previous_button_</string>
@@ -4996,6 +5005,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<string>BackgroundView</string>
 							<string>UIBarButtonItem</string>
 							<string>PlayerGraphView</string>
+							<string>BackgroundView</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
@@ -5012,6 +5022,7 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<string>backgroundView</string>
 							<string>effectiveness_button_</string>
 							<string>graphView</string>
+							<string>mainBackgroundView</string>
 							<string>next_button_</string>
 							<string>passes_button_</string>
 							<string>previous_button_</string>
@@ -5036,6 +5047,10 @@ AAgAAAAIAAIACAACAAAAAgAAAAEAAQABAAE</bytes>
 							<object class="IBToOneOutletInfo">
 								<string key="name">graphView</string>
 								<string key="candidateClassName">PlayerGraphView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">mainBackgroundView</string>
+								<string key="candidateClassName">BackgroundView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">next_button_</string>

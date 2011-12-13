@@ -15,6 +15,8 @@
 
 @interface HomeViewController : BasePadViewController
 {
+	IBOutlet BackgroundView * backgroundView;
+	
 	IBOutlet UIButton * button1;	
 	IBOutlet UIButton * button2;	
 	IBOutlet UIButton * button3;	

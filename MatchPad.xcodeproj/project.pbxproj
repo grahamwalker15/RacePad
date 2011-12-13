@@ -158,6 +158,11 @@
 		4DBE271713A10CE40051C9B3 /* SimpleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE270813A10CE40051C9B3 /* SimpleListViewController.m */; };
 		4DBE271813A10CE40051C9B3 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE270A13A10CE40051C9B3 /* TimeViewController.m */; };
 		4DBE271913A10CE40051C9B3 /* TitleBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE270C13A10CE40051C9B3 /* TitleBarViewController.m */; };
+		7F602F38149792BD00BD5FC2 /* AlertFKCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F602F37149792BD00BD5FC2 /* AlertFKCorner.png */; };
+		7F602F3D149799F400BD5FC2 /* TackleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F602F3C149799F400BD5FC2 /* TackleBG.png */; };
+		7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157D51497A0FA00A013BC /* GreyTextureBG.png */; };
+		7FA862DA13D430DB006CCD74 /* Icon-72MP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA862D813D430DB006CCD74 /* Icon-72MP.png */; };
+		7FA862DB13D430DB006CCD74 /* IconMP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA862D913D430DB006CCD74 /* IconMP.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -327,6 +332,8 @@
 		7F3CC74213092FE6006AEE61 /* MGP.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MGP.jpg; sourceTree = "<group>"; };
 		7F3CC74313092FE6006AEE61 /* RBR.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = RBR.jpg; sourceTree = "<group>"; };
 		7F3CC76E13093514006AEE61 /* MGPBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MGPBackground.jpg; sourceTree = "<group>"; };
+		7F602F37149792BD00BD5FC2 /* AlertFKCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertFKCorner.png; path = Images/MatchPad/AlertFKCorner.png; sourceTree = "<group>"; };
+		7F602F3C149799F400BD5FC2 /* TackleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TackleBG.png; path = Images/MatchPad/TackleBG.png; sourceTree = "<group>"; };
 		7F610EC71302BFDF004DC056 /* PopupImageHTML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupImageHTML.png; path = Images/PopupImageHTML.png; sourceTree = "<group>"; };
 		7F6246A21284471E009A9D4F /* MGPLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MGPLogo.png; path = Images/MGPLogo.png; sourceTree = "<group>"; };
 		7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LeftArrow.png; path = Images/LeftArrow.png; sourceTree = "<group>"; };
@@ -393,6 +400,7 @@
 		7F8F8C5A12E0394600EA04A6 /* PINButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PINButton.png; path = Images/PINButton.png; sourceTree = "<group>"; };
 		7F8F8CE512E0483400EA04A6 /* trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trophy.png; path = Images/trophy.png; sourceTree = "<group>"; };
 		7F913DBC134689FD002701DA /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = "<group>"; };
+		7F9157D51497A0FA00A013BC /* GreyTextureBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreyTextureBG.png; path = Images/GreyTextureBG.png; sourceTree = "<group>"; };
 		7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LightMetalSmall.png; path = Images/LightMetalSmall.png; sourceTree = "<group>"; };
 		7F91F8C8129D58F700BFDFCC /* wheel_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel_icon.png; path = Images/wheel_icon.png; sourceTree = "<group>"; };
 		7F91FA4012A01D7D00BFDFCC /* GearCog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GearCog.png; path = Images/GearCog.png; sourceTree = "<group>"; };
@@ -411,6 +419,8 @@
 		7FA27B2512FC674C001407FD /* HelpButtonHTML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelpButtonHTML.png; path = Images/HelpButtonHTML.png; sourceTree = "<group>"; };
 		7FA27D3813001BB5001407FD /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseButton.png; path = Images/CloseButton.png; sourceTree = "<group>"; };
 		7FA27DA513002425001407FD /* NoPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoPhoto.png; path = Images/NoPhoto.png; sourceTree = "<group>"; };
+		7FA862D813D430DB006CCD74 /* Icon-72MP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72MP.png"; path = "Images/MatchPad/Icon-72MP.png"; sourceTree = "<group>"; };
+		7FA862D913D430DB006CCD74 /* IconMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconMP.png; path = Images/MatchPad/IconMP.png; sourceTree = "<group>"; };
 		7FC2F764129429B400DAC96E /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Replay.png; path = Images/Replay.png; sourceTree = "<group>"; };
 		7FCD5D2C13783F3C00A82DA7 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Images/home.png; sourceTree = "<group>"; };
 		7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TimeJumpBG.png; path = Images/TimeJumpBG.png; sourceTree = "<group>"; };
@@ -780,6 +790,11 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F9157D51497A0FA00A013BC /* GreyTextureBG.png */,
+				7F602F3C149799F400BD5FC2 /* TackleBG.png */,
+				7F602F37149792BD00BD5FC2 /* AlertFKCorner.png */,
+				7FA862D813D430DB006CCD74 /* Icon-72MP.png */,
+				7FA862D913D430DB006CCD74 /* IconMP.png */,
 				4DA3CFAD13CE03D30097A5FB /* Alert2ndYellow.png */,
 				4DA3CFAE13CE03D30097A5FB /* AlertCorner.png */,
 				4DA3CFAF13CE03D30097A5FB /* AlertFreeKick.png */,
@@ -980,6 +995,11 @@
 				4DA3CFB613CE03D30097A5FB /* AlertGoal.png in Resources */,
 				4DA3CFB713CE03D30097A5FB /* AlertRedCard.png in Resources */,
 				4DA3CFB813CE03D30097A5FB /* AlertYellowCard.png in Resources */,
+				7FA862DA13D430DB006CCD74 /* Icon-72MP.png in Resources */,
+				7FA862DB13D430DB006CCD74 /* IconMP.png in Resources */,
+				7F602F38149792BD00BD5FC2 /* AlertFKCorner.png in Resources */,
+				7F602F3D149799F400BD5FC2 /* TackleBG.png in Resources */,
+				7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SimpleListViewController.h"
+#import "BackgroundView.h"
 #import "TableDataView.h"
 #import "ShinyButton.h"
 
@@ -16,6 +17,8 @@
 
 @interface PlayerStatsController : SimpleListViewController
 {
+	IBOutlet BackgroundView * backgroundView;
+	
 	IBOutlet TableDataView * player_stats_view_;
 	IBOutlet ShinyButton *homeButton;
 	IBOutlet ShinyButton *awayButton;

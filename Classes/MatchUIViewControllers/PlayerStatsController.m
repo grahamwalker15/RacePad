@@ -25,6 +25,8 @@
 {	
 	[super viewDidLoad];
 	
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+
 	// Set up the table data for SimpleListView
 	[player_stats_view_ SetTableDataClass:[[MatchPadDatabase Instance] playerStatsData]];
 	

@@ -246,6 +246,7 @@
 		7F8F913212E6D59F00EA04A6 /* CommentaryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F913112E6D59F00EA04A6 /* CommentaryData.m */; };
 		7F8F95C612E83AB700EA04A6 /* AlertInsight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F95C412E83AB700EA04A6 /* AlertInsight.png */; };
 		7F8F95C712E83AB700EA04A6 /* AlertLC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F95C512E83AB700EA04A6 /* AlertLC.png */; };
+		7F9157CD1497A0D100A013BC /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157CC1497A0D100A013BC /* GreyTextureBG.png */; };
 		7F91F470129BD3C300BFDFCC /* TelemetryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */; };
 		7F91F471129BD3C300BFDFCC /* TelemetrySteeringWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */; };
 		7F91F625129CFF3100BFDFCC /* LightMetalSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */; };
@@ -685,6 +686,7 @@
 		7F8F95C412E83AB700EA04A6 /* AlertInsight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertInsight.png; path = Images/AlertInsight.png; sourceTree = "<group>"; };
 		7F8F95C512E83AB700EA04A6 /* AlertLC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertLC.png; path = Images/AlertLC.png; sourceTree = "<group>"; };
 		7F913DBC134689FD002701DA /* dist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dist.plist; sourceTree = "<group>"; };
+		7F9157CC1497A0D100A013BC /* GreyTextureBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreyTextureBG.png; path = Images/GreyTextureBG.png; sourceTree = "<group>"; };
 		7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryBG.png; path = Images/TelemetryBG.png; sourceTree = "<group>"; };
 		7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheel.png; path = Images/TelemetrySteeringWheel.png; sourceTree = "<group>"; };
 		7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LightMetalSmall.png; path = Images/LightMetalSmall.png; sourceTree = "<group>"; };
@@ -1286,6 +1288,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F9157CC1497A0D100A013BC /* GreyTextureBG.png */,
 				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
 				7F48F20B1411060C00E293B4 /* AlertPurpleInfo.png */,
 				7F48F20C1411060C00E293B4 /* ArrowDownRed.png */,
@@ -1720,6 +1723,7 @@
 				7F48F2111411060C00E293B4 /* ArrowDownRed.png in Resources */,
 				7F48F2121411060C00E293B4 /* ArrowUpGreen.png in Resources */,
 				7F48F2131411060C00E293B4 /* TitleYellow.png in Resources */,
+				7F9157CD1497A0D100A013BC /* GreyTextureBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
