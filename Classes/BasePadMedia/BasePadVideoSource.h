@@ -1,8 +1,8 @@
 //
-//  BasePadMedia.h
-//  BasePad
+//  BasePadVideoSource.h
+//  RacePad
 //
-//  Created by Gareth Griffith on 5/6/11.
+//  Created by Gareth Griffith on 12/13/11.
 //  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
@@ -20,36 +20,16 @@
 
 #import "BasePadVideoViewController.h"
 
-// Movie types
-enum MovieTypes
-{
-	MOVIE_TYPE_NONE_,
-	MOVIE_TYPE_ARCHIVE_,
-	MOVIE_TYPE_LIVE_STREAM_
-} ;
-
-// Connection status
-enum MovieConnectionTypes
-{
-	BPM_NOT_CONNECTED_,
-	BPM_CONNECTED_,
-	BPM_TRYING_TO_CONNECT_,
-	BPM_CONNECTION_FAILED_,
-	BPM_CONNECTION_ERROR_,
-} ;
 
 @class ElapsedTime;
-@class BasePadVideoSource;
-@class BasePadAudioSource;
 
-@interface BasePadMedia : NSObject
+
+@interface BasePadVideoSource : NSObject
 {				
 	AVURLAsset * moviePlayerAsset;
 	AVPlayerItem * moviePlayerItem;
 	AVPlayer * moviePlayer;
 	AVPlayerLayer * moviePlayerLayer;
-	
-	AVAudioPlayer * audioPlayer;
 	
 	id moviePlayerObserver;
 	NSTimer * playStartTimer;
@@ -98,18 +78,14 @@ enum MovieConnectionTypes
 	
 	int movieType;
 	
-	BasePadVideoViewController * registeredViewController;
-
-}
+	bool movieActive;
 	
-+ (BasePadMedia *)Instance;
+}
 
 @property (readonly) AVURLAsset * moviePlayerAsset;
 @property (readonly) AVPlayerItem * moviePlayerItem;
 @property (readonly) AVPlayer * moviePlayer;
 @property (readonly) AVPlayerLayer * moviePlayerLayer;
-
-@property (readonly) AVAudioPlayer * audioPlayer;
 
 @property (readonly) id moviePlayerObserver;
 
@@ -120,7 +96,6 @@ enum MovieConnectionTypes
 @property (readonly) int restartCount;
 
 @property (readonly) NSString *currentMovie;
-@property (readonly) NSString *currentAudio;
 
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
@@ -132,35 +107,20 @@ enum MovieConnectionTypes
 
 @property (nonatomic) bool moviePausedInPlace;
 
-@property (readonly) bool audioPlayPending;
-@property (readonly) bool audioSeekPending;
-
-@property (readonly) float audioStartTime;
-
 @property (readonly) int movieType;
-	
+
+@property (nonatomic) bool movieActive;
+
 - (void)onStartUp;
 
-- (void)connectToVideoServer;
-- (void)disconnectVideoServer;
-
 -(void)resetConnectionCounts;
-
-- (void)verifyMovieLoaded;
-- (void)verifyAudioLoaded;
 
 - (void) loadMovie:(NSURL *)url;
 - (void) unloadMovie;
 
-- (void) loadAudio:(NSURL *)url;
-- (void) unloadAudio;
-
 - (void) movieSetStartTime:(float)time;
 
 - (void) getStartTime;
-
-- (NSURL *) getMovieURL;
-- (NSURL *) getAudioURL;
 
 - (void) moviePlayAtRate:(float)playbackRate;
 - (void) moviePlay;
@@ -171,12 +131,6 @@ enum MovieConnectionTypes
 - (void) moviePrepareToPlay;
 - (void) movieResyncLive;
 
-- (void) audioPlayAtRate:(float)playbackRate;
-- (void) audioPlay;
-- (void) audioStop;
-- (void) audioGotoTime:(float)time;
-- (void) audioPrepareToPlay;
-
 - (void) startLivePlayTimer;
 - (void) stopPlayTimers;
 - (void) playStartTimerExpired: (NSTimer *)theTimer;
@@ -186,18 +140,5 @@ enum MovieConnectionTypes
 - (bool) moviePlayable;
 
 - (void) timeObserverCallback:(CMTime) cmTime;
-
--(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
--(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;
-
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource;
-
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:error;
--(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
-
--(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators;
-
--(void)notifyMovieInformation;
-
 
 @end

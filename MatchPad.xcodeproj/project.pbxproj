@@ -158,6 +158,8 @@
 		4DBE271713A10CE40051C9B3 /* SimpleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE270813A10CE40051C9B3 /* SimpleListViewController.m */; };
 		4DBE271813A10CE40051C9B3 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE270A13A10CE40051C9B3 /* TimeViewController.m */; };
 		4DBE271913A10CE40051C9B3 /* TitleBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE270C13A10CE40051C9B3 /* TitleBarViewController.m */; };
+		7F417D941499070C0037E8BC /* BasePadAudioSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F417D911499070C0037E8BC /* BasePadAudioSource.m */; };
+		7F417D951499070C0037E8BC /* BasePadVideoSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F417D931499070C0037E8BC /* BasePadVideoSource.m */; };
 		7F602F38149792BD00BD5FC2 /* AlertFKCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F602F37149792BD00BD5FC2 /* AlertFKCorner.png */; };
 		7F602F3D149799F400BD5FC2 /* TackleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F602F3C149799F400BD5FC2 /* TackleBG.png */; };
 		7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157D51497A0FA00A013BC /* GreyTextureBG.png */; };
@@ -332,6 +334,10 @@
 		7F3CC74213092FE6006AEE61 /* MGP.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MGP.jpg; sourceTree = "<group>"; };
 		7F3CC74313092FE6006AEE61 /* RBR.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = RBR.jpg; sourceTree = "<group>"; };
 		7F3CC76E13093514006AEE61 /* MGPBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MGPBackground.jpg; sourceTree = "<group>"; };
+		7F417D901499070C0037E8BC /* BasePadAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadAudioSource.h; sourceTree = "<group>"; };
+		7F417D911499070C0037E8BC /* BasePadAudioSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadAudioSource.m; sourceTree = "<group>"; };
+		7F417D921499070C0037E8BC /* BasePadVideoSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadVideoSource.h; sourceTree = "<group>"; };
+		7F417D931499070C0037E8BC /* BasePadVideoSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadVideoSource.m; sourceTree = "<group>"; };
 		7F602F37149792BD00BD5FC2 /* AlertFKCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertFKCorner.png; path = Images/MatchPad/AlertFKCorner.png; sourceTree = "<group>"; };
 		7F602F3C149799F400BD5FC2 /* TackleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TackleBG.png; path = Images/MatchPad/TackleBG.png; sourceTree = "<group>"; };
 		7F610EC71302BFDF004DC056 /* PopupImageHTML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupImageHTML.png; path = Images/PopupImageHTML.png; sourceTree = "<group>"; };
@@ -454,6 +460,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7F417D8F149906CA0037E8BC /* BasePadMedia */,
 				4D5A357213A23A65007C4AA9 /* BasePad */,
 				4D19D92013A6261D0035F28E /* BasePadData */,
 				4DA5FA4213B33B720005F15A /* BaseUIViews */,
@@ -660,6 +667,17 @@
 				4DBE26E913A10CD20051C9B3 /* PitchView.m */,
 			);
 			path = MatchUIViews;
+			sourceTree = "<group>";
+		};
+		7F417D8F149906CA0037E8BC /* BasePadMedia */ = {
+			isa = PBXGroup;
+			children = (
+				7F417D901499070C0037E8BC /* BasePadAudioSource.h */,
+				7F417D911499070C0037E8BC /* BasePadAudioSource.m */,
+				7F417D921499070C0037E8BC /* BasePadVideoSource.h */,
+				7F417D931499070C0037E8BC /* BasePadVideoSource.m */,
+			);
+			path = BasePadMedia;
 			sourceTree = "<group>";
 		};
 		7F817D031305209D00AC2444 /* HTML */ = {
@@ -1070,6 +1088,8 @@
 				4DA3CF4313CDE08E0097A5FB /* AlertData.m in Sources */,
 				4DA3CF4613CDE13D0097A5FB /* AlertViewController.m in Sources */,
 				4DA3CF4913CDE1C00097A5FB /* AlertView.m in Sources */,
+				7F417D941499070C0037E8BC /* BasePadAudioSource.m in Sources */,
+				7F417D951499070C0037E8BC /* BasePadVideoSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

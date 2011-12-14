@@ -284,6 +284,8 @@
 		7F9354D012F6F1C300AB1D07 /* GameHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354CF12F6F1C300AB1D07 /* GameHelp.xib */; };
 		7F9354D212F6F1E500AB1D07 /* LapListHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354D112F6F1E500AB1D07 /* LapListHelp.xib */; };
 		7F93576612F9A87F00AB1D07 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93576512F9A87F00AB1D07 /* ShinyButton.m */; };
+		7F9419791497C00D00E14090 /* BasePadVideoSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */; };
+		7F94197C1497C03900E14090 /* BasePadAudioSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F94197B1497C03900E14090 /* BasePadAudioSource.m */; };
 		7F9543F0130097AB00DC7FB6 /* DriverInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9543EF130097AB00DC7FB6 /* DriverInfo.m */; };
 		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
 		7F9C12CE12560D5700770746 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CD12560D5700770746 /* QuartzCore.framework */; };
@@ -727,6 +729,10 @@
 		7F9354D112F6F1E500AB1D07 /* LapListHelp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LapListHelp.xib; path = ResourceFiles/LapListHelp.xib; sourceTree = "<group>"; };
 		7F93576412F9A87F00AB1D07 /* ShinyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyButton.h; sourceTree = "<group>"; };
 		7F93576512F9A87F00AB1D07 /* ShinyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShinyButton.m; sourceTree = "<group>"; };
+		7F9419771497C00D00E14090 /* BasePadVideoSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadVideoSource.h; sourceTree = "<group>"; };
+		7F9419781497C00D00E14090 /* BasePadVideoSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadVideoSource.m; sourceTree = "<group>"; };
+		7F94197A1497C03900E14090 /* BasePadAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadAudioSource.h; sourceTree = "<group>"; };
+		7F94197B1497C03900E14090 /* BasePadAudioSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadAudioSource.m; sourceTree = "<group>"; };
 		7F9543EE130097AB00DC7FB6 /* DriverInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverInfo.h; sourceTree = "<group>"; };
 		7F9543EF130097AB00DC7FB6 /* DriverInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverInfo.m; sourceTree = "<group>"; };
 		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
@@ -842,6 +848,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7F9419761497BFB300E14090 /* BasePadMedia */,
 				4D5A359F13A23CB4007C4AA9 /* BasePad */,
 				4D5A365C13A5F689007C4AA9 /* BasePadData */,
 				4DA5FA5413B33BD60005F15A /* BaseUIViews */,
@@ -1066,6 +1073,17 @@
 				7FA2765812F9D13D001407FD /* VideoHelpController.m */,
 			);
 			path = HelpViewControllers;
+			sourceTree = "<group>";
+		};
+		7F9419761497BFB300E14090 /* BasePadMedia */ = {
+			isa = PBXGroup;
+			children = (
+				7F9419771497C00D00E14090 /* BasePadVideoSource.h */,
+				7F9419781497C00D00E14090 /* BasePadVideoSource.m */,
+				7F94197A1497C03900E14090 /* BasePadAudioSource.h */,
+				7F94197B1497C03900E14090 /* BasePadAudioSource.m */,
+			);
+			path = BasePadMedia;
 			sourceTree = "<group>";
 		};
 		7F9C10D71255E68B00770746 /* UIViewControllers */ = {
@@ -1834,6 +1852,8 @@
 				4D94B6D8140D241F00EC2EE0 /* HeadToHeadViewController.m in Sources */,
 				4D94B6DE140D31E400EC2EE0 /* HeadToHead.m in Sources */,
 				4D94B6F0140D36FC00EC2EE0 /* HeadToHeadView.m in Sources */,
+				7F9419791497C00D00E14090 /* BasePadVideoSource.m in Sources */,
+				7F94197C1497C03900E14090 /* BasePadAudioSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

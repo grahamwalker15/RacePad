@@ -1,30 +1,23 @@
 //
-//  BasePadMedia.m
-//  BasePad
+//  BasePadVideoSource.m
+//  RacePad
 //
-//  Created by Gareth Griffith on 5/6/11.
+//  Created by Gareth Griffith on 12/13/11.
 //  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "BasePadMedia.h"
-
 #import "BasePadVideoSource.h"
-#import "BasePadAudioSource.h"
 
 #import "BasePadCoordinator.h"
+#import "BasePadMedia.h"
 #import "ElapsedTime.h"
-#import "BasePadPrefs.h"
-#import "BasePadDatabase.h"
 
-
-@implementation BasePadMedia
+@implementation BasePadVideoSource
 
 @synthesize moviePlayerAsset;
 @synthesize moviePlayerItem;
 @synthesize moviePlayer;
 @synthesize moviePlayerLayer;
-
-@synthesize audioPlayer;
 
 @synthesize moviePlayerObserver;
 
@@ -36,7 +29,7 @@
 @synthesize resyncCount;
 
 @synthesize currentMovie;
-@synthesize currentAudio;
+
 @synthesize currentStatus;
 @synthesize currentError;
 
@@ -47,38 +40,21 @@
 @synthesize moviePausedInPlace;
 
 @synthesize movieType;
+@synthesize movieActive;
 
-@synthesize audioPlayPending;
-@synthesize audioSeekPending;
-@synthesize audioStartTime;
-
-static BasePadMedia * instance_ = nil;
-
-+(BasePadMedia *)Instance
-{
-	if(!instance_)
-		instance_ = [[BasePadMedia alloc] init];
-	
-	return instance_;
-}
 
 -(id)init
 {
 	if(self = [super init])
 	{	
-		currentMovie = nil;
-		
-		currentStatus = BPM_NOT_CONNECTED_;
-		currentError = nil;
+		movieActive = false;
 		
 		moviePlayer = nil;
 		moviePlayerItem = nil;
 		moviePlayerAsset = nil;
 		moviePlayerLayer = nil;
 		moviePlayerObserver = nil;
-		
-		audioPlayer = nil;
-		
+
 		moviePlayPending = false;
 		movieSeekable = false;
 		movieSeekPending = false;
@@ -93,13 +69,7 @@ static BasePadMedia * instance_ = nil;
 		movieSeekTime = 0.0;
 		streamSeekStartTime = 0.0;
 		
-		audioPlayPending = false;
-		audioSeekPending = false;
-		
-		audioStartTime = 0.0;
-
 		activePlaybackRate = 1.0;
-		liveVideoDelay = 0.0;
 		
 		restartCount = 0;
 		resyncCount = 0;
@@ -142,85 +112,6 @@ static BasePadMedia * instance_ = nil;
 	restartCount = 0;
 }
 
-- (void)connectToVideoServer
-{
-	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_VIDEO_LIVE_CONNECTION_];
-	
-	currentStatus = BPM_TRYING_TO_CONNECT_;
-	
-	if(currentError)
-	{
-		[currentError release];
-		currentError = nil;
-	}
-	
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-
-	[self verifyMovieLoaded];
-}
-
-- (void)disconnectVideoServer
-{
-	if(movieLoaded)
-		[self unloadMovie];
-	
-	movieType = MOVIE_TYPE_NONE_;
-	
-	currentStatus = BPM_NOT_CONNECTED_;
-	
-	moviePlayable = false;
-	
-	if(currentError)
-	{
-		[currentError release];
-		currentError = nil;
-	}
-	
-	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
-	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-}
-
-- (void)verifyMovieLoaded
-{
-	// Check that we have the right movie loaded
-	NSURL * url = [self getMovieURL];	
-	if(url)
-	{
-		NSString * newMovie = [url absoluteString];
-		if(!currentMovie || [newMovie compare:currentMovie] != NSOrderedSame )
-		{
-			[self loadMovie:url];
-		}
-	}
-	else
-	{
-		if(movieLoaded)
-			[self unloadMovie];
-		
-		movieType = MOVIE_TYPE_NONE_;
-	}
-}
-
-- (void)verifyAudioLoaded
-{
-	// Check that we have the right audio loaded
-	NSURL * url = [self getAudioURL];	
-	if(url)
-	{
-		NSString * newAudio = [url absoluteString];
-		if(!currentAudio || [newAudio compare:currentAudio] != NSOrderedSame )
-		{
-			[self loadAudio:url];
-		}
-	}
-	else
-	{
-		[self unloadAudio];
-	}
-}
-
 ////////////////////////////////////////////////////////////////////////////
 // Movie loading and unloading
 ////////////////////////////////////////////////////////////////////////////
@@ -229,9 +120,6 @@ static BasePadMedia * instance_ = nil;
 {
 	if(movieLoaded)
 		[self unloadMovie];
-	
-	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_CONNECTING_];
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 	
 	moviePlayerAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
 	
@@ -265,25 +153,13 @@ static BasePadMedia * instance_ = nil;
 				 [moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
 			 }
 			 
-			 // Position the movie and order the overlay in any registered view controller
-			 if(registeredViewController)
-				 [registeredViewController displayMovieInView];
+			 // Call parent to position the movie and order the overlay in any registered view controller
+			 [[BasePadMedia Instance] notifyNewVideoSource:self];
 			 
 			 movieLoaded = true;
 			 currentMovie = [[url absoluteString] retain];
 			 
 			 currentStatus = BPM_CONNECTED_;
-			 
-			 if(movieType == MOVIE_TYPE_LIVE_STREAM_)
-			 {
-				 [[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_SUCCEEDED_];
-			 }
-			 else
-			 {
-				 [[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-			 }
-			 
-			 [[BasePadCoordinator Instance] videoServerOnConnectionChange];
 			 
 			 moviePausedInPlace= false;
 		 }
@@ -316,9 +192,7 @@ static BasePadMedia * instance_ = nil;
 				 
 			 }
 			 
-			 [[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
-			 
-			 [[BasePadCoordinator Instance] videoServerOnConnectionChange];
+			 [[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError];
 			 
 			 [currentMovie release];
 			 currentMovie = nil;
@@ -330,9 +204,8 @@ static BasePadMedia * instance_ = nil;
 - (void) unloadMovie
 {
 	// Delete any existing player and assets	
-	if(registeredViewController)
-		[registeredViewController removeMovieFromView];
-	
+	[[BasePadMedia Instance] notifyUnloadingVideoSource:self];
+
 	if(moviePlayerObserver)
 	{
 		[moviePlayer removeTimeObserver:moviePlayerObserver];
@@ -369,122 +242,16 @@ static BasePadMedia * instance_ = nil;
 	movieStartTime = 0.0;
 	streamSeekStartTime = 0.0;
 	
-	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
-	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-	
 	movieType = MOVIE_TYPE_NONE_;
 	
 	[currentMovie release];
 	currentMovie = nil;
-	
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-	
-}
 
-////////////////////////////////////////////////////////////////////////////
-// Audio loading and unloading
-////////////////////////////////////////////////////////////////////////////
-
-- (void) loadAudio:(NSURL *)url
-{
-	[self unloadAudio];
-	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-	
-	if(audioPlayer)
-	{
-		// ONLY AVAILABLE IN IOS 5.0 : [audioPlayer setEnableRate:true];
-		
-		currentAudio = [[url absoluteString] retain];
-		
-		// Try to find a meta file
-		NSString *metaFileName = [currentAudio stringByReplacingOccurrencesOfString:@".mp3" withString:@".amd"];
-		FILE *metaFile = fopen([metaFileName UTF8String], "rt" );
-		if ( metaFile )
-		{
-			char keyword[128];
-			int value;
-			if ( fscanf(metaFile, "%128s %d", keyword, &value ) == 2 )
-				if ( strcmp ( keyword, "AudioStartTime" ) == 0 )
-					audioStartTime = value;
-			fclose(metaFile);
-		}
-		
-	}
-
-}
-
-- (void) unloadAudio
-{
-	if(audioPlayer)
-	{
-		[audioPlayer release];
-		
-		audioPlayer = nil;
-
-		audioPlayPending = false;
-		audioSeekPending = false;
-
-		audioStartTime = 0.0;
-		
-		[currentAudio release];
-		currentAudio = nil;
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////
 // Movie and Audio information
 ////////////////////////////////////////////////////////////////////////////
-
-- (NSURL *)getMovieURL
-{
-	NSURL * url = nil;;
-	
-	// Live stream or archive name
-	if ( [[BasePadCoordinator Instance] connectionType] != BPC_ARCHIVE_CONNECTION_ && [[BasePadCoordinator Instance] videoConnectionType] == BPC_VIDEO_LIVE_CONNECTION_)
-	{
-		NSString * serverAddress = [[[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"] retain];
-		
-		if(serverAddress && [serverAddress length] > 0)
-		{
-			NSString * urlString = @"http://";
-			urlString = [urlString stringByAppendingString:serverAddress];
-			urlString = [urlString stringByAppendingString:@"/iPad_ipad.m3u8"];
-			
-			url = [NSURL URLWithString:urlString];	// auto released
-		}
-		
-		[serverAddress release];
-		
-		movieType = MOVIE_TYPE_LIVE_STREAM_;
-	}
-	else if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
-	{
-		NSString * urlString = [[BasePadCoordinator Instance] getVideoArchiveName];
-		if(urlString && [urlString length] > 0)
-			url = [NSURL fileURLWithPath:urlString];	// auto released
-		
-		movieType = MOVIE_TYPE_ARCHIVE_;
-	}
-	
-	return url;
-	
-}
-
-- (NSURL *)getAudioURL
-{
-	NSURL * url = nil;;
-	
-	// Only applicable for archive name
-	if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
-	{
-		NSString * urlString = [[BasePadCoordinator Instance] getAudioArchiveName];
-		if(urlString && [urlString length] > 0)
-			url = [NSURL fileURLWithPath:urlString];	// auto released
-	}
-	
-	return url;
-	
-}
 
 - (void) getStartTime
 {
@@ -511,7 +278,7 @@ static BasePadMedia * instance_ = nil;
 				NSValue * value = [seekableTimeRanges objectAtIndex:0];
 				CMTimeRange range;
 				[value getValue:&range];
-								
+				
 				if(CMTIME_IS_VALID(range.duration)  && CMTIME_IS_NUMERIC(range.duration))
 				{
 					float duration = (float) CMTimeGetSeconds( range.duration );
@@ -522,7 +289,7 @@ static BasePadMedia * instance_ = nil;
 					if(duration > 0.0)
 					{
 						currentMovieTime -= streamStartTime;
-
+						
 						streamSeekStartTime = streamStartTime;
 						
 						if(!movieSeekable || startTime < movieStartTime)
@@ -543,7 +310,7 @@ static BasePadMedia * instance_ = nil;
 						currentMovieTime += movieStartTime;
 						
 					}
-
+					
 				}
 			}
 		}
@@ -606,7 +373,7 @@ static BasePadMedia * instance_ = nil;
 {
 	activePlaybackRate = playbackRate;
 	
-	if([self moviePlayable] && registeredViewController)
+	if([self moviePlayable] && movieActive)
 	{
 		[moviePlayer setRate:activePlaybackRate];
 		moviePlayPending = false;
@@ -633,7 +400,7 @@ static BasePadMedia * instance_ = nil;
 
 - (void) movieGotoTime:(float)time
 {
-	if(movieSeekable && registeredViewController)
+	if(movieSeekable && movieActive)
 	{
 		Float64 movie_time = time - movieStartTime;
 		CMTime currentMovieTime = [moviePlayer currentTime];
@@ -641,7 +408,7 @@ static BasePadMedia * instance_ = nil;
 		
 		if(movieType == MOVIE_TYPE_LIVE_STREAM_)
 			movie_time = movie_time + streamSeekStartTime - [[BasePadCoordinator Instance] serverTimeOffset];
-			
+		
 		// Shouldn't need to do anything if we're just continuing after a clean pause
 		if(moviePausedInPlace && fabs(movie_time - currentMovieTimeSeconds) < 0.8)
 			return;
@@ -672,7 +439,7 @@ static BasePadMedia * instance_ = nil;
 				}
 			}
 		}
-
+		
 		movieSeekPending = false;
 	}
 	else
@@ -706,7 +473,7 @@ static BasePadMedia * instance_ = nil;
 	[self movieSeekToLive];
 	
 	movieGoLivePending = false;
-
+	
 }
 
 - (void) movieSeekToLive
@@ -732,7 +499,7 @@ static BasePadMedia * instance_ = nil;
 		return;
 	}
 	
-	if(movieSeekable && registeredViewController)
+	if(movieSeekable && movieActive)
 	{
 		[moviePlayer seekToTime:kCMTimePositiveInfinity];
 		
@@ -755,7 +522,7 @@ static BasePadMedia * instance_ = nil;
 		[self movieGoLive];
 		[self moviePlay];
 	}
-
+	
 	movieRecentlyResynced = true;
 }
 
@@ -783,9 +550,8 @@ static BasePadMedia * instance_ = nil;
 		[self stopPlayTimers];
 		
 		playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
-
-		if(registeredViewController)
-			[registeredViewController showLoadingIndicators];
+		
+		[[BasePadMedia Instance] notifyVideoSourceConnecting:self showIndicators:true];
 	}
 }
 
@@ -809,8 +575,7 @@ static BasePadMedia * instance_ = nil;
 		moviePlayElapsedTime = nil;
 	}
 	
-	if(registeredViewController)
-		[registeredViewController hideLoadingIndicators];
+	[[BasePadMedia Instance] notifyVideoSourceConnecting:self showIndicators:false];
 }
 
 - (void) playStartTimerExpired: (NSTimer *)theTimer
@@ -821,12 +586,11 @@ static BasePadMedia * instance_ = nil;
 		[self startLivePlayTimer];
 		return;
 	}
-
+	
 	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
 	[self movieResyncLive];
 	
-	if(registeredViewController)
-		[registeredViewController hideLoadingIndicators];
+	[[BasePadMedia Instance] notifyVideoSourceConnecting:self showIndicators:false];
 	
 	playStartTimer = nil;
 	
@@ -852,7 +616,7 @@ static BasePadMedia * instance_ = nil;
 			[self restartConnection];
 			return;
 		}
-				
+		
 		// Then check time hasn't slipped
 		CMTime currentCMTime = [moviePlayer currentTime];
 		if(CMTIME_IS_VALID(currentCMTime)  && CMTIME_IS_NUMERIC(currentCMTime))
@@ -862,7 +626,7 @@ static BasePadMedia * instance_ = nil;
 			if(moviePlayTime > 0.0)
 			{
 				float timeNow = [moviePlayElapsedTime value];
-						 
+				
 				if(movieRecentlyResynced)
 				{
 					lastMoviePlayTime = moviePlayTime;
@@ -882,9 +646,8 @@ static BasePadMedia * instance_ = nil;
 						resyncCount ++;
 					}
 				}
-
-				if(registeredViewController)
-					[registeredViewController notifyMovieInformation];
+				
+				[[BasePadMedia Instance] notifyMovieInformation];
 				
 				return;
 			}
@@ -892,7 +655,7 @@ static BasePadMedia * instance_ = nil;
 		
 		// Fall through to here if live and time is not valid
 		[self restartConnection];
-
+		
 	}
 }
 
@@ -901,68 +664,15 @@ static BasePadMedia * instance_ = nil;
 	[self movieStop];
 	[self stopPlayTimers];
 	
-	[self disconnectVideoServer];
-	[self connectToVideoServer];
+	[[BasePadMedia Instance] disconnectVideoServer];
+	[[BasePadMedia Instance] connectToVideoServer];
 	
 	[self movieGoLive];
 	[self moviePlay];
-		
+	
 	[self startLivePlayTimer];
 	
 	restartCount++;
-}
-
-////////////////////////////////////////////////////////////////////////
-//  Audio controls
-
-- (void) audioPlayAtRate:(float)playbackRate
-{
-	if(audioPlayer)
-	{
-		// ONLY AVAILABLE IN IOS 5.0 : [audioPlayer setRate:playbackRate];
-		[audioPlayer play];
-	}
-}
-
-- (void) audioPlay
-{
-	if(audioPlayer)
-	{
-		[audioPlayer play];
-	}
-}
-
-- (void) audioStop
-{
-	if(audioPlayer)
-	{
-		[audioPlayer pause];
-	}
-}
-
-- (void) audioGotoTime:(float)time
-
-{
-	if(audioPlayer)
-	{
-		Float64 audioTime = time - audioStartTime;
-		
-		double duration = [audioPlayer duration];
-		if(audioTime > duration)
-			audioTime = duration;
-		else if(audioTime < 0.0)
-			audioTime = 0.0;
-		
-		[audioPlayer setCurrentTime:(NSTimeInterval)audioTime];
-	}
-}
-
-- (void) audioPrepareToPlay
-{
-	if(audioPlayer)
-	{
-		[audioPlayer prepareToPlay];
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1002,7 +712,7 @@ static BasePadMedia * instance_ = nil;
 			
 			[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 		}
-
+		
 		if(movieStartTime < 0.001)
 			[self getStartTime];
 		
@@ -1041,7 +751,7 @@ static BasePadMedia * instance_ = nil;
 			if(status ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
-
+				
 				if(currentError)
 				{
 					[currentError release];
@@ -1089,7 +799,7 @@ static BasePadMedia * instance_ = nil;
 			if([object status] ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
-
+				
 				if(currentError)
 				{
 					[currentError release];
@@ -1117,132 +827,5 @@ static BasePadMedia * instance_ = nil;
 		}
 	}
 }
-
-
-////////////////////////////////////////////////////////////////////////
-//  View Controller registration
-
--(void)RegisterViewController:(BasePadVideoViewController *)view_controller
-{
-	// If nil is passed, just release any existing one
-	if(!view_controller)
-	{
-		[registeredViewController release];
-		registeredViewController = nil;
-		return;
-	}
-	
-	id old_registered_view_controller = registeredViewController;
-	
-	registeredViewController = [view_controller retain];
-	
-	if(old_registered_view_controller)
-		[old_registered_view_controller release];
-	
-	moviePausedInPlace = false;	
-	moviePlayAllowed = true;
-		
-	if(movieLoaded)
-	{
-		[registeredViewController displayMovieInView];
-	}
-}
-
--(void)ReleaseViewController:(BasePadVideoViewController *)view_controller
-{
-	if(registeredViewController && registeredViewController == view_controller)
-	{
-		[self stopPlayTimers];
-
-		[moviePlayer pause];	
-		[registeredViewController removeMovieFromView];
-		
-		[registeredViewController release];
-		registeredViewController = nil;
-		
-		moviePausedInPlace = false;
-		moviePlayable = false;
-		moviePlayAllowed = false;
-	}
-}
-
-
-////////////////////////////////////////////////////////////////////////
-//  Response to notifications
-
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource
-{
-	// Position the movie and order the overlay in any registered view controller
-	if(registeredViewController)
-		[registeredViewController displayMovieInView];
-		
-	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
-	{
-		[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_SUCCEEDED_];
-	}
-	else
-	{
-		[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-	}
-		
-	if(currentError)
-	{
-		[currentError release];
-		currentError = nil;
-	}
-	
-	currentStatus = BPM_CONNECTED_;
-	
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-
-}
-
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:error
-{
-	// Deal with the error appropriately.
-	currentStatus = BPM_CONNECTION_FAILED_;
-		
-	if(currentError)
-	{
-		[currentError release];
-		currentError = nil;
-	}
-	
-	currentError = [error retain];
-	
-	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-}
-
--(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource
-{
-	// Delete any existing player and assets	
-	if(registeredViewController)
-		[registeredViewController removeMovieFromView];
-			
-	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
-	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-	
-	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
-}
-    
-
--(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators
-{
-	if(registeredViewController)
-	{
-		if(showIndicators)
-			[registeredViewController showLoadingIndicators];
-		else
-			[registeredViewController hideLoadingIndicators];
-	}
-}
-
--(void)notifyMovieInformation
-{
-	if(registeredViewController)
-		[registeredViewController notifyMovieInformation];
-}
-
 
 @end
