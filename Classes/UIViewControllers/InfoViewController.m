@@ -18,7 +18,7 @@
 	[super viewDidLoad];
 
 	// Set parameters for views
-	//[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	//[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
 	
 	// Create the child view controllers
 	

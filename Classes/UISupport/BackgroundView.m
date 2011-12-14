@@ -17,6 +17,7 @@
 @synthesize inset;
 
 static UIImage * screen_bg_image_ = nil;
+static UIImage * carbon_bg_image_  = nil;
 static UIImage * grey_bg_image_  = nil;
 static UIImage * grass_bg_image_ = nil;
 
@@ -33,7 +34,7 @@ static bool bg_images_initialised_ = false;
     if ((self = [super initWithCoder:coder]))
     {
 		[self InitialiseImages];
-		style = BG_STYLE_FULL_SCREEN_GREY_;
+		style = BG_STYLE_FULL_SCREEN_CARBON_;
 		inset = 0;
 		
 		frames = [[NSMutableArray alloc] init];
@@ -48,7 +49,7 @@ static bool bg_images_initialised_ = false;
     if ((self = [super initWithFrame:frame]))
 	{
  		[self InitialiseImages];
-		style = BG_STYLE_FULL_SCREEN_GREY_;
+		style = BG_STYLE_FULL_SCREEN_CARBON_;
 		inset = 0;
 
 		frames = [[NSMutableArray alloc] init];
@@ -59,6 +60,7 @@ static bool bg_images_initialised_ = false;
 - (void)dealloc
 {	
 	[screen_bg_image_ release];
+	[carbon_bg_image_  release];
 	[grey_bg_image_  release];
 	[grass_bg_image_  release];
 	
@@ -80,13 +82,15 @@ static bool bg_images_initialised_ = false;
 		bg_images_initialised_ = true;
 		
 		screen_bg_image_ = [[UIImage imageNamed:@"GraphPaper.png"] retain];
-		grey_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
+		grey_bg_image_  = [[UIImage imageNamed:@"GreyTextureBG.png"] retain];
+		carbon_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
 		grass_bg_image_  = [[UIImage imageNamed:@"Grass.png"] retain];
 	}
 	else
 	{
 		[screen_bg_image_ retain];
 		[grey_bg_image_  retain];
+		[carbon_bg_image_  retain];
 		[grass_bg_image_  retain];
 	}
 }
@@ -99,13 +103,20 @@ static bool bg_images_initialised_ = false;
 	
 	switch (style)
 	{
+		case BG_STYLE_FULL_SCREEN_CARBON_:
+		{
+			inset = 0;
+			[self DrawPattern:carbon_bg_image_ InRect:current_bounds_];	
+			break;
+		}
+			
 		case BG_STYLE_FULL_SCREEN_GREY_:
 		{
 			inset = 0;
 			[self DrawPattern:grey_bg_image_ InRect:current_bounds_];	
 			break;
 		}
-		
+			
 		case BG_STYLE_FULL_SCREEN_GRASS_:
 		{
 			inset = 20;

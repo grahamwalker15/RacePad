@@ -31,7 +31,7 @@
 	[super viewDidLoad];
 
 	// Set parameters for views
-	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
 	
 	[trackMapView setIsZoomView:true];
 	[trackMapView setUserScale:10.0];

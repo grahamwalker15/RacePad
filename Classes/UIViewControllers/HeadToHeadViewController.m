@@ -41,6 +41,8 @@
 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:nil];
 	
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
+
 	//[seeLapsButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
 	//[seeLapsButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
 	//[seeLapsButton setShine:0.1];

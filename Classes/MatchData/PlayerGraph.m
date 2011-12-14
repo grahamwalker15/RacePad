@@ -263,6 +263,95 @@
 	[view RestoreGraphicsState];
 }
 
+- (void) drawAxes: (PlayerGraphView *) view XScale: (float) xScale YScale: (float) yScale XOffset:(float) xOffset YOffset:(float) yOffset
+{
+	CGSize size = [view InqSize];
+	
+	float xAxisSpace = yOffset;
+	float yAxisSpace = xOffset;
+	float graphicWidth = size.width - yAxisSpace;
+	float graphicHeight = (size.height - xAxisSpace * 2);
+	int x_axis = size.height - xAxisSpace;
+	
+	// And start drawing...
+	
+	[view SaveGraphicsState];
+	[view SaveFont];
+	
+	// Draw Y Axis
+	[view SetFGColour:[view white_]];
+	[view SetBGColour:[view white_]];
+	[view FillRectangleX0:yAxisSpace - 2 Y0:0 X1:yAxisSpace Y1:x_axis];
+	//[view FillRectangleX0:size.width - yAxisSpace Y0:0 X1:size.width - yAxisSpace + 2 Y1:size.height];
+	
+	// Add tick marks every 2% with labels every 10%
+	
+	[view UseRegularFont];
+	
+	for ( int yval = 2; yval <= 100; yval += 2 )
+	{
+		double y = x_axis - (float)yval * 0.01 * graphicHeight;
+		
+		if ((yval % 10) == 0 )
+		{
+			[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.2]];
+			[view LineRectangleX0:yAxisSpace Y0:y X1:size.width - yAxisSpace + 5 Y1:y]; 
+			
+			[view SetFGColour:[view white_]];
+			[view LineRectangleX0:yAxisSpace - 5 Y0:y X1:yAxisSpace Y1:y]; 
+			
+			NSNumber *n = [NSNumber numberWithInt:yval];
+			NSString *s = [n stringValue];
+			s = [s stringByAppendingString:@"%"];
+			float w, h;
+			[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
+			[view DrawString:s AtX:yAxisSpace - w - 8 Y:y - h/2];
+		}
+		else
+		{
+			[view SetFGColour:[view white_]];
+			[view LineRectangleX0:yAxisSpace - 4 Y0:y X1:yAxisSpace Y1:y]; 
+		}
+	}
+	
+	// Draw X Axis
+	[view SetFGColour:[view white_]];
+	[view SetBGColour:[view white_]];
+	
+	[view FillRectangleX0:yAxisSpace Y0:x_axis X1:yAxisSpace + graphicWidth Y1:x_axis+2];
+	
+	// Add tick marks every minute with labels every 5
+	[view UseMediumBoldFont];
+	[view SetFGColour:[view white_]];
+	[view SetBGColour:[view white_]];
+	
+	for ( int m = 1; m <= 50; m++ )
+	{			
+		float xval = (float)m / (float)50 * graphicWidth + yAxisSpace;
+		
+		if ((m % 5) == 0 && m <= 45)
+		{
+			[view LineRectangleX0:xval Y0:x_axis X1:xval Y1:x_axis + 5]; 
+			
+			NSNumber *n = [NSNumber numberWithInt:m];
+			NSString *s = [NSString stringWithString:[n stringValue]];
+			s = [s stringByAppendingString:@"m"];
+
+			float w, h;
+			[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
+			[view DrawString:s AtX:xval - w / 2 Y:x_axis + 4];
+		}
+		else
+		{
+			[view LineRectangleX0:xval Y0:x_axis X1:xval Y1:x_axis + 3]; 
+		}		
+	}
+	
+	[view RestoreFont];	
+	[view RestoreGraphicsState];
+	
+}
+
 - (void) drawInView:(PlayerGraphView *)view
 {
 	[view SaveGraphicsState];
@@ -270,21 +359,35 @@
 	CGRect map_rect = [view bounds];
 	CGSize viewSize = map_rect.size;
 	
-	float x_scale = viewSize.width - 20;
-	float y_scale = viewSize.height - 20;
+	float xOffset, yOffset;
+	float xScale, yScale;
 	
 	if ( graphType == PGV_PASSES )
-		[self drawLines:view XScale:x_scale YScale:y_scale XOffset:10 YOffset:10];
+	{
+		xOffset = 10;
+		yOffset = 10;
+		xScale = viewSize.width - xOffset * 2;
+		yScale = viewSize.height - yOffset * 2;
+		[self drawLines:view XScale:xScale YScale:yScale XOffset:xOffset YOffset:yOffset];
+	}
+	else if ( graphType == PGV_EFFECTIVENESS)
+	{
+		xOffset = 60;
+		yOffset = 25;
+		xScale = viewSize.width - xOffset * 2;
+		yScale = viewSize.height - yOffset * 2;
+		[self drawAxes:view XScale:xScale YScale:yScale XOffset:xOffset YOffset:yOffset];
+	}
 
 	[view ResetTransformMatrix];
 	
-	[view SetTranslateX:10 Y:10];
-	[view SetScaleX:x_scale Y:y_scale];
+	[view SetTranslateX:xOffset Y:yOffset];
+	[view SetScaleX:xScale Y:yScale];
 	[view SetTranslateX:-xCentre Y:yCentre];
 	
 	[view StoreTransformMatrix];	
 	
-	float scale = x_scale < y_scale ? x_scale : y_scale;
+	float scale = xScale < yScale ? xScale : yScale;
 	[self drawGraph:view Scale:scale];
 	
 	[view RestoreGraphicsState];

@@ -33,7 +33,7 @@
 	[result setBackgroundView:predictionBG];
 	[result setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
 	
-	[background setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	[background setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
 	
 	[draggedDriverCell removeFromSuperview];
 	

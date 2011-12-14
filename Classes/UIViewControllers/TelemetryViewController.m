@@ -29,7 +29,7 @@
     [super viewDidLoad];
 
 	// Set parameters for views
-	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
 	
 	[blueTrackMapView setIsZoomView:true];
 	[redTrackMapView setIsZoomView:true];

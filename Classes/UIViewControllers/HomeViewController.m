@@ -18,6 +18,7 @@
 - (void)viewDidLoad
 {
 	// Set parameters for views	
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
 	
 	[super viewDidLoad];
 }

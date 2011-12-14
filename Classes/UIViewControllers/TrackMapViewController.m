@@ -51,7 +51,7 @@
 	trackZoomOffsetX = 0;
 	trackZoomOffsetY = 0;
 	
-	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GREY_];
+	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
 
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackZoomView];
