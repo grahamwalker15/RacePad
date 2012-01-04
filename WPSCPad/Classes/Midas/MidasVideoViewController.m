@@ -50,6 +50,12 @@
 	[super viewDidLoad];
 	
 	// Initialise display options
+	
+	menuButtonsDisplayed = true;
+	menuButtonsAnimating = false;
+	
+	firstDisplay = true;
+	
 	displayMap = true;
 	displayLeaderboard = true;
 	displayVideo = true;
@@ -177,6 +183,13 @@
 	}
 	
 	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
+	
+	if(firstDisplay)
+	{
+		[self performSelector:@selector(hideMenuButtons) withObject:nil afterDelay: 5.0];
+		firstDisplay = false;
+	}
+
 	
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -506,7 +519,10 @@
 	}
 	
 	// Reach here if either tap was outside leaderboard, or no car was found at tap point
-	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
+	if([BasePadViewController timeControllerDisplayed])
+		[self toggleTimeControllerDisplay];
+		
+	[self handleMenuButtonDisplayGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -729,6 +745,123 @@
 
 - (IBAction) menuButtonHit:(id)sender
 {
+	if(sender == timeControlsButton)
+	{
+		[self hideMenuButtons];
+		[self toggleTimeControllerDisplay];
+	}
 }
+
+- (void) notifyHidingTimeControls
+{
+	[self showMenuButtons];
+}
+
+///////////////////////////////////////////////////////////////////
+// Button Animation Routines
+
+-(void)hideMenuButtons
+{
+	if(!menuButtonsDisplayed)
+		return;
+	
+	menuButtonsAnimating = true;
+	
+	[UIView beginAnimations:nil context:NULL];
+	
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(menuAnimationDidStop:finished:context:)];
+	
+	[UIView setAnimationDuration:0.75];
+
+	// Top buttons
+	[alertsButton setFrame:CGRectOffset([alertsButton frame], 0, -CGRectGetHeight([alertsButton frame]))];
+	[twitterButton setFrame:CGRectOffset([twitterButton frame], 0, -CGRectGetHeight([twitterButton frame]))];
+	[facebookButton setFrame:CGRectOffset([facebookButton frame], 0, -CGRectGetHeight([facebookButton frame]))];
+	[midasChatButton setFrame:CGRectOffset([midasChatButton frame], 0, -CGRectGetHeight([midasChatButton frame]))];
+	
+	// Side buttons
+	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], -CGRectGetWidth([midasMenuButton frame]), 0)];
+
+	// Bottom buttons
+	[settingsButton setFrame:CGRectOffset([settingsButton frame], 0, CGRectGetHeight([settingsButton frame]))];
+	[mapButton setFrame:CGRectOffset([mapButton frame], 0, CGRectGetHeight([mapButton frame]))];
+	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, CGRectGetHeight([followDriverButton frame]))];
+	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, CGRectGetHeight([headToHeadButton frame]))];
+	[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], 0, CGRectGetHeight([timeControlsButton frame]))];
+	[vipButton setFrame:CGRectOffset([vipButton frame], 0, CGRectGetHeight([vipButton frame]))];
+	[myTeamButton setFrame:CGRectOffset([myTeamButton frame], 0, CGRectGetHeight([myTeamButton frame]))];
+
+	[UIView commitAnimations];
+}
+
+-(void)showMenuButtons
+{
+	if(menuButtonsDisplayed)
+		return;
+	
+	menuButtonsAnimating = true;
+	
+	[UIView beginAnimations:nil context:NULL];
+	
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(menuAnimationDidStop:finished:context:)];
+	
+	[UIView setAnimationDuration:0.5];
+	
+	// Top buttons
+	[alertsButton setFrame:CGRectOffset([alertsButton frame], 0, CGRectGetHeight([alertsButton frame]))];
+	[twitterButton setFrame:CGRectOffset([twitterButton frame], 0, CGRectGetHeight([twitterButton frame]))];
+	[facebookButton setFrame:CGRectOffset([facebookButton frame], 0, CGRectGetHeight([facebookButton frame]))];
+	[midasChatButton setFrame:CGRectOffset([midasChatButton frame], 0, CGRectGetHeight([midasChatButton frame]))];
+	
+	// Side buttons
+	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], CGRectGetWidth([midasMenuButton frame]), 0)];
+	
+	// Bottom buttons
+	[settingsButton setFrame:CGRectOffset([settingsButton frame], 0, -CGRectGetHeight([settingsButton frame]))];
+	[mapButton setFrame:CGRectOffset([mapButton frame], 0, -CGRectGetHeight([mapButton frame]))];
+	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, -CGRectGetHeight([followDriverButton frame]))];
+	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, -CGRectGetHeight([headToHeadButton frame]))];
+	[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], 0, -CGRectGetHeight([timeControlsButton frame]))];
+	[vipButton setFrame:CGRectOffset([vipButton frame], 0, -CGRectGetHeight([vipButton frame]))];
+	[myTeamButton setFrame:CGRectOffset([myTeamButton frame], 0, -CGRectGetHeight([myTeamButton frame]))];
+	
+	[UIView commitAnimations];
+}
+
+- (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	if ( !menuButtonsAnimating)
+	{
+		if(!menuButtonsDisplayed)
+		{
+			CGPoint tapScreenPoint = [[self view] convertPoint:CGPointMake(x, y) fromView:gestureView];
+			
+			// Only display if y is in bottom or top 150 pixels of our base view
+			CGRect viewBounds = [[self view] bounds];
+			
+			//if(tapScreenPoint.y < 150 || tapScreenPoint.y > viewBounds.size.height - 150)
+			{
+				[self showMenuButtons];
+			}
+		}
+		else
+		{
+			[self hideMenuButtons];
+		}
+	}
+}
+
+- (void)menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		menuButtonsDisplayed = !menuButtonsDisplayed;
+		menuButtonsAnimating = false;
+	}
+}
+
+
 
 @end

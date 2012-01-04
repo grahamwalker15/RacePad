@@ -26,6 +26,8 @@
 	bool hiding;
 	
 	float timeNow;
+	
+	BasePadViewController * parentController;
 }
 
 @property(nonatomic) bool displayed;

@@ -190,6 +190,7 @@ static BasePadTimeController * instance_ = nil;
 	displayed = true;
 	[self setHideTimer];
 	
+	parentController = [viewController retain];
 }
 
 - (void) hide
@@ -218,6 +219,10 @@ static BasePadTimeController * instance_ = nil;
 	
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
 	[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
+	
+	[parentController release];
+	parentController = 0;
+
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -225,7 +230,6 @@ static BasePadTimeController * instance_ = nil;
 	if([finished intValue] == 1)
 	{
 		[timeController.view removeFromSuperview];
-		//[jogController.view removeFromSuperview];
 		displayed = false;
 		
 		// Release any existing add on from an old view controller
@@ -573,7 +577,11 @@ static BasePadTimeController * instance_ = nil;
 	UIView * tapView = [gestureRecognizer view];
 	CGPoint tapPoint = [gestureRecognizer locationInView:tapView];
 	
+	if(parentController)
+		[parentController notifyHidingTimeControls];
+	
 	[self hide];
+	
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

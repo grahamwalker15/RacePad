@@ -88,6 +88,9 @@
 // View display configuration
 -(void) addDropShadowToView:(UIView *)view WithOffsetX:(float)x Y:(float)y Blur:(float)blur;
 
+// Time controller display
+- (void) toggleTimeControllerDisplay;
+
 // Gesture recognizer creation
 
 -(void) addTapRecognizerToView:(UIView *)view;
@@ -129,7 +132,11 @@
 
 - (void) handleTimeControllerGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
-+ (void) specifyTimeControllerInstance:(id) instance;
++ (void) specifyTimeControllerInstance:(id)instance;
++ (id) timeControllerInstance;
++ (bool) timeControllerDisplayed;
+
+- (void) notifyHidingTimeControls;
 
 @end
 

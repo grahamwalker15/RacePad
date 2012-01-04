@@ -21,6 +21,27 @@ static id timeControllerInstance = nil;
 	timeControllerInstance = instance;
 }
 
++ (id) timeControllerInstance
+{
+	return timeControllerInstance;
+}
+
++ (bool) timeControllerDisplayed
+{
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+		return [timeControllerInstance timeControllerDisplayed];
+	}
+	
+	return false;
+}
+
+- (void) notifyHidingTimeControls
+{
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -112,6 +133,24 @@ static id timeControllerInstance = nil;
 		view.layer.shadowOffset = CGSizeMake(x, y);
 		view.clipsToBounds = false;
 	}	
+}
+
+
+// Time controller display
+
+- (void) toggleTimeControllerDisplay
+{
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+		if(![timeControllerInstance timeControllerDisplayed])
+		{
+			[timeControllerInstance displayTimeControllerInViewController:self Animated:true];
+		}
+		else
+		{
+			[timeControllerInstance hideTimeController];
+		}
+	}
 }
 
 // Gesture recognizers

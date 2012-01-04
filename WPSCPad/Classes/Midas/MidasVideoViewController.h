@@ -61,6 +61,10 @@
 	bool displayMap;
 	bool displayLeaderboard;
 	
+	bool menuButtonsDisplayed;
+	bool menuButtonsAnimating;
+	bool firstDisplay;
+	
 	int trackZoomOffsetX, trackZoomOffsetY;
 }
 
@@ -77,6 +81,12 @@
 - (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
+- (void) hideMenuButtons;
+- (void) showMenuButtons;
+- (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
+- (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
 - (IBAction) closeButtonHit:(id)sender;
 - (IBAction) optionSwitchesHit:(id)sender;

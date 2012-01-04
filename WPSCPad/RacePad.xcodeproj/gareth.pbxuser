@@ -132,10 +132,10 @@
 			7F6375C213AB88330096B386 /* BasePadMedia.m:1024 */,
 			7F6375C413AB88390096B386 /* BasePadMedia.m:1076 */,
 			7F6375C613AB88860096B386 /* BasePadMedia.m:188 */,
-			7F63762013AF733A0096B386 /* BasePadTimeController.m:579 */,
-			7F63762213AF734F0096B386 /* BasePadTimeController.m:574 */,
-			7F63763013AF7A930096B386 /* BasePadViewController.m:214 */,
-			7F63763413AF7AFD0096B386 /* BasePadViewController.m:226 */,
+			7F63762013AF733A0096B386 /* BasePadTimeController.m:587 */,
+			7F63762213AF734F0096B386 /* BasePadTimeController.m:578 */,
+			7F63763013AF7A930096B386 /* BasePadViewController.m:253 */,
+			7F63763413AF7AFD0096B386 /* BasePadViewController.m:265 */,
 			7F63764813AFC4190096B386 /* BasePadMedia.m:866 */,
 			7F63764A13AFC4260096B386 /* BasePadMedia.m:858 */,
 			7F6376A513B0820E0096B386 /* BasePadMedia.m:973 */,
@@ -150,7 +150,7 @@
 			7F48F01A140E675900E293B4 /* HeadToHeadViewController.m:80 */,
 			7F48F029140E68D000E293B4 /* HeadToHeadViewController.m:153 */,
 			7F48F04C140E6C9900E293B4 /* HeadToHeadViewController.m:353 */,
-			7F48F04E140E6CBF00E293B4 /* BasePadViewController.m:345 */,
+			7F48F04E140E6CBF00E293B4 /* BasePadViewController.m:384 */,
 			7F48F055140E6D2200E293B4 /* HeadToHeadViewController.m:166 */,
 			7F48F05D140E6DD300E293B4 /* HeadToHeadViewController.m:167 */,
 			7F48F063140E6F9B00E293B4 /* HeadToHeadViewController.m:54 */,
@@ -196,6 +196,12 @@
 			7FA967F814B49AC2006B072C /* MidasHomeViewController.m:49 */,
 			7FA9686214B4A358006B072C /* MidasCoordinator.m:79 */,
 			7FA9687214B4A4DC006B072C /* MidasCoordinator.m:67 */,
+			7FA96A3A14B50819006B072C /* MidasVideoViewController.m:522 */,
+			7FA96A3C14B508A1006B072C /* MidasVideoViewController.m:835 */,
+			7FA96A3E14B508A9006B072C /* MidasVideoViewController.m:836 */,
+			7FA96A4014B5090E006B072C /* MidasVideoViewController.m:523 */,
+			7FA96A4414B50C09006B072C /* MidasVideoViewController.m:757 */,
+			7FA96A4814B50C54006B072C /* MidasVideoViewController.m:800 */,
 		);
 		codeSenseManager = 7FBDF8F9126484CE009D37FA /* Code sense */;
 		executables = (
@@ -1239,6 +1245,130 @@
 			7FA9696814B4CA77006B072C /* PBXTextBookmark */ = 7FA9696814B4CA77006B072C /* PBXTextBookmark */;
 			7FA9696914B4CA77006B072C /* PBXTextBookmark */ = 7FA9696914B4CA77006B072C /* PBXTextBookmark */;
 			7FA9696A14B4CA77006B072C /* PBXTextBookmark */ = 7FA9696A14B4CA77006B072C /* PBXTextBookmark */;
+			7FA9697514B4D740006B072C /* PBXBookmark */ = 7FA9697514B4D740006B072C /* PBXBookmark */;
+			7FA9697614B4D740006B072C /* PBXBookmark */ = 7FA9697614B4D740006B072C /* PBXBookmark */;
+			7FA9697714B4D740006B072C /* PBXBookmark */ = 7FA9697714B4D740006B072C /* PBXBookmark */;
+			7FA9697814B4D740006B072C /* PBXBookmark */ = 7FA9697814B4D740006B072C /* PBXBookmark */;
+			7FA9697914B4D740006B072C /* PBXTextBookmark */ = 7FA9697914B4D740006B072C /* PBXTextBookmark */;
+			7FA9697A14B4D740006B072C /* PBXTextBookmark */ = 7FA9697A14B4D740006B072C /* PBXTextBookmark */;
+			7FA9697B14B4D740006B072C /* PBXTextBookmark */ = 7FA9697B14B4D740006B072C /* PBXTextBookmark */;
+			7FA9697C14B4D740006B072C /* PBXTextBookmark */ = 7FA9697C14B4D740006B072C /* PBXTextBookmark */;
+			7FA9697D14B4D740006B072C /* PBXTextBookmark */ = 7FA9697D14B4D740006B072C /* PBXTextBookmark */;
+			7FA9697E14B4D740006B072C /* PBXTextBookmark */ = 7FA9697E14B4D740006B072C /* PBXTextBookmark */;
+			7FA9697F14B4D740006B072C /* PBXTextBookmark */ = 7FA9697F14B4D740006B072C /* PBXTextBookmark */;
+			7FA9698014B4D740006B072C /* PBXTextBookmark */ = 7FA9698014B4D740006B072C /* PBXTextBookmark */;
+			7FA9698114B4D740006B072C /* PBXTextBookmark */ = 7FA9698114B4D740006B072C /* PBXTextBookmark */;
+			7FA9698214B4D740006B072C /* PBXTextBookmark */ = 7FA9698214B4D740006B072C /* PBXTextBookmark */;
+			7FA9698314B4D740006B072C /* PBXTextBookmark */ = 7FA9698314B4D740006B072C /* PBXTextBookmark */;
+			7FA9698414B4D740006B072C /* PBXTextBookmark */ = 7FA9698414B4D740006B072C /* PBXTextBookmark */;
+			7FA9698514B4D740006B072C /* PBXTextBookmark */ = 7FA9698514B4D740006B072C /* PBXTextBookmark */;
+			7FA9698614B4D740006B072C /* PBXTextBookmark */ = 7FA9698614B4D740006B072C /* PBXTextBookmark */;
+			7FA9698714B4D740006B072C /* PBXTextBookmark */ = 7FA9698714B4D740006B072C /* PBXTextBookmark */;
+			7FA9698814B4D740006B072C /* PBXTextBookmark */ = 7FA9698814B4D740006B072C /* PBXTextBookmark */;
+			7FA9698914B4D740006B072C /* PBXTextBookmark */ = 7FA9698914B4D740006B072C /* PBXTextBookmark */;
+			7FA9698A14B4D740006B072C /* PBXTextBookmark */ = 7FA9698A14B4D740006B072C /* PBXTextBookmark */;
+			7FA9698B14B4D740006B072C /* PBXTextBookmark */ = 7FA9698B14B4D740006B072C /* PBXTextBookmark */;
+			7FA9698C14B4D740006B072C /* PBXTextBookmark */ = 7FA9698C14B4D740006B072C /* PBXTextBookmark */;
+			7FA9698D14B4D740006B072C /* PBXTextBookmark */ = 7FA9698D14B4D740006B072C /* PBXTextBookmark */;
+			7FA9698E14B4D740006B072C /* PBXTextBookmark */ = 7FA9698E14B4D740006B072C /* PBXTextBookmark */;
+			7FA969AA14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969AA14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969AB14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969AB14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969AC14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969AC14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969AD14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969AD14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969AE14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969AE14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969AF14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969AF14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B014B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B014B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B114B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B114B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B214B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B214B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B314B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B314B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B414B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B414B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B514B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B514B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B614B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B614B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B714B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B714B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B814B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B814B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969B914B4EEC3006B072C /* PBXTextBookmark */ = 7FA969B914B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969BA14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969BA14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969BB14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969BB14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969BC14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969BC14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969BD14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969BD14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969BE14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969BE14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969BF14B4EEC3006B072C /* PBXTextBookmark */ = 7FA969BF14B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969C014B4EEC3006B072C /* PBXTextBookmark */ = 7FA969C014B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969C114B4EEC3006B072C /* PBXTextBookmark */ = 7FA969C114B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969C214B4EEC3006B072C /* PBXTextBookmark */ = 7FA969C214B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969C314B4EEC3006B072C /* PBXTextBookmark */ = 7FA969C314B4EEC3006B072C /* PBXTextBookmark */;
+			7FA969DD14B5002B006B072C /* PBXTextBookmark */ = 7FA969DD14B5002B006B072C /* PBXTextBookmark */;
+			7FA969DE14B5002B006B072C /* PBXTextBookmark */ = 7FA969DE14B5002B006B072C /* PBXTextBookmark */;
+			7FA969DF14B5002B006B072C /* PBXTextBookmark */ = 7FA969DF14B5002B006B072C /* PBXTextBookmark */;
+			7FA969E014B5002B006B072C /* PBXTextBookmark */ = 7FA969E014B5002B006B072C /* PBXTextBookmark */;
+			7FA969E114B5002B006B072C /* PBXTextBookmark */ = 7FA969E114B5002B006B072C /* PBXTextBookmark */;
+			7FA969E214B5002B006B072C /* PBXTextBookmark */ = 7FA969E214B5002B006B072C /* PBXTextBookmark */;
+			7FA969E314B5002B006B072C /* PBXBookmark */ = 7FA969E314B5002B006B072C /* PBXBookmark */;
+			7FA969E414B5002B006B072C /* PBXBookmark */ = 7FA969E414B5002B006B072C /* PBXBookmark */;
+			7FA969E514B5002B006B072C /* PBXTextBookmark */ = 7FA969E514B5002B006B072C /* PBXTextBookmark */;
+			7FA969E614B5002B006B072C /* PBXTextBookmark */ = 7FA969E614B5002B006B072C /* PBXTextBookmark */;
+			7FA969E714B5002B006B072C /* PBXTextBookmark */ = 7FA969E714B5002B006B072C /* PBXTextBookmark */;
+			7FA969E814B5002B006B072C /* PBXTextBookmark */ = 7FA969E814B5002B006B072C /* PBXTextBookmark */;
+			7FA969E914B5002B006B072C /* PBXTextBookmark */ = 7FA969E914B5002B006B072C /* PBXTextBookmark */;
+			7FA969EA14B5002B006B072C /* PBXTextBookmark */ = 7FA969EA14B5002B006B072C /* PBXTextBookmark */;
+			7FA969EB14B5002B006B072C /* PBXTextBookmark */ = 7FA969EB14B5002B006B072C /* PBXTextBookmark */;
+			7FA969EC14B5002B006B072C /* PBXTextBookmark */ = 7FA969EC14B5002B006B072C /* PBXTextBookmark */;
+			7FA969ED14B5002B006B072C /* PBXTextBookmark */ = 7FA969ED14B5002B006B072C /* PBXTextBookmark */;
+			7FA969EE14B5002B006B072C /* PBXTextBookmark */ = 7FA969EE14B5002B006B072C /* PBXTextBookmark */;
+			7FA969EF14B5002B006B072C /* PBXTextBookmark */ = 7FA969EF14B5002B006B072C /* PBXTextBookmark */;
+			7FA969F014B5002B006B072C /* PBXTextBookmark */ = 7FA969F014B5002B006B072C /* PBXTextBookmark */;
+			7FA969F114B5002B006B072C /* PBXTextBookmark */ = 7FA969F114B5002B006B072C /* PBXTextBookmark */;
+			7FA969F214B5002B006B072C /* PBXTextBookmark */ = 7FA969F214B5002B006B072C /* PBXTextBookmark */;
+			7FA969F314B5002B006B072C /* PBXTextBookmark */ = 7FA969F314B5002B006B072C /* PBXTextBookmark */;
+			7FA969F414B5002B006B072C /* PBXTextBookmark */ = 7FA969F414B5002B006B072C /* PBXTextBookmark */;
+			7FA969F514B5002B006B072C /* PBXTextBookmark */ = 7FA969F514B5002B006B072C /* PBXTextBookmark */;
+			7FA969F614B5002B006B072C /* PBXTextBookmark */ = 7FA969F614B5002B006B072C /* PBXTextBookmark */;
+			7FA969F714B5002B006B072C /* PBXTextBookmark */ = 7FA969F714B5002B006B072C /* PBXTextBookmark */;
+			7FA969F814B5002B006B072C /* PBXTextBookmark */ = 7FA969F814B5002B006B072C /* PBXTextBookmark */;
+			7FA969FE14B50052006B072C /* PBXBookmark */ = 7FA969FE14B50052006B072C /* PBXBookmark */;
+			7FA969FF14B50052006B072C /* PBXTextBookmark */ = 7FA969FF14B50052006B072C /* PBXTextBookmark */;
+			7FA96A0014B50052006B072C /* PBXTextBookmark */ = 7FA96A0014B50052006B072C /* PBXTextBookmark */;
+			7FA96A0114B50052006B072C /* PBXTextBookmark */ = 7FA96A0114B50052006B072C /* PBXTextBookmark */;
+			7FA96A0214B50052006B072C /* PBXTextBookmark */ = 7FA96A0214B50052006B072C /* PBXTextBookmark */;
+			7FA96A0314B50052006B072C /* PBXTextBookmark */ = 7FA96A0314B50052006B072C /* PBXTextBookmark */;
+			7FA96A0414B50052006B072C /* PBXTextBookmark */ = 7FA96A0414B50052006B072C /* PBXTextBookmark */;
+			7FA96A0514B50052006B072C /* PBXTextBookmark */ = 7FA96A0514B50052006B072C /* PBXTextBookmark */;
+			7FA96A0614B50052006B072C /* PBXTextBookmark */ = 7FA96A0614B50052006B072C /* PBXTextBookmark */;
+			7FA96A0714B50052006B072C /* PBXTextBookmark */ = 7FA96A0714B50052006B072C /* PBXTextBookmark */;
+			7FA96A0814B50052006B072C /* PBXTextBookmark */ = 7FA96A0814B50052006B072C /* PBXTextBookmark */;
+			7FA96A0914B50052006B072C /* PBXTextBookmark */ = 7FA96A0914B50052006B072C /* PBXTextBookmark */;
+			7FA96A0A14B50052006B072C /* PBXTextBookmark */ = 7FA96A0A14B50052006B072C /* PBXTextBookmark */;
+			7FA96A0B14B50052006B072C /* PBXTextBookmark */ = 7FA96A0B14B50052006B072C /* PBXTextBookmark */;
+			7FA96A0C14B50052006B072C /* PBXTextBookmark */ = 7FA96A0C14B50052006B072C /* PBXTextBookmark */;
+			7FA96A0D14B50052006B072C /* PBXTextBookmark */ = 7FA96A0D14B50052006B072C /* PBXTextBookmark */;
+			7FA96A0E14B50052006B072C /* PBXTextBookmark */ = 7FA96A0E14B50052006B072C /* PBXTextBookmark */;
+			7FA96A0F14B50052006B072C /* PBXTextBookmark */ = 7FA96A0F14B50052006B072C /* PBXTextBookmark */;
+			7FA96A1014B50052006B072C /* PBXTextBookmark */ = 7FA96A1014B50052006B072C /* PBXTextBookmark */;
+			7FA96A1114B50052006B072C /* PBXTextBookmark */ = 7FA96A1114B50052006B072C /* PBXTextBookmark */;
+			7FA96A1214B50052006B072C /* PBXTextBookmark */ = 7FA96A1214B50052006B072C /* PBXTextBookmark */;
+			7FA96A1E14B505BC006B072C /* PBXBookmark */ = 7FA96A1E14B505BC006B072C /* PBXBookmark */;
+			7FA96A1F14B505BC006B072C /* PBXBookmark */ = 7FA96A1F14B505BC006B072C /* PBXBookmark */;
+			7FA96A2014B505BC006B072C /* PBXTextBookmark */ = 7FA96A2014B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2114B505BC006B072C /* PBXTextBookmark */ = 7FA96A2114B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2214B505BC006B072C /* PBXTextBookmark */ = 7FA96A2214B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2314B505BC006B072C /* PBXTextBookmark */ = 7FA96A2314B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2414B505BC006B072C /* PBXTextBookmark */ = 7FA96A2414B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2514B505BC006B072C /* PBXTextBookmark */ = 7FA96A2514B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2614B505BC006B072C /* PBXTextBookmark */ = 7FA96A2614B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2714B505BC006B072C /* PBXTextBookmark */ = 7FA96A2714B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2814B505BC006B072C /* PBXTextBookmark */ = 7FA96A2814B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2914B505BC006B072C /* PBXTextBookmark */ = 7FA96A2914B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2A14B505BC006B072C /* PBXTextBookmark */ = 7FA96A2A14B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2B14B505BC006B072C /* PBXTextBookmark */ = 7FA96A2B14B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2C14B505BC006B072C /* PBXTextBookmark */ = 7FA96A2C14B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2D14B505BC006B072C /* PBXTextBookmark */ = 7FA96A2D14B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2E14B505BC006B072C /* PBXTextBookmark */ = 7FA96A2E14B505BC006B072C /* PBXTextBookmark */;
+			7FA96A2F14B505BC006B072C /* PBXTextBookmark */ = 7FA96A2F14B505BC006B072C /* PBXTextBookmark */;
+			7FA96A3014B505BC006B072C /* PBXTextBookmark */ = 7FA96A3014B505BC006B072C /* PBXTextBookmark */;
+			7FA96A3114B505BC006B072C /* PBXTextBookmark */ = 7FA96A3114B505BC006B072C /* PBXTextBookmark */;
+			7FA96A3214B505BC006B072C /* PBXTextBookmark */ = 7FA96A3214B505BC006B072C /* PBXTextBookmark */;
+			7FA96A3314B505BC006B072C /* PBXTextBookmark */ = 7FA96A3314B505BC006B072C /* PBXTextBookmark */;
+			7FA96A3414B505BC006B072C /* PBXTextBookmark */ = 7FA96A3414B505BC006B072C /* PBXTextBookmark */;
 			7FB09BD012718ADB00A837EA = 7FB09BD012718ADB00A837EA /* PBXBookmark */;
 			7FB09C2612718DC700A837EA = 7FB09C2612718DC700A837EA /* PBXTextBookmark */;
 			7FB09C4312718F6E00A837EA = 7FB09C4312718F6E00A837EA /* PBXTextBookmark */;
@@ -1389,9 +1519,9 @@
 	};
 	4D34502C12B7C33E00B15298 /* UserPin.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1308, 2565}}";
-			sepNavSelRange = "{966, 17}";
-			sepNavVisRange = "{660, 487}";
+			sepNavIntBoundsRect = "{{0, 0}, {1308, 2535}}";
+			sepNavSelRange = "{3296, 5}";
+			sepNavVisRange = "{3027, 619}";
 			sepNavWindowFrame = "{{96, 144}, {1311, 734}}";
 		};
 	};
@@ -1527,15 +1657,15 @@
 	4D5A35AE13A23CCE007C4AA9 /* BasePadTimeController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1017, 1140}}";
-			sepNavSelRange = "{996, 16}";
-			sepNavVisRange = "{646, 857}";
+			sepNavSelRange = "{587, 16}";
+			sepNavVisRange = "{43, 564}";
 		};
 	};
 	4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1150, 9405}}";
-			sepNavSelRange = "{15974, 158}";
-			sepNavVisRange = "{15443, 863}";
+			sepNavIntBoundsRect = "{{0, 0}, {2028, 9120}}";
+			sepNavSelRange = "{16497, 0}";
+			sepNavVisRange = "{16183, 579}";
 			sepNavWindowFrame = "{{84, 126}, {1209, 684}}";
 		};
 	};
@@ -1547,19 +1677,33 @@
 			sepNavWindowFrame = "{{51, 88}, {1209, 684}}";
 		};
 	};
+	4D5A35CF13A2695F007C4AA9 /* BasePadVideoViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1017, 428}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 549}";
+		};
+	};
+	4D5A35D013A2695F007C4AA9 /* BasePadVideoViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1017, 540}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 550}";
+		};
+	};
 	4D5A35D113A2695F007C4AA9 /* BasePadViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1150, 2460}}";
-			sepNavSelRange = "{1387, 0}";
-			sepNavVisRange = "{1007, 1078}";
+			sepNavIntBoundsRect = "{{0, 0}, {1524, 1965}}";
+			sepNavSelRange = "{4791, 23}";
+			sepNavVisRange = "{3324, 1535}";
 			sepNavWindowFrame = "{{38, 168}, {1209, 684}}";
 		};
 	};
 	4D5A35D213A2695F007C4AA9 /* BasePadViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {968, 9240}}";
-			sepNavSelRange = "{14970, 9}";
-			sepNavVisRange = "{15257, 620}";
+			sepNavIntBoundsRect = "{{0, 0}, {1017, 9765}}";
+			sepNavSelRange = "{755, 39}";
+			sepNavVisRange = "{522, 636}";
 			sepNavWindowFrame = "{{84, 127}, {1209, 684}}";
 		};
 	};
@@ -1904,7 +2048,7 @@
 		ignoreCount = 0;
 		lineNumber = 437;
 		location = RacePad;
-		modificationTime = 347395411.437107;
+		modificationTime = 347409425.601847;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -1922,7 +2066,7 @@
 		ignoreCount = 0;
 		lineNumber = 866;
 		location = RacePad;
-		modificationTime = 347395411.438208;
+		modificationTime = 347409425.602771;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -1940,7 +2084,7 @@
 		ignoreCount = 0;
 		lineNumber = 836;
 		location = Midas;
-		modificationTime = 347395412.328404;
+		modificationTime = 347409426.02656;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1958,7 +2102,7 @@
 		ignoreCount = 0;
 		lineNumber = 120;
 		location = Midas;
-		modificationTime = 347395412.519502;
+		modificationTime = 347409426.22113;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1976,7 +2120,7 @@
 		ignoreCount = 0;
 		lineNumber = 908;
 		location = RacePad;
-		modificationTime = 347395411.441347;
+		modificationTime = 347409425.605627;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -1994,7 +2138,7 @@
 		ignoreCount = 0;
 		lineNumber = 940;
 		location = RacePad;
-		modificationTime = 347395411.442356;
+		modificationTime = 347409425.606577;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2012,7 +2156,7 @@
 		ignoreCount = 0;
 		lineNumber = 955;
 		location = RacePad;
-		modificationTime = 347395411.44334;
+		modificationTime = 347409425.607542;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2030,7 +2174,7 @@
 		ignoreCount = 0;
 		lineNumber = 47;
 		location = RacePad;
-		modificationTime = 347395411.444368;
+		modificationTime = 347409425.608466;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2048,7 +2192,7 @@
 		ignoreCount = 0;
 		lineNumber = 745;
 		location = RacePad;
-		modificationTime = 347395411.445542;
+		modificationTime = 347409425.60956;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2144,7 +2288,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 359";
 		rLen = 16;
-		rLoc = 11030;
+		rLoc = 11084;
 		rType = 0;
 		vrLen = 709;
 		vrLoc = 11107;
@@ -2288,7 +2432,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 15443;
@@ -2505,7 +2649,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 928;
 		vrLoc = 15442;
@@ -2529,7 +2673,8 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1916, 3495}}";
 			sepNavSelRange = "{4839, 31}";
-			sepNavVisRange = "{4746, 1614}";
+			sepNavVisRange = "{4746, 1802}";
+			sepNavWindowFrame = "{{61, 147}, {1209, 684}}";
 		};
 	};
 	7F3147E0149908660071CDE3 /* PBXTextBookmark */ = {
@@ -2822,7 +2967,7 @@
 		ignoreCount = 0;
 		lineNumber = 37;
 		location = RacePad;
-		modificationTime = 347395411.398936;
+		modificationTime = 347409425.507989;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2840,7 +2985,7 @@
 		ignoreCount = 0;
 		lineNumber = 80;
 		location = RacePad;
-		modificationTime = 347395411.399763;
+		modificationTime = 347409425.51035;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2858,7 +3003,7 @@
 		ignoreCount = 0;
 		lineNumber = 153;
 		location = RacePad;
-		modificationTime = 347395411.400579;
+		modificationTime = 347409425.512473;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2876,11 +3021,11 @@
 		ignoreCount = 0;
 		lineNumber = 353;
 		location = RacePad;
-		modificationTime = 347395411.401374;
+		modificationTime = 347409425.514438;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	7F48F04E140E6CBF00E293B4 /* BasePadViewController.m:345 */ = {
+	7F48F04E140E6CBF00E293B4 /* BasePadViewController.m:384 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2892,9 +3037,9 @@
 		functionName = "-HandleDragFrom:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 345;
+		lineNumber = 384;
 		location = RacePad;
-		modificationTime = 347395411.402177;
+		modificationTime = 347409425.524942;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2912,7 +3057,7 @@
 		ignoreCount = 0;
 		lineNumber = 166;
 		location = RacePad;
-		modificationTime = 347395411.402976;
+		modificationTime = 347409425.528474;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2930,7 +3075,7 @@
 		ignoreCount = 0;
 		lineNumber = 167;
 		location = RacePad;
-		modificationTime = 347395411.403821;
+		modificationTime = 347409425.531358;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2948,7 +3093,7 @@
 		ignoreCount = 0;
 		lineNumber = 54;
 		location = RacePad;
-		modificationTime = 347395411.40472;
+		modificationTime = 347409425.534176;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2976,7 +3121,7 @@
 		ignoreCount = 0;
 		lineNumber = 441;
 		location = RacePad;
-		modificationTime = 347395411.405645;
+		modificationTime = 347409425.536532;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -2994,7 +3139,7 @@
 		ignoreCount = 0;
 		lineNumber = 448;
 		location = RacePad;
-		modificationTime = 347395411.415941;
+		modificationTime = 347409425.538601;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3032,7 +3177,7 @@
 		ignoreCount = 0;
 		lineNumber = 195;
 		location = RacePad;
-		modificationTime = 347395411.417844;
+		modificationTime = 347409425.540575;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3050,7 +3195,7 @@
 		ignoreCount = 0;
 		lineNumber = 428;
 		location = RacePad;
-		modificationTime = 347395411.419104;
+		modificationTime = 347409425.541517;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3068,7 +3213,7 @@
 		ignoreCount = 0;
 		lineNumber = 166;
 		location = RacePad;
-		modificationTime = 347395411.420439;
+		modificationTime = 347409425.542471;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3086,7 +3231,7 @@
 		ignoreCount = 0;
 		lineNumber = 187;
 		location = RacePad;
-		modificationTime = 347395411.421775;
+		modificationTime = 347409425.562118;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3252,7 +3397,7 @@
 		ignoreCount = 0;
 		lineNumber = 240;
 		location = RacePad;
-		modificationTime = 347395411.423075;
+		modificationTime = 347409425.563825;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3270,7 +3415,7 @@
 		ignoreCount = 0;
 		lineNumber = 310;
 		location = RacePad;
-		modificationTime = 347395411.42441;
+		modificationTime = 347409425.565771;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3288,7 +3433,7 @@
 		ignoreCount = 0;
 		lineNumber = 264;
 		location = RacePad;
-		modificationTime = 347395411.425778;
+		modificationTime = 347409425.567421;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3306,7 +3451,7 @@
 		ignoreCount = 0;
 		lineNumber = 258;
 		location = RacePad;
-		modificationTime = 347395411.426758;
+		modificationTime = 347409425.568688;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3324,7 +3469,7 @@
 		ignoreCount = 0;
 		lineNumber = 338;
 		location = RacePad;
-		modificationTime = 347395411.427736;
+		modificationTime = 347409425.570029;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3342,7 +3487,7 @@
 		ignoreCount = 0;
 		lineNumber = 330;
 		location = RacePad;
-		modificationTime = 347395411.428717;
+		modificationTime = 347409425.584444;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3360,7 +3505,7 @@
 		ignoreCount = 0;
 		lineNumber = 321;
 		location = RacePad;
-		modificationTime = 347395411.429576;
+		modificationTime = 347409425.588555;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3378,7 +3523,7 @@
 		ignoreCount = 0;
 		lineNumber = 325;
 		location = RacePad;
-		modificationTime = 347395411.430453;
+		modificationTime = 347409425.592517;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3396,7 +3541,7 @@
 		ignoreCount = 0;
 		lineNumber = 78;
 		location = RacePad;
-		modificationTime = 347395411.431431;
+		modificationTime = 347409425.595221;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3444,7 +3589,7 @@
 		ignoreCount = 0;
 		lineNumber = 36;
 		location = RacePad;
-		modificationTime = 347395411.432376;
+		modificationTime = 347409425.596506;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3485,7 +3630,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 325;
-		modificationTime = 347395411.433281;
+		modificationTime = 347409425.597727;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -3503,7 +3648,7 @@
 		ignoreCount = 0;
 		lineNumber = 326;
 		location = RacePad;
-		modificationTime = 347395411.434216;
+		modificationTime = 347409425.59885;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3562,7 +3707,7 @@
 		fRef = 4D5A35D213A2695F007C4AA9 /* BasePadViewController.m */;
 		name = "BasePadViewController.m: 271";
 		rLen = 0;
-		rLoc = 7253;
+		rLoc = 8097;
 		rType = 0;
 		vrLen = 740;
 		vrLoc = 6904;
@@ -3581,7 +3726,7 @@
 		ignoreCount = 0;
 		lineNumber = 164;
 		location = RacePad;
-		modificationTime = 347395411.435154;
+		modificationTime = 347409425.599979;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -3599,7 +3744,7 @@
 		ignoreCount = 0;
 		lineNumber = 363;
 		location = RacePad;
-		modificationTime = 347395411.436114;
+		modificationTime = 347409425.600914;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4006,7 +4151,7 @@
 		ignoreCount = 0;
 		lineNumber = 244;
 		location = RacePad;
-		modificationTime = 347395411.369684;
+		modificationTime = 347409425.444625;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4024,7 +4169,7 @@
 		ignoreCount = 0;
 		lineNumber = 857;
 		location = RacePad;
-		modificationTime = 347395411.370584;
+		modificationTime = 347409425.446119;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4042,7 +4187,7 @@
 		ignoreCount = 0;
 		lineNumber = 855;
 		location = RacePad;
-		modificationTime = 347395411.371447;
+		modificationTime = 347409425.448002;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4060,7 +4205,7 @@
 		ignoreCount = 0;
 		lineNumber = 1024;
 		location = RacePad;
-		modificationTime = 347395411.3723;
+		modificationTime = 347409425.449102;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4078,7 +4223,7 @@
 		ignoreCount = 0;
 		lineNumber = 1076;
 		location = RacePad;
-		modificationTime = 347395411.373169;
+		modificationTime = 347409425.45069;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4096,11 +4241,11 @@
 		ignoreCount = 0;
 		lineNumber = 188;
 		location = RacePad;
-		modificationTime = 347395411.374225;
+		modificationTime = 347409425.452589;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	7F63762013AF733A0096B386 /* BasePadTimeController.m:579 */ = {
+	7F63762013AF733A0096B386 /* BasePadTimeController.m:587 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4112,13 +4257,13 @@
 		functionName = "-gestureRecognizer:shouldReceiveTouch:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 579;
+		lineNumber = 587;
 		location = RacePad;
-		modificationTime = 347395411.375202;
+		modificationTime = 347409425.454479;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	7F63762213AF734F0096B386 /* BasePadTimeController.m:574 */ = {
+	7F63762213AF734F0096B386 /* BasePadTimeController.m:578 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4130,13 +4275,13 @@
 		functionName = "-HandleTapFrom:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 574;
+		lineNumber = 578;
 		location = RacePad;
-		modificationTime = 347395411.376161;
+		modificationTime = 347409425.456363;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	7F63763013AF7A930096B386 /* BasePadViewController.m:214 */ = {
+	7F63763013AF7A930096B386 /* BasePadViewController.m:253 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4148,13 +4293,13 @@
 		functionName = "-HandleTapFrom:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 214;
+		lineNumber = 253;
 		location = RacePad;
-		modificationTime = 347395411.388212;
+		modificationTime = 347409425.458;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
-	7F63763413AF7AFD0096B386 /* BasePadViewController.m:226 */ = {
+	7F63763413AF7AFD0096B386 /* BasePadViewController.m:265 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4166,9 +4311,9 @@
 		functionName = "-HandleDoubleTapFrom:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 226;
+		lineNumber = 265;
 		location = RacePad;
-		modificationTime = 347395411.389204;
+		modificationTime = 347409425.459054;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4186,7 +4331,7 @@
 		ignoreCount = 0;
 		lineNumber = 866;
 		location = RacePad;
-		modificationTime = 347395411.390014;
+		modificationTime = 347409425.459996;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4204,7 +4349,7 @@
 		ignoreCount = 0;
 		lineNumber = 858;
 		location = RacePad;
-		modificationTime = 347395411.390938;
+		modificationTime = 347409425.473855;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4223,7 +4368,7 @@
 		fRef = 4D5A35AE13A23CCE007C4AA9 /* BasePadTimeController.h */;
 		name = "BasePadTimeController.h: 43";
 		rLen = 16;
-		rLoc = 996;
+		rLoc = 1041;
 		rType = 0;
 		vrLen = 857;
 		vrLoc = 646;
@@ -4242,7 +4387,7 @@
 		ignoreCount = 0;
 		lineNumber = 973;
 		location = RacePad;
-		modificationTime = 347395411.391893;
+		modificationTime = 347409425.47714;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4260,7 +4405,7 @@
 		ignoreCount = 0;
 		lineNumber = 1014;
 		location = RacePad;
-		modificationTime = 347395411.392809;
+		modificationTime = 347409425.480071;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4278,7 +4423,7 @@
 		ignoreCount = 0;
 		lineNumber = 783;
 		location = RacePad;
-		modificationTime = 347395411.39366;
+		modificationTime = 347409425.48257;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4296,7 +4441,7 @@
 		ignoreCount = 0;
 		lineNumber = 903;
 		location = RacePad;
-		modificationTime = 347395411.394515;
+		modificationTime = 347409425.484876;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4314,7 +4459,7 @@
 		ignoreCount = 0;
 		lineNumber = 902;
 		location = RacePad;
-		modificationTime = 347395411.39536;
+		modificationTime = 347409425.487186;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4332,7 +4477,7 @@
 		ignoreCount = 0;
 		lineNumber = 847;
 		location = RacePad;
-		modificationTime = 347395411.396216;
+		modificationTime = 347409425.497709;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4350,7 +4495,7 @@
 		ignoreCount = 0;
 		lineNumber = 688;
 		location = RacePad;
-		modificationTime = 347395411.397072;
+		modificationTime = 347409425.501249;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4368,7 +4513,7 @@
 		ignoreCount = 0;
 		lineNumber = 881;
 		location = RacePad;
-		modificationTime = 347395411.397932;
+		modificationTime = 347409425.50476;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4740,7 +4885,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 16;
-		modificationTime = 347395411.329619;
+		modificationTime = 347409425.366277;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -4758,7 +4903,7 @@
 		ignoreCount = 0;
 		lineNumber = 73;
 		location = RacePad;
-		modificationTime = 347395411.330452;
+		modificationTime = 347409425.367468;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4776,7 +4921,7 @@
 		ignoreCount = 0;
 		lineNumber = 36;
 		location = RacePad;
-		modificationTime = 347395411.33143;
+		modificationTime = 347409425.368503;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4794,7 +4939,7 @@
 		ignoreCount = 0;
 		lineNumber = 174;
 		location = RacePad;
-		modificationTime = 347395411.332253;
+		modificationTime = 347409425.369405;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4812,7 +4957,7 @@
 		ignoreCount = 0;
 		lineNumber = 174;
 		location = RacePad;
-		modificationTime = 347395411.333135;
+		modificationTime = 347409425.370351;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4830,7 +4975,7 @@
 		ignoreCount = 0;
 		lineNumber = 174;
 		location = RacePad;
-		modificationTime = 347395411.334005;
+		modificationTime = 347409425.371481;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4925,7 +5070,7 @@
 		ignoreCount = 0;
 		lineNumber = 751;
 		location = RacePad;
-		modificationTime = 347395411.334871;
+		modificationTime = 347409425.384622;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4943,7 +5088,7 @@
 		ignoreCount = 0;
 		lineNumber = 752;
 		location = RacePad;
-		modificationTime = 347395411.335679;
+		modificationTime = 347409425.386328;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4961,7 +5106,7 @@
 		ignoreCount = 0;
 		lineNumber = 753;
 		location = RacePad;
-		modificationTime = 347395411.336507;
+		modificationTime = 347409425.38787;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4979,7 +5124,7 @@
 		ignoreCount = 0;
 		lineNumber = 613;
 		location = RacePad;
-		modificationTime = 347395411.337339;
+		modificationTime = 347409425.389317;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -4997,7 +5142,7 @@
 		ignoreCount = 0;
 		lineNumber = 93;
 		location = RacePad;
-		modificationTime = 347395411.33817;
+		modificationTime = 347409425.390624;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5015,7 +5160,7 @@
 		ignoreCount = 0;
 		lineNumber = 756;
 		location = RacePad;
-		modificationTime = 347395411.338986;
+		modificationTime = 347409425.391897;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5033,7 +5178,7 @@
 		ignoreCount = 0;
 		lineNumber = 145;
 		location = RacePad;
-		modificationTime = 347395411.339969;
+		modificationTime = 347409425.393185;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5051,7 +5196,7 @@
 		ignoreCount = 0;
 		lineNumber = 732;
 		location = RacePad;
-		modificationTime = 347395411.340803;
+		modificationTime = 347409425.394362;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5069,7 +5214,7 @@
 		ignoreCount = 0;
 		lineNumber = 77;
 		location = RacePad;
-		modificationTime = 347395411.341656;
+		modificationTime = 347409425.395543;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5087,7 +5232,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.342708;
+		modificationTime = 347409425.396615;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5105,7 +5250,7 @@
 		ignoreCount = 0;
 		lineNumber = 138;
 		location = RacePad;
-		modificationTime = 347395411.343646;
+		modificationTime = 347409425.397564;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5123,7 +5268,7 @@
 		ignoreCount = 0;
 		lineNumber = 286;
 		location = Midas;
-		modificationTime = 347395411.344626;
+		modificationTime = 347409425.398584;
 		originalNumberOfMultipleMatches = 1;
 		state = 0;
 	};
@@ -5141,7 +5286,7 @@
 		ignoreCount = 0;
 		lineNumber = 59;
 		location = RacePad;
-		modificationTime = 347395411.360282;
+		modificationTime = 347409425.404924;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5159,7 +5304,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.36191;
+		modificationTime = 347409425.42751;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5177,7 +5322,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.362783;
+		modificationTime = 347409425.430516;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5234,7 +5379,7 @@
 		ignoreCount = 0;
 		lineNumber = 838;
 		location = RacePad;
-		modificationTime = 347395411.363625;
+		modificationTime = 347409425.432882;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5252,7 +5397,7 @@
 		ignoreCount = 0;
 		lineNumber = 845;
 		location = RacePad;
-		modificationTime = 347395411.364431;
+		modificationTime = 347409425.43501;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5269,7 +5414,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 50;
-		modificationTime = 347395411.365244;
+		modificationTime = 347409425.436086;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -5287,7 +5432,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.366082;
+		modificationTime = 347409425.437206;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5886,7 +6031,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.135536;
+		modificationTime = 347409425.132229;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5904,7 +6049,7 @@
 		ignoreCount = 0;
 		lineNumber = 40;
 		location = RacePad;
-		modificationTime = 347395411.138702;
+		modificationTime = 347409425.134943;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5922,7 +6067,7 @@
 		ignoreCount = 0;
 		lineNumber = 547;
 		location = RacePad;
-		modificationTime = 347395411.140254;
+		modificationTime = 347409425.136717;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5940,7 +6085,7 @@
 		ignoreCount = 0;
 		lineNumber = 242;
 		location = RacePad;
-		modificationTime = 347395411.141917;
+		modificationTime = 347409425.138601;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5958,7 +6103,7 @@
 		ignoreCount = 0;
 		lineNumber = 283;
 		location = RacePad;
-		modificationTime = 347395411.143497;
+		modificationTime = 347409425.140236;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5976,7 +6121,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.144906;
+		modificationTime = 347409425.142012;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -5994,7 +6139,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.146004;
+		modificationTime = 347409425.143742;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6012,7 +6157,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.14702;
+		modificationTime = 347409425.161886;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6030,7 +6175,7 @@
 		ignoreCount = 0;
 		lineNumber = 278;
 		location = RacePad;
-		modificationTime = 347395411.148016;
+		modificationTime = 347409425.164536;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6048,7 +6193,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.171579;
+		modificationTime = 347409425.180913;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6076,7 +6221,7 @@
 		ignoreCount = 0;
 		lineNumber = 85;
 		location = RacePad;
-		modificationTime = 347395411.173098;
+		modificationTime = 347409425.182083;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6094,7 +6239,7 @@
 		ignoreCount = 0;
 		lineNumber = 390;
 		location = RacePad;
-		modificationTime = 347395411.173922;
+		modificationTime = 347409425.183112;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6122,7 +6267,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.174753;
+		modificationTime = 347409425.184117;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6140,7 +6285,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.175579;
+		modificationTime = 347409425.185142;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6158,7 +6303,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.176683;
+		modificationTime = 347409425.186079;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6176,7 +6321,7 @@
 		ignoreCount = 0;
 		lineNumber = 367;
 		location = RacePad;
-		modificationTime = 347395411.177635;
+		modificationTime = 347409425.187059;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6906,7 +7051,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libobjc.A.dylib;
-		modificationTime = 347395411.461906;
+		modificationTime = 347409425.628611;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 		symbolName = objc_exception_throw;
@@ -6935,7 +7080,7 @@
 		ignoreCount = 0;
 		lineNumber = 113;
 		location = MatchPad;
-		modificationTime = 347395411.446518;
+		modificationTime = 347409425.610504;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -6997,7 +7142,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.267394;
+		modificationTime = 347409425.25867;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7015,7 +7160,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.26839;
+		modificationTime = 347409425.259605;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7033,7 +7178,7 @@
 		ignoreCount = 0;
 		lineNumber = 278;
 		location = RacePad;
-		modificationTime = 347395411.269458;
+		modificationTime = 347409425.260588;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7051,7 +7196,7 @@
 		ignoreCount = 0;
 		lineNumber = 278;
 		location = RacePad;
-		modificationTime = 347395411.296122;
+		modificationTime = 347409425.274479;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7069,7 +7214,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.319284;
+		modificationTime = 347409425.289046;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7087,7 +7232,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.320563;
+		modificationTime = 347409425.290681;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7105,7 +7250,7 @@
 		ignoreCount = 0;
 		lineNumber = 296;
 		location = RacePad;
-		modificationTime = 347395411.321355;
+		modificationTime = 347409425.307966;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7133,7 +7278,7 @@
 		ignoreCount = 0;
 		lineNumber = 126;
 		location = RacePad;
-		modificationTime = 347395411.322048;
+		modificationTime = 347409425.330999;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7160,7 +7305,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 50;
-		modificationTime = 347395411.322788;
+		modificationTime = 347409425.335111;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -7178,7 +7323,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.323513;
+		modificationTime = 347409425.33757;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7196,7 +7341,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.324233;
+		modificationTime = 347409425.340761;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7214,7 +7359,7 @@
 		ignoreCount = 0;
 		lineNumber = 85;
 		location = RacePad;
-		modificationTime = 347395411.324977;
+		modificationTime = 347409425.349756;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7232,7 +7377,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.325712;
+		modificationTime = 347409425.352496;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7250,7 +7395,7 @@
 		ignoreCount = 0;
 		lineNumber = 269;
 		location = RacePad;
-		modificationTime = 347395411.326437;
+		modificationTime = 347409425.356179;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7268,7 +7413,7 @@
 		ignoreCount = 0;
 		lineNumber = 345;
 		location = RacePad;
-		modificationTime = 347395411.327185;
+		modificationTime = 347409425.35976;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7286,7 +7431,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.327877;
+		modificationTime = 347409425.361698;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7304,7 +7449,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.328603;
+		modificationTime = 347409425.364653;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7754,9 +7899,9 @@
 	};
 	7F9C1695125A176700770746 /* MovieViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1308, 4380}}";
-			sepNavSelRange = "{1788, 12}";
-			sepNavVisRange = "{1382, 552}";
+			sepNavIntBoundsRect = "{{0, 0}, {1308, 4365}}";
+			sepNavSelRange = "{5456, 161}";
+			sepNavVisRange = "{5154, 579}";
 		};
 	};
 	7F9C1726125A2BD000770746 /* Socket.h */ = {
@@ -7950,7 +8095,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.366936;
+		modificationTime = 347409425.438182;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7977,7 +8122,7 @@
 		ignoreCount = 0;
 		lineNumber = 80;
 		location = RacePad;
-		modificationTime = 347395411.367933;
+		modificationTime = 347409425.440438;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -7995,7 +8140,7 @@
 		ignoreCount = 0;
 		lineNumber = 88;
 		location = RacePad;
-		modificationTime = 347395411.368834;
+		modificationTime = 347409425.442476;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -8173,8 +8318,8 @@
 	7FA965C614B453F1006B072C /* MidasAppDelegate.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2244, 1785}}";
-			sepNavSelRange = "{1659, 109}";
-			sepNavVisRange = "{1201, 1208}";
+			sepNavSelRange = "{1689, 15}";
+			sepNavVisRange = "{1306, 1052}";
 		};
 	};
 	7FA965C814B45407006B072C /* MidasClientSocket.h */ = {
@@ -8515,7 +8660,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 15443;
@@ -8806,7 +8951,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -9040,9 +9185,9 @@
 	};
 	7FA9666614B47371006B072C /* MidasCoordinator.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {968, 1380}}";
-			sepNavSelRange = "{862, 11}";
-			sepNavVisRange = "{724, 389}";
+			sepNavIntBoundsRect = "{{0, 0}, {1203, 1260}}";
+			sepNavSelRange = "{1577, 15}";
+			sepNavVisRange = "{930, 521}";
 		};
 	};
 	7FA9667C14B476EF006B072C /* PBXTextBookmark */ = {
@@ -9250,7 +9395,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -9484,7 +9629,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -9700,9 +9845,9 @@
 		path = /Development/Projects/WPSCDemo/MidasDemo/MidasDemo.xcodeproj/project.pbxproj;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1364, 31485}}";
-			sepNavSelRange = "{205856, 0}";
-			sepNavVisRange = "{0, 2755}";
+			sepNavIntBoundsRect = "{{0, 0}, {1476, 32565}}";
+			sepNavSelRange = "{215405, 0}";
+			sepNavVisRange = "{14, 3043}";
 		};
 	};
 	7FA9670414B4850D006B072C /* PBXBookmark */ = {
@@ -9827,7 +9972,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -10055,7 +10200,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -10204,7 +10349,7 @@
 		ignoreCount = 0;
 		lineNumber = 22;
 		location = Midas;
-		modificationTime = 347395411.447645;
+		modificationTime = 347409425.611536;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -10222,7 +10367,7 @@
 		ignoreCount = 0;
 		lineNumber = 120;
 		location = Midas;
-		modificationTime = 347395411.448617;
+		modificationTime = 347409425.61246;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -10240,7 +10385,7 @@
 		ignoreCount = 0;
 		lineNumber = 108;
 		location = Midas;
-		modificationTime = 347395411.449704;
+		modificationTime = 347409425.613418;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -10410,7 +10555,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -10573,7 +10718,7 @@
 		ignoreCount = 0;
 		lineNumber = 58;
 		location = Midas;
-		modificationTime = 347395411.450834;
+		modificationTime = 347409425.614358;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -10591,7 +10736,7 @@
 		ignoreCount = 0;
 		lineNumber = 35;
 		location = Midas;
-		modificationTime = 347395411.45187;
+		modificationTime = 347409425.615262;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -10780,7 +10925,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -11040,7 +11185,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -11189,7 +11334,7 @@
 		ignoreCount = 0;
 		lineNumber = 59;
 		location = Midas;
-		modificationTime = 347395411.452822;
+		modificationTime = 347409425.616186;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -11207,7 +11352,7 @@
 		ignoreCount = 0;
 		lineNumber = 75;
 		location = Midas;
-		modificationTime = 347395411.45421;
+		modificationTime = 347409425.617208;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -11225,7 +11370,7 @@
 		ignoreCount = 0;
 		lineNumber = 49;
 		location = Midas;
-		modificationTime = 347395411.455327;
+		modificationTime = 347409425.618116;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -11243,7 +11388,7 @@
 		ignoreCount = 0;
 		lineNumber = 36;
 		location = Midas;
-		modificationTime = 347395411.456468;
+		modificationTime = 347409425.619086;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -11261,7 +11406,7 @@
 		ignoreCount = 0;
 		lineNumber = 49;
 		location = Midas;
-		modificationTime = 347395411.457493;
+		modificationTime = 347409425.619986;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -11420,7 +11565,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -11730,7 +11875,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -12003,16 +12148,16 @@
 	};
 	7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1017, 1305}}";
-			sepNavSelRange = "{2197, 14}";
-			sepNavVisRange = "{1606, 707}";
+			sepNavIntBoundsRect = "{{0, 0}, {1272, 1440}}";
+			sepNavSelRange = "{2516, 0}";
+			sepNavVisRange = "{1793, 854}";
 		};
 	};
 	7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1017, 11085}}";
-			sepNavSelRange = "{21018, 0}";
-			sepNavVisRange = "{20482, 544}";
+			sepNavIntBoundsRect = "{{0, 0}, {1017, 12735}}";
+			sepNavSelRange = "{21493, 0}";
+			sepNavVisRange = "{21296, 452}";
 		};
 	};
 	7FA9686214B4A358006B072C /* MidasCoordinator.m:79 */ = {
@@ -12029,7 +12174,7 @@
 		ignoreCount = 0;
 		lineNumber = 79;
 		location = Midas;
-		modificationTime = 347395411.458443;
+		modificationTime = 347409425.620912;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -12048,7 +12193,7 @@
 		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
 		name = "MidasVideoViewController.m: 95";
 		rLen = 22;
-		rLoc = 3642;
+		rLoc = 3731;
 		rType = 0;
 		vrLen = 1264;
 		vrLoc = 2516;
@@ -12134,7 +12279,7 @@
 		ignoreCount = 0;
 		lineNumber = 67;
 		location = Midas;
-		modificationTime = 347395411.459579;
+		modificationTime = 347409425.621832;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -12343,7 +12488,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -12563,7 +12708,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -12723,7 +12868,7 @@
 		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
 		name = "MidasVideoViewController.m: 61";
 		rLen = 0;
-		rLoc = 1472;
+		rLoc = 1561;
 		rType = 0;
 		vrLen = 791;
 		vrLoc = 1041;
@@ -12803,7 +12948,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 927;
 		vrLoc = 15443;
@@ -13003,7 +13148,7 @@
 		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
 		name = "MidasVideoViewController.m: 118";
 		rLen = 0;
-		rLoc = 3835;
+		rLoc = 3924;
 		rType = 0;
 		vrLen = 1250;
 		vrLoc = 3349;
@@ -13140,7 +13285,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -13360,7 +13505,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -13510,7 +13655,7 @@
 		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
 		name = "MidasVideoViewController.m: 732";
 		rLen = 0;
-		rLoc = 21018;
+		rLoc = 21443;
 		rType = 0;
 		vrLen = 544;
 		vrLoc = 20482;
@@ -13520,7 +13665,7 @@
 		fRef = 7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */;
 		name = "MidasVideoViewController.h: 81";
 		rLen = 14;
-		rLoc = 2197;
+		rLoc = 2531;
 		rType = 0;
 		vrLen = 707;
 		vrLoc = 1606;
@@ -13608,7 +13753,7 @@
 		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
 		name = "BasePadTimeController.m: 562";
 		rLen = 158;
-		rLoc = 15974;
+		rLoc = 16028;
 		rType = 0;
 		vrLen = 863;
 		vrLoc = 15443;
@@ -13743,6 +13888,1300 @@
 		vrLen = 1305;
 		vrLoc = 7426;
 	};
+	7FA9697514B4D740006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA9693414B4CA62006B072C /* My-team-icon.png */;
+	};
+	7FA9697614B4D740006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA9692E14B4CA62006B072C /* Facebook-icon.png */;
+	};
+	7FA9697714B4D740006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA9693A14B4CA62006B072C /* UOR-mini-icon.png */;
+	};
+	7FA9697814B4D740006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA9697114B4D413006B072C /* Midas-mini-icon.png */;
+	};
+	7FA9697914B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9670314B4850D006B072C /* project.pbxproj */;
+		name = "project.pbxproj: 2177";
+		rLen = 0;
+		rLoc = 215405;
+		rType = 0;
+		vrLen = 3043;
+		vrLoc = 14;
+	};
+	7FA9697A14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A813A23CCE007C4AA9 /* BasePadMedia.h */;
+		name = "BasePadMedia.h: 43";
+		rLen = 0;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 144;
+	};
+	7FA9697B14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419771497C00D00E14090 /* BasePadVideoSource.h */;
+		name = "BasePadVideoSource.h: 114";
+		rLen = 0;
+		rLoc = 2409;
+		rType = 0;
+		vrLen = 1016;
+		vrLoc = 1500;
+	};
+	7FA9697C14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */;
+		name = "BasePadVideoSource.m: 256";
+		rLen = 12;
+		rLoc = 5788;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 8541;
+	};
+	7FA9697D14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A913A23CCE007C4AA9 /* BasePadMedia.m */;
+		name = "BasePadMedia.m: 922";
+		rLen = 0;
+		rLoc = 21092;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 21310;
+	};
+	7FA9697E14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */;
+		name = "BackgroundView.m: 91";
+		rLen = 0;
+		rLoc = 2318;
+		rType = 0;
+		vrLen = 1118;
+		vrLoc = 1357;
+	};
+	7FA9697F14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 161";
+		rLen = 0;
+		rLoc = 4554;
+		rType = 0;
+		vrLen = 1132;
+		vrLoc = 4290;
+	};
+	7FA9698014B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35B113A23CCE007C4AA9 /* BasePadTitleBarController.m */;
+		name = "BasePadTitleBarController.m: 5";
+		rLen = 0;
+		rLoc = 86;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 0;
+	};
+	7FA9698114B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
+		name = "BasePadTimeController.m: 562";
+		rLen = 158;
+		rLoc = 16028;
+		rType = 0;
+		vrLen = 863;
+		vrLoc = 15443;
+	};
+	7FA9698214B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F3147DF149908660071CDE3 /* CFSocket.h */;
+		name = "CFSocket.h: 120";
+		rLen = 31;
+		rLoc = 4839;
+		rType = 0;
+		vrLen = 1614;
+		vrLoc = 4746;
+	};
+	7FA9698314B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DB3904D126DFEB0009DA232 /* Socket.m */;
+		name = "Socket.m: 307";
+		rLen = 0;
+		rLoc = 6405;
+		rType = 0;
+		vrLen = 1370;
+		vrLoc = 1092;
+	};
+	7FA9698414B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757B80126F028900E32C41 /* DataHandler.m */;
+		name = "DataHandler.m: 22";
+		rLen = 0;
+		rLoc = 344;
+		rType = 0;
+		vrLen = 734;
+		vrLoc = 0;
+	};
+	7FA9698514B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */;
+		name = "RacePadClientSocket.m: 285";
+		rLen = 0;
+		rLoc = 7325;
+		rType = 0;
+		vrLen = 752;
+		vrLoc = 41;
+	};
+	7FA9698614B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */;
+		name = "RacePadCoordinator.m: 50";
+		rLen = 0;
+		rLoc = 1040;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 156;
+	};
+	7FA9698714B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A313A23CCE007C4AA9 /* BasePadClientSocket.m */;
+		name = "BasePadClientSocket.m: 162";
+		rLen = 0;
+		rLoc = 3758;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 1878;
+	};
+	7FA9698814B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F88203E12632EB40010785D /* DriverListController.m */;
+		name = "DriverListController.m: 79";
+		rLen = 13;
+		rLoc = 2709;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 2286;
+	};
+	7FA9698914B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5814052EB900DFA0BF /* CommentaryBubble.m */;
+		name = "CommentaryBubble.m: 134";
+		rLen = 17;
+		rLoc = 4149;
+		rType = 0;
+		vrLen = 1043;
+		vrLoc = 4572;
+	};
+	7FA9698A14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5D14052ED600DFA0BF /* CommentaryBubbleViewController.m */;
+		name = "CommentaryBubbleViewController.m: 145";
+		rLen = 7;
+		rLoc = 3333;
+		rType = 0;
+		vrLen = 925;
+		vrLoc = 2418;
+	};
+	7FA9698B14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */;
+		name = "TableData.m: 156";
+		rLen = 42;
+		rLoc = 2706;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 2340;
+	};
+	7FA9698C14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 107";
+		rLen = 8;
+		rLoc = 2745;
+		rType = 0;
+		vrLen = 1296;
+		vrLoc = 2123;
+	};
+	7FA9698D14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */;
+		name = "DriverLapListController.m: 66";
+		rLen = 18;
+		rLoc = 1979;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 1425;
+	};
+	7FA9698E14B4D740006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */;
+		name = "CompositeViewController.m: 5";
+		rLen = 0;
+		rLoc = 90;
+		rType = 0;
+		vrLen = 1305;
+		vrLoc = 7426;
+	};
+	7FA969AA14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9670314B4850D006B072C /* project.pbxproj */;
+		name = "project.pbxproj: 2177";
+		rLen = 0;
+		rLoc = 215405;
+		rType = 0;
+		vrLen = 3043;
+		vrLoc = 14;
+	};
+	7FA969AB14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35D213A2695F007C4AA9 /* BasePadViewController.m */;
+		name = "BasePadViewController.m: 503";
+		rLen = 704;
+		rLoc = 14926;
+		rType = 0;
+		vrLen = 713;
+		vrLoc = 14079;
+	};
+	7FA969AC14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */;
+		name = "MidasVideoViewController.h: 65";
+		rLen = 20;
+		rLoc = 1706;
+		rType = 0;
+		vrLen = 707;
+		vrLoc = 1554;
+	};
+	7FA969AD14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		name = "MidasVideoViewController.m: 839";
+		rLen = 0;
+		rLoc = 25534;
+		rType = 0;
+		vrLen = 693;
+		vrLoc = 24744;
+	};
+	7FA969AE14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		name = "MidasVideoViewController.m: 798";
+		rLen = 0;
+		rLoc = 23607;
+		rType = 0;
+		vrLen = 1017;
+		vrLoc = 23042;
+	};
+	7FA969AF14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A813A23CCE007C4AA9 /* BasePadMedia.h */;
+		name = "BasePadMedia.h: 43";
+		rLen = 0;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 144;
+	};
+	7FA969B014B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419771497C00D00E14090 /* BasePadVideoSource.h */;
+		name = "BasePadVideoSource.h: 114";
+		rLen = 0;
+		rLoc = 2409;
+		rType = 0;
+		vrLen = 1016;
+		vrLoc = 1500;
+	};
+	7FA969B114B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */;
+		name = "BasePadVideoSource.m: 256";
+		rLen = 12;
+		rLoc = 5788;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 8541;
+	};
+	7FA969B214B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A913A23CCE007C4AA9 /* BasePadMedia.m */;
+		name = "BasePadMedia.m: 922";
+		rLen = 0;
+		rLoc = 21092;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 21310;
+	};
+	7FA969B314B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */;
+		name = "BackgroundView.m: 91";
+		rLen = 0;
+		rLoc = 2318;
+		rType = 0;
+		vrLen = 1118;
+		vrLoc = 1357;
+	};
+	7FA969B414B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 161";
+		rLen = 0;
+		rLoc = 4554;
+		rType = 0;
+		vrLen = 1132;
+		vrLoc = 4290;
+	};
+	7FA969B514B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35B113A23CCE007C4AA9 /* BasePadTitleBarController.m */;
+		name = "BasePadTitleBarController.m: 5";
+		rLen = 0;
+		rLoc = 86;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 0;
+	};
+	7FA969B614B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
+		name = "BasePadTimeController.m: 562";
+		rLen = 158;
+		rLoc = 16028;
+		rType = 0;
+		vrLen = 863;
+		vrLoc = 15443;
+	};
+	7FA969B714B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F3147DF149908660071CDE3 /* CFSocket.h */;
+		name = "CFSocket.h: 120";
+		rLen = 31;
+		rLoc = 4839;
+		rType = 0;
+		vrLen = 1614;
+		vrLoc = 4746;
+	};
+	7FA969B814B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DB3904D126DFEB0009DA232 /* Socket.m */;
+		name = "Socket.m: 307";
+		rLen = 0;
+		rLoc = 6405;
+		rType = 0;
+		vrLen = 1370;
+		vrLoc = 1092;
+	};
+	7FA969B914B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757B80126F028900E32C41 /* DataHandler.m */;
+		name = "DataHandler.m: 22";
+		rLen = 0;
+		rLoc = 344;
+		rType = 0;
+		vrLen = 734;
+		vrLoc = 0;
+	};
+	7FA969BA14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */;
+		name = "RacePadClientSocket.m: 285";
+		rLen = 0;
+		rLoc = 7325;
+		rType = 0;
+		vrLen = 752;
+		vrLoc = 41;
+	};
+	7FA969BB14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */;
+		name = "RacePadCoordinator.m: 50";
+		rLen = 0;
+		rLoc = 1040;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 156;
+	};
+	7FA969BC14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A313A23CCE007C4AA9 /* BasePadClientSocket.m */;
+		name = "BasePadClientSocket.m: 162";
+		rLen = 0;
+		rLoc = 3758;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 1878;
+	};
+	7FA969BD14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F88203E12632EB40010785D /* DriverListController.m */;
+		name = "DriverListController.m: 79";
+		rLen = 13;
+		rLoc = 2709;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 2286;
+	};
+	7FA969BE14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5814052EB900DFA0BF /* CommentaryBubble.m */;
+		name = "CommentaryBubble.m: 134";
+		rLen = 17;
+		rLoc = 4149;
+		rType = 0;
+		vrLen = 1043;
+		vrLoc = 4572;
+	};
+	7FA969BF14B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5D14052ED600DFA0BF /* CommentaryBubbleViewController.m */;
+		name = "CommentaryBubbleViewController.m: 145";
+		rLen = 7;
+		rLoc = 3333;
+		rType = 0;
+		vrLen = 925;
+		vrLoc = 2418;
+	};
+	7FA969C014B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */;
+		name = "TableData.m: 156";
+		rLen = 42;
+		rLoc = 2706;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 2340;
+	};
+	7FA969C114B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 107";
+		rLen = 8;
+		rLoc = 2745;
+		rType = 0;
+		vrLen = 1296;
+		vrLoc = 2123;
+	};
+	7FA969C214B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */;
+		name = "DriverLapListController.m: 66";
+		rLen = 18;
+		rLoc = 1979;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 1425;
+	};
+	7FA969C314B4EEC3006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */;
+		name = "CompositeViewController.m: 5";
+		rLen = 0;
+		rLoc = 90;
+		rType = 0;
+		vrLen = 1305;
+		vrLoc = 7426;
+	};
+	7FA969DD14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35D013A2695F007C4AA9 /* BasePadVideoViewController.m */;
+		name = "BasePadVideoViewController.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 550;
+		vrLoc = 0;
+	};
+	7FA969DE14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */;
+		name = "MidasVideoViewController.h: 65";
+		rLen = 20;
+		rLoc = 1706;
+		rType = 0;
+		vrLen = 876;
+		vrLoc = 51;
+	};
+	7FA969DF14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35CF13A2695F007C4AA9 /* BasePadVideoViewController.h */;
+		name = "BasePadVideoViewController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 549;
+		vrLoc = 0;
+	};
+	7FA969E014B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35D213A2695F007C4AA9 /* BasePadViewController.m */;
+		name = "BasePadViewController.m: 532";
+		rLen = 22;
+		rLoc = 15023;
+		rType = 0;
+		vrLen = 807;
+		vrLoc = 14668;
+	};
+	7FA969E114B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35D113A2695F007C4AA9 /* BasePadViewController.h */;
+		name = "BasePadViewController.h: 92";
+		rLen = 27;
+		rLoc = 2245;
+		rType = 0;
+		vrLen = 1025;
+		vrLoc = 1817;
+	};
+	7FA969E214B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		name = "MidasVideoViewController.m: 747";
+		rLen = 0;
+		rLoc = 21439;
+		rType = 0;
+		vrLen = 545;
+		vrLoc = 21204;
+	};
+	7FA969E314B5002B006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA966CA14B47F02006B072C /* midas_replay.png */;
+	};
+	7FA969E414B5002B006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA966CA14B47F02006B072C /* midas_replay.png */;
+	};
+	7FA969E514B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A813A23CCE007C4AA9 /* BasePadMedia.h */;
+		name = "BasePadMedia.h: 43";
+		rLen = 0;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 144;
+	};
+	7FA969E614B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419771497C00D00E14090 /* BasePadVideoSource.h */;
+		name = "BasePadVideoSource.h: 114";
+		rLen = 0;
+		rLoc = 2409;
+		rType = 0;
+		vrLen = 1016;
+		vrLoc = 1500;
+	};
+	7FA969E714B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */;
+		name = "BasePadVideoSource.m: 256";
+		rLen = 12;
+		rLoc = 5788;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 8541;
+	};
+	7FA969E814B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A913A23CCE007C4AA9 /* BasePadMedia.m */;
+		name = "BasePadMedia.m: 922";
+		rLen = 0;
+		rLoc = 21092;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 21310;
+	};
+	7FA969E914B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */;
+		name = "BackgroundView.m: 91";
+		rLen = 0;
+		rLoc = 2318;
+		rType = 0;
+		vrLen = 1118;
+		vrLoc = 1357;
+	};
+	7FA969EA14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 161";
+		rLen = 0;
+		rLoc = 4554;
+		rType = 0;
+		vrLen = 1132;
+		vrLoc = 4290;
+	};
+	7FA969EB14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35B113A23CCE007C4AA9 /* BasePadTitleBarController.m */;
+		name = "BasePadTitleBarController.m: 5";
+		rLen = 0;
+		rLoc = 86;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 0;
+	};
+	7FA969EC14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
+		name = "BasePadTimeController.m: 562";
+		rLen = 158;
+		rLoc = 16028;
+		rType = 0;
+		vrLen = 863;
+		vrLoc = 15443;
+	};
+	7FA969ED14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DB3904D126DFEB0009DA232 /* Socket.m */;
+		name = "Socket.m: 307";
+		rLen = 0;
+		rLoc = 6405;
+		rType = 0;
+		vrLen = 1370;
+		vrLoc = 1092;
+	};
+	7FA969EE14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757B80126F028900E32C41 /* DataHandler.m */;
+		name = "DataHandler.m: 22";
+		rLen = 0;
+		rLoc = 344;
+		rType = 0;
+		vrLen = 734;
+		vrLoc = 0;
+	};
+	7FA969EF14B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */;
+		name = "RacePadClientSocket.m: 285";
+		rLen = 0;
+		rLoc = 7325;
+		rType = 0;
+		vrLen = 752;
+		vrLoc = 41;
+	};
+	7FA969F014B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */;
+		name = "RacePadCoordinator.m: 50";
+		rLen = 0;
+		rLoc = 1040;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 156;
+	};
+	7FA969F114B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A313A23CCE007C4AA9 /* BasePadClientSocket.m */;
+		name = "BasePadClientSocket.m: 162";
+		rLen = 0;
+		rLoc = 3758;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 1878;
+	};
+	7FA969F214B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F88203E12632EB40010785D /* DriverListController.m */;
+		name = "DriverListController.m: 79";
+		rLen = 13;
+		rLoc = 2709;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 2286;
+	};
+	7FA969F314B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5814052EB900DFA0BF /* CommentaryBubble.m */;
+		name = "CommentaryBubble.m: 134";
+		rLen = 17;
+		rLoc = 4149;
+		rType = 0;
+		vrLen = 1043;
+		vrLoc = 4572;
+	};
+	7FA969F414B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5D14052ED600DFA0BF /* CommentaryBubbleViewController.m */;
+		name = "CommentaryBubbleViewController.m: 145";
+		rLen = 7;
+		rLoc = 3333;
+		rType = 0;
+		vrLen = 925;
+		vrLoc = 2418;
+	};
+	7FA969F514B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */;
+		name = "TableData.m: 156";
+		rLen = 42;
+		rLoc = 2706;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 2340;
+	};
+	7FA969F614B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 107";
+		rLen = 8;
+		rLoc = 2745;
+		rType = 0;
+		vrLen = 1296;
+		vrLoc = 2123;
+	};
+	7FA969F714B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */;
+		name = "DriverLapListController.m: 66";
+		rLen = 18;
+		rLoc = 1979;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 1425;
+	};
+	7FA969F814B5002B006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */;
+		name = "CompositeViewController.m: 5";
+		rLen = 0;
+		rLoc = 90;
+		rType = 0;
+		vrLen = 1305;
+		vrLoc = 7426;
+	};
+	7FA969FE14B50052006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA966CA14B47F02006B072C /* midas_replay.png */;
+	};
+	7FA969FF14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A813A23CCE007C4AA9 /* BasePadMedia.h */;
+		name = "BasePadMedia.h: 43";
+		rLen = 0;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 144;
+	};
+	7FA96A0014B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419771497C00D00E14090 /* BasePadVideoSource.h */;
+		name = "BasePadVideoSource.h: 114";
+		rLen = 0;
+		rLoc = 2409;
+		rType = 0;
+		vrLen = 1016;
+		vrLoc = 1500;
+	};
+	7FA96A0114B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */;
+		name = "BasePadVideoSource.m: 256";
+		rLen = 12;
+		rLoc = 5788;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 8541;
+	};
+	7FA96A0214B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A913A23CCE007C4AA9 /* BasePadMedia.m */;
+		name = "BasePadMedia.m: 922";
+		rLen = 0;
+		rLoc = 21092;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 21310;
+	};
+	7FA96A0314B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */;
+		name = "BackgroundView.m: 91";
+		rLen = 0;
+		rLoc = 2318;
+		rType = 0;
+		vrLen = 1118;
+		vrLoc = 1357;
+	};
+	7FA96A0414B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 161";
+		rLen = 0;
+		rLoc = 4554;
+		rType = 0;
+		vrLen = 1132;
+		vrLoc = 4290;
+	};
+	7FA96A0514B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35B113A23CCE007C4AA9 /* BasePadTitleBarController.m */;
+		name = "BasePadTitleBarController.m: 5";
+		rLen = 0;
+		rLoc = 86;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 0;
+	};
+	7FA96A0614B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
+		name = "BasePadTimeController.m: 562";
+		rLen = 158;
+		rLoc = 16028;
+		rType = 0;
+		vrLen = 863;
+		vrLoc = 15443;
+	};
+	7FA96A0714B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DB3904D126DFEB0009DA232 /* Socket.m */;
+		name = "Socket.m: 307";
+		rLen = 0;
+		rLoc = 6405;
+		rType = 0;
+		vrLen = 1370;
+		vrLoc = 1092;
+	};
+	7FA96A0814B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757B80126F028900E32C41 /* DataHandler.m */;
+		name = "DataHandler.m: 22";
+		rLen = 0;
+		rLoc = 344;
+		rType = 0;
+		vrLen = 734;
+		vrLoc = 0;
+	};
+	7FA96A0914B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */;
+		name = "RacePadClientSocket.m: 285";
+		rLen = 0;
+		rLoc = 7325;
+		rType = 0;
+		vrLen = 752;
+		vrLoc = 41;
+	};
+	7FA96A0A14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */;
+		name = "RacePadCoordinator.m: 50";
+		rLen = 0;
+		rLoc = 1040;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 156;
+	};
+	7FA96A0B14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A313A23CCE007C4AA9 /* BasePadClientSocket.m */;
+		name = "BasePadClientSocket.m: 162";
+		rLen = 0;
+		rLoc = 3758;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 1878;
+	};
+	7FA96A0C14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F88203E12632EB40010785D /* DriverListController.m */;
+		name = "DriverListController.m: 79";
+		rLen = 13;
+		rLoc = 2709;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 2286;
+	};
+	7FA96A0D14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5814052EB900DFA0BF /* CommentaryBubble.m */;
+		name = "CommentaryBubble.m: 134";
+		rLen = 17;
+		rLoc = 4149;
+		rType = 0;
+		vrLen = 1043;
+		vrLoc = 4572;
+	};
+	7FA96A0E14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5D14052ED600DFA0BF /* CommentaryBubbleViewController.m */;
+		name = "CommentaryBubbleViewController.m: 145";
+		rLen = 7;
+		rLoc = 3333;
+		rType = 0;
+		vrLen = 925;
+		vrLoc = 2418;
+	};
+	7FA96A0F14B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */;
+		name = "TableData.m: 156";
+		rLen = 42;
+		rLoc = 2706;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 2340;
+	};
+	7FA96A1014B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 107";
+		rLen = 8;
+		rLoc = 2745;
+		rType = 0;
+		vrLen = 1296;
+		vrLoc = 2123;
+	};
+	7FA96A1114B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */;
+		name = "DriverLapListController.m: 66";
+		rLen = 18;
+		rLoc = 1979;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 1425;
+	};
+	7FA96A1214B50052006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */;
+		name = "CompositeViewController.m: 5";
+		rLen = 0;
+		rLoc = 90;
+		rType = 0;
+		vrLen = 1305;
+		vrLoc = 7426;
+	};
+	7FA96A1E14B505BC006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FA966CA14B47F02006B072C /* midas_replay.png */;
+	};
+	7FA96A1F14B505BC006B072C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 7FC2F764129429B400DAC96E /* Replay.png */;
+	};
+	7FA96A2014B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		name = "MidasVideoViewController.m: 748";
+		rLen = 0;
+		rLoc = 21402;
+		rType = 0;
+		vrLen = 747;
+		vrLoc = 14826;
+	};
+	7FA96A2114B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A813A23CCE007C4AA9 /* BasePadMedia.h */;
+		name = "BasePadMedia.h: 43";
+		rLen = 0;
+		rLoc = 829;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 144;
+	};
+	7FA96A2214B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419771497C00D00E14090 /* BasePadVideoSource.h */;
+		name = "BasePadVideoSource.h: 114";
+		rLen = 0;
+		rLoc = 2409;
+		rType = 0;
+		vrLen = 1016;
+		vrLoc = 1500;
+	};
+	7FA96A2314B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */;
+		name = "BasePadVideoSource.m: 256";
+		rLen = 12;
+		rLoc = 5788;
+		rType = 0;
+		vrLen = 718;
+		vrLoc = 8541;
+	};
+	7FA96A2414B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A913A23CCE007C4AA9 /* BasePadMedia.m */;
+		name = "BasePadMedia.m: 922";
+		rLen = 0;
+		rLoc = 21092;
+		rType = 0;
+		vrLen = 762;
+		vrLoc = 21310;
+	};
+	7FA96A2514B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */;
+		name = "BackgroundView.m: 91";
+		rLen = 0;
+		rLoc = 2318;
+		rType = 0;
+		vrLen = 1118;
+		vrLoc = 1357;
+	};
+	7FA96A2614B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */;
+		name = "RacePadTitleBarController.m: 161";
+		rLen = 0;
+		rLoc = 4554;
+		rType = 0;
+		vrLen = 1132;
+		vrLoc = 4290;
+	};
+	7FA96A2714B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35B113A23CCE007C4AA9 /* BasePadTitleBarController.m */;
+		name = "BasePadTitleBarController.m: 5";
+		rLen = 0;
+		rLoc = 86;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 0;
+	};
+	7FA96A2814B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */;
+		name = "BasePadTimeController.m: 562";
+		rLen = 158;
+		rLoc = 16028;
+		rType = 0;
+		vrLen = 863;
+		vrLoc = 15443;
+	};
+	7FA96A2914B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DB3904D126DFEB0009DA232 /* Socket.m */;
+		name = "Socket.m: 307";
+		rLen = 0;
+		rLoc = 6405;
+		rType = 0;
+		vrLen = 1370;
+		vrLoc = 1092;
+	};
+	7FA96A2A14B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757B80126F028900E32C41 /* DataHandler.m */;
+		name = "DataHandler.m: 22";
+		rLen = 0;
+		rLoc = 344;
+		rType = 0;
+		vrLen = 734;
+		vrLoc = 0;
+	};
+	7FA96A2B14B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */;
+		name = "RacePadClientSocket.m: 285";
+		rLen = 0;
+		rLoc = 7325;
+		rType = 0;
+		vrLen = 752;
+		vrLoc = 41;
+	};
+	7FA96A2C14B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */;
+		name = "RacePadCoordinator.m: 50";
+		rLen = 0;
+		rLoc = 1040;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 156;
+	};
+	7FA96A2D14B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A35A313A23CCE007C4AA9 /* BasePadClientSocket.m */;
+		name = "BasePadClientSocket.m: 162";
+		rLen = 0;
+		rLoc = 3758;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 1878;
+	};
+	7FA96A2E14B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F88203E12632EB40010785D /* DriverListController.m */;
+		name = "DriverListController.m: 79";
+		rLen = 13;
+		rLoc = 2709;
+		rType = 0;
+		vrLen = 1389;
+		vrLoc = 2286;
+	};
+	7FA96A2F14B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5814052EB900DFA0BF /* CommentaryBubble.m */;
+		name = "CommentaryBubble.m: 134";
+		rLen = 17;
+		rLoc = 4149;
+		rType = 0;
+		vrLen = 1043;
+		vrLoc = 4572;
+	};
+	7FA96A3014B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D56AF5D14052ED600DFA0BF /* CommentaryBubbleViewController.m */;
+		name = "CommentaryBubbleViewController.m: 145";
+		rLen = 7;
+		rLoc = 3333;
+		rType = 0;
+		vrLen = 925;
+		vrLoc = 2418;
+	};
+	7FA96A3114B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */;
+		name = "TableData.m: 156";
+		rLen = 42;
+		rLoc = 2706;
+		rType = 0;
+		vrLen = 833;
+		vrLoc = 2340;
+	};
+	7FA96A3214B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */;
+		name = "RacePadDataHandler.m: 107";
+		rLen = 8;
+		rLoc = 2745;
+		rType = 0;
+		vrLen = 1296;
+		vrLoc = 2123;
+	};
+	7FA96A3314B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */;
+		name = "DriverLapListController.m: 66";
+		rLen = 18;
+		rLoc = 1979;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 1425;
+	};
+	7FA96A3414B505BC006B072C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */;
+		name = "CompositeViewController.m: 5";
+		rLen = 0;
+		rLoc = 90;
+		rType = 0;
+		vrLen = 1305;
+		vrLoc = 7426;
+	};
+	7FA96A3A14B50819006B072C /* MidasVideoViewController.m:522 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		functionName = "-OnTapGestureInView:AtX:Y:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 522;
+		location = Midas;
+		modificationTime = 347409425.622809;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	7FA96A3C14B508A1006B072C /* MidasVideoViewController.m:835 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		functionName = "-handleMenuButtonDisplayGestureInView:AtX:Y:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 835;
+		location = Midas;
+		modificationTime = 347409425.623768;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	7FA96A3E14B508A9006B072C /* MidasVideoViewController.m:836 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		functionName = "-handleMenuButtonDisplayGestureInView:AtX:Y:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 836;
+		location = Midas;
+		modificationTime = 347409425.624714;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	7FA96A4014B5090E006B072C /* MidasVideoViewController.m:523 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		functionName = "-OnTapGestureInView:AtX:Y:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 523;
+		location = Midas;
+		modificationTime = 347409425.625648;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	7FA96A4414B50C09006B072C /* MidasVideoViewController.m:757 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		functionName = "-notifyHidingTimeControls";
+		hitCount = 2;
+		ignoreCount = 0;
+		lineNumber = 757;
+		location = Midas;
+		modificationTime = 347409528.155582;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	7FA96A4814B50C54006B072C /* MidasVideoViewController.m:800 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */;
+		functionName = "-showMenuButtons";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 800;
+		location = Midas;
+		modificationTime = 347409516.781734;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
 	7FB09BD012718ADB00A837EA /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = 7F068125126DDA6800C9EE5D /* clock.png */;
@@ -13777,7 +15216,7 @@
 		ignoreCount = 0;
 		lineNumber = 202;
 		location = RacePad;
-		modificationTime = 347395411.179452;
+		modificationTime = 347409425.188887;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13795,7 +15234,7 @@
 		ignoreCount = 0;
 		lineNumber = 166;
 		location = RacePad;
-		modificationTime = 347395411.180309;
+		modificationTime = 347409425.189788;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13812,7 +15251,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 164;
-		modificationTime = 347395411.181172;
+		modificationTime = 347409425.190687;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -13845,7 +15284,7 @@
 		ignoreCount = 0;
 		lineNumber = 286;
 		location = RacePad;
-		modificationTime = 347395411.182029;
+		modificationTime = 347409425.191583;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13863,7 +15302,7 @@
 		ignoreCount = 0;
 		lineNumber = 345;
 		location = RacePad;
-		modificationTime = 347395411.183008;
+		modificationTime = 347409425.19248;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13881,7 +15320,7 @@
 		ignoreCount = 0;
 		lineNumber = 333;
 		location = RacePad;
-		modificationTime = 347395411.183986;
+		modificationTime = 347409425.193402;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13929,7 +15368,7 @@
 		ignoreCount = 0;
 		lineNumber = 586;
 		location = RacePad;
-		modificationTime = 347395411.184907;
+		modificationTime = 347409425.19431;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13947,7 +15386,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.18587;
+		modificationTime = 347409425.195211;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13965,7 +15404,7 @@
 		ignoreCount = 0;
 		lineNumber = 97;
 		location = RacePad;
-		modificationTime = 347395411.186898;
+		modificationTime = 347409425.196174;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -13983,7 +15422,7 @@
 		ignoreCount = 0;
 		lineNumber = 133;
 		location = RacePad;
-		modificationTime = 347395411.187902;
+		modificationTime = 347409425.197071;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14001,7 +15440,7 @@
 		ignoreCount = 0;
 		lineNumber = 133;
 		location = RacePad;
-		modificationTime = 347395411.188863;
+		modificationTime = 347409425.197968;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14203,9 +15642,9 @@
 	};
 	7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1220, 3855}}";
-			sepNavSelRange = "{629, 0}";
-			sepNavVisRange = "{404, 581}";
+			sepNavIntBoundsRect = "{{0, 0}, {980, 3780}}";
+			sepNavSelRange = "{4436, 215}";
+			sepNavVisRange = "{4050, 675}";
 			sepNavWindowFrame = "{{129, 86}, {1311, 734}}";
 		};
 	};
@@ -14263,7 +15702,7 @@
 		ignoreCount = 0;
 		lineNumber = 193;
 		location = RacePad;
-		modificationTime = 347395411.178562;
+		modificationTime = 347409425.187982;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14358,7 +15797,7 @@
 		ignoreCount = 0;
 		lineNumber = 438;
 		location = RacePad;
-		modificationTime = 347395411.189792;
+		modificationTime = 347409425.198862;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14386,7 +15825,7 @@
 		ignoreCount = 0;
 		lineNumber = 64;
 		location = RacePad;
-		modificationTime = 347395411.190811;
+		modificationTime = 347409425.199767;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14404,7 +15843,7 @@
 		ignoreCount = 0;
 		lineNumber = 433;
 		location = RacePad;
-		modificationTime = 347395411.191717;
+		modificationTime = 347409425.200676;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14422,7 +15861,7 @@
 		ignoreCount = 0;
 		lineNumber = 498;
 		location = RacePad;
-		modificationTime = 347395411.192705;
+		modificationTime = 347409425.201634;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14440,7 +15879,7 @@
 		ignoreCount = 0;
 		lineNumber = 539;
 		location = RacePad;
-		modificationTime = 347395411.193677;
+		modificationTime = 347409425.202542;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14458,7 +15897,7 @@
 		ignoreCount = 0;
 		lineNumber = 303;
 		location = RacePad;
-		modificationTime = 347395411.194623;
+		modificationTime = 347409425.20344;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14476,7 +15915,7 @@
 		ignoreCount = 0;
 		lineNumber = 358;
 		location = RacePad;
-		modificationTime = 347395411.205619;
+		modificationTime = 347409425.204341;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14494,7 +15933,7 @@
 		ignoreCount = 0;
 		lineNumber = 278;
 		location = RacePad;
-		modificationTime = 347395411.207097;
+		modificationTime = 347409425.205243;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14512,7 +15951,7 @@
 		ignoreCount = 0;
 		lineNumber = 135;
 		location = RacePad;
-		modificationTime = 347395411.222316;
+		modificationTime = 347409425.219229;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14530,7 +15969,7 @@
 		ignoreCount = 0;
 		lineNumber = 359;
 		location = RacePad;
-		modificationTime = 347395411.223421;
+		modificationTime = 347409425.220174;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14548,7 +15987,7 @@
 		ignoreCount = 0;
 		lineNumber = 111;
 		location = RacePad;
-		modificationTime = 347395411.224436;
+		modificationTime = 347409425.221074;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14566,7 +16005,7 @@
 		ignoreCount = 0;
 		lineNumber = 278;
 		location = RacePad;
-		modificationTime = 347395411.225308;
+		modificationTime = 347409425.221989;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14584,7 +16023,7 @@
 		ignoreCount = 0;
 		lineNumber = 64;
 		location = RacePad;
-		modificationTime = 347395411.246672;
+		modificationTime = 347409425.235885;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14602,7 +16041,7 @@
 		ignoreCount = 0;
 		lineNumber = 599;
 		location = RacePad;
-		modificationTime = 347395411.247516;
+		modificationTime = 347409425.236814;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14620,7 +16059,7 @@
 		ignoreCount = 0;
 		lineNumber = 294;
 		location = RacePad;
-		modificationTime = 347395411.248242;
+		modificationTime = 347409425.237807;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14638,7 +16077,7 @@
 		ignoreCount = 0;
 		lineNumber = 92;
 		location = RacePad;
-		modificationTime = 347395411.248939;
+		modificationTime = 347409425.23872;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14656,7 +16095,7 @@
 		ignoreCount = 0;
 		lineNumber = 59;
 		location = RacePad;
-		modificationTime = 347395411.249645;
+		modificationTime = 347409425.239613;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14674,7 +16113,7 @@
 		ignoreCount = 0;
 		lineNumber = 95;
 		location = RacePad;
-		modificationTime = 347395411.250363;
+		modificationTime = 347409425.240553;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14692,7 +16131,7 @@
 		ignoreCount = 0;
 		lineNumber = 40;
 		location = RacePad;
-		modificationTime = 347395411.251135;
+		modificationTime = 347409425.241571;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14813,7 +16252,7 @@
 		ignoreCount = 0;
 		lineNumber = 711;
 		location = RacePad;
-		modificationTime = 347395411.25183;
+		modificationTime = 347409425.242476;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14831,7 +16270,7 @@
 		ignoreCount = 0;
 		lineNumber = 712;
 		location = RacePad;
-		modificationTime = 347395411.252729;
+		modificationTime = 347409425.243395;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14848,7 +16287,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 654;
-		modificationTime = 347395411.253599;
+		modificationTime = 347409425.244323;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -14866,7 +16305,7 @@
 		ignoreCount = 0;
 		lineNumber = 655;
 		location = RacePad;
-		modificationTime = 347395411.254465;
+		modificationTime = 347409425.245252;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14884,7 +16323,7 @@
 		ignoreCount = 0;
 		lineNumber = 591;
 		location = RacePad;
-		modificationTime = 347395411.255294;
+		modificationTime = 347409425.246188;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14902,7 +16341,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.256144;
+		modificationTime = 347409425.247119;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14920,7 +16359,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.257049;
+		modificationTime = 347409425.248115;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14976,7 +16415,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.257926;
+		modificationTime = 347409425.249057;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -14994,7 +16433,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.258892;
+		modificationTime = 347409425.250018;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15012,7 +16451,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.259842;
+		modificationTime = 347409425.251015;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15030,7 +16469,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.260707;
+		modificationTime = 347409425.251982;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15048,7 +16487,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.261598;
+		modificationTime = 347409425.252988;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15066,7 +16505,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.262564;
+		modificationTime = 347409425.253949;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15084,7 +16523,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.263435;
+		modificationTime = 347409425.254883;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15102,7 +16541,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.264321;
+		modificationTime = 347409425.255844;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15150,7 +16589,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.265547;
+		modificationTime = 347409425.256795;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -15168,7 +16607,7 @@
 		ignoreCount = 0;
 		lineNumber = 50;
 		location = RacePad;
-		modificationTime = 347395411.266457;
+		modificationTime = 347409425.25774;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
