@@ -314,6 +314,27 @@
 		7FA27D3913001BB5001407FD /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27D3813001BB5001407FD /* CloseButton.png */; };
 		7FA27DA613002425001407FD /* NoPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27DA513002425001407FD /* NoPhoto.png */; };
 		7FA27E1913002D5A001407FD /* NoHelmet.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27E1813002D5A001407FD /* NoHelmet.png */; };
+		7FA965C714B453F1006B072C /* MidasAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA965C614B453F1006B072C /* MidasAppDelegate.m */; };
+		7FA9662814B46F50006B072C /* MidasMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9662714B46F50006B072C /* MidasMainWindow.xib */; };
+		7FA9666414B47359006B072C /* MidasHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9666314B47359006B072C /* MidasHomeViewController.m */; };
+		7FA9666714B47371006B072C /* MidasCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9666614B47371006B072C /* MidasCoordinator.m */; };
+		7FA9667014B47544006B072C /* MidasHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9666F14B47544006B072C /* MidasHomeView.xib */; };
+		7FA966D114B47F02006B072C /* 29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C114B47F02006B072C /* 29x29.png */; };
+		7FA966D214B47F02006B072C /* 50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C214B47F02006B072C /* 50x50.png */; };
+		7FA966D314B47F02006B072C /* 57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C314B47F02006B072C /* 57x57.png */; };
+		7FA966D414B47F02006B072C /* 72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C414B47F02006B072C /* 72x72.png */; };
+		7FA966D514B47F02006B072C /* 114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C514B47F02006B072C /* 114x114.png */; };
+		7FA966D614B47F02006B072C /* M-menu-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C614B47F02006B072C /* M-menu-selected.png */; };
+		7FA966D714B47F02006B072C /* M-menu-unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C714B47F02006B072C /* M-menu-unselected.png */; };
+		7FA966D814B47F02006B072C /* menu-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C814B47F02006B072C /* menu-layer.png */; };
+		7FA966D914B47F02006B072C /* replay-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C914B47F02006B072C /* replay-selected.png */; };
+		7FA966DA14B47F02006B072C /* replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CA14B47F02006B072C /* replay.png */; };
+		7FA966DB14B47F02006B072C /* splash_midas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CB14B47F02006B072C /* splash_midas.png */; };
+		7FA966DC14B47F02006B072C /* Standings-container.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CC14B47F02006B072C /* Standings-container.png */; };
+		7FA966DD14B47F02006B072C /* Standings-extended-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CD14B47F02006B072C /* Standings-extended-background.png */; };
+		7FA966DE14B47F02006B072C /* Standings-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CE14B47F02006B072C /* Standings-icon.png */; };
+		7FA966DF14B47F02006B072C /* Standings-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CF14B47F02006B072C /* Standings-title.png */; };
+		7FA966E014B47F02006B072C /* white-line.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966D014B47F02006B072C /* white-line.png */; };
 		7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
 		7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
 		7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
@@ -370,7 +391,7 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* RacePad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RacePad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Midas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Midas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
@@ -776,6 +797,30 @@
 		7FA27D3813001BB5001407FD /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseButton.png; path = Images/CloseButton.png; sourceTree = "<group>"; };
 		7FA27DA513002425001407FD /* NoPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoPhoto.png; path = Images/NoPhoto.png; sourceTree = "<group>"; };
 		7FA27E1813002D5A001407FD /* NoHelmet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoHelmet.png; path = Images/NoHelmet.png; sourceTree = "<group>"; };
+		7FA965C514B453F1006B072C /* MidasAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasAppDelegate.h; sourceTree = "<group>"; };
+		7FA965C614B453F1006B072C /* MidasAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasAppDelegate.m; sourceTree = "<group>"; };
+		7FA9662714B46F50006B072C /* MidasMainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasMainWindow.xib; path = ResourceFiles/MidasMainWindow.xib; sourceTree = "<group>"; };
+		7FA9666214B47359006B072C /* MidasHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasHomeViewController.h; sourceTree = "<group>"; };
+		7FA9666314B47359006B072C /* MidasHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasHomeViewController.m; sourceTree = "<group>"; };
+		7FA9666514B47371006B072C /* MidasCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasCoordinator.h; sourceTree = "<group>"; };
+		7FA9666614B47371006B072C /* MidasCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasCoordinator.m; sourceTree = "<group>"; };
+		7FA9666F14B47544006B072C /* MidasHomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasHomeView.xib; path = ResourceFiles/MidasHomeView.xib; sourceTree = "<group>"; };
+		7FA966C114B47F02006B072C /* 29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29x29.png; sourceTree = "<group>"; };
+		7FA966C214B47F02006B072C /* 50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 50x50.png; sourceTree = "<group>"; };
+		7FA966C314B47F02006B072C /* 57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57x57.png; sourceTree = "<group>"; };
+		7FA966C414B47F02006B072C /* 72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72x72.png; sourceTree = "<group>"; };
+		7FA966C514B47F02006B072C /* 114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114x114.png; sourceTree = "<group>"; };
+		7FA966C614B47F02006B072C /* M-menu-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-menu-selected.png"; sourceTree = "<group>"; };
+		7FA966C714B47F02006B072C /* M-menu-unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-menu-unselected.png"; sourceTree = "<group>"; };
+		7FA966C814B47F02006B072C /* menu-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-layer.png"; sourceTree = "<group>"; };
+		7FA966C914B47F02006B072C /* replay-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "replay-selected.png"; sourceTree = "<group>"; };
+		7FA966CA14B47F02006B072C /* replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay.png; sourceTree = "<group>"; };
+		7FA966CB14B47F02006B072C /* splash_midas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash_midas.png; sourceTree = "<group>"; };
+		7FA966CC14B47F02006B072C /* Standings-container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-container.png"; sourceTree = "<group>"; };
+		7FA966CD14B47F02006B072C /* Standings-extended-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-extended-background.png"; sourceTree = "<group>"; };
+		7FA966CE14B47F02006B072C /* Standings-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-icon.png"; sourceTree = "<group>"; };
+		7FA966CF14B47F02006B072C /* Standings-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-title.png"; sourceTree = "<group>"; };
+		7FA966D014B47F02006B072C /* white-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-line.png"; sourceTree = "<group>"; };
 		7FB1C58412673E7F008A6C94 /* DriverListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverListView.xib; path = ResourceFiles/DriverListView.xib; sourceTree = "<group>"; };
 		7FB1C58512673E7F008A6C94 /* HTMLView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HTMLView.xib; path = ResourceFiles/HTMLView.xib; sourceTree = "<group>"; };
 		7FB1C58612673E7F008A6C94 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ResourceFiles/MainWindow.xib; sourceTree = "<group>"; };
@@ -821,7 +866,7 @@
 		7FE5A83113812E180095DD10 /* NewsFeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NewsFeed.png; path = Images/NewsFeed.png; sourceTree = "<group>"; };
 		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Midas-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Midas-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -848,6 +893,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7FA965C414B45398006B072C /* Midas */,
 				7F9419761497BFB300E14090 /* BasePadMedia */,
 				4D5A359F13A23CB4007C4AA9 /* BasePad */,
 				4D5A365C13A5F689007C4AA9 /* BasePadData */,
@@ -866,7 +912,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* RacePad.app */,
+				1D6058910D05DD3D006BFB54 /* Midas.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -898,7 +944,7 @@
 				7F817D031305209D00AC2444 /* HTML */,
 				7FC2F8181295911900DAC96E /* Images */,
 				7FC2F8171295910D00DAC96E /* XIB Files */,
-				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+				8D1107310486CEB800E47090 /* Midas-Info.plist */,
 				7F913DBC134689FD002701DA /* dist.plist */,
 			);
 			name = Resources;
@@ -1252,9 +1298,48 @@
 			path = UISupport;
 			sourceTree = "<group>";
 		};
+		7FA965C414B45398006B072C /* Midas */ = {
+			isa = PBXGroup;
+			children = (
+				7FA965C514B453F1006B072C /* MidasAppDelegate.h */,
+				7FA965C614B453F1006B072C /* MidasAppDelegate.m */,
+				7FA9666214B47359006B072C /* MidasHomeViewController.h */,
+				7FA9666314B47359006B072C /* MidasHomeViewController.m */,
+				7FA9666514B47371006B072C /* MidasCoordinator.h */,
+				7FA9666614B47371006B072C /* MidasCoordinator.m */,
+			);
+			path = Midas;
+			sourceTree = "<group>";
+		};
+		7FA966A514B47CD5006B072C /* MidasImages */ = {
+			isa = PBXGroup;
+			children = (
+				7FA966C114B47F02006B072C /* 29x29.png */,
+				7FA966C214B47F02006B072C /* 50x50.png */,
+				7FA966C314B47F02006B072C /* 57x57.png */,
+				7FA966C414B47F02006B072C /* 72x72.png */,
+				7FA966C514B47F02006B072C /* 114x114.png */,
+				7FA966C614B47F02006B072C /* M-menu-selected.png */,
+				7FA966C714B47F02006B072C /* M-menu-unselected.png */,
+				7FA966C814B47F02006B072C /* menu-layer.png */,
+				7FA966C914B47F02006B072C /* replay-selected.png */,
+				7FA966CA14B47F02006B072C /* replay.png */,
+				7FA966CB14B47F02006B072C /* splash_midas.png */,
+				7FA966CC14B47F02006B072C /* Standings-container.png */,
+				7FA966CD14B47F02006B072C /* Standings-extended-background.png */,
+				7FA966CE14B47F02006B072C /* Standings-icon.png */,
+				7FA966CF14B47F02006B072C /* Standings-title.png */,
+				7FA966D014B47F02006B072C /* white-line.png */,
+			);
+			name = MidasImages;
+			path = Images/MidasImages;
+			sourceTree = SOURCE_ROOT;
+		};
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				7FA9662714B46F50006B072C /* MidasMainWindow.xib */,
+				7FA9666F14B47544006B072C /* MidasHomeView.xib */,
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
 				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
@@ -1306,6 +1391,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FA966A514B47CD5006B072C /* MidasImages */,
 				7F9157CC1497A0D100A013BC /* GreyTextureBG.png */,
 				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
 				7F48F20B1411060C00E293B4 /* AlertPurpleInfo.png */,
@@ -1460,9 +1546,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* RacePad */ = {
+		1D6058900D05DD3D006BFB54 /* Midas */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RacePad" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Midas" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -1473,9 +1559,9 @@
 			);
 			dependencies = (
 			);
-			name = RacePad;
+			name = Midas;
 			productName = RacePad;
-			productReference = 1D6058910D05DD3D006BFB54 /* RacePad.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Midas.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1483,7 +1569,7 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MidasDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -1497,7 +1583,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* RacePad */,
+				1D6058900D05DD3D006BFB54 /* Midas */,
 			);
 		};
 /* End PBXProject section */
@@ -1742,6 +1828,24 @@
 				7F48F2121411060C00E293B4 /* ArrowUpGreen.png in Resources */,
 				7F48F2131411060C00E293B4 /* TitleYellow.png in Resources */,
 				7F9157CD1497A0D100A013BC /* GreyTextureBG.png in Resources */,
+				7FA9662814B46F50006B072C /* MidasMainWindow.xib in Resources */,
+				7FA9667014B47544006B072C /* MidasHomeView.xib in Resources */,
+				7FA966D114B47F02006B072C /* 29x29.png in Resources */,
+				7FA966D214B47F02006B072C /* 50x50.png in Resources */,
+				7FA966D314B47F02006B072C /* 57x57.png in Resources */,
+				7FA966D414B47F02006B072C /* 72x72.png in Resources */,
+				7FA966D514B47F02006B072C /* 114x114.png in Resources */,
+				7FA966D614B47F02006B072C /* M-menu-selected.png in Resources */,
+				7FA966D714B47F02006B072C /* M-menu-unselected.png in Resources */,
+				7FA966D814B47F02006B072C /* menu-layer.png in Resources */,
+				7FA966D914B47F02006B072C /* replay-selected.png in Resources */,
+				7FA966DA14B47F02006B072C /* replay.png in Resources */,
+				7FA966DB14B47F02006B072C /* splash_midas.png in Resources */,
+				7FA966DC14B47F02006B072C /* Standings-container.png in Resources */,
+				7FA966DD14B47F02006B072C /* Standings-extended-background.png in Resources */,
+				7FA966DE14B47F02006B072C /* Standings-icon.png in Resources */,
+				7FA966DF14B47F02006B072C /* Standings-title.png in Resources */,
+				7FA966E014B47F02006B072C /* white-line.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,6 +1958,9 @@
 				4D94B6F0140D36FC00EC2EE0 /* HeadToHeadView.m in Sources */,
 				7F9419791497C00D00E14090 /* BasePadVideoSource.m in Sources */,
 				7F94197C1497C03900E14090 /* BasePadAudioSource.m in Sources */,
+				7FA965C714B453F1006B072C /* MidasAppDelegate.m in Sources */,
+				7FA9666414B47359006B072C /* MidasHomeViewController.m in Sources */,
+				7FA9666714B47371006B072C /* MidasCoordinator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1869,10 +1976,11 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				GCC_PREFIX_HEADER = Midas_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "RacePad-Info.plist";
-				PRODUCT_NAME = RacePad;
+				INFOPLIST_FILE = "Midas-Info.plist";
+				PRODUCT_NAME = Midas;
+				SYMROOT = /Development/Projects/WPSCDemo.build;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1885,10 +1993,11 @@
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				GCC_PREFIX_HEADER = Midas_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "RacePad-Info.plist";
-				PRODUCT_NAME = RacePad;
+				INFOPLIST_FILE = "Midas-Info.plist";
+				PRODUCT_NAME = Midas;
+				SYMROOT = /Development/Projects/WPSCDemo.build;
 				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
@@ -1935,7 +2044,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RacePad" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Midas" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -1944,7 +2053,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MidasDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
