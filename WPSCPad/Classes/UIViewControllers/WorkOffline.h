@@ -23,8 +23,12 @@
 	
 	NSMutableArray *events;
 	NSMutableArray *sessions;
+	
+	bool animatedDismissal;
 
 }
+
+@property (nonatomic) bool animatedDismissal;
 
 - (IBAction)okPressed:(id)sender;
 - (IBAction)onlinePressed:(id)sender;

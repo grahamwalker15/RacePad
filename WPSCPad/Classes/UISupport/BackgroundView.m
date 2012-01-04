@@ -20,6 +20,7 @@ static UIImage * screen_bg_image_ = nil;
 static UIImage * carbon_bg_image_  = nil;
 static UIImage * grey_bg_image_  = nil;
 static UIImage * grass_bg_image_ = nil;
+static UIImage * midas_bg_image_ = nil;
 
 static bool bg_images_initialised_ = false;
 
@@ -63,6 +64,7 @@ static bool bg_images_initialised_ = false;
 	[carbon_bg_image_  release];
 	[grey_bg_image_  release];
 	[grass_bg_image_  release];
+	[midas_bg_image_  release];
 	
 	[frames removeAllObjects];
 	[frames release];
@@ -85,6 +87,7 @@ static bool bg_images_initialised_ = false;
 		grey_bg_image_  = [[UIImage imageNamed:@"GreyTextureBG.png"] retain];
 		carbon_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
 		grass_bg_image_  = [[UIImage imageNamed:@"Grass.png"] retain];
+		midas_bg_image_  = [[UIImage imageNamed:@"MidasBackground.png"] retain];
 	}
 	else
 	{
@@ -92,6 +95,7 @@ static bool bg_images_initialised_ = false;
 		[grey_bg_image_  retain];
 		[carbon_bg_image_  retain];
 		[grass_bg_image_  retain];
+		[midas_bg_image_  retain];
 	}
 }
 
@@ -107,6 +111,13 @@ static bool bg_images_initialised_ = false;
 		{
 			inset = 0;
 			[self DrawPattern:carbon_bg_image_ InRect:current_bounds_];	
+			break;
+		}
+			
+		case BG_STYLE_MIDAS_:
+		{
+			inset = 0;
+			[self DrawPattern:midas_bg_image_ InRect:current_bounds_];	
 			break;
 		}
 			

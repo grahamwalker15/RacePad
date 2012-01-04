@@ -10,10 +10,13 @@
 
 #import "RacePadCoordinator.h"
 
+@class MidasVideoViewController;
 
 @interface MidasCoordinator : RacePadCoordinator
 {
-
+	MidasVideoViewController * midasVideoViewController;
 }
+
++(MidasCoordinator *)Instance;
 
 @end

@@ -224,8 +224,6 @@
 		7F865A1E128776B600F13CB6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A19128776B600F13CB6 /* Icon@2x.png */; };
 		7F865A7612880EBF00F13CB6 /* ListIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A7512880EBF00F13CB6 /* ListIcon.png */; };
 		7F866016128ABE7500F13CB6 /* AlertControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F866015128ABE7500F13CB6 /* AlertControlView.xib */; };
-		7F86601A128ABE9700F13CB6 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866017128ABE9700F13CB6 /* Default-Landscape.png */; };
-		7F86601B128ABE9700F13CB6 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866018128ABE9700F13CB6 /* Default-Portrait.png */; };
 		7F86601C128ABE9700F13CB6 /* PopupImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866019128ABE9700F13CB6 /* PopupImage.png */; };
 		7F86601F128ABEB900F13CB6 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86601E128ABEB900F13CB6 /* AlertView.m */; };
 		7F866022128ABEC800F13CB6 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866021128ABEC800F13CB6 /* AlertViewController.m */; };
@@ -319,22 +317,27 @@
 		7FA9666414B47359006B072C /* MidasHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9666314B47359006B072C /* MidasHomeViewController.m */; };
 		7FA9666714B47371006B072C /* MidasCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9666614B47371006B072C /* MidasCoordinator.m */; };
 		7FA9667014B47544006B072C /* MidasHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9666F14B47544006B072C /* MidasHomeView.xib */; };
-		7FA966D114B47F02006B072C /* 29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C114B47F02006B072C /* 29x29.png */; };
-		7FA966D214B47F02006B072C /* 50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C214B47F02006B072C /* 50x50.png */; };
-		7FA966D314B47F02006B072C /* 57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C314B47F02006B072C /* 57x57.png */; };
-		7FA966D414B47F02006B072C /* 72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C414B47F02006B072C /* 72x72.png */; };
-		7FA966D514B47F02006B072C /* 114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C514B47F02006B072C /* 114x114.png */; };
+		7FA966D114B47F02006B072C /* MidasIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C114B47F02006B072C /* MidasIcon29x29.png */; };
+		7FA966D214B47F02006B072C /* MidasIcon50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C214B47F02006B072C /* MidasIcon50x50.png */; };
+		7FA966D314B47F02006B072C /* MidasIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C314B47F02006B072C /* MidasIcon57x57.png */; };
+		7FA966D414B47F02006B072C /* MidasIcon72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C414B47F02006B072C /* MidasIcon72x72.png */; };
+		7FA966D514B47F02006B072C /* MidasIcon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C514B47F02006B072C /* MidasIcon114x114.png */; };
 		7FA966D614B47F02006B072C /* M-menu-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C614B47F02006B072C /* M-menu-selected.png */; };
 		7FA966D714B47F02006B072C /* M-menu-unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C714B47F02006B072C /* M-menu-unselected.png */; };
 		7FA966D814B47F02006B072C /* menu-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C814B47F02006B072C /* menu-layer.png */; };
 		7FA966D914B47F02006B072C /* replay-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966C914B47F02006B072C /* replay-selected.png */; };
 		7FA966DA14B47F02006B072C /* replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CA14B47F02006B072C /* replay.png */; };
-		7FA966DB14B47F02006B072C /* splash_midas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CB14B47F02006B072C /* splash_midas.png */; };
+		7FA966DB14B47F02006B072C /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CB14B47F02006B072C /* Default-Landscape.png */; };
 		7FA966DC14B47F02006B072C /* Standings-container.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CC14B47F02006B072C /* Standings-container.png */; };
 		7FA966DD14B47F02006B072C /* Standings-extended-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CD14B47F02006B072C /* Standings-extended-background.png */; };
 		7FA966DE14B47F02006B072C /* Standings-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CE14B47F02006B072C /* Standings-icon.png */; };
 		7FA966DF14B47F02006B072C /* Standings-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966CF14B47F02006B072C /* Standings-title.png */; };
 		7FA966E014B47F02006B072C /* white-line.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA966D014B47F02006B072C /* white-line.png */; };
+		7FA9672014B486B9006B072C /* MidasBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9671F14B486B9006B072C /* MidasBackground.png */; };
+		7FA9678214B48B37006B072C /* RacePadCommonCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9678114B48B37006B072C /* RacePadCommonCoordinator.m */; };
+		7FA967DF14B49013006B072C /* MidasWorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA967DE14B49013006B072C /* MidasWorkOffline.xib */; };
+		7FA9685314B4A0C4006B072C /* MidasVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */; };
+		7FA9685614B4A148006B072C /* MidasVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9685514B4A148006B072C /* MidasVideoView.xib */; };
 		7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
 		7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
 		7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
@@ -678,8 +681,6 @@
 		7F865A19128776B600F13CB6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Images/Icon@2x.png"; sourceTree = "<group>"; };
 		7F865A7512880EBF00F13CB6 /* ListIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ListIcon.png; path = Images/ListIcon.png; sourceTree = "<group>"; };
 		7F866015128ABE7500F13CB6 /* AlertControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AlertControlView.xib; path = ResourceFiles/AlertControlView.xib; sourceTree = "<group>"; };
-		7F866017128ABE9700F13CB6 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape.png"; path = "Images/Default-Landscape.png"; sourceTree = "<group>"; };
-		7F866018128ABE9700F13CB6 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait.png"; path = "Images/Default-Portrait.png"; sourceTree = "<group>"; };
 		7F866019128ABE9700F13CB6 /* PopupImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupImage.png; path = Images/PopupImage.png; sourceTree = "<group>"; };
 		7F86601D128ABEB900F13CB6 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		7F86601E128ABEB900F13CB6 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
@@ -805,22 +806,29 @@
 		7FA9666514B47371006B072C /* MidasCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasCoordinator.h; sourceTree = "<group>"; };
 		7FA9666614B47371006B072C /* MidasCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasCoordinator.m; sourceTree = "<group>"; };
 		7FA9666F14B47544006B072C /* MidasHomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasHomeView.xib; path = ResourceFiles/MidasHomeView.xib; sourceTree = "<group>"; };
-		7FA966C114B47F02006B072C /* 29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29x29.png; sourceTree = "<group>"; };
-		7FA966C214B47F02006B072C /* 50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 50x50.png; sourceTree = "<group>"; };
-		7FA966C314B47F02006B072C /* 57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57x57.png; sourceTree = "<group>"; };
-		7FA966C414B47F02006B072C /* 72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72x72.png; sourceTree = "<group>"; };
-		7FA966C514B47F02006B072C /* 114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114x114.png; sourceTree = "<group>"; };
+		7FA966C114B47F02006B072C /* MidasIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasIcon29x29.png; sourceTree = "<group>"; };
+		7FA966C214B47F02006B072C /* MidasIcon50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasIcon50x50.png; sourceTree = "<group>"; };
+		7FA966C314B47F02006B072C /* MidasIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasIcon57x57.png; sourceTree = "<group>"; };
+		7FA966C414B47F02006B072C /* MidasIcon72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasIcon72x72.png; sourceTree = "<group>"; };
+		7FA966C514B47F02006B072C /* MidasIcon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasIcon114x114.png; sourceTree = "<group>"; };
 		7FA966C614B47F02006B072C /* M-menu-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-menu-selected.png"; sourceTree = "<group>"; };
 		7FA966C714B47F02006B072C /* M-menu-unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-menu-unselected.png"; sourceTree = "<group>"; };
 		7FA966C814B47F02006B072C /* menu-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-layer.png"; sourceTree = "<group>"; };
 		7FA966C914B47F02006B072C /* replay-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "replay-selected.png"; sourceTree = "<group>"; };
 		7FA966CA14B47F02006B072C /* replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay.png; sourceTree = "<group>"; };
-		7FA966CB14B47F02006B072C /* splash_midas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash_midas.png; sourceTree = "<group>"; };
+		7FA966CB14B47F02006B072C /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		7FA966CC14B47F02006B072C /* Standings-container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-container.png"; sourceTree = "<group>"; };
 		7FA966CD14B47F02006B072C /* Standings-extended-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-extended-background.png"; sourceTree = "<group>"; };
 		7FA966CE14B47F02006B072C /* Standings-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-icon.png"; sourceTree = "<group>"; };
 		7FA966CF14B47F02006B072C /* Standings-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-title.png"; sourceTree = "<group>"; };
 		7FA966D014B47F02006B072C /* white-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-line.png"; sourceTree = "<group>"; };
+		7FA9671F14B486B9006B072C /* MidasBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MidasBackground.png; path = Images/MidasBackground.png; sourceTree = "<group>"; };
+		7FA9678014B48B37006B072C /* RacePadCommonCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadCommonCoordinator.h; sourceTree = "<group>"; };
+		7FA9678114B48B37006B072C /* RacePadCommonCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadCommonCoordinator.m; sourceTree = "<group>"; };
+		7FA967DE14B49013006B072C /* MidasWorkOffline.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasWorkOffline.xib; path = ResourceFiles/MidasWorkOffline.xib; sourceTree = "<group>"; };
+		7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVideoViewController.h; sourceTree = "<group>"; };
+		7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVideoViewController.m; sourceTree = "<group>"; };
+		7FA9685514B4A148006B072C /* MidasVideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasVideoView.xib; path = ResourceFiles/MidasVideoView.xib; sourceTree = "<group>"; };
 		7FB1C58412673E7F008A6C94 /* DriverListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverListView.xib; path = ResourceFiles/DriverListView.xib; sourceTree = "<group>"; };
 		7FB1C58512673E7F008A6C94 /* HTMLView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HTMLView.xib; path = ResourceFiles/HTMLView.xib; sourceTree = "<group>"; };
 		7FB1C58612673E7F008A6C94 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ResourceFiles/MainWindow.xib; sourceTree = "<group>"; };
@@ -901,6 +909,7 @@
 				7F9C1725125A2B9000770746 /* Constructs */,
 				7F3276EE126379B000BD1627 /* Database */,
 				7F93564A12F8802A00AB1D07 /* HelpViewControllers */,
+				7FA9677F14B48AFF006B072C /* RacePadCommon */,
 				7F9C1AD4125B7B6B00770746 /* RacePad */,
 				7F9C1B75125CA10A00770746 /* UISupport */,
 				7F9C10D71255E68B00770746 /* UIViewControllers */,
@@ -925,6 +934,8 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				7FA967DE14B49013006B072C /* MidasWorkOffline.xib */,
+				7FA9685514B4A148006B072C /* MidasVideoView.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -1307,6 +1318,8 @@
 				7FA9666314B47359006B072C /* MidasHomeViewController.m */,
 				7FA9666514B47371006B072C /* MidasCoordinator.h */,
 				7FA9666614B47371006B072C /* MidasCoordinator.m */,
+				7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */,
+				7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */,
 			);
 			path = Midas;
 			sourceTree = "<group>";
@@ -1314,17 +1327,17 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
-				7FA966C114B47F02006B072C /* 29x29.png */,
-				7FA966C214B47F02006B072C /* 50x50.png */,
-				7FA966C314B47F02006B072C /* 57x57.png */,
-				7FA966C414B47F02006B072C /* 72x72.png */,
-				7FA966C514B47F02006B072C /* 114x114.png */,
+				7FA966C114B47F02006B072C /* MidasIcon29x29.png */,
+				7FA966C214B47F02006B072C /* MidasIcon50x50.png */,
+				7FA966C314B47F02006B072C /* MidasIcon57x57.png */,
+				7FA966C414B47F02006B072C /* MidasIcon72x72.png */,
+				7FA966C514B47F02006B072C /* MidasIcon114x114.png */,
 				7FA966C614B47F02006B072C /* M-menu-selected.png */,
 				7FA966C714B47F02006B072C /* M-menu-unselected.png */,
 				7FA966C814B47F02006B072C /* menu-layer.png */,
 				7FA966C914B47F02006B072C /* replay-selected.png */,
 				7FA966CA14B47F02006B072C /* replay.png */,
-				7FA966CB14B47F02006B072C /* splash_midas.png */,
+				7FA966CB14B47F02006B072C /* Default-Landscape.png */,
 				7FA966CC14B47F02006B072C /* Standings-container.png */,
 				7FA966CD14B47F02006B072C /* Standings-extended-background.png */,
 				7FA966CE14B47F02006B072C /* Standings-icon.png */,
@@ -1334,6 +1347,15 @@
 			name = MidasImages;
 			path = Images/MidasImages;
 			sourceTree = SOURCE_ROOT;
+		};
+		7FA9677F14B48AFF006B072C /* RacePadCommon */ = {
+			isa = PBXGroup;
+			children = (
+				7FA9678014B48B37006B072C /* RacePadCommonCoordinator.h */,
+				7FA9678114B48B37006B072C /* RacePadCommonCoordinator.m */,
+			);
+			path = RacePadCommon;
+			sourceTree = "<group>";
 		};
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
@@ -1393,6 +1415,7 @@
 			children = (
 				7FA966A514B47CD5006B072C /* MidasImages */,
 				7F9157CC1497A0D100A013BC /* GreyTextureBG.png */,
+				7FA9671F14B486B9006B072C /* MidasBackground.png */,
 				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
 				7F48F20B1411060C00E293B4 /* AlertPurpleInfo.png */,
 				7F48F20C1411060C00E293B4 /* ArrowDownRed.png */,
@@ -1426,8 +1449,6 @@
 				7FA27D3813001BB5001407FD /* CloseButton.png */,
 				4D2B79081406B7F7007950AA /* Commentary.png */,
 				7F86602A128AC1D000F13CB6 /* connections.png */,
-				7F866017128ABE9700F13CB6 /* Default-Landscape.png */,
-				7F866018128ABE9700F13CB6 /* Default-Portrait.png */,
 				7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */,
 				4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */,
 				4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */,
@@ -1637,8 +1658,6 @@
 				4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */,
 				4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */,
 				7F866016128ABE7500F13CB6 /* AlertControlView.xib in Resources */,
-				7F86601A128ABE9700F13CB6 /* Default-Landscape.png in Resources */,
-				7F86601B128ABE9700F13CB6 /* Default-Portrait.png in Resources */,
 				7F86601C128ABE9700F13CB6 /* PopupImage.png in Resources */,
 				7F86602E128AC1D000F13CB6 /* connections.png in Resources */,
 				7F86602F128AC1D000F13CB6 /* pause.png in Resources */,
@@ -1830,22 +1849,25 @@
 				7F9157CD1497A0D100A013BC /* GreyTextureBG.png in Resources */,
 				7FA9662814B46F50006B072C /* MidasMainWindow.xib in Resources */,
 				7FA9667014B47544006B072C /* MidasHomeView.xib in Resources */,
-				7FA966D114B47F02006B072C /* 29x29.png in Resources */,
-				7FA966D214B47F02006B072C /* 50x50.png in Resources */,
-				7FA966D314B47F02006B072C /* 57x57.png in Resources */,
-				7FA966D414B47F02006B072C /* 72x72.png in Resources */,
-				7FA966D514B47F02006B072C /* 114x114.png in Resources */,
+				7FA966D114B47F02006B072C /* MidasIcon29x29.png in Resources */,
+				7FA966D214B47F02006B072C /* MidasIcon50x50.png in Resources */,
+				7FA966D314B47F02006B072C /* MidasIcon57x57.png in Resources */,
+				7FA966D414B47F02006B072C /* MidasIcon72x72.png in Resources */,
+				7FA966D514B47F02006B072C /* MidasIcon114x114.png in Resources */,
 				7FA966D614B47F02006B072C /* M-menu-selected.png in Resources */,
 				7FA966D714B47F02006B072C /* M-menu-unselected.png in Resources */,
 				7FA966D814B47F02006B072C /* menu-layer.png in Resources */,
 				7FA966D914B47F02006B072C /* replay-selected.png in Resources */,
 				7FA966DA14B47F02006B072C /* replay.png in Resources */,
-				7FA966DB14B47F02006B072C /* splash_midas.png in Resources */,
+				7FA966DB14B47F02006B072C /* Default-Landscape.png in Resources */,
 				7FA966DC14B47F02006B072C /* Standings-container.png in Resources */,
 				7FA966DD14B47F02006B072C /* Standings-extended-background.png in Resources */,
 				7FA966DE14B47F02006B072C /* Standings-icon.png in Resources */,
 				7FA966DF14B47F02006B072C /* Standings-title.png in Resources */,
 				7FA966E014B47F02006B072C /* white-line.png in Resources */,
+				7FA9672014B486B9006B072C /* MidasBackground.png in Resources */,
+				7FA967DF14B49013006B072C /* MidasWorkOffline.xib in Resources */,
+				7FA9685614B4A148006B072C /* MidasVideoView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1961,6 +1983,8 @@
 				7FA965C714B453F1006B072C /* MidasAppDelegate.m in Sources */,
 				7FA9666414B47359006B072C /* MidasHomeViewController.m in Sources */,
 				7FA9666714B47371006B072C /* MidasCoordinator.m in Sources */,
+				7FA9678214B48B37006B072C /* RacePadCommonCoordinator.m in Sources */,
+				7FA9685314B4A0C4006B072C /* MidasVideoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1976,7 +2000,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Midas_Prefix.pch;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Midas-Info.plist";
 				PRODUCT_NAME = Midas;
@@ -1993,7 +2017,7 @@
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Midas_Prefix.pch;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Midas-Info.plist";
 				PRODUCT_NAME = Midas;

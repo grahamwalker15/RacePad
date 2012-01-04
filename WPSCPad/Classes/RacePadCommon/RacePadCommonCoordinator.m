@@ -1,12 +1,12 @@
 //
-//  RacePadCoordinator.m
-//  RacePad
+//  RacePadCommonCoordinator.m
+//  MidasDemo
 //
-//  Created by Gareth Griffith on 10/11/10.
-//  Copyright 2010 SBG Racing Services Ltd. All rights reserved.
+//  Created by Gareth Griffith on 1/4/12.
+//  Copyright 2012 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "RacePadCoordinator.h"
+#import "RacePadCommonCoordinator.h"
 
 #import "BasePadMedia.h"
 #import "RacePadAppDelegate.h"
@@ -34,26 +34,14 @@
 @end
 
 
-@implementation RacePadCoordinator
-
-static RacePadCoordinator * instance_ = nil;
+@implementation RacePadCommonCoordinator
 
 @synthesize gameViewController;
-
-+(RacePadCoordinator *)Instance
-{
-	if(!instance_)
-		instance_ = [[RacePadCoordinator alloc] init];
-	
-	return instance_;
-}
 
 -(id)init
 {
 	if(self =[super init])
 	{
-		instance_ = self;
-		
 		gameViewController = nil;
 		lightRestart = false;
 	}
@@ -375,3 +363,4 @@ static RacePadCoordinator * instance_ = nil;
 }
 
 @end
+

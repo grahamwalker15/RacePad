@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SettingsViewController.h"
-#import "CompositeViewController.h"
+#import "BasePadVideoViewController.h"
 #import "HelpViewController.h"
 
 @class BasePadViewController;
@@ -95,7 +95,7 @@ enum ConnectionTypes
 	ServerConnect *serverConnect;
 	WorkOffline *workOffline;
 	SettingsViewController *settingsViewController;
-	CompositeViewController *videoViewController;
+	BasePadVideoViewController *videoViewController;
 	
 	BasePadClientSocket * socket_;
 	int connectionRetryCount;
@@ -167,7 +167,7 @@ enum ConnectionTypes
 
 @property (readonly) BasePadViewController * registeredViewController;
 @property (retain) SettingsViewController *settingsViewController;
-@property (retain) CompositeViewController *videoViewController;
+@property (retain) BasePadVideoViewController *videoViewController;
 
 @property (nonatomic, retain) NSString * nameToFollow;
 @property (nonatomic) bool lightRestart;
@@ -227,6 +227,8 @@ enum ConnectionTypes
 
 -(void)loadBPF:(NSString *)archive File:(NSString *)file SubIndex:(NSString *)subIndex;
 -(void)loadSession:(NSString *)event Session: (NSString *)session;
+-(void)onSessionLoaded;
+
 -(NSString *)getVideoArchiveName;
 -(NSString *)getAudioArchiveName;
 

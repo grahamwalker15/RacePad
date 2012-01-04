@@ -33,7 +33,9 @@
 	if(self =[super init])
 	{
 		[RacePadSponsor Instance];
+		
 		[MidasCoordinator Instance];
+		
 		[RacePadTitleBarController Instance];
 		[RacePadDatabase Instance];
 		
@@ -70,7 +72,7 @@
     [window makeKeyAndVisible];
 	
 	// There's some start-up race condition that means this doesn't display unless we delay slightly
-	[[BasePadCoordinator Instance] performSelector:@selector(onDisplayFirstView) withObject:nil afterDelay: 0.1];
+	[[MidasCoordinator Instance] performSelector:@selector(onDisplayFirstView) withObject:nil afterDelay: 0.1];
 	// [[BasePadCoordinator Instance] onDisplayFirstView];
     return YES;
 }

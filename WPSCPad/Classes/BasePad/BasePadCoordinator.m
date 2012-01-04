@@ -741,6 +741,12 @@ static BasePadCoordinator * instance_ = nil;
 	[self setConnectionType:BPC_ARCHIVE_CONNECTION_];
 	
 	[[BasePadMedia Instance] verifyAudioLoaded];
+	
+	[self onSessionLoaded];
+}
+
+-(void)onSessionLoaded
+{
 }
 
 -(NSString *)getVideoArchiveName

@@ -15,13 +15,19 @@
 
 @implementation WorkOffline
 
+@synthesize animatedDismissal;
+
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
 		events = [[NSMutableArray alloc] init];
 		sessions = [[NSMutableArray alloc] init];
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationFormSheet];
+		
+		animatedDismissal = true;
     }
     return self;
 }
@@ -252,7 +258,7 @@
 		if ( eventName != nil && [eventName length] > 0
 		  && sessionName != nil && [sessionName length] > 0 )
 		{
-			[self dismissModalViewControllerAnimated:YES];
+			[self dismissModalViewControllerAnimated:animatedDismissal];
 			[[RacePadCoordinator Instance] loadSession:eventName Session:sessionName];
 		}
 	}
@@ -278,7 +284,7 @@
 
 - (IBAction)settingsPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:animatedDismissal];
 	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITabBarController *tabControl = [app tabBarController];
 	if ( tabControl )

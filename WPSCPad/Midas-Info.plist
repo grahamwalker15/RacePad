@@ -35,8 +35,8 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon.png</string>
-		<string>Icon-72.png</string>
+		<string>MidasIcon57x57.png</string>
+		<string>MidasIcon72x72.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.sbgracing.${PRODUCT_NAME:rfc1034identifier}</string>
@@ -58,8 +58,6 @@
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
