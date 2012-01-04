@@ -32,6 +32,23 @@
 	IBOutlet UIButton * trackZoomCloseButton;
 	IBOutlet LeaderboardView *leaderboardView;
 	
+	IBOutlet UIButton * midasMenuButton;
+	IBOutlet UIButton * alertsButton;
+	IBOutlet UIButton * twitterButton;
+	IBOutlet UIButton * facebookButton;
+	IBOutlet UIButton * midasChatButton;
+	
+	IBOutlet UIButton * lapCounterButton;
+	IBOutlet UIButton * userNameButton;
+	
+	IBOutlet UIButton * settingsButton;
+	IBOutlet UIButton * mapButton;
+	IBOutlet UIButton * followDriverButton;
+	IBOutlet UIButton * headToHeadButton;
+	IBOutlet UIButton * timeControlsButton;
+	IBOutlet UIButton * vipButton;
+	IBOutlet UIButton * myTeamButton;
+
 	IBOutlet UIView *optionContainer;;
 	IBOutlet UISegmentedControl *optionSwitches;
 	
@@ -63,5 +80,7 @@
 
 - (IBAction) closeButtonHit:(id)sender;
 - (IBAction) optionSwitchesHit:(id)sender;
+
+- (IBAction) menuButtonHit:(id)sender;
 
 @end

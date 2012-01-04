@@ -727,4 +727,8 @@
 	[self hideZoomMap];
 }
 
+- (IBAction) menuButtonHit:(id)sender
+{
+}
+
 @end

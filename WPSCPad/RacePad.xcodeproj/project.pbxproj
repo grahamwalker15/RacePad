@@ -338,6 +338,27 @@
 		7FA967DF14B49013006B072C /* MidasWorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA967DE14B49013006B072C /* MidasWorkOffline.xib */; };
 		7FA9685314B4A0C4006B072C /* MidasVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */; };
 		7FA9685614B4A148006B072C /* MidasVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9685514B4A148006B072C /* MidasVideoView.xib */; };
+		7FA9693D14B4CA62006B072C /* bottom-container-unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692914B4CA62006B072C /* bottom-container-unselected.png */; };
+		7FA9693E14B4CA62006B072C /* Circuit-views-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692A14B4CA62006B072C /* Circuit-views-icon.png */; };
+		7FA9693F14B4CA62006B072C /* Circuit-views-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692B14B4CA62006B072C /* Circuit-views-mini-icon.png */; };
+		7FA9694014B4CA62006B072C /* F1-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692C14B4CA62006B072C /* F1-icon.png */; };
+		7FA9694114B4CA62006B072C /* F1-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692D14B4CA62006B072C /* F1-mini-icon.png */; };
+		7FA9694214B4CA62006B072C /* Facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692E14B4CA62006B072C /* Facebook-icon.png */; };
+		7FA9694314B4CA62006B072C /* Facebook-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9692F14B4CA62006B072C /* Facebook-mini-icon.png */; };
+		7FA9694414B4CA62006B072C /* Follow-driver-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693014B4CA62006B072C /* Follow-driver-icon.png */; };
+		7FA9694514B4CA62006B072C /* Follow-driver-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693114B4CA62006B072C /* Follow-driver-mini-icon.png */; };
+		7FA9694614B4CA62006B072C /* Head-to-head-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693214B4CA62006B072C /* Head-to-head-mini-icon.png */; };
+		7FA9694714B4CA62006B072C /* Midas-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693314B4CA62006B072C /* Midas-icon.png */; };
+		7FA9694814B4CA62006B072C /* My-team-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693414B4CA62006B072C /* My-team-icon.png */; };
+		7FA9694914B4CA62006B072C /* My-team-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693514B4CA62006B072C /* My-team-mini-icon.png */; };
+		7FA9694A14B4CA62006B072C /* Standings-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693614B4CA62006B072C /* Standings-mini-icon.png */; };
+		7FA9694B14B4CA62006B072C /* top-container-unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693714B4CA62006B072C /* top-container-unselected.png */; };
+		7FA9694C14B4CA62006B072C /* Twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693814B4CA62006B072C /* Twitter-icon.png */; };
+		7FA9694D14B4CA62006B072C /* Twitter-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693914B4CA62006B072C /* Twitter-mini-icon.png */; };
+		7FA9694E14B4CA62006B072C /* UOR-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693A14B4CA62006B072C /* UOR-mini-icon.png */; };
+		7FA9694F14B4CA62006B072C /* user-name.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693B14B4CA62006B072C /* user-name.png */; };
+		7FA9695014B4CA62006B072C /* VIP-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9693C14B4CA62006B072C /* VIP-mini-icon.png */; };
+		7FA9697214B4D413006B072C /* Midas-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9697114B4D413006B072C /* Midas-mini-icon.png */; };
 		7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
 		7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
 		7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
@@ -829,6 +850,27 @@
 		7FA9685114B4A0C4006B072C /* MidasVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVideoViewController.h; sourceTree = "<group>"; };
 		7FA9685214B4A0C4006B072C /* MidasVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVideoViewController.m; sourceTree = "<group>"; };
 		7FA9685514B4A148006B072C /* MidasVideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasVideoView.xib; path = ResourceFiles/MidasVideoView.xib; sourceTree = "<group>"; };
+		7FA9692914B4CA62006B072C /* bottom-container-unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-container-unselected.png"; sourceTree = "<group>"; };
+		7FA9692A14B4CA62006B072C /* Circuit-views-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circuit-views-icon.png"; sourceTree = "<group>"; };
+		7FA9692B14B4CA62006B072C /* Circuit-views-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circuit-views-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9692C14B4CA62006B072C /* F1-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F1-icon.png"; sourceTree = "<group>"; };
+		7FA9692D14B4CA62006B072C /* F1-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F1-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9692E14B4CA62006B072C /* Facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-icon.png"; sourceTree = "<group>"; };
+		7FA9692F14B4CA62006B072C /* Facebook-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693014B4CA62006B072C /* Follow-driver-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Follow-driver-icon.png"; sourceTree = "<group>"; };
+		7FA9693114B4CA62006B072C /* Follow-driver-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Follow-driver-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693214B4CA62006B072C /* Head-to-head-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Head-to-head-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693314B4CA62006B072C /* Midas-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-icon.png"; sourceTree = "<group>"; };
+		7FA9693414B4CA62006B072C /* My-team-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "My-team-icon.png"; sourceTree = "<group>"; };
+		7FA9693514B4CA62006B072C /* My-team-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "My-team-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693614B4CA62006B072C /* Standings-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Standings-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693714B4CA62006B072C /* top-container-unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-container-unselected.png"; sourceTree = "<group>"; };
+		7FA9693814B4CA62006B072C /* Twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-icon.png"; sourceTree = "<group>"; };
+		7FA9693914B4CA62006B072C /* Twitter-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693A14B4CA62006B072C /* UOR-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UOR-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9693B14B4CA62006B072C /* user-name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-name.png"; sourceTree = "<group>"; };
+		7FA9693C14B4CA62006B072C /* VIP-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VIP-mini-icon.png"; sourceTree = "<group>"; };
+		7FA9697114B4D413006B072C /* Midas-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-mini-icon.png"; sourceTree = "<group>"; };
 		7FB1C58412673E7F008A6C94 /* DriverListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverListView.xib; path = ResourceFiles/DriverListView.xib; sourceTree = "<group>"; };
 		7FB1C58512673E7F008A6C94 /* HTMLView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HTMLView.xib; path = ResourceFiles/HTMLView.xib; sourceTree = "<group>"; };
 		7FB1C58612673E7F008A6C94 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ResourceFiles/MainWindow.xib; sourceTree = "<group>"; };
@@ -1327,6 +1369,27 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA9697114B4D413006B072C /* Midas-mini-icon.png */,
+				7FA9692914B4CA62006B072C /* bottom-container-unselected.png */,
+				7FA9692A14B4CA62006B072C /* Circuit-views-icon.png */,
+				7FA9692B14B4CA62006B072C /* Circuit-views-mini-icon.png */,
+				7FA9692C14B4CA62006B072C /* F1-icon.png */,
+				7FA9692D14B4CA62006B072C /* F1-mini-icon.png */,
+				7FA9692E14B4CA62006B072C /* Facebook-icon.png */,
+				7FA9692F14B4CA62006B072C /* Facebook-mini-icon.png */,
+				7FA9693014B4CA62006B072C /* Follow-driver-icon.png */,
+				7FA9693114B4CA62006B072C /* Follow-driver-mini-icon.png */,
+				7FA9693214B4CA62006B072C /* Head-to-head-mini-icon.png */,
+				7FA9693314B4CA62006B072C /* Midas-icon.png */,
+				7FA9693414B4CA62006B072C /* My-team-icon.png */,
+				7FA9693514B4CA62006B072C /* My-team-mini-icon.png */,
+				7FA9693614B4CA62006B072C /* Standings-mini-icon.png */,
+				7FA9693714B4CA62006B072C /* top-container-unselected.png */,
+				7FA9693814B4CA62006B072C /* Twitter-icon.png */,
+				7FA9693914B4CA62006B072C /* Twitter-mini-icon.png */,
+				7FA9693A14B4CA62006B072C /* UOR-mini-icon.png */,
+				7FA9693B14B4CA62006B072C /* user-name.png */,
+				7FA9693C14B4CA62006B072C /* VIP-mini-icon.png */,
 				7FA966C114B47F02006B072C /* MidasIcon29x29.png */,
 				7FA966C214B47F02006B072C /* MidasIcon50x50.png */,
 				7FA966C314B47F02006B072C /* MidasIcon57x57.png */,
@@ -1868,6 +1931,27 @@
 				7FA9672014B486B9006B072C /* MidasBackground.png in Resources */,
 				7FA967DF14B49013006B072C /* MidasWorkOffline.xib in Resources */,
 				7FA9685614B4A148006B072C /* MidasVideoView.xib in Resources */,
+				7FA9693D14B4CA62006B072C /* bottom-container-unselected.png in Resources */,
+				7FA9693E14B4CA62006B072C /* Circuit-views-icon.png in Resources */,
+				7FA9693F14B4CA62006B072C /* Circuit-views-mini-icon.png in Resources */,
+				7FA9694014B4CA62006B072C /* F1-icon.png in Resources */,
+				7FA9694114B4CA62006B072C /* F1-mini-icon.png in Resources */,
+				7FA9694214B4CA62006B072C /* Facebook-icon.png in Resources */,
+				7FA9694314B4CA62006B072C /* Facebook-mini-icon.png in Resources */,
+				7FA9694414B4CA62006B072C /* Follow-driver-icon.png in Resources */,
+				7FA9694514B4CA62006B072C /* Follow-driver-mini-icon.png in Resources */,
+				7FA9694614B4CA62006B072C /* Head-to-head-mini-icon.png in Resources */,
+				7FA9694714B4CA62006B072C /* Midas-icon.png in Resources */,
+				7FA9694814B4CA62006B072C /* My-team-icon.png in Resources */,
+				7FA9694914B4CA62006B072C /* My-team-mini-icon.png in Resources */,
+				7FA9694A14B4CA62006B072C /* Standings-mini-icon.png in Resources */,
+				7FA9694B14B4CA62006B072C /* top-container-unselected.png in Resources */,
+				7FA9694C14B4CA62006B072C /* Twitter-icon.png in Resources */,
+				7FA9694D14B4CA62006B072C /* Twitter-mini-icon.png in Resources */,
+				7FA9694E14B4CA62006B072C /* UOR-mini-icon.png in Resources */,
+				7FA9694F14B4CA62006B072C /* user-name.png in Resources */,
+				7FA9695014B4CA62006B072C /* VIP-mini-icon.png in Resources */,
+				7FA9697214B4D413006B072C /* Midas-mini-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
