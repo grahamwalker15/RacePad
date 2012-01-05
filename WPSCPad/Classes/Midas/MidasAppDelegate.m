@@ -27,7 +27,6 @@
 @synthesize homeController;
 @synthesize tabBarController;
 
-
 -(id)init
 {
 	if(self =[super init])

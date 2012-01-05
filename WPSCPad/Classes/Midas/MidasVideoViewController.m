@@ -30,6 +30,12 @@
 @synthesize displayMap;
 @synthesize displayLeaderboard;
 
+static UIImage * selectedTopButtonImage = nil;
+static UIImage * unSelectedTopButtonImage = nil;
+static UIImage * selectedBottomButtonImage = nil;
+static UIImage * unSelectedBottomButtonImage = nil;
+
+static UIImage * newButtonBackgroundImage = nil;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -40,6 +46,22 @@
 		// Set the style for its presentation
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		if(!selectedTopButtonImage)
+		{
+			selectedTopButtonImage = [[UIImage imageNamed:@"movement-notification-container.png"] retain];
+			unSelectedTopButtonImage = [[UIImage imageNamed:@"top-container-unselected.png"] retain];
+			selectedBottomButtonImage = [[UIImage imageNamed:@"bottom-container-unselected.png"] retain];
+			unSelectedBottomButtonImage = [[UIImage imageNamed:@"JogControlBase.png"] retain];
+		}
+		else
+		{
+			[selectedTopButtonImage retain];
+			[unSelectedTopButtonImage retain];
+			[selectedBottomButtonImage retain];
+			[unSelectedBottomButtonImage retain];
+		}
+
 	}
     return self;
 }
@@ -49,6 +71,10 @@
 	
 	[super viewDidLoad];
 	
+	// Fixed data
+	unselectedButtonWidth = 66;
+	selectedButtonWidth = 147;
+
 	// Initialise display options
 	
 	menuButtonsDisplayed = true;
@@ -64,11 +90,8 @@
 	
 	[movieView setStyle:BG_STYLE_MIDAS_];
 	
-	// Remove the optionsSwitches from the view - they will get re-added when the timecontroller is displayed
-	// Retain them so that they are always available to be displayed
-	[optionContainer retain];
-	[optionContainer removeFromSuperview];
-	
+	[buttonBackgroundAnimationImage setHidden:true];
+		
 	// Set the types on the two map views
 	[trackMapView setIsZoomView:false];
 	[trackZoomView setIsZoomView:true];
@@ -235,10 +258,7 @@
 }
 
 - (void)viewDidUnload
-{	
-	[optionContainer release];
-	optionContainer = nil;
-	
+{		
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -272,6 +292,11 @@
 
 - (void)dealloc
 {
+	[selectedTopButtonImage release];
+	[unSelectedTopButtonImage release];
+	[selectedBottomButtonImage release];
+	[unSelectedBottomButtonImage release];
+
     [super dealloc];
 }
 
@@ -344,7 +369,7 @@
 
 - (UIView *) timeControllerAddOnOptionsView
 {
-	return optionContainer;
+	return nil;
 }
 
 - (void) showOverlays
@@ -630,113 +655,6 @@
 	}
 }
 
-- (IBAction) optionSwitchesHit:(id)sender
-{
-	// Switches are displayed via the time controller
-	// Reset the hide timer on this
-	[[BasePadTimeController Instance] setHideTimer];
-	
-	int selectedSegment = [optionSwitches selectedSegmentIndex];
-	
-	if(selectedSegment == 0)	// Video only
-	{
-		if(displayMap)
-		{
-			displayMap = false;
-			displayLeaderboard = false;
-			[trackMapView setHidden:true];
-			[trackZoomContainer setHidden:true];
-			[leaderboardView setHidden:true];
-			[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
-			[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-			[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
-		}
-		
-		if(!displayVideo)
-		{
-			// Check that we have the right movie loaded
-			[[BasePadMedia Instance] verifyMovieLoaded];
-			
-			// and register us to play it
-			[[BasePadMedia Instance] RegisterViewController:self];
-			
-			// Make sure to do this last, as this will force a start of play or seek
-			[[RacePadCoordinator Instance] SetViewDisplayed:movieView];		
-			displayVideo = true;
-		}
-	}
-	else if(selectedSegment == 2)	// Map only
-	{
-		if(!displayMap)
-		{
-			bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
-			displayMap = true;
-			displayLeaderboard = true;
-			[trackMapView setHidden:false];
-			[leaderboardView setHidden:false];
-			
-			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-			[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
-			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
-			
-			[trackMapView RequestRedraw];
-			[leaderboardView RequestRedraw];
-			
-			if(zoomMapVisible)
-			{
-				[trackZoomContainer setHidden:false];
-				[trackZoomView RequestRedraw];
-			}
-		}
-		
-		if(displayVideo)
-		{
-			[[BasePadMedia Instance] ReleaseViewController:self];
-			[[RacePadCoordinator Instance] SetViewHidden:movieView];		
-			displayVideo = false;
-		}
-	}
-	else	// Video and map
-	{
-		if(!displayMap)
-		{
-			bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
-			displayMap = true;
-			displayLeaderboard = true;
-			[trackMapView setHidden:false];
-			[leaderboardView setHidden:false];
-			
-			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-			[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
-			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
-			
-			[trackMapView RequestRedraw];
-			[leaderboardView RequestRedraw];
-			
-			if(zoomMapVisible)
-			{
-				[trackZoomContainer setHidden:false];
-				[trackZoomView RequestRedraw];
-			}
-		}
-		
-		if(!displayVideo)
-		{
-			// Check that we have the right movie loaded
-			[[BasePadMedia Instance] verifyMovieLoaded];
-			
-			// and register us to play it
-			[[BasePadMedia Instance] RegisterViewController:self];
-			
-			displayVideo = true;
-			
-			// Make sure to do this last, as this will force a start of play or seek
-			[[RacePadCoordinator Instance] SetViewDisplayed:movieView];		
-		}
-	}	
-	
-}
-
 - (IBAction) closeButtonHit:(id)sender
 {
 	[[RacePadCoordinator Instance] setNameToFollow:nil];
@@ -750,6 +668,10 @@
 		[self hideMenuButtons];
 		[self toggleTimeControllerDisplay];
 	}
+	if(sender == alertsButton || sender == twitterButton || sender == facebookButton || sender == midasChatButton)
+	{
+		[self openMenuButton:(UIButton *)sender];
+	}
 }
 
 - (void) notifyHidingTimeControls
@@ -762,8 +684,8 @@
 
 -(void)hideMenuButtons
 {
-	if(!menuButtonsDisplayed)
-		return;
+	if(!menuButtonsDisplayed || menuButtonsAnimating)
+	   return;
 	
 	menuButtonsAnimating = true;
 	
@@ -784,7 +706,7 @@
 	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], -CGRectGetWidth([midasMenuButton frame]), 0)];
 
 	// Bottom buttons
-	[settingsButton setFrame:CGRectOffset([settingsButton frame], 0, CGRectGetHeight([settingsButton frame]))];
+	[standingsButton setFrame:CGRectOffset([standingsButton frame], 0, CGRectGetHeight([standingsButton frame]))];
 	[mapButton setFrame:CGRectOffset([mapButton frame], 0, CGRectGetHeight([mapButton frame]))];
 	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, CGRectGetHeight([followDriverButton frame]))];
 	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, CGRectGetHeight([headToHeadButton frame]))];
@@ -797,7 +719,7 @@
 
 -(void)showMenuButtons
 {
-	if(menuButtonsDisplayed)
+	if(menuButtonsDisplayed || menuButtonsAnimating)
 		return;
 	
 	menuButtonsAnimating = true;
@@ -819,7 +741,7 @@
 	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], CGRectGetWidth([midasMenuButton frame]), 0)];
 	
 	// Bottom buttons
-	[settingsButton setFrame:CGRectOffset([settingsButton frame], 0, -CGRectGetHeight([settingsButton frame]))];
+	[standingsButton setFrame:CGRectOffset([standingsButton frame], 0, -CGRectGetHeight([standingsButton frame]))];
 	[mapButton setFrame:CGRectOffset([mapButton frame], 0, -CGRectGetHeight([mapButton frame]))];
 	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, -CGRectGetHeight([followDriverButton frame]))];
 	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, -CGRectGetHeight([headToHeadButton frame]))];
@@ -830,21 +752,99 @@
 	[UIView commitAnimations];
 }
 
+-(void)openMenuButton:(UIButton *)button
+{
+	if(!menuButtonsDisplayed || menuButtonsAnimating)
+		return;
+	
+	menuButtonsAnimating = true;
+		
+	// Top,bottom or side?
+	if(button == alertsButton || button == twitterButton || button == facebookButton || button == midasChatButton)
+	{
+		// Top buttons
+		CGRect baseFrame = [button frame];
+		
+		int buttonOffset;
+		CGRect newFrame;
+		UIImage * newImage;
+		
+		if(baseFrame.size.width > unselectedButtonWidth)	// i.e. it's already open so we'll close
+		{
+			buttonOffset = unselectedButtonWidth - baseFrame.size.width;
+			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, unselectedButtonWidth, baseFrame.size.height);
+			newImage = unSelectedTopButtonImage;
+		}
+		else
+		{
+			buttonOffset = selectedButtonWidth - baseFrame.size.width;
+			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, selectedButtonWidth, baseFrame.size.height);
+			newImage = selectedTopButtonImage;
+		}
+		
+		[buttonBackgroundAnimationImage setImage:newImage];
+		[buttonBackgroundAnimationImage setFrame:baseFrame];
+		[buttonBackgroundAnimationImage setHidden:false];
+		
+		[button setBackgroundImage:nil forState:UIControlStateNormal];
+		newButtonBackgroundImage = [newImage retain];
+		
+		[UIView beginAnimations:nil context:button];
+		
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(menuOpenCloseDidStop:finished:context:)];
+		
+		[UIView setAnimationDuration:0.75];
+		
+		[buttonBackgroundAnimationImage setFrame:newFrame];
+		[button setFrame:newFrame];
+		
+		if([alertsButton frame].origin.x > baseFrame.origin.x)
+			[alertsButton setFrame:CGRectOffset([alertsButton frame], buttonOffset, 0)];
+		
+		if([twitterButton frame].origin.x > baseFrame.origin.x)
+			[twitterButton setFrame:CGRectOffset([twitterButton frame], buttonOffset, 0)];
+
+		if([facebookButton frame].origin.x > baseFrame.origin.x)
+			[facebookButton setFrame:CGRectOffset([facebookButton frame], buttonOffset, 0)];
+
+		if([midasChatButton frame].origin.x > baseFrame.origin.x)
+			[midasChatButton setFrame:CGRectOffset([midasChatButton frame], buttonOffset, 0)];
+		
+		[UIView commitAnimations];
+	}
+	else if(button == standingsButton || button == mapButton || button == followDriverButton || button == headToHeadButton)
+	{
+	}
+	else if(button == vipButton || button == myTeamButton)
+	{
+	}
+	else if(button == midasMenuButton)
+	{
+	}
+	
+	/*
+	// Side buttons
+	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], CGRectGetWidth([midasMenuButton frame]), 0)];
+	
+	// Bottom buttons
+	[standingsButton setFrame:CGRectOffset([standingsButton frame], 0, -CGRectGetHeight([standingsButton frame]))];
+	[mapButton setFrame:CGRectOffset([mapButton frame], 0, -CGRectGetHeight([mapButton frame]))];
+	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, -CGRectGetHeight([followDriverButton frame]))];
+	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, -CGRectGetHeight([headToHeadButton frame]))];
+	[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], 0, -CGRectGetHeight([timeControlsButton frame]))];
+	[vipButton setFrame:CGRectOffset([vipButton frame], 0, -CGRectGetHeight([vipButton frame]))];
+	[myTeamButton setFrame:CGRectOffset([myTeamButton frame], 0, -CGRectGetHeight([myTeamButton frame]))];
+	*/
+}
+
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	if ( !menuButtonsAnimating)
 	{
 		if(!menuButtonsDisplayed)
 		{
-			CGPoint tapScreenPoint = [[self view] convertPoint:CGPointMake(x, y) fromView:gestureView];
-			
-			// Only display if y is in bottom or top 150 pixels of our base view
-			CGRect viewBounds = [[self view] bounds];
-			
-			//if(tapScreenPoint.y < 150 || tapScreenPoint.y > viewBounds.size.height - 150)
-			{
-				[self showMenuButtons];
-			}
+			[self showMenuButtons];
 		}
 		else
 		{
@@ -859,6 +859,19 @@
 	{
 		menuButtonsDisplayed = !menuButtonsDisplayed;
 		menuButtonsAnimating = false;
+	}
+}
+
+- (void)menuOpenCloseDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		menuButtonsAnimating = false;
+		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+		[newButtonBackgroundImage release];
+		newButtonBackgroundImage = nil;
+		
+		[buttonBackgroundAnimationImage setHidden:true];
 	}
 }
 

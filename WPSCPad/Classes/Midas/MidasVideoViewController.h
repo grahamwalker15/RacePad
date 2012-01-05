@@ -33,6 +33,7 @@
 	IBOutlet LeaderboardView *leaderboardView;
 	
 	IBOutlet UIButton * midasMenuButton;
+	
 	IBOutlet UIButton * alertsButton;
 	IBOutlet UIButton * twitterButton;
 	IBOutlet UIButton * facebookButton;
@@ -41,19 +42,21 @@
 	IBOutlet UIButton * lapCounterButton;
 	IBOutlet UIButton * userNameButton;
 	
-	IBOutlet UIButton * settingsButton;
+	IBOutlet UIButton * standingsButton;
 	IBOutlet UIButton * mapButton;
 	IBOutlet UIButton * followDriverButton;
 	IBOutlet UIButton * headToHeadButton;
 	IBOutlet UIButton * timeControlsButton;
 	IBOutlet UIButton * vipButton;
 	IBOutlet UIButton * myTeamButton;
-
-	IBOutlet UIView *optionContainer;;
-	IBOutlet UISegmentedControl *optionSwitches;
+	
+	IBOutlet UIImageView * buttonBackgroundAnimationImage;
 	
 	CGSize movieSize;
 	CGRect movieRect;
+	
+	int unselectedButtonWidth;
+	int selectedButtonWidth;
 	
 	bool moviePlayerLayerAdded;
 	
@@ -84,12 +87,13 @@
 
 - (void) hideMenuButtons;
 - (void) showMenuButtons;
+- (void) openMenuButton:(UIButton *)button;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+- (void) menuOpenCloseDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
 - (IBAction) closeButtonHit:(id)sender;
-- (IBAction) optionSwitchesHit:(id)sender;
 
 - (IBAction) menuButtonHit:(id)sender;
 
