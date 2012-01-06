@@ -32,8 +32,9 @@
 
 static UIImage * selectedTopButtonImage = nil;
 static UIImage * unSelectedTopButtonImage = nil;
-static UIImage * selectedBottomButtonImage = nil;
 static UIImage * unSelectedBottomButtonImage = nil;
+
+static UIImage * selectedStandingsImage = nil;
 
 static UIImage * newButtonBackgroundImage = nil;
 
@@ -51,15 +52,17 @@ static UIImage * newButtonBackgroundImage = nil;
 		{
 			selectedTopButtonImage = [[UIImage imageNamed:@"movement-notification-container.png"] retain];
 			unSelectedTopButtonImage = [[UIImage imageNamed:@"top-container-unselected.png"] retain];
-			selectedBottomButtonImage = [[UIImage imageNamed:@"bottom-container-unselected.png"] retain];
-			unSelectedBottomButtonImage = [[UIImage imageNamed:@"JogControlBase.png"] retain];
+			unSelectedBottomButtonImage = [[UIImage imageNamed:@"bottom-container-unselected.png"] retain];
+			
+			selectedStandingsImage = [[UIImage imageNamed:@"standings-selected.png"] retain];
 		}
 		else
 		{
 			[selectedTopButtonImage retain];
 			[unSelectedTopButtonImage retain];
-			[selectedBottomButtonImage retain];
 			[unSelectedBottomButtonImage retain];
+			
+			[selectedStandingsImage retain];
 		}
 
 	}
@@ -209,7 +212,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(firstDisplay)
 	{
-		[self performSelector:@selector(hideMenuButtons) withObject:nil afterDelay: 5.0];
+		[self performSelector:@selector(hideMenuButtons) withObject:nil afterDelay: 2.0];
 		firstDisplay = false;
 	}
 
@@ -294,9 +297,10 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	[selectedTopButtonImage release];
 	[unSelectedTopButtonImage release];
-	[selectedBottomButtonImage release];
 	[unSelectedBottomButtonImage release];
 
+	[selectedStandingsImage release];
+	
     [super dealloc];
 }
 
@@ -815,6 +819,56 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	else if(button == standingsButton || button == mapButton || button == followDriverButton || button == headToHeadButton)
 	{
+		// Bottom buttons
+		CGRect baseFrame = [button frame];
+		
+		int buttonOffset;
+		CGRect newFrame;
+		UIImage * newImage;
+		
+		if(baseFrame.size.width > unselectedButtonWidth)	// i.e. it's already open so we'll close
+		{
+			buttonOffset = unselectedButtonWidth - baseFrame.size.width;
+			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, unselectedButtonWidth, baseFrame.size.height);
+			newImage = unSelectedTopButtonImage;
+		}
+		else
+		{
+			buttonOffset = selectedButtonWidth - baseFrame.size.width;
+			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, selectedButtonWidth, baseFrame.size.height);
+			newImage = selectedTopButtonImage;
+		}
+		
+		[buttonBackgroundAnimationImage setImage:newImage];
+		[buttonBackgroundAnimationImage setFrame:baseFrame];
+		[buttonBackgroundAnimationImage setHidden:false];
+		
+		[button setBackgroundImage:nil forState:UIControlStateNormal];
+		newButtonBackgroundImage = [newImage retain];
+		
+		[UIView beginAnimations:nil context:button];
+		
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(menuOpenCloseDidStop:finished:context:)];
+		
+		[UIView setAnimationDuration:0.75];
+		
+		[buttonBackgroundAnimationImage setFrame:newFrame];
+		[button setFrame:newFrame];
+		
+		if([alertsButton frame].origin.x > baseFrame.origin.x)
+			[alertsButton setFrame:CGRectOffset([alertsButton frame], buttonOffset, 0)];
+		
+		if([twitterButton frame].origin.x > baseFrame.origin.x)
+			[twitterButton setFrame:CGRectOffset([twitterButton frame], buttonOffset, 0)];
+		
+		if([facebookButton frame].origin.x > baseFrame.origin.x)
+			[facebookButton setFrame:CGRectOffset([facebookButton frame], buttonOffset, 0)];
+		
+		if([midasChatButton frame].origin.x > baseFrame.origin.x)
+			[midasChatButton setFrame:CGRectOffset([midasChatButton frame], buttonOffset, 0)];
+		
+		[UIView commitAnimations];
 	}
 	else if(button == vipButton || button == myTeamButton)
 	{
