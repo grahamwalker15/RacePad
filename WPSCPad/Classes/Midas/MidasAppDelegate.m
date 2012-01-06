@@ -11,6 +11,8 @@
 #import "MidasHomeViewController.h"
 #import "MidasCoordinator.h"
 
+#import "MidasStandingsManager.h"
+
 #import "RacePadClientSocket.h"
 #import "BasePadTimeController.h"
 #import "RacePadClientSocket.h"
@@ -62,6 +64,9 @@
 	// Create the time controller and title bar controller
 	[[BasePadTimeController Instance] onStartUp];
 	[[BasePadTitleBarController Instance] onStartUp];
+	
+	// Create the Midas overlay displays
+	[[MidasStandingsManager Instance] onStartUp];
 	
 	// Load the prefs
 	[BasePadPrefs Instance];

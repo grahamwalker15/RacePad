@@ -8,6 +8,9 @@
 
 #import "MidasVideoViewController.h"
 
+#import "MidasStandingsManager.h"
+
+
 #import "RacePadCoordinator.h"
 #import "BasePadMedia.h"
 #import "RacePadTitleBarController.h"
@@ -30,9 +33,24 @@
 @synthesize displayMap;
 @synthesize displayLeaderboard;
 
+@synthesize midasMenuButtonOpen;
+@synthesize alertsButtonOpen;
+@synthesize twitterButtonOpen;
+@synthesize facebookButtonOpen;
+@synthesize midasChatButtonOpen;	
+@synthesize lapCounterButtonOpen;
+@synthesize userNameButtonOpen;
+@synthesize standingsButtonOpen;
+@synthesize mapButtonOpen;
+@synthesize followDriverButtonOpen;
+@synthesize headToHeadButtonOpen;
+@synthesize timeControlsButtonOpen;
+@synthesize vipButtonOpen;
+@synthesize myTeamButtonOpen;
+
 static UIImage * selectedTopButtonImage = nil;
-static UIImage * unSelectedTopButtonImage = nil;
-static UIImage * unSelectedBottomButtonImage = nil;
+static UIImage * unselectedTopButtonImage = nil;
+static UIImage * unselectedBottomButtonImage = nil;
 
 static UIImage * selectedStandingsImage = nil;
 
@@ -51,16 +69,16 @@ static UIImage * newButtonBackgroundImage = nil;
 		if(!selectedTopButtonImage)
 		{
 			selectedTopButtonImage = [[UIImage imageNamed:@"movement-notification-container.png"] retain];
-			unSelectedTopButtonImage = [[UIImage imageNamed:@"top-container-unselected.png"] retain];
-			unSelectedBottomButtonImage = [[UIImage imageNamed:@"bottom-container-unselected.png"] retain];
+			unselectedTopButtonImage = [[UIImage imageNamed:@"top-container-unselected.png"] retain];
+			unselectedBottomButtonImage = [[UIImage imageNamed:@"bottom-container-unselected.png"] retain];
 			
 			selectedStandingsImage = [[UIImage imageNamed:@"standings-selected.png"] retain];
 		}
 		else
 		{
 			[selectedTopButtonImage retain];
-			[unSelectedTopButtonImage retain];
-			[unSelectedBottomButtonImage retain];
+			[unselectedTopButtonImage retain];
+			[unselectedBottomButtonImage retain];
 			
 			[selectedStandingsImage retain];
 		}
@@ -83,6 +101,21 @@ static UIImage * newButtonBackgroundImage = nil;
 	menuButtonsDisplayed = true;
 	menuButtonsAnimating = false;
 	
+	midasMenuButtonOpen = false;
+	alertsButtonOpen = false;
+	twitterButtonOpen = false;
+	facebookButtonOpen = false;
+	midasChatButtonOpen = false;	
+	lapCounterButtonOpen = false;
+	userNameButtonOpen = false;
+	standingsButtonOpen = false;
+	mapButtonOpen = false;
+	followDriverButtonOpen = false;
+	headToHeadButtonOpen = false;
+	timeControlsButtonOpen = false;
+	vipButtonOpen = false;
+	myTeamButtonOpen = false;
+	
 	firstDisplay = true;
 	
 	displayMap = true;
@@ -94,6 +127,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	[movieView setStyle:BG_STYLE_MIDAS_];
 	
 	[buttonBackgroundAnimationImage setHidden:true];
+	
+	// GG - COMMENT OUT LEADERBOARD :
+	[leaderboardView setHidden:true];
 	
 	// Set the types on the two map views
 	[trackMapView setIsZoomView:false];
@@ -107,8 +143,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	trackZoomOffsetY = 0;
 	
 	// Set leaderboard data source and associate  with zoom map
- 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
-	[leaderboardView setAssociatedTrackMapView:trackZoomView];
+ 	// GG - COMMENT OUT LEADERBOARD : [leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
+	// GG - COMMENT OUT LEADERBOARD : [leaderboardView setAssociatedTrackMapView:trackZoomView];
 	
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:trackMapView];
@@ -131,14 +167,14 @@ static UIImage * newButtonBackgroundImage = nil;
 	[self addLongPressRecognizerToView:overlayView];
 	
 	// Add tap and long press recognizers to the leaderboard
-	[self addTapRecognizerToView:leaderboardView];
-	[self addLongPressRecognizerToView:leaderboardView];
+	// GG - COMMENT OUT LEADERBOARD : [self addTapRecognizerToView:leaderboardView];
+	// GG - COMMENT OUT LEADERBOARD : [self addLongPressRecognizerToView:leaderboardView];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
-	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
+	// GG - COMMENT OUT LEADERBOARD : [[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
 	[[RacePadCoordinator Instance] setVideoViewController:self];
 }
@@ -158,7 +194,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	[movieView bringSubviewToFront:overlayView];
 	[movieView bringSubviewToFront:trackMapView];
-	[movieView bringSubviewToFront:leaderboardView];
+	// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	[movieView bringSubviewToFront:videoDelayLabel];
@@ -203,10 +239,10 @@ static UIImage * newButtonBackgroundImage = nil;
 		[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
 	}
 	
-	if(displayLeaderboard)
-	{
-		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
-	}
+	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
+	// GG - COMMENT OUT LEADERBOARD : {
+	// GG - COMMENT OUT LEADERBOARD : 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+	// GG - COMMENT OUT LEADERBOARD : }
 	
 	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
 	
@@ -235,10 +271,10 @@ static UIImage * newButtonBackgroundImage = nil;
 		[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
 	}
 	
-	if(displayLeaderboard)
-	{
-		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
-	}
+	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
+	// GG - COMMENT OUT LEADERBOARD : {
+	// GG - COMMENT OUT LEADERBOARD : 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	// GG - COMMENT OUT LEADERBOARD : }
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
@@ -296,8 +332,8 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void)dealloc
 {
 	[selectedTopButtonImage release];
-	[unSelectedTopButtonImage release];
-	[unSelectedBottomButtonImage release];
+	[unselectedTopButtonImage release];
+	[unselectedBottomButtonImage release];
 	
 	[selectedStandingsImage release];
 	
@@ -334,7 +370,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	[movieView bringSubviewToFront:overlayView];
 	[movieView bringSubviewToFront:trackMapView];
-	[movieView bringSubviewToFront:leaderboardView];
+	// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
 	[movieView bringSubviewToFront:trackZoomContainer];
 	[movieView bringSubviewToFront:trackZoomView];
 	[movieView bringSubviewToFront:videoDelayLabel];
@@ -392,11 +428,11 @@ static UIImage * newButtonBackgroundImage = nil;
 		}
 	}
 	
-	if(displayLeaderboard)
-	{
-		[leaderboardView setAlpha:0.0];
-		[leaderboardView setHidden:false];
-	}
+	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
+	// GG - COMMENT OUT LEADERBOARD : {
+	// GG - COMMENT OUT LEADERBOARD : 	[leaderboardView setAlpha:0.0];
+	// GG - COMMENT OUT LEADERBOARD : 	[leaderboardView setHidden:false];
+	// GG - COMMENT OUT LEADERBOARD : }
 	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
@@ -410,10 +446,10 @@ static UIImage * newButtonBackgroundImage = nil;
 		}
 	}
 	
-	if(displayLeaderboard)
-	{
-		[leaderboardView setAlpha:1.0];
-	}
+	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
+	// GG - COMMENT OUT LEADERBOARD : {
+	// GG - COMMENT OUT LEADERBOARD : 	[leaderboardView setAlpha:1.0];
+	// GG - COMMENT OUT LEADERBOARD : }
 	
 	[UIView commitAnimations];
 }
@@ -421,7 +457,7 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void) hideOverlays
 {
 	[trackMapView setHidden:true];
-	[leaderboardView setHidden:true];
+	// GG - COMMENT OUT LEADERBOARD : [leaderboardView setHidden:true];
 	[trackZoomContainer setHidden:true];
 }
 
@@ -453,7 +489,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomContainer setHidden:true];
 		[trackZoomContainer setAlpha:1.0];
 		[trackZoomView setCarToFollow:nil];
-		[leaderboardView RequestRedraw];
+		// GG - COMMENT OUT LEADERBOARD : [leaderboardView RequestRedraw];
 	}
 }
 
@@ -486,8 +522,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	[trackMapView setFrame:movieRect];
 	
-	CGRect lb_frame = CGRectMake(movieRect.origin.x + 5, movieRect.origin.y, 60, movieRect.size.height);
-	[leaderboardView setFrame:lb_frame];
+	// GG - COMMENT OUT LEADERBOARD : CGRect lb_frame = CGRectMake(movieRect.origin.x + 5, movieRect.origin.y, 60, movieRect.size.height);
+	// GG - COMMENT OUT LEADERBOARD : [leaderboardView setFrame:lb_frame];
 	
 	//CGRect zoom_frame = CGRectMake(movieViewSize.width - 320, movieViewSize.height - 320, 300, 300);
 	CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
@@ -511,6 +547,8 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
+	// GG - COMMENT OUT LEADERBOARD : 
+	/*
 	if([gestureView isKindOfClass:[leaderboardView class]] && displayMap)
 	{
 		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
@@ -544,14 +582,16 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			return;
 		}
-		
 	}
+	*/
 	
 	// Reach here if either tap was outside leaderboard, or no car was found at tap point
 	if([BasePadViewController timeControllerDisplayed])
 		[self toggleTimeControllerDisplay];
 	
-	[self handleMenuButtonDisplayGestureInView:gestureView AtX:x Y:y];
+	// Either close popup views if there are any or pop menus up or down
+	if(![self checkForPopupViews])
+		[self handleMenuButtonDisplayGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -560,6 +600,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(!gestureView)
 		return;
 	
+	// GG - COMMENT OUT LEADERBOARD : 
+	/*
 	if([gestureView isKindOfClass:[LeaderboardView class]])
 	{
 		bool zoomMapVisible = ([trackZoomView carToFollow] != nil);
@@ -575,6 +617,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomView RequestRedraw];
 		[leaderboardView RequestRedraw];
 	}
+	*/
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -600,7 +643,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	
 	[trackMapView RequestRedraw];
-	[leaderboardView RequestRedraw];
+	// GG - COMMENT OUT LEADERBOARD : [leaderboardView RequestRedraw];
 }
 
 
@@ -667,14 +710,27 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (IBAction) menuButtonHit:(id)sender
 {
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuButtons) object:nil];
+
 	if(sender == timeControlsButton)
 	{
 		[self hideMenuButtons];
 		[self toggleTimeControllerDisplay];
 	}
+	
 	if(sender == alertsButton || sender == twitterButton || sender == facebookButton || sender == midasChatButton)
 	{
-		[self openMenuButton:(UIButton *)sender];
+		[self flashMenuButton:(UIButton *)sender];
+	}
+	
+	if(sender == standingsButton)
+	{
+		if(![[MidasStandingsManager Instance] displayed])
+		{
+			standingsButtonOpen = true;
+			[self animateMenuButton:standingsButton withNewWidth:[[MidasStandingsManager Instance] widthOfView] andImage:selectedStandingsImage];
+			[[MidasStandingsManager Instance] displayInViewController:self AtX:772 Y:128 Animated:true];
+		}
 	}
 }
 
@@ -683,8 +739,29 @@ static UIImage * newButtonBackgroundImage = nil;
 	[self showMenuButtons];
 }
 
+- (void)notifyHidingStandings
+{
+	standingsButtonOpen = false;
+	[self animateMenuButton:standingsButton withNewWidth:unselectedButtonWidth andImage:unselectedBottomButtonImage];
+}
+
+- (void)notifyHidingCircuitView
+{
+}
+
+- (void)notifyHidingFollowDriver
+{
+}
+
+- (void)notifyHidingHeadToHead
+{
+}
+
 ///////////////////////////////////////////////////////////////////
 // Button Animation Routines
+
+
+// Button show and hide
 
 -(void)hideMenuButtons
 {
@@ -756,7 +833,19 @@ static UIImage * newButtonBackgroundImage = nil;
 	[UIView commitAnimations];
 }
 
--(void)openMenuButton:(UIButton *)button
+- (void)menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		menuButtonsDisplayed = !menuButtonsDisplayed;
+		menuButtonsAnimating = false;
+	}
+}
+
+
+// Button opening for popup display
+
+-(void)animateMenuButton:(UIButton *)button withNewWidth:(float)newWidth andImage:(UIImage *)newImage
 {
 	if(!menuButtonsDisplayed || menuButtonsAnimating)
 		return;
@@ -771,20 +860,9 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 		int buttonOffset;
 		CGRect newFrame;
-		UIImage * newImage;
 		
-		if(baseFrame.size.width > unselectedButtonWidth)	// i.e. it's already open so we'll close
-		{
-			buttonOffset = unselectedButtonWidth - baseFrame.size.width;
-			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, unselectedButtonWidth, baseFrame.size.height);
-			newImage = unSelectedTopButtonImage;
-		}
-		else
-		{
-			buttonOffset = selectedButtonWidth - baseFrame.size.width;
-			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, selectedButtonWidth, baseFrame.size.height);
-			newImage = selectedTopButtonImage;
-		}
+		buttonOffset = newWidth - baseFrame.size.width;
+		newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, newWidth, baseFrame.size.height);
 		
 		[buttonBackgroundAnimationImage setImage:newImage];
 		[buttonBackgroundAnimationImage setFrame:baseFrame];
@@ -796,9 +874,9 @@ static UIImage * newButtonBackgroundImage = nil;
 		[UIView beginAnimations:nil context:button];
 		
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(menuOpenCloseDidStop:finished:context:)];
+		[UIView setAnimationDidStopSelector:@selector(menuButtonAnimationDidStop:finished:context:)];
 		
-		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDuration:0.5];
 		
 		[buttonBackgroundAnimationImage setFrame:newFrame];
 		[button setFrame:newFrame];
@@ -824,13 +902,88 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 		int buttonOffset;
 		CGRect newFrame;
+		
+		buttonOffset = newWidth - baseFrame.size.width;
+		newFrame = CGRectMake(CGRectGetMaxX(baseFrame) - newWidth, baseFrame.origin.y, newWidth, baseFrame.size.height);
+		
+		[buttonBackgroundAnimationImage setImage:newImage];
+		[buttonBackgroundAnimationImage setFrame:baseFrame];
+		[buttonBackgroundAnimationImage setHidden:false];
+		
+		[button setBackgroundImage:nil forState:UIControlStateNormal];
+		newButtonBackgroundImage = [newImage retain];
+		
+		[UIView beginAnimations:nil context:button];
+		
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(menuButtonAnimationDidStop:finished:context:)];
+		
+		[UIView setAnimationDuration:0.5];
+		
+		if([standingsButton frame].origin.x < baseFrame.origin.x)
+			[standingsButton setFrame:CGRectOffset([standingsButton frame], -buttonOffset, 0)];
+		
+		if([mapButton frame].origin.x < baseFrame.origin.x)
+			[mapButton setFrame:CGRectOffset([mapButton frame], -buttonOffset, 0)];
+		
+		if([followDriverButton frame].origin.x < baseFrame.origin.x)
+			[followDriverButton setFrame:CGRectOffset([followDriverButton frame], -buttonOffset, 0)];
+		
+		if([headToHeadButton frame].origin.x < baseFrame.origin.x)
+			[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], -buttonOffset, 0)];
+		
+		if([timeControlsButton frame].origin.x < baseFrame.origin.x)
+			[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], -buttonOffset, 0)];
+		
+		[buttonBackgroundAnimationImage setFrame:newFrame];
+		[button setFrame:newFrame];
+		
+		[UIView commitAnimations];
+	}
+	else if(button == vipButton || button == myTeamButton)
+	{
+	}
+	else if(button == midasMenuButton)
+	{
+	}
+}
+
+- (void)menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		menuButtonsAnimating = false;
+		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+		[newButtonBackgroundImage release];
+		newButtonBackgroundImage = nil;
+		
+		[buttonBackgroundAnimationImage setHidden:true];
+	}
+}
+
+// Button flashing for push notification
+
+-(void)flashMenuButton:(UIButton *)button
+{
+	if(!menuButtonsDisplayed || menuButtonsAnimating)
+		return;
+	
+	menuButtonsAnimating = true;
+	
+	// Top buttons only
+	if(button == alertsButton || button == twitterButton || button == facebookButton || button == midasChatButton)
+	{
+		CGRect baseFrame = [button frame];
+		
+		int buttonOffset;
+		CGRect newFrame;
 		UIImage * newImage;
 		
 		if(baseFrame.size.width > unselectedButtonWidth)	// i.e. it's already open so we'll close
 		{
 			buttonOffset = unselectedButtonWidth - baseFrame.size.width;
 			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, unselectedButtonWidth, baseFrame.size.height);
-			newImage = unSelectedTopButtonImage;
+			newImage = unselectedTopButtonImage;
 		}
 		else
 		{
@@ -849,7 +1002,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[UIView beginAnimations:nil context:button];
 		
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(menuOpenCloseDidStop:finished:context:)];
+		[UIView setAnimationDidStopSelector:@selector(menuFlashDidStop:finished:context:)];
 		
 		[UIView setAnimationDuration:0.75];
 		
@@ -870,27 +1023,38 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 		[UIView commitAnimations];
 	}
-	else if(button == vipButton || button == myTeamButton)
+}
+
+- (void)menuFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
 	{
+		menuButtonsAnimating = false;
+		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+		[newButtonBackgroundImage release];
+		newButtonBackgroundImage = nil;
+		
+		[buttonBackgroundAnimationImage setHidden:true];
 	}
-	else if(button == midasMenuButton)
+}
+
+- (bool) checkForPopupViews
+{
+	bool popupDismissed = false;
+	
+	if([[MidasStandingsManager Instance] displayed])
 	{
+		[[MidasStandingsManager Instance] hideAnimated:true];
+		[self notifyHidingStandings];
+		popupDismissed= true;
 	}
 	
-	/*
-	 // Side buttons
-	 [midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], CGRectGetWidth([midasMenuButton frame]), 0)];
-	 
-	 // Bottom buttons
-	 [standingsButton setFrame:CGRectOffset([standingsButton frame], 0, -CGRectGetHeight([standingsButton frame]))];
-	 [mapButton setFrame:CGRectOffset([mapButton frame], 0, -CGRectGetHeight([mapButton frame]))];
-	 [followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, -CGRectGetHeight([followDriverButton frame]))];
-	 [headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, -CGRectGetHeight([headToHeadButton frame]))];
-	 [timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], 0, -CGRectGetHeight([timeControlsButton frame]))];
-	 [vipButton setFrame:CGRectOffset([vipButton frame], 0, -CGRectGetHeight([vipButton frame]))];
-	 [myTeamButton setFrame:CGRectOffset([myTeamButton frame], 0, -CGRectGetHeight([myTeamButton frame]))];
-	 */
+	return popupDismissed;
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// Gesture recogniser handling
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
@@ -906,29 +1070,6 @@ static UIImage * newButtonBackgroundImage = nil;
 		}
 	}
 }
-
-- (void)menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-	if([finished intValue] == 1)
-	{
-		menuButtonsDisplayed = !menuButtonsDisplayed;
-		menuButtonsAnimating = false;
-	}
-}
-
-- (void)menuOpenCloseDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-	if([finished intValue] == 1)
-	{
-		menuButtonsAnimating = false;
-		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
-		[newButtonBackgroundImage release];
-		newButtonBackgroundImage = nil;
-		
-		[buttonBackgroundAnimationImage setHidden:true];
-	}
-}
-
 
 @end
 

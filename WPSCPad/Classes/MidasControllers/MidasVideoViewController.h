@@ -52,6 +52,21 @@
 	
 	IBOutlet UIImageView * buttonBackgroundAnimationImage;
 	
+	bool midasMenuButtonOpen;
+	bool alertsButtonOpen;
+	bool twitterButtonOpen;
+	bool facebookButtonOpen;
+	bool midasChatButtonOpen;	
+	bool lapCounterButtonOpen;
+	bool userNameButtonOpen;
+	bool standingsButtonOpen;
+	bool mapButtonOpen;
+	bool followDriverButtonOpen;
+	bool headToHeadButtonOpen;
+	bool timeControlsButtonOpen;
+	bool vipButtonOpen;
+	bool myTeamButtonOpen;
+	
 	CGSize movieSize;
 	CGRect movieRect;
 	
@@ -75,6 +90,21 @@
 @property (nonatomic) bool displayMap;
 @property (nonatomic) bool displayLeaderboard;
 
+@property (nonatomic) bool midasMenuButtonOpen;
+@property (nonatomic) bool alertsButtonOpen;
+@property (nonatomic) bool twitterButtonOpen;
+@property (nonatomic) bool facebookButtonOpen;
+@property (nonatomic) bool midasChatButtonOpen;	
+@property (nonatomic) bool lapCounterButtonOpen;
+@property (nonatomic) bool userNameButtonOpen;
+@property (nonatomic) bool standingsButtonOpen;
+@property (nonatomic) bool mapButtonOpen;
+@property (nonatomic) bool followDriverButtonOpen;
+@property (nonatomic) bool headToHeadButtonOpen;
+@property (nonatomic) bool timeControlsButtonOpen;
+@property (nonatomic) bool vipButtonOpen;
+@property (nonatomic) bool myTeamButtonOpen;
+
 - (void) showOverlays;
 - (void) hideOverlays;
 - (void) positionOverlays;
@@ -87,14 +117,25 @@
 
 - (void) hideMenuButtons;
 - (void) showMenuButtons;
-- (void) openMenuButton:(UIButton *)button;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
-- (void) menuOpenCloseDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
+- (void) flashMenuButton:(UIButton *)button;
+- (void) menuFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
+-(void) animateMenuButton:(UIButton *)button withNewWidth:(float)newWidth andImage:(UIImage *)newImage;
+- (void) menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
 - (IBAction) closeButtonHit:(id)sender;
 
 - (IBAction) menuButtonHit:(id)sender;
+- (bool) checkForPopupViews;
+
+- (void)notifyHidingStandings;
+- (void)notifyHidingCircuitView;
+- (void)notifyHidingFollowDriver;
+- (void)notifyHidingHeadToHead;
+
 
 @end

@@ -39,6 +39,8 @@ static int fadeOffAfter = 8;
 		bubblePref = true;
 		commentaryController.commentaryView.minPriority = 3;
 		
+		popdownTimer = nil;
+		
 		/*
 		commentaryPopover = [[UIPopoverController alloc] initWithContentViewController:commentaryController];
 		[commentaryPopover setDelegate:self];
@@ -104,6 +106,13 @@ static int fadeOffAfter = 8;
 		[commentaryController.view setFrame:bubble_bounds];
 		commentaryController.growUp = bottomRight;
 		[commentaryController popUp];
+		
+		if(popdownTimer)
+		{
+			[popdownTimer invalidate];
+			popdownTimer = nil;
+		}
+		
 		popdownTimer = [NSTimer scheduledTimerWithTimeInterval:fadeOffAfter target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
 	}
 }
@@ -158,6 +167,8 @@ static int fadeOffAfter = 8;
 
 - (void) popdownTimerUpdate: (NSTimer *)theTimer
 {
+	popdownTimer = nil;
+	
 	if ( commentaryController.shown )
 	{
 		double last_update = commentaryController.commentaryView.lastUpdateTime;
@@ -169,10 +180,11 @@ static int fadeOffAfter = 8;
 		if ( time_now - last_update >= showFor )
 		{
 			[commentaryController popDown:true];
-			popdownTimer = nil;
 		}
 		else
+		{
 			popdownTimer = [NSTimer scheduledTimerWithTimeInterval:last_update + showFor - time_now target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
+		}
 	}
 }
 
