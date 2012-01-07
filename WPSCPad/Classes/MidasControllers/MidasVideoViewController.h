@@ -123,7 +123,7 @@
 - (void) flashMenuButton:(UIButton *)button;
 - (void) menuFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
--(void) animateMenuButton:(UIButton *)button withNewWidth:(float)newWidth andImage:(UIImage *)newImage;
+-(void) animateMenuButton:(UIButton *)button;
 - (void) menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;

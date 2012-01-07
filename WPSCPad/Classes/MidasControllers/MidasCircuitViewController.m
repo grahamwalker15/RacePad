@@ -1,21 +1,21 @@
 //
-//  MidasStandingsViewController.m
+//  MidasCircuitViewController.m
 //  MidasDemo
 //
-//  Created by Gareth Griffith on 1/6/12.
+//  Created by Gareth Griffith on 1/7/12.
 //  Copyright 2012 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "MidasStandingsViewController.h"
+#import "MidasCircuitViewController.h"
 #import "MidasPopupManager.h"
 
-@implementation MidasStandingsViewController
+@implementation MidasCircuitViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
- {
+{
 	[super viewDidLoad];
-	 
+	
 	[self addTapRecognizerToView:container];
 	[self addTapRecognizerToView:heading];
 }
@@ -56,7 +56,7 @@
 {	
 	if(gestureView == heading)
 	{
-		[[MidasStandingsManager Instance] hideAnimated:true Notify:true];
+		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:true];
 	}
 }
 

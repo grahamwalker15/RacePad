@@ -182,9 +182,6 @@ static UIImage * newButtonBackgroundImage = nil;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	// Grab the title bar
-	//[[RacePadTitleBarController Instance] displayInViewController:self SupportCommentary: true];
-	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
 	// We'll get notification when we know the movie size - set it to a default for now
@@ -724,6 +721,8 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuButtons) object:nil];
 
+	CGRect buttonFrame = [(UIButton *)sender frame];
+
 	if(sender == timeControlsButton)
 	{
 		[self hideMenuButtons];
@@ -740,8 +739,31 @@ static UIImage * newButtonBackgroundImage = nil;
 		if(![[MidasStandingsManager Instance] viewDisplayed])
 		{
 			standingsButtonOpen = true;
-			[self animateMenuButton:standingsButton withNewWidth:[[MidasStandingsManager Instance] widthOfView] andImage:selectedStandingsImage];
-			[[MidasStandingsManager Instance] displayInViewController:self AtX:772 Y:128 Animated:true];
+			
+			[self animateMenuButton:standingsButton];
+			[[MidasStandingsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+		}
+	}
+
+	if(sender == mapButton)
+	{
+		if(![[MidasCircuitViewManager Instance] viewDisplayed])
+		{
+			mapButtonOpen = true;
+			
+			[self animateMenuButton:mapButton];
+			[[MidasCircuitViewManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+		}
+	}
+
+	if(sender == followDriverButton)
+	{
+		if(![[MidasFollowDriverManager Instance] viewDisplayed])
+		{
+			mapButtonOpen = true;
+			
+			[self animateMenuButton:mapButton];
+			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
 		}
 	}
 }
@@ -757,7 +779,12 @@ static UIImage * newButtonBackgroundImage = nil;
 	{
 		case MIDAS_STANDINGS_POPUP_:
 			standingsButtonOpen = false;
-			[self animateMenuButton:standingsButton withNewWidth:unselectedButtonWidth andImage:unselectedBottomButtonImage];
+			[self animateMenuButton:standingsButton];
+			break;
+			
+		case MIDAS_CIRCUIT_POPUP_:
+			mapButtonOpen = false;
+			[self animateMenuButton:mapButton];
 			break;
 			
 		default:
@@ -787,7 +814,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Standings button
 	buttonFrame = [standingsButton frame];
 	[standingsButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	
+	if([[MidasStandingsManager Instance] viewDisplayed])
+		[[MidasStandingsManager Instance] moveToPositionX:rightX Animated:false];
+			
 	if(standingsButtonOpen)
 		rightX -= [[MidasStandingsManager Instance] widthOfView];
 	else
@@ -798,6 +827,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Circuit button
 	buttonFrame = [mapButton frame];
 	[mapButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	if([[MidasCircuitViewManager Instance] viewDisplayed])
+		[[MidasCircuitViewManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(mapButtonOpen)
 		rightX -= [[MidasStandingsManager Instance] widthOfView];
@@ -809,6 +840,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Follow driver button
 	buttonFrame = [followDriverButton frame];
 	[followDriverButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	if([[MidasFollowDriverManager Instance] viewDisplayed])
+		[[MidasFollowDriverManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(followDriverButtonOpen)
 		rightX -= [[MidasStandingsManager Instance] widthOfView];
@@ -921,7 +954,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 // Button opening for popup display
 
--(void)animateMenuButton:(UIButton *)button withNewWidth:(float)newWidth andImage:(UIImage *)newImage
+-(void)animateMenuButton:(UIButton *)button
 {
 	if(!menuButtonsDisplayed || menuButtonsAnimating)
 		return;
@@ -929,7 +962,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	menuButtonsAnimating = true;
 	
 	// Top,bottom or side?
-	if(button == alertsButton || button == twitterButton || button == facebookButton || button == midasChatButton)
+	if(!button || button == alertsButton || button == twitterButton || button == facebookButton || button == midasChatButton)
 	{
 		[UIView beginAnimations:nil context:button];
 		
@@ -969,10 +1002,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	if([finished intValue] == 1)
 	{
 		menuButtonsAnimating = false;
-		[newButtonBackgroundImage release];
-		newButtonBackgroundImage = nil;
-		
-		[buttonBackgroundAnimationImage setHidden:true];
 	}
 }
 
@@ -1057,11 +1086,30 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	bool popupDismissed = false;
 	
+	// Check first to see if there is one to be dismissed
 	if([[MidasStandingsManager Instance] viewDisplayed])
 	{
-		[[MidasStandingsManager Instance] hideAnimated:true];
+		[[MidasStandingsManager Instance] hideAnimated:true Notify:false];
+		standingsButtonOpen = false;
 		popupDismissed= true;
 	}
+	
+	if([[MidasCircuitViewManager Instance] viewDisplayed])
+	{
+		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:false];
+		mapButtonOpen = false;
+		popupDismissed= true;
+	}
+	
+	if([[MidasFollowDriverManager Instance] viewDisplayed])
+	{
+		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:false];
+		followDriverButtonOpen = false;
+		popupDismissed= true;
+	}
+	
+	if(popupDismissed)
+		[self animateMenuButton:nil];
 	
 	return popupDismissed;
 }

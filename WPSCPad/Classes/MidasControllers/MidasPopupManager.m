@@ -10,20 +10,20 @@
 
 #import "MidasCoordinator.h"
 #import "MidasStandingsViewController.h"
+#import "MidasCircuitViewController.h"
+#import "MidasFollowDriverViewController.h"
 #import "BasePadViewController.h"
 
 @implementation MidasStandingsManager
 
-static MidasStandingsManager * instance_ = nil;
-
-@synthesize standingsViewController;
+static MidasStandingsManager * standingsInstance_ = nil;
 
 +(MidasStandingsManager *)Instance
 {
-	if(!instance_)
-		instance_ = [[MidasStandingsManager alloc] init];
+	if(!standingsInstance_)
+		standingsInstance_ = [[MidasStandingsManager alloc] init];
 	
-	return instance_;
+	return standingsInstance_;
 }
 
 -(id)init
@@ -33,6 +33,58 @@ static MidasStandingsManager * instance_ = nil;
 		standingsViewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
 		[self setManagedViewController:standingsViewController];
 		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasCircuitViewManager
+
+static MidasCircuitViewManager * circuitViewInstance_ = nil;
+
++(MidasCircuitViewManager *)Instance
+{
+	if(!circuitViewInstance_)
+		circuitViewInstance_ = [[MidasCircuitViewManager alloc] init];
+	
+	return circuitViewInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		circuitViewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
+		[self setManagedViewController:circuitViewController];
+		[self setManagedViewType:MIDAS_CIRCUIT_POPUP_];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasFollowDriverManager
+
+static MidasFollowDriverManager * followDriverInstance_ = nil;
+
++(MidasFollowDriverManager *)Instance
+{
+	if(!followDriverInstance_)
+		followDriverInstance_ = [[MidasFollowDriverManager alloc] init];
+	
+	return followDriverInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		followDriverViewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
+		[self setManagedViewController:followDriverViewController];
+		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
 	}
 	
 	return self;
@@ -54,6 +106,10 @@ static MidasStandingsManager * instance_ = nil;
 		
 		viewDisplayed = false;
 		hiding = false;
+		
+		xAlignment = MIDAS_ALIGN_LEFT_;
+		yAlignment = MIDAS_ALIGN_BOTTOM_;
+		
 		hideTimer = nil;
 		flagTimer = nil;
 		
@@ -84,7 +140,7 @@ static MidasStandingsManager * instance_ = nil;
 	}
 }
 
-- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Y:(float)y Animated:(bool)animated
+- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated XAlignment:(int)xAlign YAlignment:(int)yAlign;
 {	
 	// Can't display if we're in the middle of hiding
 	if(hiding)
@@ -94,17 +150,39 @@ static MidasStandingsManager * instance_ = nil;
 	CGRect superBounds = [viewController.view bounds];
 	CGRect ourBounds = [managedViewController.view bounds];
 	
+	xAlignment = xAlign;
+	yAlignment = yAlign;
+	
+	float finalX, initialY, finalY;
+	
+	if(xAlignment == MIDAS_ALIGN_RIGHT_)
+		finalX = x - CGRectGetWidth(ourBounds);
+	else 
+		finalX = x;
+	
+	if(yAlignment == MIDAS_ALIGN_TOP_)
+	{
+		initialY = - CGRectGetHeight(ourBounds);
+		finalY = 0;
+	}
+	else
+	{
+		initialY = CGRectGetMaxY(superBounds);
+		finalY = initialY - CGRectGetHeight(ourBounds);
+	}
+	
+	
 	[managedViewController.view setHidden:true];
 	
 	[viewController.view addSubview:managedViewController.view];
 	
 	if(animated)
 	{
-		[managedViewController.view setFrame:CGRectOffset(ourBounds, x, CGRectGetHeight(superBounds))];
+		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, initialY)];
 	}
 	else
 	{
-		[managedViewController.view setFrame:CGRectOffset(ourBounds, x, y)];
+		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
 	}
 	
 	[managedViewController.view setHidden:false];
@@ -113,7 +191,7 @@ static MidasStandingsManager * instance_ = nil;
 	{
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.5];
-		[managedViewController.view setFrame:CGRectOffset(ourBounds, x, y)];
+		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
 		[UIView commitAnimations];
 	}
 	
@@ -124,7 +202,39 @@ static MidasStandingsManager * instance_ = nil;
 	parentController = [viewController retain];
 }
 
-- (void) hideAnimated:(bool)animated
+- (void) moveToPositionX:(float)x Animated:(bool)animated
+{
+	// Can't move if we're not displayed or are in the middle of hiding
+	if(!viewDisplayed || !parentController || hiding)
+		return;
+	
+	
+	// Get the new positions
+	CGRect ourFrame = [managedViewController.view frame];
+	
+	float finalX;
+	
+	if(xAlignment == MIDAS_ALIGN_RIGHT_)
+		finalX = x - CGRectGetWidth(ourFrame);
+	else 
+		finalX = x;
+	
+	float xOffset = finalX - CGRectGetMinX(ourFrame);
+		
+	if(animated)
+	{
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:0.5];
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, xOffset, 0)];
+		[UIView commitAnimations];
+	}
+	else
+	{
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, xOffset, 0)];
+	}
+}
+
+- (void) hideAnimated:(bool)animated Notify:(bool)notify
 {
 	if(!viewDisplayed || !parentController)
 		return;
@@ -158,7 +268,7 @@ static MidasStandingsManager * instance_ = nil;
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
 	flagTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
 	
-	if(parentController && [parentController respondsToSelector:@selector(notifyHidingPopup:)])
+	if(notify && parentController && [parentController respondsToSelector:@selector(notifyHidingPopup:)])
 		[parentController notifyHidingPopup:managedViewType];
 	
 	[parentController release];
@@ -205,7 +315,7 @@ static MidasStandingsManager * instance_ = nil;
 
 - (void) hideTimerExpired:(NSTimer *)theTimer
 {
-	[self hideAnimated:true];
+	[self hideAnimated:true Notify:true];
 	hideTimer = nil;
 }
 
@@ -214,7 +324,7 @@ static MidasStandingsManager * instance_ = nil;
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	[self hideAnimated:true];
+	[self hideAnimated:true Notify:true];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -232,6 +342,11 @@ static MidasStandingsManager * instance_ = nil;
 - (float) widthOfView
 {
 	return CGRectGetWidth([managedViewController.view bounds]);
+}
+
+- (float) heightOfView
+{
+	return CGRectGetHeight([managedViewController.view bounds]);
 }
 
 @end

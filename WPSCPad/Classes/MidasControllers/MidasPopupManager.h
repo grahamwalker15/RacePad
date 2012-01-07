@@ -12,6 +12,8 @@
 #import "BasePadViewController.h"
 
 @class MidasStandingsViewController;
+@class MidasCircuitViewController;
+@class MidasFollowDriverViewController;
 
 // View types
 enum PopupViewTypes
@@ -28,6 +30,15 @@ enum PopupViewTypes
 	MIDAS_CHAT_POPUP_,
 };
 
+// View alignment
+enum PopupViewAlignment
+{
+	MIDAS_ALIGN_LEFT_,
+	MIDAS_ALIGN_RIGHT_,
+	MIDAS_ALIGN_TOP_,
+	MIDAS_ALIGN_BOTTOM_,
+};
+
 @interface MidasPopupManager : NSObject <UIGestureRecognizerDelegate>
 {
 	BasePadViewController * managedViewController;
@@ -39,6 +50,9 @@ enum PopupViewTypes
 	bool viewDisplayed;
 	bool hiding;
 	
+	int xAlignment;
+	int yAlignment;
+	
 	BasePadViewController * parentController;
 }
 
@@ -48,8 +62,9 @@ enum PopupViewTypes
 
 - (void) onStartUp;
 
-- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Y:(float)y Animated:(bool)animated;
-- (void) hideAnimated:(bool)animated;
+- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated XAlignment:(int)xAlign YAlignment:(int)yAlign;
+- (void) moveToPositionX:(float)x Animated:(bool)animated;
+- (void) hideAnimated:(bool)animated Notify:(bool)notify;
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
@@ -61,6 +76,7 @@ enum PopupViewTypes
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 
 - (float) widthOfView;
+- (float) heightOfView;
 
 @end
 
@@ -70,8 +86,26 @@ enum PopupViewTypes
 	MidasStandingsViewController * standingsViewController;
 }
 
-@property (readonly, retain) MidasStandingsViewController *standingsViewController;
-
 +(MidasStandingsManager *)Instance;
+
+@end
+
+@interface MidasCircuitViewManager : MidasPopupManager
+
+{
+	MidasCircuitViewController * circuitViewController;
+}
+
++(MidasCircuitViewManager *)Instance;
+
+@end
+
+@interface MidasFollowDriverManager : MidasPopupManager
+
+{
+	MidasFollowDriverViewController * followDriverViewController;
+}
+
++(MidasFollowDriverManager *)Instance;
 
 @end

@@ -11,7 +11,7 @@
 #import "MidasHomeViewController.h"
 #import "MidasCoordinator.h"
 
-#import "MidasStandingsManager.h"
+#import "MidasPopupManager.h"
 
 #import "RacePadClientSocket.h"
 #import "BasePadTimeController.h"
@@ -67,6 +67,8 @@
 	
 	// Create the Midas overlay displays
 	[[MidasStandingsManager Instance] onStartUp];
+	[[MidasCircuitViewManager Instance] onStartUp];
+	[[MidasFollowDriverManager Instance] onStartUp];
 	
 	// Load the prefs
 	[BasePadPrefs Instance];
