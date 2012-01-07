@@ -26,8 +26,20 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Overriden to allow any orientation.
-    return YES;
+    // Overridden to allow any orientation.
+	if(interfaceOrientation == UIInterfaceOrientationPortrait)
+		return NO;
+	
+	if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+		return NO;
+	
+	if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+		return YES;
+	
+	if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+		return YES;
+	
+    return NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -12,18 +12,47 @@
 #import "MidasStandingsViewController.h"
 #import "BasePadViewController.h"
 
-@implementation MidasPopupManager
+@implementation MidasStandingsManager
 
-@synthesize displayed;
-@synthesize managedViewController;
+static MidasStandingsManager * instance_ = nil;
+
+@synthesize standingsViewController;
+
++(MidasStandingsManager *)Instance
+{
+	if(!instance_)
+		instance_ = [[MidasStandingsManager alloc] init];
+	
+	return instance_;
+}
 
 -(id)init
 {
 	if(self = [super init])
 	{			
-		managedViewController = nil; // N.B. managedViewController MUST be assigned and retained by derived class
+		standingsViewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
+		[self setManagedViewController:standingsViewController];
+		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasPopupManager
+
+@synthesize viewDisplayed;
+@synthesize managedViewController;
+@synthesize managedViewType;
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		managedViewController = nil; // N.B. managedViewController MUST be assigned by derived class in its init
 		
-		displayed = false;
+		viewDisplayed = false;
 		hiding = false;
 		hideTimer = nil;
 		flagTimer = nil;
@@ -88,7 +117,7 @@
 		[UIView commitAnimations];
 	}
 	
-	displayed = true;
+	viewDisplayed = true;
 	
 	// Don't do automatic hiding : [self setHideTimer];
 	
@@ -97,13 +126,13 @@
 
 - (void) hideAnimated:(bool)animated
 {
-	if(!displayed || !parentController)
+	if(!viewDisplayed || !parentController)
 		return;
 	
 	if(!animated)
 	{
 		[managedViewController.view removeFromSuperview];
-		displayed = false;
+		viewDisplayed = false;
 		return;
 	}
 	
@@ -129,8 +158,8 @@
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
 	flagTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
 	
-	if(parentController && [parentController respondsToSelector:@selector(notifyHidingStandings)])
-		[parentController notifyHidingStandings];
+	if(parentController && [parentController respondsToSelector:@selector(notifyHidingPopup:)])
+		[parentController notifyHidingPopup:managedViewType];
 	
 	[parentController release];
 	parentController = nil;
@@ -143,7 +172,7 @@
 	{
 		[managedViewController.view removeFromSuperview];
 		hiding = false;
-		displayed = false;
+		viewDisplayed = false;
 		
 		if(flagTimer)
 		{

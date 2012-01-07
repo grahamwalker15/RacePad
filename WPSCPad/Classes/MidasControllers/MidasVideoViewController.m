@@ -8,7 +8,7 @@
 
 #import "MidasVideoViewController.h"
 
-#import "MidasStandingsManager.h"
+#import "MidasPopupManager.h"
 
 
 #import "RacePadCoordinator.h"
@@ -284,8 +284,20 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Overriden to allow any orientation.
-    return YES;
+    // Overridden to allow any orientation.
+	if(interfaceOrientation == UIInterfaceOrientationPortrait)
+		return NO;
+	
+	if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+		return NO;
+	
+	if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+		return YES;
+	
+	if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+		return YES;
+	
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -725,7 +737,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(sender == standingsButton)
 	{
-		if(![[MidasStandingsManager Instance] displayed])
+		if(![[MidasStandingsManager Instance] viewDisplayed])
 		{
 			standingsButtonOpen = true;
 			[self animateMenuButton:standingsButton withNewWidth:[[MidasStandingsManager Instance] widthOfView] andImage:selectedStandingsImage];
@@ -739,27 +751,91 @@ static UIImage * newButtonBackgroundImage = nil;
 	[self showMenuButtons];
 }
 
-- (void)notifyHidingStandings
+- (void)notifyHidingPopup:(int)popupType
 {
-	standingsButtonOpen = false;
-	[self animateMenuButton:standingsButton withNewWidth:unselectedButtonWidth andImage:unselectedBottomButtonImage];
-}
-
-- (void)notifyHidingCircuitView
-{
-}
-
-- (void)notifyHidingFollowDriver
-{
-}
-
-- (void)notifyHidingHeadToHead
-{
+	switch(popupType)
+	{
+		case MIDAS_STANDINGS_POPUP_:
+			standingsButtonOpen = false;
+			[self animateMenuButton:standingsButton withNewWidth:unselectedButtonWidth andImage:unselectedBottomButtonImage];
+			break;
+			
+		default:
+			break;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////
 // Button Animation Routines
 
+// Button positions
+
+-(void)positionMenuButtons
+{
+	// Get the bounds of the view controller
+	CGRect viewBounds = [[self view] bounds];
+	
+	// And position the buttons in each panel
+	CGRect buttonFrame;
+	
+	// Top buttons
+	
+	// Bottom buttons - Start from the right
+	
+	float rightX = CGRectGetMaxX(viewBounds) - 10;
+	
+	// Standings button
+	buttonFrame = [standingsButton frame];
+	[standingsButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	
+	if(standingsButtonOpen)
+		rightX -= [[MidasStandingsManager Instance] widthOfView];
+	else
+		rightX -= CGRectGetWidth(buttonFrame);
+	
+	rightX -= 4;
+	
+	// Circuit button
+	buttonFrame = [mapButton frame];
+	[mapButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	
+	if(mapButtonOpen)
+		rightX -= [[MidasStandingsManager Instance] widthOfView];
+	else
+		rightX -= CGRectGetWidth(buttonFrame);
+	
+	rightX -= 4;
+	
+	// Follow driver button
+	buttonFrame = [followDriverButton frame];
+	[followDriverButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	
+	if(followDriverButtonOpen)
+		rightX -= [[MidasStandingsManager Instance] widthOfView];
+	else
+		rightX -= CGRectGetWidth(buttonFrame);
+	
+	rightX -= 4;
+	
+	// Head to Head button
+	buttonFrame = [headToHeadButton frame];
+	[headToHeadButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	
+	if(headToHeadButtonOpen)
+		rightX -= [[MidasStandingsManager Instance] widthOfView];
+	else
+		rightX -= CGRectGetWidth(buttonFrame);
+	
+	rightX -= 4;
+	
+	// Time controls button
+	buttonFrame = [timeControlsButton frame];
+	[timeControlsButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	
+	rightX -= CGRectGetWidth(buttonFrame);
+	
+	rightX -= 4;
+}
 
 // Button show and hide
 
@@ -855,22 +931,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Top,bottom or side?
 	if(button == alertsButton || button == twitterButton || button == facebookButton || button == midasChatButton)
 	{
-		// Top buttons
-		CGRect baseFrame = [button frame];
-		
-		int buttonOffset;
-		CGRect newFrame;
-		
-		buttonOffset = newWidth - baseFrame.size.width;
-		newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, newWidth, baseFrame.size.height);
-		
-		[buttonBackgroundAnimationImage setImage:newImage];
-		[buttonBackgroundAnimationImage setFrame:baseFrame];
-		[buttonBackgroundAnimationImage setHidden:false];
-		
-		[button setBackgroundImage:nil forState:UIControlStateNormal];
-		newButtonBackgroundImage = [newImage retain];
-		
 		[UIView beginAnimations:nil context:button];
 		
 		[UIView setAnimationDelegate:self];
@@ -878,41 +938,13 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 		[UIView setAnimationDuration:0.5];
 		
-		[buttonBackgroundAnimationImage setFrame:newFrame];
-		[button setFrame:newFrame];
-		
-		if([alertsButton frame].origin.x > baseFrame.origin.x)
-			[alertsButton setFrame:CGRectOffset([alertsButton frame], buttonOffset, 0)];
-		
-		if([twitterButton frame].origin.x > baseFrame.origin.x)
-			[twitterButton setFrame:CGRectOffset([twitterButton frame], buttonOffset, 0)];
-		
-		if([facebookButton frame].origin.x > baseFrame.origin.x)
-			[facebookButton setFrame:CGRectOffset([facebookButton frame], buttonOffset, 0)];
-		
-		if([midasChatButton frame].origin.x > baseFrame.origin.x)
-			[midasChatButton setFrame:CGRectOffset([midasChatButton frame], buttonOffset, 0)];
+		[self positionMenuButtons];
 		
 		[UIView commitAnimations];
+		
 	}
 	else if(button == standingsButton || button == mapButton || button == followDriverButton || button == headToHeadButton)
 	{
-		// Bottom buttons
-		CGRect baseFrame = [button frame];
-		
-		int buttonOffset;
-		CGRect newFrame;
-		
-		buttonOffset = newWidth - baseFrame.size.width;
-		newFrame = CGRectMake(CGRectGetMaxX(baseFrame) - newWidth, baseFrame.origin.y, newWidth, baseFrame.size.height);
-		
-		[buttonBackgroundAnimationImage setImage:newImage];
-		[buttonBackgroundAnimationImage setFrame:baseFrame];
-		[buttonBackgroundAnimationImage setHidden:false];
-		
-		[button setBackgroundImage:nil forState:UIControlStateNormal];
-		newButtonBackgroundImage = [newImage retain];
-		
 		[UIView beginAnimations:nil context:button];
 		
 		[UIView setAnimationDelegate:self];
@@ -920,24 +952,8 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 		[UIView setAnimationDuration:0.5];
 		
-		if([standingsButton frame].origin.x < baseFrame.origin.x)
-			[standingsButton setFrame:CGRectOffset([standingsButton frame], -buttonOffset, 0)];
-		
-		if([mapButton frame].origin.x < baseFrame.origin.x)
-			[mapButton setFrame:CGRectOffset([mapButton frame], -buttonOffset, 0)];
-		
-		if([followDriverButton frame].origin.x < baseFrame.origin.x)
-			[followDriverButton setFrame:CGRectOffset([followDriverButton frame], -buttonOffset, 0)];
-		
-		if([headToHeadButton frame].origin.x < baseFrame.origin.x)
-			[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], -buttonOffset, 0)];
-		
-		if([timeControlsButton frame].origin.x < baseFrame.origin.x)
-			[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], -buttonOffset, 0)];
-		
-		[buttonBackgroundAnimationImage setFrame:newFrame];
-		[button setFrame:newFrame];
-		
+		[self positionMenuButtons];
+				
 		[UIView commitAnimations];
 	}
 	else if(button == vipButton || button == myTeamButton)
@@ -953,7 +969,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	if([finished intValue] == 1)
 	{
 		menuButtonsAnimating = false;
-		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
 		[newButtonBackgroundImage release];
 		newButtonBackgroundImage = nil;
 		
@@ -1042,10 +1057,9 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	bool popupDismissed = false;
 	
-	if([[MidasStandingsManager Instance] displayed])
+	if([[MidasStandingsManager Instance] viewDisplayed])
 	{
 		[[MidasStandingsManager Instance] hideAnimated:true];
-		[self notifyHidingStandings];
 		popupDismissed= true;
 	}
 	

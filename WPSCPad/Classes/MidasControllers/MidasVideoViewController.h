@@ -115,6 +115,7 @@
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
+- (void) positionMenuButtons;
 - (void) hideMenuButtons;
 - (void) showMenuButtons;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
@@ -132,10 +133,6 @@
 - (IBAction) menuButtonHit:(id)sender;
 - (bool) checkForPopupViews;
 
-- (void)notifyHidingStandings;
-- (void)notifyHidingCircuitView;
-- (void)notifyHidingFollowDriver;
-- (void)notifyHidingHeadToHead;
-
+- (void)notifyHidingPopup:(int)popupType;
 
 @end

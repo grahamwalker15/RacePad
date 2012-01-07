@@ -13,21 +13,38 @@
 
 @class MidasStandingsViewController;
 
+// View types
+enum PopupViewTypes
+{
+	MIDAS_STANDINGS_POPUP_,
+	MIDAS_CIRCUIT_POPUP_,
+	MIDAS_FOLLOW_DRIVER_POPUP_,
+	MIDAS_HEAD_TO_HEAD_POPUP_,
+	MIDAS_VIP_POPUP_,
+	MIDAS_MY_TEAM_POPUP_,
+	MIDAS_ALERTS_POPUP_,
+	MIDAS_TWITTER_POPUP_,
+	MIDAS_FACEBOOK_POPUP_,
+	MIDAS_CHAT_POPUP_,
+};
+
 @interface MidasPopupManager : NSObject <UIGestureRecognizerDelegate>
 {
 	BasePadViewController * managedViewController;
+	int managedViewType;
 	
 	NSTimer *hideTimer;
 	NSTimer *flagTimer;
 	
-	bool displayed;
+	bool viewDisplayed;
 	bool hiding;
 	
 	BasePadViewController * parentController;
 }
 
-@property(nonatomic) bool displayed;
-@property (nonatomic, retain) BasePadViewController *managedViewController;
+@property(nonatomic) bool viewDisplayed;
+@property(nonatomic) int managedViewType;
+@property (nonatomic, assign) BasePadViewController *managedViewController;
 
 - (void) onStartUp;
 
@@ -44,5 +61,17 @@
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 
 - (float) widthOfView;
+
+@end
+
+@interface MidasStandingsManager : MidasPopupManager
+
+{
+	MidasStandingsViewController * standingsViewController;
+}
+
+@property (readonly, retain) MidasStandingsViewController *standingsViewController;
+
++(MidasStandingsManager *)Instance;
 
 @end
