@@ -52,7 +52,7 @@
 
 // The view controller base
 
-@interface BasePadViewController : UIViewController
+@interface BasePadViewController : UIViewController <UIGestureRecognizerDelegate>
 {
 	// Gesture recognizer state stores
 	float lastGestureScale;

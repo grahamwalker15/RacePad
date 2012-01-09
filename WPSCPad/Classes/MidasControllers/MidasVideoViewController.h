@@ -22,7 +22,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface MidasVideoViewController : BasePadVideoViewController <UIGestureRecognizerDelegate>
+@interface MidasVideoViewController : BasePadVideoViewController
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;

@@ -1184,14 +1184,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-	if(touch && [[touch view] isKindOfClass:[UIButton class]])
-		return false;	
-	
-	return true;
-}
-
 
 @end
 

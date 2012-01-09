@@ -160,6 +160,7 @@ static id timeControllerInstance = nil;
 	// Tap recognizer
 	UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
 	[recognizer setCancelsTouchesInView:false];
+	[recognizer setDelegate:self];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
@@ -185,6 +186,7 @@ static id timeControllerInstance = nil;
 	// Long press recognizer
 	UILongPressGestureRecognizer * recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLongPressFrom:)];
 	[recognizer setCancelsTouchesInView:false];
+	[recognizer setDelegate:self];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
@@ -255,6 +257,14 @@ static id timeControllerInstance = nil;
 }
 
 // Gesture recognizer callbacks
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+	if(touch && [[touch.view class] isSubclassOfClass:[UIControl class]])
+		return false;	
+	
+	return true;
+}
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
