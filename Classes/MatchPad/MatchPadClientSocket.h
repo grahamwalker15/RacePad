@@ -34,6 +34,8 @@ enum ClientCommands {
 	MPCS_STREAM_POSSESSION,			// 44
 	MPCS_REQUEST_MOVES,				// 45
 	MPCS_STREAM_MOVES,				// 46
+	MPCS_REQUEST_BALL,				// 47
+	MPCS_STREAM_BALL,				// 48
 };
 
 @interface MatchPadClientSocket : BasePadClientSocket
@@ -61,6 +63,9 @@ enum ClientCommands {
 
 - (void) RequestMoves;
 - (void) StreamMoves;
+
+- (void) RequestBall;
+- (void) StreamBall;
 
 - (void) StreamCommentary :(NSString *) driver;
 

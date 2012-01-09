@@ -164,8 +164,8 @@
 		int count = [stream PopInt];
 		if ( count < 0 )
 			break;
-		PitchLine *line = [[PlayerGraphLine alloc] init];
-		[line loadShape:stream Count:count Colours:colours ColoursCount:coloursCount AllNames:false];
+		PlayerGraphLine *line = [[PlayerGraphLine alloc] init];
+		[line loadShape:stream Count:count Colours:colours ColoursCount:coloursCount];
 		[lines addObject:line];
 		[line release];
 	}

@@ -32,6 +32,7 @@ enum ViewTypes
 	MPC_PLAYER_GRAPH_VIEW_ = 0x1000,
 	MPC_POSSESSION_VIEW_ = 0x2000,
 	MPC_MOVE_VIEW_ = 0x4000,
+	MPC_BALL_VIEW_ = 0x8000,
 } ;
 
 @interface MatchPadCoordinator : BasePadCoordinator

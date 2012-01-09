@@ -99,9 +99,17 @@
 		case ALERT_PLAYER_:
 			return filter == AV_PLAYER_;
 		case ALERT_GOAL_:
+		case ALERT_MISS_:
+		case ALERT_POST_:
+		case ALERT_SAVED_:
 			return filter == AV_GOAL_;
+		case ALERT_FREE_KICK_TAKEN_:
+		case ALERT_CORNER_KICK_TAKEN_:
+		case ALERT_PENALTY_TAKEN_:
 		case ALERT_FREE_KICK_:
 		case ALERT_CORNER_:
+		case ALERT_OFFSIDE_:
+		case ALERT_PENALTY_:
 			return filter == AV_KICK_;
 		case ALERT_YELLOW_CARD_:
 		case ALERT_SECOND_YELLOW_:
@@ -190,15 +198,31 @@
 		case ALERT_GOAL_:
 			return [UIImage imageNamed:@"AlertGoal.png"];
 		case ALERT_FREE_KICK_:
-			return [UIImage imageNamed:@"AlertFreeKick.png"];
+			return [UIImage imageNamed:@"AlertFreeKickAwarded.png"];
+		case ALERT_PENALTY_:
+			return [UIImage imageNamed:@"AlertPenaltyAwarded.png"];
 		case ALERT_CORNER_:
+			return [UIImage imageNamed:@"AlertCornerAwarded.png"];
+		case ALERT_FREE_KICK_TAKEN_:
+			return [UIImage imageNamed:@"AlertFreeKick.png"];
+		case ALERT_CORNER_KICK_TAKEN_:
 			return [UIImage imageNamed:@"AlertCorner.png"];
+		case ALERT_PENALTY_TAKEN_:
+			return [UIImage imageNamed:@"AlertPenalty.png"];
+		case ALERT_OFFSIDE_:
+			return [UIImage imageNamed:@"AlertOffside.png"];
 		case ALERT_YELLOW_CARD_:
 			return [UIImage imageNamed:@"AlertYellowCard.png"];
 		case ALERT_SECOND_YELLOW_:
 			return [UIImage imageNamed:@"Alert2ndYellow.png"];
 		case ALERT_RED_CARD_:
 			return [UIImage imageNamed:@"AlertRedCard.png"];
+		case ALERT_MISS_:
+			return [UIImage imageNamed:@"AlertMiss.png"];
+		case ALERT_POST_:
+			return [UIImage imageNamed:@"AlertPost.png"];
+		case ALERT_SAVED_:
+			return [UIImage imageNamed:@"AlertSave.png"];
 		default:
 			return [UIImage imageNamed:@"AlertInfo.png"];
 	}			

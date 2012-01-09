@@ -137,6 +137,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket*)socket_ StreamMoves];
 	}
+	else if([existing_view Type] == MPC_BALL_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ StreamBall];
+	}
 }
 
 -(void) requestData:(BPCView *)existing_view
@@ -165,6 +169,10 @@ static MatchPadCoordinator * instance_ = nil;
 	else if([existing_view Type] == MPC_MOVE_VIEW_)
 	{
 		[(MatchPadClientSocket*)socket_ RequestMoves];
+	}
+	else if([existing_view Type] == MPC_BALL_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ RequestBall];
 	}
 }
 
@@ -202,6 +210,10 @@ static MatchPadCoordinator * instance_ = nil;
 	else if (type == MPC_MOVE_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"Moves"];
+	}
+	else if (type == MPC_BALL_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"Ball"];
 	}
 }
 

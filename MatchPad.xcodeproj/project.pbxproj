@@ -19,6 +19,10 @@
 		4D145F6914B7725A00DADD63 /* MoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D145F6814B7725A00DADD63 /* MoveView.m */; };
 		4D145F7214B7732D00DADD63 /* MoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D145F7114B7732D00DADD63 /* MoveViewController.m */; };
 		4D145F9F14B7762500DADD63 /* MoveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D145F9E14B7762500DADD63 /* MoveView.xib */; };
+		4D14604414BB481800DADD63 /* Ball.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D14604314BB481800DADD63 /* Ball.m */; };
+		4D14605414BB537E00DADD63 /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D14605314BB537E00DADD63 /* BallView.m */; };
+		4D14605E14BB544A00DADD63 /* BallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D14605D14BB544A00DADD63 /* BallViewController.m */; };
+		4D14607614BB57DE00DADD63 /* BallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D14607514BB57DE00DADD63 /* BallView.xib */; };
 		4D19D92713A626380035F28E /* BasePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92213A626380035F28E /* BasePadDatabase.m */; };
 		4D19D92813A626380035F28E /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92413A626380035F28E /* ImageListStore.m */; };
 		4D19D92913A626380035F28E /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92613A626380035F28E /* TableData.m */; };
@@ -34,6 +38,16 @@
 		4D5A358B13A23A86007C4AA9 /* BasePadSponsor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A358013A23A86007C4AA9 /* BasePadSponsor.m */; };
 		4D5A358C13A23A86007C4AA9 /* BasePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A358213A23A86007C4AA9 /* BasePadTimeController.m */; };
 		4D5A358D13A23A86007C4AA9 /* BasePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A358413A23A86007C4AA9 /* BasePadTitleBarController.m */; };
+		4D8245AB14BB657600938349 /* AlertCornerAwarded.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A114BB657600938349 /* AlertCornerAwarded.png */; };
+		4D8245AC14BB657600938349 /* AlertFreeKickAwarded.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A214BB657600938349 /* AlertFreeKickAwarded.png */; };
+		4D8245AD14BB657600938349 /* AlertMiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A314BB657600938349 /* AlertMiss.png */; };
+		4D8245AE14BB657600938349 /* AlertOffside.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A414BB657600938349 /* AlertOffside.png */; };
+		4D8245AF14BB657600938349 /* AlertPenalty.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A514BB657600938349 /* AlertPenalty.png */; };
+		4D8245B014BB657600938349 /* AlertPenaltyAwarded.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A614BB657600938349 /* AlertPenaltyAwarded.png */; };
+		4D8245B114BB657600938349 /* AlertPost.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A714BB657600938349 /* AlertPost.png */; };
+		4D8245B214BB657600938349 /* AlertSaved.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A814BB657600938349 /* AlertSaved.png */; };
+		4D8245B314BB657600938349 /* moves.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A914BB657600938349 /* moves.png */; };
+		4D8245B414BB657600938349 /* tracker.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245AA14BB657600938349 /* tracker.png */; };
 		4D8FB71914B611DF000B6B5A /* 17-bar-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FB71814B611DF000B6B5A /* 17-bar-chart.png */; };
 		4D8FB71C14B616A9000B6B5A /* Possession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FB71B14B616A9000B6B5A /* Possession.m */; };
 		4D8FB72214B6E20F000B6B5A /* PossessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FB72114B6E20F000B6B5A /* PossessionView.m */; };
@@ -202,6 +216,13 @@
 		4D145F7014B7732D00DADD63 /* MoveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveViewController.h; sourceTree = "<group>"; };
 		4D145F7114B7732D00DADD63 /* MoveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveViewController.m; sourceTree = "<group>"; };
 		4D145F9E14B7762500DADD63 /* MoveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MoveView.xib; path = ResourceFiles/MatchXIB/MoveView.xib; sourceTree = "<group>"; };
+		4D14604214BB481800DADD63 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
+		4D14604314BB481800DADD63 /* Ball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ball.m; sourceTree = "<group>"; };
+		4D14605214BB537E00DADD63 /* BallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallView.h; sourceTree = "<group>"; };
+		4D14605314BB537E00DADD63 /* BallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallView.m; sourceTree = "<group>"; };
+		4D14605C14BB544A00DADD63 /* BallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallViewController.h; sourceTree = "<group>"; };
+		4D14605D14BB544A00DADD63 /* BallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallViewController.m; sourceTree = "<group>"; };
+		4D14607514BB57DE00DADD63 /* BallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BallView.xib; path = ResourceFiles/MatchXIB/BallView.xib; sourceTree = "<group>"; };
 		4D19D92113A626380035F28E /* BasePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadDatabase.h; sourceTree = "<group>"; };
 		4D19D92213A626380035F28E /* BasePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadDatabase.m; sourceTree = "<group>"; };
 		4D19D92313A626380035F28E /* ImageListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListStore.h; sourceTree = "<group>"; };
@@ -232,6 +253,16 @@
 		4D5A358213A23A86007C4AA9 /* BasePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadTimeController.m; sourceTree = "<group>"; };
 		4D5A358313A23A86007C4AA9 /* BasePadTitleBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadTitleBarController.h; sourceTree = "<group>"; };
 		4D5A358413A23A86007C4AA9 /* BasePadTitleBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadTitleBarController.m; sourceTree = "<group>"; };
+		4D8245A114BB657600938349 /* AlertCornerAwarded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertCornerAwarded.png; path = Images/MatchPad/AlertCornerAwarded.png; sourceTree = "<group>"; };
+		4D8245A214BB657600938349 /* AlertFreeKickAwarded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertFreeKickAwarded.png; path = Images/MatchPad/AlertFreeKickAwarded.png; sourceTree = "<group>"; };
+		4D8245A314BB657600938349 /* AlertMiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertMiss.png; path = Images/MatchPad/AlertMiss.png; sourceTree = "<group>"; };
+		4D8245A414BB657600938349 /* AlertOffside.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertOffside.png; path = Images/MatchPad/AlertOffside.png; sourceTree = "<group>"; };
+		4D8245A514BB657600938349 /* AlertPenalty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertPenalty.png; path = Images/MatchPad/AlertPenalty.png; sourceTree = "<group>"; };
+		4D8245A614BB657600938349 /* AlertPenaltyAwarded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertPenaltyAwarded.png; path = Images/MatchPad/AlertPenaltyAwarded.png; sourceTree = "<group>"; };
+		4D8245A714BB657600938349 /* AlertPost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertPost.png; path = Images/MatchPad/AlertPost.png; sourceTree = "<group>"; };
+		4D8245A814BB657600938349 /* AlertSaved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertSaved.png; path = Images/MatchPad/AlertSaved.png; sourceTree = "<group>"; };
+		4D8245A914BB657600938349 /* moves.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moves.png; path = Images/MatchPad/moves.png; sourceTree = "<group>"; };
+		4D8245AA14BB657600938349 /* tracker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tracker.png; path = Images/MatchPad/tracker.png; sourceTree = "<group>"; };
 		4D8FB71814B611DF000B6B5A /* 17-bar-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "17-bar-chart.png"; path = "Images/17-bar-chart.png"; sourceTree = "<group>"; };
 		4D8FB71A14B616A9000B6B5A /* Possession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Possession.h; sourceTree = "<group>"; };
 		4D8FB71B14B616A9000B6B5A /* Possession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Possession.m; sourceTree = "<group>"; };
@@ -643,6 +674,8 @@
 			children = (
 				4DA3CF4113CDE08E0097A5FB /* AlertData.h */,
 				4DA3CF4213CDE08E0097A5FB /* AlertData.m */,
+				4D14604214BB481800DADD63 /* Ball.h */,
+				4D14604314BB481800DADD63 /* Ball.m */,
 				4DBE26A113A10C820051C9B3 /* MatchPadDatabase.h */,
 				4DBE26A213A10C820051C9B3 /* MatchPadDatabase.m */,
 				4D145F5C14B76E3500DADD63 /* Moves.h */,
@@ -662,6 +695,8 @@
 			children = (
 				4DA3CF4413CDE13D0097A5FB /* AlertViewController.h */,
 				4DA3CF4513CDE13D0097A5FB /* AlertViewController.m */,
+				4D14605C14BB544A00DADD63 /* BallViewController.h */,
+				4D14605D14BB544A00DADD63 /* BallViewController.m */,
 				4DBE26CA13A10CA40051C9B3 /* CompositeViewController.h */,
 				4DBE26CB13A10CA40051C9B3 /* CompositeViewController.m */,
 				4DBE26CC13A10CA40051C9B3 /* DownloadProgress.h */,
@@ -693,6 +728,8 @@
 			children = (
 				4DA3CF4713CDE1C00097A5FB /* AlertView.h */,
 				4DA3CF4813CDE1C00097A5FB /* AlertView.m */,
+				4D14605214BB537E00DADD63 /* BallView.h */,
+				4D14605314BB537E00DADD63 /* BallView.m */,
 				4D145F6714B7725A00DADD63 /* MoveView.h */,
 				4D145F6814B7725A00DADD63 /* MoveView.m */,
 				4DBE26E813A10CD20051C9B3 /* PitchView.h */,
@@ -826,6 +863,7 @@
 			isa = PBXGroup;
 			children = (
 				4DBE231613A0DE440051C9B3 /* AlertControlView.xib */,
+				4D14607514BB57DE00DADD63 /* BallView.xib */,
 				4DBE231713A0DE440051C9B3 /* CompositeView.xib */,
 				4DBE231813A0DE440051C9B3 /* HomeView.xib */,
 				4DBE231913A0DE440051C9B3 /* MainWindow.xib */,
@@ -849,12 +887,20 @@
 				4D8FB71814B611DF000B6B5A /* 17-bar-chart.png */,
 				4DA3CFAD13CE03D30097A5FB /* Alert2ndYellow.png */,
 				4DA3CFAE13CE03D30097A5FB /* AlertCorner.png */,
+				4D8245A114BB657600938349 /* AlertCornerAwarded.png */,
 				7F602F37149792BD00BD5FC2 /* AlertFKCorner.png */,
 				4DA3CFAF13CE03D30097A5FB /* AlertFreeKick.png */,
+				4D8245A214BB657600938349 /* AlertFreeKickAwarded.png */,
 				4DA3CFB013CE03D30097A5FB /* AlertGoal.png */,
 				4DA3CF8C13CDEB140097A5FB /* AlertInfo.png */,
+				4D8245A314BB657600938349 /* AlertMiss.png */,
+				4D8245A414BB657600938349 /* AlertOffside.png */,
+				4D8245A514BB657600938349 /* AlertPenalty.png */,
+				4D8245A614BB657600938349 /* AlertPenaltyAwarded.png */,
 				4DA3CF8D13CDEB140097A5FB /* AlertPlayer.png */,
+				4D8245A714BB657600938349 /* AlertPost.png */,
 				4DA3CFB113CE03D30097A5FB /* AlertRedCard.png */,
+				4D8245A814BB657600938349 /* AlertSaved.png */,
 				4DA3CFB213CE03D30097A5FB /* AlertYellowCard.png */,
 				4D1349C7128A939800A6E375 /* ArrowLeader.png */,
 				7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */,
@@ -892,6 +938,7 @@
 				7F6246A21284471E009A9D4F /* MGPLogo.png */,
 				7FA27A7712FC08AC001407FD /* MGPLogoBig.png */,
 				7F068126126DDA6800C9EE5D /* monitor.png */,
+				4D8245A914BB657600938349 /* moves.png */,
 				7FE5A83113812E180095DD10 /* NewsFeed.png */,
 				7F068127126DDA6800C9EE5D /* newspaper.png */,
 				7FA27DA513002425001407FD /* NoPhoto.png */,
@@ -913,6 +960,7 @@
 				7F7683FA12AAA07D009249F7 /* SmallScreen.png */,
 				7F602F3C149799F400BD5FC2 /* TackleBG.png */,
 				7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */,
+				4D8245AA14BB657600938349 /* tracker.png */,
 				7F86602D128AC1D000F13CB6 /* trend.png */,
 				7F8F8CE512E0483400EA04A6 /* trophy.png */,
 				7F0B27C712A58F8D00604392 /* Turquoise.png */,
@@ -1060,6 +1108,17 @@
 				4D8FB71914B611DF000B6B5A /* 17-bar-chart.png in Resources */,
 				4D8FB75014B6E689000B6B5A /* PossessionView.xib in Resources */,
 				4D145F9F14B7762500DADD63 /* MoveView.xib in Resources */,
+				4D14607614BB57DE00DADD63 /* BallView.xib in Resources */,
+				4D8245AB14BB657600938349 /* AlertCornerAwarded.png in Resources */,
+				4D8245AC14BB657600938349 /* AlertFreeKickAwarded.png in Resources */,
+				4D8245AD14BB657600938349 /* AlertMiss.png in Resources */,
+				4D8245AE14BB657600938349 /* AlertOffside.png in Resources */,
+				4D8245AF14BB657600938349 /* AlertPenalty.png in Resources */,
+				4D8245B014BB657600938349 /* AlertPenaltyAwarded.png in Resources */,
+				4D8245B114BB657600938349 /* AlertPost.png in Resources */,
+				4D8245B214BB657600938349 /* AlertSaved.png in Resources */,
+				4D8245B314BB657600938349 /* moves.png in Resources */,
+				4D8245B414BB657600938349 /* tracker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,6 +1197,9 @@
 				4D145F5E14B76E3500DADD63 /* Moves.m in Sources */,
 				4D145F6914B7725A00DADD63 /* MoveView.m in Sources */,
 				4D145F7214B7732D00DADD63 /* MoveViewController.m in Sources */,
+				4D14604414BB481800DADD63 /* Ball.m in Sources */,
+				4D14605414BB537E00DADD63 /* BallView.m in Sources */,
+				4D14605E14BB544A00DADD63 /* BallViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

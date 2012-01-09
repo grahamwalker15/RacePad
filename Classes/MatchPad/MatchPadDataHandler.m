@@ -120,6 +120,13 @@
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_MOVE_VIEW_];
 			break;
 		}
+		case MPSC_BALL_: // Ball
+		{
+			Ball *ball = [[MatchPadDatabase Instance] ball];
+			[ball loadData:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_BALL_VIEW_];
+			break;
+		}
 		default:
 			[super handleCommand:command];
 	}

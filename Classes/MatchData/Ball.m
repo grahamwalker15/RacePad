@@ -1,22 +1,21 @@
 //
-//  Move.m
+//  Ball.m
 //  RacePad
 //
 //  Created by Gareth Griffith on 5/10/11.
 //  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "Moves.h"
-#import "MoveView.h"
+#import "Ball.h"
+#import "BallView.h"
 #import "DataStream.h"
 #import "MatchPadDataHandler.h"
 #import "MatchPadDatabase.h"
 
-@implementation MoveChunk
+@implementation BallChunk
 
-@synthesize startTime;
-@synthesize duration;
-@synthesize passes;
+@synthesize time;
+@synthesize position;
 
 - (id) init
 {
@@ -33,21 +32,20 @@
 
 - (void) load : (DataStream *) stream
 {
-	startTime = [stream PopFloat];
-	duration = [stream PopFloat];
-	passes = [stream PopInt];
+	time = [stream PopFloat];
+	position = [stream PopFloat];
 }
 
 @end	
 
-@implementation Moves
+@implementation Ball
 
 - (id) init
 {
 	if(self = [super init])
 	{
-		moves[0]  = [[NSMutableArray alloc] init];
-		moves[1]  = [[NSMutableArray alloc] init];
+		kicks[0]  = [[NSMutableArray alloc] init];
+		kicks[1]  = [[NSMutableArray alloc] init];
 		goals[0]  = [[NSMutableArray alloc] init];
 		goals[1]  = [[NSMutableArray alloc] init];
 	}	
@@ -57,8 +55,8 @@
 - (void) dealloc
 {
 	[self clearData];
-	[moves[0] release];
-	[moves[1] release];
+	[kicks[0] release];
+	[kicks[1] release];
 	[goals[0] release];
 	[goals[1] release];
 	
@@ -69,8 +67,8 @@
 
 - (void) clearData
 {
-	[moves[0] removeAllObjects];
-	[moves[1] removeAllObjects];
+	[kicks[0] removeAllObjects];
+	[kicks[1] removeAllObjects];
 	[goals[0] removeAllObjects];
 	[goals[1] removeAllObjects];
 }
@@ -86,9 +84,9 @@
 		int count = [stream PopInt];
 		for ( int j = 0; j < count; j++ )
 		{
-			MoveChunk *move = [[MoveChunk alloc] init];
-			[move load:stream];
-			[moves[i] addObject:move];
+			BallChunk *chunk = [[BallChunk alloc] init];
+			[chunk load:stream];
+			[kicks[i] addObject:chunk];
 		}
 		
 		duration[i] = [stream PopFloat];
@@ -105,8 +103,6 @@
 			}
 		}
 	}
-	
-	maxPasses = [stream PopInt];
 }
 
 - (void) clearStaticData
@@ -118,7 +114,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Drawing
 
-- (void) drawInView : (MoveView *)view
+- (void) drawInView : (BallView *)view
 {
 	// Now start drawing
 	
@@ -162,6 +158,7 @@
 	// Add tick marks every pass
 	[view UseMediumBoldFont];
 	
+	/*
 	for ( int yval = 5; yval <= maxPasses; yval += 5 )
 	{
 		double yTop = x_axis - (float)yval / maxPasses * graphicHeight;
@@ -184,6 +181,7 @@
 		[view DrawString:s AtX:size.width - yAxisSpace + 8 Y:yTop - h/2];
 		[view DrawString:s AtX:size.width - yAxisSpace + 8 Y:yBot - h/2];
 	}
+	 */
 	
 	// Set clipping area for the rest - to exclude y axis
 	// Restored with graphic state at the end
@@ -241,35 +239,54 @@
 		}
 		
 		
-		int count = [moves[p] count];
+		int count = [kicks[p] count];
+		[view SetLineWidth:1.5];
 		for(int i = 0 ; i < count ; i++)
 		{
-			MoveChunk *chunk = [moves[p] objectAtIndex:i];
-			int v = [chunk passes];
-			x1 = baseX + [chunk startTime] * secWidth;
-			float x2 = x1 + [chunk duration] * secWidth;
+			BallChunk *chunk = [kicks[p] objectAtIndex:i];
+			float v = [chunk position];
+			x1 = baseX + [chunk time] * secWidth;
+			float x2 = x1 + [chunk position] * secWidth;
 			if ( x2 - x1 < 3 )
 				x2 = x1 + 3;
 			float y1, y2;
 			
 			if(v > 0)
 			{
-				y1 = x_axis;
+				if ( v > 50 )
+				{
+					y1 = x_axis;
+					v = (v - 50) / 50;
+				}
+				else 
+				{
+					y1 = x_axis + xAxisSpace;
+					v = (-50+v) / 50;
+				}
+
 				
-				[view SetBGColour:[UIColor colorWithRed:0.6 green:0.85 blue:0.92 alpha:0.7]];
+				[view SetFGColour:[UIColor colorWithRed:0.6 green:0.85 blue:0.92 alpha:0.9]];
 			}
 			else
 			{
-				y1 = x_axis + xAxisSpace;
-				[view SetBGColour:[UIColor colorWithRed:0.9 green:0.47 blue:0.04 alpha:0.7]];
+				if ( v < -50 )
+				{
+					y1 = x_axis + xAxisSpace;
+					v = (v + 50) / 50;
+				}
+				else 
+				{
+					y1 = x_axis;
+					v = (50+v) / 50;
+				}
+
+				[view SetFGColour:[UIColor colorWithRed:0.9 green:0.47 blue:0.04 alpha:0.9]];
 			}
 
-			y2 = y1 - v / (float)maxPasses * graphicHeight;
+			y2 = y1 - v * graphicHeight;
 			
-			[view SetFGColour:[view white_]];
-			[view FillShadedRectangleX0:x1 Y0:y1 X1:x2 Y1:y2 WithHighlight:false];
-			[view LineRectangleX0:x1 Y0:y1 X1:x2 Y1:y2];
-			x1 = x2;
+			[view LineX0:x1 Y0:y1 X1:x1 Y1:y2];
+			
 		}
 		
 		int goal_count = [goals[p] count];

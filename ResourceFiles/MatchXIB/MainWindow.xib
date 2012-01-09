@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="40"/>
+			<integer value="7"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -64,19 +64,20 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUIViewController" key="IBUISelectedViewController" id="66932132">
-					<string key="IBUITitle">Moves</string>
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="1067428779">
-						<string key="IBUITitle">Passes</string>
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="1067565822">
+					<string key="IBUITitle">Settings</string>
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="549996636">
+						<string key="IBUITitle">Settings</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">connections.png</string>
+							<string key="NSResourceName">preferences.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<reference key="IBUITabBar"/>
 					</object>
+					<reference key="IBUIToolbarItems" ref="0"/>
 					<reference key="IBUIParentViewController" ref="395037606"/>
-					<string key="IBUINibName">MoveView</string>
+					<string key="IBUINibName">SettingsView</string>
 					<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 						<int key="interfaceOrientation">1</int>
 					</object>
@@ -181,27 +182,45 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
-					<reference ref="66932132"/>
-					<object class="IBUIViewController" id="1067565822">
-						<string key="IBUITitle">Settings</string>
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="549996636">
-							<string key="IBUITitle">Settings</string>
+					<object class="IBUIViewController" id="66932132">
+						<string key="IBUITitle">Moves</string>
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1067428779">
+							<string key="IBUITitle">Moves</string>
 							<object class="NSCustomResource" key="IBUIImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">preferences.png</string>
+								<string key="NSResourceName">moves.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							<reference key="IBUITabBar"/>
 						</object>
-						<reference key="IBUIToolbarItems" ref="0"/>
 						<reference key="IBUIParentViewController" ref="395037606"/>
-						<string key="IBUINibName">SettingsView</string>
+						<string key="IBUINibName">MoveView</string>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 							<int key="interfaceOrientation">1</int>
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
+					<object class="IBUIViewController" id="1073368746">
+						<string key="IBUITitle">Ball</string>
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="477169867">
+							<string key="IBUITitle">Tracker</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">tracker.png</string>
+							</object>
+							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+							<reference key="IBUITabBar"/>
+						</object>
+						<reference key="IBUIParentViewController" ref="395037606"/>
+						<string key="IBUINibName">BallView</string>
+						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+							<int key="interfaceOrientation">1</int>
+						</object>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<bool key="IBUIHorizontal">NO</bool>
+					</object>
+					<reference ref="1067565822"/>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="116321709">
 					<nil key="NSNextResponder"/>
@@ -291,6 +310,7 @@
 							<reference ref="295385551"/>
 							<reference ref="6769866"/>
 							<reference ref="66932132"/>
+							<reference ref="1073368746"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -401,6 +421,22 @@
 						<reference key="object" ref="1067428779"/>
 						<reference key="parent" ref="66932132"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">41</int>
+						<reference key="object" ref="1073368746"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="477169867"/>
+						</object>
+						<reference key="parent" ref="395037606"/>
+						<string key="objectName">Ball View Controller</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">42</int>
+						<reference key="object" ref="477169867"/>
+						<reference key="parent" ref="1073368746"/>
+						<string key="objectName">Tab Bar Item (Tracker)</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -427,6 +463,9 @@
 					<string>4.CustomClassName</string>
 					<string>4.IBPluginDependency</string>
 					<string>40.IBPluginDependency</string>
+					<string>41.CustomClassName</string>
+					<string>41.IBPluginDependency</string>
+					<string>42.IBPluginDependency</string>
 					<string>7.IBEditorWindowLastContentRect</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.CustomClassName</string>
@@ -456,6 +495,9 @@
 					<string>MatchPadAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>BallViewController</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{312, 64}, {783, 792}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>PitchViewController</string>
@@ -480,7 +522,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">40</int>
+			<int key="maxID">42</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -491,6 +533,54 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/UISupport/BackgroundView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BallView</string>
+					<string key="superclassName">DrawingView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/MatchUIViews/BallView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BallViewController</string>
+					<string key="superclassName">BasePadViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>backgroundView</string>
+							<string>ballView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>BackgroundView</string>
+							<string>BallView</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>backgroundView</string>
+							<string>ballView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">backgroundView</string>
+								<string key="candidateClassName">BackgroundView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">ballView</string>
+								<string key="candidateClassName">BallView</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/MatchUIViewControllers/BallViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1598,21 +1688,23 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>17-bar-chart.png</string>
-				<string>connections.png</string>
 				<string>home.png</string>
 				<string>monitor.png</string>
+				<string>moves.png</string>
 				<string>newspaper.png</string>
 				<string>preferences.png</string>
+				<string>tracker.png</string>
 				<string>trend.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{29, 24}</string>
-				<string>{26, 26}</string>
 				<string>{24, 24}</string>
 				<string>{24, 24}</string>
+				<string>{16, 16}</string>
 				<string>{24, 24}</string>
 				<string>{24, 24}</string>
+				<string>{16, 16}</string>
 				<string>{26, 26}</string>
 			</object>
 		</object>

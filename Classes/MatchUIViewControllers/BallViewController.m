@@ -1,12 +1,12 @@
 //
-//  MoveViewController.m
+//  BallViewController.m
 //  RacePad
 //
 //  Created by Gareth Griffith on 8/30/11.
 //  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "MoveViewController.h"
+#import "BallViewController.h"
 
 #import "MatchPadCoordinator.h"
 #import "BasePadTimeController.h"
@@ -15,7 +15,7 @@
 #import "MatchPadDatabase.h"
 #import "Moves.h"
 
-#import "MoveView.h"
+#import "BallView.h"
 #import "BackgroundView.h"
 #import "ShinyButton.h"
 #import "MatchPadSponsor.h"
@@ -25,7 +25,7 @@
 #import "UIConstants.h"
 
 
-@implementation MoveViewController
+@implementation BallViewController
 
 - (void)viewDidLoad
 {
@@ -34,17 +34,17 @@
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GRASS_];
 
 	// Add tap, double tap, pan and pinch for graph
-	[self addTapRecognizerToView:moveView];
-	[self addDoubleTapRecognizerToView:moveView];
-	[self addPanRecognizerToView:moveView];
-	[self addPinchRecognizerToView:moveView];
+	[self addTapRecognizerToView:ballView];
+	[self addDoubleTapRecognizerToView:ballView];
+	[self addPanRecognizerToView:ballView];
+	[self addPinchRecognizerToView:ballView];
 
 	// Add tap recognizers to buttons to prevent them bringing up ti;e controls
 	//[self addTapRecognizerToView:allButton];
 	//[self addTapRecognizerToView:seeLapsButton];
 	
-	[[MatchPadCoordinator Instance] AddView:moveView WithType:MPC_MOVE_VIEW_];	
-	[[MatchPadCoordinator Instance] AddView:self WithType:MPC_MOVE_VIEW_];
+	[[MatchPadCoordinator Instance] AddView:ballView WithType:MPC_BALL_VIEW_];	
+	[[MatchPadCoordinator Instance] AddView:self WithType:MPC_BALL_VIEW_];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,9 +56,9 @@
 	
 	[self positionOverlays];
 
-	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:( MPC_MOVE_VIEW_ )];
+	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:( MPC_BALL_VIEW_ )];
 	
-	[[MatchPadCoordinator Instance] SetViewDisplayed:moveView];
+	[[MatchPadCoordinator Instance] SetViewDisplayed:ballView];
 	[[MatchPadCoordinator Instance] SetViewDisplayed:self];
 	
 	// We disable the screen locking - because that seems to close the socket
@@ -68,7 +68,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[[MatchPadCoordinator Instance] SetViewHidden:moveView];
+	[[MatchPadCoordinator Instance] SetViewHidden:ballView];
 	[[MatchPadCoordinator Instance] SetViewHidden:self];
 	
 	[[MatchPadCoordinator Instance] ReleaseViewController:self];
@@ -125,9 +125,9 @@
 
 - (void)RequestRedraw
 {
-	Moves * moves = [[MatchPadDatabase Instance] moves];
+	Ball * ball = [[MatchPadDatabase Instance] ball];
 	
-	if(moves)
+	if(ball)
 	{
 		/*
 		// Get image list for the driver images
@@ -229,14 +229,14 @@
 	if(!gestureView)
 		return;
 	
-	if([gestureView isKindOfClass:[MoveView class]])
+	if([gestureView isKindOfClass:[BallView class]])
 	{
 		if(gestureStartPoint.x > [gestureView bounds].size.width - 50)
-			[(MoveView *)gestureView adjustScaleY:scale X:x Y:y];	
+			[(BallView *)gestureView adjustScaleY:scale X:x Y:y];	
 		else
-			[(MoveView *)gestureView adjustScaleX:scale X:x Y:y];	
+			[(BallView *)gestureView adjustScaleX:scale X:x Y:y];	
 
-		[(MoveView *)gestureView RequestRedraw];
+		[(BallView *)gestureView RequestRedraw];
 	}
 }
 
@@ -245,13 +245,13 @@
 	if(!gestureView)
 		return;
 	
-	if([gestureView isKindOfClass:[MoveView class]])
+	if([gestureView isKindOfClass:[BallView class]])
 	{
-		[(MoveView *)gestureView setUserOffsetX:0.0];
-		[(MoveView *)gestureView setUserScaleX:1.0];
-		[(MoveView *)gestureView setUserOffsetY:0.0];
-		[(MoveView *)gestureView setUserScaleY:1.0];
-		[(MoveView *)gestureView RequestRedraw];
+		[(BallView *)gestureView setUserOffsetX:0.0];
+		[(BallView *)gestureView setUserScaleX:1.0];
+		[(BallView *)gestureView setUserOffsetY:0.0];
+		[(BallView *)gestureView setUserScaleY:1.0];
+		[(BallView *)gestureView RequestRedraw];
 	}
 }
 
@@ -261,14 +261,14 @@
 	if(state == UIGestureRecognizerStateEnded)
 		return;
 	
-	if([gestureView isKindOfClass:[MoveView class]])
+	if([gestureView isKindOfClass:[BallView class]])
 	{
 		if(gestureStartPoint.x > [gestureView bounds].size.width - 50)
-			[(MoveView *)gestureView adjustPanY:y];
+			[(BallView *)gestureView adjustPanY:y];
 		else
-			[(MoveView *)gestureView adjustPanX:x];
+			[(BallView *)gestureView adjustPanX:x];
 		
-		[(MoveView *)gestureView RequestRedraw];
+		[(BallView *)gestureView RequestRedraw];
 	}
 }
 
