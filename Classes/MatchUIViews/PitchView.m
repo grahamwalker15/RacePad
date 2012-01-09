@@ -30,6 +30,7 @@
 @synthesize animationAlpha;
 @synthesize animationDirection;
 @synthesize autoRotate;
+@synthesize showWholeMove;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +94,7 @@
 	
 	playerToFollow = nil;
 	autoRotate = false;
+	showWholeMove = true;
 }
 
 - (void)InitialiseImages
@@ -136,7 +138,7 @@
 	
 	if ( pitch )
 	{		
-		[pitch drawInView:self];
+		[pitch drawInView:self AllNames:showWholeMove];
 	}
 }
 

@@ -39,6 +39,9 @@ enum ServerCommands {
 	MPSC_PITCH_,								// 46
 	MPSC_SCORE_,								// 47
 	MPSC_TEAMS_,								// 48
+	MPSC_PITCH_MOVE_,							// 49
+	MPSC_POSSESSION_,							// 50
+	MPSC_MOVES_,								// 51
 };
 
 @interface MatchPadDataHandler : BasePadDataHandler

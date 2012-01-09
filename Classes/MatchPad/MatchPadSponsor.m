@@ -78,18 +78,14 @@ static MatchPadSponsor * instance_ = nil;
 	
 	if ( sponsor == MPS_UNKNOWN_ )
 	{
-		if(tab == MPS_PITCH_TAB_ && videoSupported)
-			return false;
-		else if(tab == MPS_VIDEO_TAB_ && !videoSupported)
+		if(tab == MPS_VIDEO_TAB_ && !videoSupported)
 			return false;
 		
 		return true;
 	}
 	else if ( sponsor == MPS_MAN_CITY_)
 	{
-		if(tab == MPS_PITCH_TAB_ && videoSupported)
-			return false;
-		else if(tab == MPS_VIDEO_TAB_ && !videoSupported)
+		if(tab == MPS_VIDEO_TAB_ && !videoSupported)
 			return false;
 		
 		return true;

@@ -123,6 +123,26 @@
 	free (buf);
 }
 
+- (void)RequestPossession
+{
+	[self SimpleCommand:MPCS_REQUEST_POSSESSION];
+}
+
+- (void)StreamPossession
+{
+	[self SimpleCommand:MPCS_STREAM_POSSESSION];
+}
+
+- (void)RequestMoves
+{
+	[self SimpleCommand:MPCS_REQUEST_MOVES];
+}
+
+- (void)StreamMoves
+{
+	[self SimpleCommand:MPCS_STREAM_MOVES];
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[MatchPadDataHandler alloc] init];

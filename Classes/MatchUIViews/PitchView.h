@@ -32,6 +32,8 @@
 	float animationScaleTarget;
 	float animationAlpha;
 	int animationDirection;
+	
+	bool showWholeMove;
 }
 
 @property (nonatomic) bool isZoomView;
@@ -54,6 +56,8 @@
 
 @property (nonatomic, retain) NSString * playerToFollow;
 @property (nonatomic) bool autoRotate;
+
+@property (nonatomic) bool showWholeMove;
 
 - (void)InitialiseMembers;
 - (void)InitialiseImages;

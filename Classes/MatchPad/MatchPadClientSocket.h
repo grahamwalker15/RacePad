@@ -30,6 +30,10 @@ enum ClientCommands {
 	MPCS_REQUEST_TEAMS,				// 40
 	MPCS_REQUEST_PLAYER_GRAPH,		// 41
 	MPCS_STREAM_PLAYER_GRAPH,		// 42
+	MPCS_REQUEST_POSSESSION,		// 43
+	MPCS_STREAM_POSSESSION,			// 44
+	MPCS_REQUEST_MOVES,				// 45
+	MPCS_STREAM_MOVES,				// 46
 };
 
 @interface MatchPadClientSocket : BasePadClientSocket
@@ -51,6 +55,12 @@ enum ClientCommands {
 
 - (void) RequestPlayerGraph:(int)player GraphType:(unsigned char)graphType;
 - (void) StreamPlayerGraph:(int)player GraphType:(unsigned char)graphType;
+
+- (void) RequestPossession;
+- (void) StreamPossession;
+
+- (void) RequestMoves;
+- (void) StreamMoves;
 
 - (void) StreamCommentary :(NSString *) driver;
 

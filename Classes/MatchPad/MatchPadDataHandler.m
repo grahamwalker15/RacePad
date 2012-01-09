@@ -14,6 +14,7 @@
 #include "MatchPadTitleBarController.h"
 #include "MatchPadSponsor.h"
 #import "Pitch.h"
+#import "Possession.h"
 
 @implementation MatchPadDataHandler
 
@@ -58,11 +59,18 @@
 		case MPSC_PITCH_: // Pitch
 		{
 			Pitch *pitch = [[MatchPadDatabase Instance] pitch];
-			[pitch loadPitch:stream];
+			[pitch loadPitch:stream AllNames:false];
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PITCH_VIEW_];
 			break;
 		}
-
+		case MPSC_PITCH_MOVE_: // PitchMove
+		{
+			Pitch *pitch = [[MatchPadDatabase Instance] pitch];
+			[pitch loadPitch:stream AllNames:true];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PITCH_VIEW_];
+			break;
+		}
+			
 		case MPSC_SCORE_:
 		{
 			int home = [stream PopInt];
@@ -96,6 +104,20 @@
 		{
 			AlertData *alertData = [[MatchPadDatabase Instance] alertData];
 			[alertData loadData:stream];
+			break;
+		}
+		case MPSC_POSSESSION_: // Possession
+		{
+			Possession *possession = [[MatchPadDatabase Instance] possession];
+			[possession loadData:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_POSSESSION_VIEW_];
+			break;
+		}
+		case MPSC_MOVES_: // Moves
+		{
+			Moves *moves = [[MatchPadDatabase Instance] moves];
+			[moves loadData:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_MOVE_VIEW_];
 			break;
 		}
 		default:

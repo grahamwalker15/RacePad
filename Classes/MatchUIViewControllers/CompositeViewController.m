@@ -45,6 +45,7 @@
 	[pitchView setIsZoomView:false];
 	
 	[pitchView setIsOverlayView:false];
+	[pitchView setShowWholeMove:false];
 	
 	// Tap,pan and pinch recognizers for map
 	[self addTapRecognizerToView:pitchView];

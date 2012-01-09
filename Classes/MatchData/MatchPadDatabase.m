@@ -24,6 +24,8 @@ static MatchPadDatabase *instance = nil;
 }
 
 @synthesize pitch;
+@synthesize possession;
+@synthesize moves;
 @synthesize playerGraph;
 @synthesize playerStatsData;
 @synthesize alertData;
@@ -31,6 +33,8 @@ static MatchPadDatabase *instance = nil;
 - (MatchPadDatabase *)init
 {
 	pitch = [[Pitch alloc] init];
+	possession = [[Possession alloc] init];
+	moves = [[Moves alloc] init];
 	playerGraph = [[PlayerGraph alloc] init];
 	playerStatsData = [[TableData alloc] init];
 	alertData = [[AlertData alloc] init];
@@ -44,6 +48,8 @@ static MatchPadDatabase *instance = nil;
 - (void) dealloc
 {
 	[pitch release];
+	[possession release];
+	[moves release];
 	[playerGraph release];
 	[playerStatsData release];
 	

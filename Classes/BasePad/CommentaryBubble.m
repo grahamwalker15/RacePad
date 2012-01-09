@@ -158,6 +158,7 @@ static int fadeOffAfter = 8;
 
 - (void) popdownTimerUpdate: (NSTimer *)theTimer
 {
+	popdownTimer = nil;
 	if ( commentaryController.shown )
 	{
 		double last_update = commentaryController.commentaryView.lastUpdateTime;

@@ -129,6 +129,14 @@ static MatchPadCoordinator * instance_ = nil;
 		PlayerGraph *graph = [[MatchPadDatabase Instance]playerGraph];
 		[(MatchPadClientSocket *)socket_ StreamPlayerGraph:[graph requestedPlayer] GraphType:[graph graphType]];
 	}
+	else if([existing_view Type] == MPC_POSSESSION_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ StreamPossession];
+	}
+	else if([existing_view Type] == MPC_MOVE_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ StreamMoves];
+	}
 }
 
 -(void) requestData:(BPCView *)existing_view
@@ -149,6 +157,14 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		PlayerGraph *graph = [[MatchPadDatabase Instance]playerGraph];
 		[(MatchPadClientSocket *)socket_ RequestPlayerGraph:[graph requestedPlayer] GraphType:[graph graphType]];
+	}
+	else if([existing_view Type] == MPC_POSSESSION_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ RequestPossession];
+	}
+	else if([existing_view Type] == MPC_MOVE_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ RequestMoves];
 	}
 }
 
@@ -178,6 +194,14 @@ static MatchPadCoordinator * instance_ = nil;
 		name = [name stringByAppendingString:@"-"];
 		name = [name stringByAppendingString:[number stringValue]];
 		[self AddDataSourceWithType:type AndFile: name];
+	}
+	else if (type == MPC_POSSESSION_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"Possession"];
+	}
+	else if (type == MPC_MOVE_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"Moves"];
 	}
 }
 

@@ -165,7 +165,7 @@
 		if ( count < 0 )
 			break;
 		PitchLine *line = [[PlayerGraphLine alloc] init];
-		[line loadShape:stream Count:count Colours:colours ColoursCount:coloursCount];
+		[line loadShape:stream Count:count Colours:colours ColoursCount:coloursCount AllNames:false];
 		[lines addObject:line];
 		[line release];
 	}

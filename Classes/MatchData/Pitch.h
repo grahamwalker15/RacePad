@@ -19,6 +19,9 @@
 	UIColor *colour;
 	unsigned char lineType;
 	float x0, y0, x1, y1;
+	NSString *player;
+	UIColor *playerColour;
+	UIColor *playerBG;
 }
 
 @property (readonly) UIColor *colour;
@@ -27,8 +30,11 @@
 @property (readonly) float y0;
 @property (readonly) float x1;
 @property (readonly) float y1;
+@property (nonatomic, retain) NSString *player;
+@property (nonatomic, retain) UIColor *playerColour;
+@property (nonatomic, retain) UIColor *playerBG;
 
-- (void) loadShape : (DataStream *) stream Count: (int) count Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
+- (void) loadShape : (DataStream *) stream Count: (int) count Colours: (UIColor **)colours ColoursCount:(int)coloursCount AllNames:(bool)allNames;
 
 @end
 
@@ -64,9 +70,9 @@
 
 - (void) initialisePerspective;
 
-- (void) loadPitch : (DataStream *) stream;
+- (void) loadPitch : (DataStream *) stream AllNames:(bool) allNames;
 
-- (void) drawInView:(PitchView *)view;
+- (void) drawInView:(PitchView *)view AllNames:(bool) allNames;
 
 - (void) constructTransformMatrixForView:(PitchView *)view;
 - (void) constructTransformMatrixForView:(PitchView *)view WithCentreX:(float)x Y:(float)y Rotation:(float) rotation;

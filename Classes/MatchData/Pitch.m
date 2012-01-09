@@ -21,6 +21,9 @@
 @synthesize y0;
 @synthesize x1;
 @synthesize y1;
+@synthesize player;
+@synthesize playerColour;
+@synthesize playerBG;
 
 - (id) init
 {
@@ -39,6 +42,9 @@
 - (void) clear
 {
 	[colour release];
+	[player release];
+	[playerColour release];
+	[playerBG release];
 }
 
 - (void) dealloc
@@ -57,7 +63,7 @@
 	return nil;
 }
 
--(void) loadShape:(DataStream *)stream Count:(int)count Colours: (UIColor **)colours ColoursCount:(int)coloursCount
+-(void) loadShape:(DataStream *)stream Count:(int)count Colours: (UIColor **)colours ColoursCount:(int)coloursCount AllNames:(bool) allNames
 {
 	int i;
 	for ( i = 0; i < count; i++ )
@@ -81,6 +87,13 @@
 	
 	colour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 	lineType = [stream PopUnsignedChar];
+	
+	if ( allNames )
+	{
+		player = [[stream PopString] retain];
+		playerColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
+		playerBG = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
+	}
 }
 
 @end
@@ -124,7 +137,7 @@
 	[super dealloc];
 }
 
-- (void) loadPitch : (DataStream *) stream
+- (void) loadPitch : (DataStream *) stream AllNames: (bool) allNames
 {
 	[lines removeAllObjects];
 
@@ -164,19 +177,33 @@
 		if ( count < 0 )
 			break;
 		PitchLine *line = [[PitchLine alloc] init];
-		[line loadShape:stream Count:count Colours:colours ColoursCount:coloursCount];
+		[line loadShape:stream Count:count Colours:colours ColoursCount:coloursCount AllNames:allNames];
 		[lines addObject:line];
 		[line release];
 	}
 	
-	playerX = [stream PopFloat];
-	playerY = 1 - [stream PopFloat];
 	[player release];
-	player = [[stream PopString] retain];
+	player = NULL;
 	[playerColour release];
 	playerColour = NULL;
 	[playerBG release];
 	playerBG = NULL;
+	[nextPlayer release];
+	nextPlayer = NULL;
+	[nextPlayerColour release];
+	nextPlayerColour = NULL;
+	[nextPlayerBG release];
+	nextPlayerBG = NULL;
+	[third release];
+	third = NULL;
+	[thirdColour release];
+	thirdColour = NULL;
+	[thirdBG release];
+	thirdBG = NULL;
+	
+	playerX = [stream PopFloat];
+	playerY = 1 - [stream PopFloat];
+	player = [[stream PopString] retain];
 	unsigned char index = [stream PopUnsignedChar];
 	if ( index < coloursCount )
 		playerColour = [colours[index] retain];
@@ -186,12 +213,7 @@
 	
 	nextPlayerX = [stream PopFloat];
 	nextPlayerY = 1 - [stream PopFloat];
-	[nextPlayer release];
 	nextPlayer = [[stream PopString] retain];
-	[nextPlayerColour release];
-	nextPlayerColour = NULL;
-	[nextPlayerBG release];
-	nextPlayerBG = NULL;
 	index = [stream PopUnsignedChar];
 	if ( index < coloursCount )
 		nextPlayerColour = [colours[index] retain];
@@ -201,12 +223,7 @@
 	
 	thirdX = [stream PopFloat];
 	thirdY = 1 - [stream PopFloat];
-	[third release];
 	third = [[stream PopString] retain];
-	[thirdColour release];
-	thirdColour = NULL;
-	[thirdBG release];
-	thirdBG = NULL;
 	index = [stream PopUnsignedChar];
 	if ( index < coloursCount )
 		thirdColour = [colours[index] retain];
@@ -394,7 +411,7 @@
 	[view setHomeYOffset:mapYOffset];
 }
 
-- (void) drawInView:(PitchView *)view
+- (void) drawInView:(PitchView *)view AllNames: (bool) allNames
 {
 	[view SaveGraphicsState];
 	
@@ -448,107 +465,150 @@
 	
 	[view RestoreGraphicsState];
 	
-	float centreX = (playerX + nextPlayerX ) / 2;
-	float centreY = (playerY + nextPlayerY ) / 2;
-	
-	if ( [third length] && ![nextPlayer length] )
+	if ( allNames )
 	{
-		centreX = (playerX + thirdX ) / 2;
-		centreY = (playerY + thirdY ) / 2;
+		int i;
+		int count = [lines count];
+		NSString *lastName = NULL;
+		int lastType = 0;
+		for ( i = 0; i < count; i++)
+		{
+			PitchLine *line = [lines objectAtIndex:i];
+			NSString *playerName = [line player];
+			if ( playerName
+			  && [playerName length]
+			  && [line lineType] != 3 )
+			{
+				bool repeatName = false;
+				if ( lastName != NULL
+				  && [lastName isEqualToString:playerName] )
+					repeatName = true;
+				
+				if ( !repeatName )
+				{
+					float x = [line x0];
+					float y = [line y0];
+					[self transformPoint:&x Y:&y];
+					x = x * x_scale + 25;
+					y = y * y_scale + 25;
+					float sWidth, sHeight;
+					[view GetStringBox:playerName WidthReturn:&sWidth HeightReturn:&sHeight];
+					[view SetBGColour:[line playerBG]];
+					[view SetAlpha:0.4];
+					[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+					[view SetAlpha:1.0];
+					[view UseRegularFont];
+					[view SetFGColour:[line playerColour]];
+					[view DrawString:playerName AtX:x Y:y];
+				}
+			}
+			lastName = playerName;
+			lastType = [line lineType];
+		}
 	}
+	else
+	{	
+		float centreX = (playerX + nextPlayerX ) / 2;
+		float centreY = (playerY + nextPlayerY ) / 2;
 		
-	CGRect player_rect;
-	CGRect next_rect;
+		if ( [third length] && ![nextPlayer length] )
+		{
+			centreX = (playerX + thirdX ) / 2;
+			centreY = (playerY + thirdY ) / 2;
+		}
+			
+		CGRect player_rect;
+		CGRect next_rect;
 
-	if ( [player length] )
-	{
-		float x = playerX;
-		float y = playerY;
-		[self transformPoint:&x Y:&y];
-		x = x * x_scale + 25;
-		y = y * y_scale + 25;
-		float sWidth, sHeight;
-		[view GetStringBox:player WidthReturn:&sWidth HeightReturn:&sHeight];
-		if ( playerX < centreX )
-			x -= sWidth;
-		if ( playerY < centreY )
-			y -= sHeight;
-		[view SetBGColour:playerBG];
-		[view SetAlpha:0.4];
-		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
-		player_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
-		[view SetAlpha:1.0];
-		[view UseRegularFont];
-		[view SetFGColour:playerColour];
-		[view DrawString:player AtX:x Y:y];
-	}
-	if ( [nextPlayer length] )
-	{
-		float x = nextPlayerX;
-		float y = nextPlayerY;
-		[self transformPoint:&x Y:&y];
-		x = x * x_scale + 25;
-		y = y * y_scale + 25;
-		float sWidth, sHeight;
-		[view GetStringBox:nextPlayer WidthReturn:&sWidth HeightReturn:&sHeight];
-		if ( nextPlayerX <= centreX )
-			x -= sWidth;
-		if ( nextPlayerY <= centreY )
-			y -= sHeight;
-		[view SetBGColour:nextPlayerBG];
-		[view SetAlpha:0.4];
-		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
-		next_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
-		[view SetAlpha:1.0];
-		[view UseRegularFont];
-		[view SetFGColour:nextPlayerColour];
-		[view DrawString:nextPlayer AtX:x Y:y];
-	}
-	if ( [third length] )
-	{
-		float x = thirdX;
-		float y = thirdY;
-		[self transformPoint:&x Y:&y];
-		x = x * x_scale + 25;
-		y = y * y_scale + 25;
-		float sWidth, sHeight;
-		[view GetStringBox:third WidthReturn:&sWidth HeightReturn:&sHeight];
+		if ( [player length] )
+		{
+			float x = playerX;
+			float y = playerY;
+			[self transformPoint:&x Y:&y];
+			x = x * x_scale + 25;
+			y = y * y_scale + 25;
+			float sWidth, sHeight;
+			[view GetStringBox:player WidthReturn:&sWidth HeightReturn:&sHeight];
+			if ( playerX < centreX )
+				x -= sWidth;
+			if ( playerY < centreY )
+				y -= sHeight;
+			[view SetBGColour:playerBG];
+			[view SetAlpha:0.4];
+			[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+			player_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
+			[view SetAlpha:1.0];
+			[view UseRegularFont];
+			[view SetFGColour:playerColour];
+			[view DrawString:player AtX:x Y:y];
+		}
 		if ( [nextPlayer length] )
 		{
-			// try to find a place that doesn't overlap
-			for ( int i = 0; i < 4; i++ )
-			{
-				x = thirdX;
-				y = thirdY;
-				[self transformPoint:&x Y:&y];
-				x = x * x_scale + 25;
-				y = y * y_scale + 25;
-				if ( i == 1 || i == 3 )
-					x -= sWidth;
-				if ( i == 2 || i == 3 )
-					y -= sHeight;
-				CGRect third_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
-				if ( !CGRectIntersectsRect(player_rect, third_rect)
-				  && !CGRectIntersectsRect(next_rect, third_rect) )
-					break;
-			}
-		}
-		else // put it where next would be
-		{
-			if ( thirdX <= centreX )
+			float x = nextPlayerX;
+			float y = nextPlayerY;
+			[self transformPoint:&x Y:&y];
+			x = x * x_scale + 25;
+			y = y * y_scale + 25;
+			float sWidth, sHeight;
+			[view GetStringBox:nextPlayer WidthReturn:&sWidth HeightReturn:&sHeight];
+			if ( nextPlayerX <= centreX )
 				x -= sWidth;
-			if ( thirdY <= centreY )
+			if ( nextPlayerY <= centreY )
 				y -= sHeight;
+			[view SetBGColour:nextPlayerBG];
+			[view SetAlpha:0.4];
+			[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+			next_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
+			[view SetAlpha:1.0];
+			[view UseRegularFont];
+			[view SetFGColour:nextPlayerColour];
+			[view DrawString:nextPlayer AtX:x Y:y];
 		}
-		[view SetBGColour:thirdBG];
-		[view SetAlpha:0.4];
-		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
-		[view SetAlpha:1.0];
-		[view UseRegularFont];
-		[view SetFGColour:thirdColour];
-		[view DrawString:third AtX:x Y:y];
+		if ( [third length] )
+		{
+			float x = thirdX;
+			float y = thirdY;
+			[self transformPoint:&x Y:&y];
+			x = x * x_scale + 25;
+			y = y * y_scale + 25;
+			float sWidth, sHeight;
+			[view GetStringBox:third WidthReturn:&sWidth HeightReturn:&sHeight];
+			if ( [nextPlayer length] )
+			{
+				// try to find a place that doesn't overlap
+				for ( int i = 0; i < 4; i++ )
+				{
+					x = thirdX;
+					y = thirdY;
+					[self transformPoint:&x Y:&y];
+					x = x * x_scale + 25;
+					y = y * y_scale + 25;
+					if ( i == 1 || i == 3 )
+						x -= sWidth;
+					if ( i == 2 || i == 3 )
+						y -= sHeight;
+					CGRect third_rect = CGRectMake ( x - 1, y - 1, sWidth + 2, sHeight + 2 );
+					if ( !CGRectIntersectsRect(player_rect, third_rect)
+					  && !CGRectIntersectsRect(next_rect, third_rect) )
+						break;
+				}
+			}
+			else // put it where next would be
+			{
+				if ( thirdX <= centreX )
+					x -= sWidth;
+				if ( thirdY <= centreY )
+					y -= sHeight;
+			}
+			[view SetBGColour:thirdBG];
+			[view SetAlpha:0.4];
+			[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
+			[view SetAlpha:1.0];
+			[view UseRegularFont];
+			[view SetFGColour:thirdColour];
+			[view DrawString:third AtX:x Y:y];
+		}
 	}
-	
 }
 
 - (void) constructTransformMatrixForView:(PitchView *)view
