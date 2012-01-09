@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #import "BasePadViewController.h"
+#import "TwitterView.h"
 
-@interface MidasTwitterViewController : BasePadViewController
+@interface MidasTwitterViewController : BasePadViewController <BaseSocialMediaViewDelegate>
 {
-	IBOutlet UIImageView * container;
-	IBOutlet UIImageView * heading;
 }
 
 @end

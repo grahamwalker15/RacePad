@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseSocialmediaView.h"
+#import "BaseSocialMediaView.h"
 
-@interface MidasView : BaseSocialmediaView
+@interface MidasView : BaseSocialMediaView
 
 @end
