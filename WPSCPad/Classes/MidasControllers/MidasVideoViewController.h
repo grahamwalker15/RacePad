@@ -22,7 +22,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface MidasVideoViewController : BasePadVideoViewController
+@interface MidasVideoViewController : BasePadVideoViewController <UIGestureRecognizerDelegate>
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;
@@ -32,6 +32,9 @@
 	IBOutlet UIButton * trackZoomCloseButton;
 	IBOutlet LeaderboardView *leaderboardView;
 	
+	IBOutlet UIView * bottomButtonPanel;
+	IBOutlet UIView * topButtonPanel;
+
 	IBOutlet UIButton * midasMenuButton;
 	
 	IBOutlet UIButton * alertsButton;
@@ -131,8 +134,12 @@
 - (IBAction) closeButtonHit:(id)sender;
 
 - (IBAction) menuButtonHit:(id)sender;
-- (bool) checkForPopupViews;
+- (bool) dismissPopupViews;
+- (bool) dismissPopupViewsWithExclusion:(int)excludedPopupType AnimateMenus:(bool)animateMenus;
 
+- (void)notifyShowingPopup:(int)popupType;
 - (void)notifyHidingPopup:(int)popupType;
+- (void)notifyResizingPopup:(int)popupType;
+- (void)notifyExclusiveUse:(int)popupType;
 
 @end

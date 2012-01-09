@@ -128,6 +128,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	[buttonBackgroundAnimationImage setHidden:true];
 	
+	// Position the menu buttons
+	[self positionMenuButtons];
+	
 	// GG - COMMENT OUT LEADERBOARD :
 	[leaderboardView setHidden:true];
 	
@@ -165,6 +168,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Add tap and long press recognizers to overlay in order to catch taps outside map
 	[self addTapRecognizerToView:overlayView];
 	[self addLongPressRecognizerToView:overlayView];
+	
+	// Add tap recognizer to button panels to dismiss menus
+	[self addTapRecognizerToView:topButtonPanel];
+	[self addTapRecognizerToView:bottomButtonPanel];
 	
 	// Add tap and long press recognizers to the leaderboard
 	// GG - COMMENT OUT LEADERBOARD : [self addTapRecognizerToView:leaderboardView];
@@ -599,7 +606,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[self toggleTimeControllerDisplay];
 	
 	// Either close popup views if there are any or pop menus up or down
-	if(![self checkForPopupViews])
+	if(![self dismissPopupViews])
 		[self handleMenuButtonDisplayGestureInView:gestureView AtX:x Y:y];
 }
 
@@ -760,9 +767,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	{
 		if(![[MidasFollowDriverManager Instance] viewDisplayed])
 		{
-			mapButtonOpen = true;
+			followDriverButtonOpen = true;
 			
-			[self animateMenuButton:mapButton];
+			[self animateMenuButton:followDriverButton];
 			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
 		}
 	}
@@ -773,23 +780,65 @@ static UIImage * newButtonBackgroundImage = nil;
 	[self showMenuButtons];
 }
 
+- (void)notifyShowingPopup:(int)popupType
+{
+	switch(popupType)
+	{
+		case MIDAS_STANDINGS_POPUP_:
+			[standingsButton setHidden:true];
+			break;
+			
+		case MIDAS_CIRCUIT_POPUP_:
+			[mapButton setHidden:true];
+			break;
+			
+		case MIDAS_FOLLOW_DRIVER_POPUP_:
+			[followDriverButton setHidden:true];
+			break;
+			
+		default:
+			break;
+	}
+	
+	[self.view bringSubviewToFront:bottomButtonPanel];
+	[self.view bringSubviewToFront:topButtonPanel];
+}
+
 - (void)notifyHidingPopup:(int)popupType
 {
 	switch(popupType)
 	{
 		case MIDAS_STANDINGS_POPUP_:
 			standingsButtonOpen = false;
+			[standingsButton setHidden:false];
 			[self animateMenuButton:standingsButton];
 			break;
 			
 		case MIDAS_CIRCUIT_POPUP_:
 			mapButtonOpen = false;
+			[mapButton setHidden:false];
 			[self animateMenuButton:mapButton];
+			break;
+			
+		case MIDAS_FOLLOW_DRIVER_POPUP_:
+			followDriverButtonOpen = false;
+			[followDriverButton setHidden:false];
+			[self animateMenuButton:followDriverButton];
 			break;
 			
 		default:
 			break;
 	}
+}
+
+- (void)notifyResizingPopup:(int)popupType
+{
+	[self positionMenuButtons];
+}
+
+- (void)notifyExclusiveUse:(int)popupType
+{
+	[self dismissPopupViewsWithExclusion:popupType AnimateMenus:false];
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -831,7 +880,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[[MidasCircuitViewManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(mapButtonOpen)
-		rightX -= [[MidasStandingsManager Instance] widthOfView];
+		rightX -= [[MidasCircuitViewManager Instance] widthOfView];
 	else
 		rightX -= CGRectGetWidth(buttonFrame);
 	
@@ -844,7 +893,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[[MidasFollowDriverManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(followDriverButtonOpen)
-		rightX -= [[MidasStandingsManager Instance] widthOfView];
+		rightX -= [[MidasFollowDriverManager Instance] widthOfView];
 	else
 		rightX -= CGRectGetWidth(buttonFrame);
 	
@@ -867,7 +916,20 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	rightX -= CGRectGetWidth(buttonFrame);
 	
+	rightX -= 20;
+	
+	if(rightX > 230)
+		rightX = 230;
+	
+	buttonFrame = [vipButton frame];
+	[vipButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	
+	rightX -= CGRectGetWidth(buttonFrame);
+	
 	rightX -= 4;
+	
+	buttonFrame = [myTeamButton frame];
+	[myTeamButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 }
 
 // Button show and hide
@@ -887,22 +949,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	[UIView setAnimationDuration:0.75];
 	
 	// Top buttons
-	[alertsButton setFrame:CGRectOffset([alertsButton frame], 0, -CGRectGetHeight([alertsButton frame]))];
-	[twitterButton setFrame:CGRectOffset([twitterButton frame], 0, -CGRectGetHeight([twitterButton frame]))];
-	[facebookButton setFrame:CGRectOffset([facebookButton frame], 0, -CGRectGetHeight([facebookButton frame]))];
-	[midasChatButton setFrame:CGRectOffset([midasChatButton frame], 0, -CGRectGetHeight([midasChatButton frame]))];
+	[topButtonPanel setFrame:CGRectOffset([topButtonPanel frame], 0, -CGRectGetHeight([alertsButton frame]))];
 	
 	// Side buttons
 	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], -CGRectGetWidth([midasMenuButton frame]), 0)];
 	
 	// Bottom buttons
-	[standingsButton setFrame:CGRectOffset([standingsButton frame], 0, CGRectGetHeight([standingsButton frame]))];
-	[mapButton setFrame:CGRectOffset([mapButton frame], 0, CGRectGetHeight([mapButton frame]))];
-	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, CGRectGetHeight([followDriverButton frame]))];
-	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, CGRectGetHeight([headToHeadButton frame]))];
-	[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], 0, CGRectGetHeight([timeControlsButton frame]))];
-	[vipButton setFrame:CGRectOffset([vipButton frame], 0, CGRectGetHeight([vipButton frame]))];
-	[myTeamButton setFrame:CGRectOffset([myTeamButton frame], 0, CGRectGetHeight([myTeamButton frame]))];
+	[bottomButtonPanel setFrame:CGRectOffset([bottomButtonPanel frame], 0, CGRectGetHeight([standingsButton frame]))];
 	
 	[UIView commitAnimations];
 }
@@ -922,22 +975,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	[UIView setAnimationDuration:0.5];
 	
 	// Top buttons
-	[alertsButton setFrame:CGRectOffset([alertsButton frame], 0, CGRectGetHeight([alertsButton frame]))];
-	[twitterButton setFrame:CGRectOffset([twitterButton frame], 0, CGRectGetHeight([twitterButton frame]))];
-	[facebookButton setFrame:CGRectOffset([facebookButton frame], 0, CGRectGetHeight([facebookButton frame]))];
-	[midasChatButton setFrame:CGRectOffset([midasChatButton frame], 0, CGRectGetHeight([midasChatButton frame]))];
+	[topButtonPanel setFrame:CGRectOffset([topButtonPanel frame], 0, CGRectGetHeight([alertsButton frame]))];
 	
 	// Side buttons
 	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], CGRectGetWidth([midasMenuButton frame]), 0)];
 	
 	// Bottom buttons
-	[standingsButton setFrame:CGRectOffset([standingsButton frame], 0, -CGRectGetHeight([standingsButton frame]))];
-	[mapButton setFrame:CGRectOffset([mapButton frame], 0, -CGRectGetHeight([mapButton frame]))];
-	[followDriverButton setFrame:CGRectOffset([followDriverButton frame], 0, -CGRectGetHeight([followDriverButton frame]))];
-	[headToHeadButton setFrame:CGRectOffset([headToHeadButton frame], 0, -CGRectGetHeight([headToHeadButton frame]))];
-	[timeControlsButton setFrame:CGRectOffset([timeControlsButton frame], 0, -CGRectGetHeight([timeControlsButton frame]))];
-	[vipButton setFrame:CGRectOffset([vipButton frame], 0, -CGRectGetHeight([vipButton frame]))];
-	[myTeamButton setFrame:CGRectOffset([myTeamButton frame], 0, -CGRectGetHeight([myTeamButton frame]))];
+	[bottomButtonPanel setFrame:CGRectOffset([bottomButtonPanel frame], 0, -CGRectGetHeight([standingsButton frame]))];
 	
 	[UIView commitAnimations];
 }
@@ -1082,33 +1126,40 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 }
 
-- (bool) checkForPopupViews
+- (bool) dismissPopupViews
+{
+	return [self dismissPopupViewsWithExclusion:MIDAS_POPUP_NONE_ AnimateMenus:true];
+}
+
+- (bool) dismissPopupViewsWithExclusion:(int)excludedPopupType AnimateMenus:(bool)animateMenus
 {
 	bool popupDismissed = false;
 	
-	// Check first to see if there is one to be dismissed
-	if([[MidasStandingsManager Instance] viewDisplayed])
+	if(excludedPopupType != MIDAS_STANDINGS_POPUP_ && [[MidasStandingsManager Instance] viewDisplayed])
 	{
 		[[MidasStandingsManager Instance] hideAnimated:true Notify:false];
 		standingsButtonOpen = false;
+		[standingsButton setHidden:false];
 		popupDismissed= true;
 	}
 	
-	if([[MidasCircuitViewManager Instance] viewDisplayed])
+	if(excludedPopupType != MIDAS_CIRCUIT_POPUP_ && [[MidasCircuitViewManager Instance] viewDisplayed])
 	{
 		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:false];
 		mapButtonOpen = false;
+		[mapButton setHidden:false];
 		popupDismissed= true;
 	}
 	
-	if([[MidasFollowDriverManager Instance] viewDisplayed])
+	if(excludedPopupType != MIDAS_FOLLOW_DRIVER_POPUP_ && [[MidasFollowDriverManager Instance] viewDisplayed])
 	{
 		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:false];
 		followDriverButtonOpen = false;
+		[followDriverButton setHidden:false];
 		popupDismissed= true;
 	}
 	
-	if(popupDismissed)
+	if(animateMenus && popupDismissed)
 		[self animateMenuButton:nil];
 	
 	return popupDismissed;
@@ -1132,6 +1183,15 @@ static UIImage * newButtonBackgroundImage = nil;
 		}
 	}
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+	if(touch && [[touch view] isKindOfClass:[UIButton class]])
+		return false;	
+	
+	return true;
+}
+
 
 @end
 

@@ -87,7 +87,7 @@ static bool bg_images_initialised_ = false;
 		grey_bg_image_  = [[UIImage imageNamed:@"GreyTextureBG.png"] retain];
 		carbon_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
 		grass_bg_image_  = [[UIImage imageNamed:@"Grass.png"] retain];
-		midas_bg_image_  = [[UIImage imageNamed:@"MidasBackground.png"] retain];
+		midas_bg_image_  = [[UIImage imageNamed:@"midas_background.png"] retain];
 	}
 	else
 	{

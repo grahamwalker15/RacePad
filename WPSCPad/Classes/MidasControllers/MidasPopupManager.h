@@ -18,6 +18,7 @@
 // View types
 enum PopupViewTypes
 {
+	MIDAS_POPUP_NONE_,
 	MIDAS_STANDINGS_POPUP_,
 	MIDAS_CIRCUIT_POPUP_,
 	MIDAS_FOLLOW_DRIVER_POPUP_,
@@ -53,12 +54,18 @@ enum PopupViewAlignment
 	int xAlignment;
 	int yAlignment;
 	
-	BasePadViewController * parentController;
+	float overhang;
+	float preferredWidth;
+	
+	BasePadViewController * parentViewController;
 }
 
 @property(nonatomic) bool viewDisplayed;
 @property(nonatomic) int managedViewType;
+@property(nonatomic) float overhang;
+@property(nonatomic) float preferredWidth;
 @property (nonatomic, assign) BasePadViewController *managedViewController;
+@property (readonly) BasePadViewController *parentViewController;
 
 - (void) onStartUp;
 
@@ -66,7 +73,8 @@ enum PopupViewAlignment
 - (void) moveToPositionX:(float)x Animated:(bool)animated;
 - (void) hideAnimated:(bool)animated Notify:(bool)notify;
 
-- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 - (void) setHideTimer;
 - (void) hideTimerExpired:(NSTimer *)theTimer;

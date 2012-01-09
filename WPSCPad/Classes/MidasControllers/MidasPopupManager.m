@@ -85,6 +85,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 		followDriverViewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
 		[self setManagedViewController:followDriverViewController];
 		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
+		[self setOverhang:(CGRectGetWidth([followDriverViewController.view bounds]) - CGRectGetWidth([followDriverViewController.container bounds]))];
 	}
 	
 	return self;
@@ -96,7 +97,10 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 
 @synthesize viewDisplayed;
 @synthesize managedViewController;
+@synthesize parentViewController;
 @synthesize managedViewType;
+@synthesize overhang;
+@synthesize preferredWidth;
 
 -(id)init
 {
@@ -109,6 +113,9 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 		
 		xAlignment = MIDAS_ALIGN_LEFT_;
 		yAlignment = MIDAS_ALIGN_BOTTOM_;
+		
+		overhang = 0.0;
+		preferredWidth = -1.0;
 		
 		hideTimer = nil;
 		flagTimer = nil;
@@ -146,6 +153,8 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	if(hiding)
 		return;
 	
+	parentViewController = [viewController retain];
+
 	// Get the new positions
 	CGRect superBounds = [viewController.view bounds];
 	CGRect ourBounds = [managedViewController.view bounds];
@@ -156,7 +165,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	float finalX, initialY, finalY;
 	
 	if(xAlignment == MIDAS_ALIGN_RIGHT_)
-		finalX = x - CGRectGetWidth(ourBounds);
+		finalX = x - CGRectGetWidth(ourBounds) + overhang;
 	else 
 		finalX = x;
 	
@@ -183,6 +192,8 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	else
 	{
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
+		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowingPopup:)])
+			[parentViewController notifyShowingPopup:managedViewType];
 	}
 	
 	[managedViewController.view setHidden:false];
@@ -191,6 +202,8 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	{
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.5];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(displayAnimationDidStop:finished:context:)];
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
 		[UIView commitAnimations];
 	}
@@ -198,45 +211,50 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	viewDisplayed = true;
 	
 	// Don't do automatic hiding : [self setHideTimer];
-	
-	parentController = [viewController retain];
 }
 
+- (void) displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowingPopup:)])
+			[parentViewController notifyShowingPopup:managedViewType];
+	}
+}
 - (void) moveToPositionX:(float)x Animated:(bool)animated
 {
 	// Can't move if we're not displayed or are in the middle of hiding
-	if(!viewDisplayed || !parentController || hiding)
+	if(!viewDisplayed || !parentViewController || hiding)
 		return;
-	
 	
 	// Get the new positions
 	CGRect ourFrame = [managedViewController.view frame];
 	
+	float newWidth = (preferredWidth > 0.0) ? preferredWidth : CGRectGetWidth(ourFrame);
+	
 	float finalX;
 	
 	if(xAlignment == MIDAS_ALIGN_RIGHT_)
-		finalX = x - CGRectGetWidth(ourFrame);
+		finalX = x - newWidth + overhang;
 	else 
 		finalX = x;
-	
-	float xOffset = finalX - CGRectGetMinX(ourFrame);
-		
+			
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.5];
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, xOffset, 0)];
+		[managedViewController.view setFrame:CGRectMake(finalX, CGRectGetMinY(ourFrame), newWidth, CGRectGetHeight(ourFrame))];
 		[UIView commitAnimations];
 	}
 	else
 	{
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, xOffset, 0)];
+		[managedViewController.view setFrame:CGRectMake(finalX, CGRectGetMinY(ourFrame), newWidth, CGRectGetHeight(ourFrame))];
 	}
 }
 
 - (void) hideAnimated:(bool)animated Notify:(bool)notify
 {
-	if(!viewDisplayed || !parentController)
+	if(!viewDisplayed || !parentViewController)
 		return;
 	
 	if(!animated)
@@ -255,28 +273,28 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	}
 	
 	// Get the new positions
-	CGRect superBounds = [parentController.view bounds];
+	CGRect superBounds = [parentViewController.view bounds];
 	CGRect ourFrame = [managedViewController.view frame];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.5];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	[UIView setAnimationDidStopSelector:@selector(hideAnimationDidStop:finished:context:)];
 	[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds))];
 	[UIView commitAnimations];
 	
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
 	flagTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
 	
-	if(notify && parentController && [parentController respondsToSelector:@selector(notifyHidingPopup:)])
-		[parentController notifyHidingPopup:managedViewType];
+	if(notify && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidingPopup:)])
+		[parentViewController notifyHidingPopup:managedViewType];
 	
-	[parentController release];
-	parentController = nil;
+	[parentViewController release];
+	parentViewController = nil;
 	
 }
 
-- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+- (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
 	if([finished intValue] == 1)
 	{
@@ -324,15 +342,18 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
-	[self hideAnimated:true Notify:true];
+	if(parentViewController)
+	{
+		//CGPoint tapPoint = [gestureRecognizer locationInView:tapView];	
+		[parentViewController HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer];
+	}
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-	/*
-	 if(touch && [touch view] == [timeController view])
-	 return true;	
-	 */
+	if(touch && [touch view] == [managedViewController view])
+		return true;	
+
 	return false;
 }
 
@@ -341,7 +362,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 
 - (float) widthOfView
 {
-	return CGRectGetWidth([managedViewController.view bounds]);
+	return CGRectGetWidth([managedViewController.view bounds]) - overhang;
 }
 
 - (float) heightOfView
