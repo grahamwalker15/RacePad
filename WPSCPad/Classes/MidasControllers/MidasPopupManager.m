@@ -12,6 +12,12 @@
 #import "MidasStandingsViewController.h"
 #import "MidasCircuitViewController.h"
 #import "MidasFollowDriverViewController.h"
+
+#import "MidasAlertsViewController.h"
+#import "MidasTwitterViewController.h"
+#import "MidasFacebookViewController.h"
+#import "MidasChatViewController.h"
+
 #import "BasePadViewController.h"
 
 @implementation MidasStandingsManager
@@ -30,8 +36,8 @@ static MidasStandingsManager * standingsInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		standingsViewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
-		[self setManagedViewController:standingsViewController];
+		viewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
+		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
 	}
 	
@@ -56,8 +62,8 @@ static MidasCircuitViewManager * circuitViewInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		circuitViewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
-		[self setManagedViewController:circuitViewController];
+		viewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
+		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CIRCUIT_POPUP_];
 	}
 	
@@ -82,10 +88,114 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		followDriverViewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
-		[self setManagedViewController:followDriverViewController];
+		viewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
+		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
-		[self setOverhang:(CGRectGetWidth([followDriverViewController.view bounds]) - CGRectGetWidth([followDriverViewController.container bounds]))];
+		[self setOverhang:(CGRectGetWidth([viewController.view bounds]) - CGRectGetWidth([viewController.container bounds]))];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasAlertsManager
+
+static MidasAlertsManager * alertsInstance_ = nil;
+
++(MidasAlertsManager *)Instance
+{
+	if(!alertsInstance_)
+		alertsInstance_ = [[MidasAlertsManager alloc] init];
+	
+	return alertsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasAlertsViewController alloc] initWithNibName:@"MidasAlertsView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_ALERTS_POPUP_];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasTwitterManager
+
+static MidasTwitterManager * twitterInstance_ = nil;
+
++(MidasTwitterManager *)Instance
+{
+	if(!twitterInstance_)
+		twitterInstance_ = [[MidasTwitterManager alloc] init];
+	
+	return twitterInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasTwitterViewController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_TWITTER_POPUP_];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasFacebookManager
+
+static MidasFacebookManager * facebookInstance_ = nil;
+
++(MidasFacebookManager *)Instance
+{
+	if(!facebookInstance_)
+		facebookInstance_ = [[MidasFacebookManager alloc] init];
+	
+	return facebookInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_FACEBOOK_POPUP_];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasChatManager
+
+static MidasChatManager * chatInstance_ = nil;
+
++(MidasChatManager *)Instance
+{
+	if(!chatInstance_)
+		chatInstance_ = [[MidasChatManager alloc] init];
+	
+	return chatInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasChatViewController alloc] initWithNibName:@"MidasChatView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_CHAT_POPUP_];
 	}
 	
 	return self;
@@ -273,14 +383,18 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 	}
 	
 	// Get the new positions
-	CGRect superBounds = [parentViewController.view bounds];
 	CGRect ourFrame = [managedViewController.view frame];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.5];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(hideAnimationDidStop:finished:context:)];
-	[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds))];
+	
+	if(yAlignment == MIDAS_ALIGN_TOP_)
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, -CGRectGetHeight(ourFrame) )];
+	else
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(ourFrame))];
+	
 	[UIView commitAnimations];
 	
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)

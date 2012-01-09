@@ -14,6 +14,10 @@
 @class MidasStandingsViewController;
 @class MidasCircuitViewController;
 @class MidasFollowDriverViewController;
+@class MidasAlertsViewController;
+@class MidasTwitterViewController;
+@class MidasFacebookViewController;
+@class MidasChatViewController;
 
 // View types
 enum PopupViewTypes
@@ -89,9 +93,8 @@ enum PopupViewAlignment
 @end
 
 @interface MidasStandingsManager : MidasPopupManager
-
 {
-	MidasStandingsViewController * standingsViewController;
+	MidasStandingsViewController * viewController;
 }
 
 +(MidasStandingsManager *)Instance;
@@ -99,9 +102,8 @@ enum PopupViewAlignment
 @end
 
 @interface MidasCircuitViewManager : MidasPopupManager
-
 {
-	MidasCircuitViewController * circuitViewController;
+	MidasCircuitViewController * viewController;
 }
 
 +(MidasCircuitViewManager *)Instance;
@@ -109,11 +111,47 @@ enum PopupViewAlignment
 @end
 
 @interface MidasFollowDriverManager : MidasPopupManager
-
 {
-	MidasFollowDriverViewController * followDriverViewController;
+	MidasFollowDriverViewController * viewController;
 }
 
 +(MidasFollowDriverManager *)Instance;
 
 @end
+
+@interface MidasAlertsManager : MidasPopupManager
+{
+	MidasAlertsViewController * viewController;
+}
+
++(MidasAlertsManager *)Instance;
+
+@end
+
+@interface MidasTwitterManager : MidasPopupManager
+{
+	MidasTwitterViewController * viewController;
+}
+
++(MidasTwitterManager *)Instance;
+
+@end
+
+@interface MidasFacebookManager : MidasPopupManager
+{
+	MidasFacebookViewController * viewController;
+}
+
++(MidasFacebookManager *)Instance;
+
+@end
+
+@interface MidasChatManager : MidasPopupManager
+{
+	MidasChatViewController * viewController;
+}
+
++(MidasChatManager *)Instance;
+
+@end
+
