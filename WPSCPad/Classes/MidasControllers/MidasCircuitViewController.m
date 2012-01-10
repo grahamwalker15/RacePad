@@ -9,6 +9,8 @@
 #import "MidasCircuitViewController.h"
 #import "MidasPopupManager.h"
 
+#import "RacePadCoordinator.h"
+
 @implementation MidasCircuitViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -16,8 +18,10 @@
 {
 	[super viewDidLoad];
 	
-	[self addTapRecognizerToView:container];
-	[self addTapRecognizerToView:heading];
+	[trackMapView setIsZoomView:false];
+	[trackMapView setIsOverlayView:true];
+	
+	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 }
 
 
@@ -58,6 +62,16 @@
 	{
 		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:true];
 	}
+}
+
+- (void) onDisplay
+{
+	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+}
+
+- (void) onHide
+{
+	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 }
 
 

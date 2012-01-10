@@ -54,6 +54,20 @@
 							<string key="NSResourceName">Standings-container.png</string>
 						</object>
 					</object>
+					<object class="IBUIScrollView" id="816770363">
+						<reference key="NSNextResponder" ref="730374200"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{0, 60}, {250, 580}}</string>
+						<reference key="NSSuperview" ref="730374200"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="316615708">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
 					<object class="IBUIImageView" id="443912502">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">274</int>
@@ -107,10 +121,7 @@
 				</object>
 				<string key="NSFrameSize">{250, 640}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MCAwAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="316615708"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</object>
@@ -140,6 +151,14 @@
 						<reference key="destination" ref="215809690"/>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">standingsView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="816770363"/>
+					</object>
+					<int key="connectionID">28</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -172,6 +191,7 @@
 							<reference ref="215809690"/>
 							<reference ref="896820009"/>
 							<reference ref="502147295"/>
+							<reference ref="816770363"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -200,6 +220,11 @@
 						<reference key="object" ref="896820009"/>
 						<reference key="parent" ref="730374200"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">27</int>
+						<reference key="object" ref="816770363"/>
+						<reference key="parent" ref="730374200"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -219,6 +244,9 @@
 					<string>22.IBPluginDependency</string>
 					<string>22.IBViewBoundsToFrameTransform</string>
 					<string>26.IBPluginDependency</string>
+					<string>27.CustomClassName</string>
+					<string>27.IBPluginDependency</string>
+					<string>27.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -241,6 +269,11 @@
 						<bytes key="NSTransformStruct">AUM3AAAAAAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>MidasStandingsView</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUGoAABDhoAAA</bytes>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -259,7 +292,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">26</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -273,7 +306,15 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">MidasStandingsViewController</string>
+					<string key="className">DrawingView</string>
+					<string key="superclassName">UIScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/BaseUIViews/DrawingView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MidasBaseViewController</string>
 					<string key="superclassName">BasePadViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -309,7 +350,58 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/MidasControllers/MidasBaseViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MidasStandingsView</string>
+					<string key="superclassName">TableDataView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="693771524">
+						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/MidasControllers/MidasStandingsViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MidasStandingsViewController</string>
+					<string key="superclassName">MidasBaseViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">standingsView</string>
+						<string key="NS.object.0">MidasStandingsView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">standingsView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">standingsView</string>
+							<string key="candidateClassName">MidasStandingsView</string>
+						</object>
+					</object>
+					<reference key="sourceIdentifier" ref="693771524"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SimpleListView</string>
+					<string key="superclassName">DrawingView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/BaseUIViews/SimpleListView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TableDataView</string>
+					<string key="superclassName">SimpleListView</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">table_data_</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">table_data_</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">table_data_</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/BaseUIViews/TableDataView.h</string>
 					</object>
 				</object>
 			</object>
@@ -432,6 +524,14 @@
 					<string key="className">UIResponder</string>
 					<string key="superclassName">NSObject</string>
 					<reference key="sourceIdentifier" ref="443281970"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIScrollView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">UIKit.framework/Headers/UIScrollView.h</string>
+					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">UISearchBar</string>

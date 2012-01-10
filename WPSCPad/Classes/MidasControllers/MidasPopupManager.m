@@ -272,6 +272,8 @@ static MidasChatManager * chatInstance_ = nil;
 	
 	parentViewController = [viewController retain];
 
+	[managedViewController onDisplay];
+	
 	// Get the new positions
 	CGRect superBounds = [viewController.view bounds];
 	CGRect ourBounds = [managedViewController.view bounds];
@@ -422,6 +424,8 @@ static MidasChatManager * chatInstance_ = nil;
 		[managedViewController.view removeFromSuperview];
 		hiding = false;
 		viewDisplayed = false;
+		
+		[managedViewController onHide];
 		
 		if(flagTimer)
 		{

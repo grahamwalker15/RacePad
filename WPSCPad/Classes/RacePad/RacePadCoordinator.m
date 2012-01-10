@@ -136,6 +136,10 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[(RacePadClientSocket*)socket_ StreamTimingPage];
 	}
+	else if([existing_view Type] == RPC_MIDAS_STANDINGS_VIEW_)
+	{
+		[(RacePadClientSocket*)socket_ StreamStandingsView];
+	}
 	else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
 	{
 		[(RacePadClientSocket*)socket_ StreamLeaderBoard];
@@ -181,6 +185,10 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[(RacePadClientSocket*)socket_ RequestTimingPage];
 	}
+	else if([existing_view Type] == RPC_MIDAS_STANDINGS_VIEW_)
+	{
+		[(RacePadClientSocket*)socket_ RequestStandingsView];
+	}
 	else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
 	{
 		[(RacePadClientSocket*)socket_ RequestLeaderBoard];
@@ -225,6 +233,10 @@ static RacePadCoordinator * instance_ = nil;
 	if (type == RPC_DRIVER_LIST_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"timing"];
+	}
+	else if (type == RPC_MIDAS_STANDINGS_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"standings"];
 	}
 	else if (type == RPC_LEADER_BOARD_VIEW_)
 	{

@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 #import "MidasBaseViewController.h"
+#import "TrackMapView.h"
 
 @interface MidasCircuitViewController : MidasBaseViewController
 {
+	IBOutlet TrackMapView * trackMapView;
 }
 
 @end

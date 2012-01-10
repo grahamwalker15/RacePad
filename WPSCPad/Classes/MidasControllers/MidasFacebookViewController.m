@@ -50,25 +50,21 @@
 
 - (void)baseSocialMediaAboutToShow:(BaseSocialMediaView *)controller
 {
-	int x = 0;
 }
 
 
 - (void)baseSocialMediaShown:(BaseSocialMediaView *)controller
 {
-	int x = 0;
 }
 
 
 - (void)baseSocialMediaAboutToHide:(BaseSocialMediaView *)controller
 {
-	int x = 0;
 }
 
 
 - (void)baseSocialMediaHidden:(BaseSocialMediaView *)controller
 {
-	int x = 0;
 }
 
 

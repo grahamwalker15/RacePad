@@ -55,11 +55,15 @@ enum ColumnPriority {
 	
 	int column_count_;
 	
+	int font_;
+	
+	int cellYMargin;
+	bool rowDivider;
+	
 	int column_width_[SLV_MAX_COLUMNS];
 	int column_type_[SLV_MAX_COLUMNS];
 	
 	bool if_heading_ ;
-	bool if_large_font_;
 	bool swiping_enabled_;
 	
 	bool scroll_to_end_requested_;
@@ -97,6 +101,10 @@ enum ColumnPriority {
 		
 }
 
+@property (nonatomic) int cellYMargin;
+@property (nonatomic) bool rowDivider;
+
+@property (nonatomic, setter=SetFont, getter=GetFont) int font_;
 @property (nonatomic, setter=SetDrawAllCells, getter=DrawAllCells) bool draw_all_cells_;
 @property (nonatomic, setter=SetBackgroundAlpha, getter=BackgroundAlpha) float background_alpha_;
 @property (nonatomic, retain, setter=SetBaseColour, getter=BaseColour) UIColor * base_colour_;
@@ -119,7 +127,6 @@ enum ColumnPriority {
 - (int) TableWidth;
 
 - (void) SetHeading:(bool)if_heading;
-- (void) SetLargeFont:(bool)if_large;
 - (void) SetSwipingEnabled:(bool)value;
 
 - (void) ResetScroll;
@@ -161,6 +168,8 @@ enum ColumnPriority {
 - (int) ColumnWidth:(int)col;
 - (int) ColumnType:(int)col;
 - (int) ColumnUse:(int)col;
+
+- (int) GetFontAtRow:(int)row Col:(int)col;
 
 // Functions that CAN be overridden for customised content (defaults do nothing)
 - (void) PrepareData;

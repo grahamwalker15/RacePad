@@ -43,6 +43,8 @@ enum ClientCommands {
 	RPCS_SET_PLAYBACK_RATE = BPCS_SET_PLAYBACK_RATE, // 35
 	RPCS_REQUEST_HEAD_TO_HEAD,		// 36
 	RPCS_STREAM_HEAD_TO_HEAD,		// 37
+	RPCS_REQUEST_STANDINGS_VIEW,		// 38
+	RPCS_STREAM_STANDINGS_VIEW,		// 39
 };
 
 @interface RacePadClientSocket : BasePadClientSocket
@@ -53,6 +55,8 @@ enum ClientCommands {
 - (void) RequestTrackMap;
 - (void) RequestTimingPage;
 - (void) StreamTimingPage;
+- (void) RequestStandingsView;
+- (void) StreamStandingsView;
 - (void) RequestLeaderBoard;
 - (void) StreamLeaderBoard;
 - (void) RequestCars;

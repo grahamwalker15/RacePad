@@ -9,17 +9,17 @@
 #import <UIKit/UIKit.h>
 
 #import "MidasBaseViewController.h"
+#import "TableDataView.h"
 
 @interface MidasFollowDriverViewController : MidasBaseViewController
 {
 	IBOutlet UIButton * expandButton;
-
 	IBOutlet UIView * extensionContainer;
+	
+	IBOutlet TableDataView * lapTimesView;
 	
 	bool expanded;
 }
-
-@property (readonly) UIImageView * container;
 
 - (void) expandView;
 - (void) reduceView;

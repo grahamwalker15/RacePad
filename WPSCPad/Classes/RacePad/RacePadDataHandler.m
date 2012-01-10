@@ -77,6 +77,21 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
 			break;
 		}
+		case RPSC_WHOLE_STANDINGS_VIEW_: // Midas standings (whole page)
+		{
+			
+			TableData *standings = [[RacePadDatabase Instance] midasStandingsData];
+			[standings loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_MIDAS_STANDINGS_VIEW_];
+			break;
+		}
+		case RPSC_UPDATE_STANDINGS_VIEW_: // Midas standings (updates)
+		{
+			TableData *standings = [[RacePadDatabase Instance] midasStandingsData];
+			[standings updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_MIDAS_STANDINGS_VIEW_];
+			break;
+		}
 		case RPSC_WHOLE_LEADER_BOARD_: // Leader Board (whole page)
 		{
 			

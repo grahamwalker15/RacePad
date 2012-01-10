@@ -115,7 +115,6 @@
 		
 		if ( cell )
 		{
-			[self UseRegularFont];
 			[self SetTextColour:[cell fg]];
 			[self SetBackgroundColour:[cell	bg]];
 			[self SetAlignment:[cell alignment]];

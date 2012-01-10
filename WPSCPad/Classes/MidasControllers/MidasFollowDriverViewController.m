@@ -7,8 +7,10 @@
 //
 
 #import "MidasFollowDriverViewController.h"
-
 #import "MidasPopupManager.h"
+
+#import "RacePadDatabase.h"
+#import "RacePadCoordinator.h"
 
 @implementation MidasFollowDriverViewController
 
@@ -17,11 +19,22 @@
 {
 	[super viewDidLoad];
 	
-	[self addTapRecognizerToView:container];
-	[self addTapRecognizerToView:heading];
+	// Set up the table data for SimpleListView
+	[lapTimesView SetTableDataClass:[[RacePadDatabase Instance] driverData]];
 	
 	expanded = false;
 	[extensionContainer setHidden:true];
+	
+	[lapTimesView SetFont:DW_LIGHT_LARGER_CONTROL_FONT_];
+	[lapTimesView SetRowHeight:26];
+	[lapTimesView SetHeading:true];
+	[lapTimesView SetBackgroundAlpha:0.25];
+	[lapTimesView setRowDivider:true];
+	[lapTimesView setCellYMargin:3];
+	
+	// Tell the RacePadCoordinator that we will be interested in data for this view
+	[[RacePadCoordinator Instance] AddView:lapTimesView WithType:RPC_LAP_LIST_VIEW_];
+	
 }
 
 
@@ -123,6 +136,18 @@
 		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:true];
 	}
 }
+
+- (void) onDisplay
+{
+	[[RacePadCoordinator Instance] SetParameter:@"VET" ForView:lapTimesView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
+}
+
+- (void) onHide
+{
+	[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////
 

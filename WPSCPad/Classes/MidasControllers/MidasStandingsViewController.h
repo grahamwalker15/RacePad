@@ -10,9 +10,16 @@
 
 
 #import "MidasBaseViewController.h"
+#import "TableDataView.h"
+
+@interface MidasStandingsView : TableDataView
+{
+}
+@end
 
 @interface MidasStandingsViewController : MidasBaseViewController
 {
+	IBOutlet MidasStandingsView * standingsView;
 }
 
 @end

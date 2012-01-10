@@ -39,6 +39,7 @@ enum SessionTypes {
 	TableData *driverListData;
 	TableData *leaderBoardData;
 	TableData *driverData;
+	TableData *midasStandingdData;
 	DriverGapInfo *driverGapInfo;
 	TrackMap *trackMap;
 	PitWindow *pitWindow;
@@ -58,6 +59,7 @@ enum SessionTypes {
 @property (readonly) TableData *driverListData;
 @property (readonly) TableData *leaderBoardData;
 @property (readonly) TableData *driverData;
+@property (readonly) TableData *midasStandingsData;
 @property (readonly) DriverGapInfo * driverGapInfo;
 @property (readonly) TrackMap *trackMap;
 @property (readonly) PitWindow *pitWindow;

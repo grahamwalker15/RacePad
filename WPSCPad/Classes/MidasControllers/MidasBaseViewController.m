@@ -75,4 +75,12 @@
 	}
 }
 
+- (void) onDisplay
+{
+}
+
+- (void) onHide
+{
+}
+
 @end

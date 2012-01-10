@@ -9,15 +9,33 @@
 #import "MidasStandingsViewController.h"
 #import "MidasPopupManager.h"
 
+#import "RacePadDatabase.h"
+#import "RacePadCoordinator.h"
+
+
 @implementation MidasStandingsViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
- {
+{
 	[super viewDidLoad];
-	 
-	[self addTapRecognizerToView:container];
-	[self addTapRecognizerToView:heading];
+	
+	// Set up the table data for SimpleListView
+	[standingsView SetTableDataClass:[[RacePadDatabase Instance] midasStandingsData]];
+	
+	[standingsView SetFont:DW_LIGHT_LARGER_CONTROL_FONT_];
+	[standingsView SetRowHeight:26];
+	[standingsView SetHeading:false];
+	[standingsView SetBackgroundAlpha:0.0];
+	[standingsView setRowDivider:true];
+	[standingsView setCellYMargin:3];
+	
+	// Add gesture recognizers
+ 	[self addTapRecognizerToView:standingsView];
+	[self addDoubleTapRecognizerToView:standingsView];
+	
+	// Tell the RacePadCoordinator that we're interested in data for this view
+	[[RacePadCoordinator Instance] AddView:standingsView WithType:RPC_MIDAS_STANDINGS_VIEW_];
 }
 
 
@@ -60,5 +78,38 @@
 	}
 }
 
+- (void) onDisplay
+{
+	[[RacePadCoordinator Instance] SetViewDisplayed:standingsView];
+}
+
+- (void) onHide
+{
+	[[RacePadCoordinator Instance] SetViewHidden:standingsView];
+}
 
 @end
+
+@implementation MidasStandingsView
+
+- (int) GetFontAtRow:(int)row Col:(int)col
+{
+	if(row == 0)
+	{
+		if(col == 0)
+			return DW_ITALIC_REGULAR_FONT_;
+		else
+			return DW_LARGER_CONTROL_FONT_;
+	}
+	else
+	{
+		if(col == 0)
+			return DW_ITALIC_LARGER_CONTROL_FONT_;
+		else
+			return DW_LIGHT_LARGER_CONTROL_FONT_;
+	}
+}
+
+@end
+
+

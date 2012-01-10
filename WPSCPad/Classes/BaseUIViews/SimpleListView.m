@@ -12,6 +12,10 @@
 
 @implementation SimpleListView
 
+@synthesize cellYMargin;
+@synthesize rowDivider;
+
+@synthesize font_;
 @synthesize draw_all_cells_;
 @synthesize background_alpha_;
 @synthesize base_colour_;
@@ -66,7 +70,7 @@
 	
 	[text_colour_ release];
 	[background_colour_ release];
-	 
+	
     [super dealloc];
 }
 
@@ -83,9 +87,13 @@
 	row_height_ = 20;
 	
 	column_count_ = 0;
+	
+	cellYMargin = 0;
+	rowDivider = false;
+	
+	font_ = DW_BOLD_FONT_;
 		
 	if_heading_ = false;
-	if_large_font_ = false;
 	swiping_enabled_ = false;
 			
 	text_baseline_ = 0;
@@ -211,11 +219,6 @@
 - (void) SetHeading:(bool)if_heading
 {
 	if_heading_ = if_heading;
-}
-
-- (void) SetLargeFont:(bool)if_large
-{
-	if_large_font_ = if_large;
 }
 
 - (void) SetSwipingEnabled:(bool)value
@@ -466,6 +469,9 @@
 			}
 		}
 		
+		int font = [self GetFontAtRow:row Col:col];
+		[self UseFont:font];
+
 		if((x + column_width) > xmin && x < xmax)
 		{
 			float x_draw = x;
@@ -505,7 +511,7 @@
 					float w, h;
 					[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
 					
-					float text_y = y + row_height - text_baseline_ - 2 - h;
+					float text_y = y + row_height - text_baseline_ - cellYMargin - 2 - h;
 					
 					float xpos ;
 					float text_offset = 3;
@@ -522,7 +528,6 @@
 					
 					float max_width = column_width - (xpos - x_draw) ;					
 					[self DrawClippedString:text AtX:xpos Y:text_y MaxWidth:max_width];
-					[self UseRegularFont];
 				}
 				[text release];
 			}
@@ -544,8 +549,19 @@
 				if(image)
 				{
 					float w = [image size].width;
-					float xpos = x_draw + (column_width / 2) - (w / 2) ;
-					[self DrawImage:image AtX:xpos Y:y];
+					float h = [image size].height;
+					
+					if(w > column_width && w > 0 && h > 0)
+					{
+						float image_rect_height = column_width * h / w;
+						[self DrawImage:image InRect:CGRectMake(x_draw, y - cellYMargin, column_width, image_rect_height)];
+					}
+					else
+					{
+						float xpos = x_draw + (column_width / 2) - (w / 2) ;
+						[self DrawImage:image AtX:xpos Y:y - cellYMargin];
+					}
+					
 					[image release];
 				}
 				
@@ -560,10 +576,22 @@
 				
 				if(image)
 				{
-					[self DrawImage:image AtX:x_draw Y:y];
+					float w = [image size].width;
+					float h = [image size].height;
+					
+					if(w > column_width && w > 0 && h > 0)
+					{
+						float image_rect_height = column_width * h / w;
+						[self DrawImage:image InRect:CGRectMake(x_draw, y - cellYMargin, column_width, image_rect_height)];
+					}
+					else
+					{
+						float xpos = x_draw + (column_width / 2) - (w / 2) ;
+						[self DrawImage:image AtX:xpos Y:y - cellYMargin];
+					}
+
 					[image release];
-				}
-				
+				}				
 			}
 		}
 		
@@ -596,10 +624,7 @@
 	
 	[self SetContentWidth:content_width AndHeight:content_height];
 		
-	if(if_large_font_)
-		[self UseMediumBoldFont];
-	else
-		[self UseBoldFont];
+	[self SaveFont];
 	
 	// If there is a heading, we'll draw it at the end at the origin - leave space for it
 	bool if_heading = [self IfHeading];
@@ -620,7 +645,17 @@
 		y += row_height ;
 		
 		if ( y > ymax )
-			break;		
+			break;
+		
+		if(rowDivider)
+		{
+			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3]];
+			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+			[self SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
+			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+		}
 	}
 	
 	if( y < ymax )
@@ -639,6 +674,8 @@
 		[self DrawRow:0 AtY:y];
 	}
 	
+	[self RestoreFont];
+
 	[self EndDrawing];
 }
 
@@ -681,6 +718,11 @@
 - (int) ColumnUse:(int)col;
 {
 	return TD_USE_FOR_BOTH;
+}
+
+- (int) GetFontAtRow:(int)row Col:(int)col
+{
+	return font_;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////

@@ -9,6 +9,25 @@
 #import <UIKit/UIKit.h>
 #import "UIConstants.h"
 
+// View types
+enum FontTypes
+{
+	DW_LIGHT_REGULAR_FONT_,
+	DW_LIGHT_CONTROL_FONT_,
+	DW_LIGHT_LARGER_CONTROL_FONT_,
+	DW_LIGHT_BIG_FONT_,
+	DW_REGULAR_FONT_,
+	DW_TITLE_FONT_,
+	DW_CONTROL_FONT_,
+	DW_LARGER_CONTROL_FONT_,
+	DW_BOLD_FONT_,
+	DW_MEDIUM_BOLD_FONT_,
+	DW_BIG_FONT_,
+	DW_ITALIC_LARGER_CONTROL_FONT_,
+	DW_ITALIC_REGULAR_FONT_,
+
+};
+
 @interface DrawingView : UIScrollView
 {
 	@protected
@@ -203,6 +222,7 @@
 - (void)DrawClippedString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width;
 - (void)GetStringBox:(NSString *)string WidthReturn:(float *)width HeightReturn:(float *)height;
 
+- (void)UseFont:(int)font;
 - (void)UseTitleFont;
 - (void)UseBigFont;
 - (void)UseControlFont;

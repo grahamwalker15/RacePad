@@ -23,4 +23,7 @@
 @property (readonly) UIImageView * heading;
 @property (nonatomic,retain) MidasPopupManager * associatedManager;
 
+- (void) onDisplay;
+- (void) onHide;
+
 @end

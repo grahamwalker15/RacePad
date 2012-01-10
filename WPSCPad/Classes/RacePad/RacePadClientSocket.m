@@ -34,6 +34,16 @@
 	[self SimpleCommand:RPCS_STREAM_TIMING_PAGE];
 }
 
+- (void)RequestStandingsView
+{
+	[self SimpleCommand:RPCS_STREAM_STANDINGS_VIEW];
+}
+
+- (void)StreamStandingsView
+{
+	[self SimpleCommand:RPCS_STREAM_STANDINGS_VIEW];
+}
+
 - (void)RequestLeaderBoard
 {
 	[self SimpleCommand:RPCS_REQUEST_LEADER_BOARD];
