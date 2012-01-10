@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #import "MidasBaseViewController.h"
+#import "FacebookView.h"
 
-@interface MidasFacebookViewController : MidasBaseViewController
+@interface MidasFacebookViewController : MidasBaseViewController <BaseSocialMediaViewDelegate>
 {
 }
 

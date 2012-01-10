@@ -11,30 +11,15 @@
 
 @implementation MidasFacebookViewController
 
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+	
+	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 432)];
+	facebookView.delegate = self;
+    [self.view addSubview:facebookView];
+	[facebookView release];
 }
-*/
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.
@@ -59,6 +44,31 @@
 
 - (void)dealloc {
     [super dealloc];
+}
+
+#pragma mark BaseSocialmediaViewDelegate methods
+
+- (void)baseSocialMediaAboutToShow:(BaseSocialMediaView *)controller
+{
+	int x = 0;
+}
+
+
+- (void)baseSocialMediaShown:(BaseSocialMediaView *)controller
+{
+	int x = 0;
+}
+
+
+- (void)baseSocialMediaAboutToHide:(BaseSocialMediaView *)controller
+{
+	int x = 0;
+}
+
+
+- (void)baseSocialMediaHidden:(BaseSocialMediaView *)controller
+{
+	int x = 0;
 }
 
 

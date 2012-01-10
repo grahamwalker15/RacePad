@@ -15,7 +15,7 @@
     [super viewDidLoad];
 	
 	TwitterView * twitterView = [[TwitterView alloc] initWithFrame:CGRectMake(0, 0, 300, 432)];
-   // twitterView.delegate = self;
+	twitterView.delegate = self;
     [self.view addSubview:twitterView];
 	[twitterView release];
 }
@@ -43,6 +43,31 @@
 
 - (void)dealloc {
     [super dealloc];
+}
+
+#pragma mark BaseSocialmediaViewDelegate methods
+
+- (void)baseSocialMediaAboutToShow:(BaseSocialMediaView *)controller
+{
+	int x = 0;
+}
+
+
+- (void)baseSocialMediaShown:(BaseSocialMediaView *)controller
+{
+	int x = 0;
+}
+
+
+- (void)baseSocialMediaAboutToHide:(BaseSocialMediaView *)controller
+{
+	int x = 0;
+}
+
+
+- (void)baseSocialMediaHidden:(BaseSocialMediaView *)controller
+{
+	int x = 0;
 }
 
 
