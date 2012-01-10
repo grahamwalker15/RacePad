@@ -15,10 +15,12 @@
 {
 	float time;
 	float position;
+	bool newMove;
 }
 
 @property (nonatomic) float time;
 @property (nonatomic) float position;
+@property (nonatomic) bool newMove;
 
 - (void) load : (DataStream *) stream;
 

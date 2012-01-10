@@ -16,6 +16,7 @@
 
 @synthesize time;
 @synthesize position;
+@synthesize newMove;
 
 - (id) init
 {
@@ -34,6 +35,7 @@
 {
 	time = [stream PopFloat];
 	position = [stream PopFloat];
+	newMove = [stream PopBool];
 }
 
 @end	
@@ -195,6 +197,7 @@
 		[view SetLineWidth:1];
 		float baseX = x1;
 
+		// Draw the Time Axis
 		for( int s = 0; s < duration[p]; )
 		{
 			int s1;
@@ -238,9 +241,10 @@
 			s = s1;
 		}
 		
-		
+		// Draw the trace
 		int count = [kicks[p] count];
 		[view SetLineWidth:1.5];
+		float lastX, lastY;
 		for(int i = 0 ; i < count ; i++)
 		{
 			BallChunk *chunk = [kicks[p] objectAtIndex:i];
@@ -285,7 +289,10 @@
 
 			y2 = y1 - v * graphicHeight;
 			
-			[view LineX0:x1 Y0:y1 X1:x1 Y1:y2];
+			if ( !chunk.newMove )
+				[view LineX0:lastX Y0:lastY X1:x1 Y1:y2];
+			lastX = x1;
+			lastY = y2;
 			
 		}
 		
