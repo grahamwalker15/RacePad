@@ -39,6 +39,7 @@ static MidasStandingsManager * standingsInstance_ = nil;
 		viewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;
@@ -65,6 +66,7 @@ static MidasCircuitViewManager * circuitViewInstance_ = nil;
 		viewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CIRCUIT_POPUP_];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;
@@ -92,6 +94,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
 		[self setOverhang:(CGRectGetWidth([viewController.view bounds]) - CGRectGetWidth([viewController.container bounds]))];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;
@@ -118,6 +121,7 @@ static MidasAlertsManager * alertsInstance_ = nil;
 		viewController = [[MidasAlertsViewController alloc] initWithNibName:@"MidasAlertsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_ALERTS_POPUP_];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;
@@ -144,6 +148,7 @@ static MidasTwitterManager * twitterInstance_ = nil;
 		viewController = [[MidasTwitterViewController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_TWITTER_POPUP_];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;
@@ -170,6 +175,7 @@ static MidasFacebookManager * facebookInstance_ = nil;
 		viewController = [[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FACEBOOK_POPUP_];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;
@@ -196,6 +202,7 @@ static MidasChatManager * chatInstance_ = nil;
 		viewController = [[MidasChatViewController alloc] initWithNibName:@"MidasChatView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CHAT_POPUP_];
+		[viewController setAssociatedManager:self];
 	}
 	
 	return self;

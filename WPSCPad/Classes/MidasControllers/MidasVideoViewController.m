@@ -718,12 +718,6 @@ static UIImage * newButtonBackgroundImage = nil;
 
 	CGRect buttonFrame = [(UIButton *)sender frame];
 
-	if(sender == timeControlsButton)
-	{
-		[self hideMenuButtons];
-		[self toggleTimeControllerDisplay];
-	}
-	
 	/* Test flashing
 	if(sender == alertsButton || sender == twitterButton || sender == facebookButton || sender == midasChatButton)
 	{
@@ -771,7 +765,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			midasChatButtonOpen = true;
 			
 			[self animateMenuButton:midasChatButton];
-			[[MidasChatManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasChatManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 
@@ -807,6 +801,13 @@ static UIImage * newButtonBackgroundImage = nil;
 			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
 		}
 	}
+	
+	if(sender == timeControlsButton)
+	{
+		[self hideMenuButtons];
+		[self toggleTimeControllerDisplay];
+	}
+	
 }
 
 - (void) notifyHidingTimeControls
@@ -940,7 +941,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[[MidasAlertsManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(alertsButtonOpen)
-		leftX += [[MidasStandingsManager Instance] widthOfView];
+		leftX += [[MidasAlertsManager Instance] widthOfView];
 	else
 		leftX += CGRectGetWidth(buttonFrame);
 	

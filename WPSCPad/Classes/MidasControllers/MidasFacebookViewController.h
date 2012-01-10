@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "MidasBaseViewController.h"
 
-@interface MidasFacebookViewController : BasePadViewController
+@interface MidasFacebookViewController : MidasBaseViewController
 {
-	IBOutlet UIImageView * container;
-	IBOutlet UIImageView * heading;
 }
 
 @end

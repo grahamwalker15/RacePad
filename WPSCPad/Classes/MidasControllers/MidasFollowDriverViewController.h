@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "MidasBaseViewController.h"
 
-@interface MidasFollowDriverViewController : BasePadViewController
+@interface MidasFollowDriverViewController : MidasBaseViewController
 {
-	IBOutlet UIImageView * container;
-	IBOutlet UIImageView * heading;
-	
 	IBOutlet UIButton * expandButton;
 
 	IBOutlet UIView * extensionContainer;

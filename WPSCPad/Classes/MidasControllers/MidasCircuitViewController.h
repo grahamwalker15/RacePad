@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "MidasBaseViewController.h"
 
-@interface MidasCircuitViewController : BasePadViewController
+@interface MidasCircuitViewController : MidasBaseViewController
 {
-	IBOutlet UIImageView * container;
-	IBOutlet UIImageView * heading;
 }
 
 @end

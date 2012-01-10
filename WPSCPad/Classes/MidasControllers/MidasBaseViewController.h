@@ -9,15 +9,18 @@
 #import <UIKit/UIKit.h>
 
 #import "BasePadViewController.h"
+#import "MidasPopupManager.h"
 
 @interface MidasBaseViewController : BasePadViewController
 {
-
+	IBOutlet UIImageView * container;
+	IBOutlet UIImageView * heading;
+	
+	MidasPopupManager * associatedManager;
 }
 
-- (void)notifyHidingStandings;
-- (void)notifyHidingCircuitView;
-- (void)notifyHidingFollowDriver;
-- (void)notifyHidingHeadToHead;
+@property (readonly) UIImageView * container;
+@property (readonly) UIImageView * heading;
+@property (nonatomic,retain) MidasPopupManager * associatedManager;
 
 @end
