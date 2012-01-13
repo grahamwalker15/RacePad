@@ -16,7 +16,6 @@
 @implementation TableDataView
 
 @synthesize table_data_;
-@synthesize smallHeadings;
 
 - (void)dealloc
 {
@@ -192,10 +191,6 @@
 		TableHeader *columnHeader = [table_data_ columnHeader:col];
 		if ( columnHeader )
 		{
-			if ( smallHeadings )
-				[self UseMediumBoldFont];
-			else
-				[self UseRegularFont];
 			[self SetTextColour:[columnHeader fg]];
 			[self SetBackgroundColour:[columnHeader	bg]];
 			[self SetAlignment:[columnHeader alignment]];

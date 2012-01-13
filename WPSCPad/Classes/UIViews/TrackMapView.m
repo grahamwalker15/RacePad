@@ -174,7 +174,7 @@ static bool flag_images_initialised_ = false;
 	{		
 		[trackMap drawInView:self];
 
-		if(!isZoomView)
+		if(!isZoomView && !smallSized)
 		{
 			int track_state = [trackMap getTrackState];
 			

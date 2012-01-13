@@ -64,6 +64,7 @@ enum ColumnPriority {
 	int column_type_[SLV_MAX_COLUMNS];
 	
 	bool if_heading_ ;
+	bool shadeHeading;
 	bool swiping_enabled_;
 	
 	bool scroll_to_end_requested_;
@@ -103,6 +104,7 @@ enum ColumnPriority {
 
 @property (nonatomic) int cellYMargin;
 @property (nonatomic) bool rowDivider;
+@property (nonatomic) bool shadeHeading;
 
 @property (nonatomic, setter=SetFont, getter=GetFont) int font_;
 @property (nonatomic, setter=SetDrawAllCells, getter=DrawAllCells) bool draw_all_cells_;

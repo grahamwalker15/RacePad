@@ -14,6 +14,7 @@
 
 @synthesize cellYMargin;
 @synthesize rowDivider;
+@synthesize shadeHeading;
 
 @synthesize font_;
 @synthesize draw_all_cells_;
@@ -94,6 +95,7 @@
 	font_ = DW_BOLD_FONT_;
 		
 	if_heading_ = false;
+	shadeHeading = false;
 	swiping_enabled_ = false;
 			
 	text_baseline_ = 0;
@@ -502,9 +504,16 @@
 				}
 				
 				if(heading)
-					[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:true];
+				{
+					if(shadeHeading)
+						[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:true];
+					else
+						[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+				}
 				else if(draw_all_cells_ || [self isOpaque] || [text length] > 0)
+				{
 					[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+				}
 
 				if([text length] > 0)
 				{				
@@ -626,13 +635,18 @@
 		
 	[self SaveFont];
 	
-	// If there is a heading, we'll draw it at the end at the origin - leave space for it
+	// If there is a heading, we'll draw it at the end at the origin - leave space for it and set it to clip
 	bool if_heading = [self IfHeading];
 	float y = if_heading ? row_height : 0;
 	float ymin = current_top_right_.y + y;
 	float ymax = current_bottom_left_.y;
 	
 	int first_row = if_heading ? 1 : 0;
+	
+	[self SaveGraphicsState];
+	
+	if(if_heading)
+		[self SetClippingArea:CGRectMake(current_bottom_left_.x, ymin, current_size_.width, ymax - ymin) ];
 
 	// Draw the table rows first
 	for ( int i = first_row; i < row_count; i ++ )
@@ -666,6 +680,9 @@
 		[self SetBGColour:[base_colour_ colorWithAlphaComponent:background_alpha_]];
 		[self FillRectangleX0:current_origin_.x Y0:y X1:current_top_right_.x Y1:ymax];
 	}
+									
+	[self RestoreGraphicsState];
+
 	
 	// Then add the heading if there is one
 	if(if_heading)

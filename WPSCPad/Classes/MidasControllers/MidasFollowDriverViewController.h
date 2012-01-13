@@ -11,12 +11,41 @@
 #import "MidasBaseViewController.h"
 #import "TableDataView.h"
 
+@class TrackMapView;
+@class LeaderboardView;
+@class BackgroundView;
+
+@interface MidasFollowDriverLapListView : TableDataView
+{
+}
+@end
+
 @interface MidasFollowDriverViewController : MidasBaseViewController
 {
 	IBOutlet UIButton * expandButton;
 	IBOutlet UIView * extensionContainer;
 	
-	IBOutlet TableDataView * lapTimesView;
+	IBOutlet MidasFollowDriverLapListView * lapTimesView;
+	
+	IBOutlet UIImageView * driverPhoto;
+	IBOutlet UIImageView * driverHelmet;
+	IBOutlet UIImageView * driverCar;
+	
+	IBOutlet UILabel * driverNameLabel;
+	IBOutlet UILabel * driverNumberLabel;
+	IBOutlet UILabel * driverTeamLabel;
+	
+	IBOutlet UILabel * positionLabel;
+	
+	IBOutlet UILabel * carBehindLabel;
+	IBOutlet UILabel * gapBehindLabel;
+	
+	IBOutlet UILabel * carAheadLabel;
+	IBOutlet UILabel * gapAheadLabel;
+	
+	IBOutlet LeaderboardView * leaderboardView;
+	IBOutlet TrackMapView * trackMapView;
+	IBOutlet BackgroundView *trackMapContainer;
 	
 	bool expanded;
 }

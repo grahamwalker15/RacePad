@@ -39,6 +39,7 @@ static MidasStandingsManager * standingsInstance_ = nil;
 		viewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -66,6 +67,7 @@ static MidasCircuitViewManager * circuitViewInstance_ = nil;
 		viewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CIRCUIT_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -93,6 +95,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 		viewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
 		[self setOverhang:(CGRectGetWidth([viewController.view bounds]) - CGRectGetWidth([viewController.container bounds]))];
 		[viewController setAssociatedManager:self];
 	}
@@ -121,6 +124,7 @@ static MidasAlertsManager * alertsInstance_ = nil;
 		viewController = [[MidasAlertsViewController alloc] initWithNibName:@"MidasAlertsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_ALERTS_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_BOTTOM_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -148,6 +152,7 @@ static MidasTwitterManager * twitterInstance_ = nil;
 		viewController = [[MidasTwitterViewController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_TWITTER_POPUP_];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -175,6 +180,7 @@ static MidasFacebookManager * facebookInstance_ = nil;
 		viewController = [[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FACEBOOK_POPUP_];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -202,6 +208,7 @@ static MidasChatManager * chatInstance_ = nil;
 		viewController = [[MidasChatViewController alloc] initWithNibName:@"MidasChatView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CHAT_POPUP_];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -216,6 +223,7 @@ static MidasChatManager * chatInstance_ = nil;
 @synthesize managedViewController;
 @synthesize parentViewController;
 @synthesize managedViewType;
+@synthesize managedExclusionZone;
 @synthesize overhang;
 @synthesize preferredWidth;
 
@@ -224,6 +232,9 @@ static MidasChatManager * chatInstance_ = nil;
 	if(self = [super init])
 	{			
 		managedViewController = nil; // N.B. managedViewController MUST be assigned by derived class in its init
+		
+		managedExclusionZone = MIDAS_ZONE_NONE_;
+		managedViewType = MIDAS_POPUP_NONE_;
 		
 		viewDisplayed = false;
 		hiding = false;
@@ -236,6 +247,8 @@ static MidasChatManager * chatInstance_ = nil;
 		
 		hideTimer = nil;
 		flagTimer = nil;
+		
+		parentViewController = nil;
 		
 	}
 	
@@ -264,6 +277,12 @@ static MidasChatManager * chatInstance_ = nil;
 	}
 }
 
+- (void) grabExclusion:(UIViewController <MidasPopupParentDelegate> *)viewController
+{
+	if(viewController && [viewController respondsToSelector:@selector(notifyExclusiveUse:InZone:)])
+		[viewController notifyExclusiveUse:managedViewType InZone:managedExclusionZone];	
+}
+
 - (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated XAlignment:(int)xAlign YAlignment:(int)yAlign;
 {	
 	// Can't display if we're in the middle of hiding
@@ -271,7 +290,7 @@ static MidasChatManager * chatInstance_ = nil;
 		return;
 	
 	parentViewController = [viewController retain];
-
+	
 	[managedViewController onDisplay];
 	
 	// Get the new positions
@@ -414,7 +433,7 @@ static MidasChatManager * chatInstance_ = nil;
 	
 	[parentViewController release];
 	parentViewController = nil;
-	
+		
 }
 
 - (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -484,6 +503,14 @@ static MidasChatManager * chatInstance_ = nil;
 
 ///////////////////////////////////////////////////////////
 // Information enquiry
+
+- (float) preferredWidthOfView
+{
+	if(preferredWidth >= 0.0)
+		return preferredWidth;
+	else
+		return [self widthOfView];
+}
 
 - (float) widthOfView
 {

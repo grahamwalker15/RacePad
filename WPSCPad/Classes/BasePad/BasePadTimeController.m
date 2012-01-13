@@ -575,7 +575,6 @@ static BasePadTimeController * instance_ = nil;
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	UIView * tapView = [gestureRecognizer view];
-	CGPoint tapPoint = [gestureRecognizer locationInView:tapView];
 	
 	if(parentController)
 		[parentController notifyHidingTimeControls];

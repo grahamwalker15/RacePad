@@ -17,7 +17,7 @@
 }
 @end
 
-@interface MidasStandingsViewController : MidasBaseViewController
+@interface MidasStandingsViewController : MidasBaseViewController 
 {
 	IBOutlet MidasStandingsView * standingsView;
 }

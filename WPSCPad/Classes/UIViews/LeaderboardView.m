@@ -16,6 +16,7 @@
 
 @synthesize tableData;
 @synthesize associatedTrackMapView;
+@synthesize smallDisplay;
 @synthesize highlightCar;
 
 - (id)initWithCoder:(NSCoder*)coder
@@ -23,6 +24,7 @@
     if ((self = [super initWithCoder:coder]))
     {
 		associatedTrackMapView = nil;
+		smallDisplay = nil;
 	}
 	
     return self;
@@ -58,6 +60,11 @@
 
 
 	[self SaveGraphicsState];
+	
+	if(smallDisplay)
+		[self UseFont:DW_LARGER_CONTROL_FONT_];
+	else 
+		[self UseFont:DW_REGULAR_FONT_];
 	
 	float row_height = [self RowHeight];
 	
@@ -106,7 +113,6 @@
 		xpos = x_draw + text_offset ;
 		
 		[self DrawString:text AtX:xpos Y:text_y];
-		[self UseRegularFont];
 	}
 	
 	[self SetFGColour:white_];
@@ -191,7 +197,10 @@
 
 - (int) RowHeight
 {
-	return 24;
+	if(smallDisplay)
+		return 22;
+	else
+		return 24;
 }
 
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col

@@ -43,11 +43,34 @@ enum PopupViewAlignment
 	MIDAS_ALIGN_TOP_,
 	MIDAS_ALIGN_BOTTOM_,
 };
+	
+// View alignment
+enum PopupMenuZones
+{
+	MIDAS_ZONE_NONE_ = 0x0,
+	MIDAS_ZONE_ALL_ = 0xFFFF,
+	MIDAS_ZONE_BOTTOM_ = 0x1,
+	MIDAS_ZONE_TOP_ = 0x2,
+	MIDAS_ZONE_SOCIAL_MEDIA_ = 0x4,
+};
+
+@protocol MidasPopupParentDelegate
+- (void)notifyShowingPopup:(int)popupType;
+- (void)notifyHidingPopup:(int)popupType;
+- (void)notifyResizingPopup:(int)popupType;
+- (void)notifyExclusiveUse:(int)popupType InZone:(int)popupZone;
+@end
+
+@protocol MidasPopupManagedDelegate
+- (void)onDisplay;
+- (void)onHide;
+@end
 
 @interface MidasPopupManager : NSObject <UIGestureRecognizerDelegate>
 {
-	BasePadViewController * managedViewController;
+	BasePadViewController <MidasPopupManagedDelegate> * managedViewController;
 	int managedViewType;
+	int managedExclusionZone;
 	
 	NSTimer *hideTimer;
 	NSTimer *flagTimer;
@@ -61,18 +84,20 @@ enum PopupViewAlignment
 	float overhang;
 	float preferredWidth;
 	
-	BasePadViewController * parentViewController;
+	BasePadViewController <MidasPopupParentDelegate>  * parentViewController;
 }
 
 @property(nonatomic) bool viewDisplayed;
 @property(nonatomic) int managedViewType;
+@property(nonatomic) int managedExclusionZone;
 @property(nonatomic) float overhang;
 @property(nonatomic) float preferredWidth;
-@property (nonatomic, assign) BasePadViewController *managedViewController;
-@property (readonly) BasePadViewController *parentViewController;
+@property (nonatomic, assign) BasePadViewController <MidasPopupManagedDelegate> *managedViewController;
+@property (readonly) BasePadViewController <MidasPopupParentDelegate> *parentViewController;
 
 - (void) onStartUp;
 
+- (void) grabExclusion:(UIViewController <MidasPopupParentDelegate> *)viewController;
 - (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated XAlignment:(int)xAlign YAlignment:(int)yAlign;
 - (void) moveToPositionX:(float)x Animated:(bool)animated;
 - (void) hideAnimated:(bool)animated Notify:(bool)notify;
@@ -87,6 +112,7 @@ enum PopupViewAlignment
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 
+- (float) preferredWidthOfView;
 - (float) widthOfView;
 - (float) heightOfView;
 
@@ -154,4 +180,3 @@ enum PopupViewAlignment
 +(MidasChatManager *)Instance;
 
 @end
-

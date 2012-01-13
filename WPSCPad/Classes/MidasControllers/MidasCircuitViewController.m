@@ -20,6 +20,7 @@
 	
 	[trackMapView setIsZoomView:false];
 	[trackMapView setIsOverlayView:true];
+	[trackMapView setSmallSized:true];
 	
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 }

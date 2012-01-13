@@ -11,7 +11,7 @@
 #import "BasePadViewController.h"
 #import "MidasPopupManager.h"
 
-@interface MidasBaseViewController : BasePadViewController
+@interface MidasBaseViewController : BasePadViewController <MidasPopupManagedDelegate>
 {
 	IBOutlet UIImageView * container;
 	IBOutlet UIImageView * heading;
@@ -22,8 +22,5 @@
 @property (readonly) UIImageView * container;
 @property (readonly) UIImageView * heading;
 @property (nonatomic,retain) MidasPopupManager * associatedManager;
-
-- (void) onDisplay;
-- (void) onHide;
 
 @end

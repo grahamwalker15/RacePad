@@ -64,6 +64,8 @@ enum ServerCommands {
 	RPSC_HEAD_TO_HEAD_,			// 48
 	RPSC_SESSION_,				// 49
 	RPSC_COMMENTARY_NO_CHANGE_, // 50
+	RPSC_WHOLE_STANDINGS_VIEW_, // 51
+	RPSC_UPDATE_STANDINGS_VIEW_, // 52
 };
 
 @interface RacePadDataHandler : BasePadDataHandler

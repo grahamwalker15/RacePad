@@ -12,6 +12,10 @@
 #import "RacePadDatabase.h"
 #import "RacePadCoordinator.h"
 
+#import "TrackMapView.h"
+#import "LeaderboardView.h"
+#import "BackgroundView.h"
+
 @implementation MidasFollowDriverViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -32,9 +36,45 @@
 	[lapTimesView setRowDivider:true];
 	[lapTimesView setCellYMargin:3];
 	
-	// Tell the RacePadCoordinator that we will be interested in data for this view
-	[[RacePadCoordinator Instance] AddView:lapTimesView WithType:RPC_LAP_LIST_VIEW_];
+ 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
+	[leaderboardView setAssociatedTrackMapView:trackMapView];
+	[leaderboardView setSmallDisplay:true];
 	
+	// Set parameters for views
+	[trackMapView setIsZoomView:true];
+	[trackMapView setSmallSized:true];
+	
+	[trackMapView setUserScale:10.0];
+	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
+		
+	//  Add extra gesture recognizers
+		
+    //	Tap, pinch, and double tap recognizers for map
+	[self addTapRecognizerToView:trackMapView];
+	[self addPinchRecognizerToView:trackMapView];
+	[self addDoubleTapRecognizerToView:trackMapView];
+	
+	// Add tap and long press recognizers to the leaderboard
+	[self addTapRecognizerToView:leaderboardView];
+	[self addLongPressRecognizerToView:leaderboardView];
+	
+	// Set paramters for views
+	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.3]];
+	
+	// Tell the RacePadCoordinator that we will be interested in data for views
+	[[RacePadCoordinator Instance] AddView:lapTimesView WithType:RPC_LAP_LIST_VIEW_];
+	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
+	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
+
+	[trackMapView followCar:@"VET"];
+	
+	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+	if(driverGapInfo)
+	{
+		[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:@"VET"];
+	}
+			
 }
 
 
@@ -75,7 +115,7 @@
 	if(expanded)
 		return;
 	
-	BasePadViewController * parentController = [[MidasFollowDriverManager Instance] parentViewController];
+	id parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
 
 	[extensionContainer setHidden:false];
 	
@@ -86,8 +126,8 @@
 	
 	[[MidasFollowDriverManager Instance] setPreferredWidth:(590+382-10)];
 
-	if(parentController && [parentController respondsToSelector:@selector(notifyResizingPopup:)])
-		[parentController notifyResizingPopup:MIDAS_FOLLOW_DRIVER_POPUP_];
+	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyResizingPopup:)])
+		[parentViewController notifyResizingPopup:MIDAS_FOLLOW_DRIVER_POPUP_];
 
 	[UIView commitAnimations];
 		
@@ -100,7 +140,7 @@
 	if(!expanded)
 		return;
 	
-	BasePadViewController * parentController = [[MidasFollowDriverManager Instance] parentViewController];
+	id parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.5];
@@ -109,8 +149,8 @@
 	
 	[[MidasFollowDriverManager Instance] setPreferredWidth:(382)];
 	
-	if(parentController && [parentController respondsToSelector:@selector(notifyResizingPopup:)])
-		[parentController notifyResizingPopup:MIDAS_FOLLOW_DRIVER_POPUP_];
+	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyResizingPopup:)])
+		[parentViewController notifyResizingPopup:MIDAS_FOLLOW_DRIVER_POPUP_];
 	
 	[UIView commitAnimations];
 	
@@ -124,6 +164,156 @@
 	{
 		if(!expanded)
 			[extensionContainer setHidden:true];
+	}
+}
+
+- (void)RequestRedraw
+{
+	bool driverFound = false;
+	
+	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+	
+	if(driverGapInfo)
+	{
+		NSString * requestedDriver = [driverGapInfo requestedDriver];
+		
+		if(requestedDriver && [requestedDriver length] > 0)
+		{
+			NSString * abbr = [driverGapInfo abbr];
+			
+			if(abbr && [abbr length] > 0)
+			{
+				driverFound = true;
+				
+				// Get image list for the driver images
+				RacePadDatabase *database = [RacePadDatabase Instance];
+				ImageListStore * image_store = [database imageListStore];
+				
+				ImageList *photoImageList = image_store ? [image_store findList:@"DriverPhotos"] : nil;
+				
+				if(photoImageList)
+				{
+					UIImage * image = [photoImageList findItem:abbr];
+					if(image)
+						[driverPhoto setImage:image];
+					else
+						[driverPhoto setImage:[UIImage imageNamed:@"NoPhoto.png"]];
+				}
+				else
+				{
+					[driverPhoto setImage:[UIImage imageNamed:@"NoPhoto.png"]];
+				}
+				
+				ImageList *helmetImageList = image_store ? [image_store findList:@"DriverHelmets"] : nil;
+				
+				if(helmetImageList)
+				{
+					UIImage * image = [helmetImageList findItem:abbr];
+					if(image)
+						[driverHelmet setImage:image];
+					else
+						[driverHelmet setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+				}
+				else
+				{
+					[driverHelmet setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+				}
+				
+				ImageList *carImageList = image_store ? [image_store findList:@"MiniCars"] : nil;
+				
+				if(carImageList)
+				{
+					UIImage * image = [carImageList findItem:abbr];
+					if(image)
+						[driverCar setImage:image];
+					else
+						[driverCar setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+				}
+				else
+				{
+					[driverCar setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+				}
+				
+				NSString * firstName = [driverGapInfo firstName];
+				NSString * surname = [driverGapInfo surname];
+				NSString * teamName = [driverGapInfo teamName];
+				
+				NSString * fullName = [NSString stringWithString:firstName];
+				fullName = [fullName stringByAppendingString:@" "];
+				fullName = [fullName stringByAppendingString:surname];
+				
+				NSString * carAhead = [driverGapInfo carAhead];
+				NSString * carBehind = [driverGapInfo carBehind];
+				
+				int position = [driverGapInfo position];
+				int laps = [driverGapInfo laps];
+				bool inPit = [driverGapInfo inPit];
+				bool stopped = [driverGapInfo stopped];
+				
+				float gapAhead = [driverGapInfo gapAhead];
+				float gapBehind = [driverGapInfo gapBehind];
+				
+				[driverNameLabel setText:fullName];
+				[driverTeamLabel setText:teamName];
+				
+				if(position > 0)
+				{
+					[positionLabel setText:[NSString stringWithFormat:@"P%d", position]];
+					
+					if(inPit)
+					{
+						[carAheadLabel setText:@"IN PIT"];			
+						[carBehindLabel setText:@""];
+						[carAheadLabel setText:@""];
+						[gapAheadLabel setText:@""];
+					}
+					else if(stopped)
+					{
+						[carAheadLabel setText:@"OUT"];			
+						[carBehindLabel setText:@""];
+						[carAheadLabel setText:@""];
+						[gapAheadLabel setText:@""];
+					}
+					else
+					{
+						if(position == 1)
+						{
+							[carAheadLabel setText:@"LAPS"];			
+							[gapAheadLabel setText:[NSString stringWithFormat:@"%d", laps]];
+						}
+						else if(gapAhead > 0.0)
+						{
+							[carAheadLabel setText:carAhead];			
+							[gapAheadLabel setText:[NSString stringWithFormat:@"+%.1f", gapAhead]];
+						}
+						else
+						{
+							[carAheadLabel setText:@""];
+							[gapAheadLabel setText:@""];
+						}
+						
+						if(gapBehind > 0.0)
+						{
+							[carBehindLabel setText:carBehind];
+							[gapBehindLabel setText:[NSString stringWithFormat:@"-%.1f", gapBehind]];
+						}
+						else
+						{
+							[carBehindLabel setText:@""];
+							[gapBehindLabel setText:@""];
+						}
+					}
+				}
+				else
+				{
+					[positionLabel setText:@""];
+					[carAheadLabel setText:@""];
+					[gapAheadLabel setText:@""];
+					[carBehindLabel setText:@""];
+					[gapBehindLabel setText:@""];
+				}
+			}
+		}
 	}
 }
 
@@ -141,11 +331,23 @@
 {
 	[[RacePadCoordinator Instance] SetParameter:@"VET" ForView:lapTimesView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
+	
+	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 }
 
 - (void) onHide
 {
+	if(expanded)
+	{
+		[self reduceView];		
+	}
+
 	[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
+	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewHidden:self];
 }
 
 
@@ -153,16 +355,16 @@
 
 - (IBAction) expandPressed
 {
-	BasePadViewController * parentController = [[MidasFollowDriverManager Instance] parentViewController];
+	id parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
 	
 	if(expanded)
 	{
-		[self reduceView];
+		[self reduceView];		
 	}
 	else
 	{
-		if(parentController && [parentController respondsToSelector:@selector(notifyExclusiveUse:)])
-			[parentController notifyExclusiveUse:MIDAS_FOLLOW_DRIVER_POPUP_];
+		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyExclusiveUse:InZone:)])
+			[parentViewController notifyExclusiveUse:MIDAS_FOLLOW_DRIVER_POPUP_ InZone:MIDAS_ZONE_ALL_];
 	
 		[self expandView];
 	}
@@ -170,3 +372,57 @@
 
 
 @end
+
+@implementation MidasFollowDriverLapListView
+
+// Override column widths received from server : table width 580
+- (int) ColumnWidth:(int)col;
+{
+	switch (col)
+	{
+		case 0:
+			return 25;
+
+		case 1:
+			return 25;
+			
+		case 2:
+			return 55;
+			
+		case 3:
+			return 75;
+			
+		case 4:
+			return 35;
+			
+		case 5:
+			return 35;
+			
+		case 6:
+			return 65;
+			
+		case 7:
+			return 30;
+			
+		case 8:
+			return 65;
+			
+		case 9:
+			return 30;
+			
+		case 10:
+			return 65;
+			
+		case 11:
+			return 30;
+			
+		case 12:
+			return 40;
+	}
+	
+	return 30;
+}
+
+
+@end
+
