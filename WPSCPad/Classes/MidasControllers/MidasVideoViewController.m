@@ -1022,6 +1022,42 @@ static UIImage * newButtonBackgroundImage = nil;
 		buttonOffset = CGRectGetMidX(viewBounds) - popupCentre;
 	}
 	
+	// And hide all buttons if any are off the screen
+	if(rightX < 0 || buttonOffset > 2)
+	{
+		if(rightX < 0)
+			[moreLeftImage setAlpha:1.0];
+		else
+			[moreLeftImage setAlpha:0.0];
+		
+		if(buttonOffset > 2)
+			[moreRightImage setAlpha:1.0];
+		else
+			[moreRightImage setAlpha:0.0];
+		
+		[standingsButton setAlpha:0.0];
+		[mapButton setAlpha:0.0];
+		[followDriverButton setAlpha:0.0];
+		[headToHeadButton setAlpha:0.0];
+		[timeControlsButton setAlpha:0.0];
+		[vipButton setAlpha:0.0];
+		[myTeamButton setAlpha:0.0];
+	}
+	else
+	{
+		[moreLeftImage setAlpha:0.0];
+		[moreRightImage setAlpha:0.0];
+		
+		[standingsButton setAlpha:1.0];
+		[mapButton setAlpha:1.0];
+		[followDriverButton setAlpha:1.0];
+		[headToHeadButton setAlpha:1.0];
+		[timeControlsButton setAlpha:1.0];
+		[vipButton setAlpha:1.0];
+		[myTeamButton setAlpha:1.0];
+	}
+
+	
 	// Then do the actual position
 	rightX = CGRectGetMaxX(viewBounds) - 2 + buttonOffset;
 	

@@ -55,6 +55,9 @@
 	IBOutlet UIButton * vipButton;
 	IBOutlet UIButton * myTeamButton;
 	
+	IBOutlet UIImageView * moreLeftImage;
+	IBOutlet UIImageView * moreRightImage;
+	
 	IBOutlet UIImageView * buttonBackgroundAnimationImage;
 	
 	bool midasMenuButtonOpen;
