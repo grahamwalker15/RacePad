@@ -48,22 +48,22 @@
 
 #pragma mark BaseSocialmediaViewDelegate methods
 
-- (void)baseSocialMediaAboutToShow:(BaseSocialMediaView *)controller
+- (void)baseSocialMediaAboutToShow:(BaseSocialmediaView *)controller
 {
 }
 
 
-- (void)baseSocialMediaShown:(BaseSocialMediaView *)controller
+- (void)baseSocialMediaShown:(BaseSocialmediaView *)controller
 {
 }
 
 
-- (void)baseSocialMediaAboutToHide:(BaseSocialMediaView *)controller
+- (void)baseSocialMediaAboutToHide:(BaseSocialmediaView *)controller
 {
 }
 
 
-- (void)baseSocialMediaHidden:(BaseSocialMediaView *)controller
+- (void)baseSocialMediaHidden:(BaseSocialmediaView *)controller
 {
 }
 

@@ -11,7 +11,7 @@
 #import "MidasBaseViewController.h"
 #import "TwitterView.h"
 
-@interface MidasTwitterViewController : MidasBaseViewController <BaseSocialMediaViewDelegate>
+@interface MidasTwitterViewController : MidasBaseViewController <BaseSocialmediaViewDelegate>
 {
 }
 

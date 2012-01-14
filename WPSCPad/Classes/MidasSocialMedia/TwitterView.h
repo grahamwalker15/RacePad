@@ -6,9 +6,18 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "BaseSocialMediaView.h"
+#ifdef USE_REAL_TWITTER
+@class ACAccount;
+#endif
 
-@interface TwitterView : BaseSocialMediaView
+#import <UIKit/UIKit.h>
+#import "BaseSocialmediaView.h"
+
+@interface TwitterView : BaseSocialmediaView
+{
+    unsigned long long lastTweetId;
+}
+
+@property unsigned long long lastTweetId;
 
 @end

@@ -22,75 +22,83 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (void)loadData {
+    self.entryTimings = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.entryTime = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.entryName = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.entryImage = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.entryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.entryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     
-    for (int i = 0; i < kTestDataLen; i++)
-    {
-        [self.entryTime addObject:[self getTimeEntry:i]];
-    }
+    self.dummyEntryName = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
+    self.dummyEntryImage = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
+    self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
+    self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
+	
+    NSNumber *aNumber = [NSNumber numberWithFloat:1];
+    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:aNumber];
+    aNumber = [NSNumber numberWithFloat:3];
+    [self.entryTimings addObject:aNumber];
+    aNumber = [NSNumber numberWithFloat:6];
+    [self.entryTimings addObject:aNumber];
+    aNumber = [NSNumber numberWithFloat:10];
+    [self.entryTimings addObject:aNumber];
+    aNumber = [NSNumber numberWithFloat:12];
+    [self.entryTimings addObject:aNumber];
+    aNumber = [NSNumber numberWithFloat:16];
+    [self.entryTimings addObject:aNumber];
+    aNumber = [NSNumber numberWithFloat:20];
+    [self.entryTimings addObject:aNumber];
+	
+    [self.dummyEntryName addObject:@"Chris"];
+    [self.dummyEntryName addObject:@"Hazel I"];
+    [self.dummyEntryName addObject:@"Jake BBCF1"];
+    [self.dummyEntryName addObject:@"Eddie I BBCF1"];
+    [self.dummyEntryName addObject:@"R Schumacher"];
+    [self.dummyEntryName addObject:@"Nigel Mansell"];
+    [self.dummyEntryName addObject:@"Chris F1 Fan"];
+    [self.dummyEntryName addObject:@"Marky Boy"];
+    [self.dummyEntryName addObject:@"Kylie M"];
     
-    [self.entryName addObject:@"Chris"];
-    [self.entryName addObject:@"Hazel I"];
-    [self.entryName addObject:@"Jake BBCF1"];
-    [self.entryName addObject:@"Eddie I BBCF1"];
-    [self.entryName addObject:@"R Schumacher"];
-    [self.entryName addObject:@"Nigel Mansell"];
-    [self.entryName addObject:@"Chris F1 Fan"];
-    [self.entryName addObject:@"Marky Boy"];
-    [self.entryName addObject:@"Kylie M"];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
     
-    [self.entryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.entryImage addObject:[UIImage imageNamed:@"user3.png"]];
+    [self.dummyEntryComment addObject:@"Chris Comment"];
+    [self.dummyEntryComment addObject:@"Hazel I Comment Hazel I Comment Hazel I Comment"];
+    [self.dummyEntryComment addObject:@"Jake BBCF1 Comment"];
+    [self.dummyEntryComment addObject:@"Eddie I BBCF1 Comment"];
+    [self.dummyEntryComment addObject:@"R Schumacher Comment"];
+    [self.dummyEntryComment addObject:@"Nigel Mansell Comment Nigel Mansell Comment"];
+    [self.dummyEntryComment addObject:@"Chris F1 Fan Comment"];
+    [self.dummyEntryComment addObject:@"Marky Boy Comment"];
+    [self.dummyEntryComment addObject:@"Kylie M Comment"];
     
-    [self.entryComment addObject:@"Chris Comment"];
-    [self.entryComment addObject:@"Hazel I Comment Hazel I Comment Hazel I Comment"];
-    [self.entryComment addObject:@"Jake BBCF1 Comment"];
-    [self.entryComment addObject:@"Eddie I BBCF1 Comment"];
-    [self.entryComment addObject:@"R Schumacher Comment"];
-    [self.entryComment addObject:@"Nigel Mansell Comment Nigel Mansell Comment"];
-    [self.entryComment addObject:@"Chris F1 Fan Comment"];
-    [self.entryComment addObject:@"Marky Boy Comment"];
-    [self.entryComment addObject:@"Kylie M Comment"];
-    
-    [self.entryUserId addObject:@"@chris "];
-    [self.entryUserId addObject:@"@hazeli "];
-    [self.entryUserId addObject:@"@jakebbc1 "];
-    [self.entryUserId addObject:@"@eddiebbc1 "];
-    [self.entryUserId addObject:@"@rschumacher "];
-    [self.entryUserId addObject:@"@nigelmansell "];
-    [self.entryUserId addObject:@"@chrisf1 "];
-    [self.entryUserId addObject:@"@markyboy "];
-    [self.entryUserId addObject:@"@kyliem "];
-    
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
-    [self.entryReplied addObject:@"NO"];
+    [self.dummyEntryUserId addObject:@"@chris "];
+    [self.dummyEntryUserId addObject:@"@hazeli "];
+    [self.dummyEntryUserId addObject:@"@jakebbc1 "];
+    [self.dummyEntryUserId addObject:@"@eddiebbc1 "];
+    [self.dummyEntryUserId addObject:@"@rschumacher "];
+    [self.dummyEntryUserId addObject:@"@nigelmansell "];
+    [self.dummyEntryUserId addObject:@"@chrisf1 "];
+    [self.dummyEntryUserId addObject:@"@markyboy "];
+    [self.dummyEntryUserId addObject:@"@kyliem "];
 }
 
 - (NSString *)getTimeEntry:(int)offset
@@ -111,11 +119,11 @@
 }
 
 - (CGRect)getSendTextFrame {
-    return CGRectMake(12, 50, 276, 31);
+    return CGRectMake(10, 49, 280, 20);
 }
 
 - (CGRect)getTimeTextFrame:(CGFloat)height{
-    return CGRectMake(47, height + 10, 280, 20);
+    return CGRectMake(43, height + 7, 280, 20);
 }
 
 - (CGRect)getNameTextFrame{
@@ -123,11 +131,11 @@
 }
 
 - (CGRect)getCommentTextFrame:(CGFloat)height{
-    return CGRectMake(38, 2, 256, height + 10);
+    return CGRectMake(35, 2, 256, height + 10);
 }
 
 - (UIColor *)getCellBackColour {
-    UIColor *ret = [UIColor colorWithRed: 0.75 green: 0.75 blue: 0.85 alpha: 1];    
+    UIColor *ret = [UIColor colorWithRed: 0.79 green: 0.79 blue: 0.85 alpha: 1];    
     return ret;
 }
 
@@ -136,7 +144,7 @@
 }
 
 - (UIImage *)getHeaderIcon {
-    UIImage *ret = [UIImage imageNamed:@"Twitter-front-layer.png"];
+    UIImage *ret = [UIImage imageNamed:@"Facebook-front-layer.png"];
     return ret;
 }
 
@@ -184,7 +192,8 @@
 }
 
 - (UIColor *)getSeparatorColour {
-    UIColor *ret = [UIColor whiteColor];    
+    //UIColor *ret = [UIColor whiteColor];    
+    UIColor *ret = [UIColor colorWithRed: 0.69 green: 0.69 blue: 0.75 alpha: 1];    
     return ret;
 }
 
@@ -204,7 +213,7 @@
     {
         height += 6;
     }
-    return height + 36;
+    return height + 30;
 }
 
 @end
