@@ -11,7 +11,8 @@
 #import "FacebookView.h"
 #import "MidasView.h"
 
-@interface ViewController : UIViewController <BaseSocialmediaViewDelegate> {
+@interface ViewController : UIViewController <BaseSocialmediaViewDelegate>
+{
     TwitterView *twitview;
     FacebookView *faceview;
     MidasView *midasview;

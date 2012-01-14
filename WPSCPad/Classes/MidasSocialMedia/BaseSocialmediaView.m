@@ -1,5 +1,5 @@
 //
-//  BaseSocialmediaViewController.m
+//  BaseSocialmediaView.m
 //  F1Test
 //
 //  Created by Andrew Greenshaw on 05/01/2012.
@@ -7,9 +7,12 @@
 //
 
 #import "BaseSocialmediaView.h"
+
+#ifdef USE_REAL_TWITTER
 #import <Accounts/Accounts.h>
 #import "JSON.h"
 #import <Twitter/Twitter.h>
+#endif
 
 #define HANDLE_SHOW_HIDE_INTERNALLY
 
@@ -86,7 +89,7 @@ static NSUInteger const kTwitterTag = 9;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:@"BaseSocialmediaView" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"MidasBaseSocialmediaView" owner:self options:nil];
         [self addSubview:self.view];
         self.topBackView.backgroundColor = [self getCellBackColour];
         self.topBackView.alpha = kAlphaValue;
