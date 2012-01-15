@@ -15,7 +15,7 @@
 {
     [super viewDidLoad];
 	
-	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 432)];
+	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 372)];
 	facebookView.delegate = self;
     [self.view addSubview:facebookView];
 	[facebookView release];
