@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MidasBaseViewController.h"
+#import "BaseSocialmediaViewController.h"
 
-@interface MidasChatViewController : MidasBaseViewController
+@interface MidasChatViewController : BaseSocialmediaViewController
 {
 }
 

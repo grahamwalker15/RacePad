@@ -11,6 +11,7 @@
 #define kAlphaValue  1.0
 
 //#define USE_REAL_TWITTER
+//#define INTERNAL_HIDE_SHOW
 
 @class BaseSocialmediaView;
 

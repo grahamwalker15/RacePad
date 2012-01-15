@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MidasBaseViewController.h"
+#import "BaseSocialmediaViewController.h"
 #import "TwitterView.h"
 
-@interface MidasTwitterViewController : MidasBaseViewController <BaseSocialmediaViewDelegate>
+@interface MidasTwitterViewController : BaseSocialmediaViewController
 {
 }
 

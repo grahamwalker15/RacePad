@@ -29,8 +29,11 @@
 {
 	[super viewDidLoad];
 	
-	[self addTapRecognizerToView:container];
-	[self addTapRecognizerToView:heading];
+	if(container)
+		[self addTapRecognizerToView:container];
+	
+	if(heading)
+		[self addTapRecognizerToView:heading];
 }
 
 

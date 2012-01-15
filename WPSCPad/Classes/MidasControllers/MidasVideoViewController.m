@@ -1476,8 +1476,8 @@ static UIImage * newButtonBackgroundImage = nil;
 			break;
 	}
 	
-	[self.view bringSubviewToFront:bottomButtonPanel];
-	[self.view bringSubviewToFront:topButtonPanel];
+//	[self.view bringSubviewToFront:bottomButtonPanel];
+//	[self.view bringSubviewToFront:topButtonPanel];
 	
 	[self animateMenuButton:nil];
 }

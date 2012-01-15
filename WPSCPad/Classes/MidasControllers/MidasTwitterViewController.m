@@ -18,6 +18,7 @@
 	twitterView.delegate = self;
     [self.view addSubview:twitterView];
 	[twitterView setFrame:CGRectMake(0, 0, 300, 372)];
+	[twitterView __checkForNewMessages:70000];
 	[twitterView release];
 }
 
@@ -45,31 +46,5 @@
 - (void)dealloc {
     [super dealloc];
 }
-
-#pragma mark BaseSocialmediaViewDelegate methods
-
-- (void)baseSocialMediaAboutToShow:(BaseSocialmediaView *)controller
-{
-	int x = 0;
-}
-
-
-- (void)baseSocialMediaShown:(BaseSocialmediaView *)controller
-{
-	int x = 0;
-}
-
-
-- (void)baseSocialMediaAboutToHide:(BaseSocialmediaView *)controller
-{
-	int x = 0;
-}
-
-
-- (void)baseSocialMediaHidden:(BaseSocialmediaView *)controller
-{
-	int x = 0;
-}
-
 
 @end

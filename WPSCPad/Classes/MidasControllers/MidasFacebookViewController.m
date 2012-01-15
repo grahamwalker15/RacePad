@@ -18,6 +18,8 @@
 	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 372)];
 	facebookView.delegate = self;
     [self.view addSubview:facebookView];
+	[facebookView setFrame:CGRectMake(0, 0, 300, 372)];
+	[facebookView __checkForNewMessages:70000];
 	[facebookView release];
 }
 
@@ -45,27 +47,5 @@
 - (void)dealloc {
     [super dealloc];
 }
-
-#pragma mark BaseSocialmediaViewDelegate methods
-
-- (void)baseSocialMediaAboutToShow:(BaseSocialmediaView *)controller
-{
-}
-
-
-- (void)baseSocialMediaShown:(BaseSocialmediaView *)controller
-{
-}
-
-
-- (void)baseSocialMediaAboutToHide:(BaseSocialmediaView *)controller
-{
-}
-
-
-- (void)baseSocialMediaHidden:(BaseSocialmediaView *)controller
-{
-}
-
 
 @end

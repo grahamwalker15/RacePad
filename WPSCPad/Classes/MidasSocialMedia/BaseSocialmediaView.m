@@ -24,8 +24,6 @@
 
 #define kTestDataLen    12
 
-//#define INTERNAL_HIDE_SHOW
-
 #define kHeaderHeight   44
 #define kViewHeight     432
 
@@ -144,9 +142,7 @@ static NSUInteger const kTwitterTag = 9;
                                         initWithTarget:self action:@selector(handleTap:)];
         
         dTap.numberOfTapsRequired = 1;
-#ifdef HANDLE_SHOW_HIDE_INTERNALLY
         [self.view addGestureRecognizer:dTap];
-#endif
         
         self.visible = NO;
         self.replying = NO;
@@ -314,7 +310,8 @@ static NSUInteger const kTwitterTag = 9;
         for (int i = 0; i < [self.entryTimings count]; i++)
         {
             CGFloat aFloat = [[self.entryTimings objectAtIndex:i] floatValue];
-            if (mTime > aFloat - 0.1 && mTime < aFloat + 0.1)
+            //if (mTime > aFloat - 0.1 && mTime < aFloat + 0.1)
+			if (mTime > aFloat - 0.1)
             {
                 [self insertDummyEntry:i];
                 [self.socialTable reloadData];
@@ -455,8 +452,8 @@ static NSUInteger const kTwitterTag = 9;
         {
             if (locationInView.y > frame.size.height - kHeaderHeight)
             {
-                [self hideView:0.5];
 #ifndef INTERNAL_HIDE_SHOW
+                [self hideView:0.5];
                 self.visible = NO;
 #endif
             }
@@ -474,15 +471,15 @@ static NSUInteger const kTwitterTag = 9;
         {
             if (locationInView.y < kHeaderHeight)
             {
-                [self hideView:0.5];
 #ifndef INTERNAL_HIDE_SHOW
+                [self hideView:0.5];
                 self.visible = NO;
 #endif
             }
             else if (locationInView.y > frame.size.height - kHeaderHeight)
             {
-                [self hideView:0.5];
 #ifndef INTERNAL_HIDE_SHOW
+				[self hideView:0.5];
                 self.visible = NO;
 #endif
             }
@@ -600,7 +597,7 @@ static NSUInteger const kTwitterTag = 9;
 }
 
 - (UIImage *)getHeaderIcon {
-    UIImage *ret = [UIImage imageNamed:@"Twitter-front-layer.png"];
+    UIImage *ret = [UIImage imageNamed:@"Twitter-connecte-layer.png"];
     return ret;
 }
 
