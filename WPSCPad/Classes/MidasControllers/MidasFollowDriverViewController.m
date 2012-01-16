@@ -23,6 +23,8 @@
 {
 	[super viewDidLoad];
 	
+	driverToFollow = nil;
+	
 	// Set up the table data for SimpleListView
 	[lapTimesView SetTableDataClass:[[RacePadDatabase Instance] driverData]];
 	
@@ -65,16 +67,7 @@
 	[[RacePadCoordinator Instance] AddView:lapTimesView WithType:RPC_LAP_LIST_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
-	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
-
-	[trackMapView followCar:@"VET"];
-	
-	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
-	if(driverGapInfo)
-	{
-		[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:@"VET"];
-	}
-			
+	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];			
 }
 
 
@@ -325,15 +318,60 @@
 	{
 		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:true];
 	}
+	else if([gestureView isKindOfClass:[leaderboardView class]])
+	{
+		NSString * name = [leaderboardView carNameAtX:x Y:y];
+		
+		if(name && [name length] > 0)
+		{
+			if(driverToFollow)
+				[driverToFollow release];
+			
+			driverToFollow = [name retain];
+			
+			[driverInfoPanel setHidden:(driverToFollow == nil)];
+			[selectDriverPanel setHidden:(driverToFollow != nil)];
+			
+			[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:driverToFollow];
+						
+			[[RacePadCoordinator Instance] SetParameter:driverToFollow ForView:lapTimesView];
+			
+			[trackMapView followCar:driverToFollow];
+			
+			// Force reload of data
+			[[RacePadCoordinator Instance] SetViewHidden:self];
+			[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:self];
+			[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
+
+			[leaderboardView RequestRedraw];
+			[trackMapView RequestRedraw];
+						
+			return;
+		}
+	}
+	
 }
 
 - (void) onDisplay
 {
-	[[RacePadCoordinator Instance] SetParameter:@"VET" ForView:lapTimesView];
+	[driverInfoPanel setHidden:(driverToFollow == nil)];
+	[selectDriverPanel setHidden:(driverToFollow != nil)];
+	
+	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
+
+	[trackMapView followCar:driverToFollow];
+	
+	DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+	if(driverGapInfo)
+	{
+		[[[RacePadDatabase Instance] driverGapInfo] setRequestedDriver:driverToFollow];
+	}
+	
+	[[RacePadCoordinator Instance] SetParameter:driverToFollow ForView:lapTimesView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 }
 

@@ -27,6 +27,10 @@
 	
 	IBOutlet MidasFollowDriverLapListView * lapTimesView;
 	
+	IBOutlet UIImageView * animationPanelImage;
+	IBOutlet UIView * driverInfoPanel;
+	IBOutlet UIView * selectDriverPanel;
+	
 	IBOutlet UIImageView * driverPhoto;
 	IBOutlet UIImageView * driverHelmet;
 	IBOutlet UIImageView * driverCar;
@@ -48,6 +52,8 @@
 	IBOutlet BackgroundView *trackMapContainer;
 	
 	bool expanded;
+	
+	NSString * driverToFollow;
 }
 
 - (void) expandView;

@@ -317,6 +317,7 @@
 #endif
 }
 
+#ifdef USE_REAL_TWITTER
 - (void)__checkForNewMessages:(CGFloat)mTime {
     if (mTime > 0.0 && self.replying == NO)
     {
@@ -332,6 +333,7 @@
         }
     }
 }
+#endif
 
 /*
  // Only override drawRect: if you perform custom drawing.

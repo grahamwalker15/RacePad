@@ -312,7 +312,32 @@
 		7FA27D3913001BB5001407FD /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27D3813001BB5001407FD /* CloseButton.png */; };
 		7FA27DA613002425001407FD /* NoPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27DA513002425001407FD /* NoPhoto.png */; };
 		7FA27E1913002D5A001407FD /* NoHelmet.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27E1813002D5A001407FD /* NoHelmet.png */; };
+		7FA4C63714C43FDB00945ABD /* Circuit-Italy-Flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C63614C43FDB00945ABD /* Circuit-Italy-Flag.png */; };
+		7FA4C65114C4595700945ABD /* Cloudy-weather-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C64C14C4595700945ABD /* Cloudy-weather-icons.png */; };
+		7FA4C65214C4595700945ABD /* Downpoor-weather-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C64D14C4595700945ABD /* Downpoor-weather-icons.png */; };
+		7FA4C65314C4595700945ABD /* Overcast-weather-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C64E14C4595700945ABD /* Overcast-weather-icons.png */; };
+		7FA4C65414C4595700945ABD /* Rainy-weather-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C64F14C4595700945ABD /* Rainy-weather-icons.png */; };
+		7FA4C65514C4595700945ABD /* Sunny-weather-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C65014C4595700945ABD /* Sunny-weather-icons.png */; };
+		7FA4C65B14C45CA800945ABD /* Onboard1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C65814C45CA800945ABD /* Onboard1.png */; };
+		7FA4C65C14C45CA800945ABD /* Onboard2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C65914C45CA800945ABD /* Onboard2.png */; };
+		7FA4C65D14C45CA800945ABD /* Onboard3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C65A14C45CA800945ABD /* Onboard3.png */; };
 		7FA832F814C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA832F714C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib */; };
+		7FA8332F14C31DC400ACB0F6 /* Line-T-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332014C31DC400ACB0F6 /* Line-T-1.png */; };
+		7FA8333014C31DC400ACB0F6 /* Line-T-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332114C31DC400ACB0F6 /* Line-T-2.png */; };
+		7FA8333114C31DC400ACB0F6 /* Line-T-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332214C31DC400ACB0F6 /* Line-T-3.png */; };
+		7FA8333214C31DC400ACB0F6 /* Line-T-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332314C31DC400ACB0F6 /* Line-T-4.png */; };
+		7FA8333314C31DC400ACB0F6 /* Line-T-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332414C31DC400ACB0F6 /* Line-T-5.png */; };
+		7FA8333414C31DC400ACB0F6 /* Shadow-T-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332514C31DC400ACB0F6 /* Shadow-T-1.png */; };
+		7FA8333514C31DC400ACB0F6 /* Shadow-T-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332614C31DC400ACB0F6 /* Shadow-T-2.png */; };
+		7FA8333614C31DC400ACB0F6 /* Twitter-blue-bird-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332714C31DC400ACB0F6 /* Twitter-blue-bird-01.png */; };
+		7FA8333714C31DC400ACB0F6 /* Twitter-connecte-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332814C31DC400ACB0F6 /* Twitter-connecte-layer.png */; };
+		7FA8333814C31DC400ACB0F6 /* Twitter-connection-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332914C31DC400ACB0F6 /* Twitter-connection-layer.png */; };
+		7FA8333914C31DC400ACB0F6 /* Twitter-default-avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332A14C31DC400ACB0F6 /* Twitter-default-avatar.png */; };
+		7FA8333A14C31DC400ACB0F6 /* Twitter-password-field.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332B14C31DC400ACB0F6 /* Twitter-password-field.png */; };
+		7FA8333B14C31DC400ACB0F6 /* Twitter-remember-me.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332C14C31DC400ACB0F6 /* Twitter-remember-me.png */; };
+		7FA8333C14C31DC400ACB0F6 /* Twitter-sign-in-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332D14C31DC400ACB0F6 /* Twitter-sign-in-button.png */; };
+		7FA8333D14C31DC400ACB0F6 /* Twitter-username-field.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332E14C31DC400ACB0F6 /* Twitter-username-field.png */; };
+		7FA833D714C3380000ACB0F6 /* BaseSocialmediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA833D614C3380000ACB0F6 /* BaseSocialmediaViewController.m */; };
 		7FA965C714B453F1006B072C /* MidasAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA965C614B453F1006B072C /* MidasAppDelegate.m */; };
 		7FA9662814B46F50006B072C /* MidasMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9662714B46F50006B072C /* MidasMainWindow.xib */; };
 		7FA9666714B47371006B072C /* MidasCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA9666614B47371006B072C /* MidasCoordinator.m */; };
@@ -448,14 +473,8 @@
 		7FFE7C4414BB225D007D27A2 /* MidasFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7C4314BB225D007D27A2 /* MidasFacebookViewController.m */; };
 		7FFE7C4714BB227B007D27A2 /* MidasChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7C4614BB227B007D27A2 /* MidasChatViewController.m */; };
 		7FFE7C6014BB24C9007D27A2 /* MidasTwitterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C5F14BB24C9007D27A2 /* MidasTwitterView.xib */; };
-		7FFE7C6914BB25C6007D27A2 /* Twitter-front-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6114BB25C6007D27A2 /* Twitter-front-layer.png */; };
-		7FFE7C6A14BB25C6007D27A2 /* Twitter-reply-close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6214BB25C6007D27A2 /* Twitter-reply-close.png */; };
-		7FFE7C6B14BB25C6007D27A2 /* Twitter-reply-done.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6314BB25C6007D27A2 /* Twitter-reply-done.png */; };
-		7FFE7C6C14BB25C6007D27A2 /* Twitter-reply-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6414BB25C6007D27A2 /* Twitter-reply-icon.png */; };
-		7FFE7C6D14BB25C6007D27A2 /* Twitter-reply-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6514BB25C6007D27A2 /* Twitter-reply-list.png */; };
 		7FFE7C6E14BB25C6007D27A2 /* twitter-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6614BB25C6007D27A2 /* twitter-selected.png */; };
 		7FFE7C6F14BB25C6007D27A2 /* Twitter-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6714BB25C6007D27A2 /* Twitter-title.png */; };
-		7FFE7C7014BB25C6007D27A2 /* Twitter-tweets-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6814BB25C6007D27A2 /* Twitter-tweets-list.png */; };
 		7FFE7C7214BB2770007D27A2 /* MidasFacebookView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C7114BB2770007D27A2 /* MidasFacebookView.xib */; };
 		7FFE7C7414BB27C4007D27A2 /* MidasChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C7314BB27C4007D27A2 /* MidasChatView.xib */; };
 		7FFE7C9714BB3004007D27A2 /* MidasAlertsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C9614BB3004007D27A2 /* MidasAlertsView.xib */; };
@@ -902,7 +921,33 @@
 		7FA27D3813001BB5001407FD /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseButton.png; path = Images/CloseButton.png; sourceTree = "<group>"; };
 		7FA27DA513002425001407FD /* NoPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoPhoto.png; path = Images/NoPhoto.png; sourceTree = "<group>"; };
 		7FA27E1813002D5A001407FD /* NoHelmet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoHelmet.png; path = Images/NoHelmet.png; sourceTree = "<group>"; };
+		7FA4C63614C43FDB00945ABD /* Circuit-Italy-Flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circuit-Italy-Flag.png"; sourceTree = "<group>"; };
+		7FA4C64C14C4595700945ABD /* Cloudy-weather-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cloudy-weather-icons.png"; sourceTree = "<group>"; };
+		7FA4C64D14C4595700945ABD /* Downpoor-weather-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Downpoor-weather-icons.png"; sourceTree = "<group>"; };
+		7FA4C64E14C4595700945ABD /* Overcast-weather-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overcast-weather-icons.png"; sourceTree = "<group>"; };
+		7FA4C64F14C4595700945ABD /* Rainy-weather-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rainy-weather-icons.png"; sourceTree = "<group>"; };
+		7FA4C65014C4595700945ABD /* Sunny-weather-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunny-weather-icons.png"; sourceTree = "<group>"; };
+		7FA4C65814C45CA800945ABD /* Onboard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Onboard1.png; sourceTree = "<group>"; };
+		7FA4C65914C45CA800945ABD /* Onboard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Onboard2.png; sourceTree = "<group>"; };
+		7FA4C65A14C45CA800945ABD /* Onboard3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Onboard3.png; sourceTree = "<group>"; };
 		7FA832F714C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasBaseSocialmediaView.xib; path = ResourceFiles/MidasBaseSocialmediaView.xib; sourceTree = "<group>"; };
+		7FA8332014C31DC400ACB0F6 /* Line-T-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-1.png"; sourceTree = "<group>"; };
+		7FA8332114C31DC400ACB0F6 /* Line-T-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-2.png"; sourceTree = "<group>"; };
+		7FA8332214C31DC400ACB0F6 /* Line-T-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-3.png"; sourceTree = "<group>"; };
+		7FA8332314C31DC400ACB0F6 /* Line-T-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-4.png"; sourceTree = "<group>"; };
+		7FA8332414C31DC400ACB0F6 /* Line-T-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-5.png"; sourceTree = "<group>"; };
+		7FA8332514C31DC400ACB0F6 /* Shadow-T-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-T-1.png"; sourceTree = "<group>"; };
+		7FA8332614C31DC400ACB0F6 /* Shadow-T-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-T-2.png"; sourceTree = "<group>"; };
+		7FA8332714C31DC400ACB0F6 /* Twitter-blue-bird-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-blue-bird-01.png"; sourceTree = "<group>"; };
+		7FA8332814C31DC400ACB0F6 /* Twitter-connecte-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-connecte-layer.png"; sourceTree = "<group>"; };
+		7FA8332914C31DC400ACB0F6 /* Twitter-connection-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-connection-layer.png"; sourceTree = "<group>"; };
+		7FA8332A14C31DC400ACB0F6 /* Twitter-default-avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-default-avatar.png"; sourceTree = "<group>"; };
+		7FA8332B14C31DC400ACB0F6 /* Twitter-password-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-password-field.png"; sourceTree = "<group>"; };
+		7FA8332C14C31DC400ACB0F6 /* Twitter-remember-me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-remember-me.png"; sourceTree = "<group>"; };
+		7FA8332D14C31DC400ACB0F6 /* Twitter-sign-in-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-sign-in-button.png"; sourceTree = "<group>"; };
+		7FA8332E14C31DC400ACB0F6 /* Twitter-username-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-username-field.png"; sourceTree = "<group>"; };
+		7FA833D514C3380000ACB0F6 /* BaseSocialmediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSocialmediaViewController.h; sourceTree = "<group>"; };
+		7FA833D614C3380000ACB0F6 /* BaseSocialmediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSocialmediaViewController.m; sourceTree = "<group>"; };
 		7FA965C514B453F1006B072C /* MidasAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasAppDelegate.h; sourceTree = "<group>"; };
 		7FA965C614B453F1006B072C /* MidasAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasAppDelegate.m; sourceTree = "<group>"; };
 		7FA9662714B46F50006B072C /* MidasMainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasMainWindow.xib; path = ResourceFiles/MidasMainWindow.xib; sourceTree = "<group>"; };
@@ -1057,14 +1102,8 @@
 		7FFE7C4514BB227B007D27A2 /* MidasChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasChatViewController.h; sourceTree = "<group>"; };
 		7FFE7C4614BB227B007D27A2 /* MidasChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasChatViewController.m; sourceTree = "<group>"; };
 		7FFE7C5F14BB24C9007D27A2 /* MidasTwitterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasTwitterView.xib; path = ResourceFiles/MidasTwitterView.xib; sourceTree = "<group>"; };
-		7FFE7C6114BB25C6007D27A2 /* Twitter-front-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-front-layer.png"; sourceTree = "<group>"; };
-		7FFE7C6214BB25C6007D27A2 /* Twitter-reply-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-reply-close.png"; sourceTree = "<group>"; };
-		7FFE7C6314BB25C6007D27A2 /* Twitter-reply-done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-reply-done.png"; sourceTree = "<group>"; };
-		7FFE7C6414BB25C6007D27A2 /* Twitter-reply-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-reply-icon.png"; sourceTree = "<group>"; };
-		7FFE7C6514BB25C6007D27A2 /* Twitter-reply-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-reply-list.png"; sourceTree = "<group>"; };
 		7FFE7C6614BB25C6007D27A2 /* twitter-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-selected.png"; sourceTree = "<group>"; };
 		7FFE7C6714BB25C6007D27A2 /* Twitter-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-title.png"; sourceTree = "<group>"; };
-		7FFE7C6814BB25C6007D27A2 /* Twitter-tweets-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-tweets-list.png"; sourceTree = "<group>"; };
 		7FFE7C7114BB2770007D27A2 /* MidasFacebookView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasFacebookView.xib; path = ResourceFiles/MidasFacebookView.xib; sourceTree = "<group>"; };
 		7FFE7C7314BB27C4007D27A2 /* MidasChatView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasChatView.xib; path = ResourceFiles/MidasChatView.xib; sourceTree = "<group>"; };
 		7FFE7C9614BB3004007D27A2 /* MidasAlertsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasAlertsView.xib; path = ResourceFiles/MidasAlertsView.xib; sourceTree = "<group>"; };
@@ -1526,6 +1565,18 @@
 			path = UISupport;
 			sourceTree = "<group>";
 		};
+		7FA4C64314C458FF00945ABD /* WeatherIcons */ = {
+			isa = PBXGroup;
+			children = (
+				7FA4C64C14C4595700945ABD /* Cloudy-weather-icons.png */,
+				7FA4C64D14C4595700945ABD /* Downpoor-weather-icons.png */,
+				7FA4C64E14C4595700945ABD /* Overcast-weather-icons.png */,
+				7FA4C64F14C4595700945ABD /* Rainy-weather-icons.png */,
+				7FA4C65014C4595700945ABD /* Sunny-weather-icons.png */,
+			);
+			path = WeatherIcons;
+			sourceTree = "<group>";
+		};
 		7FA965C414B45398006B072C /* Midas */ = {
 			isa = PBXGroup;
 			children = (
@@ -1540,6 +1591,7 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA4C64314C458FF00945ABD /* WeatherIcons */,
 				7F52451E14C1D70800675BA1 /* Incidents */,
 				7FFE867A14C0AF91007D27A2 /* Lap-counter-layer.png */,
 				7FFE7F0114BB9E5C007D27A2 /* activeuser.png */,
@@ -1852,6 +1904,10 @@
 		7FFE79C314B89BAE007D27A2 /* CircuitViews */ = {
 			isa = PBXGroup;
 			children = (
+				7FA4C65814C45CA800945ABD /* Onboard1.png */,
+				7FA4C65914C45CA800945ABD /* Onboard2.png */,
+				7FA4C65A14C45CA800945ABD /* Onboard3.png */,
+				7FA4C63614C43FDB00945ABD /* Circuit-Italy-Flag.png */,
 				7FFE79CC14B89E84007D27A2 /* Circuit-views-container.png */,
 				7FFE79CD14B89E84007D27A2 /* Circuit-views-icon.png */,
 				7FFE79CE14B89E84007D27A2 /* Circuit-views-mini-icon.png */,
@@ -1926,15 +1982,24 @@
 		7FFE7BA114BAF950007D27A2 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				7FA8332014C31DC400ACB0F6 /* Line-T-1.png */,
+				7FA8332114C31DC400ACB0F6 /* Line-T-2.png */,
+				7FA8332214C31DC400ACB0F6 /* Line-T-3.png */,
+				7FA8332314C31DC400ACB0F6 /* Line-T-4.png */,
+				7FA8332414C31DC400ACB0F6 /* Line-T-5.png */,
+				7FA8332514C31DC400ACB0F6 /* Shadow-T-1.png */,
+				7FA8332614C31DC400ACB0F6 /* Shadow-T-2.png */,
+				7FA8332714C31DC400ACB0F6 /* Twitter-blue-bird-01.png */,
+				7FA8332814C31DC400ACB0F6 /* Twitter-connecte-layer.png */,
+				7FA8332914C31DC400ACB0F6 /* Twitter-connection-layer.png */,
+				7FA8332A14C31DC400ACB0F6 /* Twitter-default-avatar.png */,
+				7FA8332B14C31DC400ACB0F6 /* Twitter-password-field.png */,
+				7FA8332C14C31DC400ACB0F6 /* Twitter-remember-me.png */,
+				7FA8332D14C31DC400ACB0F6 /* Twitter-sign-in-button.png */,
+				7FA8332E14C31DC400ACB0F6 /* Twitter-username-field.png */,
 				7FF5DDAA14C2070E00B5097E /* Twitter-capsule.png */,
-				7FFE7C6114BB25C6007D27A2 /* Twitter-front-layer.png */,
-				7FFE7C6214BB25C6007D27A2 /* Twitter-reply-close.png */,
-				7FFE7C6314BB25C6007D27A2 /* Twitter-reply-done.png */,
-				7FFE7C6414BB25C6007D27A2 /* Twitter-reply-icon.png */,
-				7FFE7C6514BB25C6007D27A2 /* Twitter-reply-list.png */,
 				7FFE7C6614BB25C6007D27A2 /* twitter-selected.png */,
 				7FFE7C6714BB25C6007D27A2 /* Twitter-title.png */,
-				7FFE7C6814BB25C6007D27A2 /* Twitter-tweets-list.png */,
 				7FFE7BB714BB01CD007D27A2 /* Twitter-icon.png */,
 				7FFE7BB814BB01CD007D27A2 /* Twitter-mini-icon.png */,
 			);
@@ -1974,6 +2039,8 @@
 				7FFE7E5314BB706E007D27A2 /* MidasView.m */,
 				7FFE7E5414BB706E007D27A2 /* TwitterView.h */,
 				7FFE7E5514BB706E007D27A2 /* TwitterView.m */,
+				7FA833D514C3380000ACB0F6 /* BaseSocialmediaViewController.h */,
+				7FA833D614C3380000ACB0F6 /* BaseSocialmediaViewController.m */,
 			);
 			path = MidasSocialMedia;
 			sourceTree = "<group>";
@@ -2365,14 +2432,8 @@
 				7FFE7BD814BB0A47007D27A2 /* MidasMoreLeft.png in Resources */,
 				7FFE7BD914BB0A47007D27A2 /* MidasMoreRight.png in Resources */,
 				7FFE7C6014BB24C9007D27A2 /* MidasTwitterView.xib in Resources */,
-				7FFE7C6914BB25C6007D27A2 /* Twitter-front-layer.png in Resources */,
-				7FFE7C6A14BB25C6007D27A2 /* Twitter-reply-close.png in Resources */,
-				7FFE7C6B14BB25C6007D27A2 /* Twitter-reply-done.png in Resources */,
-				7FFE7C6C14BB25C6007D27A2 /* Twitter-reply-icon.png in Resources */,
-				7FFE7C6D14BB25C6007D27A2 /* Twitter-reply-list.png in Resources */,
 				7FFE7C6E14BB25C6007D27A2 /* twitter-selected.png in Resources */,
 				7FFE7C6F14BB25C6007D27A2 /* Twitter-title.png in Resources */,
-				7FFE7C7014BB25C6007D27A2 /* Twitter-tweets-list.png in Resources */,
 				7FFE7C7214BB2770007D27A2 /* MidasFacebookView.xib in Resources */,
 				7FFE7C7414BB27C4007D27A2 /* MidasChatView.xib in Resources */,
 				7FFE7C9714BB3004007D27A2 /* MidasAlertsView.xib in Resources */,
@@ -2388,6 +2449,30 @@
 				7FFE867B14C0AF91007D27A2 /* Lap-counter-layer.png in Resources */,
 				7FF5DDAB14C2070E00B5097E /* Twitter-capsule.png in Resources */,
 				7FA832F814C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib in Resources */,
+				7FA8332F14C31DC400ACB0F6 /* Line-T-1.png in Resources */,
+				7FA8333014C31DC400ACB0F6 /* Line-T-2.png in Resources */,
+				7FA8333114C31DC400ACB0F6 /* Line-T-3.png in Resources */,
+				7FA8333214C31DC400ACB0F6 /* Line-T-4.png in Resources */,
+				7FA8333314C31DC400ACB0F6 /* Line-T-5.png in Resources */,
+				7FA8333414C31DC400ACB0F6 /* Shadow-T-1.png in Resources */,
+				7FA8333514C31DC400ACB0F6 /* Shadow-T-2.png in Resources */,
+				7FA8333614C31DC400ACB0F6 /* Twitter-blue-bird-01.png in Resources */,
+				7FA8333714C31DC400ACB0F6 /* Twitter-connecte-layer.png in Resources */,
+				7FA8333814C31DC400ACB0F6 /* Twitter-connection-layer.png in Resources */,
+				7FA8333914C31DC400ACB0F6 /* Twitter-default-avatar.png in Resources */,
+				7FA8333A14C31DC400ACB0F6 /* Twitter-password-field.png in Resources */,
+				7FA8333B14C31DC400ACB0F6 /* Twitter-remember-me.png in Resources */,
+				7FA8333C14C31DC400ACB0F6 /* Twitter-sign-in-button.png in Resources */,
+				7FA8333D14C31DC400ACB0F6 /* Twitter-username-field.png in Resources */,
+				7FA4C63714C43FDB00945ABD /* Circuit-Italy-Flag.png in Resources */,
+				7FA4C65114C4595700945ABD /* Cloudy-weather-icons.png in Resources */,
+				7FA4C65214C4595700945ABD /* Downpoor-weather-icons.png in Resources */,
+				7FA4C65314C4595700945ABD /* Overcast-weather-icons.png in Resources */,
+				7FA4C65414C4595700945ABD /* Rainy-weather-icons.png in Resources */,
+				7FA4C65514C4595700945ABD /* Sunny-weather-icons.png in Resources */,
+				7FA4C65B14C45CA800945ABD /* Onboard1.png in Resources */,
+				7FA4C65C14C45CA800945ABD /* Onboard2.png in Resources */,
+				7FA4C65D14C45CA800945ABD /* Onboard3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2517,6 +2602,7 @@
 				7FFE7E5814BB706E007D27A2 /* MidasView.m in Sources */,
 				7FFE7E5914BB706E007D27A2 /* TwitterView.m in Sources */,
 				7FF5DB9C14C1EBB600B5097E /* BaseSocialmediaView.m in Sources */,
+				7FA833D714C3380000ACB0F6 /* BaseSocialmediaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

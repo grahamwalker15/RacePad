@@ -187,6 +187,14 @@
 		return nil;
 }
 
+- (NSString *) carNameAtPosition:(int)position
+{
+	if(tableData && [tableData rows] >= position)
+		return [self GetCellTextAtRow:position - 1 Col:2];
+	else
+		return nil;
+}
+
 - (int) RowCount
 {
 	if(tableData)

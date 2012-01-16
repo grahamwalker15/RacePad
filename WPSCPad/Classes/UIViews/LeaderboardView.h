@@ -31,5 +31,6 @@
 - (int) RowCount;
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col;
 - (NSString *) carNameAtX:(float)x Y:(float)y;
+- (NSString *) carNameAtPosition:(int)position;
 
 @end
