@@ -39,8 +39,6 @@
 	displayLeaderboard = true;
 	displayVideo = true;
 	
-	moviePlayerLayerAdded = false;
-	
 	// Remove the optionsSwitches from the view - they will get re-added when the timecontroller is displayed
 	// Retain them so that they are always available to be displayed
 	[optionContainer retain];
@@ -228,10 +226,13 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
-	if(moviePlayerLayer)
+	if(movieView && [movieView moviePlayerLayerAdded])
 	{
-		[moviePlayerLayer setFrame:[movieView bounds]];
+		AVPlayerLayer * moviePlayerLayer = [[movieView movieSource] moviePlayerLayer];	
+		if(moviePlayerLayer)
+		{
+			[moviePlayerLayer setFrame:[movieView bounds]];
+		}
 	}
 	
 	[UIView commitAnimations];
@@ -258,41 +259,36 @@
 // Movie routines
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) displayMovieInView
+- (void) displayMovieSource:(BasePadVideoSource *)source
 {	
+	if(!source)
+		return;
+	
 	// Position the movie and order the overlays
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];
-	
-	if(moviePlayerLayer && !moviePlayerLayerAdded)
+	if([movieView displayMovieSource:source])
 	{
-		CALayer *superlayer = movieView.layer;
-		
-		[moviePlayerLayer setFrame:[movieView bounds]];
-		[superlayer addSublayer:moviePlayerLayer];
-		
-		moviePlayerLayerAdded = true;
+		[movieView bringSubviewToFront:overlayView];
+		[movieView bringSubviewToFront:trackMapView];
+		[movieView bringSubviewToFront:leaderboardView];
+		[movieView bringSubviewToFront:trackZoomContainer];
+		[movieView bringSubviewToFront:trackZoomView];
+		[movieView bringSubviewToFront:videoDelayLabel];
+		[movieView bringSubviewToFront:loadingLabel];
+		[movieView bringSubviewToFront:loadingTwirl];
+	
+		[self positionOverlays];
 	}
-	
-	[movieView bringSubviewToFront:overlayView];
-	[movieView bringSubviewToFront:trackMapView];
-	[movieView bringSubviewToFront:leaderboardView];
-	[movieView bringSubviewToFront:trackZoomContainer];
-	[movieView bringSubviewToFront:trackZoomView];
-	[movieView bringSubviewToFront:videoDelayLabel];
-	[movieView bringSubviewToFront:loadingLabel];
-	[movieView bringSubviewToFront:loadingTwirl];
-	
-	[self positionOverlays];	
 }
 
-- (void) removeMovieFromView
+- (void) removeMovieFromView:(BasePadVideoSource *)source
 {
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];
-	if(moviePlayerLayer && moviePlayerLayerAdded)
-	{
-		[moviePlayerLayer removeFromSuperlayer];
-		moviePlayerLayerAdded = false;
-	}	
+	if([movieView movieSource] == source)
+		[movieView removeMovieFromView];
+}
+
+- (void) removeMoviesFromView
+{
+	[movieView removeMovieFromView];
 }
 
 - (void) notifyMovieInformation

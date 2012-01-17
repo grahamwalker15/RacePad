@@ -74,9 +74,6 @@ enum MovieConnectionTypes
 
 + (BasePadMedia *)Instance;
 
-@property (readonly) BasePadVideoSource * movieSource;
-@property (readonly) BasePadAudioSource * audioSource;
-
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
 @property (readonly) int restartCount;
@@ -107,6 +104,7 @@ enum MovieConnectionTypes
 - (void) movieSeekToLive;
 - (void) moviePrepareToPlay;
 - (void) movieResyncLive;
+- (void) setMoviePausedInPlace:(bool)value;
 
 - (void) audioPlayAtRate:(float)playbackRate;
 - (void) audioPlay;

@@ -38,8 +38,6 @@
 	CGSize movieSize;
 	CGRect movieRect;
 	
-	bool moviePlayerLayerAdded;
-		
 	bool displayVideo;
 	bool displayMap;
 	bool displayLeaderboard;

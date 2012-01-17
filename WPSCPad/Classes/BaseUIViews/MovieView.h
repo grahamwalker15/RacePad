@@ -7,17 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 #import "BackgroundView.h"
-
+#import "BasePadVideoSource.h"
 
 @interface MovieView : BackgroundView
 {
-	MPMoviePlayerController * moviePlayer;
+	BasePadVideoSource * movieSource;
+	bool moviePlayerLayerAdded;
 }
 
-@property (nonatomic, retain) MPMoviePlayerController * moviePlayer;
+@property (nonatomic, retain) BasePadVideoSource * movieSource;
+@property (nonatomic) bool moviePlayerLayerAdded;
+
+// Manage displayed movies
+- (bool) displayMovieSource:(BasePadVideoSource *)source;
+- (void)removeMovieFromView;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;

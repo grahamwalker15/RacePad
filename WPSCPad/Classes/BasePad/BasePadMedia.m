@@ -16,9 +16,6 @@
 
 @implementation BasePadMedia
 
-@synthesize movieSource;
-@synthesize audioSource;
-
 @synthesize liveVideoDelay;
 
 @synthesize restartCount;
@@ -278,6 +275,11 @@ static BasePadMedia * instance_ = nil;
 	[movieSource movieResyncLive];
 }
 
+- (void) setMoviePausedInPlace:(bool)value
+{
+	[movieSource setMoviePausedInPlace:value];
+}
+
 - (void) startLivePlayTimer;
 {
 	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
@@ -458,7 +460,7 @@ static BasePadMedia * instance_ = nil;
 	
 	if([movieSource movieLoaded])
 	{
-		[registeredViewController displayMovieInView];
+		[registeredViewController displayMovieSource:movieSource];
 	}
 }
 
@@ -469,7 +471,7 @@ static BasePadMedia * instance_ = nil;
 		[self stopPlayTimers];
 		
 		[self movieStop];	
-		[registeredViewController removeMovieFromView];
+		[registeredViewController removeMoviesFromView];
 		
 		[registeredViewController release];
 		registeredViewController = nil;
@@ -488,7 +490,7 @@ static BasePadMedia * instance_ = nil;
 {
 	// Position the movie and order the overlay in any registered view controller
 	if(registeredViewController)
-		[registeredViewController displayMovieInView];
+		[registeredViewController displayMovieSource:videoSource];
 	
 	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
 	{
@@ -532,7 +534,7 @@ static BasePadMedia * instance_ = nil;
 {
 	// Delete any existing player and assets	
 	if(registeredViewController)
-		[registeredViewController removeMovieFromView];
+		[registeredViewController removeMovieFromView:videoSource];
 	
 	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];

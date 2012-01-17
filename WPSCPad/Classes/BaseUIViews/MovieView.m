@@ -8,34 +8,63 @@
 
 #import "MovieView.h"
 
-
 @implementation MovieView
 
-@synthesize moviePlayer;
+@synthesize movieSource;
+@synthesize moviePlayerLayerAdded;
 
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame]))
 	{
         // Initialization code
+		movieSource = nil;
+		moviePlayerLayerAdded = false;
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 - (void)dealloc
 {
+	[movieSource release];
     [super dealloc];
 }
 
+- (bool) displayMovieSource:(BasePadVideoSource *)source
+{	
+	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
+	
+	if(moviePlayerLayer && !moviePlayerLayerAdded)
+	{
+		CALayer *superlayer = self.layer;
+		
+		[moviePlayerLayer setFrame:self.bounds];
+		[superlayer addSublayer:moviePlayerLayer];
+		
+		[self setMoviePlayerLayerAdded:true];
+		[self setMovieSource:source];
+		
+		return true;
+	}
+	
+	return false;
+}
+
+- (void)removeMovieFromView
+{
+	if(moviePlayerLayerAdded && movieSource)
+	{
+		AVPlayerLayer * moviePlayerLayer = [movieSource moviePlayerLayer];
+		if(moviePlayerLayer)
+			[moviePlayerLayer removeFromSuperlayer];
+
+	}
+	
+	moviePlayerLayerAdded = false;
+	
+	[movieSource release];
+	movieSource = nil;
+}
 
 - (void)RequestRedraw
 {

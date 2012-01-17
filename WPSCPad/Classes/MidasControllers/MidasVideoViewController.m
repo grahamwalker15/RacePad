@@ -113,9 +113,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	displayLeaderboard = true;
 	displayVideo = true;
 	
-	moviePlayerLayerAdded = false;
-	
-	[movieView setStyle:BG_STYLE_MIDAS_];
+	[mainMovieView setStyle:BG_STYLE_MIDAS_];
 	
 	[buttonBackgroundAnimationImage setHidden:true];
 	
@@ -169,7 +167,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : [self addLongPressRecognizerToView:leaderboardView];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
-	[[RacePadCoordinator Instance] AddView:movieView WithType:RPC_VIDEO_VIEW_];
+	[[RacePadCoordinator Instance] AddView:mainMovieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
 	// GG - COMMENT OUT LEADERBOARD : [[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
@@ -187,14 +185,14 @@ static UIImage * newButtonBackgroundImage = nil;
 	movieRect = CGRectMake(0, 0, 768, 576);
 	[self positionOverlays];
 	
-	[movieView bringSubviewToFront:overlayView];
-	[movieView bringSubviewToFront:trackMapView];
+	[mainMovieView bringSubviewToFront:overlayView];
+	[mainMovieView bringSubviewToFront:trackMapView];
 	// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
-	[movieView bringSubviewToFront:trackZoomContainer];
-	[movieView bringSubviewToFront:trackZoomView];
-	[movieView bringSubviewToFront:videoDelayLabel];
-	[movieView bringSubviewToFront:loadingLabel];
-	[movieView bringSubviewToFront:loadingTwirl];
+	[mainMovieView bringSubviewToFront:trackZoomContainer];
+	[mainMovieView bringSubviewToFront:trackZoomView];
+	[mainMovieView bringSubviewToFront:videoDelayLabel];
+	[mainMovieView bringSubviewToFront:loadingLabel];
+	[mainMovieView bringSubviewToFront:loadingTwirl];
 	
 	NSString *currentCarToFollow = [trackZoomView carToFollow];
 	NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
@@ -225,7 +223,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 		// and register us to play it
 		[[BasePadMedia Instance] RegisterViewController:self];
-		[[RacePadCoordinator Instance] SetViewDisplayed:movieView];
+		[[RacePadCoordinator Instance] SetViewDisplayed:mainMovieView];
 	}
 	
 	if(displayMap)
@@ -256,7 +254,7 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	if(displayVideo)
 	{
-		[[RacePadCoordinator Instance] SetViewHidden:movieView];
+		[[RacePadCoordinator Instance] SetViewHidden:mainMovieView];
 		[[BasePadMedia Instance] ReleaseViewController:self];
 	}
 	
@@ -324,10 +322,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
-	if(moviePlayerLayer)
+	if(mainMovieView && [mainMovieView moviePlayerLayerAdded])
 	{
-		[moviePlayerLayer setFrame:[movieView bounds]];
+		AVPlayerLayer * moviePlayerLayer = [[mainMovieView movieSource] moviePlayerLayer];	
+		if(moviePlayerLayer)
+		{
+			[moviePlayerLayer setFrame:[mainMovieView bounds]];
+		}
 	}
 	
 	[UIView commitAnimations];
@@ -357,41 +358,48 @@ static UIImage * newButtonBackgroundImage = nil;
 // Movie routines
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) displayMovieInView
+- (void) displayMovieSource:(BasePadVideoSource *)source 
 {	
-	// Position the movie and order the overlays
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];
+	if(!source)
+		return;
 	
-	if(moviePlayerLayer && !moviePlayerLayerAdded)
-	{
-		CALayer *superlayer = movieView.layer;
-		
-		[moviePlayerLayer setFrame:[movieView bounds]];
-		[superlayer addSublayer:moviePlayerLayer];
-		
-		moviePlayerLayerAdded = true;
-	}
-	
-	[movieView bringSubviewToFront:overlayView];
-	[movieView bringSubviewToFront:trackMapView];
-	// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
-	[movieView bringSubviewToFront:trackZoomContainer];
-	[movieView bringSubviewToFront:trackZoomView];
-	[movieView bringSubviewToFront:videoDelayLabel];
-	[movieView bringSubviewToFront:loadingLabel];
-	[movieView bringSubviewToFront:loadingTwirl];
-	
-	[self positionOverlays];	
+	[self displayMovieSource:source InView:mainMovieView];
 }
 
-- (void) removeMovieFromView
-{
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];
-	if(moviePlayerLayer && moviePlayerLayerAdded)
+- (void) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)movieView
+{	
+	// Position the movie and order the overlays
+	if([movieView displayMovieSource:source])
 	{
-		[moviePlayerLayer removeFromSuperlayer];
-		moviePlayerLayerAdded = false;
-	}	
+		if(movieView == mainMovieView)
+		{
+			[movieView bringSubviewToFront:overlayView];
+			[movieView bringSubviewToFront:trackMapView];
+			// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
+			[movieView bringSubviewToFront:trackZoomContainer];
+			[movieView bringSubviewToFront:trackZoomView];
+			[movieView bringSubviewToFront:videoDelayLabel];
+			[movieView bringSubviewToFront:loadingLabel];
+			[movieView bringSubviewToFront:loadingTwirl];
+		}
+	
+		[self positionOverlays];	
+	}
+}
+
+- (void) removeMovieFromView:(BasePadVideoSource *)source
+{
+	if([mainMovieView movieSource] == source)
+		[mainMovieView removeMovieFromView];
+}
+
+- (void) removeMoviesFromView
+{
+	[mainMovieView removeMovieFromView];
+}
+
+- (void) positionMovieViews
+{
 }
 
 - (void) notifyMovieInformation
@@ -500,7 +508,7 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void) positionOverlays
 {
 	// Work out movie position
-	CGRect movieViewBounds = [movieView bounds];
+	CGRect movieViewBounds = [mainMovieView bounds];
 	CGSize  movieViewSize = movieViewBounds.size;
 	
 	if(movieViewSize.width < 1 || movieViewSize.height < 1 || movieSize.width < 1 || movieSize.height < 1)
@@ -529,7 +537,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : CGRect lb_frame = CGRectMake(movieRect.origin.x + 5, movieRect.origin.y, 60, movieRect.size.height);
 	// GG - COMMENT OUT LEADERBOARD : [leaderboardView setFrame:lb_frame];
 	
-	//CGRect zoom_frame = CGRectMake(movieViewSize.width - 320, movieViewSize.height - 320, 300, 300);
 	CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
 	CGRect offsetFrame = CGRectOffset(zoom_frame, trackZoomOffsetX, trackZoomOffsetY);
 	CGRect bgRect = [[self view] frame];

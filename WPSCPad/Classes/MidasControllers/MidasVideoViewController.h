@@ -26,7 +26,10 @@
 
 @interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate>
 {
-	IBOutlet MovieView * movieView;
+	IBOutlet MovieView * mainMovieView;
+	IBOutlet MovieView * auxMovieView1;	
+	IBOutlet MovieView * auxMovieView2;	
+	
 	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet BackgroundView * trackZoomContainer;
@@ -81,8 +84,6 @@
 	int unselectedButtonWidth;
 	int selectedButtonWidth;
 	
-	bool moviePlayerLayerAdded;
-	
 	bool displayVideo;
 	bool displayMap;
 	bool displayLeaderboard;
@@ -116,6 +117,9 @@
 - (void) showOverlays;
 - (void) hideOverlays;
 - (void) positionOverlays;
+
+- (void) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
+- (void) positionMovieViews;
 
 - (void) showZoomMap;
 - (void) hideZoomMap;
