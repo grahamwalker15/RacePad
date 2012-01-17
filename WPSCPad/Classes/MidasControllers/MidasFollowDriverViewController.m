@@ -128,25 +128,35 @@
 	expanded = true;
 }
 
-- (void) reduceView;
+- (void) reduceViewAnimated:(bool)animated
 {
 	if(!expanded)
 		return;
 	
 	id parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
 	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.5];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	if(animated)
+	{
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:0.5];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	}
 	
 	[[MidasFollowDriverManager Instance] setPreferredWidth:(382)];
 	
 	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyResizingPopup:)])
 		[parentViewController notifyResizingPopup:MIDAS_FOLLOW_DRIVER_POPUP_];
 	
-	[UIView commitAnimations];
-	
+	if(animated)
+	{
+		[UIView commitAnimations];
+	}
+	else
+	{
+		[extensionContainer setHidden:true];
+	}
+
 	[expandButton setSelected:false];
 	expanded = false;
 }
@@ -379,7 +389,7 @@
 {
 	if(expanded)
 	{
-		[self reduceView];		
+		[self reduceViewAnimated:false];		
 	}
 
 	[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
@@ -397,7 +407,7 @@
 	
 	if(expanded)
 	{
-		[self reduceView];		
+		[self reduceViewAnimated:true];		
 	}
 	else
 	{

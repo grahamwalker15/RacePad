@@ -57,7 +57,7 @@
 }
 
 - (void) expandView;
-- (void) reduceView;
+- (void) reduceViewAnimated:(bool)animated;
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 

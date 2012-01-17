@@ -359,6 +359,7 @@ static MidasChatManager * chatInstance_ = nil;
 			[parentViewController notifyShowingPopup:managedViewType];
 	}
 }
+
 - (void) moveToPositionX:(float)x Animated:(bool)animated
 {
 	// Can't move if we're not displayed or are in the middle of hiding
@@ -399,6 +400,8 @@ static MidasChatManager * chatInstance_ = nil;
 	{
 		[managedViewController.view removeFromSuperview];
 		viewDisplayed = false;
+		[parentViewController release];
+		parentViewController = nil;
 		return;
 	}
 	
@@ -431,20 +434,21 @@ static MidasChatManager * chatInstance_ = nil;
 	if(notify && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidingPopup:)])
 		[parentViewController notifyHidingPopup:managedViewType];
 	
-	[parentViewController release];
-	parentViewController = nil;
-		
 }
 
 - (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
 	if([finished intValue] == 1)
 	{
-		[managedViewController.view removeFromSuperview];
 		hiding = false;
+
+		[managedViewController onHide];
+
+		[managedViewController.view removeFromSuperview];
 		viewDisplayed = false;
 		
-		[managedViewController onHide];
+		[parentViewController release];
+		parentViewController = nil;
 		
 		if(flagTimer)
 		{
