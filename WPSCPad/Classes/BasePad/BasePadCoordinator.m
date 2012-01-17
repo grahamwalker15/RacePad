@@ -469,7 +469,7 @@ static BasePadCoordinator * instance_ = nil;
 {
 	[self stopPlay];
 	
-	[[BasePadMedia Instance] setMoviePausedInPlace:false];
+	[[[BasePadMedia Instance] movieSource] setMoviePausedInPlace:false];
 	
 	currentTime = time;
 	live = false;

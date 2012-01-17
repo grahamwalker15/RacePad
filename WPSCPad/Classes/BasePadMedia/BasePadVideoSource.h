@@ -21,9 +21,6 @@
 #import "BasePadVideoViewController.h"
 
 
-@class ElapsedTime;
-
-
 @interface BasePadVideoSource : NSObject
 {				
 	AVURLAsset * moviePlayerAsset;
@@ -32,8 +29,6 @@
 	AVPlayerLayer * moviePlayerLayer;
 	
 	id moviePlayerObserver;
-	NSTimer * playStartTimer;
-	NSTimer * playTimer;
 	
 	float movieStartTime;
 	float movieSeekTime;
@@ -42,14 +37,10 @@
 	float liveVideoDelay;
 	
 	Float64 lastMoviePlayTime;
-	float lastLiveVideoDelay;
 	float lastResyncTime;
 	bool movieRecentlyResynced;
 	
 	int resyncCount;
-	int restartCount;
-	
-	ElapsedTime * moviePlayElapsedTime;
 	
 	NSString *currentMovie;
 	NSString *currentAudio;
@@ -58,8 +49,7 @@
 	NSString *currentError;
 	
 	bool movieLoaded;
-	bool moviePlayable;
-	bool moviePlayAllowed;
+	bool movieMarkedPlayable;
 	
 	bool moviePlayPending;
 	bool movieSeekable;
@@ -67,7 +57,6 @@
 	bool movieGoLivePending;
 	
 	bool moviePausedInPlace;
-	int movieResyncCountdown;
 	
 	bool audioPlayPending;
 	bool audioSeekPending;
@@ -93,7 +82,6 @@
 @property (readonly) float movieSeekTime;
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
-@property (readonly) int restartCount;
 
 @property (readonly) NSString *currentMovie;
 
@@ -104,21 +92,20 @@
 @property (readonly) bool moviePlayPending;
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
+@property (readonly) bool movieGoLivePending;
 
 @property (nonatomic) bool moviePausedInPlace;
 
 @property (readonly) int movieType;
 
 @property (nonatomic) bool movieActive;
+@property (nonatomic) bool movieMarkedPlayable;
+
 
 - (void)onStartUp;
 
--(void)resetConnectionCounts;
-
 - (void) loadMovie:(NSURL *)url;
 - (void) unloadMovie;
-
-- (void) movieSetStartTime:(float)time;
 
 - (void) getStartTime;
 
@@ -131,13 +118,10 @@
 - (void) moviePrepareToPlay;
 - (void) movieResyncLive;
 
-- (void) startLivePlayTimer;
-- (void) stopPlayTimers;
-- (void) playStartTimerExpired: (NSTimer *)theTimer;
-- (void) livePlayTimerFired: (NSTimer *)theTimer;
-- (void) restartConnection;
-
 - (bool) moviePlayable;
+- (bool) moviePlayingRealTime: (float)timeNow;
+
+- (void) resetConnectionCounts;
 
 - (void) timeObserverCallback:(CMTime) cmTime;
 

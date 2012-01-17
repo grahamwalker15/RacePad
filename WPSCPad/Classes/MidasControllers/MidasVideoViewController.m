@@ -324,7 +324,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
 	if(moviePlayerLayer)
 	{
 		[moviePlayerLayer setFrame:[movieView bounds]];
@@ -360,7 +360,7 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void) displayMovieInView
 {	
 	// Position the movie and order the overlays
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];
 	
 	if(moviePlayerLayer && !moviePlayerLayerAdded)
 	{
@@ -386,7 +386,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) removeMovieFromView
 {
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];
 	if(moviePlayerLayer && moviePlayerLayerAdded)
 	{
 		[moviePlayerLayer removeFromSuperlayer];
