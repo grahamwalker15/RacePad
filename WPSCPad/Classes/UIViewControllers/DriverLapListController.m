@@ -49,7 +49,7 @@
  	// Set up the table data for SimpleListView
 	[lap_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverData]];
 	
-	[lap_list_view_ SetRowHeight:26];
+	[lap_list_view_ setStandardRowHeight:26];
 	[lap_list_view_ SetHeading:true];
 	[lap_list_view_ SetBackgroundAlpha:0.5];
 

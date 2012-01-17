@@ -12,6 +12,11 @@
 
 @implementation SimpleListView
 
+@synthesize standardRowHeight;
+@synthesize expansionRowHeight;
+
+@synthesize expansionAllowed;
+
 @synthesize cellYMargin;
 @synthesize rowDivider;
 @synthesize shadeHeading;
@@ -85,7 +90,13 @@
 	[self setDelegate:self];
 	
 	row_count_ = 0;
-	row_height_ = 20;
+	standardRowHeight = 20;
+	expansionRowHeight = 0;
+	
+	for(int i = 0 ; i < SLV_MAX_EXPANSION_FLAG ; i++)
+		expansionFlag[i] = 0;
+	
+	expansionAllowed = false;
 	
 	column_count_ = 0;
 	
@@ -153,16 +164,36 @@
 {
 	down_row_ = -1;
 	row_count_ = 0;
+	
+	for(int i = 0 ; i < SLV_MAX_EXPANSION_FLAG ; i++)
+		expansionFlag[i] = 0;
+	
+}
+
+- (void) UnexpandAllRows
+{
+	for(int i = 0 ; i < SLV_MAX_EXPANSION_FLAG ; i++)
+		expansionFlag[i] = 0;
+	
+}
+
+- (void) SetRow:(int)row Expanded:(bool)expanded
+{
+	if(row < SLV_MAX_EXPANSION_FLAG)
+		expansionFlag[row] = expanded ? 1 : 0;
+}
+
+- (bool) RowExpanded:(int)row
+{
+	if(row < SLV_MAX_EXPANSION_FLAG)
+		return (expansionFlag[row] == 1);
+	else
+		return false;
 }
 
 - (void) SetRowCount:(int)count
 {
 	row_count_ = count;
-}
-
-- (void) SetRowHeight:(int)height
-{
-	row_height_ = height;
 }
 
 - (void) AddColumn
@@ -199,7 +230,7 @@
 	// Get the device orientation
 	int orientation = [[BasePadCoordinator Instance] deviceOrientation];
 	portraitMode = (orientation == UI_ORIENTATION_PORTRAIT_);
-
+	
 	// Work out width
 	int w = 0;
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
@@ -216,6 +247,31 @@
 	}
 	
 	return w;
+}
+
+- (int) TableHeight
+{	
+	int h = 0;
+	for ( int i = 0 ; i < [self RowCount] ; i++)
+	{
+		h += [self RowHeight:i];
+	}
+	
+	return h;
+}
+
+- (int) TableHeightToRow:(int)row
+{	
+	if(row < 0)
+		return 0;
+	
+	int h = 0;
+	for ( int i = 0 ; i <= row ; i++)
+	{
+		h += [self RowHeight:i];
+	}
+	
+	return h;
 }
 
 - (void) SetHeading:(bool)if_heading
@@ -250,10 +306,7 @@
 	
 	CGRect bounds = [self bounds];
 
-	int row_count = [self RowCount];
-	int row_height = [self RowHeight];
-	
-	float table_height = row_count * row_height;
+	float table_height = [self TableHeight];
 	float table_width = [self TableWidth];
 	
 	[self SetContentWidth:table_width AndHeight:table_height];
@@ -285,7 +338,7 @@
 
 	CGRect bounds = [self bounds];
 	
-	float yOffset = floorf([self RowHeight] * [self RowCount] - bounds.size.height);
+	float yOffset = floorf([self TableHeight] - bounds.size.height);
 	
 	if(yOffset < 0)
 		yOffset = 0;
@@ -308,7 +361,7 @@
 - (void) ScrollToRow:(int)row
 {
 	CGRect bounds = [self bounds];
-	float yOffset = [self RowHeight] * (row + 1) - bounds.size.height;
+	float yOffset = [self TableHeightToRow:row] - bounds.size.height;
 
 	if(yOffset < 0)
 		yOffset = 0;
@@ -320,9 +373,10 @@
 - (void) MakeRowVisible:(int)row
 {
 	float w = [self TableWidth];
-	float h = [self RowHeight];
+	float h = [self RowHeight:row];
+	float y = row <= 0 ? 0 : [self TableHeightToRow:row - 1];
 	
-	[self scrollRectToVisible:CGRectMake(0.0, row * h, w, h) animated:false];
+	[self scrollRectToVisible:CGRectMake(0.0, y, w, h) animated:false];
 	[self RequestRedraw];
 }
 
@@ -437,7 +491,7 @@
 	
 	int column_count = [self ColumnCount];
 	
-	float row_height = [self RowHeight];
+	float row_height = [self ContentRowHeight:row];
 	
 	int row_index = if_heading_ ? row - 1 : row;
 	
@@ -623,9 +677,8 @@
 	[self BeginDrawing];
 	
 	int row_count = [self RowCount];
-	int row_height = [self RowHeight];
 	
-	float table_height = row_count * [self RowHeight ];
+	float table_height = [self TableHeight];
 	float table_width = [self TableWidth];
 	
 	float content_width = table_width > current_size_.width ? table_width : current_size_.width;
@@ -637,7 +690,7 @@
 	
 	// If there is a heading, we'll draw it at the end at the origin - leave space for it and set it to clip
 	bool if_heading = [self IfHeading];
-	float y = if_heading ? row_height : 0;
+	float y = if_heading ? [self standardRowHeight] : 0;
 	float ymin = current_top_right_.y + y;
 	float ymax = current_bottom_left_.y;
 	
@@ -651,6 +704,8 @@
 	// Draw the table rows first
 	for ( int i = first_row; i < row_count; i ++ )
 	{
+		int row_height = [self RowHeight:i];
+		
 		if ( (y + row_height) >= ymin )
 		{
 			[self DrawRow:i AtY:y];
@@ -660,16 +715,6 @@
 		
 		if ( y > ymax )
 			break;
-		
-		if(rowDivider)
-		{
-			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
-			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3]];
-			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
-			[self SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
-			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
-		}
 	}
 	
 	if( y < ymax )
@@ -680,10 +725,30 @@
 		[self SetBGColour:[base_colour_ colorWithAlphaComponent:background_alpha_]];
 		[self FillRectangleX0:current_origin_.x Y0:y X1:current_top_right_.x Y1:ymax];
 	}
-									
-	[self RestoreGraphicsState];
-
 	
+	// Then draw the line dividers
+	if(rowDivider)
+	{
+		y = if_heading ? [self standardRowHeight] : 0;
+	
+		for ( int i = first_row; i < row_count; i ++ )
+		{
+			y += [self RowHeight:i] ;
+		
+			if ( y > ymax )
+				break;
+		
+			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3]];
+			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+			[self SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
+			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+		}
+	}
+									
+	[self RestoreGraphicsState];	// Restores clip region
+
 	// Then add the heading if there is one
 	if(if_heading)
 	{
@@ -714,9 +779,22 @@
 	return column_count_;
 }
 
-- (int) RowHeight;
+- (int) RowHeight:(int)row;
 {
-	return row_height_;
+	return [self ContentRowHeight:row] + [self ExpansionRowHeight:row];
+}
+
+- (int) ContentRowHeight:(int)row;
+{
+	return standardRowHeight;
+}
+
+- (int) ExpansionRowHeight:(int)row;
+{
+	if(expansionAllowed && [self RowExpanded:row])
+		return expansionRowHeight;
+	else 
+		return 0;
 }
 
 - (int) ColumnWidth:(int)col;
@@ -790,19 +868,26 @@
 
 - (bool) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row_return ColReturn:(int *)col_return
 {
-	int row_count = [self RowCount];
-	int row_height = [self RowHeight];
-	
-	float table_height = row_count * [self RowHeight ];
+	float table_height = [self TableHeight];
 	float table_width = [self TableWidth];
 	
 	if(x < 0 || y < 0 || x > table_width || y > table_height)
 	{
 		return false;
 	}
-
-	int row = (int)(y / (float) row_height);
 	
+	int h = 0;
+	int row = 0;
+	for ( int i = 0 ; i < [self RowCount] ; i++)
+	{
+		h += [self RowHeight:i];
+		if(h >= y)
+		{
+			row = i;
+			break;
+		}
+	}
+
 	int w = 0;
 	int col = 0;
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)

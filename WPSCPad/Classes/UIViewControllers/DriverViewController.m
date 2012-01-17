@@ -57,7 +57,7 @@
 	
 	[timingView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
-	[timingView SetRowHeight:26];
+	[timingView setStandardRowHeight:26];
 	[timingView SetHeading:true];
 	[timingView SetBackgroundAlpha:0.5];
 	

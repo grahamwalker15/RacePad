@@ -14,9 +14,35 @@
 
 @implementation AlertView
 
+@synthesize defaultBackgroundColour;
+@synthesize defaultTextColour;
+
+- (id)initWithCoder:(NSCoder*)coder
+{    
+    if ((self = [super initWithCoder:coder]))
+    {
+		[self setDefaultTextColour:black_];
+		[self setDefaultBackgroundColour:white_];
+		[self setStandardRowHeight:28];
+	}
+	
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+	{
+		[self setDefaultTextColour:black_];
+		[self setDefaultBackgroundColour:white_];
+    }
+    return self;
+}
 
 - (void)dealloc
 {
+	[defaultTextColour release];
+	[defaultBackgroundColour release];
     [super dealloc];
 }
 
@@ -29,17 +55,12 @@
 - (void)PrepareData
 {
 	[super PrepareData];
-	[self SetBaseColour:white_];
+	[self SetBaseColour:defaultBackgroundColour];
 }
 
 - (int) ColumnCount
 {
 	return 5;
-}
-
-- (int) RowHeight
-{
-	return 28;
 }
 
 - (int) ColumnWidth:(int)col;
@@ -172,8 +193,8 @@
 
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col
 {
-	[self SetTextColour:black_];
-	[self SetBackgroundColour:white_];
+	[self SetTextColour:defaultTextColour];
+	[self SetBackgroundColour:defaultBackgroundColour];
 	
 	AlertData * alertData = [[RacePadDatabase Instance] alertData];
 	int dataRow = [self filteredRowToDataRow:row];
@@ -221,7 +242,7 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	[self SetBackgroundColour:white_];
+	[self SetBackgroundColour:defaultBackgroundColour];
 	
 	if(col != 0)
 		return nil;

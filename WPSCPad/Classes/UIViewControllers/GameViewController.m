@@ -25,7 +25,7 @@
 
 	[leagueTable SetTableDataClass:[[RacePadDatabase Instance] competitorData]];
 	
-	[leagueTable SetRowHeight:30];
+	[leagueTable setStandardRowHeight:30];
 	[leagueTable SetHeading:true];
 	[leagueTable SetBackgroundAlpha:0.8];
 

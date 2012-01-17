@@ -32,7 +32,7 @@
 	[extensionContainer setHidden:true];
 	
 	[lapTimesView SetFont:DW_LIGHT_LARGER_CONTROL_FONT_];
-	[lapTimesView SetRowHeight:26];
+	[lapTimesView setStandardRowHeight:26];
 	[lapTimesView SetHeading:true];
 	[lapTimesView SetBackgroundAlpha:0.25];
 	[lapTimesView setRowDivider:true];

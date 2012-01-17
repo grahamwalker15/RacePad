@@ -17,9 +17,15 @@
 }
 @end
 
+@interface MidasStandingsExpansionView : UIView
+{
+}
+@end
+
 @interface MidasStandingsViewController : MidasBaseViewController 
 {
 	IBOutlet MidasStandingsView * standingsView;
+	IBOutlet MidasStandingsExpansionView * expansionView;
 }
 
 @end

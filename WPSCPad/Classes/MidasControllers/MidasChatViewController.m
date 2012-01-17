@@ -7,34 +7,21 @@
 //
 
 #import "MidasChatViewController.h"
+#import "MidasView.h"
 
 
 @implementation MidasChatViewController
-
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+	
+	MidasView * midasView = [[MidasView alloc] initWithFrame:CGRectMake(0, 0, 300, 372)];
+	midasView.delegate = self;
+    [self.view addSubview:midasView];
+	[midasView setFrame:CGRectMake(0, 0, 300, 372)];
+	[midasView __checkForNewMessages:70000];
+	[midasView release];
 }
-*/
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.
@@ -60,6 +47,5 @@
 - (void)dealloc {
     [super dealloc];
 }
-
 
 @end

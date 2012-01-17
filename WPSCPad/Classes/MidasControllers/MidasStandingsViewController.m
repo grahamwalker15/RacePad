@@ -24,11 +24,16 @@
 	[standingsView SetTableDataClass:[[RacePadDatabase Instance] midasStandingsData]];
 	
 	[standingsView SetFont:DW_LIGHT_LARGER_CONTROL_FONT_];
-	[standingsView SetRowHeight:26];
+	[standingsView setStandardRowHeight:26];
+	[standingsView setExpansionRowHeight:CGRectGetHeight(expansionView.bounds)];
+	[standingsView setExpansionAllowed:true];
 	[standingsView SetHeading:false];
 	[standingsView SetBackgroundAlpha:0.0];
 	[standingsView setRowDivider:true];
 	[standingsView setCellYMargin:3];
+	
+	[expansionView setHidden:true];
+	[standingsView addSubview:expansionView];
 	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:standingsView];
@@ -76,6 +81,33 @@
 	{
 		[[MidasStandingsManager Instance] hideAnimated:true Notify:true];
 	}
+	else if(gestureView == standingsView)
+	{
+		int row, col;
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		{
+			bool wasExpanded = [standingsView RowExpanded:row];
+			
+			[standingsView UnexpandAllRows];
+			[expansionView setHidden:true];
+			
+			if(!wasExpanded)
+			{
+				[standingsView SetRow:row Expanded:true];
+				
+				float y = [standingsView TableHeightToRow:row - 1] + [standingsView ContentRowHeight:row];
+				[expansionView setFrame:CGRectMake(0, y, CGRectGetWidth(expansionView.bounds), CGRectGetHeight(expansionView.bounds))];
+				[expansionView setHidden:false];
+			}
+		}
+		
+		[standingsView RequestRedraw];
+	}
+}
+
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{	
+	[self OnTapGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) onDisplay
@@ -92,14 +124,22 @@
 
 @implementation MidasStandingsView
 
+- (int) ContentRowHeight:(int)row
+{
+	if(row == 0)
+		return standardRowHeight * 1.5;
+	else
+		return standardRowHeight;
+}
+
 - (int) GetFontAtRow:(int)row Col:(int)col
 {
 	if(row == 0)
 	{
 		if(col == 0)
-			return DW_ITALIC_REGULAR_FONT_;
+			return DW_ITALIC_BIG_FONT_;
 		else
-			return DW_LARGER_CONTROL_FONT_;
+			return DW_REGULAR_FONT_;
 	}
 	else
 	{
@@ -111,5 +151,9 @@
 }
 
 @end
+
+@implementation MidasStandingsExpansionView
+@end
+
 
 

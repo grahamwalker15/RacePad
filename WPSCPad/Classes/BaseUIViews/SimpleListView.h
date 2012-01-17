@@ -37,6 +37,7 @@ enum ColumnPriority {
 } ;
 
 #define SLV_MAX_COLUMNS 1024
+#define SLV_MAX_EXPANSION_FLAG 1024	// Max number of rows that can be expanded
 
 @interface SimpleListView : DrawingView <UIScrollViewDelegate>
 {
@@ -51,11 +52,15 @@ enum ColumnPriority {
 	UIColor * wet_tyre_;
 		
 	int row_count_ ;
-	int row_height_;
+	int standardRowHeight;
+	int expansionRowHeight;
 	
 	int column_count_;
 	
 	int font_;
+	
+	bool expansionAllowed;
+	unsigned char expansionFlag[SLV_MAX_EXPANSION_FLAG];
 	
 	int cellYMargin;
 	bool rowDivider;
@@ -102,6 +107,11 @@ enum ColumnPriority {
 		
 }
 
+@property (nonatomic) int standardRowHeight;
+@property (nonatomic) int expansionRowHeight;
+
+@property (nonatomic) bool expansionAllowed;
+
 @property (nonatomic) int cellYMargin;
 @property (nonatomic) bool rowDivider;
 @property (nonatomic) bool shadeHeading;
@@ -119,7 +129,6 @@ enum ColumnPriority {
 - (void) DeleteTable;
 
 - (void) SetRowCount:(int)count;
-- (void) SetRowHeight:(int)height;
 
 - (void) AddColumn;
 - (void) AddColumnWithWidth:(int)width;
@@ -127,6 +136,8 @@ enum ColumnPriority {
 - (void) SetColumn:(int)column Width:(int)width;
 
 - (int) TableWidth;
+- (int) TableHeight;
+- (int) TableHeightToRow:(int)row;
 
 - (void) SetHeading:(bool)if_heading;
 - (void) SetSwipingEnabled:(bool)value;
@@ -166,7 +177,14 @@ enum ColumnPriority {
 - (int) RowCount;
 - (int) ColumnCount;
 
-- (int) RowHeight;
+- (int) ContentRowHeight:(int)row;
+- (int) ExpansionRowHeight:(int)row;
+- (int) RowHeight:(int)row;
+
+- (void) SetRow:(int)row Expanded:(bool)expanded;
+- (bool) RowExpanded:(int)row;
+- (void) UnexpandAllRows;
+
 - (int) ColumnWidth:(int)col;
 - (int) ColumnType:(int)col;
 - (int) ColumnUse:(int)col;

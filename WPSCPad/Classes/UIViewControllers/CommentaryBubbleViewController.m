@@ -78,7 +78,7 @@
 {
 	int width = 490;
 	CGRect frame = [[self view] frame];
-	CGRect vFrame = CGRectMake ( frame.origin.x, frame.origin.y, width, [commentaryView RowHeight] + 8 );
+	CGRect vFrame = CGRectMake ( frame.origin.x, frame.origin.y, width, [commentaryView standardRowHeight] + 8 );
 	
 	[[self view] setFrame:vFrame];
 }
@@ -91,7 +91,7 @@
 	if ( rowCount > 5 )
 		rowCount = 5;
 	
-	int height = rowCount * [commentaryView RowHeight];
+	int height = rowCount * [commentaryView standardRowHeight];
 	int width = 490;
 	if ( height <= fromHeight )
 		return;

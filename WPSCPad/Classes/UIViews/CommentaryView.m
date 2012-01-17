@@ -208,7 +208,7 @@
 	return 3;
 }
 
-- (int) RowHeight
+- (int) ContentRowHeight:(int)row
 {
 	if ( smallFont )
 		return 18;

@@ -50,6 +50,7 @@ static UIFont * bold_font_ = nil;
 static UIFont * medium_bold_font_ = nil;
 static UIFont * italic_regular_font_ = nil;
 static UIFont * italic_larger_control_font_ = nil;
+static UIFont * italic_big_font_ = nil;
 
 static UIColor * shadow_colour_;
 
@@ -215,6 +216,7 @@ static bool statics_initialised_ = false;
 		
 		italic_regular_font_ = [UIFont italicSystemFontOfSize:20.0];
 		italic_larger_control_font_ = [UIFont italicSystemFontOfSize:13.0];
+		italic_big_font_ = [UIFont italicSystemFontOfSize:32.0];
 		
 		shadow_colour_ = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3];
 	}
@@ -946,6 +948,10 @@ static bool statics_initialised_ = false;
 			
 		case DW_ITALIC_REGULAR_FONT_:
 			current_font_ = italic_regular_font_;
+			break;
+			
+		case DW_ITALIC_BIG_FONT_:
+			current_font_ = italic_big_font_;
 			break;
 			
 		case DW_REGULAR_FONT_:

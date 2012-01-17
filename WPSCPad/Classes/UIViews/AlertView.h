@@ -23,7 +23,13 @@ enum AlertFilter {
 {
 	int filter;
 	NSString *driver;
+	
+	UIColor * defaultTextColour;
+	UIColor * defaultBackgroundColour;
 }
+
+@property (retain) UIColor * defaultTextColour;
+@property (retain) UIColor * defaultBackgroundColour;
 
 -(void) setFilter:(int) type Driver:(NSString *)driver;
 -(int) filteredRowToDataRow:(int)row;
