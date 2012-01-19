@@ -34,6 +34,8 @@
 	float movieSeekTime;
 	float streamSeekStartTime;
 	
+	bool movieLoop;
+	
 	float liveVideoDelay;
 	
 	Float64 lastMoviePlayTime;
@@ -43,7 +45,7 @@
 	int resyncCount;
 	
 	NSString *currentMovie;
-	NSString *currentAudio;
+	NSString *movieTag;
 	
 	int currentStatus;
 	NSString *currentError;
@@ -57,6 +59,7 @@
 	bool movieGoLivePending;
 	
 	bool moviePausedInPlace;
+	bool moviePlaying;
 	
 	bool audioPlayPending;
 	bool audioSeekPending;
@@ -68,6 +71,7 @@
 	int movieType;
 	
 	bool movieActive;
+	bool movieDisplayed;
 	
 }
 
@@ -78,12 +82,15 @@
 
 @property (readonly) id moviePlayerObserver;
 
-@property (readonly) float movieStartTime;
-@property (readonly) float movieSeekTime;
+@property (nonatomic) float movieStartTime;
+@property (nonatomic) float movieSeekTime;
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
 
+@property (nonatomic) bool movieLoop;
+
 @property (readonly) NSString *currentMovie;
+@property (nonatomic, retain) NSString *movieTag;
 
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
@@ -95,18 +102,21 @@
 @property (readonly) bool movieGoLivePending;
 
 @property (nonatomic) bool moviePausedInPlace;
+@property (nonatomic) bool moviePlaying;
 
 @property (readonly) int movieType;
 
 @property (nonatomic) bool movieActive;
+@property (nonatomic) bool movieDisplayed;
 @property (nonatomic) bool movieMarkedPlayable;
 
 
 - (void)onStartUp;
 
-- (void) loadMovie:(NSURL *)url;
+- (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay;
 - (void) unloadMovie;
 
+- (void) setStartTime:(float)time;
 - (void) getStartTime;
 
 - (void) moviePlayAtRate:(float)playbackRate;
@@ -124,5 +134,6 @@
 - (void) resetConnectionCounts;
 
 - (void) timeObserverCallback:(CMTime) cmTime;
+- (void) playerItemDidReachEnd:(NSNotification *)notification;
 
 @end

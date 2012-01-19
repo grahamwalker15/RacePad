@@ -26,6 +26,10 @@
 {
 	IBOutlet MidasStandingsView * standingsView;
 	IBOutlet MidasStandingsExpansionView * expansionView;
+	
+	IBOutlet UIButton * onboardVideoButton;
 }
+
+-(IBAction)movieSelected:(id)sender;
 
 @end

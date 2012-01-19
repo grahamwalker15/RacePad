@@ -7,6 +7,7 @@
 //
 
 #import "MovieView.h"
+#import "BasePadCoordinator.h"
 
 @implementation MovieView
 
@@ -44,6 +45,16 @@
 		[self setMoviePlayerLayerAdded:true];
 		[self setMovieSource:source];
 		
+		[source setMovieDisplayed:true];
+		
+		float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
+		[source movieGotoTime:currentTime];
+		
+		if([[BasePadCoordinator Instance] playing])
+		{
+			[source moviePlay];
+		}
+		
 		return true;
 	}
 	
@@ -58,6 +69,8 @@
 		if(moviePlayerLayer)
 			[moviePlayerLayer removeFromSuperlayer];
 
+		[movieSource movieStop];
+		[movieSource setMovieDisplayed:false];
 	}
 	
 	moviePlayerLayerAdded = false;

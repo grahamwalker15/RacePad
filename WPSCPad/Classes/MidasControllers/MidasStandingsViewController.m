@@ -11,6 +11,9 @@
 
 #import "RacePadDatabase.h"
 #import "RacePadCoordinator.h"
+#import "BasePadMedia.h"
+
+#import "MidasVideoViewController.h"
 
 
 @implementation MidasStandingsViewController
@@ -118,6 +121,28 @@
 - (void) onHide
 {
 	[[RacePadCoordinator Instance] SetViewHidden:standingsView];
+}
+
+-(IBAction)movieSelected:(id)sender
+{
+	BasePadViewController * parentViewController = [[MidasStandingsManager Instance] parentViewController];
+	
+	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+	{
+		MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+		
+		BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:@"VET"];
+
+		if(videoSource)
+		{
+			MovieView * movieView = [videoViewController findFreeMovieView];
+			if(movieView)
+			{
+				[videoViewController displayMovieSource:videoSource InView:movieView];
+				[videoViewController showAuxMovieView:movieView];
+			}
+		}
+	}
 }
 
 @end

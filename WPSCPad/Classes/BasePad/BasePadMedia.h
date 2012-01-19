@@ -41,13 +41,21 @@ enum MovieConnectionTypes
 	BPM_CONNECTION_ERROR_,
 } ;
 
+#define BPM_MAX_VIDEO_STREAMS 16
+
 @class ElapsedTime;
 
 @interface BasePadMedia : NSObject
 {				
-	BasePadVideoSource * movieSource;
+	BasePadVideoSource * movieSources[BPM_MAX_VIDEO_STREAMS];
+	int movieSourceCount;
+	
 	BasePadAudioSource * audioSource;
 	
+	NSString *currentMovieRoot;
+	NSString *currentAudioRoot;
+	int currentMovieType;
+		
 	NSTimer * playStartTimer;
 	NSTimer * playTimer;
 	
@@ -78,6 +86,10 @@ enum MovieConnectionTypes
 @property (readonly) int resyncCount;
 @property (readonly) int restartCount;
 
+@property (readonly) NSString *currentMovieRoot;
+@property (readonly) NSString *currentAudioRoot;
+@property (readonly) int currentMovieType;
+
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
 
@@ -93,6 +105,11 @@ enum MovieConnectionTypes
 - (void)verifyMovieLoaded;
 - (void)verifyAudioLoaded;
 
+- (int) getMovieType;
+
+- (BasePadVideoSource *)movieSource:(int)index;
+- (BasePadVideoSource *)findMovieSourceByTag:(NSString *)tag;
+
 - (NSURL *) getMovieURL;
 - (NSURL *) getAudioURL;
 
@@ -104,6 +121,7 @@ enum MovieConnectionTypes
 - (void) movieSeekToLive;
 - (void) moviePrepareToPlay;
 - (void) movieResyncLive;
+- (void) setMoviePlaying:(bool)value;
 - (void) setMoviePausedInPlace:(bool)value;
 
 - (void) audioPlayAtRate:(float)playbackRate;
@@ -121,7 +139,7 @@ enum MovieConnectionTypes
 -(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
 -(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;
 
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource;
+-(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay;
 
 -(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:error;
 -(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
@@ -130,5 +148,6 @@ enum MovieConnectionTypes
 
 -(void)notifyMovieInformation;
 
+-(void)loadVideoList:(NSString *)fileName;
 
 @end

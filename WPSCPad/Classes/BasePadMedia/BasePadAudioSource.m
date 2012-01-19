@@ -31,9 +31,9 @@
 		
 		currentStatus = BPM_NOT_CONNECTED_;
 		currentError = nil;
-		
+				
 		audioPlayer = nil;
-		
+				
 		audioPlayPending = false;
 		audioSeekPending = false;
 		

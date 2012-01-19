@@ -21,6 +21,10 @@
 @synthesize restartCount;
 @synthesize resyncCount;
 
+@synthesize currentMovieRoot;
+@synthesize currentAudioRoot;
+@synthesize currentMovieType;
+
 @synthesize currentStatus;
 @synthesize currentError;
 
@@ -40,10 +44,18 @@ static BasePadMedia * instance_ = nil;
 {
 	if(self = [super init])
 	{	
+		currentMovieRoot = nil;
+		currentAudioRoot = nil;
+		currentMovieType = MOVIE_TYPE_NONE_;
+		
 		currentStatus = BPM_NOT_CONNECTED_;
 		currentError = nil;
 		
-		movieSource = [[BasePadVideoSource alloc] init];
+		for(int i = 0 ; i < BPM_MAX_VIDEO_STREAMS ; i++)
+			movieSources[i] = [[BasePadVideoSource alloc] init];
+		
+		movieSourceCount = 0;
+		
 		audioSource = [[BasePadAudioSource alloc] init];
 		
 		activePlaybackRate = 1.0;
@@ -69,10 +81,13 @@ static BasePadMedia * instance_ = nil;
 
 - (void)dealloc
 {
-	if(movieSource)
+	for(int i = 0 ; i < BPM_MAX_VIDEO_STREAMS ; i++)
 	{
-		[movieSource release];
-		movieSource= nil;
+		if(movieSources[i])
+		{
+			[movieSources[i] release];
+			movieSources[i] = nil;
+		}
 	}
 	
 	if(audioSource)
@@ -80,6 +95,9 @@ static BasePadMedia * instance_ = nil;
 		[audioSource release];
 		audioSource= nil;
 	}
+	
+	[currentMovieRoot release];
+	currentMovieRoot = nil;
 	
     [super dealloc];
 }
@@ -95,7 +113,10 @@ static BasePadMedia * instance_ = nil;
 	resyncCount = 0;
 	restartCount = 0;
 	
-	[movieSource resetConnectionCounts];
+	for(int i = 0 ; i < BPM_MAX_VIDEO_STREAMS ; i++)
+	{
+		[movieSources[i] resetConnectionCounts];
+	}
 }
 
 - (void)connectToVideoServer
@@ -117,9 +138,12 @@ static BasePadMedia * instance_ = nil;
 
 - (void)disconnectVideoServer
 {
-	if(movieSource)
+	for(int i = 0 ; i < BPM_MAX_VIDEO_STREAMS ; i++)
 	{
-		[movieSource unloadMovie];
+		if(movieSources[i])
+		{
+			[movieSources[i] unloadMovie];
+		}
 	}
 	
 	movieType = MOVIE_TYPE_NONE_;
@@ -145,15 +169,32 @@ static BasePadMedia * instance_ = nil;
 	if(url)
 	{
 		NSString * newMovie = [url absoluteString];
-		NSString * currentMovie = [movieSource currentMovie];
-		if(!currentMovie || [newMovie compare:currentMovie] != NSOrderedSame )
+		if(!currentMovieRoot || [newMovie compare:currentMovieRoot] != NSOrderedSame )
 		{
-			[movieSource loadMovie:url];
+			currentMovieRoot = [newMovie retain];
+			
+			for(int i = 0 ; i < movieSourceCount ; i++)
+				[movieSources[i] unloadMovie];
+
+			// If we have a video list, pass this on to the parser, else load directly here
+			if([currentMovieRoot hasSuffix:@".vls"])
+			{
+				[self loadVideoList:currentMovieRoot];
+			}
+			else
+			{
+				[movieSources[0] loadMovie:url ShouldDisplay:true];
+				movieSourceCount = 1;
+			}
+
 		}
 	}
 	else
 	{
-		[movieSource unloadMovie];
+		for(int i = 0 ; i < movieSourceCount ; i++)
+			[movieSources[i] unloadMovie];
+		
+		movieSourceCount = 0;
 		movieType = MOVIE_TYPE_NONE_;
 	}
 }
@@ -180,6 +221,46 @@ static BasePadMedia * instance_ = nil;
 ////////////////////////////////////////////////////////////////////////////
 // Movie and Audio information
 ////////////////////////////////////////////////////////////////////////////
+
+- (BasePadVideoSource *)movieSource:(int)index
+{
+	if(index >= 0 && index < movieSourceCount)
+		return movieSources[index];
+
+	return nil;
+}
+
+- (BasePadVideoSource *)findMovieSourceByTag:(NSString *)tag
+{
+	if(movieSourceCount > 0)
+	{
+		for(int i = 0 ; i < movieSourceCount ; i++)
+		{
+			if([[movieSources[i] movieTag] compare:tag] == NSOrderedSame)
+				return movieSources[i];
+		}
+	}
+	
+	return nil;
+}
+
+
+
+- (int)getMovieType
+{
+	// Live stream or archive name
+	if ( [[BasePadCoordinator Instance] connectionType] != BPC_ARCHIVE_CONNECTION_ && [[BasePadCoordinator Instance] videoConnectionType] == BPC_VIDEO_LIVE_CONNECTION_)
+	{
+		return MOVIE_TYPE_LIVE_STREAM_;
+	}
+	else if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
+	{
+		return MOVIE_TYPE_ARCHIVE_;
+	}
+	
+	return MOVIE_TYPE_NONE_;
+	
+}
 
 - (NSURL *)getMovieURL
 {
@@ -242,42 +323,83 @@ static BasePadMedia * instance_ = nil;
 
 - (void) moviePlayAtRate:(float)playbackRate
 {
-	[movieSource moviePlayAtRate:playbackRate];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] moviePlayAtRate:playbackRate];
+	}
 }
 
 - (void) moviePlay
 {
-	[movieSource moviePlay];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] moviePlay];
+	}
 }
 
 - (void) movieStop
 {
-	[movieSource movieStop];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] movieStop];
+	}
 }
 
 - (void) movieGotoTime:(float)time
 {
-	[movieSource movieGotoTime:time];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] movieGotoTime:time];
+	}
 }
 
 - (void) movieGoLive
 {
-	[movieSource movieGoLive];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] movieGoLive];
+	}
 }
 
 - (void) movieSeekToLive
 {
-	[movieSource movieSeekToLive];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] movieSeekToLive];
+	}
 }
 
 - (void) movieResyncLive
 {
-	[movieSource movieResyncLive];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] movieResyncLive];
+	}
+}
+
+- (void) setMoviePlaying:(bool)value
+{
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] setMoviePlaying:value];
+	}
 }
 
 - (void) setMoviePausedInPlace:(bool)value
 {
-	[movieSource setMoviePausedInPlace:value];
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] setMoviePausedInPlace:value];
+	}
 }
 
 - (void) startLivePlayTimer;
@@ -322,10 +444,13 @@ static BasePadMedia * instance_ = nil;
 - (void) playStartTimerExpired: (NSTimer *)theTimer
 {
 	// If there is a go live or play still pending, just kick off the timer again
-	if([movieSource movieGoLivePending] || [movieSource moviePlayPending])
+	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
-		[self startLivePlayTimer];
-		return;
+		if([movieSources[i] movieGoLivePending] || [movieSources[i] moviePlayPending])
+		{
+			[self startLivePlayTimer];
+			return;
+		}
 	}
 	
 	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
@@ -351,26 +476,28 @@ static BasePadMedia * instance_ = nil;
 {
 	if([[BasePadCoordinator Instance] liveMode])
 	{
-		// Check the player status is still OK
-		if(![movieSource moviePlayable])
+		for(int i = 0 ; i < movieSourceCount ; i++)
 		{
-			[self restartConnection];
-			return;
-		}
+			// Check the player status is still OK
+			if(![movieSources[i] moviePlayable])
+			{
+				[self restartConnection];
+				return;
+			}
 		
-		// Then check time hasn't slipped
-		float timeNow = [moviePlayElapsedTime value];
-		if(![movieSource moviePlayingRealTime:timeNow])
-		{
-			[self restartConnection];
+			// Then check time hasn't slipped
+			float timeNow = [moviePlayElapsedTime value];
+			if([movieSources[i] movieDisplayed] && ![movieSources[i] moviePlayingRealTime:timeNow])
+			{
+				[self restartConnection];
+			}
 		}
-		
-		resyncCount = [movieSource resyncCount];
-		liveVideoDelay = [movieSource liveVideoDelay];
+			
+		resyncCount = [movieSources[0] resyncCount];
+		liveVideoDelay = [movieSources[0] liveVideoDelay];
 		
 		if(registeredViewController)
 			[registeredViewController notifyMovieInformation];
-		
 	}
 }
 
@@ -455,12 +582,14 @@ static BasePadMedia * instance_ = nil;
 	if(old_registered_view_controller)
 		[old_registered_view_controller release];
 	
-	[movieSource setMoviePausedInPlace:false];
-	[movieSource setMovieActive:true];
-	
-	if([movieSource movieLoaded])
+	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
-		[registeredViewController displayMovieSource:movieSource];
+		[movieSources[i] setMoviePausedInPlace:false];
+		[movieSources[i]  setMovieActive:true];
+
+		if([movieSources[i] movieLoaded])
+		{
+			[registeredViewController displayMovieSource:movieSources[i]];		}
 	}
 }
 
@@ -476,9 +605,12 @@ static BasePadMedia * instance_ = nil;
 		[registeredViewController release];
 		registeredViewController = nil;
 		
-		[movieSource setMoviePausedInPlace:false];
-		[movieSource setMovieActive:false];
-		[movieSource setMovieMarkedPlayable:false];
+		for(int i = 0 ; i < movieSourceCount ; i++)
+		{
+			[movieSources[i] setMoviePausedInPlace:false];
+			[movieSources[i] setMovieActive:false];
+			[movieSources[i] setMovieMarkedPlayable:false];
+		}
 	}
 }
 
@@ -486,10 +618,10 @@ static BasePadMedia * instance_ = nil;
 ////////////////////////////////////////////////////////////////////////
 //  Response to notifications
 
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource
+-(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay
 {
 	// Position the movie and order the overlay in any registered view controller
-	if(registeredViewController)
+	if(shouldDisplay && registeredViewController)
 		[registeredViewController displayMovieSource:videoSource];
 	
 	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
@@ -526,6 +658,9 @@ static BasePadMedia * instance_ = nil;
 	
 	currentError = [error retain];
 	
+	[currentMovieRoot release];
+	currentMovieRoot = nil;
+
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 }
@@ -560,5 +695,69 @@ static BasePadMedia * instance_ = nil;
 		[registeredViewController notifyMovieInformation];
 }
 
+
+///////////////////////////////////////////////////////////////////
+//  Video file i/o
+
+- (void) loadVideoList:(NSString *)fileName
+{
+	movieSourceCount = 0;
+	
+	FILE * listFile;
+	NSString * fileString = [[BasePadCoordinator Instance] getVideoArchiveName];
+	listFile = fopen([fileString fileSystemRepresentation], "rt" );
+	if ( listFile )
+	{
+		char keyword[128];
+		char stringValue[256];
+		int movieStartTime;
+		int movieLoop;
+		
+		while(true)
+		{
+			if ( fscanf(listFile, "%128s", keyword ) != 1 )
+				break;
+			
+			if ( strcmp ( keyword, "@videofile" ) != 0 )
+				break;
+
+			if ( fscanf(listFile, "%128s", stringValue ) != 1 )
+				break;
+			
+			NSString * urlString = [[BasePadCoordinator Instance] getVideoArchiveRoot];
+			urlString = [urlString stringByAppendingPathComponent:[NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding]];
+			NSURL * url = [NSURL fileURLWithPath:urlString];	// auto released
+			
+			if ( fscanf(listFile, "%128s %d", keyword, &movieStartTime ) != 2 )
+				break;
+			
+			if ( fscanf(listFile, "%128s %d", keyword, &movieLoop ) != 2 )
+				break;
+			
+			if ( fscanf(listFile, "%128s %128s", keyword, stringValue ) != 2 )
+				break;
+			
+			NSString * movieTag = [NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding];
+			
+			if ( fscanf(listFile, "%128s", keyword ) != 1 )
+				break;
+			
+			if ( strcmp ( keyword, "@end" ) == 0 )
+			{
+				[movieSources[movieSourceCount] loadMovie:url ShouldDisplay:(movieSourceCount == 0)];	// Displays first one
+				[movieSources[movieSourceCount] setStartTime:movieStartTime];
+				[movieSources[movieSourceCount] setMovieLoop:(movieLoop > 0)];
+				[movieSources[movieSourceCount] setMovieTag:movieTag];
+				movieSourceCount++;
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		fclose(listFile);
+	}
+}
 
 @end

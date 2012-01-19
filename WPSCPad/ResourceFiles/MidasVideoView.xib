@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="13"/>
+			<integer value="11"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -212,6 +212,24 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">bottom-container-unselected.png</string>
 						</object>
+					</object>
+					<object class="IBUIScrollView" id="343635529">
+						<reference key="NSNextResponder" ref="389611430"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{346, 266}, {331, 216}}</string>
+						<reference key="NSSuperview" ref="389611430"/>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+					</object>
+					<object class="IBUIScrollView" id="196724558">
+						<reference key="NSNextResponder" ref="389611430"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{90, 46}, {331, 216}}</string>
+						<reference key="NSSuperview" ref="389611430"/>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIButton" id="614337221">
 						<reference key="NSNextResponder" ref="389611430"/>
@@ -686,14 +704,6 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">movieView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="847081954"/>
-					</object>
-					<int key="connectionID">5</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">overlayView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="787387825"/>
@@ -1059,6 +1069,30 @@
 					</object>
 					<int key="connectionID">97</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mainMovieView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="847081954"/>
+					</object>
+					<int key="connectionID">98</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">auxMovieView1</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="343635529"/>
+					</object>
+					<int key="connectionID">101</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">auxMovieView2</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="196724558"/>
+					</object>
+					<int key="connectionID">102</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1090,6 +1124,8 @@
 							<reference ref="362925225"/>
 							<reference ref="939045570"/>
 							<reference ref="834175002"/>
+							<reference ref="343635529"/>
+							<reference ref="196724558"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1313,6 +1349,16 @@
 						<reference key="object" ref="908124223"/>
 						<reference key="parent" ref="618479121"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100</int>
+						<reference key="object" ref="343635529"/>
+						<reference key="parent" ref="389611430"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">99</int>
+						<reference key="object" ref="196724558"/>
+						<reference key="parent" ref="389611430"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1321,6 +1367,10 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
+					<string>100.CustomClassName</string>
+					<string>100.IBEditorWindowLastContentRect</string>
+					<string>100.IBPluginDependency</string>
+					<string>100.IBViewBoundsToFrameTransform</string>
 					<string>11.IBEditorWindowLastContentRect</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.IBViewBoundsToFrameTransform</string>
@@ -1390,11 +1440,21 @@
 					<string>94.IBPluginDependency</string>
 					<string>95.IBPluginDependency</string>
 					<string>95.IBViewBoundsToFrameTransform</string>
+					<string>99.CustomClassName</string>
+					<string>99.IBEditorWindowLastContentRect</string>
+					<string>99.IBPluginDependency</string>
+					<string>99.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MidasVideoViewController</string>
 					<string>UIResponder</string>
+					<string>MovieView</string>
+					<string>{{385, 673}, {240, 128}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwvwAAA</bytes>
+					</object>
 					<string>{{384, 108}, {1024, 748}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform"/>
@@ -1516,6 +1576,12 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUJEAABBQAAAA</bytes>
 					</object>
+					<string>MovieView</string>
+					<string>{{385, 673}, {240, 128}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUK0AABCOAAAA</bytes>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -1534,7 +1600,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">97</int>
+			<int key="maxID">102</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1669,6 +1735,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>alertsButton</string>
+							<string>auxMovieView1</string>
+							<string>auxMovieView2</string>
 							<string>bottomButtonPanel</string>
 							<string>buttonBackgroundAnimationImage</string>
 							<string>facebookButton</string>
@@ -1676,12 +1744,12 @@
 							<string>headToHeadButton</string>
 							<string>lapCounterButton</string>
 							<string>leaderboardView</string>
+							<string>mainMovieView</string>
 							<string>mapButton</string>
 							<string>midasChatButton</string>
 							<string>midasMenuButton</string>
 							<string>moreLeftImage</string>
 							<string>moreRightImage</string>
-							<string>movieView</string>
 							<string>myTeamButton</string>
 							<string>overlayView</string>
 							<string>standingsButton</string>
@@ -1698,6 +1766,8 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
+							<string>MovieView</string>
+							<string>MovieView</string>
 							<string>UIView</string>
 							<string>UIImageView</string>
 							<string>UIButton</string>
@@ -1705,12 +1775,12 @@
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>LeaderboardView</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
-							<string>UIImageView</string>
-							<string>UIImageView</string>
 							<string>MovieView</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
 							<string>UIButton</string>
 							<string>UIView</string>
 							<string>UIButton</string>
@@ -1730,6 +1800,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>alertsButton</string>
+							<string>auxMovieView1</string>
+							<string>auxMovieView2</string>
 							<string>bottomButtonPanel</string>
 							<string>buttonBackgroundAnimationImage</string>
 							<string>facebookButton</string>
@@ -1737,12 +1809,12 @@
 							<string>headToHeadButton</string>
 							<string>lapCounterButton</string>
 							<string>leaderboardView</string>
+							<string>mainMovieView</string>
 							<string>mapButton</string>
 							<string>midasChatButton</string>
 							<string>midasMenuButton</string>
 							<string>moreLeftImage</string>
 							<string>moreRightImage</string>
-							<string>movieView</string>
 							<string>myTeamButton</string>
 							<string>overlayView</string>
 							<string>standingsButton</string>
@@ -1761,6 +1833,14 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">alertsButton</string>
 								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">auxMovieView1</string>
+								<string key="candidateClassName">MovieView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">auxMovieView2</string>
+								<string key="candidateClassName">MovieView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">bottomButtonPanel</string>
@@ -1791,6 +1871,10 @@
 								<string key="candidateClassName">LeaderboardView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">mainMovieView</string>
+								<string key="candidateClassName">MovieView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">mapButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
@@ -1809,10 +1893,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">moreRightImage</string>
 								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">movieView</string>
-								<string key="candidateClassName">MovieView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">myTeamButton</string>

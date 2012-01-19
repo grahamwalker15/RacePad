@@ -231,6 +231,8 @@ enum ConnectionTypes
 
 -(NSString *)getVideoArchiveName;
 -(NSString *)getAudioArchiveName;
+-(NSString *)getVideoArchiveRoot;
+-(NSString *)getAudioArchiveRoot;
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;
@@ -240,6 +242,8 @@ enum ConnectionTypes
 
 -(void)setTimer: (float)thisTime;
 -(void)timerUpdate: (NSTimer *)theTimer;
+
+-(float)currentPlayTime;
 
 -(void)RegisterViewController:(BasePadViewController *)view_controller WithTypeMask:(int)mask;
 -(void)ReleaseViewController:(BasePadViewController *)view_controller;

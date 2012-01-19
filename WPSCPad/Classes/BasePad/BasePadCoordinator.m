@@ -470,6 +470,7 @@ static BasePadCoordinator * instance_ = nil;
 	[self stopPlay];
 	
 	[[BasePadMedia Instance] setMoviePausedInPlace:false];
+	[[BasePadMedia Instance] setMoviePlaying:false];
 	
 	currentTime = time;
 	live = false;
@@ -615,6 +616,19 @@ static BasePadCoordinator * instance_ = nil;
 		[self setTimer:currentTime + elapsed];
 }
 
+-(float)currentPlayTime
+{
+	if(playing)
+	{
+		float elapsed = [elapsedTime value]  * activePlaybackRate;
+		return currentTime + elapsed;
+	}
+	else
+	{
+		return currentTime;
+	}
+}
+
 - (void) resetCommentaryTimings
 {
 	// Override Me
@@ -749,18 +763,44 @@ static BasePadCoordinator * instance_ = nil;
 {
 }
 
+-(NSString *)getVideoArchiveRoot
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *folder = [paths objectAtIndex:0];
+	return folder;
+}
+
+-(NSString *)getAudioArchiveRoot
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *folder = [paths objectAtIndex:0];
+	return folder;
+}
+
 -(NSString *)getVideoArchiveName
 {
 	// Get base folder
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
-	NSString *name = [sessionPrefix stringByAppendingString:@"video.m4v"];
 	
-	// Try first with m4v extension
+	
+	// Try first with vls extension - a video list file
+	NSString *name = [sessionPrefix stringByAppendingString:@"video.vls"];
 	NSString *fileName = [folder stringByAppendingPathComponent:name];
 	
 	// check whether it exists
 	FILE * f;
+	if(f = fopen ( [fileName UTF8String], "rt" ))
+	{
+		fclose(f);
+		return fileName;
+	}
+	
+	// If this fails, try with m4v extension
+	name = [sessionPrefix stringByAppendingString:@"video.m4v"];
+	fileName = [folder stringByAppendingPathComponent:name];
 	if(f = fopen ( [fileName UTF8String], "rb" ))
 	{
 		fclose(f);
@@ -776,7 +816,7 @@ static BasePadCoordinator * instance_ = nil;
 		return fileName;
 	}
 	
-	// If neither is present, return nil
+	// If none of them are present, return nil
 	return nil;
 }
 
@@ -795,7 +835,7 @@ static BasePadCoordinator * instance_ = nil;
 		fclose(f);
 		return fileName;
 	}
-		
+	
 	// If it is not present, return nil
 	return nil;
 }

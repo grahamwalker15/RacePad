@@ -114,8 +114,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	displayVideo = true;
 	
 	[mainMovieView setStyle:BG_STYLE_MIDAS_];
+	[auxMovieView1 setStyle:BG_STYLE_TRANSPARENT_];
+	[auxMovieView2 setStyle:BG_STYLE_TRANSPARENT_];
 	
 	[buttonBackgroundAnimationImage setHidden:true];
+	
+	[auxMovieView1 setHidden:true];
+	[auxMovieView2 setHidden:true];
 	
 	// Position the menu buttons
 	[self positionMenuButtons];
@@ -363,7 +368,12 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(!source)
 		return;
 	
-	[self displayMovieSource:source InView:mainMovieView];
+	if(![mainMovieView moviePlayerLayerAdded])
+		[self displayMovieSource:source InView:mainMovieView];
+	else if(![auxMovieView1 moviePlayerLayerAdded])
+		[self displayMovieSource:source InView:auxMovieView1];
+	else if(![auxMovieView2 moviePlayerLayerAdded])
+		[self displayMovieSource:source InView:auxMovieView2];
 }
 
 - (void) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)movieView
@@ -400,6 +410,68 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) positionMovieViews
 {
+}
+
+- (void) showAuxMovieView:(MovieView *)viewPtr
+{
+	[viewPtr setHidden:false];
+}
+
+- (void) hideAuxMovieView:(MovieView *)viewPtr
+{
+	[viewPtr setHidden:true];
+}
+
+- (void) showAuxMovieViewByIndex:(int)viewNumber
+{
+	switch(viewNumber)
+	{
+		case 1:
+			[auxMovieView1 setHidden:false];
+			break;
+			
+		case 2:
+			[auxMovieView2 setHidden:false];
+			break;
+	}
+}
+
+- (void) hideAuxMovieViewByIndex:(int)viewNumber
+{
+	switch(viewNumber)
+	{
+		case 1:
+			[auxMovieView1 setHidden:true];
+			break;
+			
+		case 2:
+			[auxMovieView2 setHidden:true];
+			break;
+	}
+}
+
+- (MovieView *) auxMovieView:(int)viewNumber
+{
+	switch(viewNumber)
+	{
+		case 1:
+			return auxMovieView1;
+			
+		case 2:
+			return auxMovieView2;
+	}
+	
+	return nil;
+}
+
+- (MovieView *) findFreeMovieView
+{
+	if(auxMovieView1 && ![auxMovieView1 moviePlayerLayerAdded])
+		return auxMovieView1;
+	else if(auxMovieView2 && ![auxMovieView2 moviePlayerLayerAdded])
+		return auxMovieView2;
+	
+	return nil;
 }
 
 - (void) notifyMovieInformation
