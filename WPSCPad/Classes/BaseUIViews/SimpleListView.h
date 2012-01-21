@@ -201,6 +201,7 @@ enum ColumnPriority {
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col;
 - (UIImage *) GetCellClientImageAtRow:(int)row Col:(int)col;
 - (NSString *) GetHeadingAtCol:(int)col;
+- (NSString *) GetRowTag:(int)row;
 
 - (void) InitialiseSimpleListViewMembers;
 

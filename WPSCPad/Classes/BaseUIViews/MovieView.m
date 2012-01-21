@@ -79,6 +79,19 @@
 	movieSource = nil;
 }
 
+- (void) resizeMovieSource
+{	
+	if(!movieSource || !moviePlayerLayerAdded)
+		return;
+	
+	AVPlayerLayer * moviePlayerLayer = [movieSource moviePlayerLayer];
+	
+	if(moviePlayerLayer)
+	{
+		[moviePlayerLayer setFrame:self.bounds];
+	}
+}
+
 - (void)RequestRedraw
 {
 }

@@ -150,7 +150,13 @@ static bool bg_images_initialised_ = false;
 			[self LineRectangle:inner_rect];
 			break;
 		}
-		
+			
+		case BG_STYLE_INVISIBLE_:
+		{
+			inset = 0;
+			break;
+		}
+			
 		case BG_STYLE_SHADOWED_GREY_:
 		{
 			inset = 20;

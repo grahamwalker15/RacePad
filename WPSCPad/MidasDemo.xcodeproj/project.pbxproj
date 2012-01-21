@@ -334,22 +334,41 @@
 		7FA4C84A14C5D6EE00945ABD /* shadow-i-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C83D14C5D6EE00945ABD /* shadow-i-3.png */; };
 		7FA4C84B14C5D6EE00945ABD /* shadow-i-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C83E14C5D6EE00945ABD /* shadow-i-4.png */; };
 		7FA4C84D14C5D73900945ABD /* Incidents-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4C84C14C5D73900945ABD /* Incidents-title.png */; };
-		7FA832F814C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA832F714C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib */; };
-		7FA8332F14C31DC400ACB0F6 /* Line-T-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332014C31DC400ACB0F6 /* Line-T-1.png */; };
-		7FA8333014C31DC400ACB0F6 /* Line-T-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332114C31DC400ACB0F6 /* Line-T-2.png */; };
-		7FA8333114C31DC400ACB0F6 /* Line-T-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332214C31DC400ACB0F6 /* Line-T-3.png */; };
-		7FA8333214C31DC400ACB0F6 /* Line-T-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332314C31DC400ACB0F6 /* Line-T-4.png */; };
-		7FA8333314C31DC400ACB0F6 /* Line-T-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332414C31DC400ACB0F6 /* Line-T-5.png */; };
-		7FA8333414C31DC400ACB0F6 /* Shadow-T-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332514C31DC400ACB0F6 /* Shadow-T-1.png */; };
-		7FA8333514C31DC400ACB0F6 /* Shadow-T-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332614C31DC400ACB0F6 /* Shadow-T-2.png */; };
-		7FA8333614C31DC400ACB0F6 /* Twitter-blue-bird-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332714C31DC400ACB0F6 /* Twitter-blue-bird-01.png */; };
-		7FA8333714C31DC400ACB0F6 /* Twitter-connecte-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332814C31DC400ACB0F6 /* Twitter-connecte-layer.png */; };
-		7FA8333814C31DC400ACB0F6 /* Twitter-connection-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332914C31DC400ACB0F6 /* Twitter-connection-layer.png */; };
-		7FA8333914C31DC400ACB0F6 /* Twitter-default-avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332A14C31DC400ACB0F6 /* Twitter-default-avatar.png */; };
-		7FA8333A14C31DC400ACB0F6 /* Twitter-password-field.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332B14C31DC400ACB0F6 /* Twitter-password-field.png */; };
-		7FA8333B14C31DC400ACB0F6 /* Twitter-remember-me.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332C14C31DC400ACB0F6 /* Twitter-remember-me.png */; };
-		7FA8333C14C31DC400ACB0F6 /* Twitter-sign-in-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332D14C31DC400ACB0F6 /* Twitter-sign-in-button.png */; };
-		7FA8333D14C31DC400ACB0F6 /* Twitter-username-field.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA8332E14C31DC400ACB0F6 /* Twitter-username-field.png */; };
+		7FA4D1C614C9C5AE00945ABD /* activeuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1A614C9C5AE00945ABD /* activeuser.png */; };
+		7FA4D1C714C9C5AE00945ABD /* Facebook-capsule.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1A714C9C5AE00945ABD /* Facebook-capsule.png */; };
+		7FA4D1C814C9C5AE00945ABD /* Facebook-front-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1A814C9C5AE00945ABD /* Facebook-front-layer.png */; };
+		7FA4D1C914C9C5AE00945ABD /* Facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1A914C9C5AE00945ABD /* Facebook-icon.png */; };
+		7FA4D1CA14C9C5AE00945ABD /* Facebook-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1AA14C9C5AE00945ABD /* Facebook-mini-icon.png */; };
+		7FA4D1CB14C9C5AE00945ABD /* facebook-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1AB14C9C5AE00945ABD /* facebook-selected.png */; };
+		7FA4D1CC14C9C5AE00945ABD /* Facebook-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1AC14C9C5AE00945ABD /* Facebook-title.png */; };
+		7FA4D1CD14C9C5AE00945ABD /* Line-T-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1AD14C9C5AE00945ABD /* Line-T-1.png */; };
+		7FA4D1CE14C9C5AE00945ABD /* Line-T-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1AE14C9C5AE00945ABD /* Line-T-2.png */; };
+		7FA4D1CF14C9C5AE00945ABD /* Line-T-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1AF14C9C5AE00945ABD /* Line-T-3.png */; };
+		7FA4D1D014C9C5AE00945ABD /* Line-T-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B014C9C5AE00945ABD /* Line-T-4.png */; };
+		7FA4D1D114C9C5AE00945ABD /* Line-T-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B114C9C5AE00945ABD /* Line-T-5.png */; };
+		7FA4D1D214C9C5AE00945ABD /* Midas-capsule.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B214C9C5AE00945ABD /* Midas-capsule.png */; };
+		7FA4D1D314C9C5AE00945ABD /* Midas-front-layer .png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B314C9C5AE00945ABD /* Midas-front-layer .png */; };
+		7FA4D1D414C9C5AE00945ABD /* Midas-front-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B414C9C5AE00945ABD /* Midas-front-layer.png */; };
+		7FA4D1D514C9C5AE00945ABD /* Midas-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B514C9C5AE00945ABD /* Midas-icon.png */; };
+		7FA4D1D614C9C5AE00945ABD /* Midas-list-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B614C9C5AE00945ABD /* Midas-list-empty.png */; };
+		7FA4D1D714C9C5AE00945ABD /* Midas-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B714C9C5AE00945ABD /* Midas-mini-icon.png */; };
+		7FA4D1D814C9C5AE00945ABD /* midas-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B814C9C5AE00945ABD /* midas-selected.png */; };
+		7FA4D1D914C9C5AE00945ABD /* Midas-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1B914C9C5AE00945ABD /* Midas-title.png */; };
+		7FA4D1DA14C9C5AE00945ABD /* Shadow-T-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1BA14C9C5AE00945ABD /* Shadow-T-1.png */; };
+		7FA4D1DB14C9C5AE00945ABD /* Shadow-T-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1BB14C9C5AE00945ABD /* Shadow-T-2.png */; };
+		7FA4D1DC14C9C5AE00945ABD /* Twitter-capsule.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1BC14C9C5AE00945ABD /* Twitter-capsule.png */; };
+		7FA4D1DD14C9C5AE00945ABD /* Twitter-front-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1BD14C9C5AE00945ABD /* Twitter-front-layer.png */; };
+		7FA4D1DE14C9C5AE00945ABD /* Twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1BE14C9C5AE00945ABD /* Twitter-icon.png */; };
+		7FA4D1DF14C9C5AE00945ABD /* Twitter-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1BF14C9C5AE00945ABD /* Twitter-mini-icon.png */; };
+		7FA4D1E014C9C5AE00945ABD /* Twitter-reply-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C014C9C5AE00945ABD /* Twitter-reply-icon.png */; };
+		7FA4D1E114C9C5AE00945ABD /* twitter-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C114C9C5AE00945ABD /* twitter-selected.png */; };
+		7FA4D1E214C9C5AE00945ABD /* Twitter-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C214C9C5AE00945ABD /* Twitter-title.png */; };
+		7FA4D1E314C9C5AE00945ABD /* user1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C314C9C5AE00945ABD /* user1.png */; };
+		7FA4D1E414C9C5AE00945ABD /* user2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C414C9C5AE00945ABD /* user2.png */; };
+		7FA4D1E514C9C5AE00945ABD /* user3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C514C9C5AE00945ABD /* user3.png */; };
+		7FA4D20014C9E00F00945ABD /* MidasBaseSocialMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1FF14C9E00F00945ABD /* MidasBaseSocialMediaView.xib */; };
+		7FA4D21014C9E03D00945ABD /* MidasBaseSocialmediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D20F14C9E03D00945ABD /* MidasBaseSocialmediaView.xib */; };
+		7FA4D2AB14CA22C100945ABD /* Twitter-mini-icon-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D2AA14CA22C100945ABD /* Twitter-mini-icon-blue.png */; };
 		7FA833D714C3380000ACB0F6 /* BaseSocialmediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA833D614C3380000ACB0F6 /* BaseSocialmediaViewController.m */; };
 		7FA965C714B453F1006B072C /* MidasAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA965C614B453F1006B072C /* MidasAppDelegate.m */; };
 		7FA9662814B46F50006B072C /* MidasMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA9662714B46F50006B072C /* MidasMainWindow.xib */; };
@@ -428,7 +447,6 @@
 		7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A9D413817F1D0095DD10 /* SlowMotion.png */; };
 		7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */; };
 		7FF5DB9C14C1EBB600B5097E /* BaseSocialmediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5DB9A14C1EBB600B5097E /* BaseSocialmediaView.m */; };
-		7FF5DDAB14C2070E00B5097E /* Twitter-capsule.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF5DDAA14C2070E00B5097E /* Twitter-capsule.png */; };
 		7FFE791914B7670E007D27A2 /* MidasPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE791814B7670E007D27A2 /* MidasPopupManager.m */; };
 		7FFE797314B837B0007D27A2 /* MidasCircuitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE797214B837B0007D27A2 /* MidasCircuitView.xib */; };
 		7FFE797614B837F1007D27A2 /* MidasCircuitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE797514B837F1007D27A2 /* MidasCircuitViewController.m */; };
@@ -473,12 +491,6 @@
 		7FFE7B9814BAF5C5007D27A2 /* M-Menu-replay-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7B9014BAF5C5007D27A2 /* M-Menu-replay-selected.png */; };
 		7FFE7B9914BAF5C5007D27A2 /* M-Menu-replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7B9114BAF5C5007D27A2 /* M-Menu-replay.png */; };
 		7FFE7B9A14BAF5C5007D27A2 /* M-Menu-selected-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7B9214BAF5C5007D27A2 /* M-Menu-selected-icon.png */; };
-		7FFE7BB114BB01B5007D27A2 /* Midas-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BAF14BB01B5007D27A2 /* Midas-icon.png */; };
-		7FFE7BB214BB01B5007D27A2 /* Midas-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BB014BB01B5007D27A2 /* Midas-mini-icon.png */; };
-		7FFE7BB514BB01C1007D27A2 /* Facebook-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BB314BB01C1007D27A2 /* Facebook-icon.png */; };
-		7FFE7BB614BB01C1007D27A2 /* Facebook-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BB414BB01C1007D27A2 /* Facebook-mini-icon.png */; };
-		7FFE7BB914BB01CD007D27A2 /* Twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BB714BB01CD007D27A2 /* Twitter-icon.png */; };
-		7FFE7BBA14BB01CD007D27A2 /* Twitter-mini-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BB814BB01CD007D27A2 /* Twitter-mini-icon.png */; };
 		7FFE7BD814BB0A47007D27A2 /* MidasMoreLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BD614BB0A47007D27A2 /* MidasMoreLeft.png */; };
 		7FFE7BD914BB0A47007D27A2 /* MidasMoreRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7BD714BB0A47007D27A2 /* MidasMoreRight.png */; };
 		7FFE7C3E14BB21E0007D27A2 /* MidasAlertsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7C3D14BB21E0007D27A2 /* MidasAlertsViewController.m */; };
@@ -486,22 +498,12 @@
 		7FFE7C4414BB225D007D27A2 /* MidasFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7C4314BB225D007D27A2 /* MidasFacebookViewController.m */; };
 		7FFE7C4714BB227B007D27A2 /* MidasChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7C4614BB227B007D27A2 /* MidasChatViewController.m */; };
 		7FFE7C6014BB24C9007D27A2 /* MidasTwitterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C5F14BB24C9007D27A2 /* MidasTwitterView.xib */; };
-		7FFE7C6E14BB25C6007D27A2 /* twitter-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6614BB25C6007D27A2 /* twitter-selected.png */; };
-		7FFE7C6F14BB25C6007D27A2 /* Twitter-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C6714BB25C6007D27A2 /* Twitter-title.png */; };
 		7FFE7C7214BB2770007D27A2 /* MidasFacebookView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C7114BB2770007D27A2 /* MidasFacebookView.xib */; };
 		7FFE7C7414BB27C4007D27A2 /* MidasChatView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C7314BB27C4007D27A2 /* MidasChatView.xib */; };
 		7FFE7C9714BB3004007D27A2 /* MidasAlertsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7C9614BB3004007D27A2 /* MidasAlertsView.xib */; };
 		7FFE7E5714BB706E007D27A2 /* FacebookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7E5114BB706E007D27A2 /* FacebookView.m */; };
 		7FFE7E5814BB706E007D27A2 /* MidasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7E5314BB706E007D27A2 /* MidasView.m */; };
 		7FFE7E5914BB706E007D27A2 /* TwitterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFE7E5514BB706E007D27A2 /* TwitterView.m */; };
-		7FFE7EF914BB9DAA007D27A2 /* user1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7EF614BB9DAA007D27A2 /* user1.png */; };
-		7FFE7EFA14BB9DAA007D27A2 /* user2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7EF714BB9DAA007D27A2 /* user2.png */; };
-		7FFE7EFB14BB9DAA007D27A2 /* user3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7EF814BB9DAA007D27A2 /* user3.png */; };
-		7FFE7F0214BB9E5C007D27A2 /* activeuser.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7F0114BB9E5C007D27A2 /* activeuser.png */; };
-		7FFE7F3414BC30D3007D27A2 /* Facebook-front-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7F3214BC30D3007D27A2 /* Facebook-front-layer.png */; };
-		7FFE7F3514BC30D3007D27A2 /* Facebook-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7F3314BC30D3007D27A2 /* Facebook-title.png */; };
-		7FFE7F3814BC30F1007D27A2 /* Midas-list-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7F3614BC30F1007D27A2 /* Midas-list-empty.png */; };
-		7FFE7F3914BC30F1007D27A2 /* Midas-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE7F3714BC30F1007D27A2 /* Midas-title.png */; };
 		7FFE85F714C08C43007D27A2 /* Line-FD-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE85F614C08C43007D27A2 /* Line-FD-5.png */; };
 		7FFE867B14C0AF91007D27A2 /* Lap-counter-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE867A14C0AF91007D27A2 /* Lap-counter-layer.png */; };
 /* End PBXBuildFile section */
@@ -955,22 +957,41 @@
 		7FA4C83D14C5D6EE00945ABD /* shadow-i-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow-i-3.png"; sourceTree = "<group>"; };
 		7FA4C83E14C5D6EE00945ABD /* shadow-i-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow-i-4.png"; sourceTree = "<group>"; };
 		7FA4C84C14C5D73900945ABD /* Incidents-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Incidents-title.png"; sourceTree = "<group>"; };
-		7FA832F714C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasBaseSocialmediaView.xib; path = ResourceFiles/MidasBaseSocialmediaView.xib; sourceTree = "<group>"; };
-		7FA8332014C31DC400ACB0F6 /* Line-T-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-1.png"; sourceTree = "<group>"; };
-		7FA8332114C31DC400ACB0F6 /* Line-T-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-2.png"; sourceTree = "<group>"; };
-		7FA8332214C31DC400ACB0F6 /* Line-T-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-3.png"; sourceTree = "<group>"; };
-		7FA8332314C31DC400ACB0F6 /* Line-T-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-4.png"; sourceTree = "<group>"; };
-		7FA8332414C31DC400ACB0F6 /* Line-T-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-5.png"; sourceTree = "<group>"; };
-		7FA8332514C31DC400ACB0F6 /* Shadow-T-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-T-1.png"; sourceTree = "<group>"; };
-		7FA8332614C31DC400ACB0F6 /* Shadow-T-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-T-2.png"; sourceTree = "<group>"; };
-		7FA8332714C31DC400ACB0F6 /* Twitter-blue-bird-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-blue-bird-01.png"; sourceTree = "<group>"; };
-		7FA8332814C31DC400ACB0F6 /* Twitter-connecte-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-connecte-layer.png"; sourceTree = "<group>"; };
-		7FA8332914C31DC400ACB0F6 /* Twitter-connection-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-connection-layer.png"; sourceTree = "<group>"; };
-		7FA8332A14C31DC400ACB0F6 /* Twitter-default-avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-default-avatar.png"; sourceTree = "<group>"; };
-		7FA8332B14C31DC400ACB0F6 /* Twitter-password-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-password-field.png"; sourceTree = "<group>"; };
-		7FA8332C14C31DC400ACB0F6 /* Twitter-remember-me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-remember-me.png"; sourceTree = "<group>"; };
-		7FA8332D14C31DC400ACB0F6 /* Twitter-sign-in-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-sign-in-button.png"; sourceTree = "<group>"; };
-		7FA8332E14C31DC400ACB0F6 /* Twitter-username-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-username-field.png"; sourceTree = "<group>"; };
+		7FA4D1A614C9C5AE00945ABD /* activeuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activeuser.png; sourceTree = "<group>"; };
+		7FA4D1A714C9C5AE00945ABD /* Facebook-capsule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-capsule.png"; sourceTree = "<group>"; };
+		7FA4D1A814C9C5AE00945ABD /* Facebook-front-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-front-layer.png"; sourceTree = "<group>"; };
+		7FA4D1A914C9C5AE00945ABD /* Facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-icon.png"; sourceTree = "<group>"; };
+		7FA4D1AA14C9C5AE00945ABD /* Facebook-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-mini-icon.png"; sourceTree = "<group>"; };
+		7FA4D1AB14C9C5AE00945ABD /* facebook-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-selected.png"; sourceTree = "<group>"; };
+		7FA4D1AC14C9C5AE00945ABD /* Facebook-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-title.png"; sourceTree = "<group>"; };
+		7FA4D1AD14C9C5AE00945ABD /* Line-T-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-1.png"; sourceTree = "<group>"; };
+		7FA4D1AE14C9C5AE00945ABD /* Line-T-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-2.png"; sourceTree = "<group>"; };
+		7FA4D1AF14C9C5AE00945ABD /* Line-T-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-3.png"; sourceTree = "<group>"; };
+		7FA4D1B014C9C5AE00945ABD /* Line-T-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-4.png"; sourceTree = "<group>"; };
+		7FA4D1B114C9C5AE00945ABD /* Line-T-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-T-5.png"; sourceTree = "<group>"; };
+		7FA4D1B214C9C5AE00945ABD /* Midas-capsule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-capsule.png"; sourceTree = "<group>"; };
+		7FA4D1B314C9C5AE00945ABD /* Midas-front-layer .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-front-layer .png"; sourceTree = "<group>"; };
+		7FA4D1B414C9C5AE00945ABD /* Midas-front-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-front-layer.png"; sourceTree = "<group>"; };
+		7FA4D1B514C9C5AE00945ABD /* Midas-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-icon.png"; sourceTree = "<group>"; };
+		7FA4D1B614C9C5AE00945ABD /* Midas-list-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-list-empty.png"; sourceTree = "<group>"; };
+		7FA4D1B714C9C5AE00945ABD /* Midas-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-mini-icon.png"; sourceTree = "<group>"; };
+		7FA4D1B814C9C5AE00945ABD /* midas-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "midas-selected.png"; sourceTree = "<group>"; };
+		7FA4D1B914C9C5AE00945ABD /* Midas-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-title.png"; sourceTree = "<group>"; };
+		7FA4D1BA14C9C5AE00945ABD /* Shadow-T-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-T-1.png"; sourceTree = "<group>"; };
+		7FA4D1BB14C9C5AE00945ABD /* Shadow-T-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-T-2.png"; sourceTree = "<group>"; };
+		7FA4D1BC14C9C5AE00945ABD /* Twitter-capsule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-capsule.png"; sourceTree = "<group>"; };
+		7FA4D1BD14C9C5AE00945ABD /* Twitter-front-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-front-layer.png"; sourceTree = "<group>"; };
+		7FA4D1BE14C9C5AE00945ABD /* Twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-icon.png"; sourceTree = "<group>"; };
+		7FA4D1BF14C9C5AE00945ABD /* Twitter-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-mini-icon.png"; sourceTree = "<group>"; };
+		7FA4D1C014C9C5AE00945ABD /* Twitter-reply-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-reply-icon.png"; sourceTree = "<group>"; };
+		7FA4D1C114C9C5AE00945ABD /* twitter-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-selected.png"; sourceTree = "<group>"; };
+		7FA4D1C214C9C5AE00945ABD /* Twitter-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-title.png"; sourceTree = "<group>"; };
+		7FA4D1C314C9C5AE00945ABD /* user1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user1.png; sourceTree = "<group>"; };
+		7FA4D1C414C9C5AE00945ABD /* user2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user2.png; sourceTree = "<group>"; };
+		7FA4D1C514C9C5AE00945ABD /* user3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user3.png; sourceTree = "<group>"; };
+		7FA4D1FF14C9E00F00945ABD /* MidasBaseSocialMediaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasBaseSocialMediaView.xib; path = ResourceFiles/MidasBaseSocialMediaView.xib; sourceTree = "<group>"; };
+		7FA4D20F14C9E03D00945ABD /* MidasBaseSocialmediaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasBaseSocialmediaView.xib; path = ResourceFiles/MidasBaseSocialmediaView.xib; sourceTree = "<group>"; };
+		7FA4D2AA14CA22C100945ABD /* Twitter-mini-icon-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-mini-icon-blue.png"; sourceTree = "<group>"; };
 		7FA833D514C3380000ACB0F6 /* BaseSocialmediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSocialmediaViewController.h; sourceTree = "<group>"; };
 		7FA833D614C3380000ACB0F6 /* BaseSocialmediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSocialmediaViewController.m; sourceTree = "<group>"; };
 		7FA965C514B453F1006B072C /* MidasAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasAppDelegate.h; sourceTree = "<group>"; };
@@ -1062,7 +1083,6 @@
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
 		7FF5DB9A14C1EBB600B5097E /* BaseSocialmediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSocialmediaView.m; sourceTree = "<group>"; };
 		7FF5DD3214C1F89B00B5097E /* BaseSocialmediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSocialmediaView.h; sourceTree = "<group>"; };
-		7FF5DDAA14C2070E00B5097E /* Twitter-capsule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-capsule.png"; sourceTree = "<group>"; };
 		7FFE791714B7670E007D27A2 /* MidasPopupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasPopupManager.h; sourceTree = "<group>"; };
 		7FFE791814B7670E007D27A2 /* MidasPopupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasPopupManager.m; sourceTree = "<group>"; };
 		7FFE797214B837B0007D27A2 /* MidasCircuitView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasCircuitView.xib; path = ResourceFiles/MidasCircuitView.xib; sourceTree = "<group>"; };
@@ -1110,12 +1130,6 @@
 		7FFE7B9014BAF5C5007D27A2 /* M-Menu-replay-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-Menu-replay-selected.png"; sourceTree = "<group>"; };
 		7FFE7B9114BAF5C5007D27A2 /* M-Menu-replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-Menu-replay.png"; sourceTree = "<group>"; };
 		7FFE7B9214BAF5C5007D27A2 /* M-Menu-selected-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-Menu-selected-icon.png"; sourceTree = "<group>"; };
-		7FFE7BAF14BB01B5007D27A2 /* Midas-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-icon.png"; sourceTree = "<group>"; };
-		7FFE7BB014BB01B5007D27A2 /* Midas-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-mini-icon.png"; sourceTree = "<group>"; };
-		7FFE7BB314BB01C1007D27A2 /* Facebook-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-icon.png"; sourceTree = "<group>"; };
-		7FFE7BB414BB01C1007D27A2 /* Facebook-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-mini-icon.png"; sourceTree = "<group>"; };
-		7FFE7BB714BB01CD007D27A2 /* Twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-icon.png"; sourceTree = "<group>"; };
-		7FFE7BB814BB01CD007D27A2 /* Twitter-mini-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-mini-icon.png"; sourceTree = "<group>"; };
 		7FFE7BD614BB0A47007D27A2 /* MidasMoreLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasMoreLeft.png; sourceTree = "<group>"; };
 		7FFE7BD714BB0A47007D27A2 /* MidasMoreRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasMoreRight.png; sourceTree = "<group>"; };
 		7FFE7C3C14BB21E0007D27A2 /* MidasAlertsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasAlertsViewController.h; sourceTree = "<group>"; };
@@ -1127,8 +1141,6 @@
 		7FFE7C4514BB227B007D27A2 /* MidasChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasChatViewController.h; sourceTree = "<group>"; };
 		7FFE7C4614BB227B007D27A2 /* MidasChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasChatViewController.m; sourceTree = "<group>"; };
 		7FFE7C5F14BB24C9007D27A2 /* MidasTwitterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasTwitterView.xib; path = ResourceFiles/MidasTwitterView.xib; sourceTree = "<group>"; };
-		7FFE7C6614BB25C6007D27A2 /* twitter-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-selected.png"; sourceTree = "<group>"; };
-		7FFE7C6714BB25C6007D27A2 /* Twitter-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-title.png"; sourceTree = "<group>"; };
 		7FFE7C7114BB2770007D27A2 /* MidasFacebookView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasFacebookView.xib; path = ResourceFiles/MidasFacebookView.xib; sourceTree = "<group>"; };
 		7FFE7C7314BB27C4007D27A2 /* MidasChatView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasChatView.xib; path = ResourceFiles/MidasChatView.xib; sourceTree = "<group>"; };
 		7FFE7C9614BB3004007D27A2 /* MidasAlertsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasAlertsView.xib; path = ResourceFiles/MidasAlertsView.xib; sourceTree = "<group>"; };
@@ -1138,14 +1150,6 @@
 		7FFE7E5314BB706E007D27A2 /* MidasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasView.m; sourceTree = "<group>"; };
 		7FFE7E5414BB706E007D27A2 /* TwitterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterView.h; sourceTree = "<group>"; };
 		7FFE7E5514BB706E007D27A2 /* TwitterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterView.m; sourceTree = "<group>"; };
-		7FFE7EF614BB9DAA007D27A2 /* user1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user1.png; sourceTree = "<group>"; };
-		7FFE7EF714BB9DAA007D27A2 /* user2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user2.png; sourceTree = "<group>"; };
-		7FFE7EF814BB9DAA007D27A2 /* user3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user3.png; sourceTree = "<group>"; };
-		7FFE7F0114BB9E5C007D27A2 /* activeuser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activeuser.png; sourceTree = "<group>"; };
-		7FFE7F3214BC30D3007D27A2 /* Facebook-front-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-front-layer.png"; sourceTree = "<group>"; };
-		7FFE7F3314BC30D3007D27A2 /* Facebook-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Facebook-title.png"; sourceTree = "<group>"; };
-		7FFE7F3614BC30F1007D27A2 /* Midas-list-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-list-empty.png"; sourceTree = "<group>"; };
-		7FFE7F3714BC30F1007D27A2 /* Midas-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Midas-title.png"; sourceTree = "<group>"; };
 		7FFE85F614C08C43007D27A2 /* Line-FD-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Line-FD-5.png"; sourceTree = "<group>"; };
 		7FFE867A14C0AF91007D27A2 /* Lap-counter-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lap-counter-layer.png"; sourceTree = "<group>"; };
 		7FFE86F814C0CE9C007D27A2 /* RacePad.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RacePad.xcodeproj; path = /Development/Projects/WPSCDemo/MidasDemo/RacePad.xcodeproj; sourceTree = "<absolute>"; };
@@ -1210,6 +1214,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				7FA4D20F14C9E03D00945ABD /* MidasBaseSocialmediaView.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -1614,6 +1619,46 @@
 			path = Alerts;
 			sourceTree = "<group>";
 		};
+		7FA4D1A514C9C58500945ABD /* SocialMediaImages */ = {
+			isa = PBXGroup;
+			children = (
+				7FA4D2AA14CA22C100945ABD /* Twitter-mini-icon-blue.png */,
+				7FA4D1A614C9C5AE00945ABD /* activeuser.png */,
+				7FA4D1A714C9C5AE00945ABD /* Facebook-capsule.png */,
+				7FA4D1A814C9C5AE00945ABD /* Facebook-front-layer.png */,
+				7FA4D1A914C9C5AE00945ABD /* Facebook-icon.png */,
+				7FA4D1AA14C9C5AE00945ABD /* Facebook-mini-icon.png */,
+				7FA4D1AB14C9C5AE00945ABD /* facebook-selected.png */,
+				7FA4D1AC14C9C5AE00945ABD /* Facebook-title.png */,
+				7FA4D1AD14C9C5AE00945ABD /* Line-T-1.png */,
+				7FA4D1AE14C9C5AE00945ABD /* Line-T-2.png */,
+				7FA4D1AF14C9C5AE00945ABD /* Line-T-3.png */,
+				7FA4D1B014C9C5AE00945ABD /* Line-T-4.png */,
+				7FA4D1B114C9C5AE00945ABD /* Line-T-5.png */,
+				7FA4D1B214C9C5AE00945ABD /* Midas-capsule.png */,
+				7FA4D1B314C9C5AE00945ABD /* Midas-front-layer .png */,
+				7FA4D1B414C9C5AE00945ABD /* Midas-front-layer.png */,
+				7FA4D1B514C9C5AE00945ABD /* Midas-icon.png */,
+				7FA4D1B614C9C5AE00945ABD /* Midas-list-empty.png */,
+				7FA4D1B714C9C5AE00945ABD /* Midas-mini-icon.png */,
+				7FA4D1B814C9C5AE00945ABD /* midas-selected.png */,
+				7FA4D1B914C9C5AE00945ABD /* Midas-title.png */,
+				7FA4D1BA14C9C5AE00945ABD /* Shadow-T-1.png */,
+				7FA4D1BB14C9C5AE00945ABD /* Shadow-T-2.png */,
+				7FA4D1BC14C9C5AE00945ABD /* Twitter-capsule.png */,
+				7FA4D1BD14C9C5AE00945ABD /* Twitter-front-layer.png */,
+				7FA4D1BE14C9C5AE00945ABD /* Twitter-icon.png */,
+				7FA4D1BF14C9C5AE00945ABD /* Twitter-mini-icon.png */,
+				7FA4D1C014C9C5AE00945ABD /* Twitter-reply-icon.png */,
+				7FA4D1C114C9C5AE00945ABD /* twitter-selected.png */,
+				7FA4D1C214C9C5AE00945ABD /* Twitter-title.png */,
+				7FA4D1C314C9C5AE00945ABD /* user1.png */,
+				7FA4D1C414C9C5AE00945ABD /* user2.png */,
+				7FA4D1C514C9C5AE00945ABD /* user3.png */,
+			);
+			path = SocialMediaImages;
+			sourceTree = "<group>";
+		};
 		7FA965C414B45398006B072C /* Midas */ = {
 			isa = PBXGroup;
 			children = (
@@ -1628,18 +1673,12 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA4D1A514C9C58500945ABD /* SocialMediaImages */,
 				7FA4C83114C5D67D00945ABD /* Alerts */,
 				7FA4C64314C458FF00945ABD /* WeatherIcons */,
 				7FFE867A14C0AF91007D27A2 /* Lap-counter-layer.png */,
-				7FFE7F0114BB9E5C007D27A2 /* activeuser.png */,
-				7FFE7EF614BB9DAA007D27A2 /* user1.png */,
-				7FFE7EF714BB9DAA007D27A2 /* user2.png */,
-				7FFE7EF814BB9DAA007D27A2 /* user3.png */,
 				7FFE7BD614BB0A47007D27A2 /* MidasMoreLeft.png */,
 				7FFE7BD714BB0A47007D27A2 /* MidasMoreRight.png */,
-				7FFE7BA314BAF97C007D27A2 /* MidasChat */,
-				7FFE7BA214BAF965007D27A2 /* Facebook */,
-				7FFE7BA114BAF950007D27A2 /* Twitter */,
 				7FFE7B8A14BAF586007D27A2 /* M_Menu */,
 				7FFE7A0C14B8A46C007D27A2 /* MyTeam */,
 				7FFE7A0914B8A443007D27A2 /* VIP */,
@@ -1725,7 +1764,7 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
-				7FA832F714C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib */,
+				7FA4D1FF14C9E00F00945ABD /* MidasBaseSocialMediaView.xib */,
 				7FFE7C9614BB3004007D27A2 /* MidasAlertsView.xib */,
 				7FFE7C5F14BB24C9007D27A2 /* MidasTwitterView.xib */,
 				7FFE7C7114BB2770007D27A2 /* MidasFacebookView.xib */,
@@ -2014,55 +2053,6 @@
 				7FFE7B9214BAF5C5007D27A2 /* M-Menu-selected-icon.png */,
 			);
 			path = M_Menu;
-			sourceTree = "<group>";
-		};
-		7FFE7BA114BAF950007D27A2 /* Twitter */ = {
-			isa = PBXGroup;
-			children = (
-				7FA8332014C31DC400ACB0F6 /* Line-T-1.png */,
-				7FA8332114C31DC400ACB0F6 /* Line-T-2.png */,
-				7FA8332214C31DC400ACB0F6 /* Line-T-3.png */,
-				7FA8332314C31DC400ACB0F6 /* Line-T-4.png */,
-				7FA8332414C31DC400ACB0F6 /* Line-T-5.png */,
-				7FA8332514C31DC400ACB0F6 /* Shadow-T-1.png */,
-				7FA8332614C31DC400ACB0F6 /* Shadow-T-2.png */,
-				7FA8332714C31DC400ACB0F6 /* Twitter-blue-bird-01.png */,
-				7FA8332814C31DC400ACB0F6 /* Twitter-connecte-layer.png */,
-				7FA8332914C31DC400ACB0F6 /* Twitter-connection-layer.png */,
-				7FA8332A14C31DC400ACB0F6 /* Twitter-default-avatar.png */,
-				7FA8332B14C31DC400ACB0F6 /* Twitter-password-field.png */,
-				7FA8332C14C31DC400ACB0F6 /* Twitter-remember-me.png */,
-				7FA8332D14C31DC400ACB0F6 /* Twitter-sign-in-button.png */,
-				7FA8332E14C31DC400ACB0F6 /* Twitter-username-field.png */,
-				7FF5DDAA14C2070E00B5097E /* Twitter-capsule.png */,
-				7FFE7C6614BB25C6007D27A2 /* twitter-selected.png */,
-				7FFE7C6714BB25C6007D27A2 /* Twitter-title.png */,
-				7FFE7BB714BB01CD007D27A2 /* Twitter-icon.png */,
-				7FFE7BB814BB01CD007D27A2 /* Twitter-mini-icon.png */,
-			);
-			path = Twitter;
-			sourceTree = "<group>";
-		};
-		7FFE7BA214BAF965007D27A2 /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				7FFE7F3214BC30D3007D27A2 /* Facebook-front-layer.png */,
-				7FFE7F3314BC30D3007D27A2 /* Facebook-title.png */,
-				7FFE7BB314BB01C1007D27A2 /* Facebook-icon.png */,
-				7FFE7BB414BB01C1007D27A2 /* Facebook-mini-icon.png */,
-			);
-			path = Facebook;
-			sourceTree = "<group>";
-		};
-		7FFE7BA314BAF97C007D27A2 /* MidasChat */ = {
-			isa = PBXGroup;
-			children = (
-				7FFE7F3614BC30F1007D27A2 /* Midas-list-empty.png */,
-				7FFE7F3714BC30F1007D27A2 /* Midas-title.png */,
-				7FFE7BAF14BB01B5007D27A2 /* Midas-icon.png */,
-				7FFE7BB014BB01B5007D27A2 /* Midas-mini-icon.png */,
-			);
-			path = MidasChat;
 			sourceTree = "<group>";
 		};
 		7FFE7E4914BB6F49007D27A2 /* MidasSocialMedia */ = {
@@ -2460,47 +2450,14 @@
 				7FFE7B9814BAF5C5007D27A2 /* M-Menu-replay-selected.png in Resources */,
 				7FFE7B9914BAF5C5007D27A2 /* M-Menu-replay.png in Resources */,
 				7FFE7B9A14BAF5C5007D27A2 /* M-Menu-selected-icon.png in Resources */,
-				7FFE7BB114BB01B5007D27A2 /* Midas-icon.png in Resources */,
-				7FFE7BB214BB01B5007D27A2 /* Midas-mini-icon.png in Resources */,
-				7FFE7BB514BB01C1007D27A2 /* Facebook-icon.png in Resources */,
-				7FFE7BB614BB01C1007D27A2 /* Facebook-mini-icon.png in Resources */,
-				7FFE7BB914BB01CD007D27A2 /* Twitter-icon.png in Resources */,
-				7FFE7BBA14BB01CD007D27A2 /* Twitter-mini-icon.png in Resources */,
 				7FFE7BD814BB0A47007D27A2 /* MidasMoreLeft.png in Resources */,
 				7FFE7BD914BB0A47007D27A2 /* MidasMoreRight.png in Resources */,
 				7FFE7C6014BB24C9007D27A2 /* MidasTwitterView.xib in Resources */,
-				7FFE7C6E14BB25C6007D27A2 /* twitter-selected.png in Resources */,
-				7FFE7C6F14BB25C6007D27A2 /* Twitter-title.png in Resources */,
 				7FFE7C7214BB2770007D27A2 /* MidasFacebookView.xib in Resources */,
 				7FFE7C7414BB27C4007D27A2 /* MidasChatView.xib in Resources */,
 				7FFE7C9714BB3004007D27A2 /* MidasAlertsView.xib in Resources */,
-				7FFE7EF914BB9DAA007D27A2 /* user1.png in Resources */,
-				7FFE7EFA14BB9DAA007D27A2 /* user2.png in Resources */,
-				7FFE7EFB14BB9DAA007D27A2 /* user3.png in Resources */,
-				7FFE7F0214BB9E5C007D27A2 /* activeuser.png in Resources */,
-				7FFE7F3414BC30D3007D27A2 /* Facebook-front-layer.png in Resources */,
-				7FFE7F3514BC30D3007D27A2 /* Facebook-title.png in Resources */,
-				7FFE7F3814BC30F1007D27A2 /* Midas-list-empty.png in Resources */,
-				7FFE7F3914BC30F1007D27A2 /* Midas-title.png in Resources */,
 				7FFE85F714C08C43007D27A2 /* Line-FD-5.png in Resources */,
 				7FFE867B14C0AF91007D27A2 /* Lap-counter-layer.png in Resources */,
-				7FF5DDAB14C2070E00B5097E /* Twitter-capsule.png in Resources */,
-				7FA832F814C314DA00ACB0F6 /* MidasBaseSocialmediaView.xib in Resources */,
-				7FA8332F14C31DC400ACB0F6 /* Line-T-1.png in Resources */,
-				7FA8333014C31DC400ACB0F6 /* Line-T-2.png in Resources */,
-				7FA8333114C31DC400ACB0F6 /* Line-T-3.png in Resources */,
-				7FA8333214C31DC400ACB0F6 /* Line-T-4.png in Resources */,
-				7FA8333314C31DC400ACB0F6 /* Line-T-5.png in Resources */,
-				7FA8333414C31DC400ACB0F6 /* Shadow-T-1.png in Resources */,
-				7FA8333514C31DC400ACB0F6 /* Shadow-T-2.png in Resources */,
-				7FA8333614C31DC400ACB0F6 /* Twitter-blue-bird-01.png in Resources */,
-				7FA8333714C31DC400ACB0F6 /* Twitter-connecte-layer.png in Resources */,
-				7FA8333814C31DC400ACB0F6 /* Twitter-connection-layer.png in Resources */,
-				7FA8333914C31DC400ACB0F6 /* Twitter-default-avatar.png in Resources */,
-				7FA8333A14C31DC400ACB0F6 /* Twitter-password-field.png in Resources */,
-				7FA8333B14C31DC400ACB0F6 /* Twitter-remember-me.png in Resources */,
-				7FA8333C14C31DC400ACB0F6 /* Twitter-sign-in-button.png in Resources */,
-				7FA8333D14C31DC400ACB0F6 /* Twitter-username-field.png in Resources */,
 				7FA4C63714C43FDB00945ABD /* Circuit-Italy-Flag.png in Resources */,
 				7FA4C65114C4595700945ABD /* Cloudy-weather-icons.png in Resources */,
 				7FA4C65214C4595700945ABD /* Downpoor-weather-icons.png in Resources */,
@@ -2524,6 +2481,41 @@
 				7FA4C84A14C5D6EE00945ABD /* shadow-i-3.png in Resources */,
 				7FA4C84B14C5D6EE00945ABD /* shadow-i-4.png in Resources */,
 				7FA4C84D14C5D73900945ABD /* Incidents-title.png in Resources */,
+				7FA4D1C614C9C5AE00945ABD /* activeuser.png in Resources */,
+				7FA4D1C714C9C5AE00945ABD /* Facebook-capsule.png in Resources */,
+				7FA4D1C814C9C5AE00945ABD /* Facebook-front-layer.png in Resources */,
+				7FA4D1C914C9C5AE00945ABD /* Facebook-icon.png in Resources */,
+				7FA4D1CA14C9C5AE00945ABD /* Facebook-mini-icon.png in Resources */,
+				7FA4D1CB14C9C5AE00945ABD /* facebook-selected.png in Resources */,
+				7FA4D1CC14C9C5AE00945ABD /* Facebook-title.png in Resources */,
+				7FA4D1CD14C9C5AE00945ABD /* Line-T-1.png in Resources */,
+				7FA4D1CE14C9C5AE00945ABD /* Line-T-2.png in Resources */,
+				7FA4D1CF14C9C5AE00945ABD /* Line-T-3.png in Resources */,
+				7FA4D1D014C9C5AE00945ABD /* Line-T-4.png in Resources */,
+				7FA4D1D114C9C5AE00945ABD /* Line-T-5.png in Resources */,
+				7FA4D1D214C9C5AE00945ABD /* Midas-capsule.png in Resources */,
+				7FA4D1D314C9C5AE00945ABD /* Midas-front-layer .png in Resources */,
+				7FA4D1D414C9C5AE00945ABD /* Midas-front-layer.png in Resources */,
+				7FA4D1D514C9C5AE00945ABD /* Midas-icon.png in Resources */,
+				7FA4D1D614C9C5AE00945ABD /* Midas-list-empty.png in Resources */,
+				7FA4D1D714C9C5AE00945ABD /* Midas-mini-icon.png in Resources */,
+				7FA4D1D814C9C5AE00945ABD /* midas-selected.png in Resources */,
+				7FA4D1D914C9C5AE00945ABD /* Midas-title.png in Resources */,
+				7FA4D1DA14C9C5AE00945ABD /* Shadow-T-1.png in Resources */,
+				7FA4D1DB14C9C5AE00945ABD /* Shadow-T-2.png in Resources */,
+				7FA4D1DC14C9C5AE00945ABD /* Twitter-capsule.png in Resources */,
+				7FA4D1DD14C9C5AE00945ABD /* Twitter-front-layer.png in Resources */,
+				7FA4D1DE14C9C5AE00945ABD /* Twitter-icon.png in Resources */,
+				7FA4D1DF14C9C5AE00945ABD /* Twitter-mini-icon.png in Resources */,
+				7FA4D1E014C9C5AE00945ABD /* Twitter-reply-icon.png in Resources */,
+				7FA4D1E114C9C5AE00945ABD /* twitter-selected.png in Resources */,
+				7FA4D1E214C9C5AE00945ABD /* Twitter-title.png in Resources */,
+				7FA4D1E314C9C5AE00945ABD /* user1.png in Resources */,
+				7FA4D1E414C9C5AE00945ABD /* user2.png in Resources */,
+				7FA4D1E514C9C5AE00945ABD /* user3.png in Resources */,
+				7FA4D20014C9E00F00945ABD /* MidasBaseSocialMediaView.xib in Resources */,
+				7FA4D21014C9E03D00945ABD /* MidasBaseSocialmediaView.xib in Resources */,
+				7FA4D2AB14CA22C100945ABD /* Twitter-mini-icon-blue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -50,6 +50,10 @@ enum MovieConnectionTypes
 	BasePadVideoSource * movieSources[BPM_MAX_VIDEO_STREAMS];
 	int movieSourceCount;
 	
+	int movieSourceLoadQueue[BPM_MAX_VIDEO_STREAMS];
+	int movieSourceQueueCount;
+	bool movieSourceQueueBlocked;
+	
 	BasePadAudioSource * audioSource;
 	
 	NSString *currentMovieRoot;
@@ -104,6 +108,10 @@ enum MovieConnectionTypes
 
 - (void)verifyMovieLoaded;
 - (void)verifyAudioLoaded;
+
+- (void)queueMovieLoad:(int)movieSourceIndex;
+- (void)blockMovieLoadQueue;
+- (void)unblockMovieLoadQueue;
 
 - (int) getMovieType;
 

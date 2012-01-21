@@ -10,6 +10,8 @@
 #import "BasePadMedia.h"
 #import "ElapsedTime.h"
 
+#import <AVFoundation/AVAssetImageGenerator.h>
+
 @implementation BasePadVideoSource
 
 @synthesize moviePlayerAsset;
@@ -24,11 +26,14 @@
 @synthesize liveVideoDelay;
 
 @synthesize movieLoop;
+@synthesize shouldAutoDisplay;
 
 @synthesize resyncCount;
 
 @synthesize currentMovie;
+@synthesize movieURL;
 @synthesize movieTag;
+@synthesize movieThumbnail;
 
 @synthesize currentStatus;
 @synthesize currentError;
@@ -86,8 +91,12 @@
 		
 		movieType = MOVIE_TYPE_NONE_;
 		currentMovie = nil;
+		movieURL = nil;
 		movieTag = nil;
+		movieThumbnail = nil;
 		currentError = nil;
+		
+		shouldAutoDisplay = false;
 	}
 	
 	return self;
@@ -123,12 +132,23 @@
 // Movie loading and unloading
 ////////////////////////////////////////////////////////////////////////////
 
+- (void) loadMovie
+{
+	if(movieURL)
+	{
+		[self loadMovie:movieURL ShouldDisplay:shouldAutoDisplay];
+	}
+}
+
 - (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay
 {
 	if(movieLoaded)
 		[self unloadMovie];
 	
 	moviePlayerAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
+	shouldAutoDisplay = shouldDisplay;
+	
+	[[BasePadMedia Instance] blockMovieLoadQueue];
 	
 	NSString *tracksKey = @"tracks";
 	
@@ -165,7 +185,7 @@
 			 }
 			 
 			 // Call parent to position the movie and order the overlay in any registered view controller
-			 [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:shouldDisplay];
+			 [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:shouldAutoDisplay];
 			 
 			 movieLoaded = true;
 			 currentMovie = [[url absoluteString] retain];
@@ -174,11 +194,19 @@
 			 
 			 moviePausedInPlace= false;
 			 moviePlaying = false;
+			 
+			 [self makeThumbnail];
 		 }
 		 else
 		 {
 			 // Deal with the error appropriately.
 			 currentStatus = BPM_CONNECTION_FAILED_;
+			 
+			 if(moviePlayerAsset)
+			 {
+				 [moviePlayerAsset release];
+				 moviePlayerAsset = nil;
+			 }
 			 
 			 if(currentError)
 			 {
@@ -208,7 +236,13 @@
 			 
 			 [currentMovie release];
 			 currentMovie = nil;
+			 
+			 [movieURL release];
+			 movieURL = nil;
 		 }
+		 
+		 [[BasePadMedia Instance] unblockMovieLoadQueue];
+
 	 }
 	 ];
 }
@@ -262,12 +296,41 @@
 	
 	movieType = MOVIE_TYPE_NONE_;
 	
+	shouldAutoDisplay = false;
+	
 	[currentMovie release];
 	currentMovie = nil;
+	
+	[movieURL release];
+	movieURL = nil;
 	
 	[movieTag release];
 	movieTag = nil;
 	
+	[movieThumbnail release];
+	movieThumbnail = nil;
+	
+}
+
+-(void)makeThumbnail
+{
+    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:moviePlayerAsset];
+
+    CGSize maxSize = CGSizeMake(72, 54);
+    generator.maximumSize = maxSize;
+	CMTime thumbTime = CMTimeMakeWithSeconds(0.1,30);
+
+	CGImageRef imageRef = [generator copyCGImageAtTime:thumbTime actualTime:nil error:nil];
+	
+	if(imageRef)
+	{
+		if(movieThumbnail)
+			[movieThumbnail release];
+		
+		movieThumbnail = [[UIImage alloc ] initWithCGImage:imageRef];
+		CGImageRelease(imageRef);
+	}
+
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -586,12 +649,14 @@
 
 - (bool) moviePlayable
 {
-	if(!moviePlayer || [moviePlayer status] != AVPlayerItemStatusReadyToPlay)
+	int moviePlayerStatus = moviePlayer ? [moviePlayer status] : AVPlayerItemStatusUnknown;
+	if(moviePlayerStatus != AVPlayerItemStatusReadyToPlay)
 	{
 		return false;
 	}
 	
-	if(!moviePlayerItem || [moviePlayerItem status] != AVPlayerItemStatusReadyToPlay)
+	int moviePlayerItemStatus = moviePlayerItem ? [moviePlayerItem status] : AVPlayerItemStatusUnknown;
+	if(moviePlayerItemStatus != AVPlayerItemStatusReadyToPlay)
 	{
 		return false;
 	}

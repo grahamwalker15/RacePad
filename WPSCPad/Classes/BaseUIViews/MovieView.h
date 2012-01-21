@@ -22,7 +22,8 @@
 
 // Manage displayed movies
 - (bool) displayMovieSource:(BasePadVideoSource *)source;
-- (void)removeMovieFromView;
+- (void) removeMovieFromView;
+- (void) resizeMovieSource;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;

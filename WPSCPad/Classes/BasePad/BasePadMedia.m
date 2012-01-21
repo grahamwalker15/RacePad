@@ -55,6 +55,8 @@ static BasePadMedia * instance_ = nil;
 			movieSources[i] = [[BasePadVideoSource alloc] init];
 		
 		movieSourceCount = 0;
+		movieSourceQueueCount = 0;
+		movieSourceQueueBlocked = false;
 		
 		audioSource = [[BasePadAudioSource alloc] init];
 		
@@ -641,6 +643,12 @@ static BasePadMedia * instance_ = nil;
 	
 	currentStatus = BPM_CONNECTED_;
 	
+	if(registeredViewController)
+	{
+		[videoSource setMoviePausedInPlace:false];
+		[videoSource setMovieActive:true];
+	}
+	
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 	
 }
@@ -701,7 +709,7 @@ static BasePadMedia * instance_ = nil;
 
 - (void) loadVideoList:(NSString *)fileName
 {
-	movieSourceCount = 0;
+	int localMovieSourceCount = 0;
 	
 	FILE * listFile;
 	NSString * fileString = [[BasePadCoordinator Instance] getVideoArchiveName];
@@ -744,11 +752,13 @@ static BasePadMedia * instance_ = nil;
 			
 			if ( strcmp ( keyword, "@end" ) == 0 )
 			{
-				[movieSources[movieSourceCount] loadMovie:url ShouldDisplay:(movieSourceCount == 0)];	// Displays first one
-				[movieSources[movieSourceCount] setStartTime:movieStartTime];
-				[movieSources[movieSourceCount] setMovieLoop:(movieLoop > 0)];
-				[movieSources[movieSourceCount] setMovieTag:movieTag];
-				movieSourceCount++;
+				[movieSources[localMovieSourceCount] setMovieURL:url] ;
+				[movieSources[localMovieSourceCount] setShouldAutoDisplay:(movieSourceCount == 0)];	// Displays first one
+				[movieSources[localMovieSourceCount] setStartTime:movieStartTime];
+				[movieSources[localMovieSourceCount] setMovieLoop:(movieLoop > 0)];
+				[movieSources[localMovieSourceCount] setMovieTag:movieTag];
+				[self queueMovieLoad:localMovieSourceCount];
+				localMovieSourceCount++;
 			}
 			else
 			{
@@ -758,6 +768,47 @@ static BasePadMedia * instance_ = nil;
 		
 		fclose(listFile);
 	}
+}
+
+- (void)queueMovieLoad:(int)movieSourceIndex
+{
+	if(movieSourceQueueBlocked || movieSourceQueueCount > 0)
+	{
+		movieSourceLoadQueue[movieSourceQueueCount] = movieSourceIndex;
+		movieSourceQueueCount++;
+	}
+	else
+	{
+		[movieSources[movieSourceIndex] loadMovie];
+		movieSourceCount++;
+	}
+}
+
+- (void)blockMovieLoadQueue
+{
+	movieSourceQueueBlocked = true;
+}
+
+- (void)unblockMovieLoadQueue
+{
+	movieSourceQueueBlocked = false;
+	
+	if(movieSourceQueueCount > 0)
+	{
+		int movieToLoad = movieSourceLoadQueue[0];
+		movieSourceQueueCount --;
+		
+		if(movieSourceQueueCount > 0)
+		{
+			for (int i = 0 ; i < movieSourceQueueCount ; i++)
+			{
+				movieSourceLoadQueue[i] = movieSourceLoadQueue[i+1];
+			}
+		}
+				
+		[movieSources[movieToLoad] loadMovie];
+		movieSourceCount++;
+	}		
 }
 
 @end

@@ -46,6 +46,8 @@
 	
 	NSString *currentMovie;
 	NSString *movieTag;
+	NSURL *movieURL;
+	UIImage *movieThumbnail;
 	
 	int currentStatus;
 	NSString *currentError;
@@ -73,6 +75,8 @@
 	bool movieActive;
 	bool movieDisplayed;
 	
+	bool shouldAutoDisplay;
+	
 }
 
 @property (readonly) AVURLAsset * moviePlayerAsset;
@@ -88,9 +92,12 @@
 @property (readonly) int resyncCount;
 
 @property (nonatomic) bool movieLoop;
+@property (nonatomic) bool shouldAutoDisplay;
 
 @property (readonly) NSString *currentMovie;
+@property (nonatomic, retain) NSURL *movieURL;
 @property (nonatomic, retain) NSString *movieTag;
+@property (readonly) UIImage *movieThumbnail;
 
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
@@ -113,8 +120,10 @@
 
 - (void)onStartUp;
 
+- (void) loadMovie;
 - (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay;
 - (void) unloadMovie;
+- (void) makeThumbnail;
 
 - (void) setStartTime:(float)time;
 - (void) getStartTime;
