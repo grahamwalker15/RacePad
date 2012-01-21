@@ -18,13 +18,15 @@
 
 @implementation MidasStandingsViewController
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
 	// Set up the table data for SimpleListView
 	[standingsView SetTableDataClass:[[RacePadDatabase Instance] midasStandingsData]];
+	
+	[standingsView setParentController:self];
+	[standingsView setExpansionView:expansionView];
 	
 	[standingsView SetFont:DW_LIGHT_LARGER_CONTROL_FONT_];
 	[standingsView setStandardRowHeight:26];
@@ -93,14 +95,14 @@
 			
 			[standingsView UnexpandAllRows];
 			[expansionView setHidden:true];
+			[standingsView setExpandedDriver:nil];
 			
 			if(!wasExpanded)
 			{
 				[standingsView SetRow:row Expanded:true];
-				
-				float y = [standingsView TableHeightToRow:row - 1] + [standingsView ContentRowHeight:row];
-				[expansionView setFrame:CGRectMake(0, y, CGRectGetWidth(expansionView.bounds), CGRectGetHeight(expansionView.bounds))];
-				[expansionView setHidden:false];
+				[standingsView setExpandedDriver:[standingsView GetRowTag:row]];	// Driver name
+				[self fillExpansionViewForRow:row];
+				[self placeExpansionViewAtRow:row];
 			}
 		}
 		
@@ -131,7 +133,7 @@
 	{
 		MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
 		
-		BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:@"VET"];
+		BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:[standingsView expandedDriver]];
 
 		if(videoSource)
 		{
@@ -139,15 +141,82 @@
 			if(movieView)
 			{
 				[videoViewController displayMovieSource:videoSource InView:movieView];
-				[videoViewController showAuxMovieView:movieView];
+				[videoViewController animateMovieViews];
 			}
 		}
 	}
 }
 
+- (void) placeExpansionViewAtRow:(int)row
+{
+	float y = [standingsView TableHeightToRow:row - 1] + [standingsView ContentRowHeight:row];
+	[expansionView setFrame:CGRectMake(0, y, CGRectGetWidth(expansionView.bounds), CGRectGetHeight(expansionView.bounds))];
+	[expansionView setHidden:false];
+}
+
+- (void) fillExpansionViewForRow:(int)row
+{
+	[teamName setText:[standingsView GetCellTextAtRow:row Col:4]];
+	
+	BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:[standingsView expandedDriver]];
+	if(videoSource && [videoSource movieThumbnail])
+	{
+		[onboardVideoButton setBackgroundImage:[videoSource movieThumbnail] forState:UIControlStateNormal];
+	}
+	else
+	{
+		[onboardVideoButton setBackgroundImage:[UIImage imageNamed:@"preview-video-layer.png"] forState:UIControlStateNormal];
+	}
+
+	/*
+	nationalityFlag;
+	votesForCount;
+	votesAgainstCount;
+	ratingLabel;
+	 */
+}
+
 @end
 
 @implementation MidasStandingsView
+
+@synthesize parentController;
+@synthesize expansionView;
+@synthesize expandedDriver;
+
+- (void)dealloc
+{
+	[expandedDriver release];
+	[super dealloc];
+}
+				 
+- (void) Draw:(CGRect)region
+{
+	// Check that the expanded driver is still at the expanded row
+	if(expandedDriver)
+	{
+		for(int row = 0 ; row < [self RowCount] ; row++)
+		{
+			NSString * driverAtRow = [self GetRowTag:row];
+			if([expandedDriver compare:driverAtRow] == NSOrderedSame)
+			{
+				if(![self RowExpanded:row])
+				{
+					[self UnexpandAllRows];
+					[self SetRow:row Expanded:true];
+					if(parentController)
+					{
+						[parentController placeExpansionViewAtRow:row];
+					}
+					break;
+				}
+			}
+		}
+	}
+	
+	// And now we can draw
+	[super Draw:region];
+}
 
 - (int) ContentRowHeight:(int)row
 {
@@ -155,6 +224,11 @@
 		return standardRowHeight * 1.5;
 	else
 		return standardRowHeight;
+}
+
+- (NSString *) GetRowTag:(int)row
+{
+	return [self GetCellTextAtRow:row Col:5];	// The abbreviated driver name
 }
 
 - (int) GetFontAtRow:(int)row Col:(int)col

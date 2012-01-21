@@ -15,10 +15,10 @@
 {
     [super viewDidLoad];
 	
-	MidasView * midasView = [[MidasView alloc] initWithFrame:CGRectMake(0, 0, 300, 372)];
+	MidasView * midasView = [[MidasView alloc] initWithFrame:CGRectMake(0, 0, 300, 325)];
 	midasView.delegate = self;
-    [self.view addSubview:midasView];
-	[midasView setFrame:CGRectMake(0, 0, 300, 372)];
+    [self.tableContainerView addSubview:midasView];
+	[midasView setFrame:CGRectMake(0, 0, 300, 325)];
 	[midasView __checkForNewMessages:70000];
 	[midasView release];
 }

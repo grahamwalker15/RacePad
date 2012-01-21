@@ -8,12 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-#define kAlphaValue  1.0
-
 //#define USE_REAL_TWITTER
-//#define INTERNAL_HIDE_SHOW
+#define INTEGRATED_IN_MIDAS
+
+#ifdef USE_REAL_TWITTER
+#import "JSON.h"
+#import <Twitter/Twitter.h>
+#import <Accounts/Accounts.h>
+#endif
+
+#define kAlphaValue     0.9
+#define kViewHeight     385
+#define kHeaderHeight   44
 
 @class BaseSocialmediaView;
+
+typedef enum { Twitter = 0, Facebook, Midas } ViewType;
 
 @protocol BaseSocialmediaViewDelegate
 - (void)baseSocialmediaAboutToShow:(BaseSocialmediaView *)controller;
@@ -35,7 +45,7 @@
 	UILabel *userName;
 	UITextField *sendText;
     UIButton *sendButton;
-
+	
 	UIImageView *shad1;
 	UIImageView *shad2;
 	UIImageView *shad2_1;
@@ -49,7 +59,7 @@
     NSMutableArray *entryComment;
     NSMutableArray *entryUserId;
     NSMutableArray *entryReplied;
-
+	
     NSMutableArray *dummyEntryName;
     NSMutableArray *dummyEntryImage;
     NSMutableArray *dummyEntryComment;
@@ -67,6 +77,8 @@
     int lastMessageCount;
     
     int addedRows;
+    
+    ViewType viewType;
 }
 
 @property (nonatomic, assign) id <BaseSocialmediaViewDelegate> delegate;
@@ -115,15 +127,13 @@
 
 @property int addedRows;
 
-- (BOOL)isVisible;
+@property ViewType viewType;
+
 - (IBAction)doLike:(id)sender;
 
 - (void)loadData;
 - (void)handleSwipe:(UISwipeGestureRecognizer *)sender;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
-- (void)hideView:(CGFloat)slideDuration;
-- (void)showView:(CGFloat)slideDuration;
-- (void)showViewAtPos:(CGFloat)slideDuration:(int)atXpos;
 - (void)scrollUpStop:(NSString*)animationID finished:(BOOL)finished context:(void *)context;
 - (void)scrollDownStop:(NSString*)animationID finished:(BOOL)finished context:(void *)context;
 - (void)hideReplying;
@@ -154,12 +164,23 @@
 - (NSString *)getTimeEntry:(int)offset;
 - (BOOL)canLike;
 - (void)getTwitUser;
+- (void)insertDummyEntry:(int)row;
 
 - (IBAction)sendTextFieldEntered:(id)sender;
 - (IBAction)sendButtonTweet:(id)sender;
+- (IBAction)sendReply:(id)sender;
 
-- (void)__checkForNewMessages:(CGFloat)mTime;
-- (void)insertDummyEntry:(int)row;
+/*
+ * These are the public methods
+ */
+- (void)showView:(CGFloat)slideDuration;
+- (void)showViewAtPos:(CGFloat)slideDuration:(int)atXpos;
+- (void)hideView:(CGFloat)slideDuration;
 - (BOOL)haveNewMessage;
-
+- (BOOL)isVisible;
+- (void)setDefaultUser:(NSString *)userDisplayName:(NSString *)newUserName:(NSString *)userImageName;
+/*
+ * This one only for demo, to insert any defined "dummy" messages
+ */
+- (void)__checkForNewMessages:(CGFloat)mTime;
 @end

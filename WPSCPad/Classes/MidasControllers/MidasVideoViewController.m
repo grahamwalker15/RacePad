@@ -113,9 +113,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	displayLeaderboard = true;
 	displayVideo = true;
 	
-	[mainMovieView setStyle:BG_STYLE_MIDAS_];
-	[auxMovieView1 setStyle:BG_STYLE_TRANSPARENT_];
-	[auxMovieView2 setStyle:BG_STYLE_TRANSPARENT_];
+	[mainMovieView setStyle:BG_STYLE_INVISIBLE_];
+	[auxMovieView1 setStyle:BG_STYLE_INVISIBLE_];
+	[auxMovieView2 setStyle:BG_STYLE_INVISIBLE_];
 	
 	[buttonBackgroundAnimationImage setHidden:true];
 	
@@ -170,6 +170,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Add tap and long press recognizers to the leaderboard
 	// GG - COMMENT OUT LEADERBOARD : [self addTapRecognizerToView:leaderboardView];
 	// GG - COMMENT OUT LEADERBOARD : [self addLongPressRecognizerToView:leaderboardView];
+	
+	// Add long press recognizers to the overlay to reset video windows (TEMPORARY)
+	[self addLongPressRecognizerToView:overlayView];
+	[self addLongPressRecognizerToView:mainMovieView];
 	
 	// Tell the RacePadCoordinator that we will be interested in data for this view
 	[[RacePadCoordinator Instance] AddView:mainMovieView WithType:RPC_VIDEO_VIEW_];
@@ -410,6 +414,82 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) positionMovieViews
 {
+	// Check how many videos are displayed - assume main one is
+	
+	int movieViewCount = 1;
+	
+	if([auxMovieView1 moviePlayerLayerAdded])
+		movieViewCount++;
+	
+	if([auxMovieView2 moviePlayerLayerAdded])
+		movieViewCount++;
+	
+	// Position windows
+	CGRect superBounds = [self.view bounds];
+	
+	if(movieViewCount == 1)
+	{
+		[self showOverlays];
+		[mainMovieView setFrame:superBounds];
+		[auxMovieView1 setFrame:CGRectMake(superBounds.size.width + 1, 100, superBounds.size.width * 3 / 4, superBounds.size.height * 3 / 4)];
+		[auxMovieView2 setFrame:CGRectMake(superBounds.size.width + 1, 100, superBounds.size.width * 3 / 4, superBounds.size.height * 3 / 4)];
+	}
+	else if(movieViewCount == 2)
+	{
+		[self hideOverlays];
+		[mainMovieView setFrame:CGRectMake(0, 100, superBounds.size.width / 3, superBounds.size.height / 4)];
+		if([auxMovieView1 moviePlayerLayerAdded])
+			[auxMovieView1 setFrame:CGRectMake(superBounds.size.width / 3, 0, superBounds.size.width * 2 / 3, superBounds.size.height * 2 / 3)];
+		else if([auxMovieView2 moviePlayerLayerAdded])
+			[auxMovieView2 setFrame:CGRectMake(superBounds.size.width / 3, 0, superBounds.size.width * 2 / 3, superBounds.size.height * 2 / 3)];
+	}
+	else if(movieViewCount == 3)
+	{
+		[self hideOverlays];
+		[mainMovieView setFrame:CGRectMake(0, 0, superBounds.size.width / 3, superBounds.size.height / 3)];
+		if([auxMovieView1 moviePlayerLayerAdded])
+			[auxMovieView1 setFrame:CGRectMake(superBounds.size.width / 3, 0, superBounds.size.width * 2 / 2, superBounds.size.height * 2 / 3)];
+		if([auxMovieView2 moviePlayerLayerAdded])
+			[auxMovieView2 setFrame:CGRectMake(superBounds.size.width * 2 / 3, superBounds.size.height * 2 / 2, superBounds.size.width / 3, superBounds.size.height / 3)];
+	}
+	
+	[mainMovieView resizeMovieSource];
+	[auxMovieView1 resizeMovieSource];
+	[auxMovieView2 resizeMovieSource];
+	
+}
+
+- (void) animateMovieViews
+{
+	if([auxMovieView1 moviePlayerLayerAdded])
+		[self showAuxMovieView:auxMovieView1];
+	
+	if([auxMovieView2 moviePlayerLayerAdded])
+		[self showAuxMovieView:auxMovieView2];
+	
+	[UIView beginAnimations:nil context:nil];
+		
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(movieViewAnimationDidStop:finished:context:)];
+		
+	[UIView setAnimationDuration:0.5];
+		
+	[self positionMovieViews];
+	
+	[UIView commitAnimations];
+}
+
+- (void) movieViewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		if(![auxMovieView1 moviePlayerLayerAdded])
+			[self hideAuxMovieView:auxMovieView1];
+		
+		if(![auxMovieView2 moviePlayerLayerAdded])
+			[self hideAuxMovieView:auxMovieView2];
+		
+	}
 }
 
 - (void) showAuxMovieView:(MovieView *)viewPtr
@@ -679,6 +759,10 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
+	[auxMovieView1 removeMovieFromView];
+	[auxMovieView1 removeMovieFromView];
+	[self animateMovieViews];
+	
 	// Zooms on point in map, or chosen car in leader board
 	if(!gestureView)
 		return;

@@ -17,6 +17,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.viewType = Facebook;
+        
+        self.sendText.hidden = YES;
+        
+        CGRect rect = self.socialTable.frame;
+        rect.size.height += 26;
+        rect.origin.y -= 26;
+        self.socialTable.frame = rect;
     }
     return self;
 }
@@ -43,7 +51,9 @@
     self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
 	
-    NSNumber *aNumber = [NSNumber numberWithFloat:1];
+    NSNumber *aNumber = [NSNumber numberWithFloat:0];
+    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:aNumber];
     [self.entryTimings addObject:aNumber];
     [self.entryTimings addObject:aNumber];
     [self.entryTimings addObject:aNumber];
@@ -54,10 +64,6 @@
     aNumber = [NSNumber numberWithFloat:10];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:12];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:16];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:20];
     [self.entryTimings addObject:aNumber];
 	
     [self.dummyEntryName addObject:@"Chris"];
@@ -119,7 +125,7 @@
 }
 
 - (CGRect)getSendTextFrame {
-    return CGRectMake(10, 49, 280, 20);
+    return CGRectMake(8, 49, 284, 20);
 }
 
 - (CGRect)getTimeTextFrame:(CGFloat)height{
@@ -213,7 +219,13 @@
     {
         height += 6;
     }
-    return height + 30;
+    if (self.replyRow == row)
+    {
+        height += 44;
+    }
+    height += 10;
+	
+    return height + 20;
 }
 
 @end

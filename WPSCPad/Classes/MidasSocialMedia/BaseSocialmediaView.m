@@ -1,5 +1,5 @@
 //
-//  BaseSocialmediaView.m
+//  BaseSocialmediaViewController.m
 //  F1Test
 //
 //  Created by Andrew Greenshaw on 05/01/2012.
@@ -10,11 +10,9 @@
 
 #ifdef USE_REAL_TWITTER
 #import <Accounts/Accounts.h>
-#import "JSON.h"
-#import <Twitter/Twitter.h>
 #endif
 
-#define HANDLE_SHOW_HIDE_INTERNALLY
+//#define HANDLE_SHOW_HIDE_INTERNALLY
 
 @interface UITextView (extended)
 - (void)setContentToHTMLString:(NSString *) contentText;
@@ -24,8 +22,7 @@
 
 #define kTestDataLen    12
 
-#define kHeaderHeight   44
-#define kViewHeight     432
+//#define INTERNAL_HIDE_SHOW
 
 static NSUInteger const kTimeTag = 1;
 static NSUInteger const kNameTag = 2;
@@ -36,6 +33,8 @@ static NSUInteger const kTextTag = 6;
 static NSUInteger const kRepliedIconTag = 7;
 static NSUInteger const kLikeTag = 8;
 static NSUInteger const kTwitterTag = 9;
+static NSUInteger const kDivideTag = 10;
+static NSUInteger const kTwitReplyTag = 11;
 
 @synthesize delegate = _delegate;
 
@@ -83,37 +82,52 @@ static NSUInteger const kTwitterTag = 9;
 
 @synthesize addedRows;
 
+@synthesize viewType;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:@"MidasBaseSocialmediaView" owner:self options:nil];
-        [self addSubview:self.view];
+        [[NSBundle mainBundle] loadNibNamed:@"MidasBaseSocialMediaView" owner:self options:nil];
+
+		[self addSubview:self.view];
+		
         self.topBackView.backgroundColor = [self getCellBackColour];
         self.topBackView.alpha = kAlphaValue;
-
+		
         self.socialTable.alpha = kAlphaValue;
         self.socialTable.separatorColor = [self getSeparatorColour];
         self.sendText.alpha = kAlphaValue;
         // Might not have an icon ?
         self.sendText.frame = [self getSendTextFrame];
         self.sendText.placeholder = [self getDefaultText];
-
+		
         //self.socialTable.backgroundColor = [self getCellBackColour];
-        
+
+#ifndef INTEGRATED_IN_MIDAS
         self.bottomBackGraphic.image = [self getFooterIcon];
-        self.topBackGraphic.image = [self getHeaderIcon];
-        self.topSendIcon.image = [self getSendLogo];
         self.bottomIconGraphic.image = [self getFooterLogo];
         self.bottonSocialTypeGraphic.image = [self getFooterText];
         
         self.bottomBackGraphic.alpha = kAlphaValue;
+		self.bottomIconGraphic.alpha = kAlphaValue;
+        self.bottonSocialTypeGraphic.alpha = kAlphaValue;
+#endif
+        self.topBackGraphic.image = [self getHeaderIcon];
+        self.topSendIcon.image = [self getSendLogo];
+        
         self.topBackGraphic.alpha = kAlphaValue;
         self.topSendIcon.alpha = kAlphaValue;
-        self.bottomIconGraphic.alpha = kAlphaValue;
-        self.bottonSocialTypeGraphic.alpha = kAlphaValue;
-        
+ 		
         self.lastMessageCount = 0;
+        
+        self.sendButton.hidden = YES;
+		
+        self.shad1.hidden = YES;
+        self.shad2.hidden = YES;
+        self.shad2_1.hidden = YES;
+        self.shad3.hidden = YES;
+        self.shad4.hidden = YES;
         
         self.userIcon.alpha = kAlphaValue;
         self.userName.alpha = kAlphaValue;
@@ -122,17 +136,9 @@ static NSUInteger const kTwitterTag = 9;
         self.twitImage = nil;
         [self getTwitUser];
         [self loadData];
-        
-        self.sendButton.hidden = ([self canPostReply] == NO);
-        
-        self.shad1.hidden = ([self canPostReply] == NO);
-        self.shad2.hidden = ([self canPostReply] == NO);
-        self.shad2_1.hidden = ([self canPostReply] == NO);
-        self.shad3.hidden = ([self canPostReply] == NO);
-        self.shad4.hidden = ([self canPostReply] == NO);
-        
+		
         UISwipeGestureRecognizer *dSwipe = [[UISwipeGestureRecognizer alloc]
-                                        initWithTarget:self action:@selector(handleSwipe:)];
+											initWithTarget:self action:@selector(handleSwipe:)];
         dSwipe.direction = UISwipeGestureRecognizerDirectionUp;
         
 #ifdef HANDLE_SHOW_HIDE_INTERNALLY
@@ -142,7 +148,9 @@ static NSUInteger const kTwitterTag = 9;
                                         initWithTarget:self action:@selector(handleTap:)];
         
         dTap.numberOfTapsRequired = 1;
+#ifdef HANDLE_SHOW_HIDE_INTERNALLY
         [self.view addGestureRecognizer:dTap];
+#endif
         
         self.visible = NO;
         self.replying = NO;
@@ -243,7 +251,7 @@ static NSUInteger const kTwitterTag = 9;
              }
          }
      }];
-
+	
 #else
     
     self.twitUser = @"@peterrand ";
@@ -279,7 +287,7 @@ static NSUInteger const kTwitterTag = 9;
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     if (offset >= 0)
     {
-        currentTime = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:(-2000 + offset * 129)]];
+        currentTime = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:(-5000 + offset * 129)]];
     }
     else
     {
@@ -302,16 +310,12 @@ static NSUInteger const kTwitterTag = 9;
 }
 
 - (void)__checkForNewMessages:(CGFloat)mTime {
-    if (mTime > 0.0 && self.replying == NO)
-    {
-        [self.userIcon setImage:self.twitImage];
-        self.userName.text = self.twitUserName;
-        
+    if (mTime >= 0.0 && self.replying == NO)
+    {        
         for (int i = 0; i < [self.entryTimings count]; i++)
         {
             CGFloat aFloat = [[self.entryTimings objectAtIndex:i] floatValue];
-            //if (mTime > aFloat - 0.1 && mTime < aFloat + 0.1)
-			if (mTime > aFloat - 0.1)
+            if (mTime > aFloat - 0.1/* && mTime < aFloat + 0.1*/)
             {
                 [self insertDummyEntry:i];
                 [self.socialTable reloadData];
@@ -342,10 +346,12 @@ static NSUInteger const kTwitterTag = 9;
         UITableViewCell *cell = [self.socialTable cellForRowAtIndexPath:(NSIndexPath *)ipath];
         UIImageView *cIcon = (UIImageView *)[cell.contentView viewWithTag:kIconTag];
         UITextField *cText = (UITextField *)[cell.contentView viewWithTag:kTextTag];
+        UIButton *ctwitReply = (UIButton *)[cell.contentView viewWithTag:kTwitReplyTag];
         [cText resignFirstResponder];
         cIcon.hidden = YES;
         cText.hidden = YES;
         cText.text = [self.entryUserId objectAtIndex:self.replyRow];
+        ctwitReply.hidden = YES;
         self.replying = NO;
         self.replyRow = -1;
         [self.sendText resignFirstResponder];
@@ -359,7 +365,7 @@ static NSUInteger const kTwitterTag = 9;
     if (self.visible == NO)
     {
         [self.delegate baseSocialmediaAboutToShow:self];
-
+		
         CGRect rect = self.frame;
         rect.origin.y = -kViewHeight;
         self.frame = rect;
@@ -384,10 +390,10 @@ static NSUInteger const kTwitterTag = 9;
     if (self.visible == NO)
     {
         CGRect rect = self.frame;
-    
+		
         rect.origin.x = atXpos;
         self.frame = rect;
-    
+		
         [self showView:slideDuration];
     }
 }
@@ -417,6 +423,13 @@ static NSUInteger const kTwitterTag = 9;
         [UIView commitAnimations]; 
     }
 #endif
+}
+
+- (void)setDefaultUser:(NSString *)userDisplayName:(NSString *)newUserName:(NSString *)userImageName {
+    self.twitUser = newUserName;
+    self.twitUserName = userDisplayName;
+    self.twitImage = [UIImage imageNamed:userImageName];
+    [self updateNameAndImage:nil];
 }
 
 - (void)reshowData {    
@@ -452,8 +465,8 @@ static NSUInteger const kTwitterTag = 9;
         {
             if (locationInView.y > frame.size.height - kHeaderHeight)
             {
-#ifndef INTERNAL_HIDE_SHOW
                 [self hideView:0.5];
+#ifndef INTERNAL_HIDE_SHOW
                 self.visible = NO;
 #endif
             }
@@ -471,37 +484,44 @@ static NSUInteger const kTwitterTag = 9;
         {
             if (locationInView.y < kHeaderHeight)
             {
-#ifndef INTERNAL_HIDE_SHOW
                 [self hideView:0.5];
+#ifndef INTERNAL_HIDE_SHOW
                 self.visible = NO;
 #endif
             }
             else if (locationInView.y > frame.size.height - kHeaderHeight)
             {
+                [self hideView:0.5];
 #ifndef INTERNAL_HIDE_SHOW
-				[self hideView:0.5];
                 self.visible = NO;
 #endif
             }
-            else if (locationInView.y > 2 * kHeaderHeight && locationInView.y < self.frame.size.height - kHeaderHeight)
+            else if (0 && locationInView.y > 2 * kHeaderHeight && locationInView.y < self.frame.size.height - kHeaderHeight)
             {
                 [self.sendText resignFirstResponder];
             }
-/* NO REPLY  NOW*/
-#if 0
-            else if (0 && locationInView.y > 2 * kHeaderHeight && locationInView.y < self.frame.size.height - kHeaderHeight)
+			/* NO REPLY  NOW*/
+#if 1
+            else if (locationInView.y > ((self.viewType == Facebook) ? kHeaderHeight : 2 * kHeaderHeight)
+                     && locationInView.y < self.frame.size.height - kHeaderHeight)
             {
                 locationInView = [sender locationInView:self.socialTable];
                 // clicked in table - get row under "point"
                 NSIndexPath *ipath = [self.socialTable indexPathForRowAtPoint:locationInView];
-                if (ipath != nil && [self canPostReply])
+                if (ipath != nil)// && [self canPostReply])
                 {
                     //NSLog(@"Row = %d", [ipath row]);
                     UITableViewCell *cell = [self.socialTable cellForRowAtIndexPath:(NSIndexPath *)ipath];
                     UIImageView *cIcon = (UIImageView *)[cell.contentView viewWithTag:kIconTag];
                     UITextField *cText = (UITextField *)[cell.contentView viewWithTag:kTextTag];
-
-                    if (self.replying == YES)
+                    UIButton *ctwitReply = (UIButton *)[cell.contentView viewWithTag:kTwitReplyTag];
+					
+                    CGPoint locationInButton = [sender locationInView:ctwitReply]; 
+                    if (locationInButton.x > 0 && locationInButton.y > 0 && locationInButton.x < 36 && locationInButton.y < 14)
+                    {
+                        [self sendReply:cText];
+                    }
+                    else if (self.replying == YES)
                     {
                         if (self.replyRow == [ipath row])
                         {
@@ -510,6 +530,7 @@ static NSUInteger const kTwitterTag = 9;
                             self.replyRow = -1;
                             cIcon.hidden = YES;
                             cText.hidden = YES;
+                            ctwitReply.hidden = YES;
                         }
                         else
                         {
@@ -517,6 +538,7 @@ static NSUInteger const kTwitterTag = 9;
                             self.replyRow = [ipath row];
                             cIcon.hidden = YES;
                             cText.hidden = YES;
+                            ctwitReply.hidden = YES;
                         }
                     }
                     else
@@ -543,7 +565,7 @@ static NSUInteger const kTwitterTag = 9;
     [self.entryTimings insertObject:aNumber atIndex:0];
     
     [self.entryName insertObject:self.twitUserName atIndex:0];
-
+	
     [self.entryImage insertObject:self.twitImage atIndex:0];
     
     [self.entryComment insertObject:text atIndex:0];
@@ -554,7 +576,7 @@ static NSUInteger const kTwitterTag = 9;
     [self.entryReplied insertObject:@"NO" atIndex:0];
     
     self.addedRows++;
-
+	
     [self.socialTable reloadData];  
     
     [self.socialTable beginUpdates];
@@ -563,10 +585,25 @@ static NSUInteger const kTwitterTag = 9;
 
 - (IBAction)sendButtonTweet:(id)sender
 {
-    [self addEntry:self.sendText.text];
+    if ([self.sendText.text length] > 0)
+    {
+        [self addEntry:self.sendText.text];
+    }
     [self hideView:0.4];
     self.sendText.text = @"";
     [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(scrollToEnd) userInfo:nil repeats:NO];
+}
+
+- (IBAction)sendReply:(id)sender
+{
+    UILabel *txtLab = (UILabel *)sender;
+    if ([txtLab.text length] > 0)
+    {
+        [self addEntry:txtLab.text];
+        [self hideView:0.4];
+        txtLab.text = @"";
+        [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(scrollToEnd) userInfo:nil repeats:NO];
+    }
 }
 
 - (CGRect)getSendTextFrame {
@@ -597,7 +634,7 @@ static NSUInteger const kTwitterTag = 9;
 }
 
 - (UIImage *)getHeaderIcon {
-    UIImage *ret = [UIImage imageNamed:@"Twitter-connecte-layer.png"];
+    UIImage *ret = [UIImage imageNamed:@"Twitter-front-layer.png"];
     return ret;
 }
 
@@ -617,7 +654,7 @@ static NSUInteger const kTwitterTag = 9;
 }
 
 - (UIImage *)getSendLogo{
-    UIImage *ret = [UIImage imageNamed:@"Twitter-mini-icon.png"];
+    UIImage *ret = [UIImage imageNamed:@"Twitter-mini-icon-blue.png"];
     return ret;
 }
 
@@ -634,7 +671,7 @@ static NSUInteger const kTwitterTag = 9;
     NSString *ret = nil;
     
     NSString *comment = [self.entryComment objectAtIndex:row];
-    if ([comment characterAtIndex:0] == '@')
+    if ([comment length] > 1 && [comment characterAtIndex:0] == '@')
     {
         // Assume starts with a tweet name...
         //(NSRange)rangeOfString:(NSString *)aString
@@ -659,7 +696,7 @@ static NSUInteger const kTwitterTag = 9;
 -(CGFloat)getTextHeight:(NSString *)text
 {
 	CGFloat ret = 0.0;
-	CGSize stringSize = [text sizeWithFont:[UIFont systemFontOfSize:10] constrainedToSize:CGSizeMake(246, 9999) lineBreakMode:UILineBreakModeWordWrap];
+	CGSize stringSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:10] constrainedToSize:CGSizeMake(246, 9999) lineBreakMode:UILineBreakModeWordWrap];
 	ret = stringSize.height;
 	return ret;
 }
@@ -689,7 +726,7 @@ static NSUInteger const kTwitterTag = 9;
     {
         height += 36;
     }
-    if ([self canPostReply])
+    //if ([self canPostReply])
     {
         height += 10;
     }
@@ -756,13 +793,15 @@ static NSUInteger const kTwitterTag = 9;
 	UIImageView *cRepliedIcon = nil;
     UIButton *cLike =nil;
     UIButton *cTwitter =nil;
+    UIImageView *cDivide = nil;
+    UIButton *ctwitReply =nil;
     
     int row = [indexPath row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) 
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-
+		
         //UIView *cellbackView = [[UIView alloc] initWithFrame:CGRectZero];
         //cellbackView.backgroundColor = [self getCellBackColour];
         //cellbackView.alpha = 0;
@@ -770,24 +809,24 @@ static NSUInteger const kTwitterTag = 9;
         //cell.backgroundView = cellbackView;
         NSString *tempcommenttext = [self getUnformattedCommentText:row];
         CGFloat tHeight = [self getTextHeight:tempcommenttext];
-
+		
         cTime = [[UILabel alloc] initWithFrame:[self getTimeTextFrame:tHeight]];
-        cTime.font = [UIFont systemFontOfSize:8];
+        cTime.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
         cTime.tag = kTimeTag;
-        cTime.alpha = kAlphaValue;
+        //cTime.alpha = kAlphaValue;
         cTime.backgroundColor = [UIColor clearColor];
         cTime.textColor = [self getTextColour];
         cTime.text = [self.entryTime objectAtIndex:row];
-        if ([self canPostReply])
+        if (self.viewType == Twitter)
         {
             cTime.text = @"";
         }
         [cell.contentView addSubview:cTime];
         
         cName = [[UILabel alloc] initWithFrame:[self getNameTextFrame]];
-        cName.font = [UIFont boldSystemFontOfSize:10];
+        cName.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10];
         cName.tag = kNameTag;
-        cName.alpha = kAlphaValue;
+        //cName.alpha = kAlphaValue;
         cName.backgroundColor = [UIColor clearColor];
         cName.textColor = [self getTextColour];
         cName.text = [self.entryName objectAtIndex:row];
@@ -805,11 +844,11 @@ static NSUInteger const kTwitterTag = 9;
         int numoflines = tHeight / 15;
         //cComment = [[UITextView alloc] initWithFrame:CGRectMake(80, 26, 210, tHeight)];
         cComment = [[UITextView alloc] initWithFrame:[self getCommentTextFrame:tHeight]];
-        cComment.font = [UIFont systemFontOfSize:10];
+        cComment.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
         //cComment.lineBreakMode = UILineBreakModeWordWrap;
         //cComment.numberOfLines = tHeight / 15;
         cComment.tag = kCommentTag;
-        cComment.alpha = kAlphaValue;
+        //cComment.alpha = kAlphaValue;
         cComment.userInteractionEnabled = NO;
         cComment.backgroundColor = [UIColor clearColor];
         cComment.textAlignment = UITextAlignmentLeft;
@@ -817,18 +856,18 @@ static NSUInteger const kTwitterTag = 9;
         [cComment setContentToHTMLString:[self getCommentText:row]];
         [cell.contentView addSubview:cComment];
         
-        cIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, tHeight + 24 + ((numoflines == 1) ? 13 : 0), 26, 26)];
+        cIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, tHeight + 30 + ((numoflines == 0) ? 11 : 11), 26, 26)];
         cIcon.tag = kIconTag;
         cIcon.alpha = kAlphaValue;
         cIcon.hidden = YES;
         cIcon.image = [self getSendLogo];
         [cell.contentView addSubview:cIcon];
         
-        cText = [[UITextField alloc] initWithFrame:CGRectMake(42, tHeight + 28 + ((numoflines == 1) ? 13 : 0), 250, 20)];
+        cText = [[UITextField alloc] initWithFrame:CGRectMake(40, tHeight + 34 + ((numoflines == 0) ? 11 : 11), 213, 20)]; //(self.viewType == Twitter) ?  213 : 248, 20)];
         //cText = [[UITextView alloc] initWithFrame:CGRectMake(48, tHeight + 40 + ((cComment.numberOfLines == 1) ? 19 : 0), 242, 31)];
         cText.tag = kTextTag;
-        cText.alpha = kAlphaValue;
-        cText.font = [UIFont systemFontOfSize:10];
+        //cText.alpha = kAlphaValue;
+        cText.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
         cText.hidden = YES;
         cText.delegate = self;
         cText.textAlignment = UITextAlignmentLeft;
@@ -842,28 +881,63 @@ static NSUInteger const kTwitterTag = 9;
         cText.clearButtonMode = UITextFieldViewModeNever;
         cText.enablesReturnKeyAutomatically = YES;
         cText.textColor = [self getTextColour];
-        cText.text = [self getReplyPrefix:row];
-        [cell.contentView addSubview:cText];
-        
-        cRepliedIcon = [[UIImageView alloc] initWithFrame:CGRectMake(280, 12, 8, 8)];
-        cRepliedIcon.tag = kRepliedIconTag;
-        cRepliedIcon.alpha = kAlphaValue;
-        cRepliedIcon.hidden = YES;
-        NSString *replied = [self.entryReplied objectAtIndex:row];
-        if ([replied isEqualToString:@"YES"])
+        if (self.viewType == Midas)
         {
-            cRepliedIcon.hidden = NO;
+            cText.textColor = [UIColor blackColor];
         }
-        cRepliedIcon.image = [self getRepliedIcon];
-        [cell.contentView addSubview:cRepliedIcon];
-    
-        if ([self canLike])
+        cText.text = (self.viewType == Twitter) ? [self getReplyPrefix:row] : @"";
+        [cell.contentView addSubview:cText];
+		
+        //if (self.viewType == Twitter)
+        {
+            ctwitReply = [UIButton buttonWithType:UIButtonTypeCustom];
+            ctwitReply.tag = kTwitReplyTag;
+            cTwitter.alpha = kAlphaValue;
+            ctwitReply.enabled = YES;
+            ctwitReply.hidden = YES;
+            ctwitReply.userInteractionEnabled = YES;
+            [ctwitReply addTarget:self action:@selector(sendReply:) forControlEvents:UIControlEventTouchDown];
+            [ctwitReply setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [ctwitReply setBackgroundColor:[UIColor clearColor]];
+            CGRect frame = CGRectMake(259, tHeight + 37 + ((numoflines == 0) ? 11 : 11), 36, 13);
+            ctwitReply.frame = frame;            
+            ctwitReply.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
+            [ctwitReply setTitle:@"Tweet" forState:UIControlStateNormal];
+            [ctwitReply setBackgroundImage:[UIImage imageNamed:@"Twitter-capsule.png"] forState:UIControlStateNormal];
+            if (self.viewType == Facebook)
+            {
+                [ctwitReply setTitle:@"Send" forState:UIControlStateNormal];
+                [ctwitReply setBackgroundImage:[UIImage imageNamed:@"Facebook-capsule.png"] forState:UIControlStateNormal];
+            }
+            if (self.viewType == Midas)
+            {
+                [ctwitReply setTitle:@"Send" forState:UIControlStateNormal];
+                [ctwitReply setBackgroundImage:[UIImage imageNamed:@"Midas-capsule.png"] forState:UIControlStateNormal];
+                [ctwitReply setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            }
+            [cell.contentView addSubview:ctwitReply];
+            
+            cRepliedIcon = [[UIImageView alloc] initWithFrame:CGRectMake(280, 12, 8, 8)];
+            cRepliedIcon.tag = kRepliedIconTag;
+            cRepliedIcon.alpha = kAlphaValue;
+            cRepliedIcon.hidden = YES;
+            NSString *replied = [self.entryReplied objectAtIndex:row];
+            if ([replied isEqualToString:@"YES"])
+            {
+                cRepliedIcon.hidden = NO;
+            }
+            cRepliedIcon.image = [self getRepliedIcon];
+            [cell.contentView addSubview:cRepliedIcon];
+        }
+        
+        if (0 && self.viewType == Facebook)
         {
             cLike = [UIButton buttonWithType:UIButtonTypeCustom];
             cLike.tag = kLikeTag;
-            cLike.alpha = kAlphaValue;
+            //cLike.alpha = kAlphaValue;
             cLike.enabled = YES;
             cLike.userInteractionEnabled = YES;
+            cLike.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
             [cLike addTarget:self action:@selector(doLike:) forControlEvents:UIControlEventTouchDown];
             [cLike setTitle:@"- Like" forState:UIControlStateNormal];
             [cLike setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
@@ -874,34 +948,39 @@ static NSUInteger const kTwitterTag = 9;
             frame.size.height = 50;
             cLike.frame = frame;            
             cLike.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            cLike.titleLabel.font = [UIFont systemFontOfSize:8];
             [cell.contentView addSubview:cLike];
         }
         
-        if ([self canPostReply])
+        if (self.viewType == Twitter)
         {
+#if 1
             cTwitter = [UIButton buttonWithType:UIButtonTypeCustom];
             cTwitter.tag = kTwitterTag;
-            cTwitter.alpha = kAlphaValue;
+            //cTwitter.alpha = kAlphaValue;
             cTwitter.enabled = YES;
-            cTwitter.userInteractionEnabled = YES;
+            cTwitter.userInteractionEnabled = NO;
             [cTwitter addTarget:self action:@selector(doLaunchTwitter:) forControlEvents:UIControlEventTouchDown];
-            [cTwitter setTitle:@"" forState:UIControlStateNormal];
-            [cTwitter setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-            [cTwitter setTitleColor:[UIColor colorWithRed:0.211764 green:0.69804 blue:0.75294 alpha:1.0] forState:UIControlStateNormal];
+            [cTwitter setTitleColor:[UIColor colorWithRed:0.15 green:0.4 blue:0.85 alpha:1.0] forState:UIControlStateNormal];
             CGRect frame = cComment.frame;
             frame.origin.x += 9;
-            frame.origin.y += frame.size.height - 11;
+            frame.origin.y += frame.size.height - 9;
             frame.size.width = 250;
             frame.size.height = 30;
             cTwitter.frame = frame;            
             cTwitter.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            cTwitter.titleLabel.font = [UIFont systemFontOfSize:8];
-            NSString *tmpStr = [[NSString alloc] initWithFormat:@"%@   -   reply   -   retweet   -   favourite", [self.entryTime objectAtIndex:row]];
+            cTwitter.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
+            NSString *tmpStr = [[NSString alloc] initWithFormat:@"%@", [self.entryTime objectAtIndex:row]];
             [cTwitter setTitle:tmpStr forState:UIControlStateNormal];
             [cell.contentView addSubview:cTwitter];
+#endif
         }
         
+        cDivide = [[UIImageView alloc] initWithFrame:CGRectMake(0, [self heightForRowAtIndexPath:[indexPath row]], 284, 1)];
+        cDivide.tag = kDivideTag;
+        cDivide.alpha = kAlphaValue;
+        cDivide.image = [UIImage imageNamed:@"Line-T-1.png"];
+        //[cell.contentView addSubview:cDivide];
+		
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.alpha = 0;
         
@@ -922,16 +1001,18 @@ static NSUInteger const kTwitterTag = 9;
         cTwitter = (UIButton *)[cell.contentView viewWithTag:kTwitterTag];
 #endif
     }
- 
+	
     if (self.replying && self.replyRow == row)
     {
         cIcon.hidden = NO;
         cText.hidden = NO;
+        ctwitReply.hidden = NO;
     }
     else
     {
         cIcon.hidden = YES;
         cText.hidden = YES;
+        ctwitReply.hidden = YES;
     }
     
 	return cell;
@@ -947,12 +1028,12 @@ static NSUInteger const kTwitterTag = 9;
 }
 
 /*
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell setBackgroundColor:[UIColor clearColor]];
-    //[cell setBackgroundColor:[self getCellBackColour]];
-    //cell.alpha = kAlphaValue + 0.125;
-}
-*/
+ - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+ [cell setBackgroundColor:[UIColor clearColor]];
+ //[cell setBackgroundColor:[self getCellBackColour]];
+ //cell.alpha = kAlphaValue + 0.125;
+ }
+ */
 
 #pragma mark UITextField methods
 - (IBAction)sendTextFieldEntered:(id)sender {
@@ -979,9 +1060,12 @@ static NSUInteger const kTwitterTag = 9;
         UIImageView *cRepliedIcon = (UIImageView *)[cell.contentView viewWithTag:kRepliedIconTag];
         if ([cText.text length] > 0)
         {
-            [self addEntry:cText.text];
-            cRepliedIcon.hidden = NO;
-            [self.entryReplied replaceObjectAtIndex:self.replyRow withObject:@"YES"];
+            //if (self.viewType == Twitter)
+            {
+                [self addEntry:cText.text];
+                cRepliedIcon.hidden = NO;
+                [self.entryReplied replaceObjectAtIndex:self.replyRow withObject:@"YES"];
+            }
             [self hideReplying];
             ret = YES;
             [self hideView:0.4];
@@ -1004,11 +1088,14 @@ static NSUInteger const kTwitterTag = 9;
         UITableViewCell *cell = [self.socialTable cellForRowAtIndexPath:(NSIndexPath *)ipath];
         UITextField *cText = (UITextField *)[cell.contentView viewWithTag:kTextTag];
         UIImageView *cRepliedIcon = (UIImageView *)[cell.contentView viewWithTag:kRepliedIconTag];
-        if ([cText.text length] > 0)
+        //if ([cText.text length] > 0)
         {
-            [self addEntry:cText.text];
-            cRepliedIcon.hidden = NO;
-            [self.entryReplied replaceObjectAtIndex:self.replyRow withObject:@"YES"];
+            if (self.viewType == Twitter)
+            {
+                [self addEntry:cText.text];
+                cRepliedIcon.hidden = NO;
+                [self.entryReplied replaceObjectAtIndex:self.replyRow withObject:@"YES"];
+            }
             [self hideView:0.4];
             [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(scrollToEnd) userInfo:nil repeats:NO];
         }

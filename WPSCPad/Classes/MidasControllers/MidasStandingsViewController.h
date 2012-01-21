@@ -12,9 +12,21 @@
 #import "MidasBaseViewController.h"
 #import "TableDataView.h"
 
+@class MidasStandingsViewController;
+@class MidasStandingsExpansionView;
+
 @interface MidasStandingsView : TableDataView
 {
+	MidasStandingsViewController * parentController;
+	MidasStandingsExpansionView * expansionView;
+	
+	NSString * expandedDriver;
 }
+
+@property (nonatomic, retain) MidasStandingsViewController * parentController;
+@property (nonatomic, retain) MidasStandingsExpansionView * expansionView;
+@property (nonatomic, retain) NSString * expandedDriver;
+
 @end
 
 @interface MidasStandingsExpansionView : UIView
@@ -24,11 +36,28 @@
 
 @interface MidasStandingsViewController : MidasBaseViewController 
 {
+	// View panels
 	IBOutlet MidasStandingsView * standingsView;
 	IBOutlet MidasStandingsExpansionView * expansionView;
 	
+	// Expansion view content
+	IBOutlet UILabel * teamName;
+	IBOutlet UIImageView * nationalityFlag;
+	IBOutlet UILabel * votesForCount;
+	IBOutlet UILabel * votesAgainstCount;
+	IBOutlet UILabel * ratingLabel;
+	
+	IBOutlet UIButton * voteForButton;
+	IBOutlet UIButton * voteAgainstButton;
 	IBOutlet UIButton * onboardVideoButton;
+	
+	// Expansion animation image
+	IBOutlet UIImageView * viewAnimationImage;
+	
 }
+
+- (void) placeExpansionViewAtRow:(int)row;
+- (void) fillExpansionViewForRow:(int)row;
 
 -(IBAction)movieSelected:(id)sender;
 

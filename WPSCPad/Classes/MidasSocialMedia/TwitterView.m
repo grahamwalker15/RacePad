@@ -8,13 +8,6 @@
 
 #import "TwitterView.h"
 
-#ifdef USE_REAL_TWITTER
-#import <Accounts/Accounts.h>
-#import "JSON.h"
-#import <Twitter/Twitter.h>
-#endif
-
-
 #define kTestDataLen    12
 
 @implementation TwitterView
@@ -26,6 +19,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.viewType = Twitter;
     }
     return self;
 }
@@ -232,7 +226,10 @@
     self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
 	
-    NSNumber *aNumber = [NSNumber numberWithFloat:1];
+    NSNumber *aNumber = [NSNumber numberWithFloat:0];
+    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:aNumber];
     [self.entryTimings addObject:aNumber];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:2];
@@ -248,12 +245,6 @@
     aNumber = [NSNumber numberWithFloat:16];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:20];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:25];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:40];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:60];
     [self.entryTimings addObject:aNumber];
 	
     [self.dummyEntryName addObject:@"John J"];
@@ -315,16 +306,27 @@
     }
     [NSTimer scheduledTimerWithTimeInterval:90 target:self selector:@selector(loadTweets) userInfo:nil repeats:YES];
 #endif
+    
+    {
+        self.sendButton.hidden = NO;
+        
+#ifndef INTEGRATED_IN_MIDAS
+        self.shad1.hidden = NO;
+        self.shad2.hidden = NO;
+        self.shad2_1.hidden = NO;
+        self.shad3.hidden = NO;
+        self.shad4.hidden = NO;
+#endif
+    }
 }
 
-#ifdef USE_REAL_TWITTER
 - (void)__checkForNewMessages:(CGFloat)mTime {
-    if (mTime > 0.0 && self.replying == NO)
+    if (mTime >= 0.0 && self.replying == NO)
     {
         for (int i = 0; i < [self.entryTimings count]; i++)
         {
             CGFloat aFloat = [[self.entryTimings objectAtIndex:i] floatValue];
-            if (mTime > aFloat - 0.1 && mTime < aFloat + 0.1)
+            if (mTime > aFloat - 0.1/* && mTime < aFloat + 0.1*/)
             {
                 [self insertDummyEntry:i];
                 [self.socialTable reloadData];
@@ -333,7 +335,6 @@
         }
     }
 }
-#endif
 
 /*
  // Only override drawRect: if you perform custom drawing.

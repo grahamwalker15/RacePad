@@ -13,6 +13,11 @@
 
 @interface BaseSocialmediaViewController : MidasBaseViewController <BaseSocialmediaViewDelegate>
 {
+    IBOutlet UIView *tableBackgroundView;
+    IBOutlet UIView *tableContainerView;
 }
+
+@property (readonly) UIView *tableBackgroundView;
+@property (readonly) UIView *tableContainerView;
 
 @end

@@ -15,10 +15,10 @@
 {
     [super viewDidLoad];
 	
-	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 372)];
+	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 325)];
 	facebookView.delegate = self;
-    [self.view addSubview:facebookView];
-	[facebookView setFrame:CGRectMake(0, 0, 300, 372)];
+    [self.tableContainerView addSubview:facebookView];
+	[facebookView setFrame:CGRectMake(0, 0, 300, 325)];
 	[facebookView __checkForNewMessages:70000];
 	[facebookView release];
 }

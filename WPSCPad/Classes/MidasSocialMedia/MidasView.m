@@ -18,6 +18,7 @@
     if (self) {
         // Initialization code
         self.userName.textColor = [UIColor blackColor];
+        self.viewType = Midas;
     }
     return self;
 }
@@ -44,17 +45,15 @@
     self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
 	
-    NSNumber *aNumber = [NSNumber numberWithFloat:1];
+    NSNumber *aNumber = [NSNumber numberWithFloat:0];
     [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:1];
     [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:2];
+    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:aNumber];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:3];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:6];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:10];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:12];
     [self.entryTimings addObject:aNumber];
@@ -63,8 +62,6 @@
     aNumber = [NSNumber numberWithFloat:20];
     [self.entryTimings addObject:aNumber];
     aNumber = [NSNumber numberWithFloat:25];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:40];
     [self.entryTimings addObject:aNumber];
 	
     [self.dummyEntryName addObject:@"John J"];
@@ -114,6 +111,12 @@
     [self.dummyEntryUserId addObject:@"@markyboy "];
     [self.dummyEntryUserId addObject:@"@kyliem "];
     [self.dummyEntryUserId addObject:@"@rschumacher "];
+    
+    self.sendButton.hidden = NO;
+    
+    [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
+    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"Midas-capsule.png"] forState:UIControlStateNormal];
+    [self.sendButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (NSString *)getDefaultText{
@@ -170,7 +173,7 @@
 }
 
 - (CGRect)getSendTextFrame {
-    return CGRectMake(10, 49, 280, 20);
+    return CGRectMake(8, 49, 245, 20);
 }
 
 - (UIImage *)getFooterText{
@@ -196,6 +199,23 @@
 
 - (BOOL)canPostReply{
     return NO;
+}
+
+- (CGFloat)heightForRowAtIndexPath:(CGFloat)row{
+    NSString *text = [self getUnformattedCommentText:row];
+    CGFloat height = [self getTextHeight:text];
+    int numoflines = height / 15;
+    if (numoflines > 1)
+    {
+        height += 6;
+    }
+    if (self.replyRow == row)
+    {
+        height += 44;
+    }
+    height += 10;
+    
+    return height + 20;
 }
 
 @end

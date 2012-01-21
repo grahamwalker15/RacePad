@@ -132,6 +132,9 @@
 - (void) showMenuButtons;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
+- (void) animateMovieViews;
+- (void) movieViewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
 - (void) showAuxMovieViewByIndex:(int)viewNumber;
 - (void) hideAuxMovieViewByIndex:(int)viewNumber;
 - (void) showAuxMovieView:(MovieView *)viewPtr;

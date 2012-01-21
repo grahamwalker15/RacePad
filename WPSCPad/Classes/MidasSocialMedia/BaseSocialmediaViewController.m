@@ -11,6 +11,9 @@
 
 @implementation BaseSocialmediaViewController
 
+@synthesize tableBackgroundView;
+@synthesize tableContainerView;
+
 #pragma mark BaseSocialmediaViewDelegate methods
 
 - (void)baseSocialmediaAboutToShow:(BaseSocialmediaView *)controller
