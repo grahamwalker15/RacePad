@@ -614,15 +614,18 @@
 					float w = [image size].width;
 					float h = [image size].height;
 					
+					
 					if(w > column_width && w > 0 && h > 0)
 					{
 						float image_rect_height = column_width * h / w;
-						[self DrawImage:image InRect:CGRectMake(x_draw, y - cellYMargin, column_width, image_rect_height)];
+						float ypos = y + row_height - text_baseline_ - cellYMargin - 2 - image_rect_height;
+						[self DrawImage:image InRect:CGRectMake(x_draw, ypos, column_width, image_rect_height)];
 					}
 					else
 					{
 						float xpos = x_draw + (column_width / 2) - (w / 2) ;
-						[self DrawImage:image AtX:xpos Y:y - cellYMargin];
+						float ypos = y + row_height - text_baseline_ - cellYMargin - 2 - h;
+						[self DrawImage:image AtX:xpos Y:ypos];
 					}
 					
 					[image release];

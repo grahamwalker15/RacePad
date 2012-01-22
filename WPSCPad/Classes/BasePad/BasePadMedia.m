@@ -16,6 +16,8 @@
 
 @implementation BasePadMedia
 
+@synthesize movieSourceCount;
+
 @synthesize liveVideoDelay;
 
 @synthesize restartCount;

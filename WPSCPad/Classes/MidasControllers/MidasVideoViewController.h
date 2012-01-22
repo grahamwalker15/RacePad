@@ -119,6 +119,7 @@
 - (void) positionOverlays;
 
 - (void) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
+- (void) prePositionMovieView:(MovieView *)newView From:(int)movieDirection;
 - (void) positionMovieViews;
 
 - (void) showZoomMap;
@@ -132,7 +133,7 @@
 - (void) showMenuButtons;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
-- (void) animateMovieViews;
+- (void) animateMovieViews:(MovieView *)newView From:(int)movieDirection;
 - (void) movieViewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (void) showAuxMovieViewByIndex:(int)viewNumber;

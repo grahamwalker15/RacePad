@@ -86,6 +86,8 @@ enum MovieConnectionTypes
 
 + (BasePadMedia *)Instance;
 
+@property (readonly) int movieSourceCount;
+
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
 @property (readonly) int restartCount;

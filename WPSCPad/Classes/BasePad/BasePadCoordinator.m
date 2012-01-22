@@ -81,6 +81,7 @@ static BasePadCoordinator * instance_ = nil;
 		
 		needsPlayRestart = true;
 		playing = false;
+		protectMediaFromRestart = false;
 		
 		updateTimer = nil;
 		elapsedTime = nil;
@@ -403,11 +404,14 @@ static BasePadCoordinator * instance_ = nil;
 		
 	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
 
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
-		[[BasePadMedia Instance] moviePlayAtRate:activePlaybackRate];
+	if(!protectMediaFromRestart)
+	{
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+			[[BasePadMedia Instance] moviePlayAtRate:activePlaybackRate];
 	
-	if(connectionType == BPC_ARCHIVE_CONNECTION_)
-		[[BasePadMedia Instance] audioPlayAtRate:activePlaybackRate];
+		if(connectionType == BPC_ARCHIVE_CONNECTION_)
+			[[BasePadMedia Instance] audioPlayAtRate:activePlaybackRate];
+	}
 
 }
 
@@ -436,11 +440,14 @@ static BasePadCoordinator * instance_ = nil;
 	if (connectionType == BPC_SOCKET_CONNECTION_)
 		[socket_ stopStreams];	
 	
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
-		[[BasePadMedia Instance] movieStop];
+	if(!protectMediaFromRestart)
+	{
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+			[[BasePadMedia Instance] movieStop];
 	
-	if(connectionType == BPC_ARCHIVE_CONNECTION_)
-		[[BasePadMedia Instance] audioStop];
+		if(connectionType == BPC_ARCHIVE_CONNECTION_)
+			[[BasePadMedia Instance] audioStop];
+	}
 	
 	[[BasePadTimeController Instance] updateTime:currentTime];
 
@@ -689,14 +696,17 @@ static BasePadCoordinator * instance_ = nil;
 	[self restartCommentary];
 	
 	// If the registered view controller is interested in video, prepare it to play
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+	if(!protectMediaFromRestart)
 	{
-		[[BasePadMedia Instance] movieGotoTime:currentTime];
-		[[BasePadMedia Instance] moviePrepareToPlay];
-	}
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+		{
+			[[BasePadMedia Instance] movieGotoTime:currentTime];
+			[[BasePadMedia Instance] moviePrepareToPlay];
+		}
 	
-	[[BasePadMedia Instance] audioGotoTime:currentTime];
-	[[BasePadMedia Instance] audioPrepareToPlay];
+		[[BasePadMedia Instance] audioGotoTime:currentTime];
+		[[BasePadMedia Instance] audioPrepareToPlay];
+	}
 }
 
 - (void) showSnapshotOfArchives
@@ -1080,16 +1090,19 @@ static BasePadCoordinator * instance_ = nil;
 	[self restartCommentary];
 	
 	// If the registered view controller is interested in video, cue this to play live too
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+	if(!protectMediaFromRestart)
 	{
-		if ( live )
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		{
-			[[BasePadMedia Instance] movieGoLive];
-			[[BasePadMedia Instance]  startLivePlayTimer];
-		}
-		else
-		{
-			[[BasePadMedia Instance] movieGotoTime:currentTime];
+			if ( live )
+			{
+				[[BasePadMedia Instance] movieGoLive];
+				[[BasePadMedia Instance]  startLivePlayTimer];
+			}
+			else
+			{
+				[[BasePadMedia Instance] movieGotoTime:currentTime];
+			}
 		}
 	}
 }
@@ -1135,16 +1148,19 @@ static BasePadCoordinator * instance_ = nil;
 		playbackRate = 1.0;
 	
 	// If the registered view controller is interested in video, cue this to play
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+	if(!protectMediaFromRestart)
 	{
-		if ( live )
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		{
-			[[BasePadMedia Instance] movieGoLive];
-			[[BasePadMedia Instance]  startLivePlayTimer];
-		}
-		else
-		{
-			[[BasePadMedia Instance] movieGotoTime:currentTime];
+			if ( live )
+			{
+				[[BasePadMedia Instance] movieGoLive];
+				[[BasePadMedia Instance]  startLivePlayTimer];
+			}
+			else
+			{
+				[[BasePadMedia Instance] movieGotoTime:currentTime];
+			}
 		}
 	}
 }
@@ -1259,6 +1275,9 @@ static BasePadCoordinator * instance_ = nil;
 		[existing_view SetDisplayed:true];
 		[existing_view SetRefreshEnabled:true];
 
+		if(!needsPlayRestart)
+			protectMediaFromRestart = true;
+		
 		needsPlayRestart = (needsPlayRestart || playing);
 		
 		if(playing)
@@ -1277,6 +1296,9 @@ static BasePadCoordinator * instance_ = nil;
 		{
 			[self showSnapshot];
 		}
+		
+		protectMediaFromRestart = false;
+
 	}
 }
 
@@ -1302,10 +1324,15 @@ static BasePadCoordinator * instance_ = nil;
 			}
 			else
 			{
+				protectMediaFromRestart = true;
+
 				[self pausePlay];
 				[self prepareToPlay];
 				[self startPlay];
 				[[BasePadTimeController Instance] updatePlayButtons];
+				
+				protectMediaFromRestart = false;
+
 			}
 		}
 		

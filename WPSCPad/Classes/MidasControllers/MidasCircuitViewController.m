@@ -7,6 +7,7 @@
 //
 
 #import "MidasCircuitViewController.h"
+#import "MidasVideoViewController.h"
 #import "MidasPopupManager.h"
 
 #import "RacePadCoordinator.h"
@@ -21,6 +22,8 @@
 	[trackMapView setIsZoomView:false];
 	[trackMapView setIsOverlayView:true];
 	[trackMapView setSmallSized:true];
+	
+	[self addTapRecognizerToView:movieSelectorView];
 	
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 }
@@ -62,6 +65,31 @@
 	if(gestureView == heading)
 	{
 		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:true];
+	}
+	else if(gestureView == movieSelectorView)
+	{
+		int row, col;
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		{
+			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtCol:col];
+			
+			if(videoSource)
+			{
+				BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
+			
+				if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+				{
+					MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+				
+					MovieView * movieView = [videoViewController findFreeMovieView];
+					if(movieView)
+					{
+						[videoViewController displayMovieSource:videoSource InView:movieView];
+						[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+					}
+				}
+			}
+		}
 	}
 }
 

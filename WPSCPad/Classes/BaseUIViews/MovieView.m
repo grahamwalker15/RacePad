@@ -33,9 +33,15 @@
 
 - (bool) displayMovieSource:(BasePadVideoSource *)source
 {	
+	// Remove any existing movie from this view
+	if(moviePlayerLayerAdded)
+		[self removeMovieFromView];
+		
+	// If the movie is not attached to a player in this source, do it
 	if(![source movieAttached])
 		[source attachMovie];
 	
+	// Then add that player to this movie view
 	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
 	
 	if(moviePlayerLayer && !moviePlayerLayerAdded)
@@ -74,7 +80,9 @@
 
 		[movieSource movieStop];
 		[movieSource setMovieDisplayed:false];
-		[movieSource detachMovie];
+		
+		if(![movieSource shouldAutoDisplay])
+			[movieSource detachMovie];
 	}
 	
 	moviePlayerLayerAdded = false;
@@ -83,7 +91,7 @@
 	movieSource = nil;
 }
 
-- (void) resizeMovieSource
+- (void) resizeMovieSourceWithDuration:(float)duration
 {	
 	if(!movieSource || !moviePlayerLayerAdded)
 		return;
@@ -92,7 +100,10 @@
 	
 	if(moviePlayerLayer)
 	{
-		[moviePlayerLayer setFrame:self.bounds];
+		[CATransaction begin];
+		[CATransaction setAnimationDuration:duration];
+		[(CALayer *)moviePlayerLayer setFrame:[self bounds]];
+		[CATransaction commit];
 	}
 }
 

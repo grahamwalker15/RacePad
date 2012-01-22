@@ -59,6 +59,8 @@
 - (void) placeExpansionViewAtRow:(int)row;
 - (void) fillExpansionViewForRow:(int)row;
 
+- (UIImage *) getNationalFlag:(int)row;
+
 -(IBAction)movieSelected:(id)sender;
 
 @end

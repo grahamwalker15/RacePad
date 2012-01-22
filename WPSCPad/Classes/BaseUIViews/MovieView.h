@@ -11,6 +11,15 @@
 #import "BackgroundView.h"
 #import "BasePadVideoSource.h"
 
+enum MovieViewAnimationDirections
+{
+	MV_CURRENT_POSITION,
+	MV_MOVIE_FROM_RIGHT,
+	MV_MOVIE_FROM_LEFT,
+	MV_MOVIE_FROM_TOP,
+	MV_MOVIE_FROM_BOTTOM,
+} ;
+
 @interface MovieView : BackgroundView
 {
 	BasePadVideoSource * movieSource;
@@ -23,7 +32,7 @@
 // Manage displayed movies
 - (bool) displayMovieSource:(BasePadVideoSource *)source;
 - (void) removeMovieFromView;
-- (void) resizeMovieSource;
+- (void) resizeMovieSourceWithDuration:(float)duration;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;

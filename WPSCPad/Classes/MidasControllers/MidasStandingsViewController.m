@@ -141,7 +141,7 @@
 			if(movieView)
 			{
 				[videoViewController displayMovieSource:videoSource InView:movieView];
-				[videoViewController animateMovieViews];
+				[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
 			}
 		}
 	}
@@ -168,13 +168,73 @@
 		[onboardVideoButton setBackgroundImage:[UIImage imageNamed:@"preview-video-layer.png"] forState:UIControlStateNormal];
 	}
 
+	[nationalityFlag setImage:[self getNationalFlag:row]];
+	
 	/*
-	nationalityFlag;
 	votesForCount;
 	votesAgainstCount;
 	ratingLabel;
 	 */
 }
+
+- (UIImage *) getNationalFlag:(int)row
+{
+	NSString * tag = [standingsView GetRowTag:row];
+	if(!tag)
+		return nil;
+	
+	if([tag compare:@"VET"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"WEB"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Australia.png"];
+	if([tag compare:@"HAM"] == NSOrderedSame)
+		return [UIImage imageNamed:@"UK.png"];
+	if([tag compare:@"BUT"] == NSOrderedSame)
+		return [UIImage imageNamed:@"UK.png"];
+	if([tag compare:@"ALO"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Spain.png"];
+	if([tag compare:@"MAS"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Brazil.png"];
+	if([tag compare:@"MSC"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"ROS"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"SEN"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Brazil.png"];
+	if([tag compare:@"PET"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Russia.png"];
+	if([tag compare:@"SUT"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"DIR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"UK.png"];
+	if([tag compare:@"BAR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Brazil.png"];
+	if([tag compare:@"MAL"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Venezuela.png"];
+	if([tag compare:@"PER"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Mexico.png"];
+	if([tag compare:@"KOB"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Japan.png"];
+	if([tag compare:@"BUE"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Switzerland.png"];
+	if([tag compare:@"ALG"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Spain.png"];
+	if([tag compare:@"KOV"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Finland.png"];
+	if([tag compare:@"TRU"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Italy.png"];
+	if([tag compare:@"RIC"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Australia.png"];
+	if([tag compare:@"LIU"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Italy.png"];
+	if([tag compare:@"GLO"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"DAM"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Belgium.png"];
+	
+	return nil;
+}
+
 
 @end
 
