@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="110"/>
+			<integer value="39"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -184,7 +184,7 @@
 									<object class="IBUIImageView" id="83556151">
 										<reference key="NSNextResponder" ref="472689705"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 37}, {20, 15}}</string>
+										<string key="NSFrame">{{10, 36}, {28, 21}}</string>
 										<reference key="NSSuperview" ref="472689705"/>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -203,7 +203,7 @@
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">Team</string>
+										<string key="IBUIText">Team Name</string>
 										<object class="NSFont" key="IBUIFont">
 											<string key="NSName">Helvetica-Bold</string>
 											<double key="NSSize">18</double>
@@ -465,7 +465,7 @@
 									<object class="IBUILabel" id="55710574">
 										<reference key="NSNextResponder" ref="977613522"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 19}, {50, 22}}</string>
+										<string key="NSFrame">{{10, 8}, {50, 22}}</string>
 										<reference key="NSSuperview" ref="977613522"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -482,7 +482,7 @@
 									<object class="IBUIButton" id="114395128">
 										<reference key="NSNextResponder" ref="977613522"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 40}, {60, 45}}</string>
+										<string key="NSFrame">{{10, 30}, {72, 54}}</string>
 										<reference key="NSSuperview" ref="977613522"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -592,6 +592,62 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">117</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">voteAgainstButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="402121779"/>
+					</object>
+					<int key="connectionID">118</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">voteForButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="874880083"/>
+					</object>
+					<int key="connectionID">119</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">votesAgainstCount</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="257939541"/>
+					</object>
+					<int key="connectionID">120</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">votesForCount</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="41917650"/>
+					</object>
+					<int key="connectionID">121</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">ratingLabel</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="343276219"/>
+					</object>
+					<int key="connectionID">122</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">teamName</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="970166459"/>
+					</object>
+					<int key="connectionID">123</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">nationalityFlag</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="83556151"/>
+					</object>
+					<int key="connectionID">124</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -918,7 +974,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AQAAAABDkQAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwmgAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1012,7 +1068,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">117</int>
+			<int key="maxID">124</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1105,14 +1161,30 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>expansionView</string>
+							<string>nationalityFlag</string>
 							<string>onboardVideoButton</string>
+							<string>ratingLabel</string>
 							<string>standingsView</string>
+							<string>teamName</string>
+							<string>viewAnimationImage</string>
+							<string>voteAgainstButton</string>
+							<string>voteForButton</string>
+							<string>votesAgainstCount</string>
+							<string>votesForCount</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>MidasStandingsExpansionView</string>
+							<string>UIImageView</string>
 							<string>UIButton</string>
+							<string>UILabel</string>
 							<string>MidasStandingsView</string>
+							<string>UILabel</string>
+							<string>UIImageView</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1120,8 +1192,16 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>expansionView</string>
+							<string>nationalityFlag</string>
 							<string>onboardVideoButton</string>
+							<string>ratingLabel</string>
 							<string>standingsView</string>
+							<string>teamName</string>
+							<string>viewAnimationImage</string>
+							<string>voteAgainstButton</string>
+							<string>voteForButton</string>
+							<string>votesAgainstCount</string>
+							<string>votesForCount</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1130,12 +1210,44 @@
 								<string key="candidateClassName">MidasStandingsExpansionView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">nationalityFlag</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">onboardVideoButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">ratingLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">standingsView</string>
 								<string key="candidateClassName">MidasStandingsView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">teamName</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">viewAnimationImage</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">voteAgainstButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">voteForButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">votesAgainstCount</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">votesForCount</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 						</object>
 					</object>
