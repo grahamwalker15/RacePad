@@ -33,6 +33,9 @@
 
 - (bool) displayMovieSource:(BasePadVideoSource *)source
 {	
+	if(![source movieAttached])
+		[source attachMovie];
+	
 	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
 	
 	if(moviePlayerLayer && !moviePlayerLayerAdded)
@@ -71,6 +74,7 @@
 
 		[movieSource movieStop];
 		[movieSource setMovieDisplayed:false];
+		[movieSource detachMovie];
 	}
 	
 	moviePlayerLayerAdded = false;

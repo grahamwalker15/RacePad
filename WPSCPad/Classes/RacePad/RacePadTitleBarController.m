@@ -18,6 +18,9 @@
 
 @implementation RacePadTitleBarController
 
+@synthesize currentLap;
+@synthesize lapCount;
+
 static RacePadTitleBarController * instance_ = nil;
 
 +(RacePadTitleBarController *)Instance
@@ -88,11 +91,6 @@ static RacePadTitleBarController * instance_ = nil;
 	{
 		[super updateTime:time];
 	}
-}
-
-- (void) setLapCount: (int)count
-{
-	lapCount = count;
 }
 
 - (void) setCurrentLap: (int)lap

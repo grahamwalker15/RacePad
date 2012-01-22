@@ -21,10 +21,12 @@
 	int currentLap;
 }
 
+@property (nonatomic) int lapCount;
+@property (nonatomic) int currentLap;
+
 + (RacePadTitleBarController *)Instance;
 
 - (void) setLapCount: (int)count;
-- (void) setCurrentLap: (int)lap;
 - (int) inqCurrentLap;
 - (void) setTrackState: (int)state;
 

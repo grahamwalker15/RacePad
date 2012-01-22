@@ -52,6 +52,7 @@
 	int currentStatus;
 	NSString *currentError;
 	
+	bool movieAttached;
 	bool movieLoaded;
 	bool movieMarkedPlayable;
 	
@@ -103,6 +104,7 @@
 @property (readonly) NSString *currentError;
 
 @property (readonly) bool movieLoaded;
+@property (readonly) bool movieAttached;
 @property (readonly) bool moviePlayPending;
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
@@ -123,6 +125,8 @@
 - (void) loadMovie;
 - (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay;
 - (void) unloadMovie;
+- (void) attachMovie;
+- (void) detachMovie;
 - (void) makeThumbnail;
 
 - (void) setStartTime:(float)time;

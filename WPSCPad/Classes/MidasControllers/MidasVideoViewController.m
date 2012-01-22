@@ -179,6 +179,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	[[RacePadCoordinator Instance] AddView:mainMovieView WithType:RPC_VIDEO_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackZoomView WithType:RPC_TRACK_MAP_VIEW_];
+	[[RacePadCoordinator Instance] AddView:self WithType:RPC_LAP_COUNT_VIEW_];
 	// GG - COMMENT OUT LEADERBOARD : [[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
 	[[RacePadCoordinator Instance] setVideoViewController:self];
@@ -246,6 +247,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : 	[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 	// GG - COMMENT OUT LEADERBOARD : }
 	
+	[[RacePadCoordinator Instance] SetViewDisplayed:self];
+	
 	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
 	
 	if(firstDisplay)
@@ -277,6 +280,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : {
 	// GG - COMMENT OUT LEADERBOARD : 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
 	// GG - COMMENT OUT LEADERBOARD : }
+	
+	[[RacePadCoordinator Instance] SetViewHidden:self];
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
@@ -702,6 +707,20 @@ static UIImage * newButtonBackgroundImage = nil;
 		offsetFrame = CGRectOffset(offsetFrame, 0, (bgRect.origin.y + bgRect.size.height) - (offsetFrame.origin.y + offsetFrame.size.height));
 	
 	[trackZoomContainer setFrame:offsetFrame];
+}
+
+- (void) RequestRedraw
+{
+	int lap = [[RacePadTitleBarController Instance] currentLap];
+	int lapCount = [[RacePadTitleBarController Instance] lapCount];
+	NSNumber *i = [NSNumber numberWithInt:lap];
+	NSNumber *c = [NSNumber	numberWithInt:lapCount];
+	NSString *s = [i stringValue];
+	s = [s stringByAppendingString:@"/"];
+	s = [s stringByAppendingString:[c stringValue]];
+	[lapCounterButton setTitle:s forState:UIControlStateNormal];
+	
+	[super RequestRedraw];
 }
 
 - (void) RequestRedrawForType:(int)type

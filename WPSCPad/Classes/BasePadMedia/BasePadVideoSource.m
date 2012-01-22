@@ -39,6 +39,7 @@
 @synthesize currentError;
 
 @synthesize movieLoaded;
+@synthesize movieAttached;
 @synthesize moviePlayPending;
 @synthesize movieSeekable;
 @synthesize movieSeekPending;
@@ -69,6 +70,7 @@
 		movieSeekPending = false;
 		movieGoLivePending = false;
 		movieLoaded = false;
+		movieAttached = false;
 		movieMarkedPlayable = false;
 		
 		moviePausedInPlace = false;
@@ -161,29 +163,11 @@
 		 
 		 if (status == AVKeyValueStatusLoaded)
 		 {
-			 moviePlayerItem = [[AVPlayerItem alloc] initWithAsset:moviePlayerAsset];
-			 
-			 [moviePlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
-			 
-			 moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
-			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
-			 
-			 // Register a time observer to get the current time while playing
-			 moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
-			 [moviePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
-			 
-			 // Add an observer for when it reaches the end
-			 // If we are looping, this will restart the movie
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:)
-															  name:AVPlayerItemDidPlayToEndTimeNotification object:moviePlayerItem];
-			 
-			 // Make a movie player layer to receive the movie
-			 if(!moviePlayerLayer)
+			 if(shouldAutoDisplay)
 			 {
-				 moviePlayerLayer = [[AVPlayerLayer playerLayerWithPlayer:moviePlayer] retain];
-				 [moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+				 [self attachMovie];
 			 }
-			 
+			 			 
 			 // Call parent to position the movie and order the overlay in any registered view controller
 			 [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:shouldAutoDisplay];
 			 
@@ -249,38 +233,16 @@
 
 - (void) unloadMovie
 {
-	if(movieLoaded)
+	if(!movieLoaded)
 		return;
 	
 	// Delete any existing player and assets	
 	[[BasePadMedia Instance] notifyUnloadingVideoSource:self];
 	
-	if(moviePlayerObserver)
-	{
-		[moviePlayer removeTimeObserver:moviePlayerObserver];
-		moviePlayerObserver = nil;
-	}
-	
-	if(moviePlayerItem)
-	{
-		[moviePlayerItem removeObserver:self forKeyPath:@"status"];
-	}
-	
-	if(moviePlayer)
-	{
-		[moviePlayer removeObserver:self forKeyPath:@"status"];
-	}
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	[moviePlayerLayer release];
-	[moviePlayer release];
-	[moviePlayerItem release];
+	[self detachMovie];
+
 	[moviePlayerAsset release];
 	
-	moviePlayerLayer = nil;
-	moviePlayer = nil;
-	moviePlayerItem = nil;
 	moviePlayerAsset = nil;
 	
 	moviePlayPending = false;
@@ -309,6 +271,77 @@
 	
 	[movieThumbnail release];
 	movieThumbnail = nil;
+	
+}
+
+- (void) attachMovie
+{
+	moviePlayerItem = [[AVPlayerItem alloc] initWithAsset:moviePlayerAsset];
+	
+	[moviePlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
+	[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
+	
+	// Register a time observer to get the current time while playing
+	moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
+	[moviePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	// Add an observer for when it reaches the end
+	// If we are looping, this will restart the movie
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:)
+												 name:AVPlayerItemDidPlayToEndTimeNotification object:moviePlayerItem];
+	
+	// Make a movie player layer to receive the movie
+	if(!moviePlayerLayer)
+	{
+		moviePlayerLayer = [[AVPlayerLayer playerLayerWithPlayer:moviePlayer] retain];
+		[moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+	}
+		
+	moviePausedInPlace= false;
+	moviePlaying = false;
+	
+	movieAttached = true;
+}
+
+- (void) detachMovie
+{
+	if(moviePlayerObserver)
+	{
+		[moviePlayer removeTimeObserver:moviePlayerObserver];
+		moviePlayerObserver = nil;
+	}
+	
+	if(moviePlayerItem)
+	{
+		[moviePlayerItem removeObserver:self forKeyPath:@"status"];
+	}
+	
+	if(moviePlayer)
+	{
+		[moviePlayer removeObserver:self forKeyPath:@"status"];
+	}
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[moviePlayerLayer release];
+	[moviePlayer release];
+	[moviePlayerItem release];
+	
+	moviePlayerLayer = nil;
+	moviePlayer = nil;
+	moviePlayerItem = nil;
+	
+	moviePlayPending = false;
+	movieSeekable = false;
+	movieMarkedPlayable = false;
+	movieSeekPending = false;
+	movieLoaded =false;
+	moviePausedInPlace = false;
+	moviePlaying = false;
+	
+	movieAttached = false;
 	
 }
 
