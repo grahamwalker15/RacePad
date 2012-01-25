@@ -97,6 +97,11 @@
 			[expansionView setHidden:true];
 			[standingsView setExpandedDriver:nil];
 			
+			//UIImage * renderedView = [self renderViewToImage:container];
+			//[viewAnimationImage setImage:renderedView];
+			//[viewAnimationImage setFrame:[standingsView frame]];
+			//[viewAnimationImage setHidden:false]; 
+			
 			if(!wasExpanded)
 			{
 				[standingsView SetRow:row Expanded:true];
@@ -140,8 +145,8 @@
 			MovieView * movieView = [videoViewController findFreeMovieView];
 			if(movieView)
 			{
-				[videoViewController displayMovieSource:videoSource InView:movieView];
-				[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+				if([videoViewController displayMovieSource:videoSource InView:movieView])
+					[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
 			}
 		}
 	}

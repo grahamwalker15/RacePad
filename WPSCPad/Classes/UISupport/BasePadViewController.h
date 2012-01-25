@@ -87,6 +87,7 @@
 
 // View display configuration
 -(void) addDropShadowToView:(UIView *)view WithOffsetX:(float)x Y:(float)y Blur:(float)blur;
+- (UIImage *) renderViewToImage:(UIView *)view;
 
 // Time controller display
 - (void) toggleTimeControllerDisplay;

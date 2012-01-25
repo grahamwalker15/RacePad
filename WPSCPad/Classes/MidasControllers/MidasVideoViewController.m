@@ -84,7 +84,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	[super viewDidLoad];
 	
 	// Fixed data
-	unselectedButtonWidth = 36;
+	unselectedButtonWidth = 44;
 	selectedButtonWidth = 147;
 	
 	// Initialise display options
@@ -107,6 +107,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	vipButtonOpen = false;
 	myTeamButtonOpen = false;
 	
+	twitterButtonFlashed = false;
+	facebookButtonFlashed = false;
+	midasChatButtonFlashed = false;	
+
 	firstDisplay = true;
 	
 	displayMap = true;
@@ -117,7 +121,12 @@ static UIImage * newButtonBackgroundImage = nil;
 	[auxMovieView1 setStyle:BG_STYLE_INVISIBLE_];
 	[auxMovieView2 setStyle:BG_STYLE_INVISIBLE_];
 	
-	[buttonBackgroundAnimationImage setHidden:true];
+	[mainMovieView setLabel:nil];
+	[auxMovieView1 setLabel:auxMovieView1Label];
+	[auxMovieView2 setLabel:auxMovieView2Label];
+	
+	[pushNotificationAnimationImage setHidden:true];
+	[pushNotificationAnimationLabel setHidden:true];
 	
 	[auxMovieView1 setHidden:true];
 	[auxMovieView2 setHidden:true];
@@ -387,11 +396,11 @@ static UIImage * newButtonBackgroundImage = nil;
 		[self displayMovieSource:source InView:auxMovieView2];
 }
 
-- (void) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)movieView
+- (bool) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)movieView
 {	
 	// Do nothing if source is already displayed
 	if([source movieDisplayed])
-		return;
+		return false;
 	
 	// Position the movie and order the overlays
 	if([movieView displayMovieSource:source])
@@ -408,19 +417,29 @@ static UIImage * newButtonBackgroundImage = nil;
 			[movieView bringSubviewToFront:loadingTwirl];
 		}
 	
-		[self positionOverlays];	
+		[self positionOverlays];
+		
+		return true;
 	}
+	
+	return false;
 }
 
 - (void) removeMovieFromView:(BasePadVideoSource *)source
 {
 	if([mainMovieView movieSource] == source)
 		[mainMovieView removeMovieFromView];
+	if([auxMovieView1 movieSource] == source)
+		[auxMovieView1 removeMovieFromView];
+	if([auxMovieView2 movieSource] == source)
+		[auxMovieView2 removeMovieFromView];
 }
 
 - (void) removeMoviesFromView
 {
 	[mainMovieView removeMovieFromView];
+	[auxMovieView1 removeMovieFromView];
+	[auxMovieView2 removeMovieFromView];
 }
 
 - (void) prePositionMovieView:(MovieView *)newView From:(int)movieDirection
@@ -950,25 +969,26 @@ static UIImage * newButtonBackgroundImage = nil;
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuButtons) object:nil];
 
 
-	/* Test flashing
-	if(sender == alertsButton || sender == twitterButton || sender == facebookButton || sender == midasChatButton)
+	// Test flashing
+
+	if(sender == midasMenuButton)
 	{
-		[self flashMenuButton:(UIButton *)sender];
+		[self flashMenuButton:(UIButton *)twitterButton WithName:@"twittername"];
 	}
-	*/
+
 	
-	if(sender == alertsButton)
-	{
-		if(![[MidasAlertsManager Instance] viewDisplayed])
-		{
-			alertsButtonOpen = true;
+	//if(sender == midasMenuButton)
+	//{
+	//	if(![[MidasMasterMenuManager Instance] viewDisplayed])
+	//	{
+	//		midasMenuButtonOpen = true;
 			
-			[[MidasAlertsManager Instance] grabExclusion:self];
-			[self animateMenuButton:alertsButton];
-			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasAlertsManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
-		}
-	}
+	//		[[MidasMasterMenuManager Instance] grabExclusion:self];
+	//		[self animateMenuButton:midasMenuButton];
+	//		CGRect buttonFrame = [(UIButton *)sender frame];
+	//		[[MidasMasterMenuManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+	//	}
+	//}
 	
 	if(sender == twitterButton)
 	{
@@ -980,6 +1000,19 @@ static UIImage * newButtonBackgroundImage = nil;
 			[self animateMenuButton:twitterButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
 			[[MidasTwitterManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+		}
+	}
+	
+	if(sender == alertsButton)
+	{
+		if(![[MidasAlertsManager Instance] viewDisplayed])
+		{
+			alertsButtonOpen = true;
+			
+			[[MidasAlertsManager Instance] grabExclusion:self];
+			[self animateMenuButton:alertsButton];
+			CGRect buttonFrame = [(UIButton *)sender frame];
+			[[MidasAlertsManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 	
@@ -1068,6 +1101,12 @@ static UIImage * newButtonBackgroundImage = nil;
 
 -(void)positionMenuButtons
 {
+	[self positionTopMenuButtons];
+	[self positionBottomMenuButtons];	
+}
+
+-(void)positionTopMenuButtons
+{
 	// Get the bounds of the view controller
 	CGRect viewBounds = [[self view] bounds];
 	
@@ -1076,7 +1115,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	////////////////////////////////////////
 	// Top buttons - start from the left
-
+	
 	float leftX = CGRectGetMinX(viewBounds) + 60;
 	
 	// Alerts button
@@ -1123,6 +1162,16 @@ static UIImage * newButtonBackgroundImage = nil;
 	[midasChatButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 	if([[MidasChatManager Instance] viewDisplayed])
 		[[MidasChatManager Instance] moveToPositionX:leftX Animated:false];
+	
+}
+
+-(void)positionBottomMenuButtons
+{
+	// Get the bounds of the view controller
+	CGRect viewBounds = [[self view] bounds];
+	
+	// And position the buttons in bottom panel
+	CGRect buttonFrame;
 		
 	////////////////////////////////////////
 	// Bottom buttons - Start from the right
@@ -1289,7 +1338,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[vipButton setAlpha:1.0];
 		[myTeamButton setAlpha:1.0];
 	}
-
+	
 	
 	// Then do the actual position
 	rightX = CGRectGetMaxX(viewBounds) - 2 + buttonOffset;
@@ -1299,7 +1348,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	[standingsButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 	if([[MidasStandingsManager Instance] viewDisplayed])
 		[[MidasStandingsManager Instance] moveToPositionX:rightX Animated:false];
-			
+	
 	if(standingsButtonOpen)
 		rightX -= [[MidasStandingsManager Instance] widthOfView];
 	else
@@ -1366,6 +1415,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	[myTeamButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 }
 
+////////////////////////////////
 // Button show and hide
 
 -(void)hideMenuButtons
@@ -1485,66 +1535,153 @@ static UIImage * newButtonBackgroundImage = nil;
 
 // Button flashing for push notification
 
--(void)flashMenuButton:(UIButton *)button
+-(void)flashMenuButton:(UIButton *)button WithName:(NSString *)name
 {
 	if(!menuButtonsDisplayed || menuButtonsAnimating)
 		return;
 	
+	[pushNotificationAnimationLabel setText:name];
+	[self flashMenuButton:button];
+}
+	
+-(void)flashMenuButton:(UIButton *)button
+{
+	if(!menuButtonsDisplayed || menuButtonsAnimating)
+		return;
+		
 	menuButtonsAnimating = true;
 	
-	// Top buttons only
-	if(button == alertsButton || button == twitterButton || button == facebookButton || button == midasChatButton)
+	// Social media buttons only
+	
+	bool newState;
+	
+	if(button == twitterButton)
+		newState = !twitterButtonFlashed;
+	else if(button == facebookButton)
+		newState = !facebookButtonFlashed;
+	else if(button == midasChatButton)
+		newState = !midasChatButtonFlashed;
+	else
+		return;
+	
+	[self setFlashStateForButton:button ToState:newState Animated:true];
+	
+	if(button == twitterButton)
+		twitterButtonFlashed = newState;
+	else if(button == facebookButton)
+		facebookButtonFlashed = newState;
+	else if(button == midasChatButton)
+		midasChatButtonFlashed = newState;
+	
+}
+
+-(void)setFlashStateForButton:(UIButton *)button ToState:(bool)flashState Animated:(bool)animated
+{
+	if(!animated)
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(flashMenuButton) object:nil];
+
+	CGRect baseFrame = [button frame];
+	CGRect baseLabelFrame = CGRectMake(baseFrame.origin.x + 42, baseFrame.origin.y, baseFrame.size.width - 42, baseFrame.size.height);
+		
+	CGRect newFrame;
+	CGRect newLabelFrame;
+	UIImage * newImage;
+		
+	bool closing;
+	float duration;
+		
+	if(flashState)
 	{
-		CGRect baseFrame = [button frame];
+		newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, selectedButtonWidth, baseFrame.size.height);
+		newLabelFrame = CGRectMake(baseFrame.origin.x + 42, baseFrame.origin.y, selectedButtonWidth - 42, baseFrame.size.height);
+		newImage = selectedTopButtonImage;
+		closing = false;
+		duration = 0.25;
+	}
+	else
+	{
+		newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, unselectedButtonWidth, baseFrame.size.height);
+		newLabelFrame = CGRectMake(baseFrame.origin.x + 42, baseFrame.origin.y, unselectedButtonWidth - 42, baseFrame.size.height);
+		newImage = unselectedTopButtonImage;
+		closing = true;
+		duration = 0.15;
+	}
+	
+	if(!closing)
+	{
+		[pushNotificationAnimationLabel setFrame:(animated ? baseLabelFrame : newLabelFrame)];
+		[pushNotificationAnimationLabel setHidden:false];
+		[pushNotificationAnimationLabel setAlpha:1.0];
+	}
 		
-		int buttonOffset;
-		CGRect newFrame;
-		UIImage * newImage;
+	if(animated)
+	{
+		[pushNotificationAnimationImage setImage:newImage];
+		[pushNotificationAnimationImage setFrame:baseFrame];
+		[pushNotificationAnimationImage setHidden:false];
+
+		[pushNotificationAnimationLabel setFrame:baseLabelFrame];
+		[pushNotificationAnimationLabel setHidden:false];
+		[pushNotificationAnimationLabel setText:@"#twittername"];
+		[pushNotificationAnimationLabel setAlpha:0.0];	// Will animate up from 0 if opening - will disappear immediately when closing
 		
-		if(baseFrame.size.width > unselectedButtonWidth)	// i.e. it's already open so we'll close
+		[button setBackgroundImage:nil forState:UIControlStateNormal];
+	}
+	else
+	{
+		[pushNotificationAnimationImage setHidden:true];
+		
+		if(closing)
 		{
-			buttonOffset = unselectedButtonWidth - baseFrame.size.width;
-			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, unselectedButtonWidth, baseFrame.size.height);
-			newImage = unselectedTopButtonImage;
+			[pushNotificationAnimationLabel setHidden:true];
 		}
 		else
 		{
-			buttonOffset = selectedButtonWidth - baseFrame.size.width;
-			newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y, selectedButtonWidth, baseFrame.size.height);
-			newImage = selectedTopButtonImage;
+			[pushNotificationAnimationLabel setFrame:newLabelFrame];
+			[pushNotificationAnimationLabel setHidden:false];
+			[pushNotificationAnimationLabel setAlpha:1.0];
+			[pushNotificationAnimationLabel setText:@"#twittername"];
 		}
-		
-		[buttonBackgroundAnimationImage setImage:newImage];
-		[buttonBackgroundAnimationImage setFrame:baseFrame];
-		[buttonBackgroundAnimationImage setHidden:false];
-		
-		[button setBackgroundImage:nil forState:UIControlStateNormal];
-		newButtonBackgroundImage = [newImage retain];
-		
+	}
+	
+	newButtonBackgroundImage = [newImage retain];
+
+	if(animated)
+	{
 		[UIView beginAnimations:nil context:button];
-		
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(menuFlashDidStop:finished:context:)];
 		
-		[UIView setAnimationDuration:0.75];
+		if(closing)
+			[UIView setAnimationDidStopSelector:@selector(menuEndFlashDidStop:finished:context:)];
+		else
+			[UIView setAnimationDidStopSelector:@selector(menuFlashDidStop:finished:context:)];
 		
-		[buttonBackgroundAnimationImage setFrame:newFrame];
-		[button setFrame:newFrame];
+		[UIView setAnimationDuration:duration];
+
+		[pushNotificationAnimationImage setFrame:newFrame];
+		[pushNotificationAnimationLabel setFrame:newLabelFrame];
+		[pushNotificationAnimationLabel setAlpha:(closing ? 0.0 : 1.0)];
+	}
 		
-		if([alertsButton frame].origin.x > baseFrame.origin.x)
-			[alertsButton setFrame:CGRectOffset([alertsButton frame], buttonOffset, 0)];
+	[button setFrame:newFrame];
+	[self positionTopMenuButtons];
 		
-		if([twitterButton frame].origin.x > baseFrame.origin.x)
-			[twitterButton setFrame:CGRectOffset([twitterButton frame], buttonOffset, 0)];
-		
-		if([facebookButton frame].origin.x > baseFrame.origin.x)
-			[facebookButton setFrame:CGRectOffset([facebookButton frame], buttonOffset, 0)];
-		
-		if([midasChatButton frame].origin.x > baseFrame.origin.x)
-			[midasChatButton setFrame:CGRectOffset([midasChatButton frame], buttonOffset, 0)];
-		
+	if(animated)
+	{
 		[UIView commitAnimations];
 	}
+	else
+	{
+		[button setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+		[newButtonBackgroundImage release];
+		newButtonBackgroundImage = nil;
+		
+		if(closing)
+		{
+			[pushNotificationAnimationLabel setHidden:true];
+		}
+	}
+
 }
 
 - (void)menuFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
@@ -1552,13 +1689,67 @@ static UIImage * newButtonBackgroundImage = nil;
 	if([finished intValue] == 1)
 	{
 		menuButtonsAnimating = false;
-		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+
+		UIButton * button = (UIButton *) context;
+		
+		if(button != twitterButton && button != facebookButton && button != midasChatButton)	// Shouldn't ever happen
+			return;
+		
+		// If the menu has been opened in the meantime, just set button to closed. Otherwise, schedule closing in 3 secs.
+		
+		bool scheduleClose = true;
+		if(button == twitterButton && twitterButtonOpen)
+		{
+			scheduleClose = false;
+			twitterButtonFlashed = false;
+		}
+		else if(button == facebookButton && facebookButtonOpen)
+		{
+			scheduleClose = false;
+			facebookButtonFlashed = false;
+		}
+		else if(button == midasChatButton && midasChatButtonOpen)
+		{
+			scheduleClose = false;
+			midasChatButtonFlashed = false;
+		}
+		
+		if(scheduleClose)
+		{
+			[button setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+			[self performSelector:@selector(flashMenuButton:) withObject:context afterDelay: 3.0];
+		}
+		else
+		{
+			[button setBackgroundImage:unselectedTopButtonImage forState:UIControlStateNormal];
+			[pushNotificationAnimationLabel setHidden:true];
+		}
+		 
+		 
 		[newButtonBackgroundImage release];
 		newButtonBackgroundImage = nil;
 		
-		[buttonBackgroundAnimationImage setHidden:true];
+		[pushNotificationAnimationImage setHidden:true];
+		
 	}
 }
+
+- (void)menuEndFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+	if([finished intValue] == 1)
+	{
+		menuButtonsAnimating = false;
+		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+		[newButtonBackgroundImage release];
+		newButtonBackgroundImage = nil;	
+		[pushNotificationAnimationImage setHidden:true];
+		
+		[pushNotificationAnimationLabel setHidden:true];
+	}
+}
+
+
+// Popup view management
 
 - (bool) dismissPopupViews
 {

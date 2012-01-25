@@ -66,6 +66,7 @@
 	[[BasePadTitleBarController Instance] onStartUp];
 	
 	// Create the Midas overlay displays
+	[[MidasMasterMenuManager Instance] onStartUp];
 	[[MidasStandingsManager Instance] onStartUp];
 	[[MidasCircuitViewManager Instance] onStartUp];
 	[[MidasFollowDriverManager Instance] onStartUp];

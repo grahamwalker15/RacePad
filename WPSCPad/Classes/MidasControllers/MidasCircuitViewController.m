@@ -84,8 +84,8 @@
 					MovieView * movieView = [videoViewController findFreeMovieView];
 					if(movieView)
 					{
-						[videoViewController displayMovieSource:videoSource InView:movieView];
-						[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+						if([videoViewController displayMovieSource:videoSource InView:movieView])
+							[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 					}
 				}
 			}

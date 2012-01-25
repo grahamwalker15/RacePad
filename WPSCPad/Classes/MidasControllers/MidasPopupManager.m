@@ -18,7 +18,37 @@
 #import "MidasFacebookViewController.h"
 #import "MidasChatViewController.h"
 
+#import "MidasDemoViewControllers.h"
+
 #import "BasePadViewController.h"
+
+@implementation MidasMasterMenuManager
+
+static MidasMasterMenuManager * masterMenuInstance_ = nil;
+
++(MidasMasterMenuManager *)Instance
+{
+	if(!masterMenuInstance_)
+		masterMenuInstance_ = [[MidasMasterMenuManager alloc] init];
+	
+	return masterMenuInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasMasterMenuViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_MASTER_MENU_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+
+@end
 
 @implementation MidasStandingsManager
 
@@ -104,6 +134,91 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 }
 
 @end
+
+@implementation MidasHeadToHeadManager
+									   
+static MidasHeadToHeadManager * headToHeadInstance_ = nil;
+									   
++(MidasHeadToHeadManager *)Instance
+{
+	if(!headToHeadInstance_)
+		headToHeadInstance_ = [[MidasHeadToHeadManager alloc] init];
+			
+	return headToHeadInstance_;
+}
+									   
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasHeadToHeadViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_HEAD_TO_HEAD_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[viewController setAssociatedManager:self];
+	}
+			
+	return self;
+}
+									   
+@end
+
+@implementation MidasVIPManager
+									   
+static MidasVIPManager * vipInstance_ = nil;
+									   
++(MidasVIPManager *)Instance
+{
+	if(!vipInstance_)
+		vipInstance_ = [[MidasVIPManager alloc] init];
+	
+	return vipInstance_;
+}
+							   
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_VIP_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+									   
+@end
+
+@implementation MidasMyTeamManager
+									   
+static MidasMyTeamManager * myTeamInstance_ = nil;
+									   
++(MidasMyTeamManager *)Instance
+{
+	if(!myTeamInstance_)
+		myTeamInstance_ = [[MidasMyTeamManager alloc] init];
+	
+	return myTeamInstance_;
+}
+							   
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasMyTeamViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_MY_TEAM_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+									   
+@end
+									   
 
 @implementation MidasAlertsManager
 

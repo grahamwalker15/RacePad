@@ -37,6 +37,7 @@
 @interface MidasStandingsViewController : MidasBaseViewController 
 {
 	// View panels
+	IBOutlet UIView * standingsViewContainer;
 	IBOutlet MidasStandingsView * standingsView;
 	IBOutlet MidasStandingsExpansionView * expansionView;
 	

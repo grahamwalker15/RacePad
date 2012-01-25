@@ -12,6 +12,7 @@
 @implementation MovieView
 
 @synthesize movieSource;
+@synthesize label;
 @synthesize moviePlayerLayerAdded;
 
 - (id)initWithFrame:(CGRect)frame
@@ -28,6 +29,7 @@
 - (void)dealloc
 {
 	[movieSource release];
+	[label release];
     [super dealloc];
 }
 
@@ -54,6 +56,9 @@
 		[self setMoviePlayerLayerAdded:true];
 		[self setMovieSource:source];
 		
+		[source setParentMovieView:self];
+
+		
 		[source setMovieDisplayed:true];
 		
 		float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
@@ -64,7 +69,20 @@
 			[source moviePlay];
 		}
 		
+		
+		if(label)
+		{
+			[label setText:[source movieTag]];
+			[self bringSubviewToFront:label];
+		}
+		
 		return true;
+	}
+	
+	if(label)
+	{
+		[label setText:@"Failed to load"];
+		[self bringSubviewToFront:label];
 	}
 	
 	return false;
@@ -77,6 +95,8 @@
 		AVPlayerLayer * moviePlayerLayer = [movieSource moviePlayerLayer];
 		if(moviePlayerLayer)
 			[moviePlayerLayer removeFromSuperlayer];
+		
+		[movieSource setParentMovieView:nil];
 
 		[movieSource movieStop];
 		[movieSource setMovieDisplayed:false];
@@ -89,6 +109,10 @@
 	
 	[movieSource release];
 	movieSource = nil;
+	
+	if(label)
+		[label setText:@"Empty"];
+
 }
 
 - (void) resizeMovieSourceWithDuration:(float)duration
@@ -104,6 +128,14 @@
 		[CATransaction setAnimationDuration:duration];
 		[(CALayer *)moviePlayerLayer setFrame:[self bounds]];
 		[CATransaction commit];
+	}
+}
+
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error
+{
+	if(label)
+	{
+		[label setText:error];
 	}
 }
 

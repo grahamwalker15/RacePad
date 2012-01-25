@@ -655,7 +655,7 @@ static BasePadMedia * instance_ = nil;
 	
 }
 
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:error
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error
 {
 	// Deal with the error appropriately.
 	currentStatus = BPM_CONNECTION_FAILED_;
@@ -670,7 +670,7 @@ static BasePadMedia * instance_ = nil;
 	
 	[currentMovieRoot release];
 	currentMovieRoot = nil;
-
+	
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 }

@@ -11,9 +11,13 @@
 
 #import "BasePadViewController.h"
 
+@class MidasMasterMenuViewController;
 @class MidasStandingsViewController;
 @class MidasCircuitViewController;
 @class MidasFollowDriverViewController;
+@class MidasHeadToHeadViewController;
+@class MidasMyTeamViewController;
+@class MidasVIPViewController;
 @class MidasAlertsViewController;
 @class MidasTwitterViewController;
 @class MidasFacebookViewController;
@@ -33,6 +37,7 @@ enum PopupViewTypes
 	MIDAS_TWITTER_POPUP_,
 	MIDAS_FACEBOOK_POPUP_,
 	MIDAS_CHAT_POPUP_,
+	MIDAS_MASTER_MENU_POPUP_,
 };
 
 // View alignment
@@ -118,6 +123,15 @@ enum PopupMenuZones
 
 @end
 
+@interface MidasMasterMenuManager : MidasPopupManager
+{
+	MidasMasterMenuViewController * viewController;
+}
+
++(MidasMasterMenuManager *)Instance;
+
+@end
+
 @interface MidasStandingsManager : MidasPopupManager
 {
 	MidasStandingsViewController * viewController;
@@ -142,6 +156,33 @@ enum PopupMenuZones
 }
 
 +(MidasFollowDriverManager *)Instance;
+
+@end
+
+@interface MidasHeadToHeadManager : MidasPopupManager
+{
+	MidasHeadToHeadViewController * viewController;
+}
+
++(MidasHeadToHeadManager *)Instance;
+
+@end
+
+@interface MidasMyTeamManager : MidasPopupManager
+{
+	MidasMyTeamViewController * viewController;
+}
+
++(MidasMyTeamManager *)Instance;
+
+@end
+
+@interface MidasVIPManager : MidasPopupManager
+{
+	MidasVIPViewController * viewController;
+}
+
++(MidasVIPManager *)Instance;
 
 @end
 

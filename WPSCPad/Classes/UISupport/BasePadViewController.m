@@ -135,6 +135,26 @@ static id timeControllerInstance = nil;
 	}	
 }
 
+-(UIImage *) renderViewToImage:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    
+	// Get a context
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+	
+    // Clear whole thing
+    CGContextClearRect(ctx, view.bounds);
+	
+	// Draw view into context
+    [view.layer renderInContext:ctx];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+	
+    return newImage;
+}
+
 
 // Time controller display
 

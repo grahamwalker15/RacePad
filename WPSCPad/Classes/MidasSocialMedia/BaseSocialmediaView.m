@@ -88,7 +88,7 @@ static NSUInteger const kTwitReplyTag = 11;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:@"MidasBaseSocialMediaView" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"MidasBaseSocialmediaView" owner:self options:nil];
 
 		[self addSubview:self.view];
 		
@@ -148,9 +148,7 @@ static NSUInteger const kTwitReplyTag = 11;
                                         initWithTarget:self action:@selector(handleTap:)];
         
         dTap.numberOfTapsRequired = 1;
-#ifdef HANDLE_SHOW_HIDE_INTERNALLY
         [self.view addGestureRecognizer:dTap];
-#endif
         
         self.visible = NO;
         self.replying = NO;

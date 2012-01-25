@@ -9,6 +9,7 @@
 #import "BasePadCoordinator.h"
 #import "BasePadMedia.h"
 #import "ElapsedTime.h"
+#import "MovieView.h"
 
 #import <AVFoundation/AVAssetImageGenerator.h>
 
@@ -18,6 +19,8 @@
 @synthesize moviePlayerItem;
 @synthesize moviePlayer;
 @synthesize moviePlayerLayer;
+
+@synthesize parentMovieView;
 
 @synthesize moviePlayerObserver;
 
@@ -99,6 +102,7 @@
 		currentError = nil;
 		
 		shouldAutoDisplay = false;
+		
 	}
 	
 	return self;
@@ -163,6 +167,10 @@
 		 
 		 if (status == AVKeyValueStatusLoaded)
 		 {
+			 moviePlayerItem = [[AVPlayerItem alloc] initWithAsset:moviePlayerAsset];
+			 moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
+			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
+			 
 			 if(shouldAutoDisplay)
 			 {
 				 [self attachMovie];
@@ -240,9 +248,13 @@
 	[[BasePadMedia Instance] notifyUnloadingVideoSource:self];
 	
 	[self detachMovie];
-
+	
+	[moviePlayer release];	
+	[moviePlayerItem release];	
 	[moviePlayerAsset release];
 	
+	moviePlayer = nil;
+	moviePlayerItem = nil;
 	moviePlayerAsset = nil;
 	
 	moviePlayPending = false;
@@ -276,14 +288,11 @@
 
 - (void) attachMovie
 {
-	moviePlayerItem = [[AVPlayerItem alloc] initWithAsset:moviePlayerAsset];
 	
+	// Register to observe status and add a time observer to get the current time while playing
+
 	[moviePlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
-	moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
-	[moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
-	
-	// Register a time observer to get the current time while playing
 	moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
 	[moviePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
 	
@@ -326,12 +335,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	[moviePlayerLayer release];
-	[moviePlayer release];
-	[moviePlayerItem release];
-	
 	moviePlayerLayer = nil;
-	moviePlayer = nil;
-	moviePlayerItem = nil;
 	
 	moviePlayPending = false;
 	movieSeekable = false;
@@ -372,7 +376,7 @@
 
 - (void) setStartTime:(float)time
 {
-	// Should only called on Archives - just do getStartTime if it isn't
+	// Should only get called on Archives - just do getStartTime if it isn't
 	
 	if ( [[BasePadCoordinator Instance] connectionType] != BPC_ARCHIVE_CONNECTION_ && [[BasePadCoordinator Instance] videoConnectionType] == BPC_VIDEO_LIVE_CONNECTION_)
 	{
@@ -849,6 +853,8 @@
 						}
 						
 						currentError = [description retain];
+						
+						[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 					}
 				}
 				
@@ -897,6 +903,7 @@
 						}
 						
 						currentError = [description retain];
+						[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 					}					
 				}
 				

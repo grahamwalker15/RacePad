@@ -28,7 +28,10 @@
 {
 	IBOutlet MovieView * mainMovieView;
 	IBOutlet MovieView * auxMovieView1;	
-	IBOutlet MovieView * auxMovieView2;	
+	IBOutlet MovieView * auxMovieView2;
+	
+	IBOutlet UILabel * auxMovieView1Label;
+	IBOutlet UILabel * auxMovieView2Label;
 	
 	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
@@ -61,7 +64,8 @@
 	IBOutlet UIImageView * moreLeftImage;
 	IBOutlet UIImageView * moreRightImage;
 	
-	IBOutlet UIImageView * buttonBackgroundAnimationImage;
+	IBOutlet UIImageView * pushNotificationAnimationImage;
+	IBOutlet UILabel * pushNotificationAnimationLabel;
 	
 	bool midasMenuButtonOpen;
 	bool alertsButtonOpen;
@@ -78,6 +82,10 @@
 	bool vipButtonOpen;
 	bool myTeamButtonOpen;
 	
+	bool twitterButtonFlashed;
+	bool facebookButtonFlashed;
+	bool midasChatButtonFlashed;	
+
 	CGSize movieSize;
 	CGRect movieRect;
 	
@@ -118,7 +126,7 @@
 - (void) hideOverlays;
 - (void) positionOverlays;
 
-- (void) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
+- (bool) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
 - (void) prePositionMovieView:(MovieView *)newView From:(int)movieDirection;
 - (void) positionMovieViews;
 
@@ -129,6 +137,8 @@
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (void) positionMenuButtons;
+- (void) positionTopMenuButtons;
+- (void) positionBottomMenuButtons;
 - (void) hideMenuButtons;
 - (void) showMenuButtons;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
@@ -143,8 +153,11 @@
 - (MovieView *) auxMovieView:(int)viewNumber;
 - (MovieView *) findFreeMovieView;
 
+- (void) flashMenuButton:(UIButton *)button WithName:(NSString *)name;
 - (void) flashMenuButton:(UIButton *)button;
+- (void) setFlashStateForButton:(UIButton *)button ToState:(bool)flashState Animated:(bool)animated;
 - (void) menuFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+- (void) menuEndFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 -(void) animateMenuButton:(UIButton *)button;
 - (void) menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;

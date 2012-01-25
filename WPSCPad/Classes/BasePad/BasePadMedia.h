@@ -151,7 +151,7 @@ enum MovieConnectionTypes
 
 -(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay;
 
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:error;
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error;
 -(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
 
 -(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators;

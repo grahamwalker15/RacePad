@@ -23,16 +23,20 @@ enum MovieViewAnimationDirections
 @interface MovieView : BackgroundView
 {
 	BasePadVideoSource * movieSource;
+	UILabel * label;
 	bool moviePlayerLayerAdded;
 }
 
 @property (nonatomic, retain) BasePadVideoSource * movieSource;
+@property (nonatomic, retain) UILabel * label;
 @property (nonatomic) bool moviePlayerLayerAdded;
 
 // Manage displayed movies
 - (bool) displayMovieSource:(BasePadVideoSource *)source;
 - (void) removeMovieFromView;
 - (void) resizeMovieSourceWithDuration:(float)duration;
+
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error;
 
 // Request a redraw on next cycle
 - (void)RequestRedraw;

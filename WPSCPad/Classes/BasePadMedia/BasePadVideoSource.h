@@ -20,6 +20,7 @@
 
 #import "BasePadVideoViewController.h"
 
+@class MovieView;
 
 @interface BasePadVideoSource : NSObject
 {				
@@ -27,6 +28,8 @@
 	AVPlayerItem * moviePlayerItem;
 	AVPlayer * moviePlayer;
 	AVPlayerLayer * moviePlayerLayer;
+	
+	MovieView * parentMovieView;
 	
 	id moviePlayerObserver;
 	
@@ -84,6 +87,8 @@
 @property (readonly) AVPlayerItem * moviePlayerItem;
 @property (readonly) AVPlayer * moviePlayer;
 @property (readonly) AVPlayerLayer * moviePlayerLayer;
+
+@property (nonatomic, retain) MovieView * parentMovieView;
 
 @property (readonly) id moviePlayerObserver;
 
