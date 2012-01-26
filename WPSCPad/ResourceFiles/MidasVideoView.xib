@@ -219,25 +219,26 @@
 						<int key="NSvFlags">268</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUILabel" id="455797010">
+							<object class="IBUIButton" id="209572713">
 								<reference key="NSNextResponder" ref="140005188"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 10}, {200, 21}}</string>
+								<int key="NSvFlags">268</int>
+								<string key="NSFrame">{{0, 172}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="140005188"/>
 								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<string key="IBUIText">Label</string>
-								<object class="NSColor" key="IBUITextColor">
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIFont" ref="692500460"/>
+								<reference key="IBUIHighlightedTitleColor" ref="423603641"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEAA</bytes>
-									<reference key="NSCustomColorSpace" ref="140001443"/>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
-								<reference key="IBUIHighlightedColor" ref="423603641"/>
-								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">10</float>
+								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
+								<object class="NSCustomResource" key="IBUINormalImage" id="1018537349">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">close-video-window.png</string>
+								</object>
 							</object>
 						</object>
 						<string key="NSFrame">{{346, 266}, {331, 216}}</string>
@@ -253,25 +254,23 @@
 						<int key="NSvFlags">268</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUILabel" id="326219190">
+							<object class="IBUIButton" id="844017206">
 								<reference key="NSNextResponder" ref="251792200"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 10}, {200, 21}}</string>
+								<int key="NSvFlags">268</int>
+								<string key="NSFrame">{{0, 172}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="251792200"/>
 								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<string key="IBUIText">Label</string>
-								<object class="NSColor" key="IBUITextColor">
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIFont" ref="692500460"/>
+								<reference key="IBUIHighlightedTitleColor" ref="423603641"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEAA</bytes>
-									<reference key="NSCustomColorSpace" ref="140001443"/>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
-								<reference key="IBUIHighlightedColor" ref="423603641"/>
-								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">10</float>
+								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
+								<reference key="IBUINormalImage" ref="1018537349"/>
 							</object>
 						</object>
 						<string key="NSFrame">{{90, 46}, {331, 216}}</string>
@@ -610,7 +609,7 @@
 								</object>
 								<reference key="IBUINormalBackgroundImage" ref="42995560"/>
 							</object>
-							<object class="IBUILabel" id="827965302">
+							<object class="IBUILabel" id="186532969">
 								<reference key="NSNextResponder" ref="834175002"/>
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{400, 0}, {147, 21}}</string>
@@ -1169,22 +1168,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">auxMovieView1Label</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="455797010"/>
-					</object>
-					<int key="connectionID">106</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">auxMovieView2Label</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="326219190"/>
-					</object>
-					<int key="connectionID">107</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">pushNotificationAnimationImage</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="362925225"/>
@@ -1195,9 +1178,43 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">pushNotificationAnimationLabel</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="827965302"/>
+						<reference key="destination" ref="186532969"/>
 					</object>
 					<int key="connectionID">110</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">auxMovieView1CloseButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="209572713"/>
+					</object>
+					<int key="connectionID">113</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">auxMovieView2CloseButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="844017206"/>
+					</object>
+					<int key="connectionID">114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">movieCloseButtonHit:</string>
+						<reference key="source" ref="209572713"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">115</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">movieCloseButtonHit:</string>
+						<reference key="source" ref="844017206"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">116</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1337,7 +1354,7 @@
 							<reference ref="984952354"/>
 							<reference ref="618479121"/>
 							<reference ref="730085753"/>
-							<reference ref="827965302"/>
+							<reference ref="186532969"/>
 							<reference ref="362925225"/>
 						</object>
 						<reference key="parent" ref="389611430"/>
@@ -1452,7 +1469,7 @@
 						<reference key="object" ref="140005188"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="455797010"/>
+							<reference ref="209572713"/>
 						</object>
 						<reference key="parent" ref="389611430"/>
 					</object>
@@ -1461,7 +1478,7 @@
 						<reference key="object" ref="251792200"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="326219190"/>
+							<reference ref="844017206"/>
 						</object>
 						<reference key="parent" ref="389611430"/>
 					</object>
@@ -1476,24 +1493,24 @@
 						<reference key="parent" ref="389611430"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">104</int>
-						<reference key="object" ref="455797010"/>
-						<reference key="parent" ref="140005188"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">105</int>
-						<reference key="object" ref="326219190"/>
-						<reference key="parent" ref="251792200"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">108</int>
-						<reference key="object" ref="827965302"/>
+						<reference key="object" ref="186532969"/>
 						<reference key="parent" ref="834175002"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">81</int>
 						<reference key="object" ref="362925225"/>
 						<reference key="parent" ref="834175002"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">111</int>
+						<reference key="object" ref="209572713"/>
+						<reference key="parent" ref="140005188"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">112</int>
+						<reference key="object" ref="844017206"/>
+						<reference key="parent" ref="251792200"/>
 					</object>
 				</object>
 			</object>
@@ -1508,14 +1525,15 @@
 					<string>100.IBPluginDependency</string>
 					<string>100.IBViewBoundsToFrameTransform</string>
 					<string>103.IBPluginDependency</string>
-					<string>104.IBPluginDependency</string>
-					<string>105.IBPluginDependency</string>
-					<string>105.IBViewBoundsToFrameTransform</string>
 					<string>108.IBPluginDependency</string>
 					<string>108.IBViewBoundsToFrameTransform</string>
 					<string>11.IBEditorWindowLastContentRect</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.IBViewBoundsToFrameTransform</string>
+					<string>111.IBPluginDependency</string>
+					<string>111.IBViewBoundsToFrameTransform</string>
+					<string>112.IBPluginDependency</string>
+					<string>112.IBViewBoundsToFrameTransform</string>
 					<string>13.CustomClassName</string>
 					<string>13.IBPluginDependency</string>
 					<string>13.IBViewBoundsToFrameTransform</string>
@@ -1599,17 +1617,20 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUEgAABDPQAAA</bytes>
-					</object>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUPIAAAAAAAAA</bytes>
 					</object>
 					<string>{{384, 108}, {1024, 748}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform"/>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AQAAAABDLAAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUP1AABDsAAAA</bytes>
+					</object>
 					<string>LeaderboardView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1689,7 +1710,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AQAAAABDn0AAA</bytes>
+						<bytes key="NSTransformStruct">AQAAAABDrAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1752,7 +1773,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">110</int>
+			<int key="maxID">116</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1856,9 +1877,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeButtonHit:</string>
 							<string>menuButtonHit:</string>
+							<string>movieCloseButtonHit:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -1869,6 +1892,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeButtonHit:</string>
 							<string>menuButtonHit:</string>
+							<string>movieCloseButtonHit:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1880,6 +1904,10 @@
 								<string key="name">menuButtonHit:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">movieCloseButtonHit:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -1888,9 +1916,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>alertsButton</string>
 							<string>auxMovieView1</string>
-							<string>auxMovieView1Label</string>
+							<string>auxMovieView1CloseButton</string>
 							<string>auxMovieView2</string>
-							<string>auxMovieView2Label</string>
+							<string>auxMovieView2CloseButton</string>
 							<string>bottomButtonPanel</string>
 							<string>facebookButton</string>
 							<string>followDriverButton</string>
@@ -1922,9 +1950,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
 							<string>MovieView</string>
-							<string>UILabel</string>
+							<string>UIButton</string>
 							<string>MovieView</string>
-							<string>UILabel</string>
+							<string>UIButton</string>
 							<string>UIView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -1959,9 +1987,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>alertsButton</string>
 							<string>auxMovieView1</string>
-							<string>auxMovieView1Label</string>
+							<string>auxMovieView1CloseButton</string>
 							<string>auxMovieView2</string>
-							<string>auxMovieView2Label</string>
+							<string>auxMovieView2CloseButton</string>
 							<string>bottomButtonPanel</string>
 							<string>facebookButton</string>
 							<string>followDriverButton</string>
@@ -2000,16 +2028,16 @@
 								<string key="candidateClassName">MovieView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">auxMovieView1Label</string>
-								<string key="candidateClassName">UILabel</string>
+								<string key="name">auxMovieView1CloseButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">auxMovieView2</string>
 								<string key="candidateClassName">MovieView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">auxMovieView2Label</string>
-								<string key="candidateClassName">UILabel</string>
+								<string key="name">auxMovieView2CloseButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">bottomButtonPanel</string>
@@ -2418,6 +2446,7 @@
 				<string>VIP-mini-icon.png</string>
 				<string>bottom-container-unselected.png</string>
 				<string>bottom-tab-unselected.png</string>
+				<string>close-video-window.png</string>
 				<string>midas_background.png</string>
 				<string>top-container-unselected.png</string>
 				<string>user-name.png</string>
@@ -2443,6 +2472,7 @@
 				<string>{36, 30}</string>
 				<string>{66, 55}</string>
 				<string>{36, 30}</string>
+				<string>{8, 8}</string>
 				<string>{1024, 748}</string>
 				<string>{66, 55}</string>
 				<string>{140, 30}</string>

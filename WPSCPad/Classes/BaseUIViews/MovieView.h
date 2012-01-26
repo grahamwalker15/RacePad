@@ -23,13 +23,13 @@ enum MovieViewAnimationDirections
 @interface MovieView : BackgroundView
 {
 	BasePadVideoSource * movieSource;
-	UILabel * label;
 	bool moviePlayerLayerAdded;
+	UIButton * closeButton;
 }
 
 @property (nonatomic, retain) BasePadVideoSource * movieSource;
-@property (nonatomic, retain) UILabel * label;
 @property (nonatomic) bool moviePlayerLayerAdded;
+@property (nonatomic, retain) UIButton * closeButton;
 
 // Manage displayed movies
 - (bool) displayMovieSource:(BasePadVideoSource *)source;

@@ -12,8 +12,8 @@
 @implementation MovieView
 
 @synthesize movieSource;
-@synthesize label;
 @synthesize moviePlayerLayerAdded;
+@synthesize closeButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -22,6 +22,7 @@
         // Initialization code
 		movieSource = nil;
 		moviePlayerLayerAdded = false;
+		closeButton = nil;
     }
     return self;
 }
@@ -29,7 +30,7 @@
 - (void)dealloc
 {
 	[movieSource release];
-	[label release];
+	[closeButton release];
     [super dealloc];
 }
 
@@ -69,22 +70,14 @@
 			[source moviePlay];
 		}
 		
-		
-		if(label)
+		if(closeButton)
 		{
-			[label setText:[source movieTag]];
-			[self bringSubviewToFront:label];
+			[self bringSubviewToFront:closeButton];
 		}
 		
 		return true;
 	}
-	
-	if(label)
-	{
-		[label setText:@"Failed to load"];
-		[self bringSubviewToFront:label];
-	}
-	
+		
 	return false;
 }
 
@@ -110,9 +103,6 @@
 	[movieSource release];
 	movieSource = nil;
 	
-	if(label)
-		[label setText:@"Empty"];
-
 }
 
 - (void) resizeMovieSourceWithDuration:(float)duration
@@ -133,10 +123,6 @@
 
 -(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error
 {
-	if(label)
-	{
-		[label setText:error];
-	}
 }
 
 - (void)RequestRedraw

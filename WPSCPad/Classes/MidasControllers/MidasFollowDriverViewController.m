@@ -16,6 +16,9 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
+#import "BasePadMedia.h"
+#import "MidasVideoViewController.h"
+
 @implementation MidasFollowDriverViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -230,11 +233,11 @@
 					if(image)
 						[driverCar setImage:image];
 					else
-						[driverCar setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+						[driverCar setImage:nil];
 				}
 				else
 				{
-					[driverCar setImage:[UIImage imageNamed:@"NoHelmet.png"]];
+					[driverCar setImage:nil];
 				}
 				
 				NSString * firstName = [driverGapInfo firstName];
@@ -306,6 +309,7 @@
 							[gapBehindLabel setText:@""];
 						}
 					}
+					
 				}
 				else
 				{
@@ -315,10 +319,60 @@
 					[carBehindLabel setText:@""];
 					[gapBehindLabel setText:@""];
 				}
+				
+				BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:abbr];
+				if(videoSource && [videoSource movieThumbnail])
+				{
+					[onboardVideoButton setBackgroundImage:[videoSource movieThumbnail] forState:UIControlStateNormal];
+				}
+				else
+				{
+					[onboardVideoButton setBackgroundImage:[UIImage imageNamed:@"preview-video-layer.png"] forState:UIControlStateNormal];
+				}
+				
+				
 			}
 		}
 	}
 }
+
+-(IBAction)movieSelected:(id)sender
+{
+	BasePadViewController * parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
+	
+	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+	{
+		MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+		
+		DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
+		
+		if(driverGapInfo)
+		{
+			NSString * requestedDriver = [driverGapInfo requestedDriver];
+			
+			if(requestedDriver && [requestedDriver length] > 0)
+			{
+				NSString * abbr = [driverGapInfo abbr];
+				
+				if(abbr && [abbr length] > 0)
+				{
+					BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:abbr];
+		
+					if(videoSource)
+					{
+						MovieView * movieView = [videoViewController findFreeMovieView];
+						if(movieView)
+						{
+							if([videoViewController displayMovieSource:videoSource InView:movieView])
+								[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 
 ////////////////////////////////////////////////////////////////////////////
 

@@ -20,4 +20,6 @@
 @property (readonly) UIView *tableBackgroundView;
 @property (readonly) UIView *tableContainerView;
 
+-(void) autoDismiss;
+
 @end

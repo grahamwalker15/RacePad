@@ -11,6 +11,8 @@
 #import "AlertData.h"
 #import "RacePadCoordinator.h"
 #import "BasePadTimeController.h"
+#import "MidasVideoViewController.h"
+#import "MovieView.h"
 #import "RacePadDatabase.h"
 
 
@@ -26,12 +28,21 @@
 	[alertView SetFont:DW_CONTROL_FONT_];
 	[alertView setDefaultTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
 	[alertView setDefaultBackgroundColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.5]];
+	[alertView SetSelectedColour:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8]];
 	[alertView SetBackgroundAlpha:0.75];
 	[alertView setRowDivider:true];
+	[alertView setExpansionRowHeight:CGRectGetHeight(expansionView.bounds)];
+	[alertView setExpansionAllowed:true];
+	[alertView setAdaptableRowHeight:true];
 	
+	[expansionView setHidden:true];
+	[alertView addSubview:expansionView];
+
 	// Add gesture recognizers
  	[self addTapRecognizerToView:alertView];
 	[self addDoubleTapRecognizerToView:alertView];
+	
+ 	[self addTapRecognizerToView:movieSelectorView];
 	
 }
 
@@ -78,21 +89,28 @@
 - (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
 {
 	int dataRow = [ alertView filteredRowToDataRow:row];
-	AlertData * alertData = [[RacePadDatabase Instance] alertData];
-	float time = [[alertData itemAtIndex:dataRow] timeStamp];
-	[[RacePadCoordinator Instance] jumpToTime:time];
-	[[BasePadTimeController Instance] updateClock:time];
+	
+	bool wasExpanded = [alertView RowExpanded:row];
+	
+	[alertView UnexpandAllRows];
+	[alertView setExpandedDataRow:-1];
+	[expansionView setHidden:true];
+	
+	//UIImage * renderedView = [self renderViewToImage:container];
+	//[viewAnimationImage setImage:renderedView];
+	//[viewAnimationImage setFrame:[standingsView frame]];
+	//[viewAnimationImage setHidden:false]; 
+	
+	if(!wasExpanded)
+	{
+		[alertView SetRow:row Expanded:true];
+		[alertView setExpandedDataRow:dataRow];
+		[self placeExpansionViewAtRow:row];
+	}
 	
 	[alertView SelectRow:row];
 	[alertView RequestRedraw];
-	
-	[NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(dismissTimerExpired:) userInfo:nil repeats:NO];
-	
-	[[RacePadCoordinator Instance] setPlaybackRate:1.0];
-	[[RacePadCoordinator Instance] prepareToPlay];
-	[[RacePadCoordinator Instance] startPlay];
-	[[BasePadTimeController Instance] updatePlayButtons];
-	
+
 	return true;
 }
 
@@ -121,7 +139,7 @@
 	int row = -1;
 	int col = -1;
 	
-	if(gestureView && [gestureView isKindOfClass:[SimpleListView class]])
+	if(gestureView == alertView)
 	{
 		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
@@ -133,6 +151,50 @@
 					row --;
 				
 				[self HandleSelectRow:row DoubleClick:false LongPress:false];
+			}
+		}
+	}
+	else if(gestureView == movieSelectorView)
+	{
+		int row, col;
+		
+		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+		{
+			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtCol:col];
+			
+			if(videoSource)
+			{
+				BasePadViewController * parentViewController = [[MidasAlertsManager Instance] parentViewController];
+				
+				if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+				{
+					MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+					
+					MovieView * movieView = [videoViewController findFreeMovieView];
+					if(movieView)
+					{
+						int dataRow = [alertView expandedDataRow];
+						if(dataRow >= 0)
+						{
+							AlertData * alertData = [[RacePadDatabase Instance] alertData];
+							float time = [[alertData itemAtIndex:dataRow] timeStamp];
+							[[RacePadCoordinator Instance] jumpToTime:time];
+							[[BasePadTimeController Instance] updateClock:time];
+							 
+							[NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(dismissTimerExpired:) userInfo:nil repeats:NO];
+							 
+							[[RacePadCoordinator Instance] setPlaybackRate:1.0];
+							[[RacePadCoordinator Instance] prepareToPlay];
+							[[RacePadCoordinator Instance] startPlay];
+							[[BasePadTimeController Instance] updatePlayButtons];
+
+							if([videoViewController displayMovieSource:videoSource InView:movieView])
+								[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+							
+						}
+						
+					}
+				}
 			}
 		}
 	}
@@ -194,9 +256,20 @@
 	}
 }
 
+- (void) placeExpansionViewAtRow:(int)row
+{
+	float y = [alertView TableHeightToRow:row - 1] + [alertView MaxContentRowHeight:row];
+	[expansionView setFrame:CGRectMake(0, y, CGRectGetWidth(expansionView.bounds), CGRectGetHeight(expansionView.bounds))];
+	[expansionView setHidden:false];
+}
+
 @end
 
 @implementation MidasAlertsView
+
+@synthesize parentController;
+@synthesize expansionView;
+@synthesize expandedDataRow;
 
 - (int) ColumnWidth:(int)col;
 {
@@ -219,3 +292,8 @@
 
 
 @end
+
+@implementation MidasAlertsExpansionView
+@end
+
+

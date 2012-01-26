@@ -69,7 +69,7 @@ static MidasStandingsManager * standingsInstance_ = nil;
 		viewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_MY_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -97,7 +97,7 @@ static MidasCircuitViewManager * circuitViewInstance_ = nil;
 		viewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CIRCUIT_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_MY_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -125,7 +125,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 		viewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_MY_AREA_];
 		[self setOverhang:(CGRectGetWidth([viewController.view bounds]) - CGRectGetWidth([viewController.container bounds]))];
 		[viewController setAssociatedManager:self];
 	}
@@ -154,7 +154,7 @@ static MidasHeadToHeadManager * headToHeadInstance_ = nil;
 		viewController = [[MidasHeadToHeadViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_HEAD_TO_HEAD_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_MY_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 			
@@ -507,7 +507,7 @@ static MidasChatManager * chatInstance_ = nil;
 - (void) moveToPositionX:(float)x Animated:(bool)animated
 {
 	// Can't move if we're not displayed or are in the middle of hiding
-	if(!viewDisplayed || !parentViewController || hiding)
+	if(!parentViewController || hiding)
 		return;
 	
 	// Get the new positions

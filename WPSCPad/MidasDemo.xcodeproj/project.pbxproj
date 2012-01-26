@@ -310,6 +310,8 @@
 		7FA2223014D15A0700EBA739 /* My-team.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2222714D15A0700EBA739 /* My-team.png */; };
 		7FA2223114D15A0700EBA739 /* Shadow-MTE-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2222814D15A0700EBA739 /* Shadow-MTE-1.png */; };
 		7FA2223214D15A0700EBA739 /* show-My-team-extended.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2222914D15A0700EBA739 /* show-My-team-extended.png */; };
+		7FA2235C14D1A71800EBA739 /* close-video-window.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2235B14D1A71800EBA739 /* close-video-window.png */; };
+		7FA223E514D1B82400EBA739 /* Follow-driver-graphic_dummy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */; };
 		7FA2765912F9D13D001407FD /* GameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2764E12F9D13D001407FD /* GameHelpController.m */; };
 		7FA2765A12F9D13D001407FD /* LapListHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765012F9D13D001407FD /* LapListHelpController.m */; };
 		7FA2765B12F9D13D001407FD /* MapHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765212F9D13D001407FD /* MapHelpController.m */; };
@@ -966,6 +968,8 @@
 		7FA2222714D15A0700EBA739 /* My-team.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "My-team.png"; sourceTree = "<group>"; };
 		7FA2222814D15A0700EBA739 /* Shadow-MTE-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shadow-MTE-1.png"; sourceTree = "<group>"; };
 		7FA2222914D15A0700EBA739 /* show-My-team-extended.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show-My-team-extended.png"; sourceTree = "<group>"; };
+		7FA2235B14D1A71800EBA739 /* close-video-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-video-window.png"; sourceTree = "<group>"; };
+		7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Follow-driver-graphic_dummy.png"; sourceTree = "<group>"; };
 		7FA2764D12F9D13D001407FD /* GameHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelpController.h; sourceTree = "<group>"; };
 		7FA2764E12F9D13D001407FD /* GameHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHelpController.m; sourceTree = "<group>"; };
 		7FA2764F12F9D13D001407FD /* LapListHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapListHelpController.h; sourceTree = "<group>"; };
@@ -1788,6 +1792,7 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA2235B14D1A71800EBA739 /* close-video-window.png */,
 				7FA4D54514CC23D700945ABD /* NationalFlags */,
 				7FA4D1A514C9C58500945ABD /* SocialMediaImages */,
 				7FA4C83114C5D67D00945ABD /* Alerts */,
@@ -2119,6 +2124,7 @@
 		7FFE79F114B8A381007D27A2 /* FollowDriver */ = {
 			isa = PBXGroup;
 			children = (
+				7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */,
 				7FFE85F614C08C43007D27A2 /* Line-FD-5.png */,
 				7FFE7A4414B9A6D1007D27A2 /* hide-advanced-follow-driver.png */,
 				7FFE7A4514B9A6D1007D27A2 /* show-follow-driver.png */,
@@ -2682,6 +2688,8 @@
 				7FA2223014D15A0700EBA739 /* My-team.png in Resources */,
 				7FA2223114D15A0700EBA739 /* Shadow-MTE-1.png in Resources */,
 				7FA2223214D15A0700EBA739 /* show-My-team-extended.png in Resources */,
+				7FA2235C14D1A71800EBA739 /* close-video-window.png in Resources */,
+				7FA223E514D1B82400EBA739 /* Follow-driver-graphic_dummy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,6 +16,10 @@
 {
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet MovieSelectorView * movieSelectorView;
+	
+	IBOutlet UIButton * addCircuit;
 }
+
+- (IBAction)addToViewButtonPressed:(id)sender;
 
 @end

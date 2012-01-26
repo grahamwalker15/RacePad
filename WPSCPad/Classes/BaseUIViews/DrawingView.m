@@ -891,6 +891,12 @@ static bool statics_initialised_ = false;
 	[string drawAtPoint:CGPointMake(x,y) withFont:current_font_];
 }
 
+- (void)DrawMultiLineString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width Height:(float)max_height
+{
+	[fg_ set];
+	[string drawInRect:CGRectMake(x,y,max_width,max_height) withFont:current_font_];
+}
+
 - (void)GetStringBox:(NSString *)string WidthReturn:(float *)width HeightReturn:(float *)height
 {
 	CGSize size = [string sizeWithFont:current_font_];

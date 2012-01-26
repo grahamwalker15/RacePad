@@ -94,6 +94,32 @@
 							<string key="NSResourceName">Incidents-title.png</string>
 						</object>
 					</object>
+					<object class="IBUIView" id="459952239">
+						<reference key="NSNextResponder" ref="730374200"/>
+						<int key="NSvFlags">292</int>
+						<object class="NSMutableArray" key="NSSubviews">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIScrollView" id="277273416">
+								<reference key="NSNextResponder" ref="459952239"/>
+								<int key="NSvFlags">268</int>
+								<string key="NSFrame">{{5, 5}, {290, 70}}</string>
+								<reference key="NSSuperview" ref="459952239"/>
+								<reference key="IBUIBackgroundColor" ref="640482211"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
+						</object>
+						<string key="NSFrame">{{70, 101}, {300, 80}}</string>
+						<reference key="NSSuperview" ref="730374200"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MAA</bytes>
+						</object>
+						<bool key="IBUIOpaque">NO</bool>
+						<float key="IBUIAlpha">0.80000001192092896</float>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
 				</object>
 				<string key="NSFrameSize">{300, 432}</string>
 				<reference key="NSSuperview"/>
@@ -128,6 +154,22 @@
 					</object>
 					<int key="connectionID">32</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">movieSelectorView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="277273416"/>
+					</object>
+					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">expansionView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="459952239"/>
+					</object>
+					<int key="connectionID">36</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -158,6 +200,7 @@
 							<reference ref="148782855"/>
 							<reference ref="1034419557"/>
 							<reference ref="362563901"/>
+							<reference ref="459952239"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -181,6 +224,20 @@
 						<reference key="object" ref="362563901"/>
 						<reference key="parent" ref="730374200"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">33</int>
+						<reference key="object" ref="459952239"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="277273416"/>
+						</object>
+						<reference key="parent" ref="730374200"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">34</int>
+						<reference key="object" ref="277273416"/>
+						<reference key="parent" ref="459952239"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -198,12 +255,17 @@
 					<string>26.IBPluginDependency</string>
 					<string>31.CustomClassName</string>
 					<string>31.IBPluginDependency</string>
+					<string>33.CustomClassName</string>
+					<string>33.IBPluginDependency</string>
+					<string>34.CustomClassName</string>
+					<string>34.IBPluginDependency</string>
+					<string>34.IBViewBoundsToFrameTransform</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MidasAlertsViewController</string>
 					<string>UIResponder</string>
-					<string>{{811, 402}, {300, 432}}</string>
+					<string>{{743, 402}, {300, 432}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -216,6 +278,13 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>MidasAlertsView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>MidasAlertsExpansionView</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>MovieSelectorView</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABBQAAAxAKAAA</bytes>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -234,7 +303,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">32</int>
+			<int key="maxID">36</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -264,12 +333,17 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">MidasAlertsView</string>
-					<string key="superclassName">AlertView</string>
+					<string key="className">MidasAlertsExpansionView</string>
+					<string key="superclassName">UIView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="920532549">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/MidasControllers/MidasAlertsViewController.h</string>
 					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MidasAlertsView</string>
+					<string key="superclassName">AlertView</string>
+					<reference key="sourceIdentifier" ref="920532549"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">MidasAlertsViewController</string>
@@ -291,13 +365,19 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>alertView</string>
 							<string>closeButton</string>
+							<string>expansionView</string>
+							<string>movieSelectorView</string>
 							<string>typeChooser</string>
+							<string>viewAnimationImage</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>MidasAlertsView</string>
 							<string>UIBarButtonItem</string>
+							<string>MidasAlertsExpansionView</string>
+							<string>MovieSelectorView</string>
 							<string>UISegmentedControl</string>
+							<string>UIImageView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -306,7 +386,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>alertView</string>
 							<string>closeButton</string>
+							<string>expansionView</string>
+							<string>movieSelectorView</string>
 							<string>typeChooser</string>
+							<string>viewAnimationImage</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -319,8 +402,20 @@
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">expansionView</string>
+								<string key="candidateClassName">MidasAlertsExpansionView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">movieSelectorView</string>
+								<string key="candidateClassName">MovieSelectorView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">typeChooser</string>
 								<string key="candidateClassName">UISegmentedControl</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">viewAnimationImage</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 						</object>
 					</object>
@@ -364,6 +459,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/MidasControllers/MidasBaseViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MovieSelectorView</string>
+					<string key="superclassName">SimpleListView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/BaseUIViews/MovieSelectorView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

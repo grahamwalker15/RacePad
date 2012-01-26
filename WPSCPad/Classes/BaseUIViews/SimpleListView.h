@@ -37,7 +37,7 @@ enum ColumnPriority {
 } ;
 
 #define SLV_MAX_COLUMNS 1024
-#define SLV_MAX_EXPANSION_FLAG 1024	// Max number of rows that can be expanded
+#define SLV_MAX_ROWS 1024	// Actually just max number of rows that can be expanded, or have adaptable height cached
 
 @interface SimpleListView : DrawingView <UIScrollViewDelegate>
 {
@@ -60,10 +60,14 @@ enum ColumnPriority {
 	int font_;
 	
 	bool expansionAllowed;
-	unsigned char expansionFlag[SLV_MAX_EXPANSION_FLAG];
+	unsigned char expansionFlag[SLV_MAX_ROWS];
+	
+	float maxRowHeightCache[SLV_MAX_ROWS];
 	
 	int cellYMargin;
 	bool rowDivider;
+	
+	bool adaptableRowHeight;
 	
 	int column_width_[SLV_MAX_COLUMNS];
 	int column_type_[SLV_MAX_COLUMNS];
@@ -111,6 +115,8 @@ enum ColumnPriority {
 @property (nonatomic) int expansionRowHeight;
 
 @property (nonatomic) bool expansionAllowed;
+
+@property (nonatomic) bool adaptableRowHeight;
 
 @property (nonatomic) int cellYMargin;
 @property (nonatomic) bool rowDivider;
@@ -169,9 +175,10 @@ enum ColumnPriority {
 - (bool) IsColSelected:(int)index;
 - (int) InqSelectedColIndex;
 
-- (void) DrawRow:(int)row AtY:(float)y;
+- (void) DrawRow:(int)row AtY:(float)y WithRowHeight:(float)row_height AndLineHeight:(float)line_height;
 - (void) Draw:(CGRect)region;
 - (void) DrawBase;
+
 
 // Functions that CAN be overridden for customised content (defaults return local array counts)
 - (int) RowCount;
@@ -180,6 +187,8 @@ enum ColumnPriority {
 - (int) ContentRowHeight:(int)row;
 - (int) ExpansionRowHeight:(int)row;
 - (int) RowHeight:(int)row;
+- (int) MaxContentRowHeight:(int)row;
+- (void) ClearRowHeightCache;
 
 - (void) SetRow:(int)row Expanded:(bool)expanded;
 - (bool) RowExpanded:(int)row;

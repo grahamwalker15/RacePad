@@ -221,6 +221,7 @@ enum FontTypes
 
 - (void)DrawString:(NSString *)string AtX:(float)x Y:(float)y;
 - (void)DrawClippedString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width;
+- (void)DrawMultiLineString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width Height:(float)max_height;
 - (void)GetStringBox:(NSString *)string WidthReturn:(float *)width HeightReturn:(float *)height;
 
 - (void)UseFont:(int)font;

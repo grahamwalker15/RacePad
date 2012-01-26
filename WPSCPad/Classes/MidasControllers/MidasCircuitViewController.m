@@ -103,5 +103,27 @@
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 }
 
-
+-(IBAction)addToViewButtonPressed:(id)sender
+{
+	BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
+		
+	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+	{
+		MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+			
+		if(videoViewController)
+		{
+			if([videoViewController displayMap])
+			{
+				[videoViewController setMapDisplayed:false];
+				[sender setSelected:false];
+			}
+			else
+			{
+				[videoViewController setMapDisplayed:true];
+				[sender setSelected:true];
+			}
+		}
+	}
+}
 @end

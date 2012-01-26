@@ -110,17 +110,17 @@ static UIImage * newButtonBackgroundImage = nil;
 
 	firstDisplay = true;
 	
-	displayMap = true;
-	displayLeaderboard = true;
+	displayMap = false;
+	displayLeaderboard = false;
 	displayVideo = true;
 	
 	[mainMovieView setStyle:BG_STYLE_INVISIBLE_];
 	[auxMovieView1 setStyle:BG_STYLE_INVISIBLE_];
 	[auxMovieView2 setStyle:BG_STYLE_INVISIBLE_];
 	
-	[mainMovieView setLabel:nil];
-	[auxMovieView1 setLabel:auxMovieView1Label];
-	[auxMovieView2 setLabel:auxMovieView2Label];
+	[mainMovieView setCloseButton:nil];
+	[auxMovieView1 setCloseButton:auxMovieView1CloseButton];
+	[auxMovieView2 setCloseButton:auxMovieView2CloseButton];
 	
 	[pushNotificationAnimationImage setHidden:true];
 	[pushNotificationAnimationLabel setHidden:true];
@@ -165,9 +165,11 @@ static UIImage * newButtonBackgroundImage = nil;
 	// And add pan view to the trackZoomView to allow dragging the container
 	[self addPanRecognizerToView:trackZoomView];
 	
-	// Add tap and long press recognizers to overlay in order to catch taps outside map
+	// Add tap and long press recognizers to overlay and movie views in order to catch taps outside map
 	[self addTapRecognizerToView:overlayView];
-	[self addLongPressRecognizerToView:overlayView];
+	[self addTapRecognizerToView:mainMovieView];
+	[self addTapRecognizerToView:auxMovieView1];
+	[self addTapRecognizerToView:auxMovieView2];
 	
 	// Add tap recognizer to button panels to dismiss menus
 	[self addTapRecognizerToView:topButtonPanel];
@@ -796,6 +798,29 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 }
 
+- (void)setMapDisplayed:(bool)state
+{
+	if(state)
+	{
+		if(!displayMap)
+		{
+			displayMap = true;
+			[trackMapView setHidden:false];			
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];			
+			[trackMapView RequestRedraw];
+		}
+	}
+	else
+	{
+		if(displayMap)
+		{
+			displayMap = false;
+			[trackMapView setHidden:true];
+			[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+		}
+	}
+}
+
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	// GG - COMMENT OUT LEADERBOARD : 
@@ -954,6 +979,20 @@ static UIImage * newButtonBackgroundImage = nil;
 	{
 		[self positionOverlays];
 		[self showOverlays];
+	}
+}
+
+- (IBAction) movieCloseButtonHit:(id)sender
+{
+	if(sender == auxMovieView1CloseButton)
+	{
+		[auxMovieView1 removeMovieFromView];
+		[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+	}
+	else if(sender == auxMovieView2CloseButton)
+	{
+		[auxMovieView2 removeMovieFromView];
+		[self animateMovieViews:nil From:MV_CURRENT_POSITION];
 	}
 }
 
@@ -1132,7 +1171,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Alerts button
 	buttonFrame = [alertsButton frame];
 	[alertsButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasAlertsManager Instance] viewDisplayed])
+	if(alertsButtonOpen)
 		[[MidasAlertsManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(alertsButtonOpen)
@@ -1145,7 +1184,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Twitter button
 	buttonFrame = [twitterButton frame];
 	[twitterButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasTwitterManager Instance] viewDisplayed])
+	if(twitterButtonOpen)
 		[[MidasTwitterManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(twitterButtonOpen)
@@ -1158,7 +1197,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Facebook button
 	buttonFrame = [facebookButton frame];
 	[facebookButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasFacebookManager Instance] viewDisplayed])
+	if(facebookButtonOpen)
 		[[MidasFacebookManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(facebookButtonOpen)
@@ -1171,7 +1210,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// MidasChat button
 	buttonFrame = [midasChatButton frame];
 	[midasChatButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasChatManager Instance] viewDisplayed])
+	if(midasChatButtonOpen)
 		[[MidasChatManager Instance] moveToPositionX:leftX Animated:false];
 	
 }
@@ -1380,7 +1419,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Standings button
 	buttonFrame = [standingsButton frame];
 	[standingsButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasStandingsManager Instance] viewDisplayed])
+	if(standingsButtonOpen)
 		[[MidasStandingsManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(standingsButtonOpen)
@@ -1393,7 +1432,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Circuit button
 	buttonFrame = [mapButton frame];
 	[mapButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasCircuitViewManager Instance] viewDisplayed])
+	if(mapButtonOpen)
 		[[MidasCircuitViewManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(mapButtonOpen)
@@ -1406,7 +1445,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Follow driver button
 	buttonFrame = [followDriverButton frame];
 	[followDriverButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasFollowDriverManager Instance] viewDisplayed])
+	if(followDriverButtonOpen)
 		[[MidasFollowDriverManager Instance] moveToPositionX:rightX Animated:false];
 	
 	if(followDriverButtonOpen)
@@ -1440,7 +1479,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// MyTeam button
 	buttonFrame = [myTeamButton frame];
 	[myTeamButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasMyTeamManager Instance] viewDisplayed])
+	if(myTeamButtonOpen)
 		[[MidasMyTeamManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(myTeamButtonOpen)
@@ -1453,7 +1492,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// VIP button
 	buttonFrame = [vipButton frame];
 	[vipButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	if([[MidasVIPManager Instance] viewDisplayed])
+	if(vipButtonOpen)
 		[[MidasVIPManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(vipButtonOpen)

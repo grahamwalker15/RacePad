@@ -47,6 +47,8 @@
 	IBOutlet UILabel * carAheadLabel;
 	IBOutlet UILabel * gapAheadLabel;
 	
+	IBOutlet UIButton * onboardVideoButton;
+
 	IBOutlet LeaderboardView * leaderboardView;
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet BackgroundView *trackMapContainer;
@@ -62,5 +64,7 @@
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 - (IBAction) expandPressed;
+- (IBAction) movieSelected:(id)sender;
+
 
 @end

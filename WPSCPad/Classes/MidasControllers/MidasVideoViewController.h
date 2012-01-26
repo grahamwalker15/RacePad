@@ -31,8 +31,8 @@
 	IBOutlet MovieView * auxMovieView1;	
 	IBOutlet MovieView * auxMovieView2;
 	
-	IBOutlet UILabel * auxMovieView1Label;
-	IBOutlet UILabel * auxMovieView2Label;
+	IBOutlet UIButton * auxMovieView1CloseButton;
+	IBOutlet UIButton * auxMovieView2CloseButton;
 	
 	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
@@ -129,6 +129,8 @@
 - (void) hideOverlays;
 - (void) positionOverlays;
 
+- (void)setMapDisplayed:(bool)state;
+
 - (bool) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
 - (void) prePositionMovieView:(MovieView *)newView From:(int)movieDirection;
 - (void) positionMovieViews;
@@ -167,6 +169,7 @@
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
+- (IBAction) movieCloseButtonHit:(id)sender;
 - (IBAction) closeButtonHit:(id)sender;
 
 - (IBAction) menuButtonHit:(id)sender;

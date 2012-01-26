@@ -18,25 +18,28 @@
 
 - (void)baseSocialmediaAboutToShow:(BaseSocialmediaView *)controller
 {
-	int x = 0;
 }
 
 
 - (void)baseSocialmediaShown:(BaseSocialmediaView *)controller
 {
-	int x = 0;
 }
 
 
 - (void)baseSocialmediaAboutToHide:(BaseSocialmediaView *)controller
 {
-	int x = 0;
+	[self performSelector:@selector(autoDismiss) withObject:nil afterDelay: 2.0];
 }
 
 
 - (void)baseSocialmediaHidden:(BaseSocialmediaView *)controller
 {
-	int x = 0;
+}
+
+- (void)autoDismiss
+{
+	if(associatedManager)
+		[associatedManager hideAnimated:true Notify:true];
 }
 
 @end

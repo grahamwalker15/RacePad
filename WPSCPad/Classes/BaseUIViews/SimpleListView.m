@@ -16,6 +16,7 @@
 @synthesize expansionRowHeight;
 
 @synthesize expansionAllowed;
+@synthesize adaptableRowHeight;
 
 @synthesize cellYMargin;
 @synthesize rowDivider;
@@ -93,7 +94,9 @@
 	standardRowHeight = 20;
 	expansionRowHeight = 0;
 	
-	for(int i = 0 ; i < SLV_MAX_EXPANSION_FLAG ; i++)
+	adaptableRowHeight = false;
+	
+	for(int i = 0 ; i < SLV_MAX_ROWS ; i++)
 		expansionFlag[i] = 0;
 	
 	expansionAllowed = false;
@@ -165,27 +168,27 @@
 	down_row_ = -1;
 	row_count_ = 0;
 	
-	for(int i = 0 ; i < SLV_MAX_EXPANSION_FLAG ; i++)
+	for(int i = 0 ; i < SLV_MAX_ROWS ; i++)
 		expansionFlag[i] = 0;
 	
 }
 
 - (void) UnexpandAllRows
 {
-	for(int i = 0 ; i < SLV_MAX_EXPANSION_FLAG ; i++)
+	for(int i = 0 ; i < SLV_MAX_ROWS ; i++)
 		expansionFlag[i] = 0;
 	
 }
 
 - (void) SetRow:(int)row Expanded:(bool)expanded
 {
-	if(row < SLV_MAX_EXPANSION_FLAG)
+	if(row < SLV_MAX_ROWS)
 		expansionFlag[row] = expanded ? 1 : 0;
 }
 
 - (bool) RowExpanded:(int)row
 {
-	if(row < SLV_MAX_EXPANSION_FLAG)
+	if(row < SLV_MAX_ROWS)
 		return (expansionFlag[row] == 1);
 	else
 		return false;
@@ -477,7 +480,7 @@
 	return selected_col_ ;
 }
 
-- (void) DrawRow:(int)row AtY:(float)y
+- (void) DrawRow:(int)row AtY:(float)y WithRowHeight:(float)row_height AndLineHeight:(float)line_height
 {
 	// y is the top of the row
 	
@@ -490,8 +493,6 @@
 	bool selected = [self IsRowSelected:row];
 	
 	int column_count = [self ColumnCount];
-	
-	float row_height = [self ContentRowHeight:row];
 	
 	int row_index = if_heading_ ? row - 1 : row;
 	
@@ -573,8 +574,8 @@
 				{				
 					float w, h;
 					[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
-					
-					float text_y = y + row_height - text_baseline_ - cellYMargin - 2 - h;
+										
+					float text_y = y + line_height - text_baseline_ - cellYMargin - 2 - h;
 					
 					float xpos ;
 					float text_offset = 3;
@@ -590,7 +591,11 @@
 						xpos = x_draw + text_offset;
 					
 					float max_width = column_width - (xpos - x_draw) ;					
-					[self DrawClippedString:text AtX:xpos Y:text_y MaxWidth:max_width];
+					
+					if(adaptableRowHeight)
+						[self DrawMultiLineString:text AtX:xpos Y:text_y MaxWidth:max_width Height:row_height];
+					else
+						[self DrawClippedString:text AtX:xpos Y:text_y MaxWidth:max_width];
 				}
 				[text release];
 			}
@@ -618,13 +623,13 @@
 					if(w > column_width && w > 0 && h > 0)
 					{
 						float image_rect_height = column_width * h / w;
-						float ypos = y + row_height - text_baseline_ - cellYMargin - 2 - image_rect_height;
+						float ypos = y + line_height - text_baseline_ - cellYMargin - 2 - image_rect_height;
 						[self DrawImage:image InRect:CGRectMake(x_draw, ypos, column_width, image_rect_height)];
 					}
 					else
 					{
 						float xpos = x_draw + (column_width / 2) - (w / 2) ;
-						float ypos = y + row_height - text_baseline_ - cellYMargin - 2 - h;
+						float ypos = y + line_height - text_baseline_ - cellYMargin - 2 - h;
 						[self DrawImage:image AtX:xpos Y:ypos];
 					}
 					
@@ -676,6 +681,9 @@
 	// Prepare any data specific to a derived class
 	[self PrepareData];
 	
+	// Clear the row height cache
+	[self ClearRowHeightCache];
+	
 	// Then draw row by row
 	[self BeginDrawing];
 	
@@ -707,11 +715,13 @@
 	// Draw the table rows first
 	for ( int i = first_row; i < row_count; i ++ )
 	{
+		int line_height = [self ContentRowHeight:i];
+		int content_row_height = adaptableRowHeight ? [self MaxContentRowHeight:i] : [self ContentRowHeight:i];
 		int row_height = [self RowHeight:i];
-		
+				
 		if ( (y + row_height) >= ymin )
 		{
-			[self DrawRow:i AtY:y];
+			[self DrawRow:i AtY:y WithRowHeight:content_row_height AndLineHeight:line_height];
 		}
 
 		y += row_height ;
@@ -756,7 +766,7 @@
 	if(if_heading)
 	{
 		y = current_top_right_.y > 0 ? current_top_right_.y : 0;
-		[self DrawRow:0 AtY:y];
+		[self DrawRow:0 AtY:y WithRowHeight:standardRowHeight AndLineHeight:standardRowHeight];
 	}
 	
 	[self RestoreFont];
@@ -784,13 +794,99 @@
 
 - (int) RowHeight:(int)row;
 {
-	return [self ContentRowHeight:row] + [self ExpansionRowHeight:row];
+	if(adaptableRowHeight)
+		return [self MaxContentRowHeight:row] + [self ExpansionRowHeight:row];
+	else
+		return [self ContentRowHeight:row] + [self ExpansionRowHeight:row];
 }
 
 - (int) ContentRowHeight:(int)row;
 {
 	return standardRowHeight;
 }
+
+- (void) ClearRowHeightCache
+{
+	for(int i = 0 ; i < SLV_MAX_ROWS ;i++)
+		maxRowHeightCache[i] = 0;
+}
+
+- (int) MaxContentRowHeight:(int)row;
+{
+	if(row >= 0 && row < SLV_MAX_ROWS && maxRowHeightCache[row] > 0)
+		return maxRowHeightCache[row];
+	
+	bool heading = if_heading_ && row == 0 ;
+	
+	if(heading)
+		return standardRowHeight;
+	
+	// Prepare any data specific to a derived class
+	[self PrepareRow:row];
+		
+	int column_count = [self ColumnCount];
+
+	int row_index = if_heading_ ? row - 1 : row;
+	
+	float row_height = [self ContentRowHeight:row];
+	float maxHeight = row_height;
+		
+	for ( int col = 0 ; col < column_count ; col ++)
+	{
+		// Skip headings on child columns
+		if(heading && [self ColumnType:col] == SLV_COL_CHILD_)
+			continue;
+		
+		// Do we draw this column
+		if([self ColumnUse:col] == TD_USE_FOR_NONE)
+			continue;
+		else if(portraitMode && [self ColumnUse:col] == TD_USE_FOR_LANDSCAPE)
+			continue;
+		else if(!portraitMode && [self ColumnUse:col] == TD_USE_FOR_PORTRAIT)
+			continue;
+		
+		// Get column width (including children if we're on a heading)
+		int column_width = [self ColumnWidth:col];
+		if(heading && [self ColumnType:col] == SLV_COL_PARENT_)
+		{
+			int cc = col+1;
+			while(cc < column_count && [self ColumnType:cc] == SLV_COL_CHILD_)
+			{
+				column_width += [self ColumnWidth:cc];
+				cc++;
+			}
+		}
+		
+		int font = [self GetFontAtRow:row Col:col];
+		[self UseFont:font];
+		
+		int cell_type = heading ? SLV_TEXT_CELL_ : [self InqCellTypeAtRow:row_index Col:col];
+			
+		if(cell_type  == SLV_TEXT_CELL_)
+		{
+			NSString * text = heading ? [[self GetHeadingAtCol:col] retain] : [[self GetCellTextAtRow:row_index Col:col] retain];
+				
+			if([text length] > 0)
+			{				
+					
+				float text_offset = 3;
+								
+				float max_width = column_width - text_offset ; // Multi-line only works with left alignment
+				
+				CGSize sls = [text sizeWithFont:current_font_];
+				CGSize mls = [text sizeWithFont:current_font_ constrainedToSize:CGSizeMake(max_width, 300)];
+				
+				float thisRowHeight = row_height + mls.height - sls.height;
+				
+				if(thisRowHeight > maxHeight)
+					maxHeight = thisRowHeight;
+			}
+		}
+	}
+	
+	return maxHeight;
+}
+
 
 - (int) ExpansionRowHeight:(int)row;
 {
