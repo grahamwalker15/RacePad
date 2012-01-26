@@ -47,6 +47,12 @@ enum PopupViewAlignment
 	MIDAS_ALIGN_RIGHT_,
 	MIDAS_ALIGN_TOP_,
 	MIDAS_ALIGN_BOTTOM_,
+	MIDAS_ALIGN_FULL_SCREEN_,
+	
+	MIDAS_DIRECTION_UP_,
+	MIDAS_DIRECTION_DOWN_,
+	MIDAS_DIRECTION_LEFT_,
+	MIDAS_DIRECTION_RIGHT_,
 };
 	
 // View alignment
@@ -57,10 +63,12 @@ enum PopupMenuZones
 	MIDAS_ZONE_BOTTOM_ = 0x1,
 	MIDAS_ZONE_TOP_ = 0x2,
 	MIDAS_ZONE_SOCIAL_MEDIA_ = 0x4,
+	MIDAS_ZONE_MY_AREA_ = 0x8,
 };
 
 @protocol MidasPopupParentDelegate
 - (void)notifyShowingPopup:(int)popupType;
+- (void)notifyShowedPopup:(int)popupType;
 - (void)notifyHidingPopup:(int)popupType;
 - (void)notifyResizingPopup:(int)popupType;
 - (void)notifyExclusiveUse:(int)popupType InZone:(int)popupZone;
@@ -85,6 +93,7 @@ enum PopupMenuZones
 	
 	int xAlignment;
 	int yAlignment;
+	int revealDirection;
 	
 	float overhang;
 	float preferredWidth;
@@ -103,7 +112,7 @@ enum PopupMenuZones
 - (void) onStartUp;
 
 - (void) grabExclusion:(UIViewController <MidasPopupParentDelegate> *)viewController;
-- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated XAlignment:(int)xAlign YAlignment:(int)yAlign;
+- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated Direction:(int)direction XAlignment:(int)xAlign YAlignment:(int)yAlign;
 - (void) moveToPositionX:(float)x Animated:(bool)animated;
 - (void) hideAnimated:(bool)animated Notify:(bool)notify;
 

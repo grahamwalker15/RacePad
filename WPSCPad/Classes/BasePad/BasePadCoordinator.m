@@ -83,7 +83,7 @@ static BasePadCoordinator * instance_ = nil;
 		playing = false;
 		protectMediaFromRestart = false;
 		
-		updateTimer = nil;
+		dataUpdateTimer = nil;
 		elapsedTime = nil;
 		
 		views = [[NSMutableArray alloc] init];
@@ -402,7 +402,8 @@ static BasePadCoordinator * instance_ = nil;
 	if(connectionType == BPC_ARCHIVE_CONNECTION_)
 		[self setTimer:currentTime];
 		
-	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
+	playUpdateTimer10hz = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(playUpdateTimer10hzFired:) userInfo:nil repeats:YES];
+	playUpdateTimer1hz = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playUpdateTimer1hzFired:) userInfo:nil repeats:YES];
 
 	if(!protectMediaFromRestart)
 	{
@@ -425,16 +426,22 @@ static BasePadCoordinator * instance_ = nil;
 	[elapsedTime release];
 	elapsedTime = nil;
 
-	if(updateTimer)
+	if(dataUpdateTimer)
 	{
-		[updateTimer invalidate];
-		updateTimer = nil;
+		[dataUpdateTimer invalidate];
+		dataUpdateTimer = nil;
 	}
 	
-	if(timeControllerTimer)
+	if(playUpdateTimer10hz)
 	{
-		[timeControllerTimer invalidate];
-		timeControllerTimer = nil;
+		[playUpdateTimer10hz invalidate];
+		playUpdateTimer10hz = nil;
+	}
+	
+	if(playUpdateTimer1hz)
+	{
+		[playUpdateTimer1hz invalidate];
+		playUpdateTimer1hz = nil;
 	}
 	
 	if (connectionType == BPC_SOCKET_CONNECTION_)
@@ -486,6 +493,7 @@ static BasePadCoordinator * instance_ = nil;
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
 	[[BasePadTitleBarController Instance] updateTime:currentTime];
 	[self resetCommentaryTimings];
+	[self resetListUpdateTimings];
 	[self showSnapshot];
 }
 
@@ -598,13 +606,13 @@ static BasePadCoordinator * instance_ = nil;
 	}
 	
 	if ( eventTime > 0 )
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval:((eventTime - thisTime) / activePlaybackRate) target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
+		dataUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:((eventTime - thisTime) / activePlaybackRate) target:self selector:@selector(dataUpdateTimerFired:) userInfo:nil repeats:NO];
 	else
-		updateTimer = nil;
+		dataUpdateTimer = nil;
 
 }
 
-- (void) timerUpdate: (NSTimer *)theTimer
+- (void) dataUpdateTimerFired: (NSTimer *)theTimer
 {
 	float elapsed = [elapsedTime value]  * activePlaybackRate;
 	
@@ -646,13 +654,22 @@ static BasePadCoordinator * instance_ = nil;
 	// Override Me
 }
 
-- (void) timeControllerTimerUpdate: (NSTimer *)theTimer
+-(void) resetListUpdateTimings
+{
+	// Override Me
+}
+
+- (void) playUpdateTimer10hzFired: (NSTimer *)theTimer
 {
 	float elapsed = [elapsedTime value] * activePlaybackRate;
 	[[BasePadTimeController Instance] updateTime:currentTime + elapsed];
 	[[BasePadTitleBarController Instance] updateTime:currentTime + elapsed];
 	
 	[self redrawCommentary];
+}
+
+- (void) playUpdateTimer1hzFired: (NSTimer *)theTimer
+{
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////

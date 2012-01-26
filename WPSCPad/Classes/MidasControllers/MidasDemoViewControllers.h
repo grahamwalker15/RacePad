@@ -14,7 +14,13 @@
 
 @interface MidasMasterMenuViewController : MidasBaseViewController
 {
+	IBOutlet UIButton * circuitButton;
+	IBOutlet UIButton * pitsButton;
+	IBOutlet UIButton * shopButton;
+	IBOutlet UIButton * settingsButton;
 }
+
+-(IBAction) buttonPressed:(id)sender;
 
 @end
 
@@ -26,7 +32,18 @@
 
 @interface MidasMyTeamViewController : MidasBaseViewController
 {
+	IBOutlet UIButton * expandButton;
+	IBOutlet UIView * extensionContainer;
+		
+	bool expanded;
 }
+
+- (void) expandView;
+- (void) reduceViewAnimated:(bool)animated;
+
+- (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+
+- (IBAction) expandPressed;
 
 @end
 

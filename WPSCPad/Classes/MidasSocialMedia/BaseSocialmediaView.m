@@ -154,6 +154,12 @@ static NSUInteger const kTwitReplyTag = 11;
         self.replying = NO;
         self.replyRow = -1;
         self.addedRows = 0;
+		
+		lastEntryCount = 0;
+		
+		int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == Facebook) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
+		[[MidasCoordinator Instance] AddSocialmediaSource:self WithType:messageType];
+
     }
     return self;
 }
@@ -1100,5 +1106,60 @@ static NSUInteger const kTwitReplyTag = 11;
     }
     return NO;
 }
+
+////////////////////////////////////////////////////////////////////
+// MidasSocialmediaResponderSource Methods
+
+#ifdef INTEGRATED_IN_MIDAS
+
+- (void)resetMessageCount
+{
+    [self.entryTime removeAllObjects];
+    [self.entryName removeAllObjects];
+    [self.entryImage removeAllObjects];
+    [self.entryComment removeAllObjects];
+    [self.entryUserId removeAllObjects];
+    [self.entryReplied removeAllObjects];                                  
+	[self.socialTable reloadData];
+	lastEntryCount = 0;
+}
+
+- (bool)queueNewMessages:(NSMutableArray *)messageQueue AtTime:(float)updateTime
+{
+	int startOfSearch = lastEntryCount;
+	
+	if (updateTime >= 0.0 && self.replying == NO)
+	{        
+		if(startOfSearch < [self.entryTimings count])
+		{
+			for (int i = startOfSearch; i < [self.entryTimings count]; i++)
+			{
+				float messageTime = [[self.entryTimings objectAtIndex:i] floatValue];
+				if (updateTime >= messageTime)
+				{
+					[self insertDummyEntry:i];
+					[self.socialTable reloadData];
+					[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(scrollToEnd) userInfo:nil repeats:NO];
+					
+					NSString * messageSender = (NSString *)[self.entryUserId objectAtIndex:i];
+					int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == Facebook) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
+					MidasSocialmediaMessage * newMessage = [[MidasSocialmediaMessage alloc] initWithSender:messageSender Type:messageType Time:messageTime ID:lastEntryCount];
+					[messageQueue addObject:newMessage];
+					[newMessage release];
+					
+					lastEntryCount++;
+				}
+				else 
+				{
+					break;
+				}
+
+			}
+		}
+	}
+	
+	return (lastEntryCount > startOfSearch);
+}
+#endif
 
 @end

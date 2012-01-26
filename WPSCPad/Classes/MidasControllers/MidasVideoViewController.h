@@ -16,6 +16,7 @@
 #import <CoreMedia/CMTime.h>
 
 #import "MidasPopupManager.h"
+#import "MidasCoordinator.h"
 
 #import "BasePadVideoViewController.h"
 #import "TrackMapView.h"
@@ -24,7 +25,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate>
+@interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate, MidasSocialmediaResponderDelegate>
 {
 	IBOutlet MovieView * mainMovieView;
 	IBOutlet MovieView * auxMovieView1;	
@@ -99,6 +100,8 @@
 	bool menuButtonsDisplayed;
 	bool menuButtonsAnimating;
 	bool firstDisplay;
+	
+	UIButton * flashedMenuButton;
 		
 	int trackZoomOffsetX, trackZoomOffsetY;
 }

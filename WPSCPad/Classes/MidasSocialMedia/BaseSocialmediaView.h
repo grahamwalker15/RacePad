@@ -6,10 +6,15 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 //#define USE_REAL_TWITTER
 #define INTEGRATED_IN_MIDAS
+
+#import <UIKit/UIKit.h>
+
+#ifdef INTEGRATED_IN_MIDAS
+#import "MidasCoordinator.h"
+#endif
+
 
 #ifdef USE_REAL_TWITTER
 #import "JSON.h"
@@ -32,7 +37,8 @@ typedef enum { Twitter = 0, Facebook, Midas } ViewType;
 - (void)baseSocialmediaHidden:(BaseSocialmediaView *)controller;
 @end
 
-@interface BaseSocialmediaView : UIView <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate> {
+@interface BaseSocialmediaView : UIView <MidasSocialmediaSourceDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate>
+{
     UIView *view;
     UIView *topBackView;
     
@@ -64,6 +70,8 @@ typedef enum { Twitter = 0, Facebook, Midas } ViewType;
     NSMutableArray *dummyEntryImage;
     NSMutableArray *dummyEntryComment;
     NSMutableArray *dummyEntryUserId;
+	
+	int lastEntryCount;
     
     NSString *twitUser;
     NSString *twitUserName;

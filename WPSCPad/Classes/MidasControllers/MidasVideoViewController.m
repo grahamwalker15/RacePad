@@ -8,10 +8,6 @@
 
 #import "MidasVideoViewController.h"
 
-#import "MidasPopupManager.h"
-
-
-#import "RacePadCoordinator.h"
 #import "BasePadMedia.h"
 #import "RacePadTitleBarController.h"
 #import "BasePadTimeController.h"
@@ -91,6 +87,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	menuButtonsDisplayed = true;
 	menuButtonsAnimating = false;
+	flashedMenuButton = nil;
 	
 	midasMenuButtonOpen = false;
 	alertsButtonOpen = false;
@@ -200,6 +197,7 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	[[MidasCoordinator Instance] RegisterSocialmediaResponder:self WithTypeMask:MIDAS_SM_ALL_];
 	
 	// We'll get notification when we know the movie size - set it to a default for now
 	movieSize = CGSizeMake(768, 576);
@@ -295,6 +293,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	[[RacePadCoordinator Instance] SetViewHidden:self];
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
+	[[MidasCoordinator Instance] ReleaseSocialmediaResponder:self];
 	
 	// re-enable the screen locking
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
@@ -967,39 +966,33 @@ static UIImage * newButtonBackgroundImage = nil;
 - (IBAction) menuButtonHit:(id)sender
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuButtons) object:nil];
+	
+	// If the selected button is in a flashed state, get rid of this first
+	if(flashedMenuButton && sender == flashedMenuButton)
+	{
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(flashMenuButton:) object:nil];
 
+		if(sender == twitterButton)
+			twitterButtonFlashed = false;
+		else if(sender == facebookButton)
+			facebookButtonFlashed = false;
+		else if(sender == midasChatButton)
+			midasChatButtonFlashed = false;
 
-	// Test flashing
-
+		[self setFlashStateForButton:sender ToState:false Animated:false];
+	
+	}
+	
+	
 	if(sender == midasMenuButton)
 	{
-		[self flashMenuButton:(UIButton *)twitterButton WithName:@"twittername"];
-	}
-
-	
-	//if(sender == midasMenuButton)
-	//{
-	//	if(![[MidasMasterMenuManager Instance] viewDisplayed])
-	//	{
-	//		midasMenuButtonOpen = true;
-			
-	//		[[MidasMasterMenuManager Instance] grabExclusion:self];
-	//		[self animateMenuButton:midasMenuButton];
-	//		CGRect buttonFrame = [(UIButton *)sender frame];
-	//		[[MidasMasterMenuManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
-	//	}
-	//}
-	
-	if(sender == twitterButton)
-	{
-		if(![[MidasTwitterManager Instance] viewDisplayed])
+		if(![[MidasMasterMenuManager Instance] viewDisplayed])
 		{
-			twitterButtonOpen = true;
+			midasMenuButtonOpen = true;
 			
-			[[MidasTwitterManager Instance] grabExclusion:self];
-			[self animateMenuButton:twitterButton];
-			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasTwitterManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasMasterMenuManager Instance] grabExclusion:self];
+			[[MidasMasterMenuManager Instance] displayInViewController:self AtX:0 Animated:true Direction:MIDAS_DIRECTION_RIGHT_ XAlignment:MIDAS_ALIGN_FULL_SCREEN_ YAlignment:MIDAS_ALIGN_FULL_SCREEN_];
+			[self.view bringSubviewToFront:midasMenuButton];
 		}
 	}
 	
@@ -1010,9 +1003,20 @@ static UIImage * newButtonBackgroundImage = nil;
 			alertsButtonOpen = true;
 			
 			[[MidasAlertsManager Instance] grabExclusion:self];
-			[self animateMenuButton:alertsButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasAlertsManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasAlertsManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+		}
+	}
+	
+	if(sender == twitterButton)
+	{
+		if(![[MidasTwitterManager Instance] viewDisplayed])
+		{
+			twitterButtonOpen = true;
+			
+			[[MidasTwitterManager Instance] grabExclusion:self];
+			CGRect buttonFrame = [(UIButton *)sender frame];
+			[[MidasTwitterManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 	
@@ -1023,9 +1027,8 @@ static UIImage * newButtonBackgroundImage = nil;
 			facebookButtonOpen = true;
 			
 			[[MidasFacebookManager Instance] grabExclusion:self];
-			[self animateMenuButton:facebookButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasFacebookManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasFacebookManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 	
@@ -1036,9 +1039,8 @@ static UIImage * newButtonBackgroundImage = nil;
 			midasChatButtonOpen = true;
 			
 			[[MidasChatManager Instance] grabExclusion:self];
-			[self animateMenuButton:midasChatButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasChatManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasChatManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 
@@ -1049,9 +1051,8 @@ static UIImage * newButtonBackgroundImage = nil;
 			standingsButtonOpen = true;
 			
 			[[MidasStandingsManager Instance] grabExclusion:self];
-			[self animateMenuButton:standingsButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasStandingsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasStandingsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1062,9 +1063,8 @@ static UIImage * newButtonBackgroundImage = nil;
 			mapButtonOpen = true;
 			
 			[[MidasCircuitViewManager Instance] grabExclusion:self];
-			[self animateMenuButton:mapButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasCircuitViewManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasCircuitViewManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1075,9 +1075,20 @@ static UIImage * newButtonBackgroundImage = nil;
 			followDriverButtonOpen = true;
 			
 			[[MidasFollowDriverManager Instance] grabExclusion:self];
-			[self animateMenuButton:followDriverButton];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+		}
+	}
+	
+	if(sender == myTeamButton)
+	{
+		if(![[MidasMyTeamManager Instance] viewDisplayed])
+		{
+			myTeamButtonOpen = true;
+			
+			[[MidasMyTeamManager Instance] grabExclusion:self];
+			CGRect buttonFrame = [(UIButton *)sender frame];
+			[[MidasMyTeamManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1259,46 +1270,69 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	rightX -= 20;
 	
-	if(rightX > 134)
-		rightX = 134;
+	// VIP and MyTeam buttons are special cases - they start from left, but may interact with others
 	
-	buttonFrame = [vipButton frame];
-	if(vipButtonOpen)
-	{
-		if(rightPopupX < 0)
-			rightPopupX = rightX;
-		
-		rightX -= [[MidasStandingsManager Instance] preferredWidthOfView];
-		leftPopupX = rightX;
-	}
-	else
-	{
-		rightX -= CGRectGetWidth(buttonFrame);
-	}
+	float maxLeftX = rightX;
 	
+	float leftX = CGRectGetMinX(viewBounds) + 60;
 	
-	rightX -= 4;
-	
+	// MyTeam button
 	buttonFrame = [myTeamButton frame];
+	[myTeamButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	if([[MidasMyTeamManager Instance] viewDisplayed])
+		[[MidasMyTeamManager Instance] moveToPositionX:leftX Animated:false];
+	
 	if(myTeamButtonOpen)
 	{
+		// My Team popup is left aligned
+		if(leftX < leftPopupX)
+			leftPopupX = leftX;
+	
 		if(rightPopupX < 0)
-			rightPopupX = rightX;
-		
-		rightX -= [[MidasStandingsManager Instance] preferredWidthOfView];
-		leftPopupX = rightX;
+			rightPopupX = leftPopupX + [[MidasMyTeamManager Instance] preferredWidthOfView];
+
+		leftX += [[MidasMyTeamManager Instance] preferredWidthOfView];		
 	}
 	else
 	{
-		rightX -= CGRectGetWidth(buttonFrame);
+		leftX += CGRectGetWidth(buttonFrame);
 	}
 	
+	leftX += 2;
 	
+	// VIP button
+	buttonFrame = [vipButton frame];
+	[vipButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	if([[MidasVIPManager Instance] viewDisplayed])
+		[[MidasVIPManager Instance] moveToPositionX:leftX Animated:false];
+	
+	if(vipButtonOpen)
+	{
+		// VIP popup is left aligned
+		if(leftX < leftPopupX)
+			leftPopupX = leftX;
+		
+		if(rightPopupX < 0)
+			rightPopupX = leftPopupX + [[MidasVIPManager Instance] preferredWidthOfView];
+		
+		leftX += [[MidasVIPManager Instance] preferredWidthOfView];		
+	}
+	else
+	{
+		leftX += CGRectGetWidth(buttonFrame);
+	}
+
+	leftX += 2;
+	
+	// We need to push the other buttons right again if either of the panels was open
+	// They both have exclusive use, so their panels won't be open
+	
+
 	// See if we need to offset buttons
 	
-	float buttonOffset = 0.0;
+	float buttonOffset = ((myTeamButtonOpen || vipButtonOpen) && leftX > maxLeftX) ? (leftX - maxLeftX) : 0.0;
 	
-	if(leftPopupX < 10)
+	if(buttonOffset < 1 && leftPopupX < 10)
 	{
 		float popupCentre = (rightPopupX + leftPopupX) / 2;
 		buttonOffset = CGRectGetMidX(viewBounds) - popupCentre;
@@ -1401,18 +1435,34 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	rightX -= 20;
 	
-	if(rightX > 134)
-		rightX = 134;
+	leftX = CGRectGetMinX(viewBounds) + 60;
 	
-	buttonFrame = [vipButton frame];
-	[vipButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
-	
-	rightX -= CGRectGetWidth(buttonFrame);
-	
-	rightX -= 4;
-	
+	// MyTeam button
 	buttonFrame = [myTeamButton frame];
-	[myTeamButton setFrame:CGRectMake(rightX - CGRectGetWidth(buttonFrame), CGRectGetMinY(buttonFrame), CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	[myTeamButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	if([[MidasMyTeamManager Instance] viewDisplayed])
+		[[MidasMyTeamManager Instance] moveToPositionX:leftX Animated:false];
+	
+	if(myTeamButtonOpen)
+		leftX += [[MidasMyTeamManager Instance] preferredWidthOfView];		
+	else
+		leftX += CGRectGetWidth(buttonFrame);
+	
+	leftX += 2;
+	
+	// VIP button
+	buttonFrame = [vipButton frame];
+	[vipButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+	if([[MidasVIPManager Instance] viewDisplayed])
+		[[MidasVIPManager Instance] moveToPositionX:leftX Animated:false];
+	
+	if(vipButtonOpen)
+		leftX += [[MidasVIPManager Instance] preferredWidthOfView];		
+	else
+		leftX += CGRectGetWidth(buttonFrame);
+	
+	leftX += 2;
+	
 }
 
 ////////////////////////////////
@@ -1537,7 +1587,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 -(void)flashMenuButton:(UIButton *)button WithName:(NSString *)name
 {
-	if(!menuButtonsDisplayed || menuButtonsAnimating)
+	if(!menuButtonsDisplayed)
 		return;
 	
 	[pushNotificationAnimationLabel setText:name];
@@ -1546,11 +1596,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 -(void)flashMenuButton:(UIButton *)button
 {
-	if(!menuButtonsDisplayed || menuButtonsAnimating)
+	if(!menuButtonsDisplayed)
 		return;
 		
-	menuButtonsAnimating = true;
-	
 	// Social media buttons only
 	
 	bool newState;
@@ -1571,14 +1619,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	else if(button == facebookButton)
 		facebookButtonFlashed = newState;
 	else if(button == midasChatButton)
-		midasChatButtonFlashed = newState;
-	
+		midasChatButtonFlashed = newState;	
 }
 
 -(void)setFlashStateForButton:(UIButton *)button ToState:(bool)flashState Animated:(bool)animated
 {
 	if(!animated)
-		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(flashMenuButton) object:nil];
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(flashMenuButton:) object:nil];
 
 	CGRect baseFrame = [button frame];
 	CGRect baseLabelFrame = CGRectMake(baseFrame.origin.x + 42, baseFrame.origin.y, baseFrame.size.width - 42, baseFrame.size.height);
@@ -1596,7 +1643,8 @@ static UIImage * newButtonBackgroundImage = nil;
 		newLabelFrame = CGRectMake(baseFrame.origin.x + 42, baseFrame.origin.y, selectedButtonWidth - 42, baseFrame.size.height);
 		newImage = selectedTopButtonImage;
 		closing = false;
-		duration = 0.25;
+		duration = 0.25;		
+		flashedMenuButton = button;
 	}
 	else
 	{
@@ -1605,6 +1653,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		newImage = unselectedTopButtonImage;
 		closing = true;
 		duration = 0.15;
+		flashedMenuButton = nil;
 	}
 	
 	if(!closing)
@@ -1622,7 +1671,6 @@ static UIImage * newButtonBackgroundImage = nil;
 
 		[pushNotificationAnimationLabel setFrame:baseLabelFrame];
 		[pushNotificationAnimationLabel setHidden:false];
-		[pushNotificationAnimationLabel setText:@"#twittername"];
 		[pushNotificationAnimationLabel setAlpha:0.0];	// Will animate up from 0 if opening - will disappear immediately when closing
 		
 		[button setBackgroundImage:nil forState:UIControlStateNormal];
@@ -1640,7 +1688,6 @@ static UIImage * newButtonBackgroundImage = nil;
 			[pushNotificationAnimationLabel setFrame:newLabelFrame];
 			[pushNotificationAnimationLabel setHidden:false];
 			[pushNotificationAnimationLabel setAlpha:1.0];
-			[pushNotificationAnimationLabel setText:@"#twittername"];
 		}
 	}
 	
@@ -1680,6 +1727,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		{
 			[pushNotificationAnimationLabel setHidden:true];
 		}
+		
 	}
 
 }
@@ -1688,8 +1736,6 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	if([finished intValue] == 1)
 	{
-		menuButtonsAnimating = false;
-
 		UIButton * button = (UIButton *) context;
 		
 		if(button != twitterButton && button != facebookButton && button != midasChatButton)	// Shouldn't ever happen
@@ -1721,8 +1767,8 @@ static UIImage * newButtonBackgroundImage = nil;
 		}
 		else
 		{
-			[button setBackgroundImage:unselectedTopButtonImage forState:UIControlStateNormal];
-			[pushNotificationAnimationLabel setHidden:true];
+			[self setFlashStateForButton:button ToState:false Animated:false];
+			[[MidasCoordinator Instance] releaseSocialmediaQueue];
 		}
 		 
 		 
@@ -1738,13 +1784,15 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	if([finished intValue] == 1)
 	{
-		menuButtonsAnimating = false;
 		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
 		[newButtonBackgroundImage release];
 		newButtonBackgroundImage = nil;	
 		[pushNotificationAnimationImage setHidden:true];
 		
 		[pushNotificationAnimationLabel setHidden:true];
+		
+		[[MidasCoordinator Instance] releaseSocialmediaQueue];
+
 	}
 }
 
@@ -1826,11 +1874,21 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(excludedPopupType != MIDAS_FOLLOW_DRIVER_POPUP_ &&
 	   [[MidasFollowDriverManager Instance] viewDisplayed] &&
 	   (popupZone & MIDAS_ZONE_BOTTOM_) > 0)
-
+		
 	{
 		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:false];
 		followDriverButtonOpen = false;
 		[followDriverButton setHidden:false];
+		popupDismissed= true;
+	}
+	
+	if(excludedPopupType != MIDAS_MY_TEAM_POPUP_ &&
+	   [[MidasMyTeamManager Instance] viewDisplayed] &&
+	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_MY_AREA_) > 0))		
+	{
+		[[MidasMyTeamManager Instance] hideAnimated:true Notify:false];
+		myTeamButtonOpen = false;
+		[myTeamButton setHidden:false];
 		popupDismissed= true;
 	}
 	
@@ -1866,6 +1924,11 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void)notifyShowingPopup:(int)popupType
 {
+	[self positionMenuButtons];
+}
+	
+- (void)notifyShowedPopup:(int)popupType
+{
 	switch(popupType)
 	{
 		case MIDAS_ALERTS_POPUP_:
@@ -1896,6 +1959,10 @@ static UIImage * newButtonBackgroundImage = nil;
 			[followDriverButton setHidden:true];
 			break;
 			
+		case MIDAS_MY_TEAM_POPUP_:
+			[myTeamButton setHidden:true];
+			break;
+			
 		default:
 			break;
 	}
@@ -1903,53 +1970,64 @@ static UIImage * newButtonBackgroundImage = nil;
 //	[self.view bringSubviewToFront:bottomButtonPanel];
 //	[self.view bringSubviewToFront:topButtonPanel];
 	
-	[self animateMenuButton:nil];
+	//[self animateMenuButton:nil];
 }
 
 - (void)notifyHidingPopup:(int)popupType
 {
+	// Called within the animation brace
+	
 	switch(popupType)
 	{
+		case MIDAS_MASTER_MENU_POPUP_:
+			break;
+			
 		case MIDAS_ALERTS_POPUP_:
 			alertsButtonOpen = false;
 			[alertsButton setHidden:false];
-			[self animateMenuButton:alertsButton];
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_TWITTER_POPUP_:
 			twitterButtonOpen = false;
 			[twitterButton setHidden:false];
-			[self animateMenuButton:twitterButton];
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_FACEBOOK_POPUP_:
 			facebookButtonOpen = false;
 			[facebookButton setHidden:false];
-			[self animateMenuButton:facebookButton];
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_CHAT_POPUP_:
 			midasChatButtonOpen = false;
 			[midasChatButton setHidden:false];
-			[self animateMenuButton:midasChatButton];
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_STANDINGS_POPUP_:
 			standingsButtonOpen = false;
 			[standingsButton setHidden:false];
-			[self animateMenuButton:standingsButton];
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_CIRCUIT_POPUP_:
 			mapButtonOpen = false;
 			[mapButton setHidden:false];
-			[self animateMenuButton:mapButton];
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_FOLLOW_DRIVER_POPUP_:
 			followDriverButtonOpen = false;
 			[followDriverButton setHidden:false];
-			[self animateMenuButton:followDriverButton];
+			[self positionMenuButtons];
+			break;
+			
+		case MIDAS_MY_TEAM_POPUP_:
+			myTeamButtonOpen = false;
+			[myTeamButton setHidden:false];
+			[self positionMenuButtons];
 			break;
 			
 		default:
@@ -1965,6 +2043,40 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void)notifyExclusiveUse:(int)popupType InZone:(int)popupZone
 {
 	[self dismissPopupViewsWithExclusion:popupType InZone:popupZone AnimateMenus:false];
+}
+
+
+////////////////////////////////////////////////////////////////////
+// MidasSocialmediaResponderDelegate Methods
+
+- (void)notifyNewSocialmediaMessage:(MidasSocialmediaMessage *)message
+{
+	[[MidasCoordinator Instance] blockSocialmediaQueue];
+	
+	UIButton * button = nil;
+	bool buttonOpen = false;
+	
+	if([message messageType] == MIDAS_SM_TWITTER_)
+	{
+		button = twitterButton;
+		buttonOpen = twitterButtonOpen;
+	}
+	else if([message messageType] == MIDAS_SM_FACEBOOK_)
+	{
+		button = facebookButton;
+		buttonOpen = facebookButtonOpen;
+	}
+	else if([message messageType
+			 ] == MIDAS_SM_MIDAS_CHAT_)
+	{
+		button = midasChatButton;
+		buttonOpen = midasChatButtonOpen;
+	}
+	
+	if(buttonOpen)
+		[[MidasCoordinator Instance] releaseSocialmediaQueue];
+	else
+		[self flashMenuButton:button WithName:[message messageSender]];
 }
 
 @end

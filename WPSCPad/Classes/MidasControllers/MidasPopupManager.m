@@ -38,7 +38,7 @@ static MidasMasterMenuManager * masterMenuInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasMasterMenuViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		viewController = [[MidasMasterMenuViewController alloc] initWithNibName:@"MidasMasterMenuView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_MASTER_MENU_POPUP_];
 		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
@@ -69,7 +69,7 @@ static MidasStandingsManager * standingsInstance_ = nil;
 		viewController = [[MidasStandingsViewController alloc] initWithNibName:@"MidasStandingsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_STANDINGS_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -97,7 +97,7 @@ static MidasCircuitViewManager * circuitViewInstance_ = nil;
 		viewController = [[MidasCircuitViewController alloc] initWithNibName:@"MidasCircuitView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CIRCUIT_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -125,7 +125,7 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 		viewController = [[MidasFollowDriverViewController alloc] initWithNibName:@"MidasFollowDriverView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_FOLLOW_DRIVER_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
 		[self setOverhang:(CGRectGetWidth([viewController.view bounds]) - CGRectGetWidth([viewController.container bounds]))];
 		[viewController setAssociatedManager:self];
 	}
@@ -154,7 +154,7 @@ static MidasHeadToHeadManager * headToHeadInstance_ = nil;
 		viewController = [[MidasHeadToHeadViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_HEAD_TO_HEAD_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ || MIDAS_ZONE_MY_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 			
@@ -182,7 +182,7 @@ static MidasVIPManager * vipInstance_ = nil;
 		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_VIP_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -207,10 +207,10 @@ static MidasMyTeamManager * myTeamInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasMyTeamViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		viewController = [[MidasMyTeamViewController alloc] initWithNibName:@"MidasMyTeamView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_MY_TEAM_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -398,7 +398,7 @@ static MidasChatManager * chatInstance_ = nil;
 		[viewController notifyExclusiveUse:managedViewType InZone:managedExclusionZone];	
 }
 
-- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated XAlignment:(int)xAlign YAlignment:(int)yAlign;
+- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated Direction:(int)direction XAlignment:(int)xAlign YAlignment:(int)yAlign;
 {	
 	// Can't display if we're in the middle of hiding
 	if(hiding)
@@ -414,15 +414,42 @@ static MidasChatManager * chatInstance_ = nil;
 	
 	xAlignment = xAlign;
 	yAlignment = yAlign;
+	revealDirection= direction;
 	
-	float finalX, initialY, finalY;
+	float initialX, finalX, initialY, finalY;
 	
-	if(xAlignment == MIDAS_ALIGN_RIGHT_)
-		finalX = x - CGRectGetWidth(ourBounds) + overhang;
-	else 
-		finalX = x;
+	if(xAlignment == MIDAS_ALIGN_FULL_SCREEN_)
+	{
+		if(direction == MIDAS_DIRECTION_RIGHT_)
+			initialX = - CGRectGetWidth(ourBounds);
+		else if(direction == MIDAS_DIRECTION_LEFT_)
+			initialX = CGRectGetWidth(superBounds);
+		else
+			initialX = 0;
+
+		finalX = 0;
+	}
+	else if(xAlignment == MIDAS_ALIGN_RIGHT_)
+	{
+		initialX = finalX = x - CGRectGetWidth(ourBounds) + overhang;
+	}
+	else
+	{
+		initialX = finalX = x;
+	}
 	
-	if(yAlignment == MIDAS_ALIGN_TOP_)
+	if(yAlignment == MIDAS_ALIGN_FULL_SCREEN_)
+	{
+		if(direction == MIDAS_DIRECTION_DOWN_)
+			initialY = - CGRectGetHeight(ourBounds);
+		else if(direction == MIDAS_DIRECTION_UP_)
+			initialY = CGRectGetHeight(superBounds);
+		else
+			initialY = 0;
+		
+		finalY = 0;
+	}
+	else if(yAlignment == MIDAS_ALIGN_TOP_)
 	{
 		initialY = - CGRectGetHeight(ourBounds);
 		finalY = 0;
@@ -433,20 +460,19 @@ static MidasChatManager * chatInstance_ = nil;
 		finalY = initialY - CGRectGetHeight(ourBounds);
 	}
 	
-	
 	[managedViewController.view setHidden:true];
 	
 	[viewController.view addSubview:managedViewController.view];
 	
 	if(animated)
 	{
-		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, initialY)];
+		[managedViewController.view setFrame:CGRectOffset(ourBounds, initialX, initialY)];
 	}
 	else
 	{
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
-		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowingPopup:)])
-			[parentViewController notifyShowingPopup:managedViewType];
+		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowedPopup:)])
+			[parentViewController notifyShowedPopup:managedViewType];
 	}
 	
 	[managedViewController.view setHidden:false];
@@ -458,20 +484,23 @@ static MidasChatManager * chatInstance_ = nil;
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(displayAnimationDidStop:finished:context:)];
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
+
+		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowingPopup:)])
+			[parentViewController notifyShowingPopup:managedViewType];
+		
 		[UIView commitAnimations];
 	}
 	
 	viewDisplayed = true;
 	
-	// Don't do automatic hiding : [self setHideTimer];
 }
 
 - (void) displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
 	if([finished intValue] == 1)
 	{
-		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowingPopup:)])
-			[parentViewController notifyShowingPopup:managedViewType];
+		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowedPopup:)])
+			[parentViewController notifyShowedPopup:managedViewType];
 	}
 }
 
@@ -529,6 +558,7 @@ static MidasChatManager * chatInstance_ = nil;
 	}
 	
 	// Get the new positions
+	CGRect superBounds = [parentViewController.view bounds];
 	CGRect ourFrame = [managedViewController.view frame];
 	
 	[UIView beginAnimations:nil context:NULL];
@@ -536,19 +566,34 @@ static MidasChatManager * chatInstance_ = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(hideAnimationDidStop:finished:context:)];
 	
-	if(yAlignment == MIDAS_ALIGN_TOP_)
+	if(xAlignment == MIDAS_ALIGN_FULL_SCREEN_ || xAlignment == MIDAS_ALIGN_FULL_SCREEN_)
+	{
+		if(revealDirection == MIDAS_DIRECTION_RIGHT_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, -CGRectGetWidth(superBounds), 0)];
+		else if(revealDirection == MIDAS_DIRECTION_LEFT_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, CGRectGetWidth(superBounds), 0)];
+		else if(revealDirection == MIDAS_DIRECTION_UP_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds))];
+		else if(revealDirection == MIDAS_DIRECTION_DOWN_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, -CGRectGetHeight(superBounds))];
+	}
+	else if(yAlignment == MIDAS_ALIGN_TOP_)
+	{
 		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, -CGRectGetHeight(ourFrame) )];
+	}
 	else
+	{
 		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(ourFrame))];
+	}
+	
+	if(notify && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidingPopup:)])
+		[parentViewController notifyHidingPopup:managedViewType];
 	
 	[UIView commitAnimations];
 	
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
 	flagTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
-	
-	if(notify && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidingPopup:)])
-		[parentViewController notifyHidingPopup:managedViewType];
-	
+		
 }
 
 - (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context

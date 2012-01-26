@@ -19,7 +19,6 @@
 	facebookView.delegate = self;
     [self.tableContainerView addSubview:facebookView];
 	[facebookView setFrame:CGRectMake(0, 0, 300, 325)];
-	[facebookView __checkForNewMessages:70000];
 	[facebookView release];
 }
 

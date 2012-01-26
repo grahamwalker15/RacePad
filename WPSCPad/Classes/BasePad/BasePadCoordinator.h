@@ -108,8 +108,9 @@ enum ConnectionTypes
 	
 	NSString *sessionPrefix;
 	
-	NSTimer *updateTimer;
-	NSTimer *timeControllerTimer;
+	NSTimer *dataUpdateTimer;
+	NSTimer *playUpdateTimer10hz;
+	NSTimer *playUpdateTimer1hz;
 	NSTimer *connectionRetryTimer;
 	
 	int baseTime;
@@ -242,7 +243,10 @@ enum ConnectionTypes
 -(void) showSnapshotUnconnected;
 
 -(void)setTimer: (float)thisTime;
--(void)timerUpdate: (NSTimer *)theTimer;
+-(void)dataUpdateTimerFired: (NSTimer *)theTimer;
+
+-(void)playUpdateTimer10hzFired: (NSTimer *)theTimer;
+-(void)playUpdateTimer1hzFired: (NSTimer *)theTimer;
 
 -(float)currentPlayTime;
 
@@ -287,8 +291,10 @@ enum ConnectionTypes
 
 -(void) synchroniseTime:(float)time;
 
-- (void) resetCommentaryTimings;
+-(void) resetCommentaryTimings;
 -(void) restartCommentary;
+
+-(void) resetListUpdateTimings;
 
 -(void) clearStaticData;
 -(void)AddDataSourceWithType:(int)type AndArchive:(NSString *)archive AndFile:(NSString *)file AndSubIndex:(NSString *)subIndex;

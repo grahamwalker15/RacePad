@@ -19,7 +19,6 @@
 	midasView.delegate = self;
     [self.tableContainerView addSubview:midasView];
 	[midasView setFrame:CGRectMake(0, 0, 300, 325)];
-	[midasView __checkForNewMessages:70000];
 	[midasView release];
 }
 

@@ -226,26 +226,18 @@
     self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
 	
-    NSNumber *aNumber = [NSNumber numberWithFloat:0];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:2];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:3];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:6];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:10];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:12];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:16];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:20];
-    [self.entryTimings addObject:aNumber];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50610]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50620]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50640]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50670]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50700]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50730]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50760]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50790]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50820]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50850]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50880]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:50910]];
 	
     [self.dummyEntryName addObject:@"John J"];
     [self.dummyEntryName addObject:@"Freddie F1"];
@@ -320,13 +312,14 @@
     }
 }
 
+/* Not sure why this was overridden - difference is just that scrollToEnd is immediate
 - (void)__checkForNewMessages:(CGFloat)mTime {
     if (mTime >= 0.0 && self.replying == NO)
     {
         for (int i = 0; i < [self.entryTimings count]; i++)
         {
             CGFloat aFloat = [[self.entryTimings objectAtIndex:i] floatValue];
-            if (mTime > aFloat - 0.1/* && mTime < aFloat + 0.1*/)
+            if (mTime > aFloat - 0.1 && mTime < aFloat + 0.1)
             {
                 [self insertDummyEntry:i];
                 [self.socialTable reloadData];
@@ -335,6 +328,7 @@
         }
     }
 }
+*/
 
 /*
  // Only override drawRect: if you perform custom drawing.
