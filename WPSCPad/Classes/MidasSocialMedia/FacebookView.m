@@ -22,8 +22,8 @@
         self.sendText.hidden = YES;
         
         CGRect rect = self.socialTable.frame;
-        rect.size.height += 26;
-        rect.origin.y -= 26;
+        rect.size.height += 33;
+        rect.origin.y -= 33;
         self.socialTable.frame = rect;
     }
     return self;
@@ -125,7 +125,7 @@
 }
 
 - (CGRect)getSendTextFrame {
-    return CGRectMake(8, 49, 284, 20);
+    return CGRectMake(40, 49, 246, 27);
 }
 
 - (CGRect)getTimeTextFrame:(CGFloat)height{

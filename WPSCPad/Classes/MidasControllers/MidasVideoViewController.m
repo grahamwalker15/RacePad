@@ -35,7 +35,6 @@
 @synthesize facebookButtonOpen;
 @synthesize midasChatButtonOpen;	
 @synthesize lapCounterButtonOpen;
-@synthesize userNameButtonOpen;
 @synthesize standingsButtonOpen;
 @synthesize mapButtonOpen;
 @synthesize followDriverButtonOpen;
@@ -95,7 +94,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	facebookButtonOpen = false;
 	midasChatButtonOpen = false;	
 	lapCounterButtonOpen = false;
-	userNameButtonOpen = false;
 	standingsButtonOpen = false;
 	mapButtonOpen = false;
 	followDriverButtonOpen = false;
@@ -113,6 +111,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	displayMap = false;
 	displayLeaderboard = false;
 	displayVideo = true;
+	
+	disableOverlays = false;
 	
 	[mainMovieView setStyle:BG_STYLE_INVISIBLE_];
 	[auxMovieView1 setStyle:BG_STYLE_INVISIBLE_];
@@ -136,11 +136,15 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	// Set the types on the two map views
 	[trackMapView setIsZoomView:false];
-	[trackZoomView setIsZoomView:true];
-	
 	[trackMapView setIsOverlayView:true];
+	[trackMapView setMidasStyle:true];
+
+	[trackZoomView setIsZoomView:false];
+	[trackZoomView setIsOverlayView:false];
+	[trackZoomView setSmallSized:true];
+	[trackMapView setMidasStyle:true];
 	
-	[trackZoomContainer setStyle:BG_STYLE_TRANSPARENT_];
+	[trackZoomContainer setStyle:BG_STYLE_MIDAS_TRANSPARENT_];
 	[trackZoomContainer setHidden:true];
 	trackZoomOffsetX = 0;
 	trackZoomOffsetY = 0;
@@ -170,6 +174,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	[self addTapRecognizerToView:mainMovieView];
 	[self addTapRecognizerToView:auxMovieView1];
 	[self addTapRecognizerToView:auxMovieView2];
+	
+	[self addPinchRecognizerToView:mainMovieView];
+	[self addPinchRecognizerToView:auxMovieView1];
+	[self addPinchRecognizerToView:auxMovieView2];
 	
 	// Add tap recognizer to button panels to dismiss menus
 	[self addTapRecognizerToView:topButtonPanel];
@@ -209,34 +217,12 @@ static UIImage * newButtonBackgroundImage = nil;
 	[mainMovieView bringSubviewToFront:overlayView];
 	[mainMovieView bringSubviewToFront:trackMapView];
 	// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
-	[mainMovieView bringSubviewToFront:trackZoomContainer];
-	[mainMovieView bringSubviewToFront:trackZoomView];
+	/// GG - ZOOM MAP NOW NOT CHILD OF MOVIE :[mainMovieView bringSubviewToFront:trackZoomContainer];
+	/// GG - ZOOM MAP NOW NOT CHILD OF MOVIE :[mainMovieView bringSubviewToFront:trackZoomView];
 	[mainMovieView bringSubviewToFront:videoDelayLabel];
 	[mainMovieView bringSubviewToFront:loadingLabel];
 	[mainMovieView bringSubviewToFront:loadingTwirl];
-	
-	NSString *currentCarToFollow = [trackZoomView carToFollow];
-	NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
-	
-	if(carToFollow == nil)
-	{
-		[trackZoomView setCarToFollow:nil];
-		[trackZoomContainer setHidden:true];
-	}
-	else if(currentCarToFollow) // Only follow global car if we were already following someone
-	{
-		[trackZoomView setUserScale:10.0];
-		[trackZoomView followCar:carToFollow];
-		if(displayMap)
-		{
-			[trackZoomContainer setHidden:false];
-		}
-		else
-		{
-			[trackZoomContainer setHidden:true];
-		}
-	}
-	
+		
 	if(displayVideo)
 	{
 		// Check that we have the right movie loaded
@@ -249,8 +235,16 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(displayMap)
 	{
-		[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-		[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+		if(disableOverlays)
+		{
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];
+			[trackZoomContainer setHidden:true];
+		}
+		else
+		{
+			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+			[trackZoomContainer setHidden:false];
+		}
 	}
 	
 	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
@@ -283,8 +277,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(displayMap)
 	{
-		[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
-		[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+		if(disableOverlays)
+			[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+		else
+			[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	}
 	
 	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
@@ -492,6 +488,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	CGRect centreViewRect = CGRectMake(324, 244,700,394);
 	CGRect leftViewRect = CGRectMake(0, 464,308,174);
 	CGRect topViewRect = CGRectMake(716, 54,308,174);
+	CGRect mapInsetRect = CGRectMake(0, 54,308,260);
 	
 	CGRect mainMovieViewRect = [mainMovieView frame];
 	CGRect auxMovieView1Rect = [auxMovieView1 frame];
@@ -499,6 +496,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(movieViewCount == 1)
 	{
+		[self setOverlaysDisabled:false];
 		[self showOverlays];
 		[mainMovieView setFrame:superBounds];
 		[auxMovieView1 setFrame:CGRectOffset(auxMovieView1Rect, superBounds.size.width - auxMovieView1Rect.origin.x + 1, 0)]; //Slide off right
@@ -506,7 +504,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	else if(movieViewCount == 2)
 	{
-		[self hideOverlays];
+		[self setOverlaysDisabled:true];
+		[trackZoomContainer setFrame:mapInsetRect];
+		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
 		if([auxMovieView1 moviePlayerLayerAdded])
 			[auxMovieView1 setFrame:centreViewRect];
@@ -515,7 +515,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	else if(movieViewCount == 3)
 	{
-		[self hideOverlays];
+		[self setOverlaysDisabled:true];
+		[trackZoomContainer setFrame:mapInsetRect];
+		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
 		if([auxMovieView1 moviePlayerLayerAdded])
 			[auxMovieView1 setFrame:topViewRect];
@@ -654,17 +656,17 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) showOverlays
 {
-	bool showZoomMap = ([trackZoomView carToFollow] != nil);
-	
 	if(displayMap)
 	{
-		[trackMapView setAlpha:0.0];
-		[trackMapView setHidden:false];
-		
-		if(showZoomMap)
+		if(disableOverlays)
 		{
 			[trackZoomContainer setAlpha:0.0];
 			[trackZoomContainer setHidden:false];
+		}
+		else
+		{
+			[trackMapView setAlpha:0.0];
+			[trackMapView setHidden:false];
 		}
 	}
 	
@@ -678,11 +680,13 @@ static UIImage * newButtonBackgroundImage = nil;
     [UIView setAnimationDuration:0.5];
 	if(displayMap)
 	{
-		[trackMapView setAlpha:1.0];
-		
-		if(showZoomMap)
+		if(disableOverlays)
 		{
 			[trackZoomContainer setAlpha:1.0];
+		}
+		else
+		{
+			[trackMapView setAlpha:1.0];
 		}
 	}
 	
@@ -765,19 +769,19 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : CGRect lb_frame = CGRectMake(movieRect.origin.x + 5, movieRect.origin.y, 60, movieRect.size.height);
 	// GG - COMMENT OUT LEADERBOARD : [leaderboardView setFrame:lb_frame];
 	
-	CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
-	CGRect offsetFrame = CGRectOffset(zoom_frame, trackZoomOffsetX, trackZoomOffsetY);
-	CGRect bgRect = [[self view] frame];
-	if ( offsetFrame.origin.x < 0 )
-		offsetFrame = CGRectOffset(offsetFrame, -offsetFrame.origin.x, 0);
-	if ( offsetFrame.origin.y < 0 )
-		offsetFrame = CGRectOffset(offsetFrame, 0, -offsetFrame.origin.y);
-	if ( offsetFrame.origin.x + offsetFrame.size.width > bgRect.origin.x + bgRect.size.width )
-		offsetFrame = CGRectOffset(offsetFrame, (bgRect.origin.x + bgRect.size.width) - (offsetFrame.origin.x + offsetFrame.size.width), 0);
-	if ( offsetFrame.origin.y + offsetFrame.size.height > bgRect.origin.y + bgRect.size.height )
-		offsetFrame = CGRectOffset(offsetFrame, 0, (bgRect.origin.y + bgRect.size.height) - (offsetFrame.origin.y + offsetFrame.size.height));
+	// GG - COMMENT OUT ZOOM MAP : CGRect zoom_frame = CGRectMake(movieRect.origin.x + 80, movieViewSize.height - 320, 300, 300);
+	// GG - COMMENT OUT ZOOM MAP : CGRect offsetFrame = CGRectOffset(zoom_frame, trackZoomOffsetX, trackZoomOffsetY);
+	// GG - COMMENT OUT ZOOM MAP : CGRect bgRect = [[self view] frame];
+	// GG - COMMENT OUT ZOOM MAP : if ( offsetFrame.origin.x < 0 )
+	// GG - COMMENT OUT ZOOM MAP : 	offsetFrame = CGRectOffset(offsetFrame, -offsetFrame.origin.x, 0);
+	// GG - COMMENT OUT ZOOM MAP : if ( offsetFrame.origin.y < 0 )
+	// GG - COMMENT OUT ZOOM MAP : 	offsetFrame = CGRectOffset(offsetFrame, 0, -offsetFrame.origin.y);
+	// GG - COMMENT OUT ZOOM MAP : if ( offsetFrame.origin.x + offsetFrame.size.width > bgRect.origin.x + bgRect.size.width )
+	// GG - COMMENT OUT ZOOM MAP : 	offsetFrame = CGRectOffset(offsetFrame, (bgRect.origin.x + bgRect.size.width) - (offsetFrame.origin.x + offsetFrame.size.width), 0);
+	// GG - COMMENT OUT ZOOM MAP : if ( offsetFrame.origin.y + offsetFrame.size.height > bgRect.origin.y + bgRect.size.height )
+	// GG - COMMENT OUT ZOOM MAP : 	offsetFrame = CGRectOffset(offsetFrame, 0, (bgRect.origin.y + bgRect.size.height) - (offsetFrame.origin.y + offsetFrame.size.height));
 	
-	[trackZoomContainer setFrame:offsetFrame];
+	// GG - COMMENT OUT ZOOM MAP : [trackZoomContainer setFrame:offsetFrame];
 }
 
 - (void) RequestRedraw
@@ -805,9 +809,19 @@ static UIImage * newButtonBackgroundImage = nil;
 		if(!displayMap)
 		{
 			displayMap = true;
-			[trackMapView setHidden:false];			
-			[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];			
-			[trackMapView RequestRedraw];
+			
+			if(disableOverlays)
+			{
+				[trackZoomContainer setHidden:false];			
+				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];			
+				[trackZoomView RequestRedraw];
+			}
+			else
+			{
+				[trackMapView setHidden:false];			
+				[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];			
+				[trackMapView RequestRedraw];
+			}
 		}
 	}
 	else
@@ -815,8 +829,54 @@ static UIImage * newButtonBackgroundImage = nil;
 		if(displayMap)
 		{
 			displayMap = false;
-			[trackMapView setHidden:true];
-			[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+
+			if(disableOverlays)
+			{
+				[trackZoomContainer setHidden:true];			
+				[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];			
+			}
+			else
+			{
+				[trackMapView setHidden:true];
+				[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+			}
+		}
+	}
+}
+
+- (void)setOverlaysDisabled:(bool)state
+{
+	if(!state)
+	{
+		if(disableOverlays)
+		{
+			disableOverlays = false;
+			
+			if(displayMap)
+			{
+				[trackZoomContainer setHidden:true];			
+				[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];			
+
+				[trackMapView setHidden:false];			
+				[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];			
+				[trackMapView RequestRedraw];
+			}
+		}
+	}
+	else
+	{
+		if(!disableOverlays)
+		{
+			disableOverlays = true;
+			if(displayMap)
+			{
+				[trackMapView setHidden:true];
+				[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+
+				[trackZoomContainer setHidden:false];			
+				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];			
+				[trackZoomView RequestRedraw];
+			}
 		}
 	}
 }
@@ -872,14 +932,14 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
+	if(!gestureView)
+		return;
+	
 	[auxMovieView1 removeMovieFromView];
 	[auxMovieView2 removeMovieFromView];
 	[self animateMovieViews:nil From:MV_CURRENT_POSITION];
 	
 	// Zooms on point in map, or chosen car in leader board
-	if(!gestureView)
-		return;
-	
 	// GG - COMMENT OUT LEADERBOARD : 
 	/*
 	if([gestureView isKindOfClass:[LeaderboardView class]])
@@ -908,12 +968,14 @@ static UIImage * newButtonBackgroundImage = nil;
 		return;
 	}
 	
+	/*
 	if([(TrackMapView *)gestureView isZoomView])
 	{
 		[[RacePadCoordinator Instance] setNameToFollow:nil];
 		[self hideZoomMap];
 	}
 	else
+	*/
 	{
 		{
 			[(TrackMapView *)gestureView setUserXOffset:0.0];
@@ -929,18 +991,27 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
 {
-	// Make sure we're on the map - do nothing otherwise
-	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
-	{
+	if(!gestureView)
 		return;
+		
+	if([gestureView isKindOfClass:[TrackMapView class]])
+	{	
+		RacePadDatabase *database = [RacePadDatabase Instance];
+		TrackMap *trackMap = [database trackMap];
+		
+		[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
+		
+		[(TrackMapView *)gestureView RequestRedraw];
 	}
-	
-	RacePadDatabase *database = [RacePadDatabase Instance];
-	TrackMap *trackMap = [database trackMap];
-	
-	[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
-	
-	[trackMapView RequestRedraw];
+	else if([gestureView isKindOfClass:[MovieView class]])
+	{	
+		if(scale > 1)
+		{
+			[auxMovieView1 removeMovieFromView];
+			[auxMovieView2 removeMovieFromView];
+			[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+		}
+	}	
 }
 
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
@@ -949,23 +1020,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(state == UIGestureRecognizerStateEnded)
 		return;
 	
-	// If we're on the track zoom, drag the container
-	if(gestureView == trackZoomView)
-	{
-		CGRect frame = [trackZoomContainer frame];
-		trackZoomOffsetX += x;
-		trackZoomOffsetY += y;
-		CGRect newFrame = CGRectOffset(frame, x, y);
-		[trackZoomContainer setFrame:newFrame];
-	}
-	
 	// If we're on the track map, pan the map
-	if(gestureView == trackMapView)
+	if(gestureView == trackMapView || gestureView == trackZoomView)
 	{
 		RacePadDatabase *database = [RacePadDatabase Instance];
 		TrackMap *trackMap = [database trackMap];
 		[trackMap adjustPanInView:(TrackMapView *)gestureView X:x Y:y];	
-		[trackMapView RequestRedraw];
+		[(TrackMapView *)gestureView RequestRedraw];
 	}
 }
 
@@ -998,8 +1059,8 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (IBAction) closeButtonHit:(id)sender
 {
-	[[RacePadCoordinator Instance] setNameToFollow:nil];
-	[self hideZoomMap];
+	//[[RacePadCoordinator Instance] setNameToFollow:nil];
+	//[self hideZoomMap];
 }
 
 - (IBAction) menuButtonHit:(id)sender
@@ -1031,8 +1092,13 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasMasterMenuManager Instance] grabExclusion:self];
 			[[MidasMasterMenuManager Instance] displayInViewController:self AtX:0 Animated:true Direction:MIDAS_DIRECTION_RIGHT_ XAlignment:MIDAS_ALIGN_FULL_SCREEN_ YAlignment:MIDAS_ALIGN_FULL_SCREEN_];
-			[self.view bringSubviewToFront:midasMenuButton];
 		}
+		else
+		{
+			[[MidasMasterMenuManager Instance] hideAnimated:true Notify:true];
+		}
+		
+		[self.view bringSubviewToFront:midasMenuButton];
 	}
 	
 	if(sender == alertsButton)
@@ -1131,6 +1197,18 @@ static UIImage * newButtonBackgroundImage = nil;
 		}
 	}
 	
+	if(sender == vipButton)
+	{
+		if(![[MidasVIPManager Instance] viewDisplayed])
+		{
+			vipButtonOpen = true;
+			
+			[[MidasVIPManager Instance] grabExclusion:self];
+			CGRect buttonFrame = [(UIButton *)sender frame];
+			[[MidasVIPManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+		}
+	}
+	
 	if(sender == timeControlsButton)
 	{
 		[self hideMenuButtons];
@@ -1151,6 +1229,11 @@ static UIImage * newButtonBackgroundImage = nil;
 
 -(void)positionMenuButtons
 {
+	if(midasMenuButtonOpen)
+		[midasMenuButton setFrame:CGRectMake(0,332,91,61)];
+	else
+		[midasMenuButton setFrame:CGRectMake(-36,332,91,61)];
+	
 	[self positionTopMenuButtons];
 	[self positionBottomMenuButtons];	
 }
@@ -1213,6 +1296,17 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(midasChatButtonOpen)
 		[[MidasChatManager Instance] moveToPositionX:leftX Animated:false];
 	
+	if(midasChatButtonOpen)
+		leftX += [[MidasChatManager Instance] widthOfView];
+	else
+		leftX += CGRectGetWidth(buttonFrame);
+	
+	leftX += 2;
+	
+	// DF button
+	buttonFrame = [dfButton frame];
+	[dfButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
+
 }
 
 -(void)positionBottomMenuButtons
@@ -1307,7 +1401,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	buttonFrame = [timeControlsButton frame];
 	rightX -= CGRectGetWidth(buttonFrame);
 	
-	rightX -= 20;
+	rightX -= 6;
 	
 	// VIP and MyTeam buttons are special cases - they start from left, but may interact with others
 	
@@ -1525,7 +1619,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	[topButtonPanel setFrame:CGRectOffset([topButtonPanel frame], 0, -CGRectGetHeight([alertsButton frame]))];
 	
 	// Side buttons
-	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], -CGRectGetWidth([midasMenuButton frame]), 0)];
+	if(midasMenuButtonOpen)
+		[midasMenuButton setFrame:CGRectMake(0,332,91,61)];
+	else
+		[midasMenuButton setFrame:CGRectMake(-91,332,91,61)];
 	
 	// Bottom buttons
 	[bottomButtonPanel setFrame:CGRectOffset([bottomButtonPanel frame], 0, CGRectGetHeight([standingsButton frame]))];
@@ -1551,7 +1648,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	[topButtonPanel setFrame:CGRectOffset([topButtonPanel frame], 0, CGRectGetHeight([alertsButton frame]))];
 	
 	// Side buttons
-	[midasMenuButton setFrame:CGRectOffset([midasMenuButton frame], CGRectGetWidth([midasMenuButton frame]), 0)];
+	if(midasMenuButtonOpen)
+		[midasMenuButton setFrame:CGRectMake(0,332,91,61)];
+	else
+		[midasMenuButton setFrame:CGRectMake(-36,332,91,61)];
 	
 	// Bottom buttons
 	[bottomButtonPanel setFrame:CGRectOffset([bottomButtonPanel frame], 0, -CGRectGetHeight([standingsButton frame]))];
@@ -1890,8 +1990,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_STANDINGS_POPUP_ &&
 	   [[MidasStandingsManager Instance] viewDisplayed] &&
-	   (popupZone & MIDAS_ZONE_BOTTOM_) > 0)
-
+	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasStandingsManager Instance] hideAnimated:true Notify:false];
 		standingsButtonOpen = false;
@@ -1901,8 +2000,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_CIRCUIT_POPUP_ &&
 	   [[MidasCircuitViewManager Instance] viewDisplayed] &&
-	   (popupZone & MIDAS_ZONE_BOTTOM_) > 0)
-
+	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:false];
 		mapButtonOpen = false;
@@ -1912,8 +2010,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_FOLLOW_DRIVER_POPUP_ &&
 	   [[MidasFollowDriverManager Instance] viewDisplayed] &&
-	   (popupZone & MIDAS_ZONE_BOTTOM_) > 0)
-		
+	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:false];
 		followDriverButtonOpen = false;
@@ -1928,6 +2025,16 @@ static UIImage * newButtonBackgroundImage = nil;
 		[[MidasMyTeamManager Instance] hideAnimated:true Notify:false];
 		myTeamButtonOpen = false;
 		[myTeamButton setHidden:false];
+		popupDismissed= true;
+	}
+	
+	if(excludedPopupType != MIDAS_VIP_POPUP_ &&
+	   [[MidasVIPManager Instance] viewDisplayed] &&
+	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_MY_AREA_) > 0))		
+	{
+		[[MidasVIPManager Instance] hideAnimated:true Notify:false];
+		vipButtonOpen = false;
+		[vipButton setHidden:false];
 		popupDismissed= true;
 	}
 	
@@ -2002,6 +2109,10 @@ static UIImage * newButtonBackgroundImage = nil;
 			[myTeamButton setHidden:true];
 			break;
 			
+		case MIDAS_VIP_POPUP_:
+			[vipButton setHidden:true];
+			break;
+			
 		default:
 			break;
 	}
@@ -2019,6 +2130,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	switch(popupType)
 	{
 		case MIDAS_MASTER_MENU_POPUP_:
+			midasMenuButtonOpen = false;
+			[self positionMenuButtons];
 			break;
 			
 		case MIDAS_ALERTS_POPUP_:
@@ -2066,6 +2179,12 @@ static UIImage * newButtonBackgroundImage = nil;
 		case MIDAS_MY_TEAM_POPUP_:
 			myTeamButtonOpen = false;
 			[myTeamButton setHidden:false];
+			[self positionMenuButtons];
+			break;
+			
+		case MIDAS_VIP_POPUP_:
+			vipButtonOpen = false;
+			[vipButton setHidden:false];
 			[self positionMenuButtons];
 			break;
 			

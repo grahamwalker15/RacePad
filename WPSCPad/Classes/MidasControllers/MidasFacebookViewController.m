@@ -15,10 +15,10 @@
 {
     [super viewDidLoad];
 	
-	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 325)];
+	FacebookView * facebookView = [[FacebookView alloc] initWithFrame:CGRectMake(0, 0, 300, 332)];
 	facebookView.delegate = self;
     [self.tableContainerView addSubview:facebookView];
-	[facebookView setFrame:CGRectMake(0, 0, 300, 325)];
+	[facebookView setFrame:CGRectMake(0, 0, 300, 332)];
 	[facebookView release];
 }
 

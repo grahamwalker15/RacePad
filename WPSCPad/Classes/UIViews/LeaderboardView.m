@@ -17,6 +17,7 @@
 @synthesize tableData;
 @synthesize associatedTrackMapView;
 @synthesize smallDisplay;
+@synthesize addOutlines;
 @synthesize highlightCar;
 
 - (id)initWithCoder:(NSCoder*)coder
@@ -25,6 +26,7 @@
     {
 		associatedTrackMapView = nil;
 		smallDisplay = nil;
+		addOutlines = true;
 	}
 	
     return self;
@@ -77,28 +79,40 @@
 	NSString * text = [[self GetCellTextAtRow:row_index Col:2] retain];
 	NSString * pitText = [[self GetCellTextAtRow:row_index Col:1] retain];
 			
+	bool shadeBackground = addOutlines;
+	
 	if(followingCar && [text isEqualToString:carToFollow])
 	{
 		[self SetBGColour:dark_magenta_];
 		[self SetFGColour:white_];
+		shadeBackground = true;
 	}
 	else if([pitText isEqualToString:@"P"])
 	{
 		[self SetBGColour:[UIColor colorWithRed:0.7 green:0.7 blue:1.0 alpha:1.0]];
 		[self SetFGColour:black_];
+		shadeBackground = true;
 	}
 	else if([pitText isEqualToString:@"E"])
 	{
 		[self SetBGColour:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0]];
 		[self SetFGColour:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]];
 	}
+	else if(!addOutlines)
+	{
+		[self SetBGColour:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.3]];
+		[self SetFGColour:white_];
+	}
 	else
 	{
 		[self SetBGColour:black_];
 		[self SetFGColour:white_];
 	}
-				
-	[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:false];
+	
+	if(!shadeBackground)
+		[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+	else
+		[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:false];
 				
 	if([text length] > 0)
 	{				
@@ -115,9 +129,12 @@
 		[self DrawString:text AtX:xpos Y:text_y];
 	}
 	
-	[self SetFGColour:white_];
-	[self SetLineWidth:2.0];
-	[self LineRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+	if(addOutlines)
+	{
+		[self SetFGColour:white_];
+		[self SetLineWidth:2.0];
+		[self LineRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
+	}
 	
 	[text release];
 	
@@ -140,6 +157,8 @@
 	if(y < 0)
 		y = 0;
 	
+	float ybase = y;
+	
 	[self UseBoldFont];
 	
 	[self ClearScreen];
@@ -161,6 +180,34 @@
 			break;		
 	}
 	
+	// Then draw the line dividers
+	if(!addOutlines)
+	{
+		y = ybase;
+		int x_draw = 2 ;
+		int column_width = current_size_.width - 4;
+		
+		for ( int i = 0; i < row_count; i ++ )
+		{
+			[self SetFGColour:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.7]];
+			[self LineX0:x_draw Y0:y X1:x_draw + column_width Y1:y];
+
+			y += row_height ;
+			
+			if ( y > ymax )
+				break;
+			
+			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
+			[self LineX0:x_draw Y0:y-1 X1:x_draw + column_width Y1:y-1];
+		}
+		
+		[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
+		[self LineX0:x_draw + column_width Y0:ybase X1:x_draw + column_width Y1:ymax];
+		[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+		[self LineX0:x_draw + column_width+1 Y0:ybase X1:x_draw + column_width+1 Y1:ymax];
+	}
+	
+
 	[self EndDrawing];
 }
 

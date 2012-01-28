@@ -24,7 +24,8 @@
 	[super viewDidLoad];
 	
 	[alertView SetHeading:false];
-	[alertView setStandardRowHeight:20];
+	[alertView setStandardRowHeight:35];
+	[alertView setCellYMargin:10];
 	[alertView SetFont:DW_CONTROL_FONT_];
 	[alertView setDefaultTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
 	[alertView setDefaultBackgroundColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.5]];
@@ -276,11 +277,11 @@
 	switch (col)
 	{
 		case 0:
-			return 20;
+			return 35;
 		case 1:
-			return 30;
+			return 25;
 		case 2:
-			return 250;
+			return 240;
 		case 3:
 			return 0;
 		case 4:

@@ -312,6 +312,20 @@
 		7FA2223214D15A0700EBA739 /* show-My-team-extended.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2222914D15A0700EBA739 /* show-My-team-extended.png */; };
 		7FA2235C14D1A71800EBA739 /* close-video-window.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2235B14D1A71800EBA739 /* close-video-window.png */; };
 		7FA223E514D1B82400EBA739 /* Follow-driver-graphic_dummy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */; };
+		7FA2261314D2C96100EBA739 /* Twitter-connecte-layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2261214D2C96100EBA739 /* Twitter-connecte-layer.png */; };
+		7FA2268B14D2D72800EBA739 /* M-long.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2268A14D2D72800EBA739 /* M-long.png */; };
+		7FA226EC14D2E08100EBA739 /* paddock-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA226EA14D2E08100EBA739 /* paddock-1.png */; };
+		7FA226ED14D2E08100EBA739 /* paddock-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA226EB14D2E08100EBA739 /* paddock-3.png */; };
+		7FA226F114D2E09500EBA739 /* paddock-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA226EE14D2E09500EBA739 /* paddock-2.png */; };
+		7FA226F214D2E09500EBA739 /* paddock-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA226EF14D2E09500EBA739 /* paddock-4.png */; };
+		7FA226F314D2E09500EBA739 /* paddock-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA226F014D2E09500EBA739 /* paddock-5.png */; };
+		7FA2276514D2F11E00EBA739 /* MidasVIPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2276414D2F11E00EBA739 /* MidasVIPView.xib */; };
+		7FA2283314D30A7800EBA739 /* map-enlarger.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2283114D30A7800EBA739 /* map-enlarger.png */; };
+		7FA2283414D30A7800EBA739 /* map-reducer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2283214D30A7800EBA739 /* map-reducer.png */; };
+		7FA2284F14D30D0A00EBA739 /* archives.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2284D14D30D0A00EBA739 /* archives.png */; };
+		7FA2285014D30D0A00EBA739 /* live.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2284E14D30D0A00EBA739 /* live.png */; };
+		7FA228B514D31BEB00EBA739 /* Follow-graphics-def.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA228B414D31BEB00EBA739 /* Follow-graphics-def.png */; };
+		7FA2292D14D3601A00EBA739 /* DigiFortress.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2292C14D3601A00EBA739 /* DigiFortress.png */; };
 		7FA2765912F9D13D001407FD /* GameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2764E12F9D13D001407FD /* GameHelpController.m */; };
 		7FA2765A12F9D13D001407FD /* LapListHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765012F9D13D001407FD /* LapListHelpController.m */; };
 		7FA2765B12F9D13D001407FD /* MapHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765212F9D13D001407FD /* MapHelpController.m */; };
@@ -970,6 +984,20 @@
 		7FA2222914D15A0700EBA739 /* show-My-team-extended.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show-My-team-extended.png"; sourceTree = "<group>"; };
 		7FA2235B14D1A71800EBA739 /* close-video-window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-video-window.png"; sourceTree = "<group>"; };
 		7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Follow-driver-graphic_dummy.png"; sourceTree = "<group>"; };
+		7FA2261214D2C96100EBA739 /* Twitter-connecte-layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-connecte-layer.png"; sourceTree = "<group>"; };
+		7FA2268A14D2D72800EBA739 /* M-long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M-long.png"; sourceTree = "<group>"; };
+		7FA226EA14D2E08100EBA739 /* paddock-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paddock-1.png"; sourceTree = "<group>"; };
+		7FA226EB14D2E08100EBA739 /* paddock-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paddock-3.png"; sourceTree = "<group>"; };
+		7FA226EE14D2E09500EBA739 /* paddock-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paddock-2.png"; sourceTree = "<group>"; };
+		7FA226EF14D2E09500EBA739 /* paddock-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paddock-4.png"; sourceTree = "<group>"; };
+		7FA226F014D2E09500EBA739 /* paddock-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paddock-5.png"; sourceTree = "<group>"; };
+		7FA2276414D2F11E00EBA739 /* MidasVIPView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasVIPView.xib; path = ResourceFiles/MidasVIPView.xib; sourceTree = "<group>"; };
+		7FA2283114D30A7800EBA739 /* map-enlarger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-enlarger.png"; sourceTree = "<group>"; };
+		7FA2283214D30A7800EBA739 /* map-reducer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-reducer.png"; sourceTree = "<group>"; };
+		7FA2284D14D30D0A00EBA739 /* archives.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archives.png; sourceTree = "<group>"; };
+		7FA2284E14D30D0A00EBA739 /* live.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = live.png; sourceTree = "<group>"; };
+		7FA228B414D31BEB00EBA739 /* Follow-graphics-def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Follow-graphics-def.png"; sourceTree = "<group>"; };
+		7FA2292C14D3601A00EBA739 /* DigiFortress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DigiFortress.png; sourceTree = "<group>"; };
 		7FA2764D12F9D13D001407FD /* GameHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelpController.h; sourceTree = "<group>"; };
 		7FA2764E12F9D13D001407FD /* GameHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHelpController.m; sourceTree = "<group>"; };
 		7FA2764F12F9D13D001407FD /* LapListHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapListHelpController.h; sourceTree = "<group>"; };
@@ -1707,6 +1735,7 @@
 		7FA4D1A514C9C58500945ABD /* SocialMediaImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA2261214D2C96100EBA739 /* Twitter-connecte-layer.png */,
 				7FA4D2AA14CA22C100945ABD /* Twitter-mini-icon-blue.png */,
 				7FA4D1A614C9C5AE00945ABD /* activeuser.png */,
 				7FA4D1A714C9C5AE00945ABD /* Facebook-capsule.png */,
@@ -1792,6 +1821,9 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA2292C14D3601A00EBA739 /* DigiFortress.png */,
+				7FA2284D14D30D0A00EBA739 /* archives.png */,
+				7FA2284E14D30D0A00EBA739 /* live.png */,
 				7FA2235B14D1A71800EBA739 /* close-video-window.png */,
 				7FA4D54514CC23D700945ABD /* NationalFlags */,
 				7FA4D1A514C9C58500945ABD /* SocialMediaImages */,
@@ -1900,6 +1932,7 @@
 				7FA9685514B4A148006B072C /* MidasVideoView.xib */,
 				7FA967DE14B49013006B072C /* MidasWorkOffline.xib */,
 				7FA9662714B46F50006B072C /* MidasMainWindow.xib */,
+				7FA2276414D2F11E00EBA739 /* MidasVIPView.xib */,
 				7FA9666F14B47544006B072C /* MidasHomeView.xib */,
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
@@ -2105,6 +2138,8 @@
 		7FFE79C314B89BAE007D27A2 /* CircuitViews */ = {
 			isa = PBXGroup;
 			children = (
+				7FA2283114D30A7800EBA739 /* map-enlarger.png */,
+				7FA2283214D30A7800EBA739 /* map-reducer.png */,
 				7FA4C65814C45CA800945ABD /* Onboard1.png */,
 				7FA4C65914C45CA800945ABD /* Onboard2.png */,
 				7FA4C65A14C45CA800945ABD /* Onboard3.png */,
@@ -2124,6 +2159,7 @@
 		7FFE79F114B8A381007D27A2 /* FollowDriver */ = {
 			isa = PBXGroup;
 			children = (
+				7FA228B414D31BEB00EBA739 /* Follow-graphics-def.png */,
 				7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */,
 				7FFE85F614C08C43007D27A2 /* Line-FD-5.png */,
 				7FFE7A4414B9A6D1007D27A2 /* hide-advanced-follow-driver.png */,
@@ -2153,6 +2189,9 @@
 		7FFE7A0914B8A443007D27A2 /* VIP */ = {
 			isa = PBXGroup;
 			children = (
+				7FA226EE14D2E09500EBA739 /* paddock-2.png */,
+				7FA226EF14D2E09500EBA739 /* paddock-4.png */,
+				7FA226F014D2E09500EBA739 /* paddock-5.png */,
 				7FFE7A0A14B8A463007D27A2 /* VIP-mini-icon.png */,
 			);
 			path = VIP;
@@ -2161,6 +2200,8 @@
 		7FFE7A0C14B8A46C007D27A2 /* MyTeam */ = {
 			isa = PBXGroup;
 			children = (
+				7FA226EA14D2E08100EBA739 /* paddock-1.png */,
+				7FA226EB14D2E08100EBA739 /* paddock-3.png */,
 				7FA2222114D15A0700EBA739 /* hide-My-team-extended.png */,
 				7FA2222214D15A0700EBA739 /* My-team-container.png */,
 				7FA2222314D15A0700EBA739 /* My-team-extended.png */,
@@ -2178,6 +2219,7 @@
 		7FFE7B8A14BAF586007D27A2 /* M_Menu */ = {
 			isa = PBXGroup;
 			children = (
+				7FA2268A14D2D72800EBA739 /* M-long.png */,
 				7FFE7B8B14BAF5C5007D27A2 /* M-Menu-icon.png */,
 				7FFE7B8C14BAF5C5007D27A2 /* M-menu-layer-70.png */,
 				7FFE7B8D14BAF5C5007D27A2 /* M-menu-layer-100.png */,
@@ -2690,6 +2732,20 @@
 				7FA2223214D15A0700EBA739 /* show-My-team-extended.png in Resources */,
 				7FA2235C14D1A71800EBA739 /* close-video-window.png in Resources */,
 				7FA223E514D1B82400EBA739 /* Follow-driver-graphic_dummy.png in Resources */,
+				7FA2261314D2C96100EBA739 /* Twitter-connecte-layer.png in Resources */,
+				7FA2268B14D2D72800EBA739 /* M-long.png in Resources */,
+				7FA226EC14D2E08100EBA739 /* paddock-1.png in Resources */,
+				7FA226ED14D2E08100EBA739 /* paddock-3.png in Resources */,
+				7FA226F114D2E09500EBA739 /* paddock-2.png in Resources */,
+				7FA226F214D2E09500EBA739 /* paddock-4.png in Resources */,
+				7FA226F314D2E09500EBA739 /* paddock-5.png in Resources */,
+				7FA2276514D2F11E00EBA739 /* MidasVIPView.xib in Resources */,
+				7FA2283314D30A7800EBA739 /* map-enlarger.png in Resources */,
+				7FA2283414D30A7800EBA739 /* map-reducer.png in Resources */,
+				7FA2284F14D30D0A00EBA739 /* archives.png in Resources */,
+				7FA2285014D30D0A00EBA739 /* live.png in Resources */,
+				7FA228B514D31BEB00EBA739 /* Follow-graphics-def.png in Resources */,
+				7FA2292D14D3601A00EBA739 /* DigiFortress.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

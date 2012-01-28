@@ -15,6 +15,7 @@
 #import "TrackMapView.h"
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
+#import "HeadToHeadView.h"
 
 #import "BasePadMedia.h"
 #import "MidasVideoViewController.h"
@@ -44,13 +45,18 @@
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackMapView];
 	[leaderboardView setSmallDisplay:true];
+	[leaderboardView setAddOutlines:false];
 	
 	// Set parameters for views
 	[trackMapView setIsZoomView:true];
 	[trackMapView setSmallSized:true];
+	[trackMapView setMidasStyle:true];
+
 	
 	[trackMapView setUserScale:10.0];
-	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
+	[trackMapContainer setStyle:BG_STYLE_MIDAS_TRANSPARENT_];
+	
+	[headToHeadView setMiniDisplay:true];
 		
 	//  Add extra gesture recognizers
 		
@@ -63,6 +69,12 @@
 	[self addTapRecognizerToView:leaderboardView];
 	[self addLongPressRecognizerToView:leaderboardView];
 	
+	// Add tap, double tap, pan and pinch for graph
+	[self addTapRecognizerToView:headToHeadView];
+	[self addDoubleTapRecognizerToView:headToHeadView];
+	[self addPanRecognizerToView:headToHeadView];
+	[self addPinchRecognizerToView:headToHeadView];
+	
 	// Set paramters for views
 	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.3]];
 	
@@ -70,6 +82,7 @@
 	[[RacePadCoordinator Instance] AddView:lapTimesView WithType:RPC_LAP_LIST_VIEW_];
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
+	[[RacePadCoordinator Instance] AddView:headToHeadView WithType:RPC_HEAD_TO_HEAD_VIEW_];
 	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];			
 }
 
@@ -191,6 +204,10 @@
 			{
 				driverFound = true;
 				
+				// Get the driver number
+				int driverNumber = [self getDriverNumber:abbr];
+				[driverNumberLabel setText:[NSString stringWithFormat:@"%d", driverNumber]];
+
 				// Get image list for the driver images
 				RacePadDatabase *database = [RacePadDatabase Instance];
 				ImageListStore * image_store = [database imageListStore];
@@ -329,11 +346,66 @@
 				{
 					[onboardVideoButton setBackgroundImage:[UIImage imageNamed:@"preview-video-layer.png"] forState:UIControlStateNormal];
 				}
-				
-				
 			}
 		}
 	}
+}
+
+- (int) getDriverNumber:(NSString *)tag
+{
+	if(!tag)
+		return 1;
+	
+	if([tag compare:@"VET"] == NSOrderedSame)
+		return 1;
+	if([tag compare:@"WEB"] == NSOrderedSame)
+		return 2;
+	if([tag compare:@"HAM"] == NSOrderedSame)
+		return 3;
+	if([tag compare:@"BUT"] == NSOrderedSame)
+		return 4;
+	if([tag compare:@"ALO"] == NSOrderedSame)
+		return 5;
+	if([tag compare:@"MAS"] == NSOrderedSame)
+		return 6;
+	if([tag compare:@"MSC"] == NSOrderedSame)
+		return 7;
+	if([tag compare:@"ROS"] == NSOrderedSame)
+		return 8;
+	if([tag compare:@"SEN"] == NSOrderedSame)
+		return 9;
+	if([tag compare:@"PET"] == NSOrderedSame)
+		return 10;
+	if([tag compare:@"SUT"] == NSOrderedSame)
+		return 11;
+	if([tag compare:@"DIR"] == NSOrderedSame)
+		return 12;
+	if([tag compare:@"BAR"] == NSOrderedSame)
+		return 14;
+	if([tag compare:@"MAL"] == NSOrderedSame)
+		return 15;
+	if([tag compare:@"PER"] == NSOrderedSame)
+		return 16;
+	if([tag compare:@"KOB"] == NSOrderedSame)
+		return 17;
+	if([tag compare:@"BUE"] == NSOrderedSame)
+		return 18;
+	if([tag compare:@"ALG"] == NSOrderedSame)
+		return 19;
+	if([tag compare:@"KOV"] == NSOrderedSame)
+		return 20;
+	if([tag compare:@"TRU"] == NSOrderedSame)
+		return 21;
+	if([tag compare:@"RIC"] == NSOrderedSame)
+		return 22;
+	if([tag compare:@"LIU"] == NSOrderedSame)
+		return 23;
+	if([tag compare:@"GLO"] == NSOrderedSame)
+		return 24;
+	if([tag compare:@"DAM"] == NSOrderedSame)
+		return 25;
+	
+	return 1;
 }
 
 -(IBAction)movieSelected:(id)sender
@@ -402,19 +474,79 @@
 			
 			[trackMapView followCar:driverToFollow];
 			
+			// Head to head
+			HeadToHead * headToHead = [[RacePadDatabase Instance] headToHead];
+			if(headToHead)
+			{
+				[headToHead setDriver0:driverToFollow];
+				[headToHead setDriver1:nil];
+			}
+			
 			// Force reload of data
 			[[RacePadCoordinator Instance] SetViewHidden:self];
 			[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
+			[[RacePadCoordinator Instance] SetViewHidden:headToHeadView];
+			[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
 			[[RacePadCoordinator Instance] SetViewDisplayed:self];
 			[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:headToHeadView];
 
 			[leaderboardView RequestRedraw];
 			[trackMapView RequestRedraw];
+			[headToHeadView RequestRedraw];
 						
 			return;
 		}
 	}
 	
+}
+
+- (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
+{
+	if(!gestureView)
+		return;
+	
+	if([gestureView isKindOfClass:[HeadToHeadView class]])
+	{
+		if(gestureStartPoint.x > [gestureView bounds].size.width - 50)
+			[(HeadToHeadView *)gestureView adjustScaleY:scale X:x Y:y];	
+		else
+			[(HeadToHeadView *)gestureView adjustScaleX:scale X:x Y:y];	
+		
+		[(HeadToHeadView *)gestureView RequestRedraw];
+	}
+}
+
+- (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	if(!gestureView)
+		return;
+	
+	if([gestureView isKindOfClass:[HeadToHeadView class]])
+	{
+		[(HeadToHeadView *)gestureView setUserOffsetX:0.0];
+		[(HeadToHeadView *)gestureView setUserScaleX:1.0];
+		[(HeadToHeadView *)gestureView setUserOffsetY:0.0];
+		[(HeadToHeadView *)gestureView setUserScaleY:1.0];
+		[(HeadToHeadView *)gestureView RequestRedraw];
+	}
+}
+
+- (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
+{
+	// Ignore lifting finger
+	if(state == UIGestureRecognizerStateEnded)
+		return;
+	
+	if([gestureView isKindOfClass:[HeadToHeadView class]])
+	{
+		if(gestureStartPoint.x > [gestureView bounds].size.width - 50)
+			[(HeadToHeadView *)gestureView adjustPanY:y];
+		else
+			[(HeadToHeadView *)gestureView adjustPanX:x];
+		
+		[(HeadToHeadView *)gestureView RequestRedraw];
+	}
 }
 
 - (void) onDisplay
@@ -441,9 +573,13 @@
 
 - (void) onHide
 {
+	// Reduce view if it was expanded on closing
 	if(expanded)
 	{
-		[self reduceViewAnimated:false];		
+		[self reduceViewAnimated:false];
+		
+		if(associatedManager)
+			[associatedManager moveToPositionX:self.view.frame.origin.x Animated:false];
 	}
 
 	[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
@@ -478,7 +614,7 @@
 @implementation MidasFollowDriverLapListView
 
 // Override column widths received from server : table width 580
-- (int) ColumnWidth:(int)col;
+- (int) ColumnWidth:(int)col
 {
 	switch (col)
 	{
@@ -520,6 +656,9 @@
 			
 		case 12:
 			return 40;
+			
+		default:
+			return 30;
 	}
 	
 	return 30;

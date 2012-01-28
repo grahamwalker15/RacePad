@@ -751,12 +751,10 @@
 			if ( y > ymax )
 				break;
 		
-			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
-			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3]];
-			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
-			[self SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
-			[self LineX0:0 Y0:y-2 X1:content_width Y1:y-2];
+			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]];
+			[self LineX0:0 Y0:y-1 X1:content_width Y1:y-1];
+			[self SetFGColour:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.8]];
+			[self LineX0:0 Y0:y X1:content_width Y1:y];
 		}
 	}
 									
@@ -883,6 +881,9 @@
 			}
 		}
 	}
+	
+	if(row >= 0 && row < SLV_MAX_ROWS)
+		maxRowHeightCache[row] = maxHeight;
 	
 	return maxHeight;
 }

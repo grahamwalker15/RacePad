@@ -28,7 +28,7 @@
 
 - (void)baseSocialmediaAboutToHide:(BaseSocialmediaView *)controller
 {
-	[self performSelector:@selector(autoDismiss) withObject:nil afterDelay: 2.0];
+	[self performSelector:@selector(autoDismiss) withObject:nil afterDelay: 1.5];
 }
 
 

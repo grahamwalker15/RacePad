@@ -299,9 +299,7 @@
     [NSTimer scheduledTimerWithTimeInterval:90 target:self selector:@selector(loadTweets) userInfo:nil repeats:YES];
 #endif
     
-    {
-        self.sendButton.hidden = NO;
-        
+    {        
 #ifndef INTEGRATED_IN_MIDAS
         self.shad1.hidden = NO;
         self.shad2.hidden = NO;

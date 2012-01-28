@@ -71,6 +71,7 @@
 	[[MidasCircuitViewManager Instance] onStartUp];
 	[[MidasFollowDriverManager Instance] onStartUp];
 	[[MidasMyTeamManager Instance] onStartUp];
+	[[MidasVIPManager Instance] onStartUp];
 	[[MidasAlertsManager Instance] onStartUp];
 	[[MidasTwitterManager Instance] onStartUp];
 	[[MidasFacebookManager Instance] onStartUp];

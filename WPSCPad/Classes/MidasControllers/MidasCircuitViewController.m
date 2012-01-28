@@ -22,6 +22,7 @@
 	[trackMapView setIsZoomView:false];
 	[trackMapView setIsOverlayView:true];
 	[trackMapView setSmallSized:true];
+	[trackMapView setMidasStyle:true];
 	
 	[self addTapRecognizerToView:movieSelectorView];
 	

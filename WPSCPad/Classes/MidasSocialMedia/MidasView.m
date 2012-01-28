@@ -112,11 +112,6 @@
     [self.dummyEntryUserId addObject:@"@kyliem "];
     [self.dummyEntryUserId addObject:@"@rschumacher "];
     
-    self.sendButton.hidden = NO;
-    
-    [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
-    [self.sendButton setBackgroundImage:[UIImage imageNamed:@"Midas-capsule.png"] forState:UIControlStateNormal];
-    [self.sendButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (NSString *)getDefaultText{
@@ -154,7 +149,7 @@
 }
 
 - (CGRect)getCommentTextFrame:(CGFloat)height{
-    return CGRectMake(60, 13, 246, height + 10);
+    return CGRectMake(60, 13, 246, height + 15);
 }
 
 - (UIColor *)getTextColour {
@@ -173,7 +168,7 @@
 }
 
 - (CGRect)getSendTextFrame {
-    return CGRectMake(8, 49, 245, 20);
+    return CGRectMake(40, 49, 246, 27);
 }
 
 - (UIImage *)getFooterText{

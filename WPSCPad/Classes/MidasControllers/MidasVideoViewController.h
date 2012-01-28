@@ -50,9 +50,9 @@
 	IBOutlet UIButton * twitterButton;
 	IBOutlet UIButton * facebookButton;
 	IBOutlet UIButton * midasChatButton;
+	IBOutlet UIButton * dfButton;
 	
 	IBOutlet UIButton * lapCounterButton;
-	IBOutlet UIButton * userNameButton;
 	
 	IBOutlet UIButton * standingsButton;
 	IBOutlet UIButton * mapButton;
@@ -74,7 +74,6 @@
 	bool facebookButtonOpen;
 	bool midasChatButtonOpen;	
 	bool lapCounterButtonOpen;
-	bool userNameButtonOpen;
 	bool standingsButtonOpen;
 	bool mapButtonOpen;
 	bool followDriverButtonOpen;
@@ -97,6 +96,8 @@
 	bool displayMap;
 	bool displayLeaderboard;
 	
+	bool disableOverlays;
+	
 	bool menuButtonsDisplayed;
 	bool menuButtonsAnimating;
 	bool firstDisplay;
@@ -116,7 +117,6 @@
 @property (nonatomic) bool facebookButtonOpen;
 @property (nonatomic) bool midasChatButtonOpen;	
 @property (nonatomic) bool lapCounterButtonOpen;
-@property (nonatomic) bool userNameButtonOpen;
 @property (nonatomic) bool standingsButtonOpen;
 @property (nonatomic) bool mapButtonOpen;
 @property (nonatomic) bool followDriverButtonOpen;
@@ -130,6 +130,7 @@
 - (void) positionOverlays;
 
 - (void)setMapDisplayed:(bool)state;
+- (void)setOverlaysDisabled:(bool)state;
 
 - (bool) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
 - (void) prePositionMovieView:(MovieView *)newView From:(int)movieDirection;

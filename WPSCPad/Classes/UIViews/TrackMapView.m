@@ -17,6 +17,8 @@
 @synthesize isZoomView;
 @synthesize isOverlayView;
 @synthesize smallSized;
+@synthesize midasStyle;
+
 @synthesize homeXOffset;
 @synthesize homeYOffset;
 @synthesize homeScale;
@@ -101,6 +103,8 @@ static bool flag_images_initialised_ = false;
 	isZoomView = false;
 	isOverlayView = false;
 	smallSized = false;
+	
+	midasStyle = false;
 	
 	isAnimating = false;
 	animationDirection = 0;

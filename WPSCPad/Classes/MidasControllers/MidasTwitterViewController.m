@@ -14,10 +14,10 @@
 {
     [super viewDidLoad];
 	
-	TwitterView * twitterView = [[TwitterView alloc] initWithFrame:CGRectMake(0, 0, 300, 325)];
+	TwitterView * twitterView = [[TwitterView alloc] initWithFrame:CGRectMake(0, 0, 300, 332)];
 	twitterView.delegate = self;
     [self.tableContainerView addSubview:twitterView];
-	[twitterView setFrame:CGRectMake(0, 0, 300, 325)];
+	[twitterView setFrame:CGRectMake(0, 0, 300, 332)];
 	[twitterView release];
 }
 

@@ -42,10 +42,10 @@
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="1055181932">
+					<object class="IBUIView" id="331459838">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 44}, {300, 281}}</string>
+						<string key="NSFrame">{{0, 44}, {300, 288}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -59,10 +59,10 @@
 						<float key="IBUIAlpha">0.89999997615814209</float>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIView" id="738158049">
+					<object class="IBUIView" id="480250746">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">288</int>
-						<string key="NSFrameSize">{300, 325}</string>
+						<string key="NSFrameSize">{300, 332}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="804803239">
 							<int key="NSColorSpace">3</int>
@@ -74,7 +74,7 @@
 					<object class="IBUIImageView" id="103047974">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 325}, {300, 60}}</string>
+						<string key="NSFrame">{{0, 332}, {300, 60}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<reference key="IBUIBackgroundColor" ref="804803239"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -84,10 +84,10 @@
 							<string key="NSResourceName">twitter-selected.png</string>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="246802132">
+					<object class="IBUIImageView" id="225557335">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 317}, {300, 8}}</string>
+						<string key="NSFrame">{{0, 324}, {300, 8}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<reference key="IBUIBackgroundColor" ref="804803239"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -100,7 +100,7 @@
 					<object class="IBUIImageView" id="247579995">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">265</int>
-						<string key="NSFrame">{{235, 325}, {55, 60}}</string>
+						<string key="NSFrame">{{235, 332}, {55, 60}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -112,7 +112,7 @@
 					<object class="IBUIImageView" id="1034419557">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">265</int>
-						<string key="NSFrame">{{10, 325}, {143, 60}}</string>
+						<string key="NSFrame">{{10, 332}, {143, 60}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -123,7 +123,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{300, 385}</string>
+				<string key="NSFrameSize">{300, 392}</string>
 				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="804803239"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -153,7 +153,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tableBackgroundView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="1055181932"/>
+						<reference key="destination" ref="331459838"/>
 					</object>
 					<int key="connectionID">38</int>
 				</object>
@@ -161,7 +161,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tableContainerView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="738158049"/>
+						<reference key="destination" ref="480250746"/>
 					</object>
 					<int key="connectionID">40</int>
 				</object>
@@ -194,9 +194,9 @@
 							<reference ref="1034419557"/>
 							<reference ref="247579995"/>
 							<reference ref="103047974"/>
-							<reference ref="1055181932"/>
-							<reference ref="738158049"/>
-							<reference ref="246802132"/>
+							<reference ref="331459838"/>
+							<reference ref="480250746"/>
+							<reference ref="225557335"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -217,17 +217,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">37</int>
-						<reference key="object" ref="1055181932"/>
+						<reference key="object" ref="331459838"/>
 						<reference key="parent" ref="730374200"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">39</int>
-						<reference key="object" ref="738158049"/>
+						<reference key="object" ref="480250746"/>
 						<reference key="parent" ref="730374200"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
-						<reference key="object" ref="246802132"/>
+						<reference key="object" ref="225557335"/>
 						<reference key="parent" ref="730374200"/>
 					</object>
 				</object>
@@ -257,7 +257,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MidasTwitterViewController</string>
 					<string>UIResponder</string>
-					<string>{{564, 449}, {300, 385}}</string>
+					<string>{{564, 442}, {300, 392}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">

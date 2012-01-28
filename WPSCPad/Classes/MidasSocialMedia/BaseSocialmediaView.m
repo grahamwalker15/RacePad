@@ -55,7 +55,6 @@ static NSUInteger const kTwitReplyTag = 11;
 @synthesize userIcon;
 @synthesize userName;
 @synthesize sendText;
-@synthesize sendButton;
 
 @synthesize shad1;
 @synthesize shad2;
@@ -120,9 +119,7 @@ static NSUInteger const kTwitReplyTag = 11;
         self.topSendIcon.alpha = kAlphaValue;
  		
         self.lastMessageCount = 0;
-        
-        self.sendButton.hidden = YES;
-		
+        		
         self.shad1.hidden = YES;
         self.shad2.hidden = YES;
         self.shad2_1.hidden = YES;
@@ -611,7 +608,7 @@ static NSUInteger const kTwitReplyTag = 11;
 }
 
 - (CGRect)getSendTextFrame {
-    return CGRectMake(40, 49, 213, 20);
+    return CGRectMake(40, 49, 246, 27);
 }
 
 - (CGRect)getTimeTextFrame:(CGFloat)height{
@@ -638,7 +635,7 @@ static NSUInteger const kTwitReplyTag = 11;
 }
 
 - (UIImage *)getHeaderIcon {
-    UIImage *ret = [UIImage imageNamed:@"Twitter-front-layer.png"];
+    UIImage *ret = [UIImage imageNamed:@"Twitter-connecte-layer.png"];
     return ret;
 }
 
@@ -867,11 +864,11 @@ static NSUInteger const kTwitReplyTag = 11;
         cIcon.image = [self getSendLogo];
         [cell.contentView addSubview:cIcon];
         
-        cText = [[UITextField alloc] initWithFrame:CGRectMake(40, tHeight + 34 + ((numoflines == 0) ? 11 : 11), 213, 20)]; //(self.viewType == Twitter) ?  213 : 248, 20)];
+        cText = [[UITextField alloc] initWithFrame:CGRectMake(40, tHeight + 34 + ((numoflines == 0) ? 8 : 8), 246, 27)]; //(self.viewType == Twitter) ?  213 : 248, 20)];
         //cText = [[UITextView alloc] initWithFrame:CGRectMake(48, tHeight + 40 + ((cComment.numberOfLines == 1) ? 19 : 0), 242, 31)];
         cText.tag = kTextTag;
         //cText.alpha = kAlphaValue;
-        cText.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
+        cText.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
         cText.hidden = YES;
         cText.delegate = self;
         cText.textAlignment = UITextAlignmentLeft;
@@ -897,7 +894,7 @@ static NSUInteger const kTwitReplyTag = 11;
             ctwitReply = [UIButton buttonWithType:UIButtonTypeCustom];
             ctwitReply.tag = kTwitReplyTag;
             cTwitter.alpha = kAlphaValue;
-            ctwitReply.enabled = YES;
+            // GG : REMOVE TWITTER BUTTON ctwitReply.enabled = YES;
             ctwitReply.hidden = YES;
             ctwitReply.userInteractionEnabled = YES;
             [ctwitReply addTarget:self action:@selector(sendReply:) forControlEvents:UIControlEventTouchDown];
@@ -919,7 +916,7 @@ static NSUInteger const kTwitReplyTag = 11;
                 [ctwitReply setBackgroundImage:[UIImage imageNamed:@"Midas-capsule.png"] forState:UIControlStateNormal];
                 [ctwitReply setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             }
-            [cell.contentView addSubview:ctwitReply];
+            // GG : REMOVE TWITTER BUTTON [cell.contentView addSubview:ctwitReply];
             
             cRepliedIcon = [[UIImageView alloc] initWithFrame:CGRectMake(280, 12, 8, 8)];
             cRepliedIcon.tag = kRepliedIconTag;
@@ -1010,7 +1007,7 @@ static NSUInteger const kTwitReplyTag = 11;
     {
         cIcon.hidden = NO;
         cText.hidden = NO;
-        ctwitReply.hidden = NO;
+        // GG : REMOVE TWITTER BUTTON ctwitReply.hidden = NO;
     }
     else
     {
@@ -1130,9 +1127,9 @@ static NSUInteger const kTwitReplyTag = 11;
 	
 	if (updateTime >= 0.0 && self.replying == NO)
 	{        
-		if(startOfSearch < [self.entryTimings count])
+		if(startOfSearch < [self.dummyEntryName count])
 		{
-			for (int i = startOfSearch; i < [self.entryTimings count]; i++)
+			for (int i = startOfSearch; i < [self.dummyEntryName count]; i++)
 			{
 				float messageTime = [[self.entryTimings objectAtIndex:i] floatValue];
 				if (updateTime >= messageTime)

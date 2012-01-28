@@ -63,7 +63,8 @@ enum PopupMenuZones
 	MIDAS_ZONE_BOTTOM_ = 0x1,
 	MIDAS_ZONE_TOP_ = 0x2,
 	MIDAS_ZONE_SOCIAL_MEDIA_ = 0x4,
-	MIDAS_ZONE_MY_AREA_ = 0x8,
+	MIDAS_ZONE_DATA_AREA_ = 0x8,
+	MIDAS_ZONE_MY_AREA_ = 0x10,
 };
 
 @protocol MidasPopupParentDelegate

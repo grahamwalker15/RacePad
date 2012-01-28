@@ -46,9 +46,7 @@
 {
 	// Register the view controller
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_COUNT_VIEW_];
-	
-	[self updateButtons];
-	
+		
 	[[CommentaryBubble Instance] noBubbles];
 	
 	// We disable the screen locking - because that seems to close the socket
@@ -103,70 +101,16 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 
-- (void) updateButtons
+
+
+-(IBAction)loadArchive
 {
-	int tabCount = [[RacePadCoordinator Instance] tabCount];
-	
-	[button1 setHidden:(tabCount <= 1)];
-	[button2 setHidden:(tabCount <= 2)];
-	[button3 setHidden:(tabCount <= 3)];
-	[button4 setHidden:(tabCount <= 4)];
-	[button5 setHidden:(tabCount <= 5)];
-	[button6 setHidden:(tabCount <= 6)];
-	[button7 setHidden:(tabCount <= 7)];
-	
-	[button1  setTitle:[[RacePadCoordinator Instance] tabTitle:1] forState:UIControlStateNormal];
-	[button2  setTitle:[[RacePadCoordinator Instance] tabTitle:2] forState:UIControlStateNormal];
-	[button3  setTitle:[[RacePadCoordinator Instance] tabTitle:3] forState:UIControlStateNormal];
-	[button4  setTitle:[[RacePadCoordinator Instance] tabTitle:4] forState:UIControlStateNormal];
-	[button5  setTitle:[[RacePadCoordinator Instance] tabTitle:5] forState:UIControlStateNormal];
-	[button6  setTitle:[[RacePadCoordinator Instance] tabTitle:6] forState:UIControlStateNormal];
-	[button7  setTitle:[[RacePadCoordinator Instance] tabTitle:7] forState:UIControlStateNormal];
-	
-	[button1 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-	[button2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-	[button3 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-	[button4 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-	[button5 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-	[button6 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-	[button7 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+	[[RacePadCoordinator Instance] loadSession:@"09_11Mza" Session:@"Race"];
 }
 
-- (IBAction) buttonPressed:(id)sender
-{	
-	int tabSelected = -1;
-	
-	if( sender == button1 )
-	{
-		tabSelected = 1;
-	}
-	else if( sender == button2 )
-	{
-		tabSelected = 2;
-	}
-	else if( sender == button3 )
-	{
-		tabSelected = 3;
-	}
-	else if( sender == button4 )
-	{
-		tabSelected = 4;
-	}
-	else if( sender == button5 )
-	{
-		tabSelected = 5;
-	}
-	else if( sender == button6 )
-	{
-		tabSelected = 6;
-	}
-	else if( sender == button7 )
-	{
-		tabSelected = 7;
-	}
-	
-	if(tabSelected >= 0)
-		[[RacePadCoordinator Instance] selectTab:tabSelected];
+-(IBAction)loadLive
+{
+	[[RacePadCoordinator Instance] loadSession:@"09_11Mza" Session:@"Race"];
 }
 
 @end

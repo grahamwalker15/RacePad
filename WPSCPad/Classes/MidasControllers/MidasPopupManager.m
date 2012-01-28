@@ -179,10 +179,10 @@ static MidasVIPManager * vipInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasDemoImageView" bundle:nil];
+		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasVIPView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_VIP_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_DATA_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -210,7 +210,7 @@ static MidasMyTeamManager * myTeamInstance_ = nil;
 		viewController = [[MidasMyTeamViewController alloc] initWithNibName:@"MidasMyTeamView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_MY_TEAM_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_DATA_AREA_];
 		[viewController setAssociatedManager:self];
 	}
 	

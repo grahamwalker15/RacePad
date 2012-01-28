@@ -50,8 +50,7 @@ typedef enum { Twitter = 0, Facebook, Midas } ViewType;
 	UIImageView *userIcon;
 	UILabel *userName;
 	UITextField *sendText;
-    UIButton *sendButton;
-	
+ 	
 	UIImageView *shad1;
 	UIImageView *shad2;
 	UIImageView *shad2_1;
@@ -103,7 +102,6 @@ typedef enum { Twitter = 0, Facebook, Midas } ViewType;
 @property (nonatomic, retain) IBOutlet UIImageView *userIcon;
 @property (nonatomic, retain) IBOutlet UILabel *userName;
 @property (nonatomic, retain) IBOutlet UITextField *sendText;
-@property (nonatomic, retain) IBOutlet UIButton *sendButton;
 
 @property (nonatomic, retain) IBOutlet UIImageView *shad1;
 @property (nonatomic, retain) IBOutlet UIImageView *shad2;

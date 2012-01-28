@@ -955,8 +955,21 @@ static UIImage *grassImage = nil;
 			[view UseBoldFont];
 		else
 		 */
-			[view UseMediumBoldFont];
-		
+		if([view midasStyle])
+		{
+			if ( [view smallSized] )
+				[view UseFont:DW_LIGHT_CONTROL_FONT_];
+			else
+				[view UseFont:DW_LIGHT_LARGER_CONTROL_FONT_];
+		}
+		else
+		{
+			if ( [view smallSized] )
+				[view UseControlFont];
+			else
+				[view UseMediumBoldFont];
+		}
+				
 		float x, y;
 		[label labelPoint:view Scale: scale X:&x Y:&y];
 		CGPoint p = CGPointMake(x, y);
@@ -973,11 +986,21 @@ static UIImage *grassImage = nil;
 
 - (void) drawCars : (TrackMapView *) view Scale:(float)scale
 {
-	if ( [view smallSized] )
-		[view UseControlFont];
+	if([view midasStyle])
+	{
+		if ( [view smallSized] )
+			[view UseFont:DW_LIGHT_CONTROL_FONT_];
+		else
+			[view UseFont:DW_LIGHT_REGULAR_FONT_];
+	}
 	else
-		[view UseRegularFont];
-	
+	{
+		if ( [view smallSized] )
+			[view UseControlFont];
+		else
+			[view UseRegularFont];
+	}
+
 	int i;
 	for ( i = 0; i < carCount; i++ )
 	{
@@ -1163,7 +1186,7 @@ static UIImage *grassImage = nil;
 	}
 	else
 	{
-		mapScale = mapScale * 0.9;
+		mapScale = mapScale * 0.8;
 		mapXOffset = viewSize.width * 0.5 - xCentre  ;
 		mapYOffset = viewSize.height * 0.5 + yCentre ;
 	}

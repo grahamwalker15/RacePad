@@ -151,6 +151,17 @@ static bool bg_images_initialised_ = false;
 			break;
 		}
 			
+		case BG_STYLE_MIDAS_TRANSPARENT_:
+		{
+			inset = 0;
+			
+			[self SetLineWidth:1];
+			[self SetFGColour:white_];
+			CGRect inner_rect = CGRectInset(current_bounds_, 1, 1);
+			[self LineRectangle:inner_rect];
+			break;
+		}
+			
 		case BG_STYLE_INVISIBLE_:
 		{
 			inset = 0;

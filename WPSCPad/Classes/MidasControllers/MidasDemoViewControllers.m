@@ -32,6 +32,8 @@
 	expanded = false;
 	[extensionContainer setHidden:true];
 		
+	[self addTapRecognizerToView:container];
+
 	// Tell the RacePadCoordinator that we will be interested in data for views
 	// We're not
 }
@@ -52,7 +54,7 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	[[MidasMyTeamManager Instance] setPreferredWidth:(288+640)];
+	[[MidasMyTeamManager Instance] setPreferredWidth:(250+373)];
 	
 	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyResizingPopup:)])
 		[parentViewController notifyResizingPopup:MIDAS_MY_TEAM_POPUP_];
@@ -78,7 +80,7 @@
 		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	}
 	
-	[[MidasMyTeamManager Instance] setPreferredWidth:(288)];
+	[[MidasMyTeamManager Instance] setPreferredWidth:(250)];
 	
 	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyResizingPopup:)])
 		[parentViewController notifyResizingPopup:MIDAS_MY_TEAM_POPUP_];
@@ -117,6 +119,23 @@
 		[self reduceViewAnimated:false];		
 	}
 }
+
+- (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{	
+	if(gestureView == container)
+	{
+		if(expanded)
+			[self reduceViewAnimated:true];		
+		else
+			[self expandView];
+	}
+	else
+	{
+		[super OnTapGestureInView:gestureView AtX:x Y:y];
+	}
+
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////

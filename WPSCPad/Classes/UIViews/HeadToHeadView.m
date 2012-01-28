@@ -21,6 +21,8 @@
 @synthesize userOffsetY;
 @synthesize userScaleY;
 
+@synthesize miniDisplay;
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Super class overrides
@@ -52,6 +54,8 @@
 
 - (void)InitialiseMembers
 {
+	miniDisplay = false;
+	
 	userOffsetX = 0.0;
 	userScaleX = 1.0;
 	userOffsetY = 0.0;
@@ -65,7 +69,10 @@
 	
 	if ( headToHead )
 	{
-		[headToHead drawInView:self];
+		if(miniDisplay)
+			[headToHead drawPositionSummaryInView:self];
+		else
+			[headToHead drawInView:self];
 	}
 }
 

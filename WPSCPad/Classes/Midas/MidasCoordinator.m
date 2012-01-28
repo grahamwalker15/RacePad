@@ -66,7 +66,7 @@ static MidasCoordinator * instance_ = nil;
 
 - (void) onDisplayFirstView
 {
-	[self goOffline];
+	//[self goOffline];
 }
 
 -(void)displayVideoViewController

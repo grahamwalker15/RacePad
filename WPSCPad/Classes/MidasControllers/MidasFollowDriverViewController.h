@@ -14,6 +14,7 @@
 @class TrackMapView;
 @class LeaderboardView;
 @class BackgroundView;
+@class HeadToHeadView;
 
 @interface MidasFollowDriverLapListView : TableDataView
 {
@@ -26,6 +27,7 @@
 	IBOutlet UIView * extensionContainer;
 	
 	IBOutlet MidasFollowDriverLapListView * lapTimesView;
+	IBOutlet HeadToHeadView * headToHeadView;
 	
 	IBOutlet UIImageView * animationPanelImage;
 	IBOutlet UIView * driverInfoPanel;
@@ -66,5 +68,6 @@
 - (IBAction) expandPressed;
 - (IBAction) movieSelected:(id)sender;
 
+- (int) getDriverNumber:(NSString *)tag;
 
 @end
