@@ -16,12 +16,15 @@
 
 @synthesize commentaryView;
 @synthesize shown;
-@synthesize growUp;
+@synthesize bottomRight;
+@synthesize midasStyle;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+	
+	midasStyle = false;
 	
 	[commentaryView SetHeading:false];
 	commentaryView.smallFont = true;
@@ -30,7 +33,7 @@
 	commentaryView.bubbleController = self;
 	
 	shown = false;
-	[(BackgroundView *)[self view] setStyle:BG_STYLE_ROUNDED_STRAP_];
+	[(BackgroundView *)[self view] setStyle:BG_STYLE_ROUNDED_STRAP_WHITE_];
 	
 	// Add gesture recognizers
  	// [self addTapRecognizerToView:commentaryView];
@@ -74,6 +77,17 @@
     [super dealloc];
 }
 
+- (void)setMidasStyle:(bool)state
+{
+	midasStyle = state;
+	if(midasStyle)
+		[(BackgroundView *)[self view] setStyle:BG_STYLE_ROUNDED_STRAP_BLACK_];
+	else
+		[(BackgroundView *)[self view] setStyle:BG_STYLE_ROUNDED_STRAP_WHITE_];
+	
+	[(BackgroundView *)[self view] RequestRedraw];
+}
+
 - (void) resetWidth
 {
 	int width = 490;
@@ -99,7 +113,7 @@
 	CGRect frame = [[self view] frame];
 	CGRect bFrame = [closeButton frame];
 	CGRect vFrame;
-	if ( growUp )
+	if ( bottomRight )
 		vFrame = CGRectMake ( frame.origin.x, frame.origin.y + frame.size.height - height - 8, width, height + 8 );
 	else
 		vFrame = CGRectMake ( frame.origin.x, frame.origin.y, width, height + 8 );
@@ -115,10 +129,23 @@
 {
 	shown = true;
 	commentaryView.updating = true;
+	commentaryView.midasStyle = midasStyle;
 	[commentaryView initialDraw];
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.3];
-	[[self view] setAlpha: 1];
+	
+	if(midasStyle)	// Slides on
+	{
+		if(bottomRight)
+			[[self view] setFrame:CGRectOffset(self.view.frame, -self.view.frame.size.width, 0)];
+		else
+			[[self view] setFrame:CGRectOffset(self.view.frame, self.view.frame.size.width, 0)];
+	}
+	else			// Fades in
+	{
+		[[self view] setAlpha: 1];
+	}
+	
 	[UIView commitAnimations];
 }
 
@@ -129,7 +156,19 @@
 		commentaryView.updating = false;
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.3];
-		[[self view] setAlpha: 0];
+		
+		if(midasStyle)	// Slides off
+		{
+			if(bottomRight)
+				[[self view] setFrame:CGRectOffset(self.view.frame, self.view.frame.size.width, 0)];
+			else
+				[[self view] setFrame:CGRectOffset(self.view.frame, -self.view.frame.size.width, 0)];
+		}
+		else			// Fades out
+		{
+			[[self view] setAlpha: 0];
+		}
+		
 		[UIView commitAnimations];
 	}
 	else
@@ -137,6 +176,7 @@
 		commentaryView.updating = false;
 		[[self view] setAlpha: 0];
 	}
+	
 	shown = false;
 }
 

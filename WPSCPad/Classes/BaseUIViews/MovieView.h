@@ -24,11 +24,13 @@ enum MovieViewAnimationDirections
 {
 	BasePadVideoSource * movieSource;
 	bool moviePlayerLayerAdded;
+	bool movieScheduledForRemoval;
 	UIButton * closeButton;
 }
 
 @property (nonatomic, retain) BasePadVideoSource * movieSource;
 @property (nonatomic) bool moviePlayerLayerAdded;
+@property (nonatomic) bool movieScheduledForRemoval;
 @property (nonatomic, retain) UIButton * closeButton;
 
 // Manage displayed movies

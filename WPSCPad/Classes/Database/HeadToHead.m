@@ -612,7 +612,7 @@ static UIImage *redPosArrowImage = nil;
 		greenPosArrowImage = [[UIImage imageNamed:@"ArrowUpGreen.png"] retain];
 		redPosArrowImage = [[UIImage imageNamed:@"ArrowDownRed.png"] retain];
 	}
-		
+	
 	bool driver0Present = (driver0 && [driver0 length] > 0);
 	bool driver1Present = (driver1 && [driver1 length] > 0);
 	
@@ -628,15 +628,28 @@ static UIImage *redPosArrowImage = nil;
 	float graphicWidth = size.width;
 	int x_axis = size.height - xAxisSpace;
 	
+	// Set a minimum scale such that the laps are at least 18 pixels wide
+	if(totalLapCount > 0 && graphicWidth > 0)
+	{
+		float minLapWidth = graphicWidth / totalLapCount;
+		if(minLapWidth < 18)
+		{
+			float minScale = 18 / minLapWidth;
+			[view setMinScaleX:minScale];
+			
+			if(minScale > [view userScaleX])	// Should only be true first time through
+			{
+				[view setUserScaleX:minScale];
+				[view resetUserScale];
+			}
+		}
+	}
+	   
 	CGMutablePathRef drawingArea = [DrawingView CreateRectPathX0:0 Y0:0 X1:graphicWidth Y1:size.height];
 	
 	// Work out width of a lap column, and thereby what content we can draw
 	float lapWidth = ([view transformX:1.0 / (float)totalLapCount] - [view transformX:0.0]) * graphicWidth;
-	
-	// Make it a minimum of 20 pixels
-	if(lapWidth < 20)
-		lapWidth = 20;
-	
+		
 	bool drawArrows = lapWidth >= 10;
 	bool drawPosText = lapWidth >= 15;
 	bool drawPitTextMini = lapWidth >= 15;
@@ -709,7 +722,6 @@ static UIImage *redPosArrowImage = nil;
 	[view FillRectangleX0:0 Y0:x_axis X1:graphicWidth Y1:x_axis+2];
 	
 	// Add tick marks every lap with labels every 5
-	[view UseMediumBoldFont];
 	[view SetFGColour:[view white_]];
 	[view SetBGColour:[view white_]];
 	

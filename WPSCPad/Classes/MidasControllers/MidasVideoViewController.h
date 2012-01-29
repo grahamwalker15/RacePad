@@ -53,6 +53,7 @@
 	IBOutlet UIButton * dfButton;
 	
 	IBOutlet UIButton * lapCounterButton;
+	IBOutlet UIImageView * trackStateButton;
 	
 	IBOutlet UIButton * standingsButton;
 	IBOutlet UIButton * mapButton;
@@ -89,6 +90,8 @@
 	CGSize movieSize;
 	CGRect movieRect;
 	
+	int priorityAuxMovie;
+	
 	int unselectedButtonWidth;
 	int selectedButtonWidth;
 	
@@ -100,6 +103,7 @@
 	
 	bool menuButtonsDisplayed;
 	bool menuButtonsAnimating;
+	bool moviesAnimating;
 	bool firstDisplay;
 	
 	UIButton * flashedMenuButton;
@@ -124,6 +128,8 @@
 @property (nonatomic) bool timeControlsButtonOpen;
 @property (nonatomic) bool vipButtonOpen;
 @property (nonatomic) bool myTeamButtonOpen;
+
+- (void) setTrackState: (int)state;
 
 - (void) showOverlays;
 - (void) hideOverlays;

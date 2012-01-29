@@ -24,9 +24,12 @@
 	bool bubblePref;
 	
 	bool shownBeforeRotate;
+	
+	bool midasStyle;
 }
 
 @property bool bubblePref;
+@property bool midasStyle;
 
 + (CommentaryBubble *)Instance;
 

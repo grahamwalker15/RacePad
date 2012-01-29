@@ -155,6 +155,7 @@
 		{
 			int state = [stream PopInt];
 			[[RacePadTitleBarController Instance] setTrackState:state];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_STATE_VIEW_];
 			break;
 		}
 		case RPSC_TELEMETRY_: // Telemetry Data

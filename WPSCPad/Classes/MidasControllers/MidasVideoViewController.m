@@ -86,6 +86,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	menuButtonsDisplayed = true;
 	menuButtonsAnimating = false;
+	moviesAnimating = false;
 	flashedMenuButton = nil;
 	
 	midasMenuButtonOpen = false;
@@ -113,6 +114,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	displayVideo = true;
 	
 	disableOverlays = false;
+	
+	priorityAuxMovie = 1;
 	
 	[mainMovieView setStyle:BG_STYLE_INVISIBLE_];
 	[auxMovieView1 setStyle:BG_STYLE_INVISIBLE_];
@@ -206,7 +209,7 @@ static UIImage * newButtonBackgroundImage = nil;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillAppear:(BOOL)animated
 {
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_VIDEO_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_ | RPC_TRACK_STATE_VIEW_)];
 	[[MidasCoordinator Instance] RegisterSocialmediaResponder:self WithTypeMask:MIDAS_SM_ALL_];
 	
 	// We'll get notification when we know the movie size - set it to a default for now
@@ -254,6 +257,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 	
+	[[CommentaryBubble Instance] setMidasStyle:true];
 	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
 	
 	if(firstDisplay)
@@ -467,7 +471,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	
 	[newView resizeMovieSourceWithDuration:0.0];
-	
 }
 
 - (void) positionMovieViews
@@ -476,13 +479,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	int movieViewCount = 1;
 	
-	if([auxMovieView1 moviePlayerLayerAdded])
+	if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
 		movieViewCount++;
 	
-	if([auxMovieView2 moviePlayerLayerAdded])
+	if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
 		movieViewCount++;
 	
-	// Position windows
+	// Position displayed windows
 	CGRect superBounds = [self.view bounds];
 	
 	CGRect centreViewRect = CGRectMake(324, 244,700,394);
@@ -499,8 +502,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		[self setOverlaysDisabled:false];
 		[self showOverlays];
 		[mainMovieView setFrame:superBounds];
-		[auxMovieView1 setFrame:CGRectOffset(auxMovieView1Rect, superBounds.size.width - auxMovieView1Rect.origin.x + 1, 0)]; //Slide off right
-		[auxMovieView2 setFrame:CGRectOffset(auxMovieView2Rect, 0, superBounds.size.height - auxMovieView1Rect.origin.y + 1)]; //Slide off bottom
+		priorityAuxMovie = 1;
 	}
 	else if(movieViewCount == 2)
 	{
@@ -508,9 +510,9 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomContainer setFrame:mapInsetRect];
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
-		if([auxMovieView1 moviePlayerLayerAdded])
+		if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
 			[auxMovieView1 setFrame:centreViewRect];
-		else if([auxMovieView2 moviePlayerLayerAdded])
+		else if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
 			[auxMovieView2 setFrame:centreViewRect];
 	}
 	else if(movieViewCount == 3)
@@ -520,11 +522,19 @@ static UIImage * newButtonBackgroundImage = nil;
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
 		if([auxMovieView1 moviePlayerLayerAdded])
-			[auxMovieView1 setFrame:topViewRect];
+			[auxMovieView1 setFrame:(priorityAuxMovie == 1 ? centreViewRect : topViewRect)];
 		if([auxMovieView2 moviePlayerLayerAdded])
-			[auxMovieView2 setFrame:centreViewRect];
+			[auxMovieView2 setFrame:(priorityAuxMovie == 1 ? topViewRect : centreViewRect)];
 	}
 	
+	// and move out any assigned for removal
+	if([auxMovieView1 movieScheduledForRemoval])
+		[auxMovieView1 setFrame:CGRectOffset(auxMovieView1Rect, superBounds.size.width - auxMovieView1Rect.origin.x + 1, 0)]; //Slide off right
+	
+	if([auxMovieView2 movieScheduledForRemoval])
+		[auxMovieView2 setFrame:CGRectOffset(auxMovieView2Rect, superBounds.size.width - auxMovieView2Rect.origin.x + 1, 0)]; //Slide off right
+	
+	// And move movie content to go with it
 	[mainMovieView resizeMovieSourceWithDuration:1.0];
 	[auxMovieView1 resizeMovieSourceWithDuration:1.0];
 	[auxMovieView2 resizeMovieSourceWithDuration:1.0];
@@ -533,13 +543,18 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) animateMovieViews:(MovieView *)newView From:(int)movieDirection
 {
+	if(moviesAnimating)
+		return;
+	
+	moviesAnimating = true;
+	
 	if(newView && movieDirection != MV_CURRENT_POSITION)
 		[self prePositionMovieView:newView From:movieDirection];
 
-	if([auxMovieView1 moviePlayerLayerAdded])
+	if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
 		[self showAuxMovieView:auxMovieView1];
 	
-	if([auxMovieView2 moviePlayerLayerAdded])
+	if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
 		[self showAuxMovieView:auxMovieView2];
 	
 	[UIView beginAnimations:nil context:nil];
@@ -547,7 +562,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(movieViewAnimationDidStop:finished:context:)];
 		
-	//[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 	[UIView setAnimationDuration:1.0];
 		
 	[self positionMovieViews];
@@ -559,12 +573,19 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	if([finished intValue] == 1)
 	{
-		if(![auxMovieView1 moviePlayerLayerAdded])
+		moviesAnimating = false;
+		
+		if(![auxMovieView1 moviePlayerLayerAdded] || [auxMovieView1 movieScheduledForRemoval])
+		{
+			[auxMovieView1 removeMovieFromView];
 			[self hideAuxMovieView:auxMovieView1];
+		}
 		
-		if(![auxMovieView2 moviePlayerLayerAdded])
+		if(![auxMovieView2 moviePlayerLayerAdded] || [auxMovieView2 movieScheduledForRemoval])
+		{
+			[auxMovieView2 removeMovieFromView];
 			[self hideAuxMovieView:auxMovieView2];
-		
+		}
 	}
 }
 
@@ -623,11 +644,25 @@ static UIImage * newButtonBackgroundImage = nil;
 - (MovieView *) findFreeMovieView
 {
 	if(auxMovieView1 && ![auxMovieView1 moviePlayerLayerAdded])
+	{
+		priorityAuxMovie = 1;
 		return auxMovieView1;
+	}
 	else if(auxMovieView2 && ![auxMovieView2 moviePlayerLayerAdded])
+	{
+		priorityAuxMovie = 2;
 		return auxMovieView2;
-	else if(auxMovieView2)
+	}
+	else if(priorityAuxMovie == 2)
+	{
+		priorityAuxMovie = 1;
+		return auxMovieView1;
+	}
+	else
+	{
+		priorityAuxMovie = 2;
 		return auxMovieView2;
+	}
 	
 	return nil;
 }
@@ -784,6 +819,45 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT ZOOM MAP : [trackZoomContainer setFrame:offsetFrame];
 }
 
+- (void) setTrackState:(int)state
+{
+	switch (state)
+	{
+		case TM_TRACK_GREEN:
+		default:
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"Lap-counter-layer.png"] forState:UIControlStateNormal];
+			[trackStateButton setHidden:true];
+			break;
+		case TM_TRACK_YELLOW:
+			[trackStateButton setHidden:true];
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"lap-counter-yellow.png"] forState:UIControlStateNormal];
+			[lapCounterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+			break;
+		case TM_TRACK_SC:
+			[trackStateButton setImage:[UIImage imageNamed:@"MidasTitleSC.png"]];
+			[trackStateButton setHidden:false];
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"lap-counter-yellow.png"] forState:UIControlStateNormal];
+			[lapCounterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+			break;
+		case TM_TRACK_SCSTBY:
+			break;
+		case TM_TRACK_SCIN:
+			break;
+		case TM_TRACK_RED:
+			[trackStateButton setHidden:true];
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"lap-counter-red.png"] forState:UIControlStateNormal];
+			[lapCounterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+		case TM_TRACK_GRID:
+			break;
+		case TM_TRACK_CHEQUERED:
+			[trackStateButton setImage:[UIImage imageNamed:@"MidasTitleChequered.png"]];
+			[trackStateButton setHidden:false];
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"Lap-counter-layer.png"] forState:UIControlStateNormal];
+			[lapCounterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+			break;
+	}
+}
+
 - (void) RequestRedraw
 {
 	int lap = [[RacePadTitleBarController Instance] currentLap];
@@ -800,7 +874,12 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) RequestRedrawForType:(int)type
 {
+	if(type == RPC_TRACK_STATE_VIEW_)
+		[self setTrackState:[[RacePadTitleBarController Instance] trackState]];
+	
+	[super RequestRedrawForType:type];
 }
+
 
 - (void)setMapDisplayed:(bool)state
 {
@@ -935,9 +1014,12 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(!gestureView)
 		return;
 	
-	[auxMovieView1 removeMovieFromView];
-	[auxMovieView2 removeMovieFromView];
-	[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+	if(!moviesAnimating)
+	{
+		[auxMovieView1 setMovieScheduledForRemoval:true];
+		[auxMovieView2 setMovieScheduledForRemoval:true];
+		[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+	}
 	
 	// Zooms on point in map, or chosen car in leader board
 	// GG - COMMENT OUT LEADERBOARD : 
@@ -1005,11 +1087,40 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	else if([gestureView isKindOfClass:[MovieView class]])
 	{	
-		if(scale > 1)
+		if(!moviesAnimating)
 		{
-			[auxMovieView1 removeMovieFromView];
-			[auxMovieView2 removeMovieFromView];
-			[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+			if(gestureView == mainMovieView && scale > 1)
+			{
+				[auxMovieView1 setMovieScheduledForRemoval:true];
+				[auxMovieView2 setMovieScheduledForRemoval:true];
+				[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+			}
+			else if(gestureView == auxMovieView1)
+			{
+				if(scale > 1 && priorityAuxMovie != 1)
+				{
+					priorityAuxMovie = 1;
+					[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+				}
+				else if(scale < 1)
+				{
+					[auxMovieView1 setMovieScheduledForRemoval:true];
+					[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+				}
+			}
+			else if(gestureView == auxMovieView2)
+			{
+				if(scale > 1 && priorityAuxMovie != 2)
+				{
+					priorityAuxMovie = 2;
+					[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+				}
+				else if(scale < 1)
+				{
+					[auxMovieView2 setMovieScheduledForRemoval:true];
+					[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+				}
+			}
 		}
 	}	
 }
@@ -1045,15 +1156,18 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (IBAction) movieCloseButtonHit:(id)sender
 {
-	if(sender == auxMovieView1CloseButton)
+	if(!moviesAnimating)
 	{
-		[auxMovieView1 removeMovieFromView];
-		[self animateMovieViews:nil From:MV_CURRENT_POSITION];
-	}
-	else if(sender == auxMovieView2CloseButton)
-	{
-		[auxMovieView2 removeMovieFromView];
-		[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+		if(sender == auxMovieView1CloseButton)
+		{
+			[auxMovieView1 setMovieScheduledForRemoval:true];
+			[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+		}
+		else if(sender == auxMovieView2CloseButton)
+		{
+			[auxMovieView2 setMovieScheduledForRemoval:true];
+			[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+		}
 	}
 }
 

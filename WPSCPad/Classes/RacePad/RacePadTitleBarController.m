@@ -20,6 +20,7 @@
 
 @synthesize currentLap;
 @synthesize lapCount;
+@synthesize trackState;
 
 static RacePadTitleBarController * instance_ = nil;
 
@@ -116,6 +117,8 @@ static RacePadTitleBarController * instance_ = nil;
 
 - (void) setTrackState:(int)state
 {
+	trackState = state;
+	
 	switch (state)
 	{
 		case TM_TRACK_GREEN:

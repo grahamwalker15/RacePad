@@ -16,6 +16,7 @@
 @implementation CommentaryBubble
 
 @synthesize bubblePref;
+@synthesize midasStyle;
 
 static CommentaryBubble * instance_ = nil;
 
@@ -39,17 +40,10 @@ static int fadeOffAfter = 8;
 		bubblePref = true;
 		commentaryController.commentaryView.minPriority = 3;
 		
+		midasStyle = false;
+		
 		popdownTimer = nil;
 		
-		/*
-		commentaryPopover = [[UIPopoverController alloc] initWithContentViewController:commentaryController];
-		[commentaryPopover setDelegate:self];
-		[commentaryController setParentPopover:commentaryPopover];
-		passThroughViews = [[NSMutableArray alloc] init];
-		[passThroughViews addObject:[[[BasePadTimeController Instance] timeController] view] ];
-		commentaryPopover.passthroughViews = passThroughViews;
-		*/
-
 		[[BasePadCoordinator Instance] AddView:commentaryController.commentaryView WithType:BPC_COMMENTARY_VIEW_];
 	}
 	
@@ -97,14 +91,33 @@ static int fadeOffAfter = 8;
 {
 	if ( bubblePref )
 	{
+		[commentaryController setMidasStyle:midasStyle];
+
 		CGRect super_bounds = [bubbleView bounds];
 		CGRect bubble_bounds = [commentaryController.view bounds];
-		if ( bottomRight )
-			bubble_bounds = CGRectMake(super_bounds.origin.x + super_bounds.size.width - bubble_bounds.size.width - 20, super_bounds.origin.y + super_bounds.size.height - 50, bubble_bounds.size.width, 10);
+		
+		if(midasStyle)
+		{
+			// Position just off screen so that the popup can slide it on
+			if ( bottomRight )
+				bubble_bounds = CGRectMake(super_bounds.origin.x + super_bounds.size.width, super_bounds.origin.y + super_bounds.size.height - 50, bubble_bounds.size.width, 10);
+			else
+				bubble_bounds = CGRectMake(super_bounds.origin.x - bubble_bounds.size.width, super_bounds.origin.y + 50, bubble_bounds.size.width, bubble_bounds.size.height);
+			
+			[commentaryController.view setAlpha:1.0];
+		}
 		else
-			bubble_bounds = CGRectMake(super_bounds.origin.x + 20, super_bounds.origin.y + 50, bubble_bounds.size.width, bubble_bounds.size.height);
+		{
+			// Position where we want it - popUp will fade it in
+			[commentaryController.view setAlpha:0.0];
+			if ( bottomRight )
+				bubble_bounds = CGRectMake(super_bounds.origin.x + super_bounds.size.width - bubble_bounds.size.width - 20, super_bounds.origin.y + super_bounds.size.height - 50, bubble_bounds.size.width, 10);
+			else
+				bubble_bounds = CGRectMake(super_bounds.origin.x + 20, super_bounds.origin.y + 50, bubble_bounds.size.width, bubble_bounds.size.height);
+		}
+		
 		[commentaryController.view setFrame:bubble_bounds];
-		commentaryController.growUp = bottomRight;
+		commentaryController.bottomRight = bottomRight;
 		[commentaryController popUp];
 		
 		if(popdownTimer)
@@ -142,6 +155,7 @@ static int fadeOffAfter = 8;
 
 - (void) popDown
 {
+	[commentaryController setMidasStyle:midasStyle];
 	[commentaryController popDown:true];
 	if(popdownTimer)
 	{
@@ -179,6 +193,7 @@ static int fadeOffAfter = 8;
 			showFor = (int) (showFor * 1.5 + 0.5);
 		if ( time_now - last_update >= showFor )
 		{
+			[commentaryController setMidasStyle:midasStyle];
 			[commentaryController popDown:true];
 		}
 		else

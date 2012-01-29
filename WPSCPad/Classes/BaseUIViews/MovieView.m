@@ -13,6 +13,7 @@
 
 @synthesize movieSource;
 @synthesize moviePlayerLayerAdded;
+@synthesize movieScheduledForRemoval;
 @synthesize closeButton;
 
 - (id)initWithFrame:(CGRect)frame
@@ -22,6 +23,7 @@
         // Initialization code
 		movieSource = nil;
 		moviePlayerLayerAdded = false;
+		movieScheduledForRemoval = false;
 		closeButton = nil;
     }
     return self;
@@ -99,6 +101,7 @@
 	}
 	
 	moviePlayerLayerAdded = false;
+	movieScheduledForRemoval = false;
 	
 	[movieSource release];
 	movieSource = nil;

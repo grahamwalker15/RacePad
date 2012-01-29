@@ -19,10 +19,12 @@
 
 	int lapCount;
 	int currentLap;
+	int trackState;
 }
 
 @property (nonatomic) int lapCount;
 @property (nonatomic) int currentLap;
+@property (nonatomic) int trackState;
 
 + (RacePadTitleBarController *)Instance;
 

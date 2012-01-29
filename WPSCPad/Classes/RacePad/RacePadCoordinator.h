@@ -38,6 +38,7 @@ enum ViewTypes
 	RPC_DRIVER_GAP_INFO_VIEW_ = 0x800,
 	RPC_HEAD_TO_HEAD_VIEW_ = 0x1000,
 	RPC_MIDAS_STANDINGS_VIEW_ = 0x2000,
+	RPC_TRACK_STATE_VIEW_ = 0x4000,
 };
 
 @interface RacePadCoordinator : BasePadCoordinator

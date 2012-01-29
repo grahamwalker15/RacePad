@@ -20,6 +20,7 @@
 
 @synthesize timeWindow;
 @synthesize smallFont;
+@synthesize midasStyle;
 @synthesize minPriority;
 @synthesize lastUpdateTime;
 @synthesize latestMessageTime;
@@ -34,6 +35,8 @@
 {    
     if ((self = [super initWithCoder:coder]))
     {
+		midasStyle = false;
+		
 		lastRowCount = 0;
 		lastHeight = 0;
 		latestMessageTime = 0.0;
@@ -53,6 +56,8 @@
 {
     if ((self = [super initWithFrame:frame]))
 	{
+		midasStyle = false;
+		
 		lastRowCount = 0;
 		lastHeight = 0;
 		latestMessageTime = 0.0;
@@ -319,14 +324,30 @@
 	float messageTime = [[data itemAtIndex:currentRow] timeStamp];
 	int type = [[data itemAtIndex:currentRow] type];
 	
-	if(type == ALERT_PIT_INSIGHT_)
-		[self SetTextColour:dark_red_];
-	else if(latestMessageTime - messageTime < 10.0)
-		[self SetTextColour:black_];
+	// Colours depend on style
+	if(midasStyle)
+	{
+		if(type == ALERT_PIT_INSIGHT_)
+			[self SetTextColour:very_light_blue_];
+		else if(latestMessageTime - messageTime < 10.0)
+			[self SetTextColour:white_];
+		else
+			[self SetTextColour:very_light_grey_];
+		
+		[self SetBackgroundColour:black_];
+	}
 	else
-		[self SetTextColour:very_dark_grey_];
-	
-	[self SetBackgroundColour:white_];
+	{
+		if(type == ALERT_PIT_INSIGHT_)
+			[self SetTextColour:dark_red_];
+		else if(latestMessageTime - messageTime < 10.0)
+			[self SetTextColour:black_];
+		else
+			[self SetTextColour:very_dark_grey_];
+		
+		[self SetBackgroundColour:white_];
+	}
+
 	
 	switch (col)
 	{
@@ -363,7 +384,10 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	[self SetBackgroundColour:white_];
+	if(midasStyle)
+		[self SetBackgroundColour:black_];
+	else
+		[self SetBackgroundColour:white_];
 	
 	if(col != 0)
 		return nil;

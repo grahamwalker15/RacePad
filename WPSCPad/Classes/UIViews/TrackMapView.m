@@ -178,7 +178,7 @@ static bool flag_images_initialised_ = false;
 	{		
 		[trackMap drawInView:self];
 
-		if(!isZoomView && !smallSized)
+		if(!midasStyle && !isZoomView && !smallSized)
 		{
 			int track_state = [trackMap getTrackState];
 			

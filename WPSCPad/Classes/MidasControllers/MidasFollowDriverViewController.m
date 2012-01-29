@@ -524,11 +524,9 @@
 	
 	if([gestureView isKindOfClass:[HeadToHeadView class]])
 	{
-		[(HeadToHeadView *)gestureView setUserOffsetX:0.0];
-		[(HeadToHeadView *)gestureView setUserScaleX:1.0];
-		[(HeadToHeadView *)gestureView setUserOffsetY:0.0];
-		[(HeadToHeadView *)gestureView setUserScaleY:1.0];
-		[(HeadToHeadView *)gestureView RequestRedraw];
+		HeadToHeadView * hToHView = (HeadToHeadView *)gestureView;
+		[hToHView resetUserScale];
+		[hToHView RequestRedraw];
 	}
 }
 

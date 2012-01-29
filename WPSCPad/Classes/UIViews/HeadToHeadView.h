@@ -17,6 +17,8 @@
 	float userOffsetY;
 	float userScaleY;
 	
+	float minScaleX;
+	
 	bool miniDisplay;
 }
 
@@ -24,6 +26,8 @@
 @property (nonatomic) float userScaleX;
 @property (nonatomic) float userOffsetY;
 @property (nonatomic) float userScaleY;
+
+@property (nonatomic) float minScaleX;
 
 @property (nonatomic) bool miniDisplay;
 
@@ -36,6 +40,8 @@
 - (float) transformX:(float)x;
 - (float) transformY:(float)y;
 - (float) yOffset;
+
+- (void) resetUserScale;
 
 @end
 

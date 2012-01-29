@@ -326,6 +326,10 @@
 		7FA2285014D30D0A00EBA739 /* live.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2284E14D30D0A00EBA739 /* live.png */; };
 		7FA228B514D31BEB00EBA739 /* Follow-graphics-def.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA228B414D31BEB00EBA739 /* Follow-graphics-def.png */; };
 		7FA2292D14D3601A00EBA739 /* DigiFortress.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA2292C14D3601A00EBA739 /* DigiFortress.png */; };
+		7FA22D2A14D5F8D000EBA739 /* lap-counter-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22D2814D5F8D000EBA739 /* lap-counter-red.png */; };
+		7FA22D2B14D5F8D000EBA739 /* lap-counter-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22D2914D5F8D000EBA739 /* lap-counter-yellow.png */; };
+		7FA22D3814D600C800EBA739 /* MidasTitleChequered.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22D3614D600C800EBA739 /* MidasTitleChequered.png */; };
+		7FA22D3914D600C800EBA739 /* MidasTitleSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA22D3714D600C800EBA739 /* MidasTitleSC.png */; };
 		7FA2765912F9D13D001407FD /* GameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2764E12F9D13D001407FD /* GameHelpController.m */; };
 		7FA2765A12F9D13D001407FD /* LapListHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765012F9D13D001407FD /* LapListHelpController.m */; };
 		7FA2765B12F9D13D001407FD /* MapHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765212F9D13D001407FD /* MapHelpController.m */; };
@@ -998,6 +1002,10 @@
 		7FA2284E14D30D0A00EBA739 /* live.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = live.png; sourceTree = "<group>"; };
 		7FA228B414D31BEB00EBA739 /* Follow-graphics-def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Follow-graphics-def.png"; sourceTree = "<group>"; };
 		7FA2292C14D3601A00EBA739 /* DigiFortress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DigiFortress.png; sourceTree = "<group>"; };
+		7FA22D2814D5F8D000EBA739 /* lap-counter-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lap-counter-red.png"; sourceTree = "<group>"; };
+		7FA22D2914D5F8D000EBA739 /* lap-counter-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lap-counter-yellow.png"; sourceTree = "<group>"; };
+		7FA22D3614D600C800EBA739 /* MidasTitleChequered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasTitleChequered.png; sourceTree = "<group>"; };
+		7FA22D3714D600C800EBA739 /* MidasTitleSC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasTitleSC.png; sourceTree = "<group>"; };
 		7FA2764D12F9D13D001407FD /* GameHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelpController.h; sourceTree = "<group>"; };
 		7FA2764E12F9D13D001407FD /* GameHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHelpController.m; sourceTree = "<group>"; };
 		7FA2764F12F9D13D001407FD /* LapListHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapListHelpController.h; sourceTree = "<group>"; };
@@ -1821,6 +1829,10 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA22D3614D600C800EBA739 /* MidasTitleChequered.png */,
+				7FA22D3714D600C800EBA739 /* MidasTitleSC.png */,
+				7FA22D2814D5F8D000EBA739 /* lap-counter-red.png */,
+				7FA22D2914D5F8D000EBA739 /* lap-counter-yellow.png */,
 				7FA2292C14D3601A00EBA739 /* DigiFortress.png */,
 				7FA2284D14D30D0A00EBA739 /* archives.png */,
 				7FA2284E14D30D0A00EBA739 /* live.png */,
@@ -2746,6 +2758,10 @@
 				7FA2285014D30D0A00EBA739 /* live.png in Resources */,
 				7FA228B514D31BEB00EBA739 /* Follow-graphics-def.png in Resources */,
 				7FA2292D14D3601A00EBA739 /* DigiFortress.png in Resources */,
+				7FA22D2A14D5F8D000EBA739 /* lap-counter-red.png in Resources */,
+				7FA22D2B14D5F8D000EBA739 /* lap-counter-yellow.png in Resources */,
+				7FA22D3814D600C800EBA739 /* MidasTitleChequered.png in Resources */,
+				7FA22D3914D600C800EBA739 /* MidasTitleSC.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,6 +21,8 @@
 @synthesize userOffsetY;
 @synthesize userScaleY;
 
+@synthesize minScaleX;
+
 @synthesize miniDisplay;
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -47,7 +49,6 @@
     [super dealloc];
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Methods for this class 
@@ -60,6 +61,8 @@
 	userScaleX = 1.0;
 	userOffsetY = 0.0;
 	userScaleY = 1.0;
+	
+	minScaleX =1.0;
 }
 
 - (void) drawHeadToHead
@@ -100,8 +103,8 @@
 	// Now work out the new scale	
 	userScaleX = currentUserScale * scale;
 	
-	if(userScaleX < 1.0)
-		userScaleX = 1.0;
+	if(userScaleX < minScaleX)
+		userScaleX = minScaleX;
 	else if(userScaleX > 12.0)
 		userScaleX = 12.0;
 	
@@ -203,6 +206,16 @@
 {
 	return 	userOffsetY * current_size_.height;
 }
+
+- (void) resetUserScale
+{
+	userScaleX = minScaleX;
+	userOffsetX = (userScaleX > 1.0) ? (0.5 * (1.0 - 1.0 / userScaleX))  : 0.0;
+						  
+	userOffsetY = 0.0;
+	userScaleY = 1.0;							  
+}
+						  
 
 @end
 
