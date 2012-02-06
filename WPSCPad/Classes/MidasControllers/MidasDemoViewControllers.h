@@ -53,3 +53,17 @@
 
 @end
 
+@interface MidasSetupViewController : UIViewController
+{
+	IBOutlet UITextField *sm_name_edit_;
+	IBOutlet UITextField *sm_nickname_edit_;
+	IBOutlet UIButton *closeButton;
+}
+
+- (IBAction)TextFieldChanged:(id)sender;
+- (IBAction)closePressed:(id)sender;
+
++(MidasSetupViewController *)Instance;
+
+@end
+

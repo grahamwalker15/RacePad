@@ -22,7 +22,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface CompositeViewController : BasePadVideoViewController
+@interface CompositeViewController : BasePadVideoViewController <MovieViewDelegate>
 {
 	IBOutlet MovieView * movieView;
 	IBOutlet UIView * overlayView;

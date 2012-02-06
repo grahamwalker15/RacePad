@@ -497,11 +497,8 @@ static MidasChatManager * chatInstance_ = nil;
 
 - (void) displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
-	if([finished intValue] == 1)
-	{
-		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowedPopup:)])
+	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowedPopup:)])
 			[parentViewController notifyShowedPopup:managedViewType];
-	}
 }
 
 - (void) moveToPositionX:(float)x Animated:(bool)animated
@@ -598,23 +595,20 @@ static MidasChatManager * chatInstance_ = nil;
 
 - (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
-	if([finished intValue] == 1)
+	hiding = false;
+
+	[managedViewController onHide];
+
+	[managedViewController.view removeFromSuperview];
+	viewDisplayed = false;
+	
+	[parentViewController release];
+	parentViewController = nil;
+	
+	if(flagTimer)
 	{
-		hiding = false;
-
-		[managedViewController onHide];
-
-		[managedViewController.view removeFromSuperview];
-		viewDisplayed = false;
-		
-		[parentViewController release];
-		parentViewController = nil;
-		
-		if(flagTimer)
-		{
-			[flagTimer invalidate];
-			flagTimer = nil;
-		}
+		[flagTimer invalidate];
+		flagTimer = nil;
 	}
 }
 

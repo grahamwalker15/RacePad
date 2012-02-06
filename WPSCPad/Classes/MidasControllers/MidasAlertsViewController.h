@@ -11,6 +11,8 @@
 #import "MidasBaseViewController.h"
 #import "AlertView.h"
 #import "MovieSelectorView.h"
+#import "MovieView.h"
+
 
 @class MidasAlertsViewController;
 @class MidasAlertsExpansionView;
@@ -34,7 +36,7 @@
 }
 @end
 
-@interface MidasAlertsViewController : MidasBaseViewController
+@interface MidasAlertsViewController : MidasBaseViewController <MovieViewDelegate>
 {
 	IBOutlet MidasAlertsView * alertView;
 	IBOutlet MidasAlertsExpansionView * expansionView;

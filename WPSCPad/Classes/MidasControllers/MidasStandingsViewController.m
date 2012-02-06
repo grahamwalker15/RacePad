@@ -140,16 +140,25 @@
 		
 		BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:[standingsView expandedDriver]];
 
-		if(videoSource)
+		if(videoSource && ![videoSource movieDisplayed])
 		{
 			MovieView * movieView = [videoViewController findFreeMovieView];
 			if(movieView)
 			{
-				if([videoViewController displayMovieSource:videoSource InView:movieView])
-					[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+				[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+				[movieView setMovieViewDelegate:self];
+				[movieView displayMovieSource:videoSource]; // Will get notification below when finished
 			}
 		}
 	}
+}
+
+- (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
+{
+	BasePadViewController * parentViewController = [[MidasStandingsManager Instance] parentViewController];
+	
+	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
 }
 
 - (void) placeExpansionViewAtRow:(int)row

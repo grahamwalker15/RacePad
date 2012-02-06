@@ -74,7 +74,7 @@
 		{
 			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtCol:col];
 			
-			if(videoSource)
+			if(videoSource && ![videoSource movieDisplayed])
 			{
 				BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
 			
@@ -85,13 +85,22 @@
 					MovieView * movieView = [videoViewController findFreeMovieView];
 					if(movieView)
 					{
-						if([videoViewController displayMovieSource:videoSource InView:movieView])
-							[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+						[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+						[movieView setMovieViewDelegate:self];
+						[movieView displayMovieSource:videoSource]; // Will get notification below when finished
 					}
 				}
 			}
 		}
 	}
+}
+
+- (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
+{
+	BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
+	
+	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 }
 
 - (void) onDisplay

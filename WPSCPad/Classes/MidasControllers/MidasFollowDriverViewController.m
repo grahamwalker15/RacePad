@@ -179,11 +179,8 @@
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
-	if([finished intValue] == 1)
-	{
-		if(!expanded)
-			[extensionContainer setHidden:true];
-	}
+	if(!expanded)
+		[extensionContainer setHidden:true];
 }
 
 - (void)RequestRedraw
@@ -430,19 +427,28 @@
 				{
 					BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:abbr];
 		
-					if(videoSource)
+					if(videoSource && ![videoSource movieDisplayed])
 					{
 						MovieView * movieView = [videoViewController findFreeMovieView];
 						if(movieView)
 						{
-							if([videoViewController displayMovieSource:videoSource InView:movieView])
-								[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+							[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+							[movieView setMovieViewDelegate:self];
+							[movieView displayMovieSource:videoSource]; // Will get notification below when finished
 						}
 					}
 				}
 			}
 		}
 	}
+}
+
+- (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
+{
+	BasePadViewController * parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
+	
+	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
 }
 
 

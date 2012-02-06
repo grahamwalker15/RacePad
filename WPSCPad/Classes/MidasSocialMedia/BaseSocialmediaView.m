@@ -7,6 +7,7 @@
 //
 
 #import "BaseSocialmediaView.h"
+#import "BasePadPrefs.h"
 
 #ifdef USE_REAL_TWITTER
 #import <Accounts/Accounts.h>
@@ -255,9 +256,20 @@ static NSUInteger const kTwitReplyTag = 11;
 	
 #else
     
-    self.twitUser = @"@peterrand ";
-    self.twitUserName = @"Peter Rand";
-    self.twitImage = [UIImage imageNamed:@"user1.png"];
+	NSString * prefsName = [[BasePadPrefs Instance] getPref:@"socialMediaFullName"];
+    NSString * prefsNickname = [[BasePadPrefs Instance] getPref:@"socialMediaNickname"];
+
+	if(prefsName && [prefsName length] > 0)
+		[self setTwitUserName:prefsName];
+	else
+ 		[self setTwitUserName:@"Peter Rand"];
+	
+	if(prefsNickname && [prefsNickname length] > 0)
+		[self setTwitUser:prefsNickname];
+	else
+ 		[self setTwitUser:@"@peterrand"];
+	
+    [self setTwitImage:[UIImage imageNamed:@"user1.png"]];
     
     [self.userIcon setImage:self.twitImage];
     self.userName.text = self.twitUserName;   
@@ -1138,7 +1150,7 @@ static NSUInteger const kTwitReplyTag = 11;
 					[self.socialTable reloadData];
 					[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(scrollToEnd) userInfo:nil repeats:NO];
 					
-					NSString * messageSender = (NSString *)[self.entryUserId objectAtIndex:i];
+					NSString * messageSender = (NSString *)[self.entryUserId objectAtIndex:0];
 					int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == Facebook) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
 					MidasSocialmediaMessage * newMessage = [[MidasSocialmediaMessage alloc] initWithSender:messageSender Type:messageType Time:messageTime ID:lastEntryCount];
 					[messageQueue addObject:newMessage];

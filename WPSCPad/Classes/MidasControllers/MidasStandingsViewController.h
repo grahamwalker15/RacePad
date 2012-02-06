@@ -11,6 +11,7 @@
 
 #import "MidasBaseViewController.h"
 #import "TableDataView.h"
+#import "MovieView.h"
 
 @class MidasStandingsViewController;
 @class MidasStandingsExpansionView;
@@ -34,7 +35,7 @@
 }
 @end
 
-@interface MidasStandingsViewController : MidasBaseViewController 
+@interface MidasStandingsViewController : MidasBaseViewController <MovieViewDelegate>
 {
 	// View panels
 	IBOutlet UIView * standingsViewContainer;

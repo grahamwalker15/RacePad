@@ -29,6 +29,8 @@
 @synthesize displayMap;
 @synthesize displayLeaderboard;
 
+@synthesize allowBubbleCommentary;
+
 @synthesize midasMenuButtonOpen;
 @synthesize alertsButtonOpen;
 @synthesize twitterButtonOpen;
@@ -115,6 +117,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	disableOverlays = false;
 	
+	allowBubbleCommentary = false;
+	
 	priorityAuxMovie = 1;
 	
 	[mainMovieView setStyle:BG_STYLE_INVISIBLE_];
@@ -124,6 +128,20 @@ static UIImage * newButtonBackgroundImage = nil;
 	[mainMovieView setCloseButton:nil];
 	[auxMovieView1 setCloseButton:auxMovieView1CloseButton];
 	[auxMovieView2 setCloseButton:auxMovieView2CloseButton];
+	
+	[mainMovieView setDriverNameButton:mainMovieViewDriverName];
+	[auxMovieView1 setDriverNameButton:auxMovieView1DriverName];
+	[auxMovieView2 setDriverNameButton:auxMovieView2DriverName];
+	
+	[mainMovieView setMovieTypeButton:mainMovieViewMovieType];
+	[auxMovieView1 setMovieTypeButton:auxMovieView1MovieType];
+	[auxMovieView2 setMovieTypeButton:auxMovieView2MovieType];
+	
+	[mainMovieView hideMovieLabels];
+	[auxMovieView1 hideMovieLabels];
+	[auxMovieView2 hideMovieLabels];
+	
+	[mainMovieView setLive:true];
 	
 	[pushNotificationAnimationImage setHidden:true];
 	[pushNotificationAnimationLabel setHidden:true];
@@ -147,7 +165,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	[trackZoomView setSmallSized:true];
 	[trackMapView setMidasStyle:true];
 	
-	[trackZoomContainer setStyle:BG_STYLE_MIDAS_TRANSPARENT_];
+	//[trackZoomContainer setStyle:BG_STYLE_MIDAS_TRANSPARENT_];
+	[trackZoomContainer setStyle:BG_STYLE_INVISIBLE_];
 	[trackZoomContainer setHidden:true];
 	trackZoomOffsetX = 0;
 	trackZoomOffsetY = 0;
@@ -204,6 +223,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : [[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
 	[[RacePadCoordinator Instance] setVideoViewController:self];
+	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -258,7 +278,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 	
 	[[CommentaryBubble Instance] setMidasStyle:true];
-	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
+	if(allowBubbleCommentary)
+		[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
+	else
+		[[CommentaryBubble Instance] noBubbles];
 	
 	if(firstDisplay)
 	{
@@ -266,7 +289,9 @@ static UIImage * newButtonBackgroundImage = nil;
 		firstDisplay = false;
 	}
 	
-	
+	// We don't want the time controls to auto hide - so tell them
+	[[BasePadTimeController Instance] setAutoHide:false];
+
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
@@ -297,6 +322,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	[[MidasCoordinator Instance] ReleaseSocialmediaResponder:self];
 	
+	// Reset the time controls to auto hide so that other view controllers are OK
+	[[BasePadTimeController Instance] setAutoHide:true];
+
 	// re-enable the screen locking
 	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
@@ -402,11 +430,18 @@ static UIImage * newButtonBackgroundImage = nil;
 	// Do nothing if source is already displayed
 	if([source movieDisplayed])
 		return false;
+
+	[movieView setMovieViewDelegate:self];
 	
-	// Position the movie and order the overlays
 	if([movieView displayMovieSource:source])
-	{
-		if(movieView == mainMovieView)
+		return true; // Will get notification below when it's done
+	
+	return false;
+}
+
+- (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
+{
+		if(movieView && movieView == mainMovieView)
 		{
 			[movieView bringSubviewToFront:overlayView];
 			[movieView bringSubviewToFront:trackMapView];
@@ -416,14 +451,10 @@ static UIImage * newButtonBackgroundImage = nil;
 			[movieView bringSubviewToFront:videoDelayLabel];
 			[movieView bringSubviewToFront:loadingLabel];
 			[movieView bringSubviewToFront:loadingTwirl];
+
+			[self positionOverlays];
 		}
-	
-		[self positionOverlays];
 		
-		return true;
-	}
-	
-	return false;
 }
 
 - (void) removeMovieFromView:(BasePadVideoSource *)source
@@ -502,6 +533,9 @@ static UIImage * newButtonBackgroundImage = nil;
 		[self setOverlaysDisabled:false];
 		[self showOverlays];
 		[mainMovieView setFrame:superBounds];
+		[mainMovieView setShouldShowLabels:false];
+		[auxMovieView1 setShouldShowLabels:false];
+		[auxMovieView2 setShouldShowLabels:false];
 		priorityAuxMovie = 1;
 	}
 	else if(movieViewCount == 2)
@@ -510,10 +544,22 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomContainer setFrame:mapInsetRect];
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
+		[mainMovieView setLabelAlignment:MV_ALIGN_TOP];
+		[mainMovieView setShouldShowLabels:true];
 		if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
+		{
 			[auxMovieView1 setFrame:centreViewRect];
+			[auxMovieView1 setLabelAlignment:MV_ALIGN_TOP];
+			[auxMovieView1 setShouldShowLabels:true];
+			[auxMovieView2 setShouldShowLabels:false];
+		}
 		else if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
+		{
 			[auxMovieView2 setFrame:centreViewRect];
+			[auxMovieView2 setLabelAlignment:MV_ALIGN_TOP];
+			[auxMovieView2 setShouldShowLabels:true];
+			[auxMovieView1 setShouldShowLabels:false];
+		}
 	}
 	else if(movieViewCount == 3)
 	{
@@ -522,14 +568,24 @@ static UIImage * newButtonBackgroundImage = nil;
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
 		if([auxMovieView1 moviePlayerLayerAdded])
+		{
 			[auxMovieView1 setFrame:(priorityAuxMovie == 1 ? centreViewRect : topViewRect)];
+			[auxMovieView1 setLabelAlignment:(priorityAuxMovie == 1 ? MV_ALIGN_TOP : MV_ALIGN_LEFT)];
+			[auxMovieView1 setShouldShowLabels:true];
+		}
 		if([auxMovieView2 moviePlayerLayerAdded])
+		{
 			[auxMovieView2 setFrame:(priorityAuxMovie == 1 ? topViewRect : centreViewRect)];
+			[auxMovieView2 setLabelAlignment:(priorityAuxMovie == 1 ? MV_ALIGN_LEFT : MV_ALIGN_TOP)];
+			[auxMovieView2 setShouldShowLabels:true];
+		}
 	}
 	
 	// and move out any assigned for removal
 	if([auxMovieView1 movieScheduledForRemoval])
+	{
 		[auxMovieView1 setFrame:CGRectOffset(auxMovieView1Rect, superBounds.size.width - auxMovieView1Rect.origin.x + 1, 0)]; //Slide off right
+	}
 	
 	if([auxMovieView2 movieScheduledForRemoval])
 		[auxMovieView2 setFrame:CGRectOffset(auxMovieView2Rect, superBounds.size.width - auxMovieView2Rect.origin.x + 1, 0)]; //Slide off right
@@ -541,6 +597,15 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 }
 
+- (void) prepareToAnimateMovieViews:(MovieView *)newView From:(int)movieDirection
+{
+	if(moviesAnimating)
+		return;
+	
+	if(newView && movieDirection != MV_CURRENT_POSITION)
+		[self prePositionMovieView:newView From:movieDirection];	
+}
+
 - (void) animateMovieViews:(MovieView *)newView From:(int)movieDirection
 {
 	if(moviesAnimating)
@@ -550,20 +615,23 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(newView && movieDirection != MV_CURRENT_POSITION)
 		[self prePositionMovieView:newView From:movieDirection];
-
+	
 	if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
 		[self showAuxMovieView:auxMovieView1];
 	
 	if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
 		[self showAuxMovieView:auxMovieView2];
 	
+	[auxMovieView1 hideMovieLabels];
+	[auxMovieView2 hideMovieLabels];
+	
 	[UIView beginAnimations:nil context:nil];
-		
+	
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(movieViewAnimationDidStop:finished:context:)];
-		
+	
 	[UIView setAnimationDuration:1.0];
-		
+	
 	[self positionMovieViews];
 	
 	[UIView commitAnimations];
@@ -571,22 +639,35 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) movieViewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	if([finished intValue] == 1)
+	moviesAnimating = false;
+	
+	if(![auxMovieView1 moviePlayerLayerAdded] || [auxMovieView1 movieScheduledForRemoval])
 	{
-		moviesAnimating = false;
-		
-		if(![auxMovieView1 moviePlayerLayerAdded] || [auxMovieView1 movieScheduledForRemoval])
-		{
-			[auxMovieView1 removeMovieFromView];
-			[self hideAuxMovieView:auxMovieView1];
-		}
-		
-		if(![auxMovieView2 moviePlayerLayerAdded] || [auxMovieView2 movieScheduledForRemoval])
-		{
-			[auxMovieView2 removeMovieFromView];
-			[self hideAuxMovieView:auxMovieView2];
-		}
+		[auxMovieView1 removeMovieFromView];
+		[self hideAuxMovieView:auxMovieView1];
 	}
+	
+	if(![auxMovieView2 moviePlayerLayerAdded] || [auxMovieView2 movieScheduledForRemoval])
+	{
+		[auxMovieView2 removeMovieFromView];
+		[self hideAuxMovieView:auxMovieView2];
+	}
+	
+	// Show hide labels
+	if([mainMovieView shouldShowLabels])
+		[mainMovieView showMovieLabels];
+	else
+		[mainMovieView hideMovieLabels];
+	
+	if([auxMovieView1 shouldShowLabels])
+		[auxMovieView1 showMovieLabels];
+	else
+		[auxMovieView1 hideMovieLabels];
+
+	if([auxMovieView2 shouldShowLabels])
+		[auxMovieView2 showMovieLabels];
+	else
+		[auxMovieView2 hideMovieLabels];
 }
 
 - (void) showAuxMovieView:(MovieView *)viewPtr
@@ -763,13 +844,10 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) hideZoomMapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
-	if([finished intValue] == 1)
-	{
-		[trackZoomContainer setHidden:true];
-		[trackZoomContainer setAlpha:1.0];
-		[trackZoomView setCarToFollow:nil];
-		// GG - COMMENT OUT LEADERBOARD : [leaderboardView RequestRedraw];
-	}
+	[trackZoomContainer setHidden:true];
+	[trackZoomContainer setAlpha:1.0];
+	[trackZoomView setCarToFollow:nil];
+	// GG - COMMENT OUT LEADERBOARD : [leaderboardView RequestRedraw];
 }
 
 - (void) positionOverlays
@@ -825,7 +903,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	{
 		case TM_TRACK_GREEN:
 		default:
-			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"Lap-counter-layer.png"] forState:UIControlStateNormal];
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"lap-counter-white.png"] forState:UIControlStateNormal];
 			[trackStateButton setHidden:true];
 			break;
 		case TM_TRACK_YELLOW:
@@ -852,7 +930,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		case TM_TRACK_CHEQUERED:
 			[trackStateButton setImage:[UIImage imageNamed:@"MidasTitleChequered.png"]];
 			[trackStateButton setHidden:false];
-			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"Lap-counter-layer.png"] forState:UIControlStateNormal];
+			[lapCounterButton setBackgroundImage:[UIImage imageNamed:@"lap-counter-white.png"] forState:UIControlStateNormal];
 			[lapCounterButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 			break;
 	}
@@ -862,6 +940,10 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	int lap = [[RacePadTitleBarController Instance] currentLap];
 	int lapCount = [[RacePadTitleBarController Instance] lapCount];
+	
+	if(lap > lapCount)
+		lap = lapCount;
+	
 	NSNumber *i = [NSNumber numberWithInt:lap];
 	NSNumber *c = [NSNumber	numberWithInt:lapCount];
 	NSString *s = [i stringValue];
@@ -1104,8 +1186,16 @@ static UIImage * newButtonBackgroundImage = nil;
 				}
 				else if(scale < 1)
 				{
-					[auxMovieView1 setMovieScheduledForRemoval:true];
-					[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+					if([auxMovieView2 moviePlayerLayerAdded] && priorityAuxMovie == 1)
+					{
+						priorityAuxMovie = 2;
+						[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+					}
+					else
+					{
+					   [auxMovieView1 setMovieScheduledForRemoval:true];
+						[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+					}
 				}
 			}
 			else if(gestureView == auxMovieView2)
@@ -1117,8 +1207,16 @@ static UIImage * newButtonBackgroundImage = nil;
 				}
 				else if(scale < 1)
 				{
-					[auxMovieView2 setMovieScheduledForRemoval:true];
-					[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+					if([auxMovieView1 moviePlayerLayerAdded] && priorityAuxMovie == 2)
+					{
+						priorityAuxMovie = 1;
+						[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+					}
+					else
+					{
+						[auxMovieView2 setMovieScheduledForRemoval:true];
+						[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+					}
 				}
 			}
 		}
@@ -1147,11 +1245,8 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	if([finished intValue] == 1)
-	{
-		[self positionOverlays];
-		[self showOverlays];
-	}
+	[self positionOverlays];
+	[self showOverlays];
 }
 
 - (IBAction) movieCloseButtonHit:(id)sender
@@ -1194,7 +1289,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			midasChatButtonFlashed = false;
 
 		[self setFlashStateForButton:sender ToState:false Animated:false];
-	
+		[[MidasCoordinator Instance] releaseSocialmediaQueue];	
 	}
 	
 	
@@ -1325,7 +1420,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(sender == timeControlsButton)
 	{
+		
+		[self notifyExclusiveUse:MIDAS_POPUP_NONE_ InZone:MIDAS_ZONE_ALL_];	
 		[self hideMenuButtons];
+		[self positionMenuButtons];
 		[self toggleTimeControllerDisplay];
 	}
 	
@@ -1577,6 +1675,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 	// See if we need to offset buttons
 	
+	float leftButtonOffset = (leftX > maxLeftX) ? (leftX - maxLeftX) : 0.0;
 	float buttonOffset = ((myTeamButtonOpen || vipButtonOpen) && leftX > maxLeftX) ? (leftX - maxLeftX) : 0.0;
 	
 	if(buttonOffset < 1 && leftPopupX < 10)
@@ -1682,7 +1781,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	rightX -= 20;
 	
-	leftX = CGRectGetMinX(viewBounds) + 60;
+	leftX = CGRectGetMinX(viewBounds) + 60 - leftButtonOffset; // Moves them back to the left a bit if the right hand panels interfere
 	
 	// MyTeam button
 	buttonFrame = [myTeamButton frame];
@@ -1775,7 +1874,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void)menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	if([finished intValue] == 1)
+	if(menuButtonsAnimating)	// To make sure we don't get callback from animation ending AND backup
 	{
 		menuButtonsDisplayed = !menuButtonsDisplayed;
 		menuButtonsAnimating = false;
@@ -1830,10 +1929,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void)menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	if([finished intValue] == 1)
-	{
-		menuButtonsAnimating = false;
-	}
+	menuButtonsAnimating = false;
 }
 
 // Button flashing for push notification
@@ -1841,7 +1937,10 @@ static UIImage * newButtonBackgroundImage = nil;
 -(void)flashMenuButton:(UIButton *)button WithName:(NSString *)name
 {
 	if(!menuButtonsDisplayed)
+	{
+		[[MidasCoordinator Instance] releaseSocialmediaQueue];
 		return;
+	}
 	
 	[pushNotificationAnimationLabel setText:name];
 	[self flashMenuButton:button];
@@ -1850,8 +1949,11 @@ static UIImage * newButtonBackgroundImage = nil;
 -(void)flashMenuButton:(UIButton *)button
 {
 	if(!menuButtonsDisplayed)
+	{
+		[[MidasCoordinator Instance] releaseSocialmediaQueue];
 		return;
-		
+	}
+	
 	// Social media buttons only
 	
 	bool newState;
@@ -1987,66 +2089,59 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void)menuFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	if([finished intValue] == 1)
+	UIButton * button = (UIButton *) context;
+	
+	if(button != twitterButton && button != facebookButton && button != midasChatButton)	// Shouldn't ever happen
+		return;
+	
+	// If the menu has been opened in the meantime, just set button to closed. Otherwise, schedule closing in 3 secs.
+	
+	bool scheduleClose = true;
+	if(button == twitterButton && twitterButtonOpen)
 	{
-		UIButton * button = (UIButton *) context;
-		
-		if(button != twitterButton && button != facebookButton && button != midasChatButton)	// Shouldn't ever happen
-			return;
-		
-		// If the menu has been opened in the meantime, just set button to closed. Otherwise, schedule closing in 3 secs.
-		
-		bool scheduleClose = true;
-		if(button == twitterButton && twitterButtonOpen)
-		{
-			scheduleClose = false;
-			twitterButtonFlashed = false;
-		}
-		else if(button == facebookButton && facebookButtonOpen)
-		{
-			scheduleClose = false;
-			facebookButtonFlashed = false;
-		}
-		else if(button == midasChatButton && midasChatButtonOpen)
-		{
-			scheduleClose = false;
-			midasChatButtonFlashed = false;
-		}
-		
-		if(scheduleClose)
-		{
-			[button setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
-			[self performSelector:@selector(flashMenuButton:) withObject:context afterDelay: 3.0];
-		}
-		else
-		{
-			[self setFlashStateForButton:button ToState:false Animated:false];
-			[[MidasCoordinator Instance] releaseSocialmediaQueue];
-		}
-		 
-		 
-		[newButtonBackgroundImage release];
-		newButtonBackgroundImage = nil;
-		
-		[pushNotificationAnimationImage setHidden:true];
-		
+		scheduleClose = false;
+		twitterButtonFlashed = false;
 	}
+	else if(button == facebookButton && facebookButtonOpen)
+	{
+		scheduleClose = false;
+		facebookButtonFlashed = false;
+	}
+	else if(button == midasChatButton && midasChatButtonOpen)
+	{
+		scheduleClose = false;
+		midasChatButtonFlashed = false;
+	}
+	
+	if(scheduleClose)
+	{
+		[button setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+		[self performSelector:@selector(flashMenuButton:) withObject:context afterDelay: 3.0];
+	}
+	else
+	{
+		[self setFlashStateForButton:button ToState:false Animated:false];
+		[[MidasCoordinator Instance] releaseSocialmediaQueue];
+	}
+	 
+	 
+	[newButtonBackgroundImage release];
+	newButtonBackgroundImage = nil;
+	
+	[pushNotificationAnimationImage setHidden:true];
+
 }
 
 - (void)menuEndFlashDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-	if([finished intValue] == 1)
-	{
-		[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
-		[newButtonBackgroundImage release];
-		newButtonBackgroundImage = nil;	
-		[pushNotificationAnimationImage setHidden:true];
-		
-		[pushNotificationAnimationLabel setHidden:true];
-		
-		[[MidasCoordinator Instance] releaseSocialmediaQueue];
-
-	}
+	[(UIButton *)context setBackgroundImage:newButtonBackgroundImage forState:UIControlStateNormal];
+	[newButtonBackgroundImage release];
+	newButtonBackgroundImage = nil;	
+	[pushNotificationAnimationImage setHidden:true];
+	
+	[pushNotificationAnimationLabel setHidden:true];
+	
+	[[MidasCoordinator Instance] releaseSocialmediaQueue];
 }
 
 
@@ -2338,8 +2433,7 @@ static UIImage * newButtonBackgroundImage = nil;
 		button = facebookButton;
 		buttonOpen = facebookButtonOpen;
 	}
-	else if([message messageType
-			 ] == MIDAS_SM_MIDAS_CHAT_)
+	else if([message messageType] == MIDAS_SM_MIDAS_CHAT_)
 	{
 		button = midasChatButton;
 		buttonOpen = midasChatButtonOpen;

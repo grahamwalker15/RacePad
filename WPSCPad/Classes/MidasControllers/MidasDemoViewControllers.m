@@ -1,4 +1,4 @@
-    //
+//
 //  MidasDemoViewControllers.m
 //  MidasDemo
 //
@@ -8,13 +8,22 @@
 
 #import "MidasDemoViewControllers.h"
 
+#import	"BasePadPrefs.h"
+
 @implementation MidasMasterMenuViewController : MidasBaseViewController
 
 -(IBAction) buttonPressed:(id)sender
 {
 	if(associatedManager)
 	{
-		[associatedManager hideAnimated:true Notify:true];
+		if(sender == settingsButton && [associatedManager parentViewController])
+		{
+			[[associatedManager parentViewController] presentModalViewController:[MidasSetupViewController Instance] animated:true];
+		}
+		else
+		{
+			[associatedManager hideAnimated:true Notify:true];
+		}
 	}
 }
 
@@ -100,11 +109,8 @@
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
 {
-	if([finished intValue] == 1)
-	{
-		if(!expanded)
-			[extensionContainer setHidden:true];
-	}
+	if(!expanded)
+		[extensionContainer setHidden:true];
 }
 
 
@@ -160,5 +166,83 @@
 @end
 
 @implementation MidasVIPViewController : MidasBaseViewController
+@end
+
+@implementation MidasSetupViewController
+
+static MidasSetupViewController * setupInstance_ = nil;
+
++(MidasSetupViewController *)Instance
+{
+	if(!setupInstance_)
+		setupInstance_ = [[MidasSetupViewController alloc] initWithNibName:@"MidasSetup" bundle:nil];
+	
+	return setupInstance_;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationFormSheet];
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	
+	[sm_name_edit_ setText:[[BasePadPrefs Instance] getPref:@"socialMediaFullName"]];
+	[sm_nickname_edit_ setText:[[BasePadPrefs Instance] getPref:@"socialMediaNickname"]];
+}
+
+- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible.
+{
+	[sm_name_edit_ setText:[[BasePadPrefs Instance] getPref:@"socialMediaFullName"]];
+	[sm_nickname_edit_ setText:[[BasePadPrefs Instance] getPref:@"socialMediaNickname"]];
+	
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
+{
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	// Overridden to allow any orientation.
+	if(interfaceOrientation == UIInterfaceOrientationPortrait)
+		return NO;
+	
+	if(interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+		return NO;
+	
+	if(interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+		return YES;
+	
+	if(interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+		return YES;
+	
+	return NO;
+	
+}
+
+-(IBAction)TextFieldChanged:(id)sender
+{
+	NSString *text = [sender text];
+	
+	if(sender == sm_name_edit_)
+		[[BasePadPrefs Instance] setPref:@"socialMediaFullName" Value:text ];		
+	else if(sender == sm_nickname_edit_)
+		[[BasePadPrefs Instance] setPref:@"socialMediaNickname" Value:text ];
+}
+
+-(IBAction)closePressed:(id)sender
+{
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 @end
 

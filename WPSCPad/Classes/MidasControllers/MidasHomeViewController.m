@@ -110,7 +110,7 @@
 
 -(IBAction)loadLive
 {
-	[[RacePadCoordinator Instance] loadSession:@"09_11Mza" Session:@"Race"];
+	[[RacePadCoordinator Instance] loadSession:@"09_11Lve" Session:@"Race"];
 }
 
 @end

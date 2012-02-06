@@ -8,7 +8,7 @@
 
 #import "TwitterView.h"
 
-#define kTestDataLen    12
+#define kTestDataLen    15
 
 @implementation TwitterView
 
@@ -226,71 +226,86 @@
     self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
 	
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50610]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50620]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50640]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50670]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50700]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50730]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50760]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50790]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50820]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50850]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50880]];
-    [self.entryTimings addObject:[NSNumber numberWithFloat:50910]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 0 * 60 + 15)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 0 * 60 + 35)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 0 * 60 + 55)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 2 * 60 + 15)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 3 * 60 + 31)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 3 * 60 + 52)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 4 * 60 + 19)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 4 * 60 + 31)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 10 * 60 + 25)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 10 * 60 + 41)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 10 * 60 + 45)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 12 * 60 + 5)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 12 * 60 + 15)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 12 * 60 + 35)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 13 * 60 + 0)]];
 	
-    [self.dummyEntryName addObject:@"John J"];
-    [self.dummyEntryName addObject:@"Freddie F1"];
-    [self.dummyEntryName addObject:@"Mary Jane"];
-    [self.dummyEntryName addObject:@"Chris"];
-    [self.dummyEntryName addObject:@"Hazel I"];
-    [self.dummyEntryName addObject:@"Jake BBCF1"];
-    [self.dummyEntryName addObject:@"Eddie I BBCF1"];
-    [self.dummyEntryName addObject:@"R Schumacher"];
-    [self.dummyEntryName addObject:@"Chris F1 Fan"];
-    [self.dummyEntryName addObject:@"Marky Boy"];
-    [self.dummyEntryName addObject:@"Kylie M"];
-    [self.dummyEntryName addObject:@"Nigel Mansell"];
+    [self.dummyEntryName addObject:@"David Coulthard"];
+    [self.dummyEntryName addObject:@"Martin Brundle"];
+    [self.dummyEntryName addObject:@"Marussia Racing"];
+    [self.dummyEntryName addObject:@"Martin Brundle"];
+    [self.dummyEntryName addObject:@"Fan Forum"];
+    [self.dummyEntryName addObject:@"Tim Lovejoy"];
+    [self.dummyEntryName addObject:@"David Coulthard"];
+    [self.dummyEntryName addObject:@"Jake Humphrey"];
+    [self.dummyEntryName addObject:@"Tim Lovejoy"];
+    [self.dummyEntryName addObject:@"Fan Forum"];
+    [self.dummyEntryName addObject:@"Tim Lovejoy"];
+    [self.dummyEntryName addObject:@"Tim Lovejoy"];
+    [self.dummyEntryName addObject:@"Fan Forum"];
+    [self.dummyEntryName addObject:@"Jake Humphrey"];
+    [self.dummyEntryName addObject:@"Marussia Racing"];
     
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    
-    [self.dummyEntryComment addObject:@"John J Comment"];
-    [self.dummyEntryComment addObject:@"Freddie F1 Comment"];
-    [self.dummyEntryComment addObject:@"Mary Jane Comment Mary Jane Comment Mary Jane Comment"];
-    [self.dummyEntryComment addObject:@"Chris Comment"];
-    [self.dummyEntryComment addObject:@"Hazel I Comment Hazel I Comment Hazel I Comment"];
-    [self.dummyEntryComment addObject:@"Jake BBCF1 Comment"];
-    [self.dummyEntryComment addObject:@"Eddie I BBCF1 Comment"];
-    [self.dummyEntryComment addObject:@"R Schumacher Comment"];
-    [self.dummyEntryComment addObject:@"Chris F1 Fan Comment"];
-    [self.dummyEntryComment addObject:@"Marky Boy Comment"];
-    [self.dummyEntryComment addObject:@"Kylie M Comment"];
-    [self.dummyEntryComment addObject:@"Nigel Mansell Comment Nigel Mansell Comment"];
-    
-    [self.dummyEntryUserId addObject:@"@johnj "];
-    [self.dummyEntryUserId addObject:@"@freddief1 "];
-    [self.dummyEntryUserId addObject:@"@maryjane "];
-    [self.dummyEntryUserId addObject:@"@chris "];
-    [self.dummyEntryUserId addObject:@"@hazeli "];
-    [self.dummyEntryUserId addObject:@"@jakebbc1 "];
-    [self.dummyEntryUserId addObject:@"@eddiebbc1 "];
-    [self.dummyEntryUserId addObject:@"@rschumacher "];
-    [self.dummyEntryUserId addObject:@"@chrisf1 "];
-    [self.dummyEntryUserId addObject:@"@markyboy "];
-    [self.dummyEntryUserId addObject:@"@kyliem "];
-    [self.dummyEntryUserId addObject:@"@nigelmansell "];
+    [self.dummyEntryUserId addObject:@"@coulthardF1 "];
+    [self.dummyEntryUserId addObject:@"@mbrundleF1 "];
+    [self.dummyEntryUserId addObject:@"@MarussiaF1 "];
+    [self.dummyEntryUserId addObject:@"@mbrundleF1 "];
+    [self.dummyEntryUserId addObject:@"@planetf1 "];
+    [self.dummyEntryUserId addObject:@"@timlovejoy "];
+	[self.dummyEntryUserId addObject:@"@coulthardF1 "];
+	[self.dummyEntryUserId addObject:@"@JakeHumphrey "];
+    [self.dummyEntryUserId addObject:@"@timlovejoy "];
+    [self.dummyEntryUserId addObject:@"@planetf1  "];
+    [self.dummyEntryUserId addObject:@"@timlovejoy "];
+    [self.dummyEntryUserId addObject:@"@timlovejoy "];
+    [self.dummyEntryUserId addObject:@"@planetf1 "];
+    [self.dummyEntryUserId addObject:@"@JakeHumphrey "];
+    [self.dummyEntryUserId addObject:@"@MarussiaF1 "];
 	
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_CoulthardF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_mBrundleF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_MarussiaF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_mBrundleF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_PlanetF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_TimLovejoy.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_CoulthardF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_jakeHumphrey.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_TimLovejoy.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_PlanetF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_TimLovejoy.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_TimLovejoy.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_PlanetF1.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_jakeHumphrey.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"_MarussiaF1.png"]];
+    
+    [self.dummyEntryComment addObject:@"Here we go for the warm up lap - look out for Alonso off the line"];
+    [self.dummyEntryComment addObject:@"Vettel will be hoping for a good clean start. Webber will be hoping he doesn't go backwards."];
+    [self.dummyEntryComment addObject:@"Timo and Jerome are really fired up for this one! They both really like this track - the fastest of the season."];
+    [self.dummyEntryComment addObject:@"The cars are lining up on the grid. I just love the atmosphere in Monza."];
+    [self.dummyEntryComment addObject:@"They're off - three abreast!!"];
+    [self.dummyEntryComment addObject:@"What was Luizzi doing? That was crazy."];
+    [self.dummyEntryComment addObject:@"Unlucky for Nico!"];
+    [self.dummyEntryComment addObject:@"Great start Alonso! Shame about the safety car."];
+    [self.dummyEntryComment addObject:@"Vettel will get him after the safety car."];
+    [self.dummyEntryComment addObject:@"Look at Michael. He's flying."];
+    [self.dummyEntryComment addObject:@"Check out Hamilton's onboard on Midas..."];
+    [self.dummyEntryComment addObject:@"He's hitting the lmiter halfway down the straight!"];
+    [self.dummyEntryComment addObject:@"Oh no! There was no way Webber was going to get by there."];
+    [self.dummyEntryComment addObject:@"Fantastic move by Vettel. He was on the grass at 200mph!"];
+    [self.dummyEntryComment addObject:@"Bad luck for Jerome today."];
+    
 #ifdef USE_REAL_TWITTER
     if ([TWTweetComposeViewController canSendTweet]) 
     {

@@ -264,8 +264,13 @@
 	if(!source)
 		return;
 	
-	// Position the movie and order the overlays
-	if([movieView displayMovieSource:source])
+	[movieView setMovieViewDelegate:self];
+	[movieView displayMovieSource:source]; // Will get notification below when it's done
+}
+
+- (void)notifyMovieAttachedToView:(MovieView *)notifyingView	// MovieViewDelegate method
+{
+	if(notifyingView == movieView)
 	{
 		[movieView bringSubviewToFront:overlayView];
 		[movieView bringSubviewToFront:trackMapView];
@@ -275,7 +280,7 @@
 		[movieView bringSubviewToFront:videoDelayLabel];
 		[movieView bringSubviewToFront:loadingLabel];
 		[movieView bringSubviewToFront:loadingTwirl];
-	
+		
 		[self positionOverlays];
 	}
 }

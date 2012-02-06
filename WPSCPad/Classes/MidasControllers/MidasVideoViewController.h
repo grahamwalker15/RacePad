@@ -25,7 +25,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate, MidasSocialmediaResponderDelegate>
+@interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate, MidasSocialmediaResponderDelegate, MovieViewDelegate>
 {
 	IBOutlet MovieView * mainMovieView;
 	IBOutlet MovieView * auxMovieView1;	
@@ -34,6 +34,15 @@
 	IBOutlet UIButton * auxMovieView1CloseButton;
 	IBOutlet UIButton * auxMovieView2CloseButton;
 	
+	IBOutlet UIButton * mainMovieViewDriverName;
+	IBOutlet UIButton * mainMovieViewMovieType;
+	
+	IBOutlet UIButton * auxMovieView1DriverName;
+	IBOutlet UIButton * auxMovieView1MovieType;
+	
+	IBOutlet UIButton * auxMovieView2DriverName;
+	IBOutlet UIButton * auxMovieView2MovieType;
+
 	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet BackgroundView * trackZoomContainer;
@@ -100,6 +109,7 @@
 	bool displayLeaderboard;
 	
 	bool disableOverlays;
+	bool allowBubbleCommentary;
 	
 	bool menuButtonsDisplayed;
 	bool menuButtonsAnimating;
@@ -114,6 +124,8 @@
 @property (nonatomic) bool displayVideo;
 @property (nonatomic) bool displayMap;
 @property (nonatomic) bool displayLeaderboard;
+
+@property (nonatomic) bool allowBubbleCommentary;
 
 @property (nonatomic) bool midasMenuButtonOpen;
 @property (nonatomic) bool alertsButtonOpen;
@@ -155,6 +167,7 @@
 - (void) showMenuButtons;
 - (void) menuAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
+- (void) prepareToAnimateMovieViews:(MovieView *)newView From:(int)movieDirection;
 - (void) animateMovieViews:(MovieView *)newView From:(int)movieDirection;
 - (void) movieViewAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 

@@ -144,8 +144,9 @@ static BasePadMedia * instance_ = nil;
 {
 	for(int i = 0 ; i < BPM_MAX_VIDEO_STREAMS ; i++)
 	{
-		if(movieSources[i])
+		if(movieSources[i] && [movieSources[i] movieLoaded])
 		{
+			[self notifyUnloadingVideoSource:movieSources[i]];
 			[movieSources[i] unloadMovie];
 		}
 	}
@@ -178,7 +179,13 @@ static BasePadMedia * instance_ = nil;
 			currentMovieRoot = [newMovie retain];
 			
 			for(int i = 0 ; i < movieSourceCount ; i++)
-				[movieSources[i] unloadMovie];
+			{
+				if(movieSources[i] && [movieSources[i] movieLoaded])
+				{
+					[self notifyUnloadingVideoSource:movieSources[i]];
+					[movieSources[i] unloadMovie];
+				}
+			}
 
 			// If we have a video list, pass this on to the parser, else load directly here
 			if([currentMovieRoot hasSuffix:@".vls"])
@@ -187,16 +194,21 @@ static BasePadMedia * instance_ = nil;
 			}
 			else
 			{
-				[movieSources[0] loadMovie:url ShouldDisplay:true];
+				[movieSources[0] loadMovie:url ShouldDisplay:true InMovieView:nil];
 				movieSourceCount = 1;
 			}
-
 		}
 	}
 	else
 	{
 		for(int i = 0 ; i < movieSourceCount ; i++)
-			[movieSources[i] unloadMovie];
+		{
+			if(movieSources[i] && [movieSources[i] movieLoaded])
+			{
+				[self notifyUnloadingVideoSource:movieSources[i]];
+				[movieSources[i] unloadMovie];
+			}
+		}
 		
 		movieSourceCount = 0;
 		movieType = MOVIE_TYPE_NONE_;
@@ -593,7 +605,8 @@ static BasePadMedia * instance_ = nil;
 
 		if([movieSources[i] movieLoaded])
 		{
-			[registeredViewController displayMovieSource:movieSources[i]];		}
+			[registeredViewController displayMovieSource:movieSources[i]];
+		}
 	}
 }
 
@@ -720,6 +733,7 @@ static BasePadMedia * instance_ = nil;
 	{
 		char keyword[128];
 		char stringValue[256];
+		char movieTypeString[16];
 		int movieStartTime;
 		int movieLoop;
 		
@@ -731,13 +745,36 @@ static BasePadMedia * instance_ = nil;
 			if ( strcmp ( keyword, "@videofile" ) != 0 )
 				break;
 
+			// File name:
 			if ( fscanf(listFile, "%128s", stringValue ) != 1 )
 				break;
 			
-			NSString * urlString = [[BasePadCoordinator Instance] getVideoArchiveRoot];
-			urlString = [urlString stringByAppendingPathComponent:[NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding]];
-			NSURL * url = [NSURL fileURLWithPath:urlString];	// auto released
+			// Type:
+			if ( fscanf(listFile, "%128s %128s", keyword, movieTypeString ) != 2 )
+				break;
 			
+			bool movieIsURL = false;
+			if ( strcmp ( movieTypeString, "url" ) == 0 )
+				movieIsURL = true;
+			
+			// If it is a file name, append document path - otherwise if it is a url, leave as it is
+			
+			NSString * urlString;
+			NSURL * url;
+			
+			if(!movieIsURL)
+			{
+				urlString = [[BasePadCoordinator Instance] getVideoArchiveRoot];
+				urlString = [urlString stringByAppendingPathComponent:[NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding]];
+				url = [NSURL fileURLWithPath:urlString];	// auto released
+			}
+			else
+			{
+				NSString * urlString = @"http://";
+				urlString = [urlString stringByAppendingString:[NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding]];
+				url = [NSURL URLWithString:urlString];	// auto released
+			}
+
 			if ( fscanf(listFile, "%128s %d", keyword, &movieStartTime ) != 2 )
 				break;
 			
@@ -749,16 +786,23 @@ static BasePadMedia * instance_ = nil;
 			
 			NSString * movieTag = [NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding];
 			
+			if ( fscanf(listFile, "%128s %128s", keyword, stringValue ) != 2 )
+				break;
+			
+			NSString * movieName = [NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding];
+			
 			if ( fscanf(listFile, "%128s", keyword ) != 1 )
 				break;
 			
 			if ( strcmp ( keyword, "@end" ) == 0 )
 			{
 				[movieSources[localMovieSourceCount] setMovieURL:url] ;
+				[movieSources[localMovieSourceCount] setMovieType:(movieIsURL ? MOVIE_TYPE_VOD_STREAM_ : MOVIE_TYPE_ARCHIVE_)] ;
 				[movieSources[localMovieSourceCount] setShouldAutoDisplay:(movieSourceCount == 0)];	// Displays first one
 				[movieSources[localMovieSourceCount] setStartTime:movieStartTime];
 				[movieSources[localMovieSourceCount] setMovieLoop:(movieLoop > 0)];
 				[movieSources[localMovieSourceCount] setMovieTag:movieTag];
+				[movieSources[localMovieSourceCount] setMovieName:movieName];
 				[self queueMovieLoad:localMovieSourceCount];
 				localMovieSourceCount++;
 			}
@@ -781,7 +825,11 @@ static BasePadMedia * instance_ = nil;
 	}
 	else
 	{
-		[movieSources[movieSourceIndex] loadMovie];
+		if([movieSources[movieSourceIndex] shouldAutoDisplay] || [movieSources[movieSourceIndex] movieType] == MOVIE_TYPE_ARCHIVE_)
+			[movieSources[movieSourceIndex] loadMovie];
+		else
+			[movieSources[movieSourceIndex] makeThumbnail];
+		
 		movieSourceCount++;
 	}
 }
@@ -808,8 +856,15 @@ static BasePadMedia * instance_ = nil;
 			}
 		}
 				
-		[movieSources[movieToLoad] loadMovie];
 		movieSourceCount++;
+
+		if([movieSources[movieToLoad] shouldAutoDisplay] || [movieSources[movieToLoad] movieType] == MOVIE_TYPE_ARCHIVE_)
+			[movieSources[movieToLoad] loadMovie];
+		else
+		{
+			[movieSources[movieToLoad] makeThumbnail];
+			[self unblockMovieLoadQueue];
+		}
 	}		
 }
 

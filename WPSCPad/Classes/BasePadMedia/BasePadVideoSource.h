@@ -49,6 +49,7 @@
 	
 	NSString *currentMovie;
 	NSString *movieTag;
+	NSString *movieName;
 	NSURL *movieURL;
 	UIImage *movieThumbnail;
 	
@@ -81,6 +82,9 @@
 	
 	bool shouldAutoDisplay;
 	
+	bool moviePlayerStatusOK;
+	bool moviePlayerItemStatusOK;
+	
 }
 
 @property (readonly) AVURLAsset * moviePlayerAsset;
@@ -103,6 +107,7 @@
 @property (readonly) NSString *currentMovie;
 @property (nonatomic, retain) NSURL *movieURL;
 @property (nonatomic, retain) NSString *movieTag;
+@property (nonatomic, retain) NSString *movieName;
 @property (readonly) UIImage *movieThumbnail;
 
 @property (readonly) int currentStatus;
@@ -118,7 +123,7 @@
 @property (nonatomic) bool moviePausedInPlace;
 @property (nonatomic) bool moviePlaying;
 
-@property (readonly) int movieType;
+@property (nonatomic) int movieType;
 
 @property (nonatomic) bool movieActive;
 @property (nonatomic) bool movieDisplayed;
@@ -128,7 +133,8 @@
 - (void)onStartUp;
 
 - (void) loadMovie;
-- (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay;
+- (void) loadMovieIntoView:(MovieView *)movieView;
+- (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay InMovieView:(MovieView *)movieView;
 - (void) unloadMovie;
 - (void) attachMovie;
 - (void) detachMovie;

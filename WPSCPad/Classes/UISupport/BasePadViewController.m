@@ -247,6 +247,26 @@ static id timeControllerInstance = nil;
 	[recognizer release];
 }
 
+-(void) addUpSwipeRecognizerToView:(UIView *)view
+{	
+	// Right Swipe recognizer - two fingers
+	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
+	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionUp];
+	[(UISwipeGestureRecognizer *)recognizer setNumberOfTouchesRequired:1];
+	[view addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
+-(void) addDownSwipeRecognizerToView:(UIView *)view
+{	
+	// Right Swipe recognizer - two fingers
+	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
+	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionDown];
+	[(UISwipeGestureRecognizer *)recognizer setNumberOfTouchesRequired:1];
+	[view addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
 -(void) addPanRecognizerToView:(UIView *)view
 {	
 	//	Pan recognizer
@@ -389,6 +409,18 @@ static id timeControllerInstance = nil;
 {
 	UIView * gestureView = [gestureRecognizer view];
 	[self OnLeftSwipeGestureInView:gestureView];
+}
+
+- (void)HandleUpSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	UIView * gestureView = [gestureRecognizer view];
+	[self OnUpSwipeGestureInView:gestureView];
+}
+
+- (void)HandleDownSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	UIView * gestureView = [gestureRecognizer view];
+	[self OnDownSwipeGestureInView:gestureView];
 }
 
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
@@ -554,6 +586,14 @@ static id timeControllerInstance = nil;
 }
 
 - (void) OnLeftSwipeGestureInView:(UIView *)gestureView
+{
+}
+
+- (void) OnUpSwipeGestureInView:(UIView *)gestureView
+{
+}
+
+- (void) OnDownSwipeGestureInView:(UIView *)gestureView
 {
 }
 

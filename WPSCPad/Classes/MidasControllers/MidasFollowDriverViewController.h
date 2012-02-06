@@ -10,6 +10,7 @@
 
 #import "MidasBaseViewController.h"
 #import "TableDataView.h"
+#import "MovieView.h"
 
 @class TrackMapView;
 @class LeaderboardView;
@@ -21,7 +22,7 @@
 }
 @end
 
-@interface MidasFollowDriverViewController : MidasBaseViewController
+@interface MidasFollowDriverViewController : MidasBaseViewController <MovieViewDelegate>
 {
 	IBOutlet UIButton * expandButton;
 	IBOutlet UIView * extensionContainer;

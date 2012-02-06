@@ -8,7 +8,7 @@
 
 #import "MidasView.h"
 
-#define kTestDataLen    11
+#define kTestDataLen    12
 
 @implementation MidasView
 
@@ -45,72 +45,70 @@
     self.dummyEntryComment = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
     self.dummyEntryUserId = [[NSMutableArray alloc] initWithCapacity:kTestDataLen];
 	
-    NSNumber *aNumber = [NSNumber numberWithFloat:0];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:3];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:6];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:12];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:16];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:20];
-    [self.entryTimings addObject:aNumber];
-    aNumber = [NSNumber numberWithFloat:25];
-    [self.entryTimings addObject:aNumber];
+	[self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 0 * 60 + 15)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 3 * 60 + 36)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 3 * 60 + 59)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 4 * 60 + 29)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 4 * 60 + 37)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 5 * 60 + 25)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 5 * 60 + 45)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 6 * 60 + 15)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 6 * 60 + 35)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 7 * 60 + 25)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 10 * 60 + 20)]];
+    [self.entryTimings addObject:[NSNumber numberWithFloat:(14*3600 + 10 * 60 + 50)]];
 	
-    [self.dummyEntryName addObject:@"John J"];
-    [self.dummyEntryName addObject:@"Freddie F1"];
-    [self.dummyEntryName addObject:@"Mary Jane"];
-    [self.dummyEntryName addObject:@"Chris"];
-    [self.dummyEntryName addObject:@"Hazel I"];
-    [self.dummyEntryName addObject:@"Jake BBCF1"];
-    [self.dummyEntryName addObject:@"Eddie I BBCF1"];
-    [self.dummyEntryName addObject:@"Chris F1 Fan"];
-    [self.dummyEntryName addObject:@"Marky Boy"];
-    [self.dummyEntryName addObject:@"Kylie M"];
-    [self.dummyEntryName addObject:@"R Schumacher"];
+    [self.dummyEntryName addObject:@"Bruce Steinberg"];
+    [self.dummyEntryName addObject:@"Sam Mackellar"];
+    [self.dummyEntryName addObject:@"Sam Mackellar"];
+    [self.dummyEntryName addObject:@"F1Meir"];
+    [self.dummyEntryName addObject:@"KrivKriv"];
+    [self.dummyEntryName addObject:@"Graeme Weston"];
+    [self.dummyEntryName addObject:@"Gareth Griffith"];
+    [self.dummyEntryName addObject:@"Graeme Weston"];
+    [self.dummyEntryName addObject:@"Bruce Steinberg"];
+    [self.dummyEntryName addObject:@"KrivKriv"];
+    [self.dummyEntryName addObject:@"Gareth Griffith"];
+    [self.dummyEntryName addObject:@"Graeme Weston"];
     
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user3.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user2.png"]];
-    [self.dummyEntryImage addObject:[UIImage imageNamed:@"user1.png"]];
+    [self.dummyEntryUserId addObject:@"TheSteinberg "];
+    [self.dummyEntryUserId addObject:@"SMackellar101 "];
+    [self.dummyEntryUserId addObject:@"SMackellar101 "];
+    [self.dummyEntryUserId addObject:@"F1Meir "];
+	[self.dummyEntryUserId addObject:@"KrivKriv "];
+	[self.dummyEntryUserId addObject:@"GrayW "];
+    [self.dummyEntryUserId addObject:@"GG "];
+    [self.dummyEntryUserId addObject:@"GrayW "];
+    [self.dummyEntryUserId addObject:@"TheSteinberg "];
+    [self.dummyEntryUserId addObject:@"KrivKriv "];
+    [self.dummyEntryUserId addObject:@"GG "];
+    [self.dummyEntryUserId addObject:@"GrayW "];
+	
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"The-Steinberg.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"SMackellar.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"SMackellar.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"F1Meir.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"KrivKriv.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"GrayW.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"GG.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"GrayW.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"The-Steinberg.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"KrivKriv.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"GG.png"]];
+    [self.dummyEntryImage addObject:[UIImage imageNamed:@"GrayW.png"]];
     
-    [self.dummyEntryComment addObject:@"John J Comment"];
-    [self.dummyEntryComment addObject:@"Freddie F1 Comment"];
-    [self.dummyEntryComment addObject:@"Mary Jane Comment Mary Jane Comment Mary Jane Comment"];
-    [self.dummyEntryComment addObject:@"Chris Comment"];
-    [self.dummyEntryComment addObject:@"Hazel I Comment Hazel I Comment Hazel I Comment"];
-    [self.dummyEntryComment addObject:@"Jake BBCF1 Comment"];
-    [self.dummyEntryComment addObject:@"Eddie I BBCF1 Comment"];
-    [self.dummyEntryComment addObject:@"Chris F1 Fan Comment"];
-    [self.dummyEntryComment addObject:@"Marky Boy Comment"];
-    [self.dummyEntryComment addObject:@"Kylie M Comment"];
-    [self.dummyEntryComment addObject:@"R Schumacher Comment"];
-    
-    [self.dummyEntryUserId addObject:@"@johnj "];
-    [self.dummyEntryUserId addObject:@"@freddief1 "];
-    [self.dummyEntryUserId addObject:@"@maryjane "];
-    [self.dummyEntryUserId addObject:@"@chris "];
-    [self.dummyEntryUserId addObject:@"@hazeli "];
-    [self.dummyEntryUserId addObject:@"@jakebbc1 "];
-    [self.dummyEntryUserId addObject:@"@eddiebbc1 "];
-    [self.dummyEntryUserId addObject:@"@chrisf1 "];
-    [self.dummyEntryUserId addObject:@"@markyboy "];
-    [self.dummyEntryUserId addObject:@"@kyliem "];
-    [self.dummyEntryUserId addObject:@"@rschumacher "];
+    [self.dummyEntryComment addObject:@"Hey! U should check out the VIP area!"];
+    [self.dummyEntryComment addObject:@"Check out the exclusive with Jenson Button in the VIP area!!!"];
+    [self.dummyEntryComment addObject:@"he is so cute. Hehe ;-)"];
+    [self.dummyEntryComment addObject:@"Did you see that overtake! Look at it from his onboard"];
+    [self.dummyEntryComment addObject:@"Anyone got an F1 cap? They look awesome!"];
+    [self.dummyEntryComment addObject:@"You can get caps at the F1 store."];
+    [self.dummyEntryComment addObject:@"Check out the start from Alonso's onboard. Amazing!"];
+    [self.dummyEntryComment addObject:@"Guys - check out the pitcam - new nose for Kobayashi..."];
+    [self.dummyEntryComment addObject:@"That's Webber's first non-finish of the season."];
+    [self.dummyEntryComment addObject:@"The championship is Vettel's now."];
+    [self.dummyEntryComment addObject:@"Wach that Vettel move in slow motion. That was brave!"];
+    [self.dummyEntryComment addObject:@"Jenson is looking quicker than Lewis today."];
     
 }
 
@@ -149,7 +147,7 @@
 }
 
 - (CGRect)getCommentTextFrame:(CGFloat)height{
-    return CGRectMake(60, 13, 246, height + 15);
+    return CGRectMake(60, 13, 246, height + 10);
 }
 
 - (UIColor *)getTextColour {

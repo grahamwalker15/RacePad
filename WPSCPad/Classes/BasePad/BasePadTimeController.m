@@ -18,6 +18,7 @@ static BasePadTimeController * instance_ = nil;
 
 @synthesize timeNow;
 @synthesize displayed;
+@synthesize autoHide;
 @synthesize timeController;
 
 
@@ -41,6 +42,7 @@ static BasePadTimeController * instance_ = nil;
 		
 		displayed = false;
 		hiding = false;
+		autoHide = true;
 		hideTimer = nil;
 		
 		timeNow = 0.0;
@@ -188,6 +190,7 @@ static BasePadTimeController * instance_ = nil;
 	[self updateTime:current_time];
 	
 	displayed = true;
+	
 	[self setHideTimer];
 	
 	parentController = [viewController retain];
@@ -257,12 +260,14 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) setHideTimer
 {
-	// Timer to hide the controls if they're not touched for 5 seconds
-	if(hideTimer)
-		[hideTimer invalidate];
+	if(autoHide)
+	{
+		// Timer to hide the controls if they're not touched for 5 seconds
+		if(hideTimer)
+			[hideTimer invalidate];
 	
-	hideTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
-	
+		hideTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
+	}
 }
 
 - (void) hideTimerExpired:(NSTimer *)theTimer

@@ -11,8 +11,9 @@
 #import "MidasBaseViewController.h"
 #import "TrackMapView.h"
 #import "MovieSelectorView.h"
+#import "MovieView.h"
 
-@interface MidasCircuitViewController : MidasBaseViewController
+@interface MidasCircuitViewController : MidasBaseViewController <MovieViewDelegate>
 {
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet MovieSelectorView * movieSelectorView;

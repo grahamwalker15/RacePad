@@ -33,7 +33,11 @@
 		[self addTapRecognizerToView:container];
 	
 	if(heading)
+	{
 		[self addTapRecognizerToView:heading];
+		[self addUpSwipeRecognizerToView:heading];
+		[self addDownSwipeRecognizerToView:heading];
+	}
 }
 
 
@@ -71,6 +75,22 @@
 ////////////////////////////////////////////////////////////////////////////
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{	
+	if(gestureView == heading && associatedManager)
+	{
+		[associatedManager hideAnimated:true Notify:true];
+	}
+}
+
+- (void) OnUpSwipeGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{	
+	if(gestureView == heading && associatedManager)
+	{
+		[associatedManager hideAnimated:true Notify:true];
+	}
+}
+
+- (void) OnDownSwipeGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {	
 	if(gestureView == heading && associatedManager)
 	{
