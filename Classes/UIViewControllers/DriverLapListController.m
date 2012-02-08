@@ -1,4 +1,4 @@
-    //
+//
 //  DriverLapListController.m
 //  RacePad
 //
@@ -21,7 +21,7 @@
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
- {
+{
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
 	{
 		// This view is always displayed as a subview
@@ -30,16 +30,16 @@
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		driver_ = nil;
- }
+	}
     return self;
 }
 
 /*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
+ // Implement loadView to create a view hierarchy programmatically, without using a nib.
+ - (void)loadView
+ {
+ }
+ */
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -49,16 +49,16 @@
  	// Set up the table data for SimpleListView
 	[lap_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverData]];
 	
-	[lap_list_view_ SetRowHeight:26];
+	[lap_list_view_ setStandardRowHeight:26];
 	[lap_list_view_ SetHeading:true];
 	[lap_list_view_ SetBackgroundAlpha:0.5];
-
+	
 	[lap_list_view_ SetSwipingEnabled:true];
-		
+	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:lap_list_view_];
 	[self addDoubleTapRecognizerToView:lap_list_view_];
-
+	
 	[self addRightSwipeRecognizerToView:swipe_catcher_view_];
 	[self addLeftSwipeRecognizerToView:swipe_catcher_view_];
 	

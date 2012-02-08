@@ -18,6 +18,7 @@
 	int firstRow;
 	float timeWindow;
 	bool smallFont;
+	bool midasStyle;
 	int minPriority;
 	double lastUpdateTime;
 	
@@ -33,6 +34,7 @@
 
 @property float timeWindow;
 @property bool smallFont;
+@property bool midasStyle;
 @property int minPriority;
 @property double lastUpdateTime;
 @property float latestMessageTime;

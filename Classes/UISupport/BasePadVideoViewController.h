@@ -8,6 +8,8 @@
 
 #import "BasePadViewController.h"
 
+@class BasePadVideoSource;
+
 @interface BasePadVideoViewController : BasePadViewController
 {
 	IBOutlet UILabel * loadingLabel;
@@ -18,8 +20,10 @@
 - (void) showLoadingIndicators;
 - (void) hideLoadingIndicators;
 
-- (void) displayMovieInView;
-- (void) removeMovieFromView;
+- (void) displayMovieSource:(BasePadVideoSource *)source;
+- (void) removeMovieFromView:(BasePadVideoSource *)source;
+- (void) removeMoviesFromView;
+
 - (void) notifyMovieInformation;
 
 @end

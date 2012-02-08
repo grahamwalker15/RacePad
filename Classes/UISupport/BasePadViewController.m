@@ -21,10 +21,31 @@ static id timeControllerInstance = nil;
 	timeControllerInstance = instance;
 }
 
++ (id) timeControllerInstance
+{
+	return timeControllerInstance;
+}
+
++ (bool) timeControllerDisplayed
+{
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+		return [timeControllerInstance timeControllerDisplayed];
+	}
+	
+	return false;
+}
+
+- (void) notifyHidingTimeControls
+{
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+	
 	//	Create and configure the gesture recognizers. Add each to the controlled view as a gesture recognizer.
 	
 	doubleTapTimer = nil;
@@ -58,7 +79,7 @@ static id timeControllerInstance = nil;
 		[helpController release];
 	
 	helpController = nil;
-
+	
     [super viewDidUnload];
 }
 
@@ -71,9 +92,9 @@ static id timeControllerInstance = nil;
 - (HelpViewController *) helpController
 {
 	/*
-	if(!helpController)
-		helpController = [[HelpViewController alloc] initWithNibName:@"DefaultHelpView" bundle:nil];
-	*/
+	 if(!helpController)
+	 helpController = [[HelpViewController alloc] initWithNibName:@"DefaultHelpView" bundle:nil];
+	 */
 	
 	return helpController;
 }
@@ -114,6 +135,44 @@ static id timeControllerInstance = nil;
 	}	
 }
 
+-(UIImage *) renderViewToImage:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    
+	// Get a context
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+	
+    // Clear whole thing
+    CGContextClearRect(ctx, view.bounds);
+	
+	// Draw view into context
+    [view.layer renderInContext:ctx];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+	
+    return newImage;
+}
+
+
+// Time controller display
+
+- (void) toggleTimeControllerDisplay
+{
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+		if(![timeControllerInstance timeControllerDisplayed])
+		{
+			[timeControllerInstance displayTimeControllerInViewController:self Animated:true];
+		}
+		else
+		{
+			[timeControllerInstance hideTimeController];
+		}
+	}
+}
+
 // Gesture recognizers
 
 -(void) addTapRecognizerToView:(UIView *)view
@@ -121,6 +180,7 @@ static id timeControllerInstance = nil;
 	// Tap recognizer
 	UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
 	[recognizer setCancelsTouchesInView:false];
+	[recognizer setDelegate:self];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
@@ -146,6 +206,7 @@ static id timeControllerInstance = nil;
 	// Long press recognizer
 	UILongPressGestureRecognizer * recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLongPressFrom:)];
 	[recognizer setCancelsTouchesInView:false];
+	[recognizer setDelegate:self];
 	[view addGestureRecognizer:recognizer];
 	[recognizer release];
 }
@@ -186,6 +247,26 @@ static id timeControllerInstance = nil;
 	[recognizer release];
 }
 
+-(void) addUpSwipeRecognizerToView:(UIView *)view
+{	
+	// Right Swipe recognizer - two fingers
+	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
+	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionUp];
+	[(UISwipeGestureRecognizer *)recognizer setNumberOfTouchesRequired:1];
+	[view addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
+-(void) addDownSwipeRecognizerToView:(UIView *)view
+{	
+	// Right Swipe recognizer - two fingers
+	UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(HandleRightSwipeFrom:)];
+	[(UISwipeGestureRecognizer *)recognizer setDirection:UISwipeGestureRecognizerDirectionDown];
+	[(UISwipeGestureRecognizer *)recognizer setNumberOfTouchesRequired:1];
+	[view addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
 -(void) addPanRecognizerToView:(UIView *)view
 {	
 	//	Pan recognizer
@@ -216,6 +297,14 @@ static id timeControllerInstance = nil;
 }
 
 // Gesture recognizer callbacks
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+	if(touch && [[touch.view class] isSubclassOfClass:[UIControl class]])
+		return false;	
+	
+	return true;
+}
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -265,7 +354,7 @@ static id timeControllerInstance = nil;
 - (void)HandlePinchFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	UIView * gestureView = [gestureRecognizer view];
-
+	
 	if([(UIPinchGestureRecognizer *)gestureRecognizer state] == UIGestureRecognizerStateEnded)
 	{
 		lastGestureScale = 1.0;
@@ -322,6 +411,18 @@ static id timeControllerInstance = nil;
 	[self OnLeftSwipeGestureInView:gestureView];
 }
 
+- (void)HandleUpSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	UIView * gestureView = [gestureRecognizer view];
+	[self OnUpSwipeGestureInView:gestureView];
+}
+
+- (void)HandleDownSwipeFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	UIView * gestureView = [gestureRecognizer view];
+	[self OnDownSwipeGestureInView:gestureView];
+}
+
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	int state = [(UIPanGestureRecognizer *)gestureRecognizer state];
@@ -341,7 +442,7 @@ static id timeControllerInstance = nil;
 	[self OnPanGestureInView:gestureView ByX:pan.x Y:pan.y SpeedX:speed.x SpeedY:speed.y State:state];
 	lastGesturePanX = thisGesturePanX;
 	lastGesturePanY = thisGesturePanY;
-
+	
 	if(state == UIGestureRecognizerStateEnded)
 	{
 		lastGesturePanX = 0.0;
@@ -397,7 +498,7 @@ static id timeControllerInstance = nil;
 	
 	float dx = point.x - xCentre;
 	float dy = yCentre - point.y;
-
+	
 	// only initialise once we're 10 pixels from centre
 	if(![(UIJogGestureRecognizer *)gestureRecognizer initialised])
 	{
@@ -432,7 +533,7 @@ static id timeControllerInstance = nil;
 		}
 		
 		int newDirection = change < -0.0001 ? -1 : change > 0.0001 ? 1 : direction;
-
+		
 		if(fabsf(change) > M_PI * 0.75)
 		{
 			if(direction != 0 && newDirection != direction)
@@ -488,6 +589,14 @@ static id timeControllerInstance = nil;
 {
 }
 
+- (void) OnUpSwipeGestureInView:(UIView *)gestureView
+{
+}
+
+- (void) OnDownSwipeGestureInView:(UIView *)gestureView
+{
+}
+
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state
 {
 }
@@ -503,12 +612,12 @@ static id timeControllerInstance = nil;
 - (void) handleTimeControllerGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	if ( timeControllerInstance
-	  && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+		&& [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
 	{
 		if(![timeControllerInstance timeControllerDisplayed])
 		{
 			CGPoint tapScreenPoint = [[self view] convertPoint:CGPointMake(x, y) fromView:gestureView];
-
+			
 			// Only display if y is in bottom 150 pixels of our base view
 			CGRect viewBounds = [[self view] bounds];
 			
@@ -571,20 +680,20 @@ static id timeControllerInstance = nil;
 	}
 	
 	[(JogControlView *)[self view] setChange:0.0];
-
+	
 	[super touchesBegan:touches withEvent:event];
 }
 
 - (float)angleOfPoint:(CGPoint)point InView:(UIView *)gestureView
 {
 	CGRect viewBounds = [gestureView bounds];
-
+	
 	float xCentre = viewBounds.size.width / 2;
 	float yCentre = viewBounds.size.height / 2;
-
+	
 	float dx = point.x - xCentre;
 	float dy = yCentre - point.y;
-
+	
 	return atan2(dy,dx);
 }
 

@@ -37,12 +37,12 @@
 	[super viewDidLoad];
 	
  	[draggedDriverCell removeFromSuperview];
-
+	
 	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:nil];
 	
 	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_CARBON_];
-
+	
 	//[seeLapsButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
 	//[seeLapsButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
 	//[seeLapsButton setShine:0.1];
@@ -60,7 +60,7 @@
 	[self addDoubleTapRecognizerToView:headToHeadView];
 	[self addPanRecognizerToView:headToHeadView];
 	[self addPinchRecognizerToView:headToHeadView];
-
+	
 	// Add tap recognizers to buttons to prevent them bringing up ti;e controls
 	//[self addTapRecognizerToView:allButton];
 	//[self addTapRecognizerToView:seeLapsButton];
@@ -85,7 +85,7 @@
 		[super viewWillAppear:animated];
 		
 		[self positionOverlays];
-
+		
 		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:( RPC_LEADER_BOARD_VIEW_ | RPC_HEAD_TO_HEAD_VIEW_ )];
 		
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
@@ -136,7 +136,7 @@
 {
 	[self positionOverlays];
 	[[CommentaryBubble Instance] didRotateInterface];
-
+	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
@@ -195,7 +195,7 @@
 		ImageListStore * image_store = [database imageListStore];
 		
 		ImageList *photoImageList = image_store ? [image_store findList:@"DriverPhotos"] : nil;
-
+		
 		NSString * driver0 = [headToHead driver0];
 		NSString * driver1 = [headToHead driver1];
 		if(driver0 && [driver0 length] > 0)
@@ -216,7 +216,7 @@
 			NSString * firstName = [headToHead firstName0];
 			NSString * surname = [headToHead surname0];
 			NSString * teamName = [headToHead teamName0];
-					
+			
 			[driverFirstNameLabel1 setText:firstName];
 			[driverSurnameLabel1 setText:surname];
 			[driverTeamLabel1 setText:teamName];	
@@ -231,7 +231,7 @@
 			[driverFirstNameLabel1 setText:@""];
 			[driverTeamLabel1 setText:@""];	
 		}
-
+		
 		if(driver1 && [driver1 length] > 0)
 		{
 			if(photoImageList)
@@ -285,7 +285,7 @@
 		if(name && [name length] > 0)
 		{
 			HeadToHead * headToHead = [[RacePadDatabase Instance] headToHead];
-				
+			
 			if(headToHead)
 			{
 				if(![headToHead driver0])
@@ -302,17 +302,17 @@
 					if ( [headToHead.driver0 isEqualToString:name] )
 						headToHead.driver0 = nil;
 				}
-					
+				
 				[[RacePadCoordinator Instance] SetViewHidden:self];
 				[[RacePadCoordinator Instance] SetViewHidden:headToHeadView];
 				[[RacePadCoordinator Instance] SetViewDisplayed:self];
 				[[RacePadCoordinator Instance] SetViewDisplayed:headToHeadView];
-					
+				
 			}
-						
+			
 			[leaderboardView setHighlightCar:nil];
 			[leaderboardView RequestRedraw];
-
+			
 			return;
 		}
 	}
@@ -332,7 +332,7 @@
 			[(HeadToHeadView *)gestureView adjustScaleY:scale X:x Y:y];	
 		else
 			[(HeadToHeadView *)gestureView adjustScaleX:scale X:x Y:y];	
-
+		
 		[(HeadToHeadView *)gestureView RequestRedraw];
 	}
 }
@@ -385,12 +385,12 @@
 				[draggedDriverName release];
 				draggedDriverName = nil;
 			}
-
+			
 			if(gestureView == leaderboardView)
 			{
 				CGPoint point = [recognizer downPoint];
 				NSString * name = [leaderboardView carNameAtX:point.x Y:point.y];
-					
+				
 				if(name && [name length] > 0)
 				{
 					draggedDriverName = [name retain];
@@ -418,14 +418,14 @@
 			{
 				[self.view addSubview:draggedDriverCell];
 				[self addDropShadowToView:draggedDriverCell WithOffsetX:5 Y:5 Blur:3];
-						
+				
 				CGRect cellRect = [draggedDriverCell bounds];
 				CGPoint downPoint = [recognizer locationInView:[self view]];
 				CGRect dragFrame = CGRectMake(downPoint.x - cellRect.size.width / 2, downPoint.y - cellRect.size.height / 2, cellRect.size.width, cellRect.size.height);
 				[draggedDriverCell setFrame:dragFrame];
-						
+				
 				[draggedDriverText setText:draggedDriverName];
-									
+				
 				[leaderboardView setHighlightCar:draggedDriverName];
 				[leaderboardView RequestRedraw];
 			}
@@ -452,12 +452,12 @@
 			if(draggedDriverName)
 			{
 				[draggedDriverCell removeFromSuperview];
-
+				
 				HeadToHead * headToHead = [[RacePadDatabase Instance] headToHead];
 				
 				if(headToHead)
 				{
-				
+					
 					// Check whether we are over a drop zone
 					CGPoint point = [recognizer locationInView:headToHeadView];
 					
@@ -481,7 +481,7 @@
 									headToHead.driver1 = nil;
 							}
 							headToHead.driver0 = draggedDriverName;
-
+							
 							dropped = true;
 						}
 						else
@@ -529,10 +529,10 @@
 - (IBAction) seeLapsPressed:(id)sender
 {
 	/*
-	NSString * car = [trackMapView carToFollow];
-	
-	if(car && [car length] > 0)
-		[self ShowDriverLapList:car];
+	 NSString * car = [trackMapView carToFollow];
+	 
+	 if(car && [car length] > 0)
+	 [self ShowDriverLapList:car];
 	 */
 }
 

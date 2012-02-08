@@ -20,6 +20,7 @@ static UIImage * screen_bg_image_ = nil;
 static UIImage * carbon_bg_image_  = nil;
 static UIImage * grey_bg_image_  = nil;
 static UIImage * grass_bg_image_ = nil;
+static UIImage * midas_bg_image_ = nil;
 
 static bool bg_images_initialised_ = false;
 
@@ -51,7 +52,7 @@ static bool bg_images_initialised_ = false;
  		[self InitialiseImages];
 		style = BG_STYLE_FULL_SCREEN_CARBON_;
 		inset = 0;
-
+		
 		frames = [[NSMutableArray alloc] init];
 	}
     return self;
@@ -63,6 +64,7 @@ static bool bg_images_initialised_ = false;
 	[carbon_bg_image_  release];
 	[grey_bg_image_  release];
 	[grass_bg_image_  release];
+	[midas_bg_image_  release];
 	
 	[frames removeAllObjects];
 	[frames release];
@@ -85,6 +87,7 @@ static bool bg_images_initialised_ = false;
 		grey_bg_image_  = [[UIImage imageNamed:@"GreyTextureBG.png"] retain];
 		carbon_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
 		grass_bg_image_  = [[UIImage imageNamed:@"Grass.png"] retain];
+		midas_bg_image_  = [[UIImage imageNamed:@"midas_background.png"] retain];
 	}
 	else
 	{
@@ -92,6 +95,7 @@ static bool bg_images_initialised_ = false;
 		[grey_bg_image_  retain];
 		[carbon_bg_image_  retain];
 		[grass_bg_image_  retain];
+		[midas_bg_image_  retain];
 	}
 }
 
@@ -107,6 +111,13 @@ static bool bg_images_initialised_ = false;
 		{
 			inset = 0;
 			[self DrawPattern:carbon_bg_image_ InRect:current_bounds_];	
+			break;
+		}
+			
+		case BG_STYLE_MIDAS_:
+		{
+			inset = 0;
+			[self DrawPattern:midas_bg_image_ InRect:current_bounds_];	
 			break;
 		}
 			
@@ -128,7 +139,7 @@ static bool bg_images_initialised_ = false;
 			[self DrawPattern:grass_bg_image_  InRect:inner_rect];
 			break;
 		}
-	
+			
 		case BG_STYLE_TRANSPARENT_:
 		{
 			inset = 0;
@@ -139,7 +150,24 @@ static bool bg_images_initialised_ = false;
 			[self LineRectangle:inner_rect];
 			break;
 		}
-		
+			
+		case BG_STYLE_MIDAS_TRANSPARENT_:
+		{
+			inset = 0;
+			
+			[self SetLineWidth:1];
+			[self SetFGColour:white_];
+			CGRect inner_rect = CGRectInset(current_bounds_, 1, 1);
+			[self LineRectangle:inner_rect];
+			break;
+		}
+			
+		case BG_STYLE_INVISIBLE_:
+		{
+			inset = 0;
+			break;
+		}
+			
 		case BG_STYLE_SHADOWED_GREY_:
 		{
 			inset = 20;
@@ -152,7 +180,7 @@ static bool bg_images_initialised_ = false;
 			break;
 		}
 			
-		case BG_STYLE_ROUNDED_STRAP_:
+		case BG_STYLE_ROUNDED_STRAP_WHITE_:
 		{
 			CGMutablePathRef rect = [DrawingView CreateRoundedRectPathX0:current_bounds_.origin.x Y0:current_bounds_.origin.x X1:current_bounds_.size.width Y1:current_bounds_.size.height Radius:10.0];
 			
@@ -162,14 +190,24 @@ static bool bg_images_initialised_ = false;
 			CGPathRelease(rect);
 		}
 			
+		case BG_STYLE_ROUNDED_STRAP_BLACK_:
+		{
+			CGMutablePathRef rect = [DrawingView CreateRoundedRectPathX0:current_bounds_.origin.x Y0:current_bounds_.origin.x X1:current_bounds_.size.width Y1:current_bounds_.size.height Radius:10.0];
+			
+			[self SetBGColour: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.8]];
+			[self FillPath:rect];
+			
+			CGPathRelease(rect);
+		}
+			
 		default:
 			break;
 	}
-		
+	
 	[self RestoreGraphicsState];
 	
 	[self drawFrames];
-
+	
 }
 
 - (void)drawFrames

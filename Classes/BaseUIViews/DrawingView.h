@@ -9,59 +9,79 @@
 #import <UIKit/UIKit.h>
 #import "UIConstants.h"
 
+// View types
+enum FontTypes
+{
+	DW_LIGHT_REGULAR_FONT_,
+	DW_LIGHT_CONTROL_FONT_,
+	DW_LIGHT_LARGER_CONTROL_FONT_,
+	DW_LIGHT_BIG_FONT_,
+	DW_REGULAR_FONT_,
+	DW_TITLE_FONT_,
+	DW_CONTROL_FONT_,
+	DW_LARGER_CONTROL_FONT_,
+	DW_BOLD_FONT_,
+	DW_MEDIUM_BOLD_FONT_,
+	DW_BIG_FONT_,
+	DW_ITALIC_LARGER_CONTROL_FONT_,
+	DW_ITALIC_REGULAR_FONT_,
+	DW_ITALIC_BIG_FONT_,
+	
+};
+
 @interface DrawingView : UIScrollView
 {
-	@protected
-		
-		UIColor * fg_;
-		UIColor * bg_;
+@protected
 	
-		UIColor * black_;
-		UIColor * white_;
-		UIColor * blue_;
-		UIColor * orange_;
-		UIColor * yellow_;
-		UIColor * red_;
-		UIColor * green_;
-		UIColor * cyan_;
-		UIColor * dark_red_;
-		UIColor * dark_blue_;
-		UIColor * light_blue_;
-		UIColor * dark_grey_;
-		UIColor * very_dark_grey_;
-		UIColor * light_grey_;
-		UIColor * very_light_blue_;
-		UIColor * very_light_grey_;
-		UIColor * light_orange_;
-		UIColor * magenta_;
-		UIColor * dark_magenta_;
-
-		UIFont * current_font_;
-		NSMutableArray * font_stack_;
+	UIColor * fg_;
+	UIColor * bg_;
 	
-		CGRect current_bounds_;
-		CGSize current_size_;
-		CGPoint current_origin_;
-		CGPoint current_bottom_left_;
-		CGPoint current_top_right_;
+	UIColor * black_;
+	UIColor * white_;
+	UIColor * blue_;
+	UIColor * orange_;
+	UIColor * yellow_;
+	UIColor * red_;
+	UIColor * green_;
+	UIColor * cyan_;
+	UIColor * dark_red_;
+	UIColor * dark_blue_;
+	UIColor * light_blue_;
+	UIColor * dark_grey_;
+	UIColor * very_dark_grey_;
+	UIColor * light_grey_;
+	UIColor * very_light_blue_;
+	UIColor * very_light_grey_;
+	UIColor * light_orange_;
+	UIColor * magenta_;
+	UIColor * dark_magenta_;
 	
-		CGPoint current_scroll_offset_;
+	UIFont * current_font_;
+	NSMutableArray * font_stack_;
 	
-		CGContextRef current_context_;
-		CGContextRef bitmap_context_;
+	CGRect current_bounds_;
+	CGSize current_size_;
+	CGPoint current_origin_;
+	CGPoint current_bottom_left_;
+	CGPoint current_top_right_;
 	
-		char * bitmap_context_data_;
-
-		CGAffineTransform current_matrix_;
-		
-		bool entered_;
-				
-		int last_x_, last_y_;
+	CGPoint current_scroll_offset_;
 	
-		bool double_tap_enabled_;
+	CGContextRef current_context_;
+	CGContextRef bitmap_context_;
+	
+	char * bitmap_context_data_;
+	
+	CGAffineTransform current_matrix_;
+	
+	bool entered_;
+	
+	int last_x_, last_y_;
+	
+	bool double_tap_enabled_;
 	
 }
-	
+
 // Properties for synthesizing
 
 @property (nonatomic, retain, setter=SetFGColour, getter=FGColour) UIColor * fg_;
@@ -201,8 +221,10 @@
 
 - (void)DrawString:(NSString *)string AtX:(float)x Y:(float)y;
 - (void)DrawClippedString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width;
+- (void)DrawMultiLineString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width Height:(float)max_height;
 - (void)GetStringBox:(NSString *)string WidthReturn:(float *)width HeightReturn:(float *)height;
 
+- (void)UseFont:(int)font;
 - (void)UseTitleFont;
 - (void)UseBigFont;
 - (void)UseControlFont;

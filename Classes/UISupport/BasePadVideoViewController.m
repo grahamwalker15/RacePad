@@ -25,11 +25,15 @@
 }
 
 // Override to make these do something
-- (void) displayMovieInView
+- (void) displayMovieSource:(BasePadVideoSource *)source
 {
 }
 
-- (void) removeMovieFromView
+- (void) removeMovieFromView:(BasePadVideoSource *)source
+{
+}
+
+- (void) removeMoviesFromView
 {
 }
 

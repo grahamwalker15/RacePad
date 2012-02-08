@@ -23,6 +23,7 @@ static RacePadDatabase *instance = nil;
 @synthesize driverListData;
 @synthesize leaderBoardData;
 @synthesize driverData;
+@synthesize midasStandingsData;
 @synthesize driverGapInfo;
 @synthesize trackMap;
 @synthesize pitWindow;
@@ -46,6 +47,7 @@ static RacePadDatabase *instance = nil;
 		driverListData = [[TableData alloc] init];
 		leaderBoardData = [[TableData alloc] init];
 		driverData = [[TableData alloc] init];
+		midasStandingsData = [[TableData alloc] init];
 		driverGapInfo = [[DriverGapInfo alloc] init];
 		trackMap = [[TrackMap alloc] init];
 		pitWindow = [[PitWindow alloc] init];
@@ -61,7 +63,7 @@ static RacePadDatabase *instance = nil;
 		
 		[driverInfo fillWithDefaultData];
 	}
-
+	
 	return self;
 }
 
@@ -70,6 +72,7 @@ static RacePadDatabase *instance = nil;
 	[driverListData release];
 	[leaderBoardData release];
 	[driverData release];
+	[midasStandingsData release];
 	[driverGapInfo release];
 	[trackMap release];
 	[pitWindow release];
@@ -98,7 +101,7 @@ static RacePadDatabase *instance = nil;
 	rcMessages = [[AlertData alloc] init];
 	commentary = [[CommentaryData alloc] init];
 	racePrediction = [[RacePrediction alloc] init];
-
+	
 	[headToHead clearStaticData];
 }
 

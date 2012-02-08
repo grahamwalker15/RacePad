@@ -81,8 +81,9 @@ static BasePadCoordinator * instance_ = nil;
 		
 		needsPlayRestart = true;
 		playing = false;
+		protectMediaFromRestart = false;
 		
-		updateTimer = nil;
+		dataUpdateTimer = nil;
 		elapsedTime = nil;
 		
 		views = [[NSMutableArray alloc] init];
@@ -166,13 +167,13 @@ static BasePadCoordinator * instance_ = nil;
 		{
 			bool supported = [[BasePadSponsor Instance]supportsTab:i];
 			/*
-			if ( supported && i == [[BasePadSponsor Instance] videoTab] )
-			{
-				NSNumber *v = [[BasePadPrefs Instance] getPref:@"supportVideo"];
-				if ( v )
-					supported = [v boolValue];
-			}
-			*/
+			 if ( supported && i == [[BasePadSponsor Instance] videoTab] )
+			 {
+			 NSNumber *v = [[BasePadPrefs Instance] getPref:@"supportVideo"];
+			 if ( v )
+			 supported = [v boolValue];
+			 }
+			 */
 			if ( supported )
 				[tabs addObject:[allTabs objectAtIndex:i]];
 		}
@@ -351,7 +352,7 @@ static BasePadCoordinator * instance_ = nil;
 	float ourTime = (float)[ElapsedTime LocalTimeOfDay]; 
 	
 	serverTimeOffset = time - ourTime;	// Add to our local time to get server time
-										// Subtract from server time to get our time
+	// Subtract from server time to get our time
 }
 
 -(float) playTime
@@ -400,15 +401,19 @@ static BasePadCoordinator * instance_ = nil;
 	
 	if(connectionType == BPC_ARCHIVE_CONNECTION_)
 		[self setTimer:currentTime];
-		
-	timeControllerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeControllerTimerUpdate:) userInfo:nil repeats:YES];
-
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
-		[[BasePadMedia Instance] moviePlayAtRate:activePlaybackRate];
 	
-	if(connectionType == BPC_ARCHIVE_CONNECTION_)
-		[[BasePadMedia Instance] audioPlayAtRate:activePlaybackRate];
-
+	playUpdateTimer10hz = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(playUpdateTimer10hzFired:) userInfo:nil repeats:YES];
+	playUpdateTimer1hz = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playUpdateTimer1hzFired:) userInfo:nil repeats:YES];
+	
+	if(!protectMediaFromRestart)
+	{
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+			[[BasePadMedia Instance] moviePlayAtRate:activePlaybackRate];
+		
+		if(connectionType == BPC_ARCHIVE_CONNECTION_)
+			[[BasePadMedia Instance] audioPlayAtRate:activePlaybackRate];
+	}
+	
 }
 
 -(void)pausePlay
@@ -420,32 +425,41 @@ static BasePadCoordinator * instance_ = nil;
 	currentTime = (float)baseTime * 0.001 + elapsed * activePlaybackRate;
 	[elapsedTime release];
 	elapsedTime = nil;
-
-	if(updateTimer)
+	
+	if(dataUpdateTimer)
 	{
-		[updateTimer invalidate];
-		updateTimer = nil;
+		[dataUpdateTimer invalidate];
+		dataUpdateTimer = nil;
 	}
 	
-	if(timeControllerTimer)
+	if(playUpdateTimer10hz)
 	{
-		[timeControllerTimer invalidate];
-		timeControllerTimer = nil;
+		[playUpdateTimer10hz invalidate];
+		playUpdateTimer10hz = nil;
+	}
+	
+	if(playUpdateTimer1hz)
+	{
+		[playUpdateTimer1hz invalidate];
+		playUpdateTimer1hz = nil;
 	}
 	
 	if (connectionType == BPC_SOCKET_CONNECTION_)
 		[socket_ stopStreams];	
 	
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
-		[[BasePadMedia Instance] movieStop];
-	
-	if(connectionType == BPC_ARCHIVE_CONNECTION_)
-		[[BasePadMedia Instance] audioStop];
+	if(!protectMediaFromRestart)
+	{
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+			[[BasePadMedia Instance] movieStop];
+		
+		if(connectionType == BPC_ARCHIVE_CONNECTION_)
+			[[BasePadMedia Instance] audioStop];
+	}
 	
 	[[BasePadTimeController Instance] updateTime:currentTime];
-
+	
 	playing = false;
-
+	
 }
 
 -(void)stopPlay
@@ -470,6 +484,7 @@ static BasePadCoordinator * instance_ = nil;
 	[self stopPlay];
 	
 	[[BasePadMedia Instance] setMoviePausedInPlace:false];
+	[[BasePadMedia Instance] setMoviePlaying:false];
 	
 	currentTime = time;
 	live = false;
@@ -478,6 +493,7 @@ static BasePadCoordinator * instance_ = nil;
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
 	[[BasePadTitleBarController Instance] updateTime:currentTime];
 	[self resetCommentaryTimings];
+	[self resetListUpdateTimings];
 	[self showSnapshot];
 }
 
@@ -542,9 +558,9 @@ static BasePadCoordinator * instance_ = nil;
 		[[BasePadTimeController Instance] updatePlayButtons];
 		[[BasePadTitleBarController Instance] updateLiveIndicator];
 	}
-		
+	
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
-
+	
 }
 
 -(void)prepareToPlay
@@ -590,13 +606,13 @@ static BasePadCoordinator * instance_ = nil;
 	}
 	
 	if ( eventTime > 0 )
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval:((eventTime - thisTime) / activePlaybackRate) target:self selector:@selector(timerUpdate:) userInfo:nil repeats:NO];
+		dataUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:((eventTime - thisTime) / activePlaybackRate) target:self selector:@selector(dataUpdateTimerFired:) userInfo:nil repeats:NO];
 	else
-		updateTimer = nil;
-
+		dataUpdateTimer = nil;
+	
 }
 
-- (void) timerUpdate: (NSTimer *)theTimer
+- (void) dataUpdateTimerFired: (NSTimer *)theTimer
 {
 	float elapsed = [elapsedTime value]  * activePlaybackRate;
 	
@@ -615,6 +631,19 @@ static BasePadCoordinator * instance_ = nil;
 		[self setTimer:currentTime + elapsed];
 }
 
+-(float)currentPlayTime
+{
+	if(playing)
+	{
+		float elapsed = [elapsedTime value]  * activePlaybackRate;
+		return currentTime + elapsed;
+	}
+	else
+	{
+		return currentTime;
+	}
+}
+
 - (void) resetCommentaryTimings
 {
 	// Override Me
@@ -625,13 +654,22 @@ static BasePadCoordinator * instance_ = nil;
 	// Override Me
 }
 
-- (void) timeControllerTimerUpdate: (NSTimer *)theTimer
+-(void) resetListUpdateTimings
+{
+	// Override Me
+}
+
+- (void) playUpdateTimer10hzFired: (NSTimer *)theTimer
 {
 	float elapsed = [elapsedTime value] * activePlaybackRate;
 	[[BasePadTimeController Instance] updateTime:currentTime + elapsed];
 	[[BasePadTitleBarController Instance] updateTime:currentTime + elapsed];
 	
 	[self redrawCommentary];
+}
+
+- (void) playUpdateTimer1hzFired: (NSTimer *)theTimer
+{
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -675,14 +713,17 @@ static BasePadCoordinator * instance_ = nil;
 	[self restartCommentary];
 	
 	// If the registered view controller is interested in video, prepare it to play
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+	if(!protectMediaFromRestart)
 	{
-		[[BasePadMedia Instance] movieGotoTime:currentTime];
-		[[BasePadMedia Instance] moviePrepareToPlay];
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+		{
+			[[BasePadMedia Instance] movieGotoTime:currentTime];
+			[[BasePadMedia Instance] moviePrepareToPlay];
+		}
+		
+		[[BasePadMedia Instance] audioGotoTime:currentTime];
+		[[BasePadMedia Instance] audioPrepareToPlay];
 	}
-	
-	[[BasePadMedia Instance] audioGotoTime:currentTime];
-	[[BasePadMedia Instance] audioPrepareToPlay];
 }
 
 - (void) showSnapshotOfArchives
@@ -741,6 +782,28 @@ static BasePadCoordinator * instance_ = nil;
 	[self setConnectionType:BPC_ARCHIVE_CONNECTION_];
 	
 	[[BasePadMedia Instance] verifyAudioLoaded];
+	
+	[self onSessionLoaded];
+}
+
+-(void)onSessionLoaded
+{
+}
+
+-(NSString *)getVideoArchiveRoot
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *folder = [paths objectAtIndex:0];
+	return folder;
+}
+
+-(NSString *)getAudioArchiveRoot
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *folder = [paths objectAtIndex:0];
+	return folder;
 }
 
 -(NSString *)getVideoArchiveName
@@ -748,13 +811,23 @@ static BasePadCoordinator * instance_ = nil;
 	// Get base folder
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *folder = [paths objectAtIndex:0];
-	NSString *name = [sessionPrefix stringByAppendingString:@"video.m4v"];
 	
-	// Try first with m4v extension
+	
+	// Try first with vls extension - a video list file
+	NSString *name = [sessionPrefix stringByAppendingString:@"video.vls"];
 	NSString *fileName = [folder stringByAppendingPathComponent:name];
 	
 	// check whether it exists
 	FILE * f;
+	if(f = fopen ( [fileName UTF8String], "rt" ))
+	{
+		fclose(f);
+		return fileName;
+	}
+	
+	// If this fails, try with m4v extension
+	name = [sessionPrefix stringByAppendingString:@"video.m4v"];
+	fileName = [folder stringByAppendingPathComponent:name];
 	if(f = fopen ( [fileName UTF8String], "rb" ))
 	{
 		fclose(f);
@@ -770,7 +843,7 @@ static BasePadCoordinator * instance_ = nil;
 		return fileName;
 	}
 	
-	// If neither is present, return nil
+	// If none of them are present, return nil
 	return nil;
 }
 
@@ -789,7 +862,7 @@ static BasePadCoordinator * instance_ = nil;
 		fclose(f);
 		return fileName;
 	}
-		
+	
 	// If it is not present, return nil
 	return nil;
 }
@@ -821,7 +894,7 @@ static BasePadCoordinator * instance_ = nil;
 		restartTime = savedTime; // setConnectionType will have set it to 0, and SetProjectRange will need to see it.
 		
 		[self requestConnectedData];
-
+		
 		showingConnecting = false;
 		[serverConnect popDown];
 	}
@@ -852,7 +925,7 @@ static BasePadCoordinator * instance_ = nil;
 		connectionRetryCount = 0;
 		[serverConnect connectionTimeout];
 	}
-
+	
 }
 
 - (void) connectionTimeout
@@ -875,8 +948,8 @@ static BasePadCoordinator * instance_ = nil;
 - (void) showConnecting
 {
 	if ( socket_ != nil
-	  && connectionType != BPC_SOCKET_CONNECTION_
-	  && !showingConnecting )
+		&& connectionType != BPC_SOCKET_CONNECTION_
+		&& !showingConnecting )
 	{
 		if ( serverConnect == nil )
 			serverConnect = [[ServerConnect alloc] initWithNibName:@"ServerConnect" bundle:nil];
@@ -930,7 +1003,7 @@ static BasePadCoordinator * instance_ = nil;
 - (void) disconnect 
 {
 	[self setConnectionType: BPC_NO_CONNECTION_];
-
+	
 	[socket_ Disconnect];
 	socket_ = nil;
 }
@@ -953,7 +1026,7 @@ static BasePadCoordinator * instance_ = nil;
 			restartTime = 0;
 		else
 			restartTime = currentTime;
-
+		
 		[self setConnectionType:BPC_NO_CONNECTION_];
 		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES LightRestart:false];
 		[settingsViewController updateServerState];
@@ -1034,16 +1107,19 @@ static BasePadCoordinator * instance_ = nil;
 	[self restartCommentary];
 	
 	// If the registered view controller is interested in video, cue this to play live too
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+	if(!protectMediaFromRestart)
 	{
-		if ( live )
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		{
-			[[BasePadMedia Instance] movieGoLive];
-			[[BasePadMedia Instance]  startLivePlayTimer];
-		}
-		else
-		{
-			[[BasePadMedia Instance] movieGotoTime:currentTime];
+			if ( live )
+			{
+				[[BasePadMedia Instance] movieGoLive];
+				[[BasePadMedia Instance]  startLivePlayTimer];
+			}
+			else
+			{
+				[[BasePadMedia Instance] movieGotoTime:currentTime];
+			}
 		}
 	}
 }
@@ -1089,16 +1165,19 @@ static BasePadCoordinator * instance_ = nil;
 		playbackRate = 1.0;
 	
 	// If the registered view controller is interested in video, cue this to play
-	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
+	if(!protectMediaFromRestart)
 	{
-		if ( live )
+		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		{
-			[[BasePadMedia Instance] movieGoLive];
-			[[BasePadMedia Instance]  startLivePlayTimer];
-		}
-		else
-		{
-			[[BasePadMedia Instance] movieGotoTime:currentTime];
+			if ( live )
+			{
+				[[BasePadMedia Instance] movieGoLive];
+				[[BasePadMedia Instance]  startLivePlayTimer];
+			}
+			else
+			{
+				[[BasePadMedia Instance] movieGotoTime:currentTime];
+			}
 		}
 	}
 }
@@ -1128,7 +1207,7 @@ static BasePadCoordinator * instance_ = nil;
 		registeredViewControllerTypeMask = 0;
 		return;
 	}
-		
+	
 	id old_registered_view_controller = registeredViewController;
 	
 	registeredViewController = [view_controller retain];
@@ -1138,7 +1217,7 @@ static BasePadCoordinator * instance_ = nil;
 		[old_registered_view_controller release];
 	
 	BasePadTimeController * time_controller = [BasePadTimeController Instance];
-		
+	
 	if([time_controller displayed])
 		if ( [view_controller wantTimeControls] )
 			[time_controller displayInViewController:view_controller Animated:false];
@@ -1155,7 +1234,7 @@ static BasePadCoordinator * instance_ = nil;
 		registeredViewControllerTypeMask = 0;
 	}
 }
-	
+
 -(void)AddView:(id)view WithParameter:(NSString *)parameter AndType:(int)type
 {
 	// First make sure that this view is not already in the list
@@ -1212,7 +1291,10 @@ static BasePadCoordinator * instance_ = nil;
 	{
 		[existing_view SetDisplayed:true];
 		[existing_view SetRefreshEnabled:true];
-
+		
+		if(!needsPlayRestart)
+			protectMediaFromRestart = true;
+		
 		needsPlayRestart = (needsPlayRestart || playing);
 		
 		if(playing)
@@ -1220,7 +1302,7 @@ static BasePadCoordinator * instance_ = nil;
 		
 		if (connectionType == BPC_ARCHIVE_CONNECTION_)
 			[self AddDataSourceWithType:[existing_view Type] AndParameter:[existing_view Parameter]];
-			
+		
 		if(needsPlayRestart)
 		{
 			[self prepareToPlay];
@@ -1231,6 +1313,9 @@ static BasePadCoordinator * instance_ = nil;
 		{
 			[self showSnapshot];
 		}
+		
+		protectMediaFromRestart = false;
+		
 	}
 }
 
@@ -1256,10 +1341,15 @@ static BasePadCoordinator * instance_ = nil;
 			}
 			else
 			{
+				protectMediaFromRestart = true;
+				
 				[self pausePlay];
 				[self prepareToPlay];
 				[self startPlay];
 				[[BasePadTimeController Instance] updatePlayButtons];
+				
+				protectMediaFromRestart = false;
+				
 			}
 		}
 		
@@ -1311,17 +1401,17 @@ static BasePadCoordinator * instance_ = nil;
 {
 	if ( downloadProgress == nil )
 		downloadProgress = [[DownloadProgress alloc] initWithNibName:@"DownloadProgress" bundle:nil];
-
+	
 	if(playing)
 	{
 		[self stopPlay]; // This will stop the server streaming
 		needsPlayRestart = true;
 	}
-
+	
 	// Make sure we don't have any sources open - just in case we're going to overwrite them
 	if(connectionType == BPC_ARCHIVE_CONNECTION_)
 		[self DestroyDataSources];
-
+	
 	[downloadProgress setProject:eventName SessionName:sessionName SizeInMB:sizeInMB];
 	[registeredViewController presentModalViewController:downloadProgress animated:YES];
 }
@@ -1330,7 +1420,7 @@ static BasePadCoordinator * instance_ = nil;
 {
 	if(connectionType == BPC_ARCHIVE_CONNECTION_)
 		[self CreateDataSources];
-
+	
 	[downloadProgress dismissModalViewControllerAnimated:YES];
 	
 	// Dismissing the view will make the playing restart if required.
@@ -1375,7 +1465,7 @@ static BasePadCoordinator * instance_ = nil;
 		for ( int i = 0 ; i < view_count ; i++)
 		{
 			BPCView * existing_view = [views objectAtIndex:i];
-
+			
 			if( [existing_view Type] == type && [existing_view Displayed] && [existing_view RefreshEnabled])
 			{
 				[[existing_view View] RequestRedrawForUpdate];
@@ -1601,7 +1691,7 @@ static BasePadCoordinator * instance_ = nil;
 	{
 		reconnectOnBecomeActive = false;
 	}
-
+	
 	
 }
 
@@ -1670,10 +1760,10 @@ static BasePadCoordinator * instance_ = nil;
 		displayed_ = false;
 		refresh_enabled_ = true;
 	}
-
+	
 	return self;
 }
-	   
+
 -(id)initWithView:(id)view Parameter:(NSString *)parameter AndType:(int)type;
 {
 	if(self = [super init])

@@ -160,7 +160,7 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
 	if(moviePlayerLayer)
 	{
 		[moviePlayerLayer setFrame:[movieView bounds]];
@@ -194,7 +194,7 @@
 - (void) displayMovieInView
 {	
 	// Position the movie and order the overlays
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
 	
 	if(moviePlayerLayer && !moviePlayerLayerAdded)
 	{
@@ -214,7 +214,7 @@
 
 - (void) removeMovieFromView
 {
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
 	if(moviePlayerLayer && moviePlayerLayerAdded)
 	{
 		[moviePlayerLayer removeFromSuperlayer];
@@ -472,7 +472,7 @@
 	[UIView setAnimationDelegate:self];
 	// [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	AVPlayerLayer * moviePlayerLayer = [[BasePadMedia Instance] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
 	if(moviePlayerLayer)
 	{
 		[moviePlayerLayer setFrame:[movieView bounds]];

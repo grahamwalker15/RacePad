@@ -52,7 +52,7 @@
 
 // The view controller base
 
-@interface BasePadViewController : UIViewController
+@interface BasePadViewController : UIViewController <UIGestureRecognizerDelegate>
 {
 	// Gesture recognizer state stores
 	float lastGestureScale;
@@ -87,6 +87,10 @@
 
 // View display configuration
 -(void) addDropShadowToView:(UIView *)view WithOffsetX:(float)x Y:(float)y Blur:(float)blur;
+- (UIImage *) renderViewToImage:(UIView *)view;
+
+// Time controller display
+- (void) toggleTimeControllerDisplay;
 
 // Gesture recognizer creation
 
@@ -97,6 +101,8 @@
 -(void) addRotationRecognizerToView:(UIView *)view;
 -(void) addRightSwipeRecognizerToView:(UIView *)view;
 -(void) addLeftSwipeRecognizerToView:(UIView *)view;
+-(void) addUpSwipeRecognizerToView:(UIView *)view;
+-(void) addDownSwipeRecognizerToView:(UIView *)view;
 -(void) addPanRecognizerToView:(UIView *)view;
 -(void) addDragRecognizerToView:(UIView *)view;
 -(void) addJogRecognizerToView:(UIView *)view;
@@ -110,6 +116,8 @@
 - (void)HandleRotationFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandleRightSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandleLeftSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
+- (void)HandleUpSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
+- (void)HandleDownSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandlePanFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)HandleDragFrom:(UIGestureRecognizer *)gestureRecognizer; // Works only on UITableViews
 - (void)HandleJogFrom:(UIGestureRecognizer *)gestureRecognizer; // Works only on JogControlViews
@@ -123,13 +131,19 @@
 - (void) OnRotationGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Angle:(float)angle Speed:(float)speed;
 - (void) OnRightSwipeGestureInView:(UIView *)gestureView;
 - (void) OnLeftSwipeGestureInView:(UIView *)gestureView;
+- (void) OnUpSwipeGestureInView:(UIView *)gestureView;
+- (void) OnDownSwipeGestureInView:(UIView *)gestureView;
 - (void) OnPanGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state;
 - (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speed_x SpeedY:(float)speed_y State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer;
 - (void) OnJogGestureInView:(UIView *)gestureView AngleChange:(float)angle State:(int)state;
 
 - (void) handleTimeControllerGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
-+ (void) specifyTimeControllerInstance:(id) instance;
++ (void) specifyTimeControllerInstance:(id)instance;
++ (id) timeControllerInstance;
++ (bool) timeControllerDisplayed;
+
+- (void) notifyHidingTimeControls;
 
 @end
 

@@ -20,6 +20,7 @@
 
 @synthesize timeWindow;
 @synthesize smallFont;
+@synthesize midasStyle;
 @synthesize minPriority;
 @synthesize lastUpdateTime;
 @synthesize latestMessageTime;
@@ -34,6 +35,8 @@
 {    
     if ((self = [super initWithCoder:coder]))
     {
+		midasStyle = false;
+		
 		lastRowCount = 0;
 		lastHeight = 0;
 		latestMessageTime = 0.0;
@@ -53,6 +56,8 @@
 {
     if ((self = [super initWithFrame:frame]))
 	{
+		midasStyle = false;
+		
 		lastRowCount = 0;
 		lastHeight = 0;
 		latestMessageTime = 0.0;
@@ -63,7 +68,7 @@
 		lastUpdateTime = 0;
 		updating = true;
 		[self SetBaseColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
-   }
+	}
     return self;
 }
 
@@ -144,7 +149,7 @@
 		
 		firstDisplayedTime = firstMessageTime;
 		lastDisplayedTime = latestMessageTime;
-
+		
 		[super Draw:region];
 	}
 }
@@ -183,7 +188,7 @@
 		if ( itemTime >= timeWindow )
 		{
 			if ( itemTime <= timeNow + 0.5
-			  && item.confidence >= minPriority )
+				&& item.confidence >= minPriority )
 			{
 				if ( first )
 				{
@@ -208,7 +213,7 @@
 	return 3;
 }
 
-- (int) RowHeight
+- (int) ContentRowHeight:(int)row
 {
 	if ( smallFont )
 		return 18;
@@ -222,28 +227,28 @@
 	
 	if ( smallFont )
 		switch (col)
-		{
-			case 0:
-				return 20;
-			case 1:
-				return 38;
-			case 2:
-				return (bounds.size.width - 58);
-			default:
-				return 0;
-		}
+	{
+		case 0:
+			return 20;
+		case 1:
+			return 38;
+		case 2:
+			return (bounds.size.width - 58);
+		default:
+			return 0;
+	}
 	else
 		switch (col)
-		{
-			case 0:
-				return 30;
-			case 1:
-				return 60;
-			case 2:
-				return (bounds.size.width - 90);
-			default:
-				return 0;
-		}
+	{
+		case 0:
+			return 30;
+		case 1:
+			return 60;
+		case 2:
+			return (bounds.size.width - 90);
+		default:
+			return 0;
+	}
 }
 
 - (int) ColumnType:(int)col;
@@ -298,7 +303,7 @@
 		if ( itemTime >= timeWindow )
 		{
 			if ( itemTime <= timeNow + 0.5
-			  && item.confidence >= minPriority )
+				&& item.confidence >= minPriority )
 			{
 				if ( row == count )
 				{
@@ -319,14 +324,30 @@
 	float messageTime = [[data itemAtIndex:currentRow] timeStamp];
 	int type = [[data itemAtIndex:currentRow] type];
 	
-	if(type == ALERT_PIT_INSIGHT_)
-		[self SetTextColour:dark_red_];
-	else if(latestMessageTime - messageTime < 10.0)
-		[self SetTextColour:black_];
+	// Colours depend on style
+	if(midasStyle)
+	{
+		if(type == ALERT_PIT_INSIGHT_)
+			[self SetTextColour:very_light_blue_];
+		else if(latestMessageTime - messageTime < 10.0)
+			[self SetTextColour:white_];
+		else
+			[self SetTextColour:very_light_grey_];
+		
+		[self SetBackgroundColour:black_];
+	}
 	else
-		[self SetTextColour:very_dark_grey_];
+	{
+		if(type == ALERT_PIT_INSIGHT_)
+			[self SetTextColour:dark_red_];
+		else if(latestMessageTime - messageTime < 10.0)
+			[self SetTextColour:black_];
+		else
+			[self SetTextColour:very_dark_grey_];
+		
+		[self SetBackgroundColour:white_];
+	}
 	
-	[self SetBackgroundColour:white_];
 	
 	switch (col)
 	{
@@ -363,7 +384,10 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	[self SetBackgroundColour:white_];
+	if(midasStyle)
+		[self SetBackgroundColour:black_];
+	else
+		[self SetBackgroundColour:white_];
 	
 	if(col != 0)
 		return nil;

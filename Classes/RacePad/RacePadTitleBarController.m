@@ -1,4 +1,4 @@
-    //
+//
 //  RacePadTitleBar.m
 //  RacePad
 //
@@ -17,6 +17,10 @@
 #import "UIConstants.h"
 
 @implementation RacePadTitleBarController
+
+@synthesize currentLap;
+@synthesize lapCount;
+@synthesize trackState;
 
 static RacePadTitleBarController * instance_ = nil;
 
@@ -38,7 +42,7 @@ static RacePadTitleBarController * instance_ = nil;
 		[alertController setParentPopover:alertPopover];
 		
 		lapCount = 0;
-
+		
 		//Tell race pad co-ordinator that we'll be interested in updates
 		[[RacePadCoordinator Instance] AddView:titleBarController WithType:RPC_LAP_COUNT_VIEW_];
 	}
@@ -90,11 +94,6 @@ static RacePadTitleBarController * instance_ = nil;
 	}
 }
 
-- (void) setLapCount: (int)count
-{
-	lapCount = count;
-}
-
 - (void) setCurrentLap: (int)lap
 {
 	currentLap = lap;
@@ -118,6 +117,8 @@ static RacePadTitleBarController * instance_ = nil;
 
 - (void) setTrackState:(int)state
 {
+	trackState = state;
+	
 	switch (state)
 	{
 		case TM_TRACK_GREEN:

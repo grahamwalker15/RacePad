@@ -18,6 +18,7 @@ static BasePadTimeController * instance_ = nil;
 
 @synthesize timeNow;
 @synthesize displayed;
+@synthesize autoHide;
 @synthesize timeController;
 
 
@@ -34,13 +35,14 @@ static BasePadTimeController * instance_ = nil;
 	if(self = [super init])
 	{	
 		[BasePadViewController specifyTimeControllerInstance:self];
-
+		
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
 		//jogController = [[JogViewController alloc] initWithNibName:@"JogControlView" bundle:nil];
 		addOnOptionsView = nil;
 		
 		displayed = false;
 		hiding = false;
+		autoHide = true;
 		hideTimer = nil;
 		
 		timeNow = 0.0;
@@ -107,7 +109,7 @@ static BasePadTimeController * instance_ = nil;
 		CGRect optionsFrame = CGRectMake(super_bounds.origin.x + (super_bounds.size.width - options_bounds.size.width) / 2, toolbarFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
 		[addOnOptionsView setFrame:optionsFrame];
 	}
-
+	
 	if(animated)
 	{
 		[timeController.view setAlpha:0.0];
@@ -131,7 +133,7 @@ static BasePadTimeController * instance_ = nil;
 		[[timeController goLiveButton] setHidden:true];
 	else
 		[[timeController goLiveButton] setHidden:false];
-
+	
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
@@ -166,7 +168,7 @@ static BasePadTimeController * instance_ = nil;
 	
 	[[timeController normalPlayButton] addTarget:instance_ action:@selector(PlayPressed:) forControlEvents:UIControlEventTouchDown];
 	[[timeController slowMotionButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchDown];
-
+	
 	//JogControlView * jog_control = [jogController jogControl];	
 	//[jog_control setTarget:instance_];
 	//[jog_control setSelector:@selector(JogControlChanged:)];
@@ -188,8 +190,10 @@ static BasePadTimeController * instance_ = nil;
 	[self updateTime:current_time];
 	
 	displayed = true;
+	
 	[self setHideTimer];
 	
+	parentController = [viewController retain];
 }
 
 - (void) hide
@@ -201,7 +205,7 @@ static BasePadTimeController * instance_ = nil;
 		[hideTimer invalidate];
 		hideTimer = nil;
 	}
-
+	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.15];
 	[UIView setAnimationDelegate:self];
@@ -218,6 +222,10 @@ static BasePadTimeController * instance_ = nil;
 	
 	// We set a timer to reset the hiding flag just in case the animationDidStop doesn't get called (maybe on tab change?)
 	[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(flagTimerExpired:) userInfo:nil repeats:NO];
+	
+	[parentController release];
+	parentController = 0;
+	
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -225,7 +233,6 @@ static BasePadTimeController * instance_ = nil;
 	if([finished intValue] == 1)
 	{
 		[timeController.view removeFromSuperview];
-		//[jogController.view removeFromSuperview];
 		displayed = false;
 		
 		// Release any existing add on from an old view controller
@@ -253,12 +260,14 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) setHideTimer
 {
-	// Timer to hide the controls if they're not touched for 5 seconds
-	if(hideTimer)
-		[hideTimer invalidate];
-	
-	hideTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
-	
+	if(autoHide)
+	{
+		// Timer to hide the controls if they're not touched for 5 seconds
+		if(hideTimer)
+			[hideTimer invalidate];
+		
+		hideTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
+	}
 }
 
 - (void) hideTimerExpired:(NSTimer *)theTimer
@@ -460,7 +469,7 @@ static BasePadTimeController * instance_ = nil;
 	
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
-
+	
 	JogControlView * jog_control = [jogController jogControl];
 	float change = [jog_control value];
 	float sign = change < 0 ? -1.0 :1.0;
@@ -468,7 +477,7 @@ static BasePadTimeController * instance_ = nil;
 	change = sign * change * change; // Square it to get finer control on slow motion
 	
 	time -= change * 0.8;	// 20 * real time for half turn - -ve angle = positive time change
-							// Called on 25 hz timer
+	// Called on 25 hz timer
 	
 	if(time < [coordinator startTime])
 		time = [coordinator startTime];
@@ -528,16 +537,16 @@ static BasePadTimeController * instance_ = nil;
 		jump = 10.0;
 	else if(sender == [timeController plus30sButton])
 		jump = 30.0;
-																	  
+	
 	time += jump;
-
+	
 	UISlider * slider = [timeController timeSlider];
 	
 	if(time < [slider minimumValue])
 		time = [slider minimumValue];
 	else if(time > [slider maximumValue])
 		time = [slider maximumValue];
-			
+	
 	[coordinator jumpToTime:time];
 	[self updateTime:time];
 	
@@ -547,7 +556,7 @@ static BasePadTimeController * instance_ = nil;
 			[coordinator setPlaybackRate:0.5];
 		else
 			[coordinator setPlaybackRate:1.0];
-
+		
 		[coordinator prepareToPlay];
 		[coordinator startPlay];
 	}
@@ -571,9 +580,12 @@ static BasePadTimeController * instance_ = nil;
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
 {
 	UIView * tapView = [gestureRecognizer view];
-	CGPoint tapPoint = [gestureRecognizer locationInView:tapView];
+	
+	if(parentController)
+		[parentController notifyHidingTimeControls];
 	
 	[self hide];
+	
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

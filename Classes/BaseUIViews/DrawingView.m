@@ -38,13 +38,19 @@
 @synthesize dark_magenta_;
 
 // Static members
+static UIFont * light_big_font_ = nil;
+static UIFont * light_control_font_ = nil;
+static UIFont * light_larger_control_font_ = nil;
+static UIFont * light_regular_font_ = nil;
 static UIFont * title_font_ = nil;
 static UIFont * big_font_ = nil;
 static UIFont * control_font_ = nil;
 static UIFont * larger_control_font_ = nil;
 static UIFont * bold_font_ = nil;
 static UIFont * medium_bold_font_ = nil;
-static UIFont * regular_font_ = nil;
+static UIFont * italic_regular_font_ = nil;
+static UIFont * italic_larger_control_font_ = nil;
+static UIFont * italic_big_font_ = nil;
 
 static UIColor * shadow_colour_;
 
@@ -138,11 +144,11 @@ static bool statics_initialised_ = false;
     [super dealloc];
 }
 
- 
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Methods for this class 
-	 
+
 - (void)InitialiseDrawingViewMembers
 {
 	[self InitialiseStatics];
@@ -150,7 +156,7 @@ static bool statics_initialised_ = false;
 	fg_ = [DrawingView CreateColourRed:255 Green:255 Blue:255]; // White
 	bg_ = [DrawingView CreateColourRed:0 Green:0 Blue:0]; // Black
 	
-	current_font_ = regular_font_;
+	current_font_ = bold_font_;
 	
 	current_context_ = nil;
 	bitmap_context_ = nil;
@@ -195,14 +201,22 @@ static bool statics_initialised_ = false;
 	if(!statics_initialised_)
 	{
 		statics_initialised_ = true;
-
+		
+		light_big_font_ = [UIFont systemFontOfSize:32.0];
+		light_control_font_ = [UIFont systemFontOfSize:12.0];
+		light_larger_control_font_ = [UIFont systemFontOfSize:13.0];
+		light_regular_font_ = [UIFont systemFontOfSize:20.0];
+		
 		title_font_ = [UIFont boldSystemFontOfSize:36.0];
 		big_font_ = [UIFont boldSystemFontOfSize:32.0];
 		control_font_ = [UIFont boldSystemFontOfSize:12.0];
 		larger_control_font_ = [UIFont boldSystemFontOfSize:13.0];
 		bold_font_ = [UIFont boldSystemFontOfSize:20.0];
 		medium_bold_font_ = [UIFont boldSystemFontOfSize:16.0];
-		regular_font_ = [UIFont boldSystemFontOfSize:20.0];
+		
+		italic_regular_font_ = [UIFont italicSystemFontOfSize:20.0];
+		italic_larger_control_font_ = [UIFont italicSystemFontOfSize:13.0];
+		italic_big_font_ = [UIFont italicSystemFontOfSize:32.0];
 		
 		shadow_colour_ = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3];
 	}
@@ -221,7 +235,7 @@ static bool statics_initialised_ = false;
 - (UIColor *)CreateHighlightColourFromColour:(UIColor *)source
 {
 	int component_count = CGColorGetNumberOfComponents ([source CGColor]);
-
+	
 	if(component_count < 3)
 	{
 		[source retain];
@@ -292,7 +306,7 @@ static bool statics_initialised_ = false;
 		bitmap_context_data_ = nil;
 		return false;
 	}
-
+	
 	
 }
 
@@ -302,7 +316,7 @@ static bool statics_initialised_ = false;
 		return CGBitmapContextCreateImage (bitmap_context_);
 	else
 		return nil;
-
+	
 }
 
 - (void)DestroyBitmapContext
@@ -321,7 +335,7 @@ static bool statics_initialised_ = false;
 	}
 	
 }
-						  
+
 - (void)SetBGToShadowColour
 {
 	[self SetBGColour:shadow_colour_];
@@ -360,7 +374,7 @@ static bool statics_initialised_ = false;
 	[self UseBoldFont];
 	[self DrawString:@"Default Drawing Window" AtX:20 Y:20];
 }
- 
+
 // 
 // Drawing primitives
 // Lines & text drawn in foreground colour
@@ -397,7 +411,7 @@ static bool statics_initialised_ = false;
 	if(current_context_)
 		CGContextClipToRect (current_context_, rect);
 }
- 
+
 - (void)SetClippingAreaToPath:(CGMutablePathRef)path // N.B. Sets it to an intersection with current clip area. Need a save/restore around it
 {
 	if(current_context_)
@@ -463,7 +477,7 @@ static bool statics_initialised_ = false;
 		CGContextStrokePath (current_context_);
 	}
 }
- 
+
 - (void)LinePoint0:(CGPoint)p0 Point1:(CGPoint)p1
 {
 	if(current_context_)
@@ -542,7 +556,7 @@ static bool statics_initialised_ = false;
 	if(current_context_)
 	{
 		// Vertical gradient with varying degrees of transparency
-
+		
 		CGContextSaveGState(current_context_);
 		CGContextClipToRect(current_context_, rect);
 		
@@ -555,9 +569,9 @@ static bool statics_initialised_ = false;
 		CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
 		CGColorRef colors[] = {[c1 CGColor], [c2 CGColor], [c3 CGColor], [c4 CGColor], [c5 CGColor]};
 		CFArrayRef colorsArray = CFArrayCreate(NULL, (void *)colors, 5, &kCFTypeArrayCallBacks);
-			
+		
 		CGFloat locations[] = {0.0, 0.2, 0.4, 0.5, 1.0};
-			
+		
 		CGGradientRef gradient = CGGradientCreateWithColors(colorspace, colorsArray, locations);
 		
 		CFRelease(colorsArray);
@@ -582,7 +596,7 @@ static bool statics_initialised_ = false;
 		CGContextStrokeRect(current_context_, rect);
 	}
 }
- 
+
 - (void)FillRectangleX0:(float)x0 Y0:(float)y0 X1:(float)x1 Y1:(float)y1
 {
 	[self FillRectangle:CGRectMake((CGFloat)x0, (CGFloat)y0, (CGFloat)(x1-x0), (CGFloat)(y1-y0))];
@@ -671,7 +685,7 @@ static bool statics_initialised_ = false;
 		CGContextStrokePath (current_context_);
 	}
 }
- 
+
 + (CGMutablePathRef)CreatePathPoints:(int)point_count XCoords:(float *)x YCoords:(float *)y
 {
 	if(point_count < 2)
@@ -831,11 +845,11 @@ static bool statics_initialised_ = false;
 - (void)SetXorLines:(bool)set
 {
 }
- 
+
 //
 // Image Drawing
 //
- 
+
 - (void) DrawImage:(UIImage *)image AtX:(float)x Y:(float)y
 {
 	[image drawAtPoint:CGPointMake(x, y)];
@@ -864,7 +878,7 @@ static bool statics_initialised_ = false;
 //
 // Text Drawing
 //
- 
+
 - (void)DrawString:(NSString *)string AtX:(float)x Y:(float)y
 {
 	[fg_ set];
@@ -877,11 +891,80 @@ static bool statics_initialised_ = false;
 	[string drawAtPoint:CGPointMake(x,y) withFont:current_font_];
 }
 
+- (void)DrawMultiLineString:(NSString *)string AtX:(float)x Y:(float)y MaxWidth:(float)max_width Height:(float)max_height
+{
+	[fg_ set];
+	[string drawInRect:CGRectMake(x,y,max_width,max_height) withFont:current_font_];
+}
+
 - (void)GetStringBox:(NSString *)string WidthReturn:(float *)width HeightReturn:(float *)height
 {
 	CGSize size = [string sizeWithFont:current_font_];
 	*width = size.width;
 	*height = size.height;
+}
+
+- (void)UseFont:(int)font
+{
+	switch(font)
+	{			
+		case DW_LIGHT_CONTROL_FONT_:
+			current_font_ = light_control_font_;
+			break;
+			
+		case DW_LIGHT_LARGER_CONTROL_FONT_:
+			current_font_ = light_larger_control_font_;
+			break;
+			
+		case DW_LIGHT_BIG_FONT_:
+			current_font_ = light_big_font_;
+			break;
+			
+		case DW_LIGHT_REGULAR_FONT_:
+			current_font_ = light_regular_font_;
+			break;
+			
+		case DW_TITLE_FONT_:
+			current_font_ = title_font_;
+			break;
+			
+		case DW_CONTROL_FONT_:
+			current_font_ = control_font_;
+			break;
+			
+		case DW_LARGER_CONTROL_FONT_:
+			current_font_ = larger_control_font_;
+			break;
+			
+		case DW_BOLD_FONT_:
+			current_font_ = bold_font_;
+			break;
+			
+		case DW_MEDIUM_BOLD_FONT_:
+			current_font_ = medium_bold_font_;
+			break;
+			
+		case DW_BIG_FONT_:
+			current_font_ = big_font_;
+			break;
+			
+		case DW_ITALIC_LARGER_CONTROL_FONT_:
+			current_font_ = italic_larger_control_font_;
+			break;
+			
+		case DW_ITALIC_REGULAR_FONT_:
+			current_font_ = italic_regular_font_;
+			break;
+			
+		case DW_ITALIC_BIG_FONT_:
+			current_font_ = italic_big_font_;
+			break;
+			
+		case DW_REGULAR_FONT_:
+		default:
+			current_font_ = bold_font_;
+			break;
+	}
 }
 
 - (void)UseTitleFont
@@ -916,9 +999,9 @@ static bool statics_initialised_ = false;
 
 - (void)UseRegularFont
 {
-	current_font_ = regular_font_;
+	current_font_ = bold_font_;
 }
- 
+
 - (void)SelectUIFont
 {
 }
@@ -998,32 +1081,32 @@ static bool statics_initialised_ = false;
 //////////////////////////////////////////////////////////////////////////
 
 /*
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	if([touches count] > 0)
-	{
-		// Get the first touch object
-		NSEnumerator *enumerator = [mySet objectEnumerator];
-		UITouch * touch;
-	
-		if(touch = [enumerator nextObject])
-		{
-			
-		}
-	}
-}
-
-– touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-– touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-– touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-*/
+ -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+ {
+ if([touches count] > 0)
+ {
+ // Get the first touch object
+ NSEnumerator *enumerator = [mySet objectEnumerator];
+ UITouch * touch;
+ 
+ if(touch = [enumerator nextObject])
+ {
+ 
+ }
+ }
+ }
+ 
+ – touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+ {
+ }
+ 
+ – touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+ {
+ }
+ 
+ – touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+ {
+ }
+ */
 
 @end

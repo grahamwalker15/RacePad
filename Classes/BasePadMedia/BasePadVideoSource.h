@@ -20,9 +20,7 @@
 
 #import "BasePadVideoViewController.h"
 
-
-@class ElapsedTime;
-
+@class MovieView;
 
 @interface BasePadVideoSource : NSObject
 {				
@@ -31,35 +29,36 @@
 	AVPlayer * moviePlayer;
 	AVPlayerLayer * moviePlayerLayer;
 	
+	MovieView * parentMovieView;
+	
 	id moviePlayerObserver;
-	NSTimer * playStartTimer;
-	NSTimer * playTimer;
 	
 	float movieStartTime;
 	float movieSeekTime;
 	float streamSeekStartTime;
 	
+	bool movieLoop;
+	
 	float liveVideoDelay;
 	
 	Float64 lastMoviePlayTime;
-	float lastLiveVideoDelay;
 	float lastResyncTime;
 	bool movieRecentlyResynced;
 	
 	int resyncCount;
-	int restartCount;
-	
-	ElapsedTime * moviePlayElapsedTime;
 	
 	NSString *currentMovie;
-	NSString *currentAudio;
+	NSString *movieTag;
+	NSString *movieName;
+	NSURL *movieURL;
+	UIImage *movieThumbnail;
 	
 	int currentStatus;
 	NSString *currentError;
 	
+	bool movieAttached;
 	bool movieLoaded;
-	bool moviePlayable;
-	bool moviePlayAllowed;
+	bool movieMarkedPlayable;
 	
 	bool moviePlayPending;
 	bool movieSeekable;
@@ -67,7 +66,7 @@
 	bool movieGoLivePending;
 	
 	bool moviePausedInPlace;
-	int movieResyncCountdown;
+	bool moviePlaying;
 	
 	bool audioPlayPending;
 	bool audioSeekPending;
@@ -79,6 +78,12 @@
 	int movieType;
 	
 	bool movieActive;
+	bool movieDisplayed;
+	
+	bool shouldAutoDisplay;
+	
+	bool moviePlayerStatusOK;
+	bool moviePlayerItemStatusOK;
 	
 }
 
@@ -87,39 +92,55 @@
 @property (readonly) AVPlayer * moviePlayer;
 @property (readonly) AVPlayerLayer * moviePlayerLayer;
 
+@property (nonatomic, retain) MovieView * parentMovieView;
+
 @property (readonly) id moviePlayerObserver;
 
-@property (readonly) float movieStartTime;
-@property (readonly) float movieSeekTime;
+@property (nonatomic) float movieStartTime;
+@property (nonatomic) float movieSeekTime;
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
-@property (readonly) int restartCount;
+
+@property (nonatomic) bool movieLoop;
+@property (nonatomic) bool shouldAutoDisplay;
 
 @property (readonly) NSString *currentMovie;
+@property (nonatomic, retain) NSURL *movieURL;
+@property (nonatomic, retain) NSString *movieTag;
+@property (nonatomic, retain) NSString *movieName;
+@property (readonly) UIImage *movieThumbnail;
 
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
 
 @property (readonly) bool movieLoaded;
+@property (readonly) bool movieAttached;
 @property (readonly) bool moviePlayPending;
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
+@property (readonly) bool movieGoLivePending;
 
 @property (nonatomic) bool moviePausedInPlace;
+@property (nonatomic) bool moviePlaying;
 
-@property (readonly) int movieType;
+@property (nonatomic) int movieType;
 
 @property (nonatomic) bool movieActive;
+@property (nonatomic) bool movieDisplayed;
+@property (nonatomic) bool movieMarkedPlayable;
+
 
 - (void)onStartUp;
 
--(void)resetConnectionCounts;
-
-- (void) loadMovie:(NSURL *)url;
+- (void) loadMovie;
+- (void) loadMovieIntoView:(MovieView *)movieView;
+- (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay InMovieView:(MovieView *)movieView;
 - (void) unloadMovie;
+- (void) attachMovie;
+- (void) detachMovie;
+- (void) makeThumbnail;
 
-- (void) movieSetStartTime:(float)time;
-
+- (void) setStartTime:(float)time;
 - (void) getStartTime;
 
 - (void) moviePlayAtRate:(float)playbackRate;
@@ -131,14 +152,12 @@
 - (void) moviePrepareToPlay;
 - (void) movieResyncLive;
 
-- (void) startLivePlayTimer;
-- (void) stopPlayTimers;
-- (void) playStartTimerExpired: (NSTimer *)theTimer;
-- (void) livePlayTimerFired: (NSTimer *)theTimer;
-- (void) restartConnection;
-
 - (bool) moviePlayable;
+- (bool) moviePlayingRealTime: (float)timeNow;
+
+- (void) resetConnectionCounts;
 
 - (void) timeObserverCallback:(CMTime) cmTime;
+- (void) playerItemDidReachEnd:(NSNotification *)notification;
 
 @end

@@ -29,7 +29,7 @@
 	// Set up the table data for SimpleListView
 	[driver_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
-	[driver_list_view_ SetRowHeight:26];
+	[driver_list_view_ setStandardRowHeight:26];
 	[driver_list_view_ SetHeading:true];
 	[driver_list_view_ SetBackgroundAlpha:0.5];
 	
@@ -45,7 +45,7 @@
 	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
 	driver_lap_list_controller_displayed_ = false;
 	driver_lap_list_controller_closing_ = false;
-
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
@@ -60,7 +60,7 @@
 		[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
 		
 		[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight:true];
-
+		
 		// We disable the screen locking - because that seems to close the socket
 		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	}
@@ -120,7 +120,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-
+	
 	[[RacePadCoordinator Instance] RemoveView:self];
 }
 

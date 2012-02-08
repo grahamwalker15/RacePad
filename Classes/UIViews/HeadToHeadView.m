@@ -21,6 +21,10 @@
 @synthesize userOffsetY;
 @synthesize userScaleY;
 
+@synthesize minScaleX;
+
+@synthesize miniDisplay;
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Super class overrides
@@ -45,17 +49,20 @@
     [super dealloc];
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Methods for this class 
 
 - (void)InitialiseMembers
 {
+	miniDisplay = false;
+	
 	userOffsetX = 0.0;
 	userScaleX = 1.0;
 	userOffsetY = 0.0;
 	userScaleY = 1.0;
+	
+	minScaleX =1.0;
 }
 
 - (void) drawHeadToHead
@@ -65,7 +72,10 @@
 	
 	if ( headToHead )
 	{
-		[headToHead drawInView:self];
+		if(miniDisplay)
+			[headToHead drawPositionSummaryInView:self];
+		else
+			[headToHead drawInView:self];
 	}
 }
 
@@ -93,8 +103,8 @@
 	// Now work out the new scale	
 	userScaleX = currentUserScale * scale;
 	
-	if(userScaleX < 1.0)
-		userScaleX = 1.0;
+	if(userScaleX < minScaleX)
+		userScaleX = minScaleX;
 	else if(userScaleX > 12.0)
 		userScaleX = 12.0;
 	
@@ -160,7 +170,7 @@
 - (void) adjustPanY:(float)y
 {
 	// Simplify for the moment
-	 
+	
 	if(current_size_.width < 1 || current_size_.height < 1 || userScaleY < 1.0)
 		return;
 	
@@ -170,15 +180,15 @@
 		userOffsetY = 0.5;
 	else if(userOffsetY < -0.5)
 		userOffsetY = -0.5;
-
-	/*
-	userOffsetY = (userOffsetY * userScaleY * current_size_.width + y) / (current_size_.width * userScaleY);
 	
-	if(userOffsetY > (0.5 - 0.5 / userScaleY))
-		userOffsetY = (0.5 - 0.5 / userScaleY);
-	else if(userOffsetY < (0.5 / userScaleY - 0.5))
-		userOffsetY = (0.5 / userScaleY - 0.5);
-	*/
+	/*
+	 userOffsetY = (userOffsetY * userScaleY * current_size_.width + y) / (current_size_.width * userScaleY);
+	 
+	 if(userOffsetY > (0.5 - 0.5 / userScaleY))
+	 userOffsetY = (0.5 - 0.5 / userScaleY);
+	 else if(userOffsetY < (0.5 / userScaleY - 0.5))
+	 userOffsetY = (0.5 / userScaleY - 0.5);
+	 */
 }
 
 - (float) transformX:(float)x
@@ -196,6 +206,16 @@
 {
 	return 	userOffsetY * current_size_.height;
 }
+
+- (void) resetUserScale
+{
+	userScaleX = minScaleX;
+	userOffsetX = (userScaleX > 1.0) ? (0.5 * (1.0 - 1.0 / userScaleX))  : 0.0;
+	
+	userOffsetY = 0.0;
+	userScaleY = 1.0;							  
+}
+
 
 @end
 

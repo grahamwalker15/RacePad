@@ -16,7 +16,6 @@
 @implementation TableDataView
 
 @synthesize table_data_;
-@synthesize smallHeadings;
 
 - (void)dealloc
 {
@@ -56,7 +55,7 @@
 	{
 		return [super ColumnWidth:col];
 	}
-
+	
 }
 
 - (int) ColumnType:(int)col;
@@ -115,7 +114,6 @@
 		
 		if ( cell )
 		{
-			[self UseRegularFont];
 			[self SetTextColour:[cell fg]];
 			[self SetBackgroundColour:[cell	bg]];
 			[self SetAlignment:[cell alignment]];
@@ -162,7 +160,7 @@
 	}
 	
 	return nil;
-
+	
 }
 
 - (UIImage *) GetCellClientImageAtRow:(int)row Col:(int)col
@@ -193,10 +191,6 @@
 		TableHeader *columnHeader = [table_data_ columnHeader:col];
 		if ( columnHeader )
 		{
-			if ( smallHeadings )
-				[self UseMediumBoldFont];
-			else
-				[self UseRegularFont];
 			[self SetTextColour:[columnHeader fg]];
 			[self SetBackgroundColour:[columnHeader	bg]];
 			[self SetAlignment:[columnHeader alignment]];

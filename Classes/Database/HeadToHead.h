@@ -61,7 +61,7 @@ enum H2HTyre {
 	NSString * firstName0;
 	NSString * surname0;
 	NSString * teamName0;
-
+	
 	NSString * abbr1;
 	
 	NSString * firstName1;
@@ -97,5 +97,6 @@ enum H2HTyre {
 - (void) clearStaticData;
 
 - (void) drawInView : (HeadToHeadView *)view;
+- (void) drawPositionSummaryInView : (HeadToHeadView *)view;
 
 @end

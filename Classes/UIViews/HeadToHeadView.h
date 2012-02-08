@@ -16,12 +16,20 @@
 	float userScaleX;
 	float userOffsetY;
 	float userScaleY;
+	
+	float minScaleX;
+	
+	bool miniDisplay;
 }
 
 @property (nonatomic) float userOffsetX;
 @property (nonatomic) float userScaleX;
 @property (nonatomic) float userOffsetY;
 @property (nonatomic) float userScaleY;
+
+@property (nonatomic) float minScaleX;
+
+@property (nonatomic) bool miniDisplay;
 
 - (void)InitialiseMembers;
 
@@ -32,6 +40,8 @@
 - (float) transformX:(float)x;
 - (float) transformY:(float)y;
 - (float) yOffset;
+
+- (void) resetUserScale;
 
 @end
 

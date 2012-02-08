@@ -1,4 +1,4 @@
-    //
+//
 //  WorkOffline.m
 //  RacePad
 //
@@ -15,13 +15,19 @@
 
 @implementation WorkOffline
 
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+@synthesize animatedDismissal;
+
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
 		events = [[NSMutableArray alloc] init];
 		sessions = [[NSMutableArray alloc] init];
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		[self setModalPresentationStyle:UIModalPresentationFormSheet];
+		
+		animatedDismissal = true;
     }
     return self;
 }
@@ -29,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+	
 	[backgroundView setStyle:BG_STYLE_TRANSPARENT_];
 	[online setButtonColour:[UIColor colorWithRed:0.3 green:1.0 blue:0.3 alpha:1.0]];
 	[online setShine:0.5];
@@ -122,12 +128,12 @@
 			[event selectRow:preferredIndex inComponent:1 animated:YES];
 		}
 	}
-
+	
 	eventName = [events objectAtIndex:[event selectedRowInComponent:0]];
 	NSString *sessionName = [sessions objectAtIndex:[event selectedRowInComponent:1]];
 	
 	if ( eventName != nil && [eventName length] > 0
-	  && sessionName != nil && [sessionName length] > 0 )
+		&& sessionName != nil && [sessionName length] > 0 )
 		[ok setEnabled:YES];
 	else
 		[ok setEnabled:NO];
@@ -236,7 +242,7 @@
 	{
 		[self updateSessions: row];
 	}
-
+	
 }
 
 - (IBAction)okPressed:(id)sender
@@ -244,15 +250,15 @@
 	int eventIndex = [event selectedRowInComponent:0];
 	int sessionIndex = [event selectedRowInComponent:1];
 	if ( [events count] > eventIndex
-	  && [sessions count] > sessionIndex )
+		&& [sessions count] > sessionIndex )
 	{
 		NSString *eventName = [events objectAtIndex:eventIndex];
 		NSString *sessionName = [sessions objectAtIndex:sessionIndex];
-	
+		
 		if ( eventName != nil && [eventName length] > 0
-		  && sessionName != nil && [sessionName length] > 0 )
+			&& sessionName != nil && [sessionName length] > 0 )
 		{
-			[self dismissModalViewControllerAnimated:YES];
+			[self dismissModalViewControllerAnimated:animatedDismissal];
 			[[RacePadCoordinator Instance] loadSession:eventName Session:sessionName];
 		}
 	}
@@ -278,7 +284,7 @@
 
 - (IBAction)settingsPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:animatedDismissal];
 	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITabBarController *tabControl = [app tabBarController];
 	if ( tabControl )

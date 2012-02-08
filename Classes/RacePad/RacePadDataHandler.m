@@ -21,7 +21,7 @@
 - (id) init
 {
 	[super init];
-
+	
 	return self;
 }
 
@@ -75,6 +75,21 @@
 			TableData *driver_list = [[RacePadDatabase Instance] driverListData];
 			[driver_list updateData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
+			break;
+		}
+		case RPSC_WHOLE_STANDINGS_VIEW_: // Midas standings (whole page)
+		{
+			
+			TableData *standings = [[RacePadDatabase Instance] midasStandingsData];
+			[standings loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_MIDAS_STANDINGS_VIEW_];
+			break;
+		}
+		case RPSC_UPDATE_STANDINGS_VIEW_: // Midas standings (updates)
+		{
+			TableData *standings = [[RacePadDatabase Instance] midasStandingsData];
+			[standings updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_MIDAS_STANDINGS_VIEW_];
 			break;
 		}
 		case RPSC_WHOLE_LEADER_BOARD_: // Leader Board (whole page)
@@ -140,6 +155,7 @@
 		{
 			int state = [stream PopInt];
 			[[RacePadTitleBarController Instance] setTrackState:state];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TRACK_STATE_VIEW_];
 			break;
 		}
 		case RPSC_TELEMETRY_: // Telemetry Data
@@ -168,22 +184,22 @@
 			[alertData loadData:stream];
 			break;
 		}
-		/*
-		case RPSC_RED_COMMENTARY_: // Red Commentary
-		{
-			CommentaryData *commentary = [[RacePadDatabase Instance] redCommentary];
-			[commentary loadData:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
-			break;
-		}
-		case RPSC_BLUE_COMMENTARY_: // Red Commentary
-		{
-			CommentaryData *commentary = [[RacePadDatabase Instance] blueCommentary];
-			[commentary loadData:stream];
-			[[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
-			break;
-		}
-		*/
+			/*
+			 case RPSC_RED_COMMENTARY_: // Red Commentary
+			 {
+			 CommentaryData *commentary = [[RacePadDatabase Instance] redCommentary];
+			 [commentary loadData:stream];
+			 [[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			 break;
+			 }
+			 case RPSC_BLUE_COMMENTARY_: // Red Commentary
+			 {
+			 CommentaryData *commentary = [[RacePadDatabase Instance] blueCommentary];
+			 [commentary loadData:stream];
+			 [[RacePadCoordinator Instance] RequestRedrawType:RPC_COMMENTARY_VIEW_];
+			 break;
+			 }
+			 */
 		case RPSC_COMMENTARY_: // Commentary
 		{
 			CommentaryData *commentary = [[RacePadDatabase Instance] commentary];

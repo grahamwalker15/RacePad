@@ -37,10 +37,11 @@ enum ColumnPriority {
 } ;
 
 #define SLV_MAX_COLUMNS 1024
+#define SLV_MAX_ROWS 1024	// Actually just max number of rows that can be expanded, or have adaptable height cached
 
 @interface SimpleListView : DrawingView <UIScrollViewDelegate>
 {
-	@protected
+@protected
 	
 	UIColor * heading_bg_colour_;
 	UIColor * heading_text_colour_;
@@ -49,26 +50,39 @@ enum ColumnPriority {
 	UIColor * prime_tyre_;
 	UIColor * inter_tyre_;
 	UIColor * wet_tyre_;
-		
+	
 	int row_count_ ;
-	int row_height_;
+	int standardRowHeight;
+	int expansionRowHeight;
 	
 	int column_count_;
+	
+	int font_;
+	
+	bool expansionAllowed;
+	unsigned char expansionFlag[SLV_MAX_ROWS];
+	
+	float maxRowHeightCache[SLV_MAX_ROWS];
+	
+	int cellYMargin;
+	bool rowDivider;
+	
+	bool adaptableRowHeight;
 	
 	int column_width_[SLV_MAX_COLUMNS];
 	int column_type_[SLV_MAX_COLUMNS];
 	
 	bool if_heading_ ;
-	bool if_large_font_;
+	bool shadeHeading;
 	bool swiping_enabled_;
 	
 	bool scroll_to_end_requested_;
 	bool reset_scroll_requested_;
 	bool scroll_animating_;
 	NSTimer *scrollTimeoutTimer;
-		
+	
 	int text_baseline_;
-		
+	
 	int selected_row_;
 	int selected_col_;
 	
@@ -94,9 +108,21 @@ enum ColumnPriority {
 	int alignment_;
 	
 	bool portraitMode;;
-		
+	
 }
 
+@property (nonatomic) int standardRowHeight;
+@property (nonatomic) int expansionRowHeight;
+
+@property (nonatomic) bool expansionAllowed;
+
+@property (nonatomic) bool adaptableRowHeight;
+
+@property (nonatomic) int cellYMargin;
+@property (nonatomic) bool rowDivider;
+@property (nonatomic) bool shadeHeading;
+
+@property (nonatomic, setter=SetFont, getter=GetFont) int font_;
 @property (nonatomic, setter=SetDrawAllCells, getter=DrawAllCells) bool draw_all_cells_;
 @property (nonatomic, setter=SetBackgroundAlpha, getter=BackgroundAlpha) float background_alpha_;
 @property (nonatomic, retain, setter=SetBaseColour, getter=BaseColour) UIColor * base_colour_;
@@ -109,7 +135,6 @@ enum ColumnPriority {
 - (void) DeleteTable;
 
 - (void) SetRowCount:(int)count;
-- (void) SetRowHeight:(int)height;
 
 - (void) AddColumn;
 - (void) AddColumnWithWidth:(int)width;
@@ -117,9 +142,10 @@ enum ColumnPriority {
 - (void) SetColumn:(int)column Width:(int)width;
 
 - (int) TableWidth;
+- (int) TableHeight;
+- (int) TableHeightToRow:(int)row;
 
 - (void) SetHeading:(bool)if_heading;
-- (void) SetLargeFont:(bool)if_large;
 - (void) SetSwipingEnabled:(bool)value;
 
 - (void) ResetScroll;
@@ -149,18 +175,30 @@ enum ColumnPriority {
 - (bool) IsColSelected:(int)index;
 - (int) InqSelectedColIndex;
 
-- (void) DrawRow:(int)row AtY:(float)y;
+- (void) DrawRow:(int)row AtY:(float)y WithRowHeight:(float)row_height AndLineHeight:(float)line_height;
 - (void) Draw:(CGRect)region;
 - (void) DrawBase;
+
 
 // Functions that CAN be overridden for customised content (defaults return local array counts)
 - (int) RowCount;
 - (int) ColumnCount;
 
-- (int) RowHeight;
+- (int) ContentRowHeight:(int)row;
+- (int) ExpansionRowHeight:(int)row;
+- (int) RowHeight:(int)row;
+- (int) MaxContentRowHeight:(int)row;
+- (void) ClearRowHeightCache;
+
+- (void) SetRow:(int)row Expanded:(bool)expanded;
+- (bool) RowExpanded:(int)row;
+- (void) UnexpandAllRows;
+
 - (int) ColumnWidth:(int)col;
 - (int) ColumnType:(int)col;
 - (int) ColumnUse:(int)col;
+
+- (int) GetFontAtRow:(int)row Col:(int)col;
 
 // Functions that CAN be overridden for customised content (defaults do nothing)
 - (void) PrepareData;
@@ -172,6 +210,7 @@ enum ColumnPriority {
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col;
 - (UIImage *) GetCellClientImageAtRow:(int)row Col:(int)col;
 - (NSString *) GetHeadingAtCol:(int)col;
+- (NSString *) GetRowTag:(int)row;
 
 - (void) InitialiseSimpleListViewMembers;
 

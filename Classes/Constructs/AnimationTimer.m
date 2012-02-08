@@ -42,7 +42,7 @@
 		[target performSelector:loopSelector withObject:(id)(&alpha)];
 	}
 }
-	   
+
 - (void) kill
 {
 	[animationTimer invalidate];

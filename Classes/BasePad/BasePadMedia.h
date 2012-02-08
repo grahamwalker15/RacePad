@@ -18,6 +18,9 @@
 
 #import <CoreMedia/CMTime.h>
 
+#import "BasePadVideoSource.h"
+#import "BasePadAudioSource.h"
+
 #import "BasePadVideoViewController.h"
 
 // Movie types
@@ -25,7 +28,8 @@ enum MovieTypes
 {
 	MOVIE_TYPE_NONE_,
 	MOVIE_TYPE_ARCHIVE_,
-	MOVIE_TYPE_LIVE_STREAM_
+	MOVIE_TYPE_LIVE_STREAM_,
+	MOVIE_TYPE_VOD_STREAM_
 } ;
 
 // Connection status
@@ -38,107 +42,66 @@ enum MovieConnectionTypes
 	BPM_CONNECTION_ERROR_,
 } ;
 
+#define BPM_MAX_VIDEO_STREAMS 16
+
 @class ElapsedTime;
-@class BasePadVideoSource;
-@class BasePadAudioSource;
 
 @interface BasePadMedia : NSObject
 {				
-	AVURLAsset * moviePlayerAsset;
-	AVPlayerItem * moviePlayerItem;
-	AVPlayer * moviePlayer;
-	AVPlayerLayer * moviePlayerLayer;
+	BasePadVideoSource * movieSources[BPM_MAX_VIDEO_STREAMS];
+	int movieSourceCount;
 	
-	AVAudioPlayer * audioPlayer;
+	int movieSourceLoadQueue[BPM_MAX_VIDEO_STREAMS];
+	int movieSourceQueueCount;
+	bool movieSourceQueueBlocked;
 	
-	id moviePlayerObserver;
+	BasePadAudioSource * audioSource;
+	
+	NSString *currentMovieRoot;
+	NSString *currentAudioRoot;
+	int currentMovieType;
+	
 	NSTimer * playStartTimer;
 	NSTimer * playTimer;
-	
-	float movieStartTime;
-	float movieSeekTime;
-	float streamSeekStartTime;
 	
 	float liveVideoDelay;
 	
 	Float64 lastMoviePlayTime;
-	float lastLiveVideoDelay;
 	float lastResyncTime;
-	bool movieRecentlyResynced;
 	
 	int resyncCount;
 	int restartCount;
 	
 	ElapsedTime * moviePlayElapsedTime;
 	
-	NSString *currentMovie;
-	NSString *currentAudio;
-	
 	int currentStatus;
 	NSString *currentError;
-	
-	bool movieLoaded;
-	bool moviePlayable;
-	bool moviePlayAllowed;
-	
-	bool moviePlayPending;
-	bool movieSeekable;
-	bool movieSeekPending;
-	bool movieGoLivePending;
-	
-	bool moviePausedInPlace;
-	int movieResyncCountdown;
-	
-	bool audioPlayPending;
-	bool audioSeekPending;
-	
-	float audioStartTime;
 	
 	float activePlaybackRate;
 	
 	int movieType;
 	
 	BasePadVideoViewController * registeredViewController;
-
-}
 	
+}
+
 + (BasePadMedia *)Instance;
 
-@property (readonly) AVURLAsset * moviePlayerAsset;
-@property (readonly) AVPlayerItem * moviePlayerItem;
-@property (readonly) AVPlayer * moviePlayer;
-@property (readonly) AVPlayerLayer * moviePlayerLayer;
+@property (readonly) int movieSourceCount;
 
-@property (readonly) AVAudioPlayer * audioPlayer;
-
-@property (readonly) id moviePlayerObserver;
-
-@property (readonly) float movieStartTime;
-@property (readonly) float movieSeekTime;
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
 @property (readonly) int restartCount;
 
-@property (readonly) NSString *currentMovie;
-@property (readonly) NSString *currentAudio;
+@property (readonly) NSString *currentMovieRoot;
+@property (readonly) NSString *currentAudioRoot;
+@property (readonly) int currentMovieType;
 
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
 
-@property (readonly) bool movieLoaded;
-@property (readonly) bool moviePlayPending;
-@property (readonly) bool movieSeekable;
-@property (readonly) bool movieSeekPending;
-
-@property (nonatomic) bool moviePausedInPlace;
-
-@property (readonly) bool audioPlayPending;
-@property (readonly) bool audioSeekPending;
-
-@property (readonly) float audioStartTime;
-
 @property (readonly) int movieType;
-	
+
 - (void)onStartUp;
 
 - (void)connectToVideoServer;
@@ -149,15 +112,14 @@ enum MovieConnectionTypes
 - (void)verifyMovieLoaded;
 - (void)verifyAudioLoaded;
 
-- (void) loadMovie:(NSURL *)url;
-- (void) unloadMovie;
+- (void)queueMovieLoad:(int)movieSourceIndex;
+- (void)blockMovieLoadQueue;
+- (void)unblockMovieLoadQueue;
 
-- (void) loadAudio:(NSURL *)url;
-- (void) unloadAudio;
+- (int) getMovieType;
 
-- (void) movieSetStartTime:(float)time;
-
-- (void) getStartTime;
+- (BasePadVideoSource *)movieSource:(int)index;
+- (BasePadVideoSource *)findMovieSourceByTag:(NSString *)tag;
 
 - (NSURL *) getMovieURL;
 - (NSURL *) getAudioURL;
@@ -170,6 +132,8 @@ enum MovieConnectionTypes
 - (void) movieSeekToLive;
 - (void) moviePrepareToPlay;
 - (void) movieResyncLive;
+- (void) setMoviePlaying:(bool)value;
+- (void) setMoviePausedInPlace:(bool)value;
 
 - (void) audioPlayAtRate:(float)playbackRate;
 - (void) audioPlay;
@@ -183,21 +147,18 @@ enum MovieConnectionTypes
 - (void) livePlayTimerFired: (NSTimer *)theTimer;
 - (void) restartConnection;
 
-- (bool) moviePlayable;
-
-- (void) timeObserverCallback:(CMTime) cmTime;
-
 -(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
 -(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;
 
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource;
+-(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay;
 
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:error;
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error;
 -(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
 
 -(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators;
 
 -(void)notifyMovieInformation;
 
+-(void)loadVideoList:(NSString *)fileName;
 
 @end

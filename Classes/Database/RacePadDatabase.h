@@ -29,7 +29,7 @@ enum OurCars
 enum SessionTypes {
 	RPD_SESSION_RACE_,
 	RPD_SESSION_QUALLY_,
-	RPD_SESSION_PRACTIVE_,
+	RPD_SESSION_PRACTICE_,
 	RPD_SESSION_TEST_,
 	RPD_SESSION_OTHER_,
 };
@@ -39,6 +39,7 @@ enum SessionTypes {
 	TableData *driverListData;
 	TableData *leaderBoardData;
 	TableData *driverData;
+	TableData *midasStandingdData;
 	DriverGapInfo *driverGapInfo;
 	TrackMap *trackMap;
 	PitWindow *pitWindow;
@@ -58,6 +59,7 @@ enum SessionTypes {
 @property (readonly) TableData *driverListData;
 @property (readonly) TableData *leaderBoardData;
 @property (readonly) TableData *driverData;
+@property (readonly) TableData *midasStandingsData;
 @property (readonly) DriverGapInfo * driverGapInfo;
 @property (readonly) TrackMap *trackMap;
 @property (readonly) PitWindow *pitWindow;

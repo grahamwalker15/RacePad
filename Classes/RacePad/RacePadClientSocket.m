@@ -34,6 +34,16 @@
 	[self SimpleCommand:RPCS_STREAM_TIMING_PAGE];
 }
 
+- (void)RequestStandingsView
+{
+	[self SimpleCommand:RPCS_STREAM_STANDINGS_VIEW];
+}
+
+- (void)StreamStandingsView
+{
+	[self SimpleCommand:RPCS_STREAM_STANDINGS_VIEW];
+}
+
 - (void)RequestLeaderBoard
 {
 	[self SimpleCommand:RPCS_REQUEST_LEADER_BOARD];
@@ -102,7 +112,7 @@
 		sentDriver = driver;
 	else
 		sentDriver = @"-";	// Will result in nothing coming back
-
+	
 	int messageLength = [sentDriver length] + sizeof(uint32_t) * 3;
 	unsigned char *buf = malloc(messageLength);
 	int *iData = (int *)buf;
@@ -244,7 +254,7 @@
 	[self pushBuffer: &b Int:messageLength];
 	[self pushBuffer: &b Int:RPCS_REQUEST_PREDICTION];
 	[self pushBuffer: &b String:user];
-
+	
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	[self SendData: data];
 	CFRelease(data);

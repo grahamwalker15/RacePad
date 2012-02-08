@@ -18,12 +18,15 @@
 	IBOutlet UIButton *closeButton;
 	
 	bool shown;
-	bool growUp;
+	bool bottomRight;
+	
+	bool midasStyle;
 }
 
 @property (nonatomic, retain) CommentaryView * commentaryView;
 @property (nonatomic, readonly) bool shown;
-@property (nonatomic) bool growUp;
+@property (nonatomic) bool bottomRight;
+@property (nonatomic) bool midasStyle;
 
 - (void) popUp;
 - (void) popDown: (bool) animate;

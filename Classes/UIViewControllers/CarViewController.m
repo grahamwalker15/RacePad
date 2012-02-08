@@ -51,7 +51,7 @@
 	[trackMapContainer setStyle:BG_STYLE_TRANSPARENT_];
 	
 	[trackProfileView setUserScale:5.0];
-
+	
 	commentaryExpanded = false;
 	commentaryAnimating = false;
 	
@@ -61,7 +61,7 @@
 	[self addTapRecognizerToView:backgroundView];
 	[self addTapRecognizerToView:commentaryView];
 	[self addTapRecognizerToView:trackProfileView];
-		
+	
     //	Tap, pinch, and double tap recognizers for map
 	[self addTapRecognizerToView:trackMapView];
 	[self addPinchRecognizerToView:trackMapView];
@@ -109,14 +109,14 @@
 	
 	// Force background refresh
 	[backgroundView RequestRedraw];
-		
+	
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:trackMapView.carToFollow];
-
+	
 	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
-
+	
 	[[CommentaryBubble Instance] noBubbles];
 	
 	// We disable the screen locking - because that seems to close the socket
@@ -230,7 +230,7 @@
 	[trackMapContainer setHidden:false];
 	[trackMapContainer setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
-
+	
 	if(!commentaryExpanded)
 	{
 		[trackProfileView setHidden:false];
@@ -264,7 +264,7 @@
 		{
 			RacePadDatabase *database = [RacePadDatabase Instance];
 			TrackMap *trackMap = [database trackMap];
-		
+			
 			[trackMap adjustScaleInView:(TrackMapView *)gestureView Scale:scale X:x Y:y];
 			[(TrackMapView *)gestureView RequestRedraw];
 			
@@ -354,7 +354,7 @@
 {
 	[trackMapContainer setFrame:animationRectEnd];
 	[trackMapView setFrame:CGRectMake(0, 0, animationRectEnd.size.width, animationRectEnd.size.height)];
-
+	
 	[trackMapView setIsAnimating:false];
 	float tempUserScale = [trackMapView userScale];
 	[trackMapView setUserScale:backupUserScale];
@@ -376,7 +376,7 @@
 	
 	[trackMapSizeButton setFrame:CGRectMake(4, [trackMapContainer bounds].size.height - 24, 20, 20)];
 	[trackMapSizeButton setHidden:false];
-
+	
 	[trackMapContainer RequestRedraw];
 	[[RacePadCoordinator Instance] EnableViewRefresh:trackMapView];
 }
@@ -444,13 +444,13 @@
 	if([finished intValue] == 1)
 	{
 		[trackProfileView setHidden:true];
-
+		
 		commentaryExpanded = true;
 		commentaryAnimating = false;		
-
+		
 		[commentaryView RequestScrollToEnd];
 		[commentaryView RequestRedraw];
-
+		
 		[self addBackgroundFrames];
 		[backgroundView RequestRedraw];
 	}
@@ -462,7 +462,7 @@
 	{
 		commentaryExpanded = false;
 		commentaryAnimating = false;
-
+		
 		[commentaryView RequestScrollToEnd];
 		[commentaryView RequestRedraw];
 		
@@ -478,27 +478,27 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-
+	
 	//[mscButton setButtonColour:[UIColor colorWithRed:0.4 green:0.4 blue:0.8 alpha:1.0]];
 	//[mscButton setSelectedButtonColour:[mscButton buttonColour]];
 	//[mscButton setSelectedTextColour:[mscButton textColour]];
-
+	
 	//[rosButton setButtonColour:[UIColor colorWithRed:0.8 green:0.4 blue:0.4 alpha:1.0]];
 	//[rosButton setSelectedButtonColour:[rosButton buttonColour]];
 	//[rosButton setSelectedTextColour:[rosButton textColour]];
 	
 	/*
-	[[[RacePadDatabase Instance] commentary] setCommentaryFor:@"MSC"];
-	[trackMapView followCar:@"MSC"];
-	[trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
-	[telemetryView setCar:RPD_BLUE_CAR_];
-	[trackProfileView followCar:@"MSC"];
+	 [[[RacePadDatabase Instance] commentary] setCommentaryFor:@"MSC"];
+	 [trackMapView followCar:@"MSC"];
+	 [trackMapContainer setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:1.0 alpha:0.3]];
+	 [telemetryView setCar:RPD_BLUE_CAR_];
+	 [trackProfileView followCar:@"MSC"];
 	 */
 	
 	grabTitle = false;
 	
 	[self chooseCar:[[RacePadCoordinator Instance] nameToFollow]];
-
+	
 	[self addTapRecognizerToView:telemetryView];
 	[self addTapRecognizerToView:mscButton];
 	[self addTapRecognizerToView:rosButton];
@@ -509,7 +509,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-
+	
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:(RPC_TELEMETRY_VIEW_ | RPC_PIT_WINDOW_VIEW_ | RPC_COMMENTARY_VIEW_ | RPC_TRACK_MAP_VIEW_ | RPC_LAP_COUNT_VIEW_)];
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:telemetryView];
@@ -519,7 +519,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-
+	
 	[[RacePadCoordinator Instance] SetViewHidden:telemetryView];
 }
 
@@ -527,7 +527,7 @@
 {
 	[telemetryView setAlpha:0.0];
 	[telemetryView setHidden:false];
-
+	
 	[trackMapContainer setAlpha:0.0];
 	[trackMapContainer setHidden:false];
 	
@@ -542,7 +542,7 @@
 {
 	[trackProfileView setAlpha:1.0];
 	[commentaryView setAlpha:1.0];
-
+	
 	[trackMapContainer setAlpha:1.0];
 	[telemetryView setAlpha:1.0];
 }
@@ -613,7 +613,7 @@
 	[trackProfileView setUserScale:5.0];
 	[trackProfileView RequestRedraw];
 	[trackProfileView followCar:@"MSC"];
-
+	
 	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] restartCommentary];
 	[trackMapView RequestRedraw];
@@ -643,7 +643,7 @@
 	[trackMapView RequestRedraw];
 	[telemetryView RequestRedraw];
 	[trackProfileView RequestRedraw];
-
+	
 	[mscButton setAlpha:0.25];
 	[rosButton setAlpha:1.0];
 	
@@ -653,7 +653,7 @@
 - (bool) supportsCar:(NSString *)name
 {
 	if ( [name isEqualToString: @"ROS"]
-	  || [name isEqualToString: @"MSC"] )
+		|| [name isEqualToString: @"MSC"] )
 		return true;
 	
 	return false;

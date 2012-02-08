@@ -17,6 +17,8 @@
 @synthesize isZoomView;
 @synthesize isOverlayView;
 @synthesize smallSized;
+@synthesize midasStyle;
+
 @synthesize homeXOffset;
 @synthesize homeYOffset;
 @synthesize homeScale;
@@ -76,7 +78,7 @@ static bool flag_images_initialised_ = false;
 {
 	[carToFollow release];
 	carToFollow = nil;
-
+	
 	[greenFlagImage release];
 	[yellowFlagImage release];
 	[redFlagImage release];
@@ -101,6 +103,8 @@ static bool flag_images_initialised_ = false;
 	isZoomView = false;
 	isOverlayView = false;
 	smallSized = false;
+	
+	midasStyle = false;
 	
 	isAnimating = false;
 	animationDirection = 0;
@@ -132,7 +136,7 @@ static bool flag_images_initialised_ = false;
 		[scFlagImage retain];
 		[scinFlagImage retain];
 	}
-
+	
 }
 
 - (float) interpolatedUserScale
@@ -157,7 +161,7 @@ static bool flag_images_initialised_ = false;
 		{
 			return;
 		}
-
+		
 	}
 	
 	// Reach here if either name was nil, or not found
@@ -173,8 +177,8 @@ static bool flag_images_initialised_ = false;
 	if ( trackMap )
 	{		
 		[trackMap drawInView:self];
-
-		if(!isZoomView)
+		
+		if(!midasStyle && !isZoomView && !smallSized)
 		{
 			int track_state = [trackMap getTrackState];
 			

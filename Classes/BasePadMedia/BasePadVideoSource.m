@@ -6,11 +6,12 @@
 //  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "BasePadVideoSource.h"
-
 #import "BasePadCoordinator.h"
 #import "BasePadMedia.h"
 #import "ElapsedTime.h"
+#import "MovieView.h"
+
+#import <AVFoundation/AVAssetImageGenerator.h>
 
 @implementation BasePadVideoSource
 
@@ -19,73 +20,94 @@
 @synthesize moviePlayer;
 @synthesize moviePlayerLayer;
 
+@synthesize parentMovieView;
+
 @synthesize moviePlayerObserver;
 
 @synthesize movieStartTime;
 @synthesize movieSeekTime;
 @synthesize liveVideoDelay;
 
-@synthesize restartCount;
+@synthesize movieLoop;
+@synthesize shouldAutoDisplay;
+
 @synthesize resyncCount;
 
 @synthesize currentMovie;
+@synthesize movieURL;
+@synthesize movieTag;
+@synthesize movieName;
+@synthesize movieThumbnail;
 
 @synthesize currentStatus;
 @synthesize currentError;
 
 @synthesize movieLoaded;
+@synthesize movieAttached;
 @synthesize moviePlayPending;
 @synthesize movieSeekable;
 @synthesize movieSeekPending;
+@synthesize movieGoLivePending;
 @synthesize moviePausedInPlace;
+@synthesize moviePlaying;
 
 @synthesize movieType;
+@synthesize movieMarkedPlayable;
 @synthesize movieActive;
-
+@synthesize movieDisplayed;
 
 -(id)init
 {
 	if(self = [super init])
 	{	
 		movieActive = false;
+		movieDisplayed = false;
 		
 		moviePlayer = nil;
 		moviePlayerItem = nil;
 		moviePlayerAsset = nil;
 		moviePlayerLayer = nil;
 		moviePlayerObserver = nil;
-
+		
 		moviePlayPending = false;
 		movieSeekable = false;
 		movieSeekPending = false;
 		movieGoLivePending = false;
 		movieLoaded = false;
-		moviePlayable = false;
-		moviePlayAllowed = false;
+		movieAttached = false;
+		movieMarkedPlayable = false;
 		
 		moviePausedInPlace = false;
+		moviePlaying = false;
 		
-		movieStartTime = 0.0;
+		movieStartTime = -1.0;
 		movieSeekTime = 0.0;
 		streamSeekStartTime = 0.0;
 		
+		movieLoop = false;
+		
 		activePlaybackRate = 1.0;
 		
-		restartCount = 0;
 		resyncCount = 0;
 		
 		lastMoviePlayTime = 0.0;
 		lastResyncTime = 0.0;
-		lastLiveVideoDelay = 0.0;
-		
-		moviePlayElapsedTime = nil;
 		
 		movieRecentlyResynced = false;
 		
-		playStartTimer = nil;
-		playTimer = nil;
-		
 		movieType = MOVIE_TYPE_NONE_;
+		currentMovie = nil;
+		movieURL = nil;
+		movieTag = nil;
+		movieName = nil;
+		movieThumbnail = nil;
+		currentError = nil;
+		
+		shouldAutoDisplay = false;
+		
+		moviePlayerStatusOK = false;
+		moviePlayerItemStatusOK = false;
+		
 	}
 	
 	return self;
@@ -97,7 +119,13 @@
 	if(movieLoaded)
 		[self unloadMovie];
 	
-    [super dealloc];
+	if(currentError)
+	{
+		[currentError release];
+		currentError = nil;
+	}
+	
+	[super dealloc];
 }
 
 - (void) onStartUp
@@ -109,19 +137,38 @@
 - (void)resetConnectionCounts
 {
 	resyncCount = 0;
-	restartCount = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////
 // Movie loading and unloading
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) loadMovie:(NSURL *)url
+- (void) loadMovie
+{
+	if(movieURL)
+	{
+		[self loadMovie:movieURL ShouldDisplay:shouldAutoDisplay InMovieView:nil];
+	}
+}
+
+- (void) loadMovieIntoView:(MovieView *)movieView
+{
+	if(movieURL)
+	{
+		[self loadMovie:movieURL ShouldDisplay:true InMovieView:movieView];
+	}
+}
+
+- (void) loadMovie:(NSURL *)url ShouldDisplay:(bool)shouldDisplay InMovieView:(MovieView *)movieView
 {
 	if(movieLoaded)
 		[self unloadMovie];
 	
 	moviePlayerAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
+	
+	currentMovie = [[url absoluteString] retain];
+	
+	[[BasePadMedia Instance] blockMovieLoadQueue];
 	
 	NSString *tracksKey = @"tracks";
 	
@@ -136,37 +183,46 @@
 		 {
 			 moviePlayerItem = [[AVPlayerItem alloc] initWithAsset:moviePlayerAsset];
 			 
-			 [moviePlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
-			 
 			 moviePlayer = [[AVPlayer alloc] initWithPlayerItem:moviePlayerItem];
 			 [moviePlayer setActionAtItemEnd:AVPlayerActionAtItemEndNone];
 			 
-			 // Register a time observer to get the current time while playing
-			 movieStartTime = -1.0;
-			 moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
-			 [moviePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
-			 
-			 // Make a movie player layer to receive the movie
-			 if(!moviePlayerLayer)
+			 if(shouldDisplay)
 			 {
-				 moviePlayerLayer = [[AVPlayerLayer playerLayerWithPlayer:moviePlayer] retain];
-				 [moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+				 [self attachMovie];
 			 }
 			 
-			 // Call parent to position the movie and order the overlay in any registered view controller
-			 [[BasePadMedia Instance] notifyNewVideoSource:self];
-			 
 			 movieLoaded = true;
-			 currentMovie = [[url absoluteString] retain];
 			 
 			 currentStatus = BPM_CONNECTED_;
 			 
 			 moviePausedInPlace= false;
+			 moviePlaying = false;
+			 
+			 [self makeThumbnail];
+			 
+			 // Call parent to do anything needed with this movie
+			 // If we have called to load into a view, we'll notify the view
+			 // Otherwise, we notify BasePadMedia so that it can tell its registered view controller
+			 if(shouldDisplay && movieView)
+			 {
+				 [movieView notifyMovieAttachedToSource:self];
+			 }
+			 else
+			 {
+				 [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:shouldDisplay];
+			 }
+			 
 		 }
 		 else
 		 {
 			 // Deal with the error appropriately.
 			 currentStatus = BPM_CONNECTION_FAILED_;
+			 
+			 if(moviePlayerAsset)
+			 {
+				 [moviePlayerAsset release];
+				 moviePlayerAsset = nil;
+			 }
 			 
 			 if(currentError)
 			 {
@@ -197,15 +253,77 @@
 			 [currentMovie release];
 			 currentMovie = nil;
 		 }
+		 
+		 [[BasePadMedia Instance] unblockMovieLoadQueue];
+		 
 	 }
 	 ];
 }
 
 - (void) unloadMovie
 {
-	// Delete any existing player and assets	
-	[[BasePadMedia Instance] notifyUnloadingVideoSource:self];
+	if(!movieLoaded)
+		return;
+	
+	[self detachMovie];
+	
+	[moviePlayer release];	
+	[moviePlayerItem release];	
+	[moviePlayerAsset release];
+	
+	moviePlayer = nil;
+	moviePlayerItem = nil;
+	moviePlayerAsset = nil;
+	
+	moviePlayPending = false;
+	movieSeekable = false;
+	movieMarkedPlayable = false;
+	movieSeekPending = false;
+	movieLoaded =false;
+	moviePausedInPlace = false;
+	moviePlaying = false;
+	
+	movieStartTime = -1.0;
+	streamSeekStartTime = 0.0;
+	
+	shouldAutoDisplay = false;
+	
+	[currentMovie release];
+	currentMovie = nil;
+	
+	moviePlayerStatusOK = false;
+	moviePlayerItemStatusOK = false;
+	
+}
 
+- (void) attachMovie
+{
+	// Register to observe status and add a time observer to get the current time while playing
+	[moviePlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	moviePlayerObserver = [moviePlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 1) queue:nil usingBlock:^(CMTime time){[self timeObserverCallback:time];}];
+	[moviePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+	
+	// Add an observer for when it reaches the end
+	// If we are looping, this will restart the movie
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:)
+												 name:AVPlayerItemDidPlayToEndTimeNotification object:moviePlayerItem];
+	
+	// Make a movie player layer to receive the movie
+	if(!moviePlayerLayer)
+	{
+		moviePlayerLayer = [[AVPlayerLayer playerLayerWithPlayer:moviePlayer] retain];
+		[moviePlayerLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+	}
+	
+	moviePausedInPlace= false;
+	moviePlaying = false;
+	
+	movieAttached = true;
+}
+
+- (void) detachMovie
+{
 	if(moviePlayerObserver)
 	{
 		[moviePlayer removeTimeObserver:moviePlayerObserver];
@@ -222,36 +340,75 @@
 		[moviePlayer removeObserver:self forKeyPath:@"status"];
 	}
 	
-	[moviePlayerLayer release];
-	[moviePlayer release];
-	[moviePlayerItem release];
-	[moviePlayerAsset release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+	[moviePlayerLayer release];
 	moviePlayerLayer = nil;
-	moviePlayer = nil;
-	moviePlayerItem = nil;
-	moviePlayerAsset = nil;
 	
 	moviePlayPending = false;
-	movieSeekable = false;
-	moviePlayable = false;
+	movieMarkedPlayable = false;
 	movieSeekPending = false;
-	movieLoaded =false;
 	moviePausedInPlace = false;
+	moviePlaying = false;
 	
-	movieStartTime = 0.0;
-	streamSeekStartTime = 0.0;
+	movieAttached = false;
 	
-	movieType = MOVIE_TYPE_NONE_;
-	
-	[currentMovie release];
-	currentMovie = nil;
+}
 
+-(void)makeThumbnail
+{
+	if(movieThumbnail)
+		[movieThumbnail release];
+	
+	AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:moviePlayerAsset];
+	
+    CGSize maxSize = CGSizeMake(72, 54);
+    generator.maximumSize = maxSize;
+	CMTime thumbTime = CMTimeMakeWithSeconds(0.1,30);
+	
+	CGImageRef imageRef = [generator copyCGImageAtTime:thumbTime actualTime:nil error:nil];
+	
+	if(imageRef)
+	{
+		movieThumbnail = [[UIImage alloc ] initWithCGImage:imageRef];
+		CGImageRelease(imageRef);
+	}
+	else
+	{
+		NSString * imageName = @"Thumb";
+		imageName = [imageName stringByAppendingString:movieTag];
+		imageName = [imageName stringByAppendingString:@".png"];
+		movieThumbnail = [UIImage imageNamed:imageName];
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////
 // Movie and Audio information
 ////////////////////////////////////////////////////////////////////////////
+
+- (void) setStartTime:(float)time
+{
+	// Should only get called on Archives - just do getStartTime if it isn't
+	
+	if ( [[BasePadCoordinator Instance] connectionType] != BPC_ARCHIVE_CONNECTION_ && [[BasePadCoordinator Instance] videoConnectionType] == BPC_VIDEO_LIVE_CONNECTION_)
+	{
+		[self getStartTime];
+	}
+	else
+	{
+		movieStartTime = time;
+		
+		movieSeekable= true;
+		
+		if(movieSeekPending)
+		{
+			if(movieSeekTime < 0)
+				[self movieSeekToLive];
+			else
+				[self movieGotoTime:movieSeekTime];
+		}		
+	}
+}
 
 - (void) getStartTime
 {
@@ -360,11 +517,6 @@
 // Movie controls
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) movieSetStartTime:(float)time
-{
-	movieStartTime = time;
-}
-
 - (void) moviePrepareToPlay
 {
 }
@@ -378,6 +530,7 @@
 		[moviePlayer setRate:activePlaybackRate];
 		moviePlayPending = false;
 		moviePausedInPlace = false;
+		moviePlaying = true;
 	}
 	else
 	{
@@ -392,6 +545,7 @@
 
 - (void) movieStop
 {
+	moviePlaying = false;
 	moviePausedInPlace = true;
 	[moviePlayer pause];	
 	moviePlayPending = false;
@@ -426,10 +580,26 @@
 				float rangeStartTime = (float) CMTimeGetSeconds( range.start );
 				float rangeDuration = (float) CMTimeGetSeconds( range.duration );
 				
-				if(movie_time < rangeStartTime)
-					movie_time = rangeStartTime;
-				else if(movie_time > rangeStartTime + rangeDuration)
-					movie_time = rangeStartTime + rangeDuration;
+				if(movieLoop && rangeDuration > 0)
+				{
+					if(movie_time < rangeStartTime)
+					{
+						while (movie_time < rangeStartTime)
+							movie_time += rangeDuration;
+					}
+					else if(movie_time > rangeStartTime + rangeDuration)
+					{
+						while (movie_time > rangeStartTime + rangeDuration)
+							movie_time -= rangeDuration;
+					}
+				}
+				else
+				{
+					if(movie_time < rangeStartTime)
+						movie_time = rangeStartTime;
+					else if(movie_time > rangeStartTime + rangeDuration)
+						movie_time = rangeStartTime + rangeDuration;
+				}
 				
 				CMTime cm_time = CMTimeMakeWithSeconds(movie_time, 600);
 				
@@ -528,12 +698,15 @@
 
 - (bool) moviePlayable
 {
-	if(!moviePlayer || [moviePlayer status] != AVPlayerItemStatusReadyToPlay)
+	int moviePlayerStatus = moviePlayer ? [moviePlayer status] : AVPlayerItemStatusUnknown;
+	
+	if(moviePlayerStatus != AVPlayerItemStatusReadyToPlay)
 	{
 		return false;
 	}
 	
-	if(!moviePlayerItem || [moviePlayerItem status] != AVPlayerItemStatusReadyToPlay)
+	int moviePlayerItemStatus = moviePlayerItem ? [moviePlayerItem status] : AVPlayerItemStatusUnknown;
+	if(moviePlayerItemStatus != AVPlayerItemStatusReadyToPlay)
 	{
 		return false;
 	}
@@ -541,80 +714,19 @@
 	return true;
 }
 
-- (void) startLivePlayTimer;
+- (bool) moviePlayingRealTime: (float)timeNow
 {
-	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
-	{
-		// A 5 second timer kicked off at start of live play.
-		// Stream will resync on expiration.
-		[self stopPlayTimers];
-		
-		playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
-		
-		[[BasePadMedia Instance] notifyVideoSourceConnecting:self showIndicators:true];
-	}
-}
-
-- (void) stopPlayTimers
-{
-	if(playStartTimer)
-	{
-		[playStartTimer invalidate];
-		playStartTimer = nil;
-	}
+	// Called on a timer by BasePadMedia
+	// Return true if time is OK
+	// Resyncs if time has slipped, and returns true
+	// Returns false if we can't get time : BasePadMedia will then restart the connection
 	
-	if(playTimer)
-	{
-		[playTimer invalidate];
-		playTimer = nil;
-	}
-	
-	if(moviePlayElapsedTime)
-	{
-		[moviePlayElapsedTime release];
-		moviePlayElapsedTime = nil;
-	}
-	
-	[[BasePadMedia Instance] notifyVideoSourceConnecting:self showIndicators:false];
-}
-
-- (void) playStartTimerExpired: (NSTimer *)theTimer
-{
-	// If there is a go live or play still pending, just kick off the timer again
-	if(movieGoLivePending || moviePlayPending)
-	{
-		[self startLivePlayTimer];
-		return;
-	}
-	
-	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
-	[self movieResyncLive];
-	
-	[[BasePadMedia Instance] notifyVideoSourceConnecting:self showIndicators:false];
-	
-	playStartTimer = nil;
-	
-	if(moviePlayElapsedTime)
-		[moviePlayElapsedTime release];
-	
-	moviePlayElapsedTime = [[ElapsedTime alloc] init];
-	
-	if(playTimer)
-		[playTimer invalidate];
-	
-	playTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(livePlayTimerFired:) userInfo:nil repeats:YES];
-	movieRecentlyResynced = true;
-}
-
-- (void) livePlayTimerFired: (NSTimer *)theTimer
-{
 	if([[BasePadCoordinator Instance] liveMode])
 	{
 		// Check the player status is still OK
 		if(![self moviePlayable])
 		{
-			[self restartConnection];
-			return;
+			return false;
 		}
 		
 		// Then check time hasn't slipped
@@ -625,13 +737,10 @@
 			
 			if(moviePlayTime > 0.0)
 			{
-				float timeNow = [moviePlayElapsedTime value];
-				
 				if(movieRecentlyResynced)
 				{
 					lastMoviePlayTime = moviePlayTime;
 					lastResyncTime = timeNow;
-					lastLiveVideoDelay = liveVideoDelay;
 					liveVideoDelay = 0.0;
 					movieRecentlyResynced = false;
 				}
@@ -647,33 +756,19 @@
 					}
 				}
 				
-				[[BasePadMedia Instance] notifyMovieInformation];
-				
-				return;
+				return true;
 			}
 		}
 		
 		// Fall through to here if live and time is not valid
-		[self restartConnection];
+		return false;
 		
 	}
+	
+	// Reach here if not in live mode
+	return true;
 }
 
-- (void) restartConnection
-{
-	[self movieStop];
-	[self stopPlayTimers];
-	
-	[[BasePadMedia Instance] disconnectVideoServer];
-	[[BasePadMedia Instance] connectToVideoServer];
-	
-	[self movieGoLive];
-	[self moviePlay];
-	
-	[self startLivePlayTimer];
-	
-	restartCount++;
-}
 
 ////////////////////////////////////////////////////////////////////////
 //  Callback functions
@@ -728,27 +823,34 @@
 	{
 		if([keyPath isEqualToString:@"status"])
 		{
-			int status = [object status];
-			if(!moviePlayable && moviePlayAllowed && status == AVPlayerItemStatusReadyToPlay)
+			int itemStatus = [object status];
+			if(!movieMarkedPlayable && movieActive && itemStatus == AVPlayerItemStatusReadyToPlay)
 			{
-				moviePlayable = [self moviePlayable];
+				moviePlayerItemStatusOK = true;
 				
-				float time_of_day = [[BasePadCoordinator Instance] currentTime];
-				[self getStartTime];
+				movieMarkedPlayable = [self moviePlayable];
 				
-				if(movieGoLivePending)
+				if(moviePlayerStatusOK && moviePlayerItemStatusOK)
 				{
-					[self movieGoLive];
+					float time_of_day = [[BasePadCoordinator Instance] currentTime];
+					[self getStartTime];
+					
+					if(movieGoLivePending)
+						[self movieGoLive];
+					
+					if(movieType == MOVIE_TYPE_ARCHIVE_ || movieType == MOVIE_TYPE_VOD_STREAM_ || ![[BasePadCoordinator Instance] liveMode])
+						[self movieGotoTime:time_of_day];
+					
+					if(moviePlayPending)
+						[self moviePlay];
+					
+					if(parentMovieView)
+						[parentMovieView notifyMovieSourceReadyToPlay:self];
+					
 				}
-				
-				if(movieType == MOVIE_TYPE_ARCHIVE_ || ![[BasePadCoordinator Instance] liveMode])
-					[self movieGotoTime:time_of_day];
-				
-				if(moviePlayPending)
-					[self moviePlay];
 			}
 			
-			if(status ==  AVPlayerItemStatusFailed)
+			if(itemStatus ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
 				
@@ -771,6 +873,9 @@
 						}
 						
 						currentError = [description retain];
+						
+						if(parentMovieView)
+							[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 					}
 				}
 				
@@ -783,20 +888,33 @@
 	{
 		if([keyPath isEqualToString:@"status"])
 		{
-			if(!moviePlayable && moviePlayAllowed && [object status] == AVPlayerItemStatusReadyToPlay)
+			int playerStatus = [object status];
+			if(!movieMarkedPlayable && movieActive && playerStatus == AVPlayerItemStatusReadyToPlay)
 			{
-				moviePlayable = [self moviePlayable];
+				moviePlayerStatusOK = true;
 				
-				if(movieGoLivePending)
+				movieMarkedPlayable = [self moviePlayable];
+				
+				if(moviePlayerStatusOK && moviePlayerItemStatusOK)
 				{
-					[self movieGoLive];
+					float time_of_day = [[BasePadCoordinator Instance] currentTime];
+					[self getStartTime];
+					
+					if(movieGoLivePending)
+						[self movieGoLive];
+					
+					if(movieType == MOVIE_TYPE_ARCHIVE_ || movieType == MOVIE_TYPE_VOD_STREAM_ || ![[BasePadCoordinator Instance] liveMode])
+						[self movieGotoTime:time_of_day];
+					
+					if(moviePlayPending)
+						[self moviePlay];
+					
+					if(parentMovieView)
+						[parentMovieView notifyMovieSourceReadyToPlay:self];
 				}
-				
-				if(moviePlayPending)
-					[self moviePlay];
 			}
 			
-			if([object status] ==  AVPlayerItemStatusFailed)
+			if(playerStatus ==  AVPlayerItemStatusFailed)
 			{
 				NSError * error = [object error];
 				
@@ -819,6 +937,8 @@
 						}
 						
 						currentError = [description retain];
+						if(parentMovieView)
+							[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 					}					
 				}
 				
@@ -827,5 +947,13 @@
 		}
 	}
 }
+
+-(void)playerItemDidReachEnd:(NSNotification *)notification
+{
+	AVPlayerItem *player = [notification object];
+	
+	if(movieLoop)
+		[player seekToTime:kCMTimeZero];
+}   			 
 
 @end

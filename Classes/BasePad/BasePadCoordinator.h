@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SettingsViewController.h"
-#import "CompositeViewController.h"
+#import "BasePadVideoViewController.h"
 #import "HelpViewController.h"
 
 @class BasePadViewController;
@@ -95,21 +95,22 @@ enum ConnectionTypes
 	ServerConnect *serverConnect;
 	WorkOffline *workOffline;
 	SettingsViewController *settingsViewController;
-	CompositeViewController *videoViewController;
+	BasePadVideoViewController *videoViewController;
 	
 	BasePadClientSocket * socket_;
 	int connectionRetryCount;
 	bool showingConnecting;
 	
 	int serverConnectionStatus;
-
+	
 	int videoConnectionType;
 	int videoConnectionStatus;
 	
 	NSString *sessionPrefix;
 	
-	NSTimer *updateTimer;
-	NSTimer *timeControllerTimer;
+	NSTimer *dataUpdateTimer;
+	NSTimer *playUpdateTimer10hz;
+	NSTimer *playUpdateTimer1hz;
 	NSTimer *connectionRetryTimer;
 	
 	int baseTime;
@@ -127,6 +128,7 @@ enum ConnectionTypes
 	
 	bool playing;
 	bool needsPlayRestart;
+	bool protectMediaFromRestart;
 	
 	bool reconnectOnBecomeActive;
 	bool playOnBecomeActive;
@@ -136,12 +138,12 @@ enum ConnectionTypes
 	bool liveMovieSeekAllowed;
 	
 	NSString * nameToFollow;
-
+	
 	NSMutableArray *allTabs;
 	unsigned char currentSponsor;
 	
 	bool lightRestart;
-
+	
 	float appVersionNumber;
 }
 
@@ -167,7 +169,7 @@ enum ConnectionTypes
 
 @property (readonly) BasePadViewController * registeredViewController;
 @property (retain) SettingsViewController *settingsViewController;
-@property (retain) CompositeViewController *videoViewController;
+@property (retain) BasePadVideoViewController *videoViewController;
 
 @property (nonatomic, retain) NSString * nameToFollow;
 @property (nonatomic) bool lightRestart;
@@ -227,8 +229,12 @@ enum ConnectionTypes
 
 -(void)loadBPF:(NSString *)archive File:(NSString *)file SubIndex:(NSString *)subIndex;
 -(void)loadSession:(NSString *)event Session: (NSString *)session;
+-(void)onSessionLoaded;
+
 -(NSString *)getVideoArchiveName;
 -(NSString *)getAudioArchiveName;
+-(NSString *)getVideoArchiveRoot;
+-(NSString *)getAudioArchiveRoot;
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;
@@ -237,7 +243,12 @@ enum ConnectionTypes
 -(void) showSnapshotUnconnected;
 
 -(void)setTimer: (float)thisTime;
--(void)timerUpdate: (NSTimer *)theTimer;
+-(void)dataUpdateTimerFired: (NSTimer *)theTimer;
+
+-(void)playUpdateTimer10hzFired: (NSTimer *)theTimer;
+-(void)playUpdateTimer1hzFired: (NSTimer *)theTimer;
+
+-(float)currentPlayTime;
 
 -(void)RegisterViewController:(BasePadViewController *)view_controller WithTypeMask:(int)mask;
 -(void)ReleaseViewController:(BasePadViewController *)view_controller;
@@ -280,8 +291,10 @@ enum ConnectionTypes
 
 -(void) synchroniseTime:(float)time;
 
-- (void) resetCommentaryTimings;
+-(void) resetCommentaryTimings;
 -(void) restartCommentary;
+
+-(void) resetListUpdateTimings;
 
 -(void) clearStaticData;
 -(void)AddDataSourceWithType:(int)type AndArchive:(NSString *)archive AndFile:(NSString *)file AndSubIndex:(NSString *)subIndex;

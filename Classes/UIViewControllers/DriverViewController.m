@@ -57,14 +57,14 @@
 	
 	[timingView SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
 	
-	[timingView SetRowHeight:26];
+	[timingView setStandardRowHeight:26];
 	[timingView SetHeading:true];
 	[timingView SetBackgroundAlpha:0.5];
 	
 	[seeLapsButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
 	[seeLapsButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
 	[seeLapsButton setShine:0.1];
-
+	
 	[telemetryButton setTextColour:[UIColor colorWithRed:1.0 green:0.75 blue:0.05 alpha:1.0]];
 	[telemetryButton setButtonColour:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0]];
 	[telemetryButton setShine:0.1];
@@ -106,9 +106,9 @@
 		
 		[[RacePadCoordinator Instance] SetViewDisplayed:leaderboardView];
 		[[RacePadCoordinator Instance] SetViewDisplayed:timingView];
-
+		
 		[super viewWillAppear:animated];
-
+		
 		NSString *carToFollow = [[BasePadCoordinator Instance] nameToFollow];
 		
 		[trackMapView followCar:carToFollow];
@@ -120,7 +120,7 @@
 		}
 		[trackProfileView followCar:carToFollow];
 		[[[RacePadDatabase Instance] commentary] setCommentaryFor:carToFollow];
-
+		
 		DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
 		if(driverGapInfo)
 		{
@@ -143,7 +143,7 @@
 		}
 		
 		[[RacePadCoordinator Instance] SetViewDisplayed:self];
-
+		
 		animating = false;
 		showPending = false;
 		hidePending = false;
@@ -182,7 +182,7 @@
 {
 	if ( telemetry_controller_displayed_ )
 		[telemetry_controller_ willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-
+	
 	[super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -190,7 +190,7 @@
 {
 	if ( telemetry_controller_displayed_ )
 		[telemetry_controller_ didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-
+	
 	[super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
@@ -212,7 +212,7 @@
 	{
 		[trackMapContainer setAlpha:1.0];
 	}
-
+	
 	[leaderboardView setAlpha:1.0];
 }
 
@@ -224,7 +224,7 @@
 	int bg_inset = [backgroundView inset];
 	CGRect bg_frame = [backgroundView frame];
 	CGRect inset_frame = CGRectInset(bg_frame, bg_inset, bg_inset);
-
+	
 	int inset = [backgroundView inset] + 10;
 	
 	[allButton setFrame:CGRectMake(inset_frame.origin.x + 5, inset, 60, 40)];
@@ -237,16 +237,16 @@
 	int pitWindowHeight = 200;
 	
 	int x0 = lb_frame.origin.x + lb_frame.size.width + inset;
-		
+	
 	[timingView setFrame:CGRectMake(x0, inset, bg_frame.size.width - x0 - inset, timingHeight)];
 	
 	[trackProfileView setFrame:CGRectMake(x0, bg_frame.size.height - pitWindowHeight - inset, bg_frame.size.width - x0 - inset, pitWindowHeight)];
-
+	
 	if(commentaryExpanded)
 		[commentaryView setFrame:CGRectMake(x0, commentaryBase, bg_frame.size.width - x0 - inset, bg_frame.size.height - inset - commentaryBase)];
 	else
 		[commentaryView setFrame:CGRectMake(x0, commentaryBase, bg_frame.size.width - x0 - inset, bg_frame.size.height - pitWindowHeight - inset * 2 - commentaryBase)];
-
+	
 	CGRect mapRect;
 	CGRect normalMapRect;
 	float mapWidth;
@@ -272,7 +272,7 @@
 	
 	[trackMapView setFrame:CGRectMake(0,0, mapWidth, mapHeight)];
 	[trackMapSizeButton setFrame:CGRectMake(4, mapHeight - 24, 20, 20)];
-		
+	
 	[self addBackgroundFrames];
 }
 
@@ -314,7 +314,7 @@
 	
 	CGRect bg_frame = [backgroundView frame];
 	int inset = [backgroundView inset] + 10;
-
+	
 	trackMapExpanded = !trackMapExpanded;
 	
 	animationRectStart = [trackMapContainer frame];
@@ -417,7 +417,7 @@
 				if(position > 0)
 				{
 					[positionLabel setText:[NSString stringWithFormat:@"P%d", position]];
-
+					
 					if(inPit)
 					{
 						[carAheadLabel setText:@"IN PIT"];			
@@ -449,7 +449,7 @@
 							[carAheadLabel setText:@""];
 							[gapAheadLabel setText:@""];
 						}
-
+						
 						if(gapBehind > 0.0)
 						{
 							[carBehindLabel setText:carBehind];
@@ -508,7 +508,7 @@
 		[driverTeamLabel setHidden:false];
 		[seeLapsButton setHidden:false];
 		[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
-				
+		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
 		[timingView setAlpha:0.0];
@@ -601,7 +601,7 @@
 		[timingView setAlpha:1.0];
 		
 		animating = false;
-				
+		
 		if(hidePending)
 			[self hideDriverInfo:false];
 		
@@ -663,7 +663,7 @@
 		if(name && [name length] > 0)
 		{
 			NSString * oldCar = [trackMapView carToFollow];
-
+			
 			[[RacePadCoordinator Instance] setNameToFollow:name];
 			[[[RacePadDatabase Instance] commentary] setCommentaryFor:name];
 			[trackMapView followCar:name];
@@ -679,7 +679,7 @@
 			[commentaryView ResetScroll];
 			[[RacePadCoordinator Instance] SetViewDisplayed:self];
 			[[RacePadCoordinator Instance] SetViewDisplayed:commentaryView];
-
+			
 			if(!oldCar)
 			{
 				[self showDriverInfo:true];
@@ -688,7 +688,7 @@
 			{
 				[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
 			}
-						
+			
 			[trackMapView RequestRedraw];
 			
 			[trackProfileView setUserOffset:0.0];
@@ -697,7 +697,7 @@
 			[self setAllSelected:false];	
 			
 			[leaderboardView RequestRedraw];
-
+			
 			return;
 		}
 		
@@ -749,7 +749,7 @@
 	[[RacePadCoordinator Instance] setNameToFollow:nil];
 	[[[RacePadDatabase Instance] commentary] setCommentaryFor:nil];
 	[self hideDriverInfo:true];
-
+	
 	[commentaryView ResetScroll];
 	[[RacePadCoordinator Instance] restartCommentary];
 	
@@ -816,20 +816,20 @@
 	NSString * car = [trackMapView carToFollow];
 	
 	if(car && [car length] > 0)
-
-	if(telemetry_controller_)
-	{
-		// Set the driver we want displayed
-		[telemetry_controller_ chooseCar:[[RacePadCoordinator Instance]nameToFollow]];
 		
-		// Set the style for its presentation
-		[telemetry_controller_ setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-		[telemetry_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
-		
-		// And present it
-		[self presentModalViewController:telemetry_controller_ animated:true];
-		telemetry_controller_displayed_ = true;
-	}
+		if(telemetry_controller_)
+		{
+			// Set the driver we want displayed
+			[telemetry_controller_ chooseCar:[[RacePadCoordinator Instance]nameToFollow]];
+			
+			// Set the style for its presentation
+			[telemetry_controller_ setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+			[telemetry_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
+			
+			// And present it
+			[self presentModalViewController:telemetry_controller_ animated:true];
+			telemetry_controller_displayed_ = true;
+		}
 }
 
 - (void)HideTelemetryAnimated:(bool)animated

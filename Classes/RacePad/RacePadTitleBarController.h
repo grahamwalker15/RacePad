@@ -16,15 +16,19 @@
 {
 	AlertViewController * alertController;
 	UIPopoverController * alertPopover;
-
+	
 	int lapCount;
 	int currentLap;
+	int trackState;
 }
+
+@property (nonatomic) int lapCount;
+@property (nonatomic) int currentLap;
+@property (nonatomic) int trackState;
 
 + (RacePadTitleBarController *)Instance;
 
 - (void) setLapCount: (int)count;
-- (void) setCurrentLap: (int)lap;
 - (int) inqCurrentLap;
 - (void) setTrackState: (int)state;
 

@@ -22,13 +22,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+	
 	[leagueTable SetTableDataClass:[[RacePadDatabase Instance] competitorData]];
 	
-	[leagueTable SetRowHeight:30];
+	[leagueTable setStandardRowHeight:30];
 	[leagueTable SetHeading:true];
 	[leagueTable SetBackgroundAlpha:0.8];
-
+	
 	[predictionBG removeFromSuperview];
 	[result setBackgroundView:predictionBG];
 	[result setSeparatorColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8]];
@@ -39,7 +39,7 @@
 	
 	driverInfoController = nil;
 	driverInfoPopover = nil;
-
+	
 	changingSelection = false;
 	draggingCell = false;
 	draggedDriverIndex = -1;
@@ -47,7 +47,7 @@
 	
 	needPin = false;
 	gettingPin = false;
-
+	
 	gameStatus = GS_NOT_STARTED;
 	predictionChanged = false;
 	predictionComplete = false;
@@ -60,11 +60,11 @@
 	
 	// Add drop shadows to all of the views
 	/*
-	[self addDropShadowToView:result WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:drivers1 WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:drivers2 WithOffsetX:5 Y:5 Blur:3];
-	[self addDropShadowToView:leagueTable WithOffsetX:5 Y:5 Blur:3];
-	*/
+	 [self addDropShadowToView:result WithOffsetX:5 Y:5 Blur:3];
+	 [self addDropShadowToView:drivers1 WithOffsetX:5 Y:5 Blur:3];
+	 [self addDropShadowToView:drivers2 WithOffsetX:5 Y:5 Blur:3];
+	 [self addDropShadowToView:leagueTable WithOffsetX:5 Y:5 Blur:3];
+	 */
 	
 	// Register our interest in data feeds
 	[[RacePadCoordinator Instance] setGameViewController:self];
@@ -101,16 +101,16 @@
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_GAME_VIEW_];
 	
 	[leagueTable SetBaseColour:[leagueTable light_grey_]];
-
-	 // Update UI
+	
+	// Update UI
 	[self updatePrediction];
 	[self positionViews];
 	[self showViews];
-
+	
 	[[RacePadCoordinator Instance] SetViewDisplayed:leagueTable];
-
+	
 	[[CommentaryBubble Instance] noBubbles];
-
+	
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	inDrivingGame = false;
@@ -120,7 +120,7 @@
 {
 	[[RacePadCoordinator Instance] SetViewHidden:leagueTable];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-
+	
 	// re-enable the screen locking
 	if (!inDrivingGame)
 		[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
@@ -282,7 +282,7 @@
 	bool validUser = ([[[RacePadDatabase Instance] racePrediction] validUser]);
 	
 	//[background clearFrames];
-
+	
 	if(gameStarted)
 	{
 		leagueTable.hidden =  NO;
@@ -292,14 +292,14 @@
 	{
 		leagueTable.hidden = YES;
 	}
-
+	
 	if (validUser)
 	{
 		// We have a valid user, but he/she may not yet have entered pin
 		
 		user.hidden = NO;
 		result.hidden = NO;
-
+		
 		users.hidden = YES;
 		newUser.hidden = YES;
 		signInLabel.hidden = YES;
@@ -355,7 +355,7 @@
 {
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	if ( [self inqGameStatus] == GS_NOT_STARTED
-	  && !gettingPin )
+		&& !gettingPin )
 	{
 		if ( userPin == nil )
 			userPin = [[UserPin alloc] initWithNibName:@"UserPin" bundle:nil];
@@ -486,7 +486,7 @@
 {
 	[drivers1 reloadData];
 	[drivers2 reloadData];
-		
+	
 	// has the number of drivers in the result table changed?
 	// or the gameStatus changed
 	if ( driverCount != [[[RacePadDatabase Instance]driverNames] count] || gameStatus != [self inqGameStatus] )
@@ -601,7 +601,7 @@
 	{
 		user.text = @"";
 	}
-
+	
 	[status setText:text];
 	
 	[self showViews];
@@ -699,7 +699,7 @@
 	// Can't change prediction once the game has started
 	if ( [self inqGameStatus] != GS_NOT_STARTED )
 		return;
-
+	
 	//Otherwise do it
 	int *prediction = [[[RacePadDatabase Instance] racePrediction] prediction];
 	int count = [[[RacePadDatabase Instance] racePrediction] count];
@@ -793,7 +793,7 @@
 {
  	// Get the UI orientation
 	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-
+	
 	static NSString *MyIdentifier = @"RacePadGame";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     if (cell == nil)
@@ -914,7 +914,7 @@
 		else
 		{
 			int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
-
+			
 			if(p < driverListSplit)
 			{
 				NSIndexPath *newSelection = [NSIndexPath indexPathForRow:p inSection:0];
@@ -946,7 +946,7 @@
 		
 		// Don't act on any rows picked below the last driver in the first list
 		bool invalid = (tableView == drivers1 && selectedDriverIndex > driverListSplit);
-
+		
 		// Pick driver if we're allowed
 		RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 		if ( [p validUser] && !needPin && !invalid )
@@ -1037,7 +1037,7 @@
 {
 	// Get the UI orientation
 	bool portraitMode = [[RacePadCoordinator Instance] deviceOrientation] == UI_ORIENTATION_PORTRAIT_;
-
+	
 	// Behaviour depends on state	
 	switch(state)
 	{
@@ -1050,7 +1050,7 @@
 				// Get the picked driver - may be from either driver list, or the prediction
 				int selectedDriverIndex = -1;
 				bool invalid = true;
-
+				
 				if(gestureView == drivers1 || gestureView == drivers2)
 				{
 					int driverListSplit = portraitMode ? [[[RacePadDatabase Instance]driverNames] count] : [[[RacePadDatabase Instance]driverNames] count] / 2;
@@ -1073,14 +1073,14 @@
 						}
 					}
 				}
-								
+				
 				// Pick driver if we're allowed
 				RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 				if ( [p validUser] && !needPin && !invalid )
 				{
 					[self.view addSubview:draggedDriverCell];
 					[self addDropShadowToView:draggedDriverCell WithOffsetX:5 Y:5 Blur:3];
-
+					
 					CGRect rowRect = [(UITableView *)gestureView rectForRowAtIndexPath:selectedRow];
 					CGRect tableFrame = [gestureView frame];
 					CGRect dragFrame = CGRectMake(tableFrame.origin.x + rowRect.origin.x, tableFrame.origin.y + rowRect.origin.y, rowRect.size.width, rowRect.size.height);
@@ -1089,17 +1089,17 @@
 					UITableViewCell * cell = [(UITableView *)gestureView cellForRowAtIndexPath:selectedRow];
 					[draggedDriverText setText:[[cell textLabel] text]];
 					[draggedDriverDetailText setText:[[cell detailTextLabel] text]];
-
+					
 					draggingCell = true;
 					reorderOnDrop = (gestureView == result);
 					draggedDriverIndex = selectedDriverIndex;
 				}
 			}
-
+			
 			[result deselectRowAtIndexPath:[result indexPathForSelectedRow] animated:false];
 			[drivers1 deselectRowAtIndexPath:[drivers1 indexPathForSelectedRow] animated:false];
 			[drivers2 deselectRowAtIndexPath:[drivers2 indexPathForSelectedRow] animated:false];
-
+			
 			break;
 		}
 			
@@ -1191,7 +1191,7 @@
 	/*
 	 if ( gestureView == [self view] || gestureView == leagueTable )
 	 {
-		[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
+	 [self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
 	 }
 	 */
 }
