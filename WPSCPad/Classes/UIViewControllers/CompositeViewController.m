@@ -285,6 +285,10 @@
 	}
 }
 
+- (void)notifyMovieReadyToPlayInView:(MovieView *)notifyingView	// MovieViewDelegate method
+{
+}
+
 - (void) removeMovieFromView:(BasePadVideoSource *)source
 {
 	if([movieView movieSource] == source)

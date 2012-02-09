@@ -21,19 +21,14 @@
 	UIView * addOnOptionsView;
 	
 	NSTimer *hideTimer;
-
+	
 	bool displayed;
 	bool hiding;
 	
-	bool autoHide;
-	
 	float timeNow;
-	
-	BasePadViewController * parentController;
 }
 
 @property(nonatomic) bool displayed;
-@property(nonatomic) bool autoHide;
 @property(nonatomic, readonly) float timeNow;
 @property (readonly, retain) TimeViewController *timeController;
 

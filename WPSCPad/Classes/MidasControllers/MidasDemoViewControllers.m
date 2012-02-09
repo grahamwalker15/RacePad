@@ -237,6 +237,8 @@ static MidasSetupViewController * setupInstance_ = nil;
 		[[BasePadPrefs Instance] setPref:@"socialMediaFullName" Value:text ];		
 	else if(sender == sm_nickname_edit_)
 		[[BasePadPrefs Instance] setPref:@"socialMediaNickname" Value:text ];
+	
+	[[BasePadPrefs Instance] save];
 }
 
 -(IBAction)closePressed:(id)sender

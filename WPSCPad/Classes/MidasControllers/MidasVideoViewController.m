@@ -457,6 +457,10 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 }
 
+- (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method
+{
+}
+
 - (void) removeMovieFromView:(BasePadVideoSource *)source
 {
 	if([mainMovieView movieSource] == source)
@@ -1633,8 +1637,11 @@ static UIImage * newButtonBackgroundImage = nil;
 		if(leftX < leftPopupX)
 			leftPopupX = leftX;
 	
-		if(rightPopupX < 0)
-			rightPopupX = leftPopupX + [[MidasMyTeamManager Instance] preferredWidthOfView];
+		
+		float thisRightPopupX = leftPopupX + [[MidasMyTeamManager Instance] preferredWidthOfView];
+		
+		if(rightPopupX < thisRightPopupX)
+			rightPopupX = thisRightPopupX;
 
 		leftX += [[MidasMyTeamManager Instance] preferredWidthOfView];		
 	}
@@ -1657,8 +1664,10 @@ static UIImage * newButtonBackgroundImage = nil;
 		if(leftX < leftPopupX)
 			leftPopupX = leftX;
 		
-		if(rightPopupX < 0)
-			rightPopupX = leftPopupX + [[MidasVIPManager Instance] preferredWidthOfView];
+		float thisRightPopupX = leftX + [[MidasVIPManager Instance] preferredWidthOfView];
+		
+		if(rightPopupX < thisRightPopupX)
+			rightPopupX = thisRightPopupX;
 		
 		leftX += [[MidasVIPManager Instance] preferredWidthOfView];		
 	}
@@ -1678,10 +1687,21 @@ static UIImage * newButtonBackgroundImage = nil;
 	float leftButtonOffset = (leftX > maxLeftX) ? (leftX - maxLeftX) : 0.0;
 	float buttonOffset = ((myTeamButtonOpen || vipButtonOpen) && leftX > maxLeftX) ? (leftX - maxLeftX) : 0.0;
 	
+	if(myTeamButtonOpen || vipButtonOpen)
+	{
+		leftPopupX -= buttonOffset;
+		rightPopupX -= buttonOffset;
+	}
+	
 	if(buttonOffset < 1 && leftPopupX < 10)
 	{
 		float popupCentre = (rightPopupX + leftPopupX) / 2;
 		buttonOffset = CGRectGetMidX(viewBounds) - popupCentre;
+	}
+	else if(leftButtonOffset > 1 && leftPopupX < 10)
+	{
+		float popupCentre = (rightPopupX + leftPopupX) / 2;
+		leftButtonOffset = 0.0;
 	}
 	
 	// And hide all buttons if any are off the screen

@@ -847,6 +847,9 @@
 					if(moviePlayPending)
 						[self moviePlay];
 					
+					if(parentMovieView)
+						[parentMovieView notifyMovieSourceReadyToPlay:self];
+					
 				}
 			}
 			
@@ -874,7 +877,8 @@
 						
 						currentError = [description retain];
 						
-						[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
+						if(parentMovieView)
+							[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 					}
 				}
 				
@@ -908,6 +912,8 @@
 					if(moviePlayPending)
 						[self moviePlay];
 
+					if(parentMovieView)
+						[parentMovieView notifyMovieSourceReadyToPlay:self];
 				}
 			}
 			
@@ -934,7 +940,8 @@
 						}
 						
 						currentError = [description retain];
-						[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
+						if(parentMovieView)
+							[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 					}					
 				}
 				

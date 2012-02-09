@@ -89,7 +89,6 @@
 	// Set the movieas active
 	[source setMovieActive:true];
 	
-	
 	// Add the source's player layer to this movie view
 	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
 	
@@ -128,6 +127,13 @@
 		if(movieViewDelegate)
 			[movieViewDelegate notifyMovieAttachedToView:self];
 	}
+}
+
+- (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source
+{	
+	// Tell the delegate that we're ready
+	if(movieViewDelegate)
+		[movieViewDelegate notifyMovieReadyToPlayInView:self];
 }
 
 - (void)removeMovieFromView

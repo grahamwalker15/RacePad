@@ -451,6 +451,10 @@
 		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
 }
 
+- (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method
+{
+}
+
 
 ////////////////////////////////////////////////////////////////////////////
 

@@ -30,6 +30,7 @@ enum MovieViewButtonAlignments
 
 @protocol MovieViewDelegate
 - (void)notifyMovieAttachedToView:(MovieView *)movieView;
+- (void)notifyMovieReadyToPlayInView:(MovieView *)movieView;
 @end
 
 @interface MovieView : BackgroundView
@@ -64,6 +65,7 @@ enum MovieViewButtonAlignments
 // Manage displayed movies
 - (bool) displayMovieSource:(BasePadVideoSource *)source;
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source;
+- (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source;
 - (void) removeMovieFromView;
 - (void) resizeMovieSourceWithDuration:(float)duration;
 

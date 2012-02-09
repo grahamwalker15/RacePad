@@ -217,6 +217,11 @@
 		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 }
 
+- (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method
+{
+}
+
+
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
 	int row = -1;

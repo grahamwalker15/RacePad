@@ -25,7 +25,7 @@
     if ((self = [super initWithCoder:coder]))
     {
 		associatedTrackMapView = nil;
-		smallDisplay = nil;
+		smallDisplay = false;
 		addOutlines = true;
 	}
 	

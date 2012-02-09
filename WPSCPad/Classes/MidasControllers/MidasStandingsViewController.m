@@ -161,6 +161,10 @@
 		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
 }
 
+- (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method
+{
+}
+
 - (void) placeExpansionViewAtRow:(int)row
 {
 	float y = [standingsView TableHeightToRow:row - 1] + [standingsView ContentRowHeight:row];
