@@ -216,6 +216,18 @@
 	[self updateSponsor];
 
 	[[CommentaryBubble Instance] noBubbles];
+	
+	if ( [[RacePadSponsor Instance] supportsLocation] )
+	{
+		[locationLabel setHidden:false];
+		[locationSwitch setHidden:false];
+		locationSwitch.selectedSegmentIndex = [RacePadSponsor Instance].location;
+	}
+	else
+	{
+		[locationLabel setHidden:true];
+		[locationSwitch setHidden:true];
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
@@ -418,5 +430,10 @@
 	[[CommentaryBubble Instance] setBubblePref:on];
 }
 
+
+-(IBAction)locationChanged:(id)sender
+{
+	[[RacePadSponsor Instance] setLocation:locationSwitch.selectedSegmentIndex];
+}
 
 @end

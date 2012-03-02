@@ -32,9 +32,19 @@ enum AllTabs {
 	RPS_TELEMETRY_VIEW_,
 };
 
+enum Location {
+	RPS_PADDOCK_,
+	RPS_GARAGE_,
+};
+
 @interface RacePadSponsor : BasePadSponsor
 {
+	
+	unsigned char location;
+	
 }
+
+@property (nonatomic) unsigned char location;
 
 +(RacePadSponsor *)Instance;
 
@@ -44,5 +54,6 @@ enum AllTabs {
 - (bool) supportsTab:(unsigned char) tab;
 
 - (void) setSponsorName: (NSString *)name;
+- (bool) supportsLocation;
 
 @end

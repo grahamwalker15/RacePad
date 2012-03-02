@@ -25,6 +25,8 @@
 	IBOutlet UILabel *video_status;
 	IBOutlet UISwitch *supportVideo;
 	IBOutlet UISwitch *supportBubble;
+	IBOutlet UILabel *locationLabel;
+	IBOutlet UISegmentedControl *locationSwitch;
 
 	IBOutlet UIActivityIndicatorView *serverTwirl;
 	IBOutlet UIActivityIndicatorView *videoServerTwirl;
@@ -42,6 +44,7 @@
 - (IBAction)exitPressed:(id)sender;
 - (IBAction)supportVideoChanged:(id)sender;
 - (IBAction)supportBubbleChanged:(id)sender;
+- (IBAction)locationChanged:(id)sender;
 
 - (void) updateEvents;
 - (void) updateServerState;

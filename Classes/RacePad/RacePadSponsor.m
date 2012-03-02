@@ -12,6 +12,8 @@
 
 @implementation RacePadSponsor
 
+@synthesize location;
+
 static RacePadSponsor * instance_ = nil;
 
 +(RacePadSponsor *)Instance
@@ -26,6 +28,12 @@ static RacePadSponsor * instance_ = nil;
 {
 	if(self =[super init])
 	{
+		location = RPS_PADDOCK_;
+		NSNumber *v = [[BasePadPrefs Instance] getPref:@"sponsorLocation"];
+		if ( v )
+		{
+			location = (unsigned char)[v intValue];
+		}
 	}
 	
 	return self;
@@ -54,12 +62,30 @@ static RacePadSponsor * instance_ = nil;
 	[[BasePadPrefs Instance] save];
 }
 
+- (bool) supportsLocation
+{
+	if ( sponsor == RPS_MERCEDES_ )
+		return true;
+	
+	return false;
+}
+
+- (void) setLocation: (unsigned char)v
+{
+	location = v;
+	[[BasePadPrefs Instance]setPref:@"sponsorLocation" Value:[NSNumber numberWithInt: v]];
+	[[BasePadPrefs Instance] save];
+}
+
 - (UIImage *) getSponsorLogo: (unsigned char)logo
 {
 	if ( logo == BPS_LOGO_REGULAR_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
-			return [UIImage imageNamed:@"MGPLogo.png"];
+			if ( location == RPS_GARAGE_ )
+				return [UIImage imageNamed:@"MGPLogo.png"];
+			else
+				return [UIImage imageNamed:@"UBSLogo.png"];
 		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"FIALogo.png"];
 		else
@@ -68,7 +94,10 @@ static RacePadSponsor * instance_ = nil;
 	else if ( logo == BPS_LOGO_BIG_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
-			return [UIImage imageNamed:@"MGPLogoBig.png"];
+			if ( location == RPS_GARAGE_ )
+				return [UIImage imageNamed:@"MGPLogoBig.png"];
+			else
+				return [UIImage imageNamed:@"UBSLogoBig.png"];
 		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"FIALogoBig.png"];
 		else

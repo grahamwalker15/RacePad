@@ -61,6 +61,8 @@
 		4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */; };
 		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
 		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
+		4D8EBBA115013CBF00DA8303 /* UBSLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8EBB9F15013CBF00DA8303 /* UBSLogo.png */; };
+		4D8EBBA215013CBF00DA8303 /* UBSLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8EBBA015013CBF00DA8303 /* UBSLogoBig.png */; };
 		4D91DDE912ED9778005B7FE7 /* TabletState.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DDE812ED9778005B7FE7 /* TabletState.m */; };
 		4D91DE5412EDC83A005B7FE7 /* DrivingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */; };
 		4D91DE6F12EDCFBB005B7FE7 /* DrivingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */; };
@@ -460,6 +462,8 @@
 		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
 		4D8A66831282635500E9E19D /* DownloadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgress.m; sourceTree = "<group>"; };
 		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
+		4D8EBB9F15013CBF00DA8303 /* UBSLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UBSLogo.png; path = Images/UBSLogo.png; sourceTree = "<group>"; };
+		4D8EBBA015013CBF00DA8303 /* UBSLogoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UBSLogoBig.png; path = Images/UBSLogoBig.png; sourceTree = "<group>"; };
 		4D91DDE712ED9778005B7FE7 /* TabletState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabletState.h; sourceTree = "<group>"; };
 		4D91DDE812ED9778005B7FE7 /* TabletState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabletState.m; sourceTree = "<group>"; };
 		4D91DE5212EDC83A005B7FE7 /* DrivingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrivingViewController.h; sourceTree = "<group>"; };
@@ -1311,27 +1315,25 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7F9157CC1497A0D100A013BC /* GreyTextureBG.png */,
-				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
-				7F48F20B1411060C00E293B4 /* AlertPurpleInfo.png */,
-				7F48F20C1411060C00E293B4 /* ArrowDownRed.png */,
-				7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */,
-				7F48F20E1411060C00E293B4 /* TitleYellow.png */,
 				7F48F196140FA62E00E293B4 /* 17-bar-chart.png */,
 				7F48F197140FA62E00E293B4 /* 66-microphone.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
 				7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */,
+				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
 				7F93543612F6D7A000AB1D07 /* AlertInfo.png */,
 				7F8F95C412E83AB700EA04A6 /* AlertInsight.png */,
 				7F8F95C512E83AB700EA04A6 /* AlertLC.png */,
 				7FC2EAAA128C926B00DAC96E /* AlertOvertake.png */,
 				7FC2EAAB128C926B00DAC96E /* AlertPin.png */,
 				7FC2EAAC128C926B00DAC96E /* AlertPitstop.png */,
+				7F48F20B1411060C00E293B4 /* AlertPurpleInfo.png */,
 				7FC2EAAD128C926B00DAC96E /* AlertRedFlag.png */,
 				7FC2EAAE128C926B00DAC96E /* AlertSafetyCar.png */,
 				7FC2EAAF128C926B00DAC96E /* AlertWarning.png */,
 				7FC2EAB0128C926B00DAC96E /* AlertYellowFlag.png */,
+				7F48F20C1411060C00E293B4 /* ArrowDownRed.png */,
 				4D1349C7128A939800A6E375 /* ArrowLeader.png */,
+				7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */,
 				7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */,
 				7F7940E2138BEABF008A2CB0 /* BigPlayButton.png */,
 				7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */,
@@ -1359,6 +1361,7 @@
 				7F767CC112A6300D009249F7 /* GraphPaper.png */,
 				7FC2F4B61292E20400DAC96E /* Grass.png */,
 				7F62475C12851255009A9D4F /* GreenFlag.png */,
+				7F9157CC1497A0D100A013BC /* GreyTextureBG.png */,
 				7F93547B12F6E48600AB1D07 /* HelpButton.png */,
 				7F93547C12F6E48600AB1D07 /* HelpButtonHighlighted.png */,
 				7FA27B2512FC674C001407FD /* HelpButtonHTML.png */,
@@ -1451,10 +1454,13 @@
 				7F93543D12F6D7A000AB1D07 /* TitleChequered.png */,
 				7F93543E12F6D7A000AB1D07 /* TitleSC.png */,
 				7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */,
+				7F48F20E1411060C00E293B4 /* TitleYellow.png */,
 				7F91F8E4129D5CC800BFDFCC /* track-icon.png */,
 				7F86602D128AC1D000F13CB6 /* trend.png */,
 				7F8F8CE512E0483400EA04A6 /* trophy.png */,
 				7F0B27C712A58F8D00604392 /* Turquoise.png */,
+				4D8EBB9F15013CBF00DA8303 /* UBSLogo.png */,
+				4D8EBBA015013CBF00DA8303 /* UBSLogoBig.png */,
 				7F91F8C8129D58F700BFDFCC /* wheel_icon.png */,
 				7F068129126DDA6800C9EE5D /* world.png */,
 				7F62476012851255009A9D4F /* YellowFlag.png */,
@@ -1747,6 +1753,8 @@
 				7F48F2121411060C00E293B4 /* ArrowUpGreen.png in Resources */,
 				7F48F2131411060C00E293B4 /* TitleYellow.png in Resources */,
 				7F9157CD1497A0D100A013BC /* GreyTextureBG.png in Resources */,
+				4D8EBBA115013CBF00DA8303 /* UBSLogo.png in Resources */,
+				4D8EBBA215013CBF00DA8303 /* UBSLogoBig.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
