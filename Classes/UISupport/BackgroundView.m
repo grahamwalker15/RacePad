@@ -21,6 +21,7 @@ static UIImage * carbon_bg_image_  = nil;
 static UIImage * grey_bg_image_  = nil;
 static UIImage * grass_bg_image_ = nil;
 static UIImage * midas_bg_image_ = nil;
+static UIImage * midas_movie_image_ = nil;
 
 static bool bg_images_initialised_ = false;
 
@@ -65,6 +66,7 @@ static bool bg_images_initialised_ = false;
 	[grey_bg_image_  release];
 	[grass_bg_image_  release];
 	[midas_bg_image_  release];
+	[midas_movie_image_  release];
 	
 	[frames removeAllObjects];
 	[frames release];
@@ -88,6 +90,7 @@ static bool bg_images_initialised_ = false;
 		carbon_bg_image_  = [[UIImage imageNamed:@"CarbonFibre2.png"] retain];
 		grass_bg_image_  = [[UIImage imageNamed:@"Grass.png"] retain];
 		midas_bg_image_  = [[UIImage imageNamed:@"midas_background.png"] retain];
+		midas_movie_image_  = [[UIImage imageNamed:@"MovieViewEmpty.png"] retain];
 	}
 	else
 	{
@@ -96,6 +99,7 @@ static bool bg_images_initialised_ = false;
 		[carbon_bg_image_  retain];
 		[grass_bg_image_  retain];
 		[midas_bg_image_  retain];
+		[midas_movie_image_  retain];
 	}
 }
 
@@ -198,6 +202,13 @@ static bool bg_images_initialised_ = false;
 			[self FillPath:rect];
 			
 			CGPathRelease(rect);
+		}
+			
+		case BG_STYLE_MIDAS_MOVIE_VIEW_:
+		{
+			inset = 0;
+			[self DrawPattern:midas_movie_image_ InRect:current_bounds_];
+			break;
 		}
 			
 		default:

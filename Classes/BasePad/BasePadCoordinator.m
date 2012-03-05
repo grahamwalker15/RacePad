@@ -1010,7 +1010,8 @@ static BasePadCoordinator * instance_ = nil;
 
 - (void) Connected
 {
-	// [socket_ RequestVersion];
+	//Version is automatically sent on connection now...
+	//[socket_ RequestVersion];
 }
 
 - (void) Disconnected: (bool) atConnect

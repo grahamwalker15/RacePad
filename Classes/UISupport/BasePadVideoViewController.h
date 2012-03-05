@@ -9,6 +9,7 @@
 #import "BasePadViewController.h"
 
 @class BasePadVideoSource;
+@class MovieView;
 
 @interface BasePadVideoViewController : BasePadViewController
 {
@@ -19,6 +20,8 @@
 
 - (void) showLoadingIndicators;
 - (void) hideLoadingIndicators;
+
+- (MovieView *) firstMovieView;
 
 - (void) displayMovieSource:(BasePadVideoSource *)source;
 - (void) removeMovieFromView:(BasePadVideoSource *)source;

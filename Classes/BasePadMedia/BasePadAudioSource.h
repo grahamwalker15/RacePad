@@ -34,9 +34,6 @@
 	bool audioSeekPending;
 	
 	float audioStartTime;
-	
-	float activePlaybackRate;
-	
 }
 
 @property (readonly) AVAudioPlayer * audioPlayer;

@@ -25,6 +25,11 @@
 }
 
 // Override to make these do something
+- (MovieView *) firstMovieView
+{
+	return nil;
+}
+
 - (void) displayMovieSource:(BasePadVideoSource *)source
 {
 }

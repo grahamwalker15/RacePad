@@ -38,8 +38,6 @@
 		audioSeekPending = false;
 		
 		audioStartTime = 0.0;
-		
-		activePlaybackRate = 1.0;
 	}
 	
 	return self;

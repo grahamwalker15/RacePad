@@ -77,7 +77,7 @@
 		[self SetAlignment:SLV_TEXT_CENTRE_];
 		
 		BasePadVideoSource * movieSource = [[BasePadMedia Instance] movieSource:col];
-		if(movieSource)
+		if(movieSource && [movieSource movieTag])
 		{
 			return [movieSource movieTag];
 		}
