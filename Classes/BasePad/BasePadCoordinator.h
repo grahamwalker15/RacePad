@@ -128,6 +128,7 @@ enum ConnectionTypes
 	
 	bool playing;
 	bool needsPlayRestart;
+	bool allowProtectMediaFromRestart;
 	bool protectMediaFromRestart;
 	
 	bool reconnectOnBecomeActive;

@@ -57,15 +57,10 @@
 	[sessionName setText:session];
 	[progressView setProgress:sizeLoaded/(float)sizeToLoad];
 	[progressValue setText:@"0%"];
-	
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated;    // Called when the view is about to made invisible. Default does nothing
 {
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)dealloc {

@@ -159,8 +159,6 @@
 	
 	[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight: false];
 	
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -184,8 +182,6 @@
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
 	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

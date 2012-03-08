@@ -50,9 +50,6 @@
 			
 		// Register the view controller
 		[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_COUNT_VIEW_];
-		
-		// We disable the screen locking - because that seems to close the socket
-		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	}
 }
 
@@ -66,10 +63,7 @@
 	}
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-	
+		
 	childControllerClosing = false;
 	childController = nil;
 

@@ -187,9 +187,6 @@
 	 ^{
 		 // Completion handler block.
 		 
-		 // Check whether we're on the main thread
-		 bool onMainThread = [NSThread isMainThread];
-		 
 		 // Ignore this movie if we've called unload in the meantime
 		 NSError *error = nil;
 		 AVKeyValueStatus status = [moviePlayerAsset statusOfValueForKey:tracksKey error:&error];
@@ -213,8 +210,16 @@
 			 
 			 [self makeThumbnail];
 			 
-			 currentStatus = BPM_CONNECTED_;
-			 
+			 if([[BasePadMedia Instance] extendedNotification])
+			 {
+				 currentStatus = BPM_WAITING_FOR_STREAM_;
+				 [[BasePadMedia Instance] notifyStateChangeOnVideoSource:self ToState:BPM_WAITING_FOR_STREAM_];
+			 }
+			 else
+			 {
+				 currentStatus = BPM_CONNECTED_;
+			 }
+
 			 movieLoaded = true;
 			 
 			 moviePausedInPlace= false;
@@ -489,6 +494,7 @@
 					float duration = (float) CMTimeGetSeconds( range.duration );
 					float streamStartTime = CMTimeGetSeconds( range.start );
 					float timeNow = (float)[ElapsedTime LocalTimeOfDay];
+					//float timeNow = [[BasePadCoordinator Instance] liveTime];
 					float startTime = timeNow - duration;
 					
 					if(duration > 0.0)
@@ -740,9 +746,9 @@
 {
 	if([[BasePadCoordinator Instance] liveMode])
 	{
-		[self movieStop];
+		//[self movieStop];
 		[self movieGoLive];
-		[self moviePlay];
+		//[self moviePlay];
 	}
 	
 	movieRecentlyResynced = true;
@@ -826,10 +832,7 @@
 //  Callback functions
 
 - (void) timeObserverCallback:(CMTime) cmTime
-{
-	// Check whether we're on the main thread
-	bool onMainThread = [NSThread isMainThread];
-	
+{	
 	if(moviePlayerObserver)
 	{
 		AVPlayerItemStatus status = [moviePlayer status];
@@ -876,10 +879,7 @@
 {
 	if(!object)
 		return;
-	
- 	// Check whether we're on the main thread
-	bool onMainThread = [NSThread isMainThread];
-	
+		
 	if (object == moviePlayerItem)
 	{
 		if([keyPath isEqualToString:@"status"])
@@ -968,8 +968,6 @@
 
 -(void)playerItemDidReachEnd:(NSNotification *)notification
 {
-	bool onMainThread = [NSThread isMainThread];
-	
 	AVPlayerItem *player = [notification object];
 	
 	if(player == moviePlayerItem)	// Should always be
@@ -1017,7 +1015,9 @@
 			[self moviePlay];
 	}
 	
-	looping = false;				
+	looping = false;
+	
+	currentStatus = BPM_CONNECTED_;
 	
 	if(parentMovieView)
 		[parentMovieView notifyMovieSourceReadyToPlay:self];
@@ -1045,12 +1045,16 @@
 			}
 			
 			currentError = [description retain];
-			
-			if(parentMovieView)
-				[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 		}					
 	}
 	
+	if([[BasePadMedia Instance] extendedNotification] || !parentMovieView)
+		[[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError];
+	else if(parentMovieView)
+		[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
+
+	currentStatus = BPM_CONNECTION_ERROR_;
+
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 	
 	looping = false;				

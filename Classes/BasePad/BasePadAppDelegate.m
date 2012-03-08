@@ -45,6 +45,9 @@
     [window addSubview:tabBarController.view];
     [window makeKeyAndVisible];
 	
+	// We disable the screen locking - because that seems to close the socket
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+	
 	// There's some start-up race condition that means this doesn't display unless we delay slightly
 	[[BasePadCoordinator Instance] performSelector:@selector(onDisplayFirstView) withObject:nil afterDelay: 0.1];
 	// [[BasePadCoordinator Instance] onDisplayFirstView];
@@ -61,6 +64,9 @@
 	
 	[[BasePadCoordinator Instance] willResignActive];
 	[[BasePadPrefs Instance] save];
+
+	// re-enable the screen locking
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 
@@ -71,11 +77,17 @@
      */
 	
 	[[BasePadCoordinator Instance] didBecomeActive];
+
+	// We disable the screen locking - because that seems to close the socket
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	[[BasePadPrefs Instance] save];
+
+	// re-enable the screen locking
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 

@@ -42,6 +42,7 @@ enum MovieConnectionTypes
 	BPM_TRYING_TO_CONNECT_,
 	BPM_CONNECTION_FAILED_,
 	BPM_CONNECTION_ERROR_,
+	BPM_WAITING_FOR_STREAM_,
 } ;
 
 #define BPM_MAX_VIDEO_STREAMS 16
@@ -84,6 +85,8 @@ enum MovieConnectionTypes
 	
 	int movieType;
 	
+	bool extendedNotification;
+	
 	BasePadVideoViewController * registeredViewController;
 	
 }
@@ -106,6 +109,8 @@ enum MovieConnectionTypes
 @property (readonly) NSString *currentError;
 
 @property (readonly) int movieType;
+
+@property (nonatomic) bool extendedNotification;
 
 - (void)onStartUp;
 
@@ -159,6 +164,7 @@ enum MovieConnectionTypes
 
 -(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error;
 -(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
+-(void)notifyStateChangeOnVideoSource:(BasePadVideoSource *)videoSource ToState:(int)state;
 
 -(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators;
 

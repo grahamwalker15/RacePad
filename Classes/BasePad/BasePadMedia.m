@@ -33,6 +33,8 @@
 
 @synthesize movieType;
 
+@synthesize extendedNotification;
+
 static BasePadMedia * instance_ = nil;
 
 +(BasePadMedia *)Instance
@@ -78,6 +80,8 @@ static BasePadMedia * instance_ = nil;
 		playTimer = nil;
 		
 		movieType = MOVIE_TYPE_NONE_;
+		
+		extendedNotification = false;
 	}
 	
 	return self;
@@ -156,6 +160,12 @@ static BasePadMedia * instance_ = nil;
 	
 	currentStatus = BPM_NOT_CONNECTED_;
 	
+	if(currentMovieRoot)
+	{
+		[currentMovieRoot release];
+		currentMovieRoot = nil;
+	}
+
 	if(currentError)
 	{
 		[currentError release];
@@ -195,6 +205,7 @@ static BasePadMedia * instance_ = nil;
 			}
 			else
 			{
+				[movieSources[0] setMovieType:movieType];
 				[movieSources[0] loadMovie:url ShouldDisplay:true InMovieView:nil];
 				movieSourceCount = 1;
 			}
@@ -473,7 +484,7 @@ static BasePadMedia * instance_ = nil;
 	}
 	
 	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
-	[self movieResyncLive];
+	//[self movieResyncLive];
 	
 	if(registeredViewController)
 		[registeredViewController hideLoadingIndicators];
@@ -682,12 +693,22 @@ static BasePadMedia * instance_ = nil;
 		currentError = nil;
 	}
 	
-	currentError = [error retain];
+	if(error)
+		currentError = [error retain];
 	
 	[currentMovieRoot release];
 	currentMovieRoot = nil;
 	
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
+	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
+}
+
+-(void)notifyStateChangeOnVideoSource:(BasePadVideoSource *)videoSource ToState:(int)state
+{
+	// Deal with the error appropriately.
+	currentStatus = state;
+	
+	[[BasePadCoordinator Instance] setVideoConnectionStatus:state];
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 }
 

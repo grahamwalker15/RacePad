@@ -28,7 +28,7 @@ static RacePadSponsor * instance_ = nil;
 {
 	if(self =[super init])
 	{
-		location = RPS_PADDOCK_;
+		location = RPS_GARAGE_;
 		NSNumber *v = [[BasePadPrefs Instance] getPref:@"sponsorLocation"];
 		if ( v )
 		{

@@ -61,8 +61,6 @@
 		
 		[[CommentaryBubble Instance] allowBubbles:[self view] BottomRight:true];
 		
-		// We disable the screen locking - because that seems to close the socket
-		[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	}
 }
 
@@ -80,8 +78,6 @@
 		//[[RacePadTitleBarController Instance] hide];
 		[[RacePadCoordinator Instance] ReleaseViewController:self];
 		
-		// re-enable the screen locking
-		[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 	}
 	
 	driver_lap_list_controller_closing_ = false;

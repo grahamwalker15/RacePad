@@ -88,9 +88,6 @@
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:redPitWindowView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:bluePitWindowView];
-
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -99,9 +96,6 @@
 	[[RacePadCoordinator Instance] SetViewHidden:redPitWindowView];
 	[[RacePadCoordinator Instance] SetViewHidden:bluePitWindowView];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 // Override to allow orientations other than the default portrait orientation.

@@ -81,6 +81,7 @@ static BasePadCoordinator * instance_ = nil;
 		
 		needsPlayRestart = true;
 		playing = false;
+		allowProtectMediaFromRestart = false;
 		protectMediaFromRestart = false;
 		
 		dataUpdateTimer = nil;
@@ -1115,7 +1116,7 @@ static BasePadCoordinator * instance_ = nil;
 			if ( live )
 			{
 				[[BasePadMedia Instance] movieGoLive];
-				[[BasePadMedia Instance]  startLivePlayTimer];
+				[[BasePadMedia Instance] startLivePlayTimer];
 			}
 			else
 			{
@@ -1293,7 +1294,7 @@ static BasePadCoordinator * instance_ = nil;
 		[existing_view SetDisplayed:true];
 		[existing_view SetRefreshEnabled:true];
 		
-		if(!needsPlayRestart)
+		if(!needsPlayRestart && allowProtectMediaFromRestart)
 			protectMediaFromRestart = true;
 		
 		needsPlayRestart = (needsPlayRestart || playing);
@@ -1342,7 +1343,8 @@ static BasePadCoordinator * instance_ = nil;
 			}
 			else
 			{
-				protectMediaFromRestart = true;
+				if(allowProtectMediaFromRestart)
+					protectMediaFromRestart = true;
 				
 				[self pausePlay];
 				[self prepareToPlay];

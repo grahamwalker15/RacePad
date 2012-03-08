@@ -40,19 +40,12 @@
 	[self updateButtons];
 		
 	[[CommentaryBubble Instance] noBubbles];
-
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-	
 }
 
 - (void)didReceiveMemoryWarning

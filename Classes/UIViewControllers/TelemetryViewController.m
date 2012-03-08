@@ -103,8 +103,6 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:redTelemetryView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:blueTrackMapView];
 
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -115,9 +113,6 @@
 	[[RacePadCoordinator Instance] SetViewHidden:blueTrackMapView];
 	[[RacePadCoordinator Instance] SetViewHidden:redTrackMapView];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

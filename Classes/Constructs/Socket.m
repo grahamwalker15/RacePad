@@ -91,11 +91,11 @@
 			
 			if(error == kCFSocketSuccess)
 			{
+				lastReceiveTime = [ElapsedTime LocalTimeOfDay];
 				run_loop_source_ = CFSocketCreateRunLoopSource (NULL, socket_ref_, 1);
 				if(run_loop_source_)
 				{
 					CFRunLoopAddSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
-					lastReceiveTime = [ElapsedTime LocalTimeOfDay];
 					verifyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verifySocketTimer:) userInfo:nil repeats:YES];
 				}
 			}
@@ -248,7 +248,8 @@
 
 - (void) verifySocketTimer: (NSTimer *)theTimer
 {
-	if ( [ElapsedTime LocalTimeOfDay] - lastReceiveTime > 3 )
+	double timeNow = [ElapsedTime LocalTimeOfDay];
+	if ( timeNow - lastReceiveTime > 3 )
 		[self OnDisconnect:false];
 }
 

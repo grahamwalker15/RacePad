@@ -325,6 +325,12 @@
 			[videoServerTwirl setHidden:false];
 			[videoServerTwirl startAnimating];
 		}
+		else if( [[BasePadMedia Instance] currentStatus] == BPM_WAITING_FOR_STREAM_ )
+		{
+			[video_status setText:@"Waiting for stream...."];
+			[videoServerTwirl setHidden:false];
+			[videoServerTwirl startAnimating];
+		}
 		else
 		{
 			[video_status setText:@"Not connected"];
@@ -389,6 +395,8 @@
 	{
 		[videoServerTwirl setHidden:false];
 		[videoServerTwirl startAnimating];
+		NSString *text = [video_ip_address_edit_ text];
+		[[RacePadCoordinator Instance] SetVideoServerAddress:text];
 		[[BasePadMedia Instance] connectToVideoServer];
 		[[BasePadMedia Instance] resetConnectionCounts];
 	}

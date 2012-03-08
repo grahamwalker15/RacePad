@@ -192,6 +192,7 @@ static bool bg_images_initialised_ = false;
 			[self FillPath:rect];
 			
 			CGPathRelease(rect);
+			break;
 		}
 			
 		case BG_STYLE_ROUNDED_STRAP_BLACK_:
@@ -202,6 +203,7 @@ static bool bg_images_initialised_ = false;
 			[self FillPath:rect];
 			
 			CGPathRelease(rect);
+			break;
 		}
 			
 		case BG_STYLE_MIDAS_MOVIE_VIEW_:

@@ -111,8 +111,6 @@
 	
 	[[CommentaryBubble Instance] noBubbles];
 	
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	inDrivingGame = false;
 }
 
@@ -120,10 +118,6 @@
 {
 	[[RacePadCoordinator Instance] SetViewHidden:leagueTable];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	// re-enable the screen locking
-	if (!inDrivingGame)
-		[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

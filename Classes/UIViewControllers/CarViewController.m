@@ -118,9 +118,6 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 	
 	[[CommentaryBubble Instance] noBubbles];
-	
-	// We disable the screen locking - because that seems to close the socket
-	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -133,9 +130,6 @@
 	[[RacePadCoordinator Instance] SetViewHidden:trackProfileView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-	
-	// re-enable the screen locking
-	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

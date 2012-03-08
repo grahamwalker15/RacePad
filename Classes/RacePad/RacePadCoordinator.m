@@ -56,6 +56,8 @@ static RacePadCoordinator * instance_ = nil;
 		
 		gameViewController = nil;
 		lightRestart = false;
+		
+		[[BasePadMedia Instance] setExtendedNotification:true];
 	}
 	
 	return self;

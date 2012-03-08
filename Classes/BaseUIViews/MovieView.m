@@ -257,7 +257,11 @@
 	
 	if(errorLabel)
 	{
-		[errorLabel setText:error];
+		if(error)
+			[errorLabel setText:error];
+		else
+			[errorLabel setText:@"Unknown error"];
+		
 		[self showMovieError];
 	}
 }
