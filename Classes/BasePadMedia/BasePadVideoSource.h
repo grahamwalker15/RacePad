@@ -29,6 +29,8 @@
 	AVPlayer * moviePlayer;
 	AVPlayerLayer * moviePlayerLayer;
 	
+	NSTimer *errorTimer;
+	
 	MovieView * parentMovieView;
 	
 	id moviePlayerObserver;
@@ -147,7 +149,7 @@
 - (void) movieGoLive;
 - (void) movieSeekToLive;
 - (void) moviePrepareToPlay;
-- (void) movieResyncLive;
+- (void) movieResyncLiveWithRestart:(bool)restart;
 
 - (bool) moviePlayable;
 - (bool) moviePlayingRealTime: (float)timeNow;
@@ -161,5 +163,8 @@
 - (void) actOnReadyToPlay;
 - (void) actOnPlayerError:(NSError *)error;
 - (void) actOnLoopingReachedEnd;
+
+- (void) errorTimerExpired: (NSTimer *)theTimer;
+- (void) killErrorTimer;
 
 @end

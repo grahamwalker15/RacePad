@@ -54,6 +54,7 @@
 @synthesize liveMovieSeekAllowed;
 @synthesize nameToFollow;
 @synthesize lightRestart;
+@synthesize diagnostics;
 
 static BasePadCoordinator * instance_ = nil;
 
@@ -110,6 +111,8 @@ static BasePadCoordinator * instance_ = nil;
 		restartTime = 0;
 		
 		liveMovieSeekAllowed = true;
+
+		diagnostics = false;
 		
 		currentSponsor = [[BasePadSponsor Instance] sponsor];
 	}
@@ -615,6 +618,8 @@ static BasePadCoordinator * instance_ = nil;
 
 - (void) dataUpdateTimerFired: (NSTimer *)theTimer
 {
+	dataUpdateTimer = nil;
+	
 	float elapsed = [elapsedTime value]  * activePlaybackRate;
 	
 	int data_source_count = [dataSources count];

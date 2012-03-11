@@ -7,8 +7,10 @@
 //
 
 #import "BasePadCoordinator.h"
+#import "BasePadMedia.h"
 #import "BasePadTimeController.h"
 #import "BasePadViewController.h"
+#import "BasePadVideoViewController.h"
 #import "TimeViewController.h"
 #import "JogViewController.h"
 
@@ -110,6 +112,11 @@ static BasePadTimeController * instance_ = nil;
 		[addOnOptionsView setFrame:optionsFrame];
 	}
 	
+	if(viewController && [viewController isKindOfClass:[BasePadVideoViewController class]] && [[BasePadMedia Instance] movieSourceCount] > 0)
+		[timeController.refreshButton setHidden:false];
+	else
+		[timeController.refreshButton setHidden:true];
+	
 	if(animated)
 	{
 		[timeController.view setAlpha:0.0];
@@ -175,8 +182,9 @@ static BasePadTimeController * instance_ = nil;
 	
 	ShinyButton *goLiveButton = [timeController goLiveButton];	
 	[goLiveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
-	
 	[self updateLiveButton];
+
+	[[timeController refreshButton] addTarget:instance_ action:@selector(refreshPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	float current_time = [[BasePadCoordinator Instance] currentTime];
 	float start_time = [[BasePadCoordinator Instance] startTime];
@@ -272,8 +280,8 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) hideTimerExpired:(NSTimer *)theTimer
 {
-	[self hide];
 	hideTimer = nil;
+	[self hide];
 }
 
 - (void) updateTime:(float)time
@@ -574,6 +582,13 @@ static BasePadTimeController * instance_ = nil;
 		[[BasePadCoordinator Instance] goLive:true];
 	}
 }
+
+- (IBAction)refreshPressed:(id)sender;
+{
+	if([[BasePadMedia Instance] movieSourceCount] > 0)
+		[[BasePadMedia Instance] restartConnection];
+}
+
 
 //////////////////////////////////////////////////////////
 

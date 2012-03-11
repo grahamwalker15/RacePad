@@ -133,6 +133,7 @@ static BasePadMedia * instance_ = nil;
 	[[BasePadCoordinator Instance] setVideoConnectionType:BPC_VIDEO_LIVE_CONNECTION_];
 	
 	currentStatus = BPM_TRYING_TO_CONNECT_;
+	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_CONNECTING_];
 	
 	if(currentError)
 	{
@@ -206,6 +207,7 @@ static BasePadMedia * instance_ = nil;
 			else
 			{
 				[movieSources[0] setMovieType:movieType];
+				[movieSources[0] setShouldAutoDisplay:true];
 				[movieSources[0] loadMovie:url ShouldDisplay:true InMovieView:nil];
 				movieSourceCount = 1;
 			}
@@ -405,12 +407,12 @@ static BasePadMedia * instance_ = nil;
 	}
 }
 
-- (void) movieResyncLive
+- (void) movieResyncLiveWithRestart:(bool)restart
 {
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
 		if([movieSources[i] movieDisplayed])
-			[movieSources[i] movieResyncLive];
+			[movieSources[i] movieResyncLiveWithRestart:restart];
 	}
 }
 
@@ -473,6 +475,8 @@ static BasePadMedia * instance_ = nil;
 
 - (void) playStartTimerExpired: (NSTimer *)theTimer
 {
+	playStartTimer = nil;
+
 	// If there is a go live or play still pending, just kick off the timer again
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
@@ -489,7 +493,6 @@ static BasePadMedia * instance_ = nil;
 	if(registeredViewController)
 		[registeredViewController hideLoadingIndicators];
 	
-	playStartTimer = nil;
 	
 	if(moviePlayElapsedTime)
 		[moviePlayElapsedTime release];
@@ -640,7 +643,9 @@ static BasePadMedia * instance_ = nil;
 		{
 			[movieSources[i] setMoviePausedInPlace:false];
 			[movieSources[i] setMovieActive:false];
-			[movieSources[i] setMovieMarkedPlayable:false];
+			
+			if(![movieSources[i] shouldAutoDisplay])
+				[movieSources[i] setMovieMarkedPlayable:false];
 		}
 	}
 }
@@ -649,20 +654,11 @@ static BasePadMedia * instance_ = nil;
 ////////////////////////////////////////////////////////////////////////
 //  Response to notifications
 
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay
+-(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource Status:(int)status ShouldDisplay:(bool)shouldDisplay
 {
 	// Position the movie and order the overlay in any registered view controller
 	if(shouldDisplay && registeredViewController)
 		[registeredViewController displayMovieSource:videoSource];
-	
-	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
-	{
-		[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_SUCCEEDED_];
-	}
-	else
-	{
-		[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
-	}
 	
 	if(currentError)
 	{
@@ -670,7 +666,7 @@ static BasePadMedia * instance_ = nil;
 		currentError = nil;
 	}
 	
-	currentStatus = BPM_CONNECTED_;
+	currentStatus = status;
 	
 	if(registeredViewController)
 	{
@@ -682,7 +678,7 @@ static BasePadMedia * instance_ = nil;
 	
 }
 
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error AutoRetry:(bool)autoRetry
 {
 	// Deal with the error appropriately.
 	currentStatus = BPM_CONNECTION_FAILED_;
@@ -699,16 +695,26 @@ static BasePadMedia * instance_ = nil;
 	[currentMovieRoot release];
 	currentMovieRoot = nil;
 	
+	if(!autoRetry)
+		[[BasePadCoordinator Instance] setVideoConnectionType:BPC_NO_CONNECTION_];
+	
 	[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_FAILED_];
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 }
 
--(void)notifyStateChangeOnVideoSource:(BasePadVideoSource *)videoSource ToState:(int)state
+-(void) notifyVideoSourceReadyToPlay:(BasePadVideoSource *)videoSource
 {
-	// Deal with the error appropriately.
-	currentStatus = state;
+	currentStatus = BPM_CONNECTED_;
 	
-	[[BasePadCoordinator Instance] setVideoConnectionStatus:state];
+	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
+	{
+		[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_CONNECTION_SUCCEEDED_];
+	}
+	else
+	{
+		[[BasePadCoordinator Instance] setVideoConnectionStatus:BPC_NO_CONNECTION_];
+	}
+	
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 }
 

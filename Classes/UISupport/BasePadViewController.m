@@ -336,8 +336,8 @@ static id timeControllerInstance = nil;
 
 - (void) doubleTapTimerExpired: (NSTimer *)theTimer
 {
-	[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
 	doubleTapTimer = nil;
+	[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
 }
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer

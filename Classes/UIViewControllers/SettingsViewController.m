@@ -213,6 +213,7 @@
 	if ( v )
 		supportVideo.on = [v boolValue];
 	supportBubble.on = [[CommentaryBubble Instance] bubblePref];
+	diagnosticsSwitch.on = [[BasePadCoordinator Instance] diagnostics];
 	[self updateSponsor];
 
 	[[CommentaryBubble Instance] noBubbles];
@@ -283,6 +284,7 @@
 	if ( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTED_ )
 	{
 		[video_connect setTitle:@"Disconnect" forState:UIControlStateNormal];
+		[video_connect setEnabled:true];
 		[video_status setText:@"Connected to server"];
 		[videoServerTwirl stopAnimating];
 		[videoServerTwirl setHidden:true];
@@ -290,7 +292,12 @@
 	else
 	{
 		[video_connect setTitle:@"Connect" forState:UIControlStateNormal];
-		
+
+		if([[RacePadCoordinator Instance] videoConnectionStatus] == BPC_CONNECTION_CONNECTING_)
+			[video_connect setEnabled:false];
+		else
+			[video_connect setEnabled:true];
+					
 		if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_ERROR_ )
 		{
 			NSString * reportString = [NSString  stringWithString:@"Connection error :"];
@@ -437,6 +444,13 @@
 	bool on = supportBubble.on;
 	[[CommentaryBubble Instance] setBubblePref:on];
 }
+
+- (IBAction)diagnosticsChanged:(id)sender
+{
+	bool on = diagnosticsSwitch.on;
+	[[BasePadCoordinator Instance] setDiagnostics:on];
+}
+
 
 
 -(IBAction)locationChanged:(id)sender

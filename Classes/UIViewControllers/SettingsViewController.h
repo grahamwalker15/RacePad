@@ -25,6 +25,7 @@
 	IBOutlet UILabel *video_status;
 	IBOutlet UISwitch *supportVideo;
 	IBOutlet UISwitch *supportBubble;
+	IBOutlet UISwitch *diagnosticsSwitch;
 	IBOutlet UILabel *locationLabel;
 	IBOutlet UISegmentedControl *locationSwitch;
 
@@ -44,6 +45,7 @@
 - (IBAction)exitPressed:(id)sender;
 - (IBAction)supportVideoChanged:(id)sender;
 - (IBAction)supportBubbleChanged:(id)sender;
+- (IBAction)diagnosticsChanged:(id)sender;
 - (IBAction)locationChanged:(id)sender;
 
 - (void) updateEvents;

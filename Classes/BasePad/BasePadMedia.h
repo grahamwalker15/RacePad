@@ -141,7 +141,7 @@ enum MovieConnectionTypes
 - (void) movieGoLive;
 - (void) movieSeekToLive;
 - (void) moviePrepareToPlay;
-- (void) movieResyncLive;
+- (void) movieResyncLiveWithRestart:(bool)restart;
 - (void) setMoviePlaying:(bool)value;
 - (void) setMoviePausedInPlace:(bool)value;
 
@@ -160,11 +160,11 @@ enum MovieConnectionTypes
 -(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
 -(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;
 
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay;
+-(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource Status:(int)status ShouldDisplay:(bool)shouldDisplay;
 
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error;
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error AutoRetry:(bool)autoRetry;
 -(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
--(void)notifyStateChangeOnVideoSource:(BasePadVideoSource *)videoSource ToState:(int)state;
+-(void) notifyVideoSourceReadyToPlay:(BasePadVideoSource *)videoSource;
 
 -(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators;
 

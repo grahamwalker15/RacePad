@@ -37,6 +37,8 @@
 	
 	transferData = [self constructDataHandler];
 	
+	verifyTimer = nil;
+	
 	return self;
 }
 
@@ -249,7 +251,7 @@
 - (void) verifySocketTimer: (NSTimer *)theTimer
 {
 	double timeNow = [ElapsedTime LocalTimeOfDay];
-	if ( timeNow - lastReceiveTime > 3 )
+	if ( timeNow - lastReceiveTime > 10 )
 		[self OnDisconnect:false];
 }
 

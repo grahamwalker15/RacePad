@@ -26,7 +26,7 @@
 	bool hiding;
 	
 	bool autoHide;
-	
+		
 	float timeNow;
 	
 	BasePadViewController * parentController;
@@ -68,6 +68,7 @@
 - (IBAction)ReplayPressed:(id)sender;
 - (IBAction)JumpButtonPressed:(id)sender;
 - (IBAction)goLivePressed:(id)sender;
+- (IBAction)refreshPressed:(id)sender;
 
 - (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
 

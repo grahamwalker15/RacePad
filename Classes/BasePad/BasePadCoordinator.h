@@ -145,6 +145,8 @@ enum ConnectionTypes
 	
 	bool lightRestart;
 	
+	bool diagnostics;
+	
 	float appVersionNumber;
 }
 
@@ -174,6 +176,8 @@ enum ConnectionTypes
 
 @property (nonatomic, retain) NSString * nameToFollow;
 @property (nonatomic) bool lightRestart;
+
+@property (nonatomic) bool diagnostics;
 
 +(BasePadCoordinator *)Instance;
 

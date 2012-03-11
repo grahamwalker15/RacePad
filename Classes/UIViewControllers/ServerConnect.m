@@ -116,6 +116,7 @@
 {
 	[timer invalidate];
 	timer = nil;
+	
 	[[RacePadCoordinator Instance] connectionTimeout];
 	[label setText:@"Server version does not match this client"];
 	[whirl stopAnimating];

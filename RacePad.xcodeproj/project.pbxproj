@@ -108,6 +108,7 @@
 		7F48F2111411060C00E293B4 /* ArrowDownRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20C1411060C00E293B4 /* ArrowDownRed.png */; };
 		7F48F2121411060C00E293B4 /* ArrowUpGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */; };
 		7F48F2131411060C00E293B4 /* TitleYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20E1411060C00E293B4 /* TitleYellow.png */; };
+		7F53D731150A253A00834E52 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F53D730150A253A00834E52 /* Refresh.png */; };
 		7F610C8F13018636004DC056 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
 		7F610C9213018778004DC056 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; };
 		7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
@@ -526,6 +527,7 @@
 		7F48F20C1411060C00E293B4 /* ArrowDownRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowDownRed.png; path = Images/ArrowDownRed.png; sourceTree = "<group>"; };
 		7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowUpGreen.png; path = Images/ArrowUpGreen.png; sourceTree = "<group>"; };
 		7F48F20E1411060C00E293B4 /* TitleYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TitleYellow.png; path = Images/TitleYellow.png; sourceTree = "<group>"; };
+		7F53D730150A253A00834E52 /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Refresh.png; path = Images/Refresh.png; sourceTree = "<group>"; };
 		7F610C8E13018636004DC056 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoView.xib; path = ResourceFiles/InfoView.xib; sourceTree = "<group>"; };
 		7F610C9013018778004DC056 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		7F610C9113018778004DC056 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
@@ -1315,6 +1317,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F53D730150A253A00834E52 /* Refresh.png */,
 				7F48F196140FA62E00E293B4 /* 17-bar-chart.png */,
 				7F48F197140FA62E00E293B4 /* 66-microphone.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
@@ -1755,6 +1758,7 @@
 				7F9157CD1497A0D100A013BC /* GreyTextureBG.png in Resources */,
 				4D8EBBA115013CBF00DA8303 /* UBSLogo.png in Resources */,
 				4D8EBBA215013CBF00DA8303 /* UBSLogoBig.png in Resources */,
+				7F53D731150A253A00834E52 /* Refresh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

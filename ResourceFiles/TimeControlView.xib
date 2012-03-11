@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="31"/>
+			<integer value="22"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -72,6 +72,31 @@
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
 					</object>
+					<object class="IBUIButton" id="297824249">
+						<reference key="NSNextResponder" ref="1018688060"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{142, 136}, {48, 48}}</string>
+						<reference key="NSSuperview" ref="1018688060"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<object class="NSFont" key="IBUIFont" id="868858112">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
+						</object>
+						<reference key="IBUIHighlightedTitleColor" ref="525197151"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="1041804783"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">Refresh.png</string>
+						</object>
+					</object>
 					<object class="IBUIToolbar" id="235295983">
 						<reference key="NSNextResponder" ref="1018688060"/>
 						<int key="NSvFlags">266</int>
@@ -100,11 +125,7 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">15</double>
-									<int key="NSfFlags">16</int>
-								</object>
+								<reference key="IBUIFont" ref="868858112"/>
 								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">00:00:00</string>
 								<reference key="IBUIHighlightedTitleColor" ref="525197151"/>
@@ -599,6 +620,14 @@
 					</object>
 					<int key="connectionID">59</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">refreshButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="297824249"/>
+					</object>
+					<int key="connectionID">61</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -628,6 +657,7 @@
 							<reference ref="235295983"/>
 							<reference ref="659469164"/>
 							<reference ref="93152994"/>
+							<reference ref="297824249"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -790,6 +820,11 @@
 						<reference key="object" ref="289861365"/>
 						<reference key="parent" ref="93152994"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">60</int>
+						<reference key="object" ref="297824249"/>
+						<reference key="parent" ref="1018688060"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -839,6 +874,8 @@
 					<string>57.IBViewBoundsToFrameTransform</string>
 					<string>58.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
+					<string>60.IBPluginDependency</string>
+					<string>60.IBViewBoundsToFrameTransform</string>
 					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -853,7 +890,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwpwAAA</bytes>
 					</object>
-					<string>{{385, 312}, {1024, 240}}</string>
+					<string>{{416, 312}, {1024, 240}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ShinyButton</string>
 					<string>{{385, 697}, {72, 37}}</string>
@@ -915,6 +952,10 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUMOAABDCAAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -933,7 +974,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">59</int>
+			<int key="maxID">62</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -971,6 +1012,7 @@
 							<string>plus10sButton</string>
 							<string>plus1sButton</string>
 							<string>plus30sButton</string>
+							<string>refreshButton</string>
 							<string>replayButton</string>
 							<string>scrubControl</string>
 							<string>slowMotionButton</string>
@@ -986,6 +1028,7 @@
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIBarButtonItem</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -1010,6 +1053,7 @@
 							<string>plus10sButton</string>
 							<string>plus1sButton</string>
 							<string>plus30sButton</string>
+							<string>refreshButton</string>
 							<string>replayButton</string>
 							<string>scrubControl</string>
 							<string>slowMotionButton</string>
@@ -1056,6 +1100,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">plus30sButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">refreshButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1365,6 +1413,7 @@
 				<string>BigLeftArrowButton.png</string>
 				<string>BigPlayButton.png</string>
 				<string>BigRightArrowButton.png</string>
+				<string>Refresh.png</string>
 				<string>Replay.png</string>
 				<string>SlowMotion.png</string>
 				<string>TimeJumpBG.png</string>
@@ -1375,6 +1424,7 @@
 				<string>{36, 36}</string>
 				<string>{32, 32}</string>
 				<string>{36, 36}</string>
+				<string>{48, 48}</string>
 				<string>{24, 24}</string>
 				<string>{32, 32}</string>
 				<string>{140, 160}</string>

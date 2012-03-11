@@ -17,6 +17,7 @@
 @synthesize timeSlider;
 @synthesize clock;
 @synthesize goLiveButton;
+@synthesize refreshButton;
 
 @synthesize minus1sButton;
 @synthesize minus10sButton;

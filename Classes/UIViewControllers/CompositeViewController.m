@@ -163,10 +163,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	if(displayVideo)
+	if(displayLeaderboard)
 	{
-		[[RacePadCoordinator Instance] SetViewHidden:movieView];
-		[[BasePadMedia Instance] ReleaseViewController:self];
+		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
 	}
 	
 	if(displayMap)
@@ -175,9 +174,10 @@
 		[[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
 	}
 	
-	if(displayLeaderboard)
+	if(displayVideo)
 	{
-		[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+		[[RacePadCoordinator Instance] SetViewHidden:movieView];
+		[[BasePadMedia Instance] ReleaseViewController:self];
 	}
 	
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
@@ -298,7 +298,7 @@
 
 - (void) notifyMovieInformation
 {
-	if([[RacePadCoordinator Instance] liveMode])
+	if([[RacePadCoordinator Instance] diagnostics] && [[RacePadCoordinator Instance] liveMode])
 	{
 		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay (%d / %d) : %.1f", [[BasePadMedia Instance] resyncCount], [[BasePadMedia Instance] restartCount], [[BasePadMedia Instance] liveVideoDelay]];
 		[videoDelayLabel setText:videoDelayString];

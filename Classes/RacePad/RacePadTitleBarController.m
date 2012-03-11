@@ -100,7 +100,9 @@ static RacePadTitleBarController * instance_ = nil;
 	
 	if (lapCount > 0)
 	{
-		NSNumber *i = [NSNumber numberWithInt:lap];
+		int reportedLap = (currentLap > lapCount) ? lapCount : currentLap;
+
+		NSNumber *i = [NSNumber numberWithInt:reportedLap];
 		NSNumber *c = [NSNumber	numberWithInt:lapCount];
 		NSString *s = @"Lap ";
 		s = [s stringByAppendingString:[i stringValue]];

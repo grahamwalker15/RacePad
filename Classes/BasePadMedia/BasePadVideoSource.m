@@ -103,6 +103,8 @@
 		movieThumbnail = nil;
 		currentError = nil;
 		
+		errorTimer= nil;
+		
 		shouldAutoDisplay = false;
 		
 		loading = false;
@@ -179,6 +181,9 @@
 	if(movieView)
 		[movieView notifyMovieAboutToShowSource:self];
 	
+	// Kick off a timer to fail if the connection doesn't get started within 15 secs
+	errorTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO];				 
+
 	loading = true;
 	
 	NSString *tracksKey = @"tracks";
@@ -186,6 +191,8 @@
 	[moviePlayerAsset loadValuesAsynchronouslyForKeys:[NSArray arrayWithObject:tracksKey] completionHandler:
 	 ^{
 		 // Completion handler block.
+		 
+		 [self killErrorTimer];
 		 
 		 // Ignore this movie if we've called unload in the meantime
 		 NSError *error = nil;
@@ -205,21 +212,15 @@
 			 
 			 if(shouldDisplay)
 			 {
+				 // Kick off a timer to fail if the connection doesn't complete within 15 secs
+				 errorTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO];				 
+
+				 // Attach to a player
 				 [self performSelectorOnMainThread:@selector(attachMovie) withObject:nil waitUntilDone:true];
 			 }
 			 
 			 [self makeThumbnail];
 			 
-			 if([[BasePadMedia Instance] extendedNotification])
-			 {
-				 currentStatus = BPM_WAITING_FOR_STREAM_;
-				 [[BasePadMedia Instance] notifyStateChangeOnVideoSource:self ToState:BPM_WAITING_FOR_STREAM_];
-			 }
-			 else
-			 {
-				 currentStatus = BPM_CONNECTED_;
-			 }
-
 			 movieLoaded = true;
 			 
 			 moviePausedInPlace= false;
@@ -230,12 +231,19 @@
 			 // Otherwise, we notify BasePadMedia so that it can tell its registered view controller
 			 if(shouldDisplay && movieView)
 			 {
+				 currentStatus = BPM_CONNECTED_;
 				 [movieView notifyMovieAttachedToSource:self];
+			 }
+			 else if([[BasePadMedia Instance] extendedNotification])
+			 {
+				 currentStatus = BPM_WAITING_FOR_STREAM_;
+				 [[BasePadMedia Instance] notifyNewVideoSource:self Status:BPM_WAITING_FOR_STREAM_ ShouldDisplay:shouldDisplay];
 			 }
 			 else
 			 {
-				 [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:shouldDisplay];
-			 }			 
+				 currentStatus = BPM_CONNECTED_;
+				 [[BasePadMedia Instance] notifyNewVideoSource:self Status:BPM_CONNECTED_ ShouldDisplay:shouldDisplay];
+			 }
 		 }
 		 else
 		 {
@@ -274,7 +282,7 @@
 			 if(shouldDisplay && movieView)
 				 [movieView notifyErrorOnVideoSource:self withError:currentError];
 			 else
-				 [[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError];
+				 [[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError AutoRetry:false];
 			 
 			 [currentMovie release];
 			 currentMovie = nil;
@@ -293,6 +301,10 @@
 	if(loading)
 	{
 		[moviePlayerAsset cancelLoading];
+		[[BasePadMedia Instance] unblockMovieLoadQueue];
+		[currentMovie release];
+		currentMovie = nil;
+		loading = false;
 		return;
 	}
 	
@@ -742,13 +754,17 @@
 	
 }
 
-- (void) movieResyncLive
+- (void) movieResyncLiveWithRestart:(bool)restart
 {
 	if([[BasePadCoordinator Instance] liveMode])
 	{
-		//[self movieStop];
+		if(restart)
+			[self movieStop];
+		
 		[self movieGoLive];
-		//[self moviePlay];
+		
+		if(restart)
+			[self moviePlay];
 	}
 	
 	movieRecentlyResynced = true;
@@ -809,7 +825,7 @@
 					liveVideoDelay = elapsedTime > playedTime ? elapsedTime - playedTime : 0.0;
 					if(liveVideoDelay > 2.0)
 					{
-						[self movieResyncLive];
+						[self movieResyncLiveWithRestart:true];
 						resyncCount ++;
 					}
 				}
@@ -863,6 +879,9 @@
 				
 			}
 			
+			if([[BasePadMedia Instance] extendedNotification] || !parentMovieView)
+				[[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError AutoRetry:true];			
+
 			if(parentMovieView)
 				[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 			
@@ -887,7 +906,7 @@
 			int itemStatus = [object status];
 			int playerStatus = moviePlayer ? [moviePlayer status] : AVPlayerItemStatusUnknown;
 			
-			if(!movieMarkedPlayable && movieActive && itemStatus == AVPlayerItemStatusReadyToPlay && playerStatus == AVPlayerItemStatusReadyToPlay)
+			if(!movieMarkedPlayable && itemStatus == AVPlayerItemStatusReadyToPlay && playerStatus == AVPlayerItemStatusReadyToPlay)
 			{
 				[self actOnReadyToPlay];				
 			}
@@ -950,7 +969,7 @@
 			int playerStatus = [object status];
 			int itemStatus = moviePlayerItem ? [moviePlayerItem status] : AVPlayerItemStatusUnknown;
 			
-			if(!movieMarkedPlayable && movieActive && itemStatus == AVPlayerItemStatusReadyToPlay && playerStatus == AVPlayerItemStatusReadyToPlay)
+			if(!movieMarkedPlayable && itemStatus == AVPlayerItemStatusReadyToPlay && playerStatus == AVPlayerItemStatusReadyToPlay)
 			{
 				[self actOnReadyToPlay];				
 			}
@@ -996,36 +1015,49 @@
 
 - (void) actOnReadyToPlay
 {
+	[self killErrorTimer];
+	
 	movieMarkedPlayable = [self moviePlayable];
 	
 	float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
 	[self getStartTime];
 	
-	if(movieGoLivePending)
+	if(movieActive)
 	{
-		[self movieGoLive];
-		[self moviePlayAtRate:1.0];
-	}
-	else
-	{
-		if(!looping && movieType == MOVIE_TYPE_ARCHIVE_ || movieType == MOVIE_TYPE_VOD_STREAM_ || ![[BasePadCoordinator Instance] liveMode])
-			[self movieGotoTime:currentTime];
-		
-		if([[BasePadCoordinator Instance] playing])
-			[self moviePlay];
+		if(movieGoLivePending)
+		{
+			[self movieGoLive];
+			[self moviePlayAtRate:1.0];
+		}
+		else
+		{
+			if(!looping && movieType == MOVIE_TYPE_ARCHIVE_ || movieType == MOVIE_TYPE_VOD_STREAM_ || ![[BasePadCoordinator Instance] liveMode])
+				[self movieGotoTime:currentTime];
+			
+			if([[BasePadCoordinator Instance] playing])
+				[self moviePlay];
+		}
 	}
 	
 	looping = false;
 	
 	currentStatus = BPM_CONNECTED_;
 	
+	if([[BasePadMedia Instance] extendedNotification] || !parentMovieView)
+		[[BasePadMedia Instance] notifyVideoSourceReadyToPlay:self];
+
 	if(parentMovieView)
 		[parentMovieView notifyMovieSourceReadyToPlay:self];
+
 	
 }
 
 - (void) actOnPlayerError:(NSError *)error
 {
+	[self killErrorTimer];
+
+	[self unloadMovie];
+		
 	if(currentError)
 	{
 		[currentError release];
@@ -1049,8 +1081,9 @@
 	}
 	
 	if([[BasePadMedia Instance] extendedNotification] || !parentMovieView)
-		[[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError];
-	else if(parentMovieView)
+		[[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError AutoRetry:true];
+	
+	if(parentMovieView)
 		[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
 
 	currentStatus = BPM_CONNECTION_ERROR_;
@@ -1067,5 +1100,40 @@
 	[moviePlayer setRate:[[BasePadMedia Instance] activePlaybackRate]];
 }
 
+- (void) errorTimerExpired:(NSTimer *)theTimer
+{
+	errorTimer = nil;
+	
+	[self unloadMovie];
+	
+	if(currentError)
+	{
+		[currentError release];
+		currentError = nil;
+	}
+	
+	currentError = [[NSString alloc] initWithString:@"Connection timed out"];
+	
+	if([[BasePadMedia Instance] extendedNotification] || !parentMovieView)
+		[[BasePadMedia Instance] notifyErrorOnVideoSource:self withError:currentError AutoRetry:false];
+	
+	if(parentMovieView)
+		[parentMovieView notifyErrorOnVideoSource:self withError:currentError];
+	
+	currentStatus = BPM_CONNECTION_ERROR_;
+	
+	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
+	
+	looping = false;	
+}
+
+- (void) killErrorTimer
+{
+	if(errorTimer)
+	{
+		[errorTimer invalidate];
+		errorTimer = nil;
+	}
+}
 
 @end
