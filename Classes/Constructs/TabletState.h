@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import <math.h>
+
+enum TrackType {
+	TS_LOCATION = 1,
+	TS_HEADING = 2
+};
 
 @interface TabletState : NSObject <UIAccelerometerDelegate>
 {
@@ -18,6 +24,8 @@
 	float dampedAccelerationX;
 	float dampedAccelerationY;
 		
+	CLLocationManager *locationManager;
+	
 }
 
 @property (readonly) float currentRotation;
@@ -25,6 +33,12 @@
 
 + (TabletState *)Instance;
 - (void) setBaseRotation: (UIInterfaceOrientation)interfaceOrientation;
+
+- (void) startTracking: (id<CLLocationManagerDelegate>) handler TrackType: (unsigned char)trackType;
+- (void) stopTracking;
+
+- (void) currentPosition: (float *)longitude Lat: (float *) latitude;
+- (void) currentPosition: (double *)longitude Lat: (double_t *) latitude Accuracy: (double *)radius;
 
 @end
 

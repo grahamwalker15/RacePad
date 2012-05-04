@@ -24,6 +24,17 @@ static TabletState *instance = nil;
 	return instance;
 }
 
+- (TabletState *) init
+{
+	if ( [super init] == self )
+	{
+		locationManager = [[CLLocationManager alloc] init];
+		[locationManager setDesiredAccuracy: kCLLocationAccuracyBestForNavigation];
+	}
+	
+	return self;
+}
+
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
 	float damper = 0.5f;
@@ -65,5 +76,39 @@ static TabletState *instance = nil;
 	}
 }
 
+- (void) startTracking:(id<CLLocationManagerDelegate>)handler TrackType:(unsigned char)trackType
+{
+	[locationManager setDelegate:handler];
+	if ( trackType & TS_LOCATION )
+	{
+		if ( [CLLocationManager locationServicesEnabled] )
+		{
+			[locationManager startUpdatingLocation];
+		}
+	}
+	if ( trackType & TS_HEADING && [CLLocationManager headingAvailable] )
+	{
+		[locationManager startUpdatingHeading];
+	}
+}
+
+- (void) stopTracking
+{
+	[locationManager stopUpdatingHeading];
+	[locationManager stopUpdatingLocation];
+}
+
+- (void) currentPosition:(float *)longitude Lat:(float *)latitude
+{
+	*longitude = locationManager.location.coordinate.longitude;
+	*latitude = locationManager.location.coordinate.latitude;
+}
+
+- (void) currentPosition:(double *)longitude Lat:(double *)latitude Accuracy: (double *)radius;
+{
+	*longitude = locationManager.location.coordinate.longitude;
+	*latitude = locationManager.location.coordinate.latitude;
+	*radius = locationManager.location.horizontalAccuracy;
+}
 
 @end
