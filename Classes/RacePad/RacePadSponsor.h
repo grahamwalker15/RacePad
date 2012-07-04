@@ -16,6 +16,7 @@ enum Sponsors
 	RPS_UNKNOWN_,
 	RPS_MERCEDES_,
 	RPS_FIA_,
+	RPS_WILLIAMS_,
 };
 
 enum AllTabs {

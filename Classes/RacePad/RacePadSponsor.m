@@ -55,6 +55,8 @@ static RacePadSponsor * instance_ = nil;
 		sponsor = RPS_MERCEDES_;
 	else if ( [name compare:@"FiA"] == NSOrderedSame )
 		sponsor = RPS_FIA_;
+	else if ( [name compare:@"Williams"] == NSOrderedSame )
+		sponsor = RPS_WILLIAMS_;
 	else
 		sponsor = RPS_UNKNOWN_;
 	
@@ -88,6 +90,8 @@ static RacePadSponsor * instance_ = nil;
 				return [UIImage imageNamed:@"UBSLogo.png"];
 		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"FIALogo.png"];
+		else if ( sponsor == RPS_WILLIAMS_ )
+			return [UIImage imageNamed:@"WilliamsLogo.png"];
 		else
 			return [UIImage imageNamed:@"RacePadLogo.png"];
 	}
@@ -100,6 +104,8 @@ static RacePadSponsor * instance_ = nil;
 				return [UIImage imageNamed:@"UBSLogoBig.png"];
 		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"FIALogoBig.png"];
+		else if ( sponsor == RPS_WILLIAMS_ )
+			return [UIImage imageNamed:@"WilliamsLogoBig.png"];
 		else
 			return [UIImage imageNamed:@"RacePadLogoBig.png"];
 	}
@@ -122,9 +128,24 @@ static RacePadSponsor * instance_ = nil;
 		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
 			return false;
 		
+		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
+			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
+		
 		return true;
 	}
 	else if ( sponsor == RPS_MERCEDES_ )
+	{
+		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
+			return false;
+		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
+			return false;
+		
+		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
+			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
+		
+		return true;
+	}
+	else if ( sponsor == RPS_WILLIAMS_ )
 	{
 		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
 			return false;

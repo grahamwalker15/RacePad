@@ -12,6 +12,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		4D0557A515A4524F0085F064 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0557A415A4524F0085F064 /* CoreLocation.framework */; };
+		4D0557AE15A48C4F0085F064 /* WilliamsLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D0557AC15A48C4F0085F064 /* WilliamsLogo.png */; };
+		4D0557AF15A48C4F0085F064 /* WilliamsLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D0557AD15A48C4F0085F064 /* WilliamsLogoBig.png */; };
 		4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
 		4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
 		4D1563F312898CD0000E959D /* PitWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F212898CD0000E959D /* PitWindowView.m */; };
@@ -381,6 +383,8 @@
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D0557A415A4524F0085F064 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4D0557AC15A48C4F0085F064 /* WilliamsLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WilliamsLogo.png; path = Images/WilliamsLogo.png; sourceTree = "<group>"; };
+		4D0557AD15A48C4F0085F064 /* WilliamsLogoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WilliamsLogoBig.png; path = Images/WilliamsLogoBig.png; sourceTree = "<group>"; };
 		4D1349C7128A939800A6E375 /* ArrowLeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowLeader.png; path = ResourceFiles/ArrowLeader.png; sourceTree = "<group>"; };
 		4D1349C8128A939800A6E375 /* BlueFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueFlag.png; path = ResourceFiles/BlueFlag.png; sourceTree = "<group>"; };
 		4D1563F112898CD0000E959D /* PitWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindowView.h; sourceTree = "<group>"; };
@@ -1321,7 +1325,6 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7F53D730150A253A00834E52 /* Refresh.png */,
 				7F48F196140FA62E00E293B4 /* 17-bar-chart.png */,
 				7F48F197140FA62E00E293B4 /* 66-microphone.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
@@ -1433,6 +1436,7 @@
 				4D423ECC135ECAC400561C92 /* RacePadLogo.png */,
 				7F767CA712A62EC9009249F7 /* RedBar.png */,
 				7F62475D12851255009A9D4F /* RedFlag.png */,
+				7F53D730150A253A00834E52 /* Refresh.png */,
 				7FC2F764129429B400DAC96E /* Replay.png */,
 				7F9FA92313A26F9D008292CE /* ReplayIndicator.png */,
 				7F6FB6BB127577FE00EF2B8C /* RightArrow.png */,
@@ -1469,6 +1473,8 @@
 				4D8EBB9F15013CBF00DA8303 /* UBSLogo.png */,
 				4D8EBBA015013CBF00DA8303 /* UBSLogoBig.png */,
 				7F91F8C8129D58F700BFDFCC /* wheel_icon.png */,
+				4D0557AC15A48C4F0085F064 /* WilliamsLogo.png */,
+				4D0557AD15A48C4F0085F064 /* WilliamsLogoBig.png */,
 				7F068129126DDA6800C9EE5D /* world.png */,
 				7F62476012851255009A9D4F /* YellowFlag.png */,
 			);
@@ -1763,6 +1769,8 @@
 				4D8EBBA115013CBF00DA8303 /* UBSLogo.png in Resources */,
 				4D8EBBA215013CBF00DA8303 /* UBSLogoBig.png in Resources */,
 				7F53D731150A253A00834E52 /* Refresh.png in Resources */,
+				4D0557AE15A48C4F0085F064 /* WilliamsLogo.png in Resources */,
+				4D0557AF15A48C4F0085F064 /* WilliamsLogoBig.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
