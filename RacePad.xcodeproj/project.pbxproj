@@ -11,6 +11,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4D0557A515A4524F0085F064 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0557A415A4524F0085F064 /* CoreLocation.framework */; };
 		4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
 		4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
 		4D1563F312898CD0000E959D /* PitWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F212898CD0000E959D /* PitWindowView.m */; };
@@ -379,6 +380,7 @@
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D0557A415A4524F0085F064 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4D1349C7128A939800A6E375 /* ArrowLeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowLeader.png; path = ResourceFiles/ArrowLeader.png; sourceTree = "<group>"; };
 		4D1349C8128A939800A6E375 /* BlueFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueFlag.png; path = ResourceFiles/BlueFlag.png; sourceTree = "<group>"; };
 		4D1563F112898CD0000E959D /* PitWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindowView.h; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 				7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */,
 				7F8F89A412DC8EF300EA04A6 /* AVFoundation.framework in Frameworks */,
 				7F8F8A3212DCAA3300EA04A6 /* CoreMedia.framework in Frameworks */,
+				4D0557A515A4524F0085F064 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,16 +919,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */,
+				7F9C1514125759D900770746 /* CoreFoundation.framework */,
+				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */,
+				7F9C1516125759D900770746 /* CoreText.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				7F9C15F51257646700770746 /* MediaPlayer.framework */,
+				7F9C12CF12560D6600770746 /* OpenGLES.framework */,
 				7F9C12CD12560D5700770746 /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				288765070DF74369002DB57D /* CoreGraphics.framework */,
-				7F9C12CF12560D6600770746 /* OpenGLES.framework */,
-				7F9C1514125759D900770746 /* CoreFoundation.framework */,
-				7F9C1516125759D900770746 /* CoreText.framework */,
-				7F9C15F51257646700770746 /* MediaPlayer.framework */,
-				7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */,
-				7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */,
+				4D0557A415A4524F0085F064 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
