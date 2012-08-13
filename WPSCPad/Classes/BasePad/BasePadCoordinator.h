@@ -50,11 +50,11 @@ enum ConnectionTypes
 	bool refresh_enabled_;
 }
 
-@property (nonatomic, retain, setter=SetView, getter=View) id view_;
-@property (nonatomic, retain, setter=SetParameter, getter=Parameter) NSString * parameter_;
-@property (nonatomic, setter=SetType, getter=Type) int type_;
-@property (nonatomic, setter=SetDisplayed, getter=Displayed) bool displayed_;
-@property (nonatomic, setter=SetRefreshEnabled, getter=RefreshEnabled) bool refresh_enabled_;
+@property (nonatomic, retain, setter=SetView:, getter=View) id view_;
+@property (nonatomic, retain, setter=SetParameter:, getter=Parameter) NSString * parameter_;
+@property (nonatomic, setter=SetType:, getter=Type) int type_;
+@property (nonatomic, setter=SetDisplayed:, getter=Displayed) bool displayed_;
+@property (nonatomic, setter=SetRefreshEnabled:, getter=RefreshEnabled) bool refresh_enabled_;
 
 -(id)initWithView:(id)view AndType:(int)type;
 

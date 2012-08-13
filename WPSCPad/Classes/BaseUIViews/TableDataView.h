@@ -15,6 +15,6 @@
 	id table_data_;
 }
 
-@property (nonatomic, retain, setter=SetTableDataClass, getter=TableData) id table_data_;
+@property (nonatomic, retain, setter=SetTableDataClass:, getter=TableData) id table_data_;
 
 @end

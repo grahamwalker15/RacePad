@@ -3144,7 +3144,6 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Midas-Info.plist";
 				PRODUCT_NAME = Midas;
-				SYMROOT = /Development/Projects/WPSCDemo.build;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3161,7 +3160,6 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Midas-Info.plist";
 				PRODUCT_NAME = Midas;
-				SYMROOT = /Development/Projects/WPSCDemo.build;
 				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
@@ -3181,7 +3179,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SYMROOT = ../RacePad.build;
+				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -3200,7 +3198,7 @@
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SYMROOT = ../RacePad.build;
+				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

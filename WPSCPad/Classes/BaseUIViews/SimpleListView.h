@@ -122,15 +122,15 @@ enum ColumnPriority {
 @property (nonatomic) bool rowDivider;
 @property (nonatomic) bool shadeHeading;
 
-@property (nonatomic, setter=SetFont, getter=GetFont) int font_;
-@property (nonatomic, setter=SetDrawAllCells, getter=DrawAllCells) bool draw_all_cells_;
-@property (nonatomic, setter=SetBackgroundAlpha, getter=BackgroundAlpha) float background_alpha_;
-@property (nonatomic, retain, setter=SetBaseColour, getter=BaseColour) UIColor * base_colour_;
-@property (nonatomic, retain, setter=SetSelectedColour, getter=SelectedColour) UIColor * selected_colour_;
-@property (nonatomic, retain, setter=SetFocusColour, getter=FocusColour) UIColor * focus_colour_;
-@property (nonatomic, retain, setter=SetSelectedTextColour, getter=SetSelectedTextColour) UIColor * selected_text_colour_;
-@property (nonatomic, retain, setter=SetTextColour, getter=TextColour) UIColor * text_colour_;
-@property (nonatomic, retain, setter=SetBackgroundColour, getter=BackgroundColour) UIColor * background_colour_;
+@property (nonatomic, setter=SetFont:, getter=GetFont) int font_;
+@property (nonatomic, setter=SetDrawAllCells:, getter=DrawAllCells) bool draw_all_cells_;
+@property (nonatomic, setter=SetBackgroundAlpha:, getter=BackgroundAlpha) float background_alpha_;
+@property (nonatomic, retain, setter=SetBaseColour:, getter=BaseColour) UIColor * base_colour_;
+@property (nonatomic, retain, setter=SetSelectedColour:, getter=SelectedColour) UIColor * selected_colour_;
+@property (nonatomic, retain, setter=SetFocusColour:, getter=FocusColour) UIColor * focus_colour_;
+@property (nonatomic, retain, setter=SetSelectedTextColour:, getter=SetSelectedTextColour) UIColor * selected_text_colour_;
+@property (nonatomic, retain, setter=SetTextColour:, getter=TextColour) UIColor * text_colour_;
+@property (nonatomic, retain, setter=SetBackgroundColour:, getter=BackgroundColour) UIColor * background_colour_;
 
 - (void) DeleteTable;
 
