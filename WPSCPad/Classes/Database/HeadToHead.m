@@ -443,7 +443,7 @@ static UIImage *redPosArrowImage = nil;
 			[view LineRectangleX0:xval Y0:x_axis X1:xval Y1:x_axis + 5]; 
 			
 			NSNumber *n = [NSNumber numberWithInt:lap];
-			NSString *s = [NSString stringWithString:@"L"];
+			NSString *s = @"L";
 			s = [s stringByAppendingString:[n stringValue]];
 			float w, h;
 			[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
@@ -495,7 +495,7 @@ static UIImage *redPosArrowImage = nil;
 						else
 							[view UseControlFont];
 						
-						NSString *s = [NSString stringWithString:@"IN"];
+						NSString *s = @"IN";
 						float w, h;
 						[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
 						[view DrawString:s AtX:xCentre - w / 2 Y:(xAxisSpace - h) * 0.5];
@@ -554,7 +554,7 @@ static UIImage *redPosArrowImage = nil;
 						else
 							[view UseControlFont];
 						
-						NSString *s = [NSString stringWithString:@"IN"];
+						NSString *s = @"IN";
 						float w, h;
 						[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
 						[view DrawString:s AtX:xCentre - w / 2 Y:size.height - xAxisSpace + (xAxisSpace - h) * 0.5];
@@ -734,7 +734,7 @@ static UIImage *redPosArrowImage = nil;
 			[view LineRectangleX0:xval Y0:x_axis X1:xval Y1:x_axis + 5]; 
 			
 			NSNumber *n = [NSNumber numberWithInt:lap];
-			NSString *s = [NSString stringWithString:@"L"];
+			NSString *s = @"L";
 			s = [s stringByAppendingString:[n stringValue]];
 			float w, h;
 			[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
@@ -775,7 +775,7 @@ static UIImage *redPosArrowImage = nil;
 					{
 						[view UseFont:DW_LIGHT_CONTROL_FONT_];
 						
-						NSString *s = [NSString stringWithString:@"IN"];
+						NSString *s = @"IN";
 						float w, h;
 						[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
 						[view DrawString:s AtX:xCentre - w / 2 Y:(xAxisSpace - h) * 0.5];
