@@ -819,7 +819,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	// check whether it exists
 	FILE * f;
-	if(f = fopen ( [fileName UTF8String], "rt" ))
+	if((f = fopen ( [fileName UTF8String], "rt" )))
 	{
 		fclose(f);
 		return fileName;
@@ -828,7 +828,7 @@ static BasePadCoordinator * instance_ = nil;
 	// If this fails, try with m4v extension
 	name = [sessionPrefix stringByAppendingString:@"video.m4v"];
 	fileName = [folder stringByAppendingPathComponent:name];
-	if(f = fopen ( [fileName UTF8String], "rb" ))
+	if((f = fopen ( [fileName UTF8String], "rb" )))
 	{
 		fclose(f);
 		return fileName;
@@ -837,7 +837,7 @@ static BasePadCoordinator * instance_ = nil;
 	// If this fails, try with mp4 extension
 	name = [sessionPrefix stringByAppendingString:@"video.mp4"];
 	fileName = [folder stringByAppendingPathComponent:name];
-	if(f = fopen ( [fileName UTF8String], "rb" ))
+	if((f = fopen ( [fileName UTF8String], "rb" )))
 	{
 		fclose(f);
 		return fileName;
@@ -857,7 +857,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	// check whether it exists
 	FILE * f;
-	if(f = fopen ( [fileName UTF8String], "rb" ))
+	if((f = fopen ( [fileName UTF8String], "rb" )))
 	{
 		fclose(f);
 		return fileName;
