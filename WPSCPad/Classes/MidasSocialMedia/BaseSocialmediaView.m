@@ -88,7 +88,7 @@ static NSUInteger const kTwitReplyTag = 11;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:@"MidasBaseSocialmediaView" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"MidasSocialmediaBaseView" owner:self options:nil];
 
 		[self addSubview:self.view];
 		

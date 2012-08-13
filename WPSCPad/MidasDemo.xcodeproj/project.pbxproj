@@ -138,6 +138,7 @@
 		7F62476412851255009A9D4F /* SCFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475E12851255009A9D4F /* SCFlag.png */; };
 		7F62476512851255009A9D4F /* SCInFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475F12851255009A9D4F /* SCInFlag.png */; };
 		7F62476612851255009A9D4F /* YellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62476012851255009A9D4F /* YellowFlag.png */; };
+		7F661D7715D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F661D7615D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib */; };
 		7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; };
 		7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; };
 		7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
@@ -451,7 +452,6 @@
 		7FA4D1E314C9C5AE00945ABD /* user1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C314C9C5AE00945ABD /* user1.png */; };
 		7FA4D1E414C9C5AE00945ABD /* user2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C414C9C5AE00945ABD /* user2.png */; };
 		7FA4D1E514C9C5AE00945ABD /* user3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D1C514C9C5AE00945ABD /* user3.png */; };
-		7FA4D21014C9E03D00945ABD /* MidasBaseSocialmediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D20F14C9E03D00945ABD /* MidasBaseSocialmediaView.xib */; };
 		7FA4D2AB14CA22C100945ABD /* Twitter-mini-icon-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D2AA14CA22C100945ABD /* Twitter-mini-icon-blue.png */; };
 		7FA4D55F14CC244000945ABD /* Australia.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D54614CC244000945ABD /* Australia.png */; };
 		7FA4D56014CC244000945ABD /* Austria.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4D54714CC244000945ABD /* Austria.png */; };
@@ -833,6 +833,7 @@
 		7F62475E12851255009A9D4F /* SCFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCFlag.png; path = Images/SCFlag.png; sourceTree = "<group>"; };
 		7F62475F12851255009A9D4F /* SCInFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCInFlag.png; path = Images/SCInFlag.png; sourceTree = "<group>"; };
 		7F62476012851255009A9D4F /* YellowFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = YellowFlag.png; path = Images/YellowFlag.png; sourceTree = "<group>"; };
+		7F661D7615D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasSocialmediaBaseView.xib; path = ResourceFiles/MidasSocialmediaBaseView.xib; sourceTree = "<group>"; };
 		7F6E7D941276ED540073A644 /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
 		7F6E7D951276ED540073A644 /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverLapListController.h; sourceTree = "<group>"; };
@@ -1186,7 +1187,6 @@
 		7FA4D1C314C9C5AE00945ABD /* user1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user1.png; sourceTree = "<group>"; };
 		7FA4D1C414C9C5AE00945ABD /* user2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user2.png; sourceTree = "<group>"; };
 		7FA4D1C514C9C5AE00945ABD /* user3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user3.png; sourceTree = "<group>"; };
-		7FA4D20F14C9E03D00945ABD /* MidasBaseSocialmediaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasBaseSocialmediaView.xib; path = ResourceFiles/MidasBaseSocialmediaView.xib; sourceTree = "<group>"; };
 		7FA4D2AA14CA22C100945ABD /* Twitter-mini-icon-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter-mini-icon-blue.png"; sourceTree = "<group>"; };
 		7FA4D54614CC244000945ABD /* Australia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Australia.png; sourceTree = "<group>"; };
 		7FA4D54714CC244000945ABD /* Austria.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Austria.png; sourceTree = "<group>"; };
@@ -1438,6 +1438,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				7F661D7615D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -2113,7 +2114,6 @@
 				7FA2221914D1583F00EBA739 /* MidasMyTeamView.xib */,
 				7FA220F114D0688B00EBA739 /* MidasMasterMenuView.xib */,
 				7FA21E3A14CDA67B00EBA739 /* MidasDemoImageView.xib */,
-				7FA4D20F14C9E03D00945ABD /* MidasBaseSocialmediaView.xib */,
 				7FFE7C9614BB3004007D27A2 /* MidasAlertsView.xib */,
 				7FFE7C5F14BB24C9007D27A2 /* MidasTwitterView.xib */,
 				7FFE7C7114BB2770007D27A2 /* MidasFacebookView.xib */,
@@ -2881,7 +2881,6 @@
 				7FA4D1E314C9C5AE00945ABD /* user1.png in Resources */,
 				7FA4D1E414C9C5AE00945ABD /* user2.png in Resources */,
 				7FA4D1E514C9C5AE00945ABD /* user3.png in Resources */,
-				7FA4D21014C9E03D00945ABD /* MidasBaseSocialmediaView.xib in Resources */,
 				7FA4D2AB14CA22C100945ABD /* Twitter-mini-icon-blue.png in Resources */,
 				7FA4D55F14CC244000945ABD /* Australia.png in Resources */,
 				7FA4D56014CC244000945ABD /* Austria.png in Resources */,
@@ -2994,6 +2993,7 @@
 				7FA235B614DEE46000EBA739 /* ThumbWEB.png in Resources */,
 				7FA239E314E45F1D00EBA739 /* Copyright.png in Resources */,
 				7FA23AF314E80FBD00EBA739 /* MovieViewEmpty.png in Resources */,
+				7F661D7715D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
