@@ -18,6 +18,7 @@
 
 @synthesize movieSourceCount;
 
+@synthesize activePlaybackRate;
 @synthesize liveVideoDelay;
 
 @synthesize restartCount;
@@ -339,6 +340,7 @@ static BasePadMedia * instance_ = nil;
 
 - (void) moviePlayAtRate:(float)playbackRate
 {
+	activePlaybackRate = playbackRate;
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
 		if([movieSources[i] movieDisplayed])
@@ -803,7 +805,12 @@ static BasePadMedia * instance_ = nil;
 				[movieSources[localMovieSourceCount] setMovieLoop:(movieLoop > 0)];
 				[movieSources[localMovieSourceCount] setMovieTag:movieTag];
 				[movieSources[localMovieSourceCount] setMovieName:movieName];
-				[self queueMovieLoad:localMovieSourceCount];
+				
+				if(movieSourceCount == 0 && registeredViewController && [registeredViewController firstMovieView])
+					[self queueMovieLoad:movieSources[localMovieSourceCount] IntoView:[registeredViewController firstMovieView]];
+				else
+					[self queueMovieLoad:movieSources[localMovieSourceCount] IntoView:nil];
+				
 				localMovieSourceCount++;
 			}
 			else
@@ -816,21 +823,50 @@ static BasePadMedia * instance_ = nil;
 	}
 }
 
-- (void)queueMovieLoad:(int)movieSourceIndex
+- (void)queueMovieLoad:(BasePadVideoSource *)movieSource IntoView:(MovieView *)movieView;
 {
 	if(movieSourceQueueBlocked || movieSourceQueueCount > 0)
 	{
-		movieSourceLoadQueue[movieSourceQueueCount] = movieSourceIndex;
+		queuedMovieSource[movieSourceQueueCount] = movieSource;
+		queuedMovieView[movieSourceQueueCount] = movieView;
 		movieSourceQueueCount++;
 	}
 	else
 	{
-		if([movieSources[movieSourceIndex] shouldAutoDisplay] || [movieSources[movieSourceIndex] movieType] == MOVIE_TYPE_ARCHIVE_)
-			[movieSources[movieSourceIndex] loadMovie];
+		// Only load archives and the main view to start
+		// Streamed feeds will be loaded as needed - indicated by movieView being set
+		if(movieView || [movieSource shouldAutoDisplay] || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
+		{
+			if(movieView)
+			{
+				[movieSource loadMovieIntoView:movieView];
+			}
+			else
+			{
+				[movieSource loadMovie];
+			}
+		}
 		else
-			[movieSources[movieSourceIndex] makeThumbnail];
+		{
+			[movieSource makeThumbnail];
+		}
 		
-		movieSourceCount++;
+		// If this source is not in the counted list, increment the count
+		bool sourceFound = false;
+		if(movieSourceCount > 0)
+		{
+			for (int i = 0 ; i < movieSourceCount ; i++)
+			{
+				if(movieSources[i] == movieSource)
+				{
+					sourceFound = true;
+					break;
+				}
+			}
+		}
+		
+		if(!sourceFound)
+			movieSourceCount++;
 	}
 }
 
@@ -845,24 +881,48 @@ static BasePadMedia * instance_ = nil;
 	
 	if(movieSourceQueueCount > 0)
 	{
-		int movieToLoad = movieSourceLoadQueue[0];
+		BasePadVideoSource * movieSource = queuedMovieSource[0];
+		MovieView * movieView = queuedMovieView[0];
 		movieSourceQueueCount --;
 		
 		if(movieSourceQueueCount > 0)
 		{
 			for (int i = 0 ; i < movieSourceQueueCount ; i++)
 			{
-				movieSourceLoadQueue[i] = movieSourceLoadQueue[i+1];
+				queuedMovieSource[i] = queuedMovieSource[i+1];
+				queuedMovieView[i] = queuedMovieView[i+1];
 			}
 		}
 				
-		movieSourceCount++;
-
-		if([movieSources[movieToLoad] shouldAutoDisplay] || [movieSources[movieToLoad] movieType] == MOVIE_TYPE_ARCHIVE_)
-			[movieSources[movieToLoad] loadMovie];
+		// If this source is not in the counted list, increment the count
+		bool sourceFound = false;
+		if(movieSourceCount > 0)
+		{
+			for (int i = 0 ; i < movieSourceCount ; i++)
+			{
+				if(movieSources[i] == movieSource)
+				{
+					sourceFound = true;
+					break;
+				}
+			}
+		}
+		
+		if(!sourceFound)
+			movieSourceCount++;
+		
+		// Only load archives an the main view to start
+		// Streamed feeds will be loaded as needed - indicated by movieView being set
+		if(movieView || [movieSource shouldAutoDisplay] || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
+		{
+			if(movieView)
+				[movieSource loadMovieIntoView:movieView];
+			else
+				[movieSource loadMovie];
+		}
 		else
 		{
-			[movieSources[movieToLoad] makeThumbnail];
+			[movieSource makeThumbnail];
 			[self unblockMovieLoadQueue];
 		}
 	}		

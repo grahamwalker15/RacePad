@@ -141,7 +141,7 @@ enum TrackState {
 @property (readonly) NSString * label;
 
 - (void) loadShape : (DataStream *) stream Count: (int) count;
-- (void) labelPoint : (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
+- (void) getLabelPoint : (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
 
 @end
 

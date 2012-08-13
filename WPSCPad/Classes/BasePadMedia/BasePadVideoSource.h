@@ -72,19 +72,16 @@
 	bool audioSeekPending;
 	
 	float audioStartTime;
-	
-	float activePlaybackRate;
-	
+		
 	int movieType;
 	
 	bool movieActive;
 	bool movieDisplayed;
 	
 	bool shouldAutoDisplay;
-	
-	bool moviePlayerStatusOK;
-	bool moviePlayerItemStatusOK;
-	
+		
+	bool loading;
+	bool looping;
 }
 
 @property (readonly) AVURLAsset * moviePlayerAsset;
@@ -108,7 +105,7 @@
 @property (nonatomic, retain) NSURL *movieURL;
 @property (nonatomic, retain) NSString *movieTag;
 @property (nonatomic, retain) NSString *movieName;
-@property (readonly) UIImage *movieThumbnail;
+@property (readonly) UIImage * movieThumbnail;
 
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
@@ -159,5 +156,10 @@
 
 - (void) timeObserverCallback:(CMTime) cmTime;
 - (void) playerItemDidReachEnd:(NSNotification *)notification;
+- (void) playerItemFailedToReachEnd:(NSNotification *)notification;
+
+- (void) actOnReadyToPlay;
+- (void) actOnPlayerError:(NSError *)error;
+- (void) actOnLoopingReachedEnd;
 
 @end

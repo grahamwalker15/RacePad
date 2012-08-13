@@ -16,8 +16,14 @@
 
 @synthesize movieSource;
 @synthesize moviePlayerLayerAdded;
+@synthesize movieScheduledForDisplay;
 @synthesize movieScheduledForRemoval;
 @synthesize closeButton;
+
+@synthesize loadingLabel;
+@synthesize loadingTwirl;	
+@synthesize loadingScreen;	
+@synthesize errorLabel;
 
 @synthesize driverNameButton;
 @synthesize movieTypeButton;
@@ -33,8 +39,13 @@
         // Initialization code
 		movieSource = nil;
 		moviePlayerLayerAdded = false;
+		movieScheduledForDisplay = false;
 		movieScheduledForRemoval = false;
 		closeButton = nil;
+		loadingTwirl = nil;
+		loadingLabel = nil;
+		loadingScreen = nil;
+		errorLabel = nil;
 		
 		shouldShowLabels = false;
 		labelAlignment = MV_ALIGN_TOP;
@@ -57,6 +68,11 @@
 	[closeButton release];
 	[driverNameButton release];
 	[movieTypeButton release];
+	[loadingTwirl release];
+	[loadingScreen release];
+	[loadingLabel release];
+	[errorLabel release];
+	
     [super dealloc];
 }
 
@@ -66,11 +82,14 @@
 	if(moviePlayerLayerAdded)
 		[self removeMovieFromView];
 	
+	// Now mark ourselves as ready to display
+	movieScheduledForDisplay = true;
+	
 	// If the movie is not attached to a player in this source, do it and wait for notification
 	// Otherwise we'll notify ourselves that it is attached
 	if(![source movieLoaded])
 	{
-		[source loadMovieIntoView:self];	// Will get notification when done
+		[[BasePadMedia Instance] queueMovieLoad:source IntoView:self];
 	}
 	else
 	{
@@ -82,6 +101,27 @@
 	}
 	
 	return true;
+}
+
+- (void) redisplayMovieSource
+{
+	if(movieSource)
+		[self displayMovieSource:movieSource];
+}
+
+- (bool) movieSourceAssociated
+{
+	return (moviePlayerLayerAdded || movieScheduledForDisplay);
+}
+
+- (void) notifyMovieAboutToShowSource:(BasePadVideoSource *)source
+{
+	// Show the loading indicator if we're loading a remote movie
+	if(source && [source movieType] != MOVIE_TYPE_ARCHIVE_)
+		[self showMovieLoading];
+	
+	// Hide the error
+	[self hideMovieError];
 }
 
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source
@@ -100,6 +140,7 @@
 		[superlayer addSublayer:moviePlayerLayer];
 		
 		[self setMoviePlayerLayerAdded:true];
+		[self setMovieScheduledForDisplay:false];
 		[self setMovieSource:source];
 		
 		[source setParentMovieView:self];
@@ -126,11 +167,26 @@
 		// Tell the delegate that we've done it
 		if(movieViewDelegate)
 			[movieViewDelegate notifyMovieAttachedToView:self];
+		
+		// Get rid of loading screen
+		//if(loadingScreen)
+		//	[loadingScreen setHidden:true];
+		
+		// And keep the loading and error stuff visible if it's there
+		if(loadingTwirl)
+			[self bringSubviewToFront:loadingTwirl];
+		if(loadingLabel)
+			[self bringSubviewToFront:loadingLabel];
+		if(errorLabel)
+			[self bringSubviewToFront:errorLabel];
 	}
 }
 
 - (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source
 {	
+	// Remove the loading indicators
+	[self hideMovieLoading];
+
 	// Tell the delegate that we're ready
 	if(movieViewDelegate)
 		[movieViewDelegate notifyMovieReadyToPlayInView:self];
@@ -145,6 +201,7 @@
 			[moviePlayerLayer removeFromSuperlayer];
 		
 		moviePlayerLayerAdded = false;
+		movieScheduledForDisplay = false;
 		movieScheduledForRemoval = false;
 		
 		[movieSource setParentMovieView:nil];
@@ -162,6 +219,7 @@
 	}
 	
 	moviePlayerLayerAdded = false;
+	movieScheduledForDisplay = false;
 	movieScheduledForRemoval = false;
 	
 	[movieSource release];
@@ -169,7 +227,7 @@
 	
 }
 
-- (void) resizeMovieSourceWithDuration:(float)duration
+- (void) resizeMovieSourceAnimated:(bool)animated WithDuration:(float)duration
 {	
 	if(!movieSource || !moviePlayerLayerAdded)
 		return;
@@ -178,16 +236,43 @@
 	
 	if(moviePlayerLayer)
 	{
-		[CATransaction begin];
-		[CATransaction setAnimationDuration:duration];
+		if(animated)
+		{
+			[CATransaction begin];
+			[CATransaction setAnimationDuration:duration];
+		}
+		
 		[(CALayer *)moviePlayerLayer setFrame:[self bounds]];
-		[CATransaction commit];
+		
+		if(animated)
+		{
+			[CATransaction commit];
+		}
 	}
 }
 
 -(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error
 {
+	[self hideMovieLoading];
+	
+	if(errorLabel)
+	{
+		[errorLabel setText:error];
+		[self showMovieError];
+	}
 }
+
+-(void)notifyInfoOnVideoSource:(BasePadVideoSource *)videoSource withMessage:(NSString *)message
+{
+	[self hideMovieLoading];
+	
+	if(errorLabel)
+	{
+		[errorLabel setText:message];
+		[self showMovieError];
+	}
+}
+
 
 - (void)RequestRedraw
 {
@@ -199,7 +284,7 @@
 
 - (void) showMovieLabels
 {
-	if(!movieSource || !moviePlayerLayerAdded || !driverNameButton || !movieTypeButton)
+	if(!movieSource || !driverNameButton || !movieTypeButton)
 		return;
 	
 	[driverNameButton setAlpha:0.0];
@@ -223,7 +308,7 @@
 	{
 		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-
+		
 		float ytop = ourBounds.origin.y - 2;
 		[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - movieTypeBounds.size.height, movieTypeBounds.size.width, movieTypeBounds.size.height)];
 		ytop -= movieTypeBounds.size.height;
@@ -256,6 +341,51 @@
 	
 	[driverNameButton setHidden:true];
 	[movieTypeButton setHidden:true];
+}
+
+- (void) showMovieLoading
+{
+	if(loadingScreen)
+		[loadingScreen setHidden:false];
+
+	if(loadingTwirl)
+	{
+		[loadingTwirl setHidden:false];
+		[loadingTwirl startAnimating];
+	}
+	
+	if(loadingLabel)
+		[loadingLabel setHidden:false];
+	
+	
+}
+
+- (void) hideMovieLoading
+{
+	if(loadingTwirl)
+	{
+		[loadingTwirl setHidden:true];
+		[loadingTwirl stopAnimating];
+	}
+	
+	if(loadingLabel)
+		[loadingLabel setHidden:true];
+	
+	if(loadingScreen)
+		[loadingScreen setHidden:true];
+	
+}
+
+- (void) showMovieError
+{
+	if(errorLabel)
+		[errorLabel setHidden:false];
+}
+
+- (void) hideMovieError
+{
+	if(errorLabel)
+		[errorLabel setHidden:true];
 }
 
 

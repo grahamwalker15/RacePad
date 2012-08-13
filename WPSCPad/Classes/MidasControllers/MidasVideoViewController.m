@@ -137,9 +137,31 @@ static UIImage * newButtonBackgroundImage = nil;
 	[auxMovieView1 setMovieTypeButton:auxMovieView1MovieType];
 	[auxMovieView2 setMovieTypeButton:auxMovieView2MovieType];
 	
+	[mainMovieView setLoadingTwirl:loadingTwirl];
+	[mainMovieView setLoadingLabel:loadingLabel];
+	[mainMovieView setLoadingScreen:mainMovieViewLoadingScreen];
+
+	[auxMovieView1 setLoadingTwirl:auxMovieView1LoadingTwirl];
+	[auxMovieView1 setLoadingLabel:auxMovieView1LoadingLabel];
+	[auxMovieView1 setErrorLabel:auxMovieView1ErrorLabel];
+	[auxMovieView1 setLoadingScreen:auxMovieView1LoadingScreen];
+	
+	[auxMovieView2 setLoadingTwirl:auxMovieView2LoadingTwirl];
+	[auxMovieView2 setLoadingLabel:auxMovieView2LoadingLabel];
+	[auxMovieView2 setErrorLabel:auxMovieView2ErrorLabel];
+	[auxMovieView2 setLoadingScreen:auxMovieView2LoadingScreen];
+	
 	[mainMovieView hideMovieLabels];
 	[auxMovieView1 hideMovieLabels];
 	[auxMovieView2 hideMovieLabels];
+	
+	[mainMovieView hideMovieLoading];
+	[auxMovieView1 hideMovieLoading];
+	[auxMovieView2 hideMovieLoading];
+	
+	[mainMovieView hideMovieError];
+	[auxMovieView1 hideMovieError];
+	[auxMovieView2 hideMovieError];
 	
 	[mainMovieView setLive:true];
 	
@@ -201,6 +223,11 @@ static UIImage * newButtonBackgroundImage = nil;
 	[self addPinchRecognizerToView:auxMovieView1];
 	[self addPinchRecognizerToView:auxMovieView2];
 	
+	// Add double taps to the movie views in order to reload
+	[self addDoubleTapRecognizerToView:mainMovieView];
+	[self addDoubleTapRecognizerToView:auxMovieView1];
+	[self addDoubleTapRecognizerToView:auxMovieView2];
+	
 	// Add tap recognizer to button panels to dismiss menus
 	[self addTapRecognizerToView:topButtonPanel];
 	[self addTapRecognizerToView:bottomButtonPanel];
@@ -248,12 +275,14 @@ static UIImage * newButtonBackgroundImage = nil;
 		
 	if(displayVideo)
 	{
-		// Check that we have the right movie loaded
-		[[BasePadMedia Instance] verifyMovieLoaded];
-		
-		// and register us to play it
+		// Register us to play video
 		[[BasePadMedia Instance] RegisterViewController:self];
 		[[RacePadCoordinator Instance] SetViewDisplayed:mainMovieView];
+		
+		// Then check that we have the right movie loaded
+		[mainMovieView setMovieViewDelegate:self];
+		[[BasePadMedia Instance] verifyMovieLoaded];
+		
 	}
 	
 	if(displayMap)
@@ -412,16 +441,21 @@ static UIImage * newButtonBackgroundImage = nil;
 // Movie routines
 ////////////////////////////////////////////////////////////////////////////
 
+- (MovieView *) firstMovieView
+{
+	return mainMovieView;
+}
+
 - (void) displayMovieSource:(BasePadVideoSource *)source 
 {	
 	if(!source)
 		return;
 	
-	if(![mainMovieView moviePlayerLayerAdded])
+	if(![mainMovieView movieSourceAssociated])
 		[self displayMovieSource:source InView:mainMovieView];
-	else if(![auxMovieView1 moviePlayerLayerAdded])
+	else if(![auxMovieView1 movieSourceAssociated])
 		[self displayMovieSource:source InView:auxMovieView1];
-	else if(![auxMovieView2 moviePlayerLayerAdded])
+	else if(![auxMovieView2 movieSourceAssociated])
 		[self displayMovieSource:source InView:auxMovieView2];
 }
 
@@ -505,7 +539,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			break;
 	}
 	
-	[newView resizeMovieSourceWithDuration:0.0];
+	[newView resizeMovieSourceAnimated:false WithDuration:0.0];
 }
 
 - (void) positionMovieViews
@@ -514,10 +548,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	int movieViewCount = 1;
 	
-	if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
+	if([auxMovieView1 movieSourceAssociated] && ![auxMovieView1 movieScheduledForRemoval])
 		movieViewCount++;
 	
-	if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
+	if([auxMovieView2 movieSourceAssociated] && ![auxMovieView2 movieScheduledForRemoval])
 		movieViewCount++;
 	
 	// Position displayed windows
@@ -550,14 +584,14 @@ static UIImage * newButtonBackgroundImage = nil;
 		[mainMovieView setFrame:leftViewRect];
 		[mainMovieView setLabelAlignment:MV_ALIGN_TOP];
 		[mainMovieView setShouldShowLabels:true];
-		if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
+		if([auxMovieView1 movieSourceAssociated] && ![auxMovieView1 movieScheduledForRemoval])
 		{
 			[auxMovieView1 setFrame:centreViewRect];
 			[auxMovieView1 setLabelAlignment:MV_ALIGN_TOP];
 			[auxMovieView1 setShouldShowLabels:true];
 			[auxMovieView2 setShouldShowLabels:false];
 		}
-		else if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
+		else if([auxMovieView2 movieSourceAssociated] && ![auxMovieView2 movieScheduledForRemoval])
 		{
 			[auxMovieView2 setFrame:centreViewRect];
 			[auxMovieView2 setLabelAlignment:MV_ALIGN_TOP];
@@ -571,13 +605,13 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomContainer setFrame:mapInsetRect];
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
-		if([auxMovieView1 moviePlayerLayerAdded])
+		if([auxMovieView1 movieSourceAssociated])
 		{
 			[auxMovieView1 setFrame:(priorityAuxMovie == 1 ? centreViewRect : topViewRect)];
 			[auxMovieView1 setLabelAlignment:(priorityAuxMovie == 1 ? MV_ALIGN_TOP : MV_ALIGN_LEFT)];
 			[auxMovieView1 setShouldShowLabels:true];
 		}
-		if([auxMovieView2 moviePlayerLayerAdded])
+		if([auxMovieView2 movieSourceAssociated])
 		{
 			[auxMovieView2 setFrame:(priorityAuxMovie == 1 ? topViewRect : centreViewRect)];
 			[auxMovieView2 setLabelAlignment:(priorityAuxMovie == 1 ? MV_ALIGN_LEFT : MV_ALIGN_TOP)];
@@ -595,9 +629,9 @@ static UIImage * newButtonBackgroundImage = nil;
 		[auxMovieView2 setFrame:CGRectOffset(auxMovieView2Rect, superBounds.size.width - auxMovieView2Rect.origin.x + 1, 0)]; //Slide off right
 	
 	// And move movie content to go with it
-	[mainMovieView resizeMovieSourceWithDuration:1.0];
-	[auxMovieView1 resizeMovieSourceWithDuration:1.0];
-	[auxMovieView2 resizeMovieSourceWithDuration:1.0];
+	[mainMovieView resizeMovieSourceAnimated:true WithDuration:1.0];
+	[auxMovieView1 resizeMovieSourceAnimated:true WithDuration:1.0];
+	[auxMovieView2 resizeMovieSourceAnimated:true WithDuration:1.0];
 	
 }
 
@@ -620,10 +654,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(newView && movieDirection != MV_CURRENT_POSITION)
 		[self prePositionMovieView:newView From:movieDirection];
 	
-	if([auxMovieView1 moviePlayerLayerAdded] && ![auxMovieView1 movieScheduledForRemoval])
+	if([auxMovieView1 movieSourceAssociated] && ![auxMovieView1 movieScheduledForRemoval])
 		[self showAuxMovieView:auxMovieView1];
 	
-	if([auxMovieView2 moviePlayerLayerAdded] && ![auxMovieView2 movieScheduledForRemoval])
+	if([auxMovieView2 movieSourceAssociated] && ![auxMovieView2 movieScheduledForRemoval])
 		[self showAuxMovieView:auxMovieView2];
 	
 	[auxMovieView1 hideMovieLabels];
@@ -645,13 +679,13 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	moviesAnimating = false;
 	
-	if(![auxMovieView1 moviePlayerLayerAdded] || [auxMovieView1 movieScheduledForRemoval])
+	if(![auxMovieView1 movieSourceAssociated] || [auxMovieView1 movieScheduledForRemoval])
 	{
 		[auxMovieView1 removeMovieFromView];
 		[self hideAuxMovieView:auxMovieView1];
 	}
 	
-	if(![auxMovieView2 moviePlayerLayerAdded] || [auxMovieView2 movieScheduledForRemoval])
+	if(![auxMovieView2 movieSourceAssociated] || [auxMovieView2 movieScheduledForRemoval])
 	{
 		[auxMovieView2 removeMovieFromView];
 		[self hideAuxMovieView:auxMovieView2];
@@ -728,12 +762,12 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (MovieView *) findFreeMovieView
 {
-	if(auxMovieView1 && ![auxMovieView1 moviePlayerLayerAdded])
+	if(auxMovieView1 && ![auxMovieView1 movieSourceAssociated])
 	{
 		priorityAuxMovie = 1;
 		return auxMovieView1;
 	}
-	else if(auxMovieView2 && ![auxMovieView2 moviePlayerLayerAdded])
+	else if(auxMovieView2 && ![auxMovieView2 movieSourceAssociated])
 	{
 		priorityAuxMovie = 2;
 		return auxMovieView2;
@@ -1130,29 +1164,34 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {
-	// Make sure we're on the map - do nothing otherwise
-	if(!gestureView || ![gestureView isKindOfClass:[TrackMapView class]])
+	// If it's a movie view, reload movie
+	if(gestureView && [gestureView isKindOfClass:[MovieView class]])
 	{
-		return;
+		[(MovieView *)gestureView redisplayMovieSource];
 	}
 	
-	/*
-	if([(TrackMapView *)gestureView isZoomView])
+	//On the map, reset zoom
+	if(gestureView && [gestureView isKindOfClass:[TrackMapView class]])
 	{
-		[[RacePadCoordinator Instance] setNameToFollow:nil];
-		[self hideZoomMap];
-	}
-	else
-	*/
-	{
+	
+		/*
+		if([(TrackMapView *)gestureView isZoomView])
 		{
-			[(TrackMapView *)gestureView setUserXOffset:0.0];
-			[(TrackMapView *)gestureView setUserYOffset:0.0];
-			[(TrackMapView *)gestureView setUserScale:1.0];	
+			[[RacePadCoordinator Instance] setNameToFollow:nil];
+			[self hideZoomMap];
 		}
-	}
+		else
+		*/
+		{
+			{
+				[(TrackMapView *)gestureView setUserXOffset:0.0];
+				[(TrackMapView *)gestureView setUserYOffset:0.0];
+				[(TrackMapView *)gestureView setUserScale:1.0];	
+			}
+		}
 	
-	[trackMapView RequestRedraw];
+		[trackMapView RequestRedraw];
+	}
 	// GG - COMMENT OUT LEADERBOARD : [leaderboardView RequestRedraw];
 }
 
@@ -1190,7 +1229,7 @@ static UIImage * newButtonBackgroundImage = nil;
 				}
 				else if(scale < 1)
 				{
-					if([auxMovieView2 moviePlayerLayerAdded] && priorityAuxMovie == 1)
+					if([auxMovieView2 movieSourceAssociated] && priorityAuxMovie == 1)
 					{
 						priorityAuxMovie = 2;
 						[self animateMovieViews:nil From:MV_CURRENT_POSITION];
@@ -1211,7 +1250,7 @@ static UIImage * newButtonBackgroundImage = nil;
 				}
 				else if(scale < 1)
 				{
-					if([auxMovieView1 moviePlayerLayerAdded] && priorityAuxMovie == 2)
+					if([auxMovieView1 movieSourceAssociated] && priorityAuxMovie == 2)
 					{
 						priorityAuxMovie = 1;
 						[self animateMovieViews:nil From:MV_CURRENT_POSITION];

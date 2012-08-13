@@ -88,6 +88,10 @@
 						[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 						[movieView setMovieViewDelegate:self];
 						[movieView displayMovieSource:videoSource]; // Will get notification below when finished
+
+						BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];						
+						if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+							[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 					}
 				}
 			}
@@ -97,10 +101,6 @@
 
 - (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
 {
-	BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
-	
-	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-		[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 }
 
 - (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method

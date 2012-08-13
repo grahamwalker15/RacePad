@@ -380,6 +380,8 @@
 		7FA235B414DEE46000EBA739 /* ThumbTRACK-T11.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA235AC14DEE46000EBA739 /* ThumbTRACK-T11.png */; };
 		7FA235B514DEE46000EBA739 /* ThumbVET.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA235AD14DEE46000EBA739 /* ThumbVET.png */; };
 		7FA235B614DEE46000EBA739 /* ThumbWEB.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA235AE14DEE46000EBA739 /* ThumbWEB.png */; };
+		7FA239E314E45F1D00EBA739 /* Copyright.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA239E214E45F1D00EBA739 /* Copyright.png */; };
+		7FA23AF314E80FBD00EBA739 /* MovieViewEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA23AF214E80FBD00EBA739 /* MovieViewEmpty.png */; };
 		7FA2765912F9D13D001407FD /* GameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2764E12F9D13D001407FD /* GameHelpController.m */; };
 		7FA2765A12F9D13D001407FD /* LapListHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765012F9D13D001407FD /* LapListHelpController.m */; };
 		7FA2765B12F9D13D001407FD /* MapHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765212F9D13D001407FD /* MapHelpController.m */; };
@@ -1106,6 +1108,8 @@
 		7FA235AC14DEE46000EBA739 /* ThumbTRACK-T11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbTRACK-T11.png"; sourceTree = "<group>"; };
 		7FA235AD14DEE46000EBA739 /* ThumbVET.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbVET.png; sourceTree = "<group>"; };
 		7FA235AE14DEE46000EBA739 /* ThumbWEB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbWEB.png; sourceTree = "<group>"; };
+		7FA239E214E45F1D00EBA739 /* Copyright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Copyright.png; sourceTree = "<group>"; };
+		7FA23AF214E80FBD00EBA739 /* MovieViewEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MovieViewEmpty.png; sourceTree = "<group>"; };
 		7FA2764D12F9D13D001407FD /* GameHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHelpController.h; sourceTree = "<group>"; };
 		7FA2764E12F9D13D001407FD /* GameHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHelpController.m; sourceTree = "<group>"; };
 		7FA2764F12F9D13D001407FD /* LapListHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapListHelpController.h; sourceTree = "<group>"; };
@@ -1998,6 +2002,8 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7FA23AF214E80FBD00EBA739 /* MovieViewEmpty.png */,
+				7FA239E214E45F1D00EBA739 /* Copyright.png */,
 				7FA235A614DEE43A00EBA739 /* Thumbnails */,
 				7FA22DE814D6B90800EBA739 /* close-window-button.png */,
 				7FA22D9C14D6B5FC00EBA739 /* ButtonImages */,
@@ -2986,6 +2992,8 @@
 				7FA235B414DEE46000EBA739 /* ThumbTRACK-T11.png in Resources */,
 				7FA235B514DEE46000EBA739 /* ThumbVET.png in Resources */,
 				7FA235B614DEE46000EBA739 /* ThumbWEB.png in Resources */,
+				7FA239E314E45F1D00EBA739 /* Copyright.png in Resources */,
+				7FA23AF314E80FBD00EBA739 /* MovieViewEmpty.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

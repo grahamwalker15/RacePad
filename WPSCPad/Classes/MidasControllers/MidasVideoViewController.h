@@ -27,6 +27,8 @@
 
 @interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate, MidasSocialmediaResponderDelegate, MovieViewDelegate>
 {
+	IBOutlet UIImageView * copyright;
+
 	IBOutlet MovieView * mainMovieView;
 	IBOutlet MovieView * auxMovieView1;	
 	IBOutlet MovieView * auxMovieView2;
@@ -42,7 +44,19 @@
 	
 	IBOutlet UIButton * auxMovieView2DriverName;
 	IBOutlet UIButton * auxMovieView2MovieType;
+	
+	IBOutlet UIImageView * mainMovieViewLoadingScreen;
 
+	IBOutlet UILabel * auxMovieView1LoadingLabel;
+	IBOutlet UIActivityIndicatorView * auxMovieView1LoadingTwirl;	
+	IBOutlet UILabel * auxMovieView1ErrorLabel;
+	IBOutlet UIImageView * auxMovieView1LoadingScreen;
+	
+	IBOutlet UILabel * auxMovieView2LoadingLabel;
+	IBOutlet UIActivityIndicatorView * auxMovieView2LoadingTwirl;	
+	IBOutlet UILabel * auxMovieView2ErrorLabel;
+	IBOutlet UIImageView * auxMovieView2LoadingScreen;
+	
 	IBOutlet UIView * overlayView;
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet BackgroundView * trackZoomContainer;

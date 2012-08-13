@@ -698,7 +698,7 @@
 		7F6FB6BB127577FE00EF2B8C /* RightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RightArrow.png; path = Images/RightArrow.png; sourceTree = "<group>"; };
 		7F6FB8981275F11400EF2B8C /* TimeControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
 		7F71A4A912AFDEBD0052C70C /* AnimationTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationTimer.h; sourceTree = "<group>"; };
-		7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationTimer.m; sourceTree = "<group>"; };
+		7F71A4AA12AFDEBD0052C70C /* AnimationTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationTimer.m; path = AnimationTimers.m; sourceTree = "<group>"; };
 		7F71A8DC12BBFCD60052C70C /* PredictionBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PredictionBG.png; path = Images/PredictionBG.png; sourceTree = "<group>"; };
 		7F71AF4E12CE43600052C70C /* JogControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = JogControlView.xib; path = ResourceFiles/JogControlView.xib; sourceTree = "<group>"; };
 		7F71AF5712CE44220052C70C /* JogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JogViewController.h; sourceTree = "<group>"; };
@@ -2015,7 +2015,7 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MidasDemo" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -2613,7 +2613,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MidasDemo" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

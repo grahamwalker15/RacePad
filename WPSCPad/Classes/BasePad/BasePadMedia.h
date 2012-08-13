@@ -21,6 +21,8 @@
 #import "BasePadVideoSource.h"
 #import "BasePadAudioSource.h"
 
+#import "MovieView.h"
+
 #import "BasePadVideoViewController.h"
 
 // Movie types
@@ -51,7 +53,8 @@ enum MovieConnectionTypes
 	BasePadVideoSource * movieSources[BPM_MAX_VIDEO_STREAMS];
 	int movieSourceCount;
 	
-	int movieSourceLoadQueue[BPM_MAX_VIDEO_STREAMS];
+	BasePadVideoSource * queuedMovieSource[BPM_MAX_VIDEO_STREAMS];
+	MovieView * queuedMovieView[BPM_MAX_VIDEO_STREAMS];
 	int movieSourceQueueCount;
 	bool movieSourceQueueBlocked;
 	
@@ -89,6 +92,8 @@ enum MovieConnectionTypes
 
 @property (readonly) int movieSourceCount;
 
+@property (readonly) float activePlaybackRate;
+
 @property (readonly) float liveVideoDelay;
 @property (readonly) int resyncCount;
 @property (readonly) int restartCount;
@@ -112,7 +117,7 @@ enum MovieConnectionTypes
 - (void)verifyMovieLoaded;
 - (void)verifyAudioLoaded;
 
-- (void)queueMovieLoad:(int)movieSourceIndex;
+- (void)queueMovieLoad:(BasePadVideoSource *)movieSource IntoView:(MovieView *)movieView;
 - (void)blockMovieLoadQueue;
 - (void)unblockMovieLoadQueue;
 
