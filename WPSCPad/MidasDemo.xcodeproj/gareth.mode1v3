@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>7F661D8215D90EA600D7F2D6</string>
+						<string>7F661DCB15D9150D00D7F2D6</string>
 						<key>history</key>
 						<array>
 							<string>7F661D7815D90E9200D7F2D6</string>
@@ -256,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>7F661D8315D90EA600D7F2D6</string>
+						<string>7F661DCC15D9150D00D7F2D6</string>
 						<key>history</key>
 						<array>
 							<string>7F39399415D9062C00AECDC7</string>
@@ -310,8 +310,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -350,16 +348,6 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>080E96DDFE201D6D7F000001</string>
-								<string>7FFE7E4914BB6F49007D27A2</string>
-								<string>7FC149EF14B701BA003CE61E</string>
-								<string>7FA965C414B45398006B072C</string>
-								<string>7F9419761497BFB300E14090</string>
-								<string>4D5A359F13A23CB4007C4AA9</string>
-								<string>4D5A365C13A5F689007C4AA9</string>
-								<string>4DA5FA5413B33BD60005F15A</string>
-								<string>7F9C1725125A2B9000770746</string>
-								<string>7F3276EE126379B000BD1627</string>
-								<string>7F9C1AD4125B7B6B00770746</string>
 								<string>7F9C1B75125CA10A00770746</string>
 								<string>7F9C10D71255E68B00770746</string>
 								<string>7F9C10DF1255E6A900770746</string>
@@ -373,13 +361,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>252</integer>
-									<integer>249</integer>
+									<integer>2</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 4941}, {319, 686}}</string>
+							<string>{{0, 0}, {319, 686}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -411,12 +399,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>gareth.pbxuser</string>
+								<string>BaseSocialmediaView.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -424,11 +414,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>gareth.pbxuser</string>
+										<string>BaseSocialmediaView.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7F661D7F15D90EA600D7F2D6</string>
+										<string>7F661DC915D9150D00D7F2D6</string>
 										<key>history</key>
 										<array>
 											<string>7FBDFA621264AE97009D37FA</string>
@@ -914,8 +904,10 @@
 											<string>7F39399015D9062C00AECDC7</string>
 											<string>7F39399115D9062C00AECDC7</string>
 											<string>7F39399215D9062C00AECDC7</string>
-											<string>7F661D7D15D90EA600D7F2D6</string>
-											<string>7F661D7E15D90EA600D7F2D6</string>
+											<string>7F661DB015D910FE00D7F2D6</string>
+											<string>7F661DC515D9150D00D7F2D6</string>
+											<string>7F661DC715D9150D00D7F2D6</string>
+											<string>7F661DC815D9150D00D7F2D6</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -1113,11 +1105,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>7F934DE512E8A8AF00AB1D07</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7FBDF8F6126484CD009D37FA</string>
 		<string>7FA8204A1552F01F007D7B4E</string>
-		<string>7F934DE512E8A8AF00AB1D07</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>7F661D8015D90EA600D7F2D6</string>
 		<string>/Development/Projects/WPSCDemo/MidasDemo/MidasDemo.xcodeproj</string>
 	</array>
@@ -1427,7 +1419,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
@@ -1635,7 +1627,7 @@
 			<key>WindowToolGUID</key>
 			<string>7F934DE512E8A8AF00AB1D07</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

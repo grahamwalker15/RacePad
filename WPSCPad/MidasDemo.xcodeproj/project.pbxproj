@@ -138,7 +138,7 @@
 		7F62476412851255009A9D4F /* SCFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475E12851255009A9D4F /* SCFlag.png */; };
 		7F62476512851255009A9D4F /* SCInFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475F12851255009A9D4F /* SCInFlag.png */; };
 		7F62476612851255009A9D4F /* YellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62476012851255009A9D4F /* YellowFlag.png */; };
-		7F661D7715D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F661D7615D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib */; };
+		7F661DA115D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F661DA015D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib */; };
 		7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; };
 		7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; };
 		7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
@@ -833,7 +833,7 @@
 		7F62475E12851255009A9D4F /* SCFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCFlag.png; path = Images/SCFlag.png; sourceTree = "<group>"; };
 		7F62475F12851255009A9D4F /* SCInFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCInFlag.png; path = Images/SCInFlag.png; sourceTree = "<group>"; };
 		7F62476012851255009A9D4F /* YellowFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = YellowFlag.png; path = Images/YellowFlag.png; sourceTree = "<group>"; };
-		7F661D7615D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasSocialmediaBaseView.xib; path = ResourceFiles/MidasSocialmediaBaseView.xib; sourceTree = "<group>"; };
+		7F661DA015D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasSocialmediaBaseView.xib; path = ResourceFiles/MidasSocialmediaBaseView.xib; sourceTree = "<group>"; };
 		7F6E7D941276ED540073A644 /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
 		7F6E7D951276ED540073A644 /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverLapListController.h; sourceTree = "<group>"; };
@@ -1438,7 +1438,6 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				7F661D7615D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -2110,6 +2109,7 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F661DA015D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib */,
 				7FA22F6614D6EEB800EBA739 /* MidasSetup.xib */,
 				7FA2221914D1583F00EBA739 /* MidasMyTeamView.xib */,
 				7FA220F114D0688B00EBA739 /* MidasMasterMenuView.xib */,
@@ -2993,7 +2993,7 @@
 				7FA235B614DEE46000EBA739 /* ThumbWEB.png in Resources */,
 				7FA239E314E45F1D00EBA739 /* Copyright.png in Resources */,
 				7FA23AF314E80FBD00EBA739 /* MovieViewEmpty.png in Resources */,
-				7F661D7715D90E4700D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */,
+				7F661DA115D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
