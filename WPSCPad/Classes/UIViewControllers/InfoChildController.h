@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BackgroundView.h";
+#import "BackgroundView.h"
 
 @interface InfoChildController : UIViewController <UIWebViewDelegate>
 {
