@@ -160,10 +160,13 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
-	if(moviePlayerLayer)
+	if(movieView && [movieView moviePlayerLayerAdded])
 	{
-		[moviePlayerLayer setFrame:[movieView bounds]];
+		AVPlayerLayer * moviePlayerLayer = [[movieView movieSource] moviePlayerLayer];	
+		if(moviePlayerLayer)
+		{
+			[moviePlayerLayer setFrame:[movieView bounds]];
+		}
 	}
 	
 	[UIView commitAnimations];
@@ -191,10 +194,65 @@
 // Movie routines
 ////////////////////////////////////////////////////////////////////////////
 
+- (void) displayMovieSource:(BasePadVideoSource *)source
+{	
+	if(!source)
+		return;
+	
+	[movieView setMovieViewDelegate:self];
+	[movieView displayMovieSource:source]; // Will get notification below when it's done
+}
+
+- (void)notifyMovieAttachedToView:(MovieView *)notifyingView	// MovieViewDelegate method
+{
+	if(notifyingView == movieView)
+	{
+		[movieView bringSubviewToFront:overlayView];
+		[movieView bringSubviewToFront:videoDelayLabel];
+		[movieView bringSubviewToFront:loadingLabel];
+		[movieView bringSubviewToFront:loadingTwirl];
+		
+		// [self positionOverlays];
+	}
+}
+
+- (void)notifyMovieReadyToPlayInView:(MovieView *)notifyingView	// MovieViewDelegate method
+{
+}
+
+- (void) removeMovieFromView:(BasePadVideoSource *)source
+{
+	if([movieView movieSource] == source)
+		[movieView removeMovieFromView];
+}
+
+- (void) removeMoviesFromView
+{
+	[movieView removeMovieFromView];
+}
+
+- (void) notifyMovieInformation
+{
+	if([[MatchPadCoordinator Instance] diagnostics] && [[MatchPadCoordinator Instance] liveMode])
+	{
+		NSString * videoDelayString = [NSString stringWithFormat:@"Live video delay (%d / %d) : %.1f", [[BasePadMedia Instance] resyncCount], [[BasePadMedia Instance] restartCount], [[BasePadMedia Instance] liveVideoDelay]];
+		[videoDelayLabel setText:videoDelayString];
+		[videoDelayLabel setHidden:false];
+	}
+	else
+	{
+		[videoDelayLabel setHidden:true];
+	}
+}
+
+/// Older
+
+/*
+
 - (void) displayMovieInView
 {	
 	// Position the movie and order the overlays
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource:0] moviePlayerLayer];	
 	
 	if(moviePlayerLayer && !moviePlayerLayerAdded)
 	{
@@ -214,7 +272,7 @@
 
 - (void) removeMovieFromView
 {
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource:0] moviePlayerLayer];	
 	if(moviePlayerLayer && moviePlayerLayerAdded)
 	{
 		[moviePlayerLayer removeFromSuperlayer];
@@ -235,6 +293,8 @@
 		[videoDelayLabel setHidden:true];
 	}
 }
+ 
+ */
 
 /////////////////////////////////////////////////////////////////////
 // Overlay Controls
@@ -472,7 +532,7 @@
 	[UIView setAnimationDelegate:self];
 	// [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource] moviePlayerLayer];	
+	AVPlayerLayer * moviePlayerLayer = [[[BasePadMedia Instance] movieSource:0] moviePlayerLayer];	
 	if(moviePlayerLayer)
 	{
 		[moviePlayerLayer setFrame:[movieView bounds]];
