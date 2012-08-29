@@ -11,6 +11,7 @@
 #import "MidasCoordinator.h"
 #import "MidasStandingsViewController.h"
 #import "MidasCircuitViewController.h"
+#import "MidasCameraViewController.h"
 #import "MidasFollowDriverViewController.h"
 
 #import "MidasAlertsViewController.h"
@@ -135,6 +136,34 @@ static MidasFollowDriverManager * followDriverInstance_ = nil;
 
 @end
 
+@implementation MidasCameraManager
+
+static MidasCameraManager * cameraInstance_ = nil;
+
++(MidasCameraManager *)Instance
+{
+	if(!cameraInstance_)
+		cameraInstance_ = [[MidasCameraManager alloc] init];
+	
+	return cameraInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasCameraViewController alloc] initWithNibName:@"MidasCamerasView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_CAMERA_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_MY_AREA_];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+
+@end
+
 @implementation MidasHeadToHeadManager
 									   
 static MidasHeadToHeadManager * headToHeadInstance_ = nil;
@@ -158,34 +187,6 @@ static MidasHeadToHeadManager * headToHeadInstance_ = nil;
 		[viewController setAssociatedManager:self];
 	}
 			
-	return self;
-}
-									   
-@end
-
-@implementation MidasVIPManager
-									   
-static MidasVIPManager * vipInstance_ = nil;
-									   
-+(MidasVIPManager *)Instance
-{
-	if(!vipInstance_)
-		vipInstance_ = [[MidasVIPManager alloc] init];
-	
-	return vipInstance_;
-}
-							   
--(id)init
-{
-	if(self = [super init])
-	{			
-		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasVIPView" bundle:nil];
-		[self setManagedViewController:viewController];
-		[self setManagedViewType:MIDAS_VIP_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_TOP_ | MIDAS_ZONE_DATA_AREA_];
-		[viewController setAssociatedManager:self];
-	}
-	
 	return self;
 }
 									   
@@ -324,6 +325,34 @@ static MidasChatManager * chatInstance_ = nil;
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_CHAT_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MidasVIPManager
+
+static MidasVIPManager * vipInstance_ = nil;
+
++(MidasVIPManager *)Instance
+{
+	if(!vipInstance_)
+		vipInstance_ = [[MidasVIPManager alloc] init];
+	
+	return vipInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasVIPView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_VIP_POPUP_];
+		[self setManagedExclusionZone:MIDAS_ZONE_BOTTOM_];
 		[viewController setAssociatedManager:self];
 	}
 	

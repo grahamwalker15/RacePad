@@ -63,6 +63,8 @@
 
 - (UIImage *) getNationalFlag:(int)row;
 
--(IBAction)movieSelected:(id)sender;
+-(IBAction) movieSelected:(id)sender;
+-(IBAction) votePressed:(id)sender;
+
 
 @end

@@ -13,6 +13,7 @@ enum CellTypes {
 	SLV_TEXT_CELL_,			
 	SLV_IMAGE_CELL_,
 	SLV_CLIENT_IMAGE_,
+	SLV_CUSTOM_DRAW_,
 } ;
 
 // Text align types
@@ -179,6 +180,7 @@ enum ColumnPriority {
 - (void) Draw:(CGRect)region;
 - (void) DrawBase;
 
+-(void)	CustomDrawCellForRow:(int)row Col:(int)col AtX:(float)x Y:(float)y WithRowHeight:(float)row_height ColumnWidth:(int)column_width AndLineHeight:(float)line_height;
 
 // Functions that CAN be overridden for customised content (defaults return local array counts)
 - (int) RowCount;

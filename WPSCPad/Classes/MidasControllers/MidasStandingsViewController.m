@@ -29,7 +29,7 @@
 	[standingsView setExpansionView:expansionView];
 	
 	[standingsView SetFont:DW_LIGHT_LARGER_CONTROL_FONT_];
-	[standingsView setStandardRowHeight:26];
+	[standingsView setStandardRowHeight:36];
 	[standingsView setExpansionRowHeight:CGRectGetHeight(expansionView.bounds)];
 	[standingsView setExpansionAllowed:true];
 	[standingsView SetHeading:false];
@@ -157,6 +157,10 @@
 	}
 }
 
+-(IBAction)votePressed:(id)sender
+{
+}
+
 - (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
 {
 }
@@ -249,6 +253,20 @@
 		return [UIImage imageNamed:@"Germany.png"];
 	if([tag compare:@"DAM"] == NSOrderedSame)
 		return [UIImage imageNamed:@"Belgium.png"];
+	if([tag compare:@"PIC"] == NSOrderedSame)
+		return [UIImage imageNamed:@"France.png"];
+	if([tag compare:@"GRO"] == NSOrderedSame)
+		return [UIImage imageNamed:@"France.png"];
+	if([tag compare:@"RAI"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Finland.png"];
+	if([tag compare:@"VER"] == NSOrderedSame)
+		return [UIImage imageNamed:@"France.png"];
+	if([tag compare:@"HUL"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"DLR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Spain.png"];
+	if([tag compare:@"KAR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"India.png"];
 	
 	return nil;
 }

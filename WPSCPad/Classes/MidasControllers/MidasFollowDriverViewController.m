@@ -44,7 +44,8 @@
 	
  	[leaderboardView SetTableDataClass:[[RacePadDatabase Instance] leaderBoardData]];
 	[leaderboardView setAssociatedTrackMapView:trackMapView];
-	[leaderboardView setSmallDisplay:true];
+	[leaderboardView setSmallDisplay:false];
+	[leaderboardView setUseBoldFont:false];
 	[leaderboardView setAddOutlines:false];
 	
 	// Set parameters for views
@@ -201,10 +202,18 @@
 			{
 				driverFound = true;
 				
-				// Get the driver number
-				int driverNumber = [self getDriverNumber:abbr];
-				[driverNumberLabel setText:[NSString stringWithFormat:@"%d", driverNumber]];
+				// Get the driver age
+				int driverAge = [self getDriverAge:abbr];
+				[driverAgeLabel setText:[NSString stringWithFormat:@"AGE : %d", driverAge]];
+				
+				// Get the driver nationality
+				NSString * nationalityLabel = @"NATIONALITY : ";
+				NSString * driverNationality = [nationalityLabel stringByAppendingString:[self getDriverNationality:abbr]];
+				[driverNationalityLabel setText:driverNationality];
+				
+				[driverFlag setImage:[self getNationalFlag:abbr]];
 
+				
 				// Get image list for the driver images
 				RacePadDatabase *database = [RacePadDatabase Instance];
 				ImageListStore * image_store = [database imageListStore];
@@ -273,8 +282,11 @@
 				float gapAhead = [driverGapInfo gapAhead];
 				float gapBehind = [driverGapInfo gapBehind];
 				
-				[driverNameLabel setText:fullName];
-				[driverTeamLabel setText:teamName];
+				[driverNameLabel setText:[fullName uppercaseString]];
+
+				NSString * teamLabel = @"TEAM : ";
+				NSString * driverTeam = [teamLabel stringByAppendingString:[teamName uppercaseString]];
+				[driverTeamLabel setText:driverTeam];
 				
 				if(position > 0)
 				{
@@ -332,16 +344,6 @@
 					[gapAheadLabel setText:@""];
 					[carBehindLabel setText:@""];
 					[gapBehindLabel setText:@""];
-				}
-				
-				BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:abbr];
-				if(videoSource && [videoSource movieThumbnail])
-				{
-					[onboardVideoButton setBackgroundImage:[videoSource movieThumbnail] forState:UIControlStateNormal];
-				}
-				else
-				{
-					[onboardVideoButton setBackgroundImage:[UIImage imageNamed:@"preview-video-layer.png"] forState:UIControlStateNormal];
 				}
 			}
 		}
@@ -405,54 +407,219 @@
 	return 1;
 }
 
--(IBAction)movieSelected:(id)sender
+- (NSString *) getDriverNationality:(NSString *)tag
 {
-	BasePadViewController * parentViewController = [[MidasFollowDriverManager Instance] parentViewController];
+	if(!tag)
+		return @" ";
 	
-	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-	{
-		MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
-		
-		DriverGapInfo * driverGapInfo = [[RacePadDatabase Instance] driverGapInfo];
-		
-		if(driverGapInfo)
-		{
-			NSString * requestedDriver = [driverGapInfo requestedDriver];
-			
-			if(requestedDriver && [requestedDriver length] > 0)
-			{
-				NSString * abbr = [driverGapInfo abbr];
-				
-				if(abbr && [abbr length] > 0)
-				{
-					BasePadVideoSource * videoSource = [[BasePadMedia Instance] findMovieSourceByTag:abbr];
-		
-					if(videoSource && ![videoSource movieDisplayed])
-					{
-						MovieView * movieView = [videoViewController findFreeMovieView];
-						if(movieView)
-						{
-							[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
-							[movieView setMovieViewDelegate:self];
-							[movieView displayMovieSource:videoSource]; // Will get notification below when finished
-
-							BasePadViewController * parentViewController = [[MidasFollowDriverManager Instance] parentViewController];	
-							if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-								[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
-						}
-					}
-				}
-			}
-		}
-	}
+	if([tag compare:@"VET"] == NSOrderedSame)
+		return @"GERMAN";
+	if([tag compare:@"WEB"] == NSOrderedSame)
+		return @"AUSTRALIAN";
+	if([tag compare:@"HAM"] == NSOrderedSame)
+		return @"BRITISH";
+	if([tag compare:@"BUT"] == NSOrderedSame)
+		return @"BRITISH";
+	if([tag compare:@"ALO"] == NSOrderedSame)
+		return @"SPANISH";
+	if([tag compare:@"MAS"] == NSOrderedSame)
+		return @"BRAZILIAN";
+	if([tag compare:@"MSC"] == NSOrderedSame)
+		return @"GERMAN";
+	if([tag compare:@"ROS"] == NSOrderedSame)
+		return @"GERMAN";
+	if([tag compare:@"SEN"] == NSOrderedSame)
+		return @"BRAZILIAN";
+	if([tag compare:@"PET"] == NSOrderedSame)
+		return @"RUSSIAN";
+	if([tag compare:@"SUT"] == NSOrderedSame)
+		return @"GERMAN";
+	if([tag compare:@"DIR"] == NSOrderedSame)
+		return @"BRITISH";
+	if([tag compare:@"BAR"] == NSOrderedSame)
+		return @"BRAZILIAN";
+	if([tag compare:@"MAL"] == NSOrderedSame)
+		return @"VENEZUELAN";
+	if([tag compare:@"PER"] == NSOrderedSame)
+		return @"MEXICAN";
+	if([tag compare:@"KOB"] == NSOrderedSame)
+		return @"JAPANESE";
+	if([tag compare:@"BUE"] == NSOrderedSame)
+		return @"SWISS";
+	if([tag compare:@"ALG"] == NSOrderedSame)
+		return @"SPANISH";
+	if([tag compare:@"KOV"] == NSOrderedSame)
+		return @"FINNISH";
+	if([tag compare:@"TRU"] == NSOrderedSame)
+		return @"ITALIAN";
+	if([tag compare:@"RIC"] == NSOrderedSame)
+		return @"AUSTRALIAN";
+	if([tag compare:@"LIU"] == NSOrderedSame)
+		return @"ITALIAN";
+	if([tag compare:@"GLO"] == NSOrderedSame)
+		return @"GERMAN";
+	if([tag compare:@"DAM"] == NSOrderedSame)
+		return @"BELGIAN";
+	if([tag compare:@"PIC"] == NSOrderedSame)
+		return @"FRENCH";
+	if([tag compare:@"GRO"] == NSOrderedSame)
+		return @"FRENCH";
+	if([tag compare:@"RAI"] == NSOrderedSame)
+		return @"FINNISH";
+	if([tag compare:@"VER"] == NSOrderedSame)
+		return @"FRENCH";
+	if([tag compare:@"HUL"] == NSOrderedSame)
+		return @"GERMAN";
+	if([tag compare:@"DLR"] == NSOrderedSame)
+		return @"SPANISH";
+	if([tag compare:@"KAR"] == NSOrderedSame)
+		return @"INDIAN";
+	
+	return @" ";
 }
 
-- (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
+- (int) getDriverAge:(NSString *)tag
 {
+	if(!tag)
+		return 0;
+	
+	if([tag compare:@"VET"] == NSOrderedSame)
+		return 24;
+	if([tag compare:@"WEB"] == NSOrderedSame)
+		return 32;
+	if([tag compare:@"HAM"] == NSOrderedSame)
+		return 27;
+	if([tag compare:@"BUT"] == NSOrderedSame)
+		return 32;
+	if([tag compare:@"ALO"] == NSOrderedSame)
+		return 33;
+	if([tag compare:@"MAS"] == NSOrderedSame)
+		return 33;
+	if([tag compare:@"MSC"] == NSOrderedSame)
+		return 43;
+	if([tag compare:@"ROS"] == NSOrderedSame)
+		return 26;
+	if([tag compare:@"SEN"] == NSOrderedSame)
+		return 25;
+	if([tag compare:@"PET"] == NSOrderedSame)
+		return 29;
+	if([tag compare:@"SUT"] == NSOrderedSame)
+		return 32;
+	if([tag compare:@"DIR"] == NSOrderedSame)
+		return 25;
+	if([tag compare:@"BAR"] == NSOrderedSame)
+		return 41;
+	if([tag compare:@"MAL"] == NSOrderedSame)
+		return 29;
+	if([tag compare:@"PER"] == NSOrderedSame)
+		return 24;
+	if([tag compare:@"KOB"] == NSOrderedSame)
+		return 26;
+	if([tag compare:@"BUE"] == NSOrderedSame)
+		return 27;
+	if([tag compare:@"ALG"] == NSOrderedSame)
+		return 22;
+	if([tag compare:@"KOV"] == NSOrderedSame)
+		return 30;
+	if([tag compare:@"TRU"] == NSOrderedSame)
+		return 37;
+	if([tag compare:@"RIC"] == NSOrderedSame)
+		return 23;
+	if([tag compare:@"LIU"] == NSOrderedSame)
+		return 32;
+	if([tag compare:@"GLO"] == NSOrderedSame)
+		return 32;
+	if([tag compare:@"DAM"] == NSOrderedSame)
+		return 25;
+	if([tag compare:@"PIC"] == NSOrderedSame)
+		return 23;
+	if([tag compare:@"GRO"] == NSOrderedSame)
+		return 27;
+	if([tag compare:@"RAI"] == NSOrderedSame)
+		return 31;
+	if([tag compare:@"VER"] == NSOrderedSame)
+		return 25;
+	if([tag compare:@"HUL"] == NSOrderedSame)
+		return 25;
+	if([tag compare:@"DLR"] == NSOrderedSame)
+		return 38;
+	if([tag compare:@"KAR"] == NSOrderedSame)
+		return 31;
+	
+	return 0;
 }
 
-- (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method
+
+
+- (UIImage *) getNationalFlag:(NSString *)tag
 {
+	if(!tag)
+		return nil;
+	
+	if([tag compare:@"VET"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"WEB"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Australia.png"];
+	if([tag compare:@"HAM"] == NSOrderedSame)
+		return [UIImage imageNamed:@"UK.png"];
+	if([tag compare:@"BUT"] == NSOrderedSame)
+		return [UIImage imageNamed:@"UK.png"];
+	if([tag compare:@"ALO"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Spain.png"];
+	if([tag compare:@"MAS"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Brazil.png"];
+	if([tag compare:@"MSC"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"ROS"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"SEN"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Brazil.png"];
+	if([tag compare:@"PET"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Russia.png"];
+	if([tag compare:@"SUT"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"DIR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"UK.png"];
+	if([tag compare:@"BAR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Brazil.png"];
+	if([tag compare:@"MAL"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Venezuela.png"];
+	if([tag compare:@"PER"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Mexico.png"];
+	if([tag compare:@"KOB"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Japan.png"];
+	if([tag compare:@"BUE"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Switzerland.png"];
+	if([tag compare:@"ALG"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Spain.png"];
+	if([tag compare:@"KOV"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Finland.png"];
+	if([tag compare:@"TRU"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Italy.png"];
+	if([tag compare:@"RIC"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Australia.png"];
+	if([tag compare:@"LIU"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Italy.png"];
+	if([tag compare:@"GLO"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"DAM"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Belgium.png"];
+	if([tag compare:@"PIC"] == NSOrderedSame)
+		return [UIImage imageNamed:@"France.png"];
+	if([tag compare:@"GRO"] == NSOrderedSame)
+		return [UIImage imageNamed:@"France.png"];
+	if([tag compare:@"RAI"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Finland.png"];
+	if([tag compare:@"VER"] == NSOrderedSame)
+		return [UIImage imageNamed:@"France.png"];
+	if([tag compare:@"HUL"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Germany.png"];
+	if([tag compare:@"DLR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"Spain.png"];
+	if([tag compare:@"KAR"] == NSOrderedSame)
+		return [UIImage imageNamed:@"India.png"];
+	
+	return nil;
 }
 
 
@@ -616,6 +783,9 @@
 	}
 }
 
+-(IBAction)votePressed:(id)sender
+{
+}
 
 @end
 

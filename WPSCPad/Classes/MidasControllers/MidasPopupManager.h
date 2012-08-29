@@ -15,6 +15,7 @@
 @class MidasStandingsViewController;
 @class MidasCircuitViewController;
 @class MidasFollowDriverViewController;
+@class MidasCameraViewController;
 @class MidasHeadToHeadViewController;
 @class MidasMyTeamViewController;
 @class MidasVIPViewController;
@@ -30,6 +31,7 @@ enum PopupViewTypes
 	MIDAS_STANDINGS_POPUP_,
 	MIDAS_CIRCUIT_POPUP_,
 	MIDAS_FOLLOW_DRIVER_POPUP_,
+	MIDAS_CAMERA_POPUP_,
 	MIDAS_HEAD_TO_HEAD_POPUP_,
 	MIDAS_VIP_POPUP_,
 	MIDAS_MY_TEAM_POPUP_,
@@ -166,6 +168,15 @@ enum PopupMenuZones
 }
 
 +(MidasFollowDriverManager *)Instance;
+
+@end
+
+@interface MidasCameraManager : MidasPopupManager
+{
+	MidasCameraViewController * viewController;
+}
+
++(MidasCameraManager *)Instance;
 
 @end
 

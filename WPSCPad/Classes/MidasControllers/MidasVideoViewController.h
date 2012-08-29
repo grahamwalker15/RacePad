@@ -69,11 +69,10 @@
 
 	IBOutlet UIButton * midasMenuButton;
 	
+	IBOutlet UIButton * helpButton;
 	IBOutlet UIButton * alertsButton;
-	IBOutlet UIButton * twitterButton;
-	IBOutlet UIButton * facebookButton;
-	IBOutlet UIButton * midasChatButton;
-	IBOutlet UIButton * dfButton;
+	IBOutlet UIButton * socialMediaButton;
+	IBOutlet UIButton * vipButton;
 	
 	IBOutlet UIButton * lapCounterButton;
 	IBOutlet UIImageView * trackStateButton;
@@ -81,9 +80,8 @@
 	IBOutlet UIButton * standingsButton;
 	IBOutlet UIButton * mapButton;
 	IBOutlet UIButton * followDriverButton;
-	IBOutlet UIButton * headToHeadButton;
+	IBOutlet UIButton * cameraButton;
 	IBOutlet UIButton * timeControlsButton;
-	IBOutlet UIButton * vipButton;
 	IBOutlet UIButton * myTeamButton;
 	
 	IBOutlet UIImageView * moreLeftImage;
@@ -93,22 +91,20 @@
 	IBOutlet UILabel * pushNotificationAnimationLabel;
 	
 	bool midasMenuButtonOpen;
+	bool helpButtonOpen;
 	bool alertsButtonOpen;
-	bool twitterButtonOpen;
-	bool facebookButtonOpen;
-	bool midasChatButtonOpen;	
+	bool socialMediaButtonOpen;	
+	bool vipButtonOpen;
+
 	bool lapCounterButtonOpen;
 	bool standingsButtonOpen;
 	bool mapButtonOpen;
 	bool followDriverButtonOpen;
-	bool headToHeadButtonOpen;
+	bool cameraButtonOpen;
 	bool timeControlsButtonOpen;
-	bool vipButtonOpen;
 	bool myTeamButtonOpen;
 	
-	bool twitterButtonFlashed;
-	bool facebookButtonFlashed;
-	bool midasChatButtonFlashed;	
+	bool socialMediaButtonFlashed;
 
 	CGSize movieSize;
 	CGRect movieRect;
@@ -142,17 +138,16 @@
 @property (nonatomic) bool allowBubbleCommentary;
 
 @property (nonatomic) bool midasMenuButtonOpen;
+@property (nonatomic) bool helpButtonOpen;
 @property (nonatomic) bool alertsButtonOpen;
-@property (nonatomic) bool twitterButtonOpen;
-@property (nonatomic) bool facebookButtonOpen;
-@property (nonatomic) bool midasChatButtonOpen;	
+@property (nonatomic) bool socialMediaButtonOpen;	
+@property (nonatomic) bool vipButtonOpen;
 @property (nonatomic) bool lapCounterButtonOpen;
 @property (nonatomic) bool standingsButtonOpen;
 @property (nonatomic) bool mapButtonOpen;
 @property (nonatomic) bool followDriverButtonOpen;
-@property (nonatomic) bool headToHeadButtonOpen;
+@property (nonatomic) bool cameraButtonOpen;
 @property (nonatomic) bool timeControlsButtonOpen;
-@property (nonatomic) bool vipButtonOpen;
 @property (nonatomic) bool myTeamButtonOpen;
 
 - (void) setTrackState: (int)state;

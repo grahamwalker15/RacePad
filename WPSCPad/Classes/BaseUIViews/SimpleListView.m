@@ -542,7 +542,11 @@
 			else
 				cell_type  = [self InqCellTypeAtRow:row_index Col:col];
 			
-			if(cell_type  == SLV_TEXT_CELL_)
+			if(cell_type  == SLV_CUSTOM_DRAW_)
+			{
+				[self CustomDrawCellForRow:row Col:col AtX:(float)x Y:(float)y WithRowHeight:row_height ColumnWidth:column_width AndLineHeight:line_height];
+			}
+			else if(cell_type  == SLV_TEXT_CELL_)
 			{
 				NSString * text = heading ? [[self GetHeadingAtCol:col] retain] : [[self GetCellTextAtRow:row_index Col:col] retain];
 				
@@ -670,6 +674,11 @@
 		
 	}
 	
+}
+
+-(void)	CustomDrawCellForRow:(int)row Col:(int)col AtX:(float)x Y:(float)y WithRowHeight:(float)row_height ColumnWidth:(int)column_width AndLineHeight:(float)line_height
+{
+	// Override to draw custom cells
 }
 
 - (void) Draw:(CGRect)region

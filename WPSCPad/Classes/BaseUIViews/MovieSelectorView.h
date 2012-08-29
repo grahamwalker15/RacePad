@@ -14,8 +14,11 @@
 
 @interface MovieSelectorView : SimpleListView
 {
+	bool vertical;
 }
 
-- (BasePadVideoSource *) GetMovieSourceAtCol:(int)col;
+@property (nonatomic) bool vertical;
+
+- (BasePadVideoSource *) GetMovieSourceAtIndex:(int)index;
 
 @end

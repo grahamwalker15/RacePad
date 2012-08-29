@@ -17,6 +17,7 @@
 @synthesize tableData;
 @synthesize associatedTrackMapView;
 @synthesize smallDisplay;
+@synthesize useBoldFont;
 @synthesize addOutlines;
 @synthesize highlightCar;
 
@@ -26,6 +27,7 @@
     {
 		associatedTrackMapView = nil;
 		smallDisplay = false;
+		useBoldFont = true;
 		addOutlines = true;
 	}
 	
@@ -64,9 +66,19 @@
 	[self SaveGraphicsState];
 	
 	if(smallDisplay)
-		[self UseFont:DW_LARGER_CONTROL_FONT_];
-	else 
-		[self UseFont:DW_REGULAR_FONT_];
+	{
+		if(useBoldFont)
+			[self UseFont:DW_LARGER_CONTROL_FONT_];
+		else
+			[self UseFont:DW_LIGHT_LARGER_CONTROL_FONT_];
+	}
+	else
+	{
+		if(useBoldFont)
+			[self UseFont:DW_REGULAR_FONT_];
+		else
+			[self UseFont:DW_LIGHT_REGULAR_FONT_];
+	}
 	
 	float row_height = [self RowHeight];
 	
@@ -153,6 +165,11 @@
 	float table_height = row_count * row_height;
 	
 	float y = (current_size_.height - table_height) / 2;
+	
+	float content_width = current_size_.width;
+	float content_height = table_height > current_size_.height ? table_height : current_size_.height;
+	
+	[self SetContentWidth:content_width AndHeight:content_height];
 	
 	if(y < 0)
 		y = 0;
@@ -272,5 +289,6 @@
 	
 	return nil;
 }
+
 
 @end

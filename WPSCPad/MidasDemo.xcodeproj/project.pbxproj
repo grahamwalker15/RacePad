@@ -106,6 +106,38 @@
 		7F48F2111411060C00E293B4 /* ArrowDownRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20C1411060C00E293B4 /* ArrowDownRed.png */; };
 		7F48F2121411060C00E293B4 /* ArrowUpGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */; };
 		7F48F2131411060C00E293B4 /* TitleYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20E1411060C00E293B4 /* TitleYellow.png */; };
+		7F4B82CD15ECCAD700D8B486 /* menu Sections 01.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B82C815ECCAD700D8B486 /* menu Sections 01.png */; };
+		7F4B82CE15ECCAD700D8B486 /* menu Sections 02.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B82C915ECCAD700D8B486 /* menu Sections 02.png */; };
+		7F4B82CF15ECCAD700D8B486 /* menu Sections 03.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B82CA15ECCAD700D8B486 /* menu Sections 03.png */; };
+		7F4B82D015ECCAD700D8B486 /* menu Sections 04.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B82CB15ECCAD700D8B486 /* menu Sections 04.png */; };
+		7F4B82D115ECCAD700D8B486 /* menu Sections 05.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B82CC15ECCAD700D8B486 /* menu Sections 05.png */; };
+		7F4B82FD15ECD02200D8B486 /* MidasCamerasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B82FC15ECD02200D8B486 /* MidasCamerasView.xib */; };
+		7F4B856115ECF84A00D8B486 /* MenuDriverMenuBaseGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B856015ECF84A00D8B486 /* MenuDriverMenuBaseGradient.png */; };
+		7F4B857115ECF9AF00D8B486 /* MenuDriverButtonNegative.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B856F15ECF9AF00D8B486 /* MenuDriverButtonNegative.png */; };
+		7F4B857215ECF9AF00D8B486 /* MenuDriverButtonPositive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B857015ECF9AF00D8B486 /* MenuDriverButtonPositive.png */; };
+		7F4B85A315ED01D300D8B486 /* MenuCameraButtonDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859715ED01D300D8B486 /* MenuCameraButtonDivider.png */; };
+		7F4B85A415ED01D300D8B486 /* MenuCamerasBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859815ED01D300D8B486 /* MenuCamerasBackground.png */; };
+		7F4B85A515ED01D300D8B486 /* MenuCamerasButtonDriversActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859915ED01D300D8B486 /* MenuCamerasButtonDriversActive.png */; };
+		7F4B85A615ED01D300D8B486 /* MenuCamerasButtonDriversInActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859A15ED01D300D8B486 /* MenuCamerasButtonDriversInActive.png */; };
+		7F4B85A715ED01D300D8B486 /* MenuCamerasButtonTrackActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859B15ED01D300D8B486 /* MenuCamerasButtonTrackActive.png */; };
+		7F4B85A815ED01D300D8B486 /* MenuCamerasButtonTrackInActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859C15ED01D300D8B486 /* MenuCamerasButtonTrackInActive.png */; };
+		7F4B85A915ED01D300D8B486 /* MenuCamerasScrollBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859D15ED01D300D8B486 /* MenuCamerasScrollBar.png */; };
+		7F4B85AA15ED01D300D8B486 /* MenuCamerasScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859E15ED01D300D8B486 /* MenuCamerasScrollButton.png */; };
+		7F4B85AB15ED01D300D8B486 /* MenuCamerasTopBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B859F15ED01D300D8B486 /* MenuCamerasTopBar.png */; };
+		7F4B85AC15ED01D300D8B486 /* MenuCamerasTopBarTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B85A015ED01D300D8B486 /* MenuCamerasTopBarTab.png */; };
+		7F4B85AD15ED01D300D8B486 /* MenuCamerasVideoSelectedFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B85A115ED01D300D8B486 /* MenuCamerasVideoSelectedFrame.png */; };
+		7F4B85AE15ED01D300D8B486 /* MenuCameraTopBarDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B85A215ED01D300D8B486 /* MenuCameraTopBarDivider.png */; };
+		7F4B85B415ED025600D8B486 /* MidasVoting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4B85B315ED025600D8B486 /* MidasVoting.m */; };
+		7F4B85C815ED058100D8B486 /* MidasVotingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4B85C715ED058100D8B486 /* MidasVotingView.m */; };
+		7F4B862215ED121E00D8B486 /* MidasDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4B862115ED121E00D8B486 /* MidasDatabase.m */; };
+		7F4B87AF15EE178200D8B486 /* India.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B87AE15EE178200D8B486 /* India.png */; };
+		7F4B87C615EE1BCB00D8B486 /* MidasCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4B87C515EE1BCB00D8B486 /* MidasCameraViewController.m */; };
+		7F4B88C915EE4E6400D8B486 /* MenuCameraThumbnail~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B88C815EE4E6400D8B486 /* MenuCameraThumbnail~ipad.png */; };
+		7F4B8A0C15EE6C2100D8B486 /* NoCameraThumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8A0B15EE6C2100D8B486 /* NoCameraThumbnail.png */; };
+		7F4B8AB815EE751100D8B486 /* MenuMainHelp.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB415EE751100D8B486 /* MenuMainHelp.png */; };
+		7F4B8AB915EE751100D8B486 /* MenuMainIncidents.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB515EE751100D8B486 /* MenuMainIncidents.png */; };
+		7F4B8ABA15EE751100D8B486 /* MenuMainSocial.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB615EE751100D8B486 /* MenuMainSocial.png */; };
+		7F4B8ABB15EE751100D8B486 /* MenuMainVIP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB715EE751100D8B486 /* MenuMainVIP.png */; };
 		7F610C8F13018636004DC056 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
 		7F610C9213018778004DC056 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; };
 		7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
@@ -794,6 +826,42 @@
 		7F48F20C1411060C00E293B4 /* ArrowDownRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowDownRed.png; path = Images/ArrowDownRed.png; sourceTree = "<group>"; };
 		7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowUpGreen.png; path = Images/ArrowUpGreen.png; sourceTree = "<group>"; };
 		7F48F20E1411060C00E293B4 /* TitleYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TitleYellow.png; path = Images/TitleYellow.png; sourceTree = "<group>"; };
+		7F4B82C815ECCAD700D8B486 /* menu Sections 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu Sections 01.png"; sourceTree = "<group>"; };
+		7F4B82C915ECCAD700D8B486 /* menu Sections 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu Sections 02.png"; sourceTree = "<group>"; };
+		7F4B82CA15ECCAD700D8B486 /* menu Sections 03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu Sections 03.png"; sourceTree = "<group>"; };
+		7F4B82CB15ECCAD700D8B486 /* menu Sections 04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu Sections 04.png"; sourceTree = "<group>"; };
+		7F4B82CC15ECCAD700D8B486 /* menu Sections 05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu Sections 05.png"; sourceTree = "<group>"; };
+		7F4B82FC15ECD02200D8B486 /* MidasCamerasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MidasCamerasView.xib; path = ResourceFiles/MidasCamerasView.xib; sourceTree = "<group>"; };
+		7F4B856015ECF84A00D8B486 /* MenuDriverMenuBaseGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuDriverMenuBaseGradient.png; sourceTree = "<group>"; };
+		7F4B856F15ECF9AF00D8B486 /* MenuDriverButtonNegative.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuDriverButtonNegative.png; sourceTree = "<group>"; };
+		7F4B857015ECF9AF00D8B486 /* MenuDriverButtonPositive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuDriverButtonPositive.png; sourceTree = "<group>"; };
+		7F4B859715ED01D300D8B486 /* MenuCameraButtonDivider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraButtonDivider.png; sourceTree = "<group>"; };
+		7F4B859815ED01D300D8B486 /* MenuCamerasBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasBackground.png; sourceTree = "<group>"; };
+		7F4B859915ED01D300D8B486 /* MenuCamerasButtonDriversActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonDriversActive.png; sourceTree = "<group>"; };
+		7F4B859A15ED01D300D8B486 /* MenuCamerasButtonDriversInActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonDriversInActive.png; sourceTree = "<group>"; };
+		7F4B859B15ED01D300D8B486 /* MenuCamerasButtonTrackActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonTrackActive.png; sourceTree = "<group>"; };
+		7F4B859C15ED01D300D8B486 /* MenuCamerasButtonTrackInActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonTrackInActive.png; sourceTree = "<group>"; };
+		7F4B859D15ED01D300D8B486 /* MenuCamerasScrollBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasScrollBar.png; sourceTree = "<group>"; };
+		7F4B859E15ED01D300D8B486 /* MenuCamerasScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasScrollButton.png; sourceTree = "<group>"; };
+		7F4B859F15ED01D300D8B486 /* MenuCamerasTopBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasTopBar.png; sourceTree = "<group>"; };
+		7F4B85A015ED01D300D8B486 /* MenuCamerasTopBarTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasTopBarTab.png; sourceTree = "<group>"; };
+		7F4B85A115ED01D300D8B486 /* MenuCamerasVideoSelectedFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasVideoSelectedFrame.png; sourceTree = "<group>"; };
+		7F4B85A215ED01D300D8B486 /* MenuCameraTopBarDivider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraTopBarDivider.png; sourceTree = "<group>"; };
+		7F4B85B215ED025600D8B486 /* MidasVoting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVoting.h; sourceTree = "<group>"; };
+		7F4B85B315ED025600D8B486 /* MidasVoting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVoting.m; sourceTree = "<group>"; };
+		7F4B85C615ED058100D8B486 /* MidasVotingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVotingView.h; sourceTree = "<group>"; };
+		7F4B85C715ED058100D8B486 /* MidasVotingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVotingView.m; sourceTree = "<group>"; };
+		7F4B862015ED121E00D8B486 /* MidasDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasDatabase.h; sourceTree = "<group>"; };
+		7F4B862115ED121E00D8B486 /* MidasDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasDatabase.m; sourceTree = "<group>"; };
+		7F4B87AE15EE178200D8B486 /* India.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = India.png; sourceTree = "<group>"; };
+		7F4B87C415EE1BCB00D8B486 /* MidasCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasCameraViewController.h; sourceTree = "<group>"; };
+		7F4B87C515EE1BCB00D8B486 /* MidasCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasCameraViewController.m; sourceTree = "<group>"; };
+		7F4B88C815EE4E6400D8B486 /* MenuCameraThumbnail~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuCameraThumbnail~ipad.png"; sourceTree = "<group>"; };
+		7F4B8A0B15EE6C2100D8B486 /* NoCameraThumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoCameraThumbnail.png; path = Images/NoCameraThumbnail.png; sourceTree = "<group>"; };
+		7F4B8AB415EE751100D8B486 /* MenuMainHelp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainHelp.png; sourceTree = "<group>"; };
+		7F4B8AB515EE751100D8B486 /* MenuMainIncidents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainIncidents.png; sourceTree = "<group>"; };
+		7F4B8AB615EE751100D8B486 /* MenuMainSocial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainSocial.png; sourceTree = "<group>"; };
+		7F4B8AB715EE751100D8B486 /* MenuMainVIP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainVIP.png; sourceTree = "<group>"; };
 		7F610C8E13018636004DC056 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoView.xib; path = ResourceFiles/InfoView.xib; sourceTree = "<group>"; };
 		7F610C9013018778004DC056 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		7F610C9113018778004DC056 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
@@ -1404,6 +1472,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B85C515ED055800D8B486 /* MidasViews */,
 				7FFE7E4914BB6F49007D27A2 /* MidasSocialMedia */,
 				7FC149EF14B701BA003CE61E /* MidasControllers */,
 				7FA965C414B45398006B072C /* Midas */,
@@ -1562,8 +1631,39 @@
 				4D86EDD3129A98C000AA49F9 /* Telemetry.m */,
 				7F9C67381265F50000F2FFEC /* TrackMap.h */,
 				7F9C67391265F50000F2FFEC /* TrackMap.m */,
+				7F4B85B215ED025600D8B486 /* MidasVoting.h */,
+				7F4B85B315ED025600D8B486 /* MidasVoting.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		7F4B858A15ED018700D8B486 /* Cameras */ = {
+			isa = PBXGroup;
+			children = (
+				7F4B88C815EE4E6400D8B486 /* MenuCameraThumbnail~ipad.png */,
+				7F4B859715ED01D300D8B486 /* MenuCameraButtonDivider.png */,
+				7F4B859815ED01D300D8B486 /* MenuCamerasBackground.png */,
+				7F4B859915ED01D300D8B486 /* MenuCamerasButtonDriversActive.png */,
+				7F4B859A15ED01D300D8B486 /* MenuCamerasButtonDriversInActive.png */,
+				7F4B859B15ED01D300D8B486 /* MenuCamerasButtonTrackActive.png */,
+				7F4B859C15ED01D300D8B486 /* MenuCamerasButtonTrackInActive.png */,
+				7F4B859D15ED01D300D8B486 /* MenuCamerasScrollBar.png */,
+				7F4B859E15ED01D300D8B486 /* MenuCamerasScrollButton.png */,
+				7F4B859F15ED01D300D8B486 /* MenuCamerasTopBar.png */,
+				7F4B85A015ED01D300D8B486 /* MenuCamerasTopBarTab.png */,
+				7F4B85A115ED01D300D8B486 /* MenuCamerasVideoSelectedFrame.png */,
+				7F4B85A215ED01D300D8B486 /* MenuCameraTopBarDivider.png */,
+			);
+			path = Cameras;
+			sourceTree = "<group>";
+		};
+		7F4B85C515ED055800D8B486 /* MidasViews */ = {
+			isa = PBXGroup;
+			children = (
+				7F4B85C615ED058100D8B486 /* MidasVotingView.h */,
+				7F4B85C715ED058100D8B486 /* MidasVotingView.m */,
+			);
+			path = MidasViews;
 			sourceTree = "<group>";
 		};
 		7F817D031305209D00AC2444 /* HTML */ = {
@@ -1814,6 +1914,15 @@
 		7FA22D9C14D6B5FC00EBA739 /* ButtonImages */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B8AB415EE751100D8B486 /* MenuMainHelp.png */,
+				7F4B8AB515EE751100D8B486 /* MenuMainIncidents.png */,
+				7F4B8AB615EE751100D8B486 /* MenuMainSocial.png */,
+				7F4B8AB715EE751100D8B486 /* MenuMainVIP.png */,
+				7F4B82C815ECCAD700D8B486 /* menu Sections 01.png */,
+				7F4B82C915ECCAD700D8B486 /* menu Sections 02.png */,
+				7F4B82CA15ECCAD700D8B486 /* menu Sections 03.png */,
+				7F4B82CB15ECCAD700D8B486 /* menu Sections 04.png */,
+				7F4B82CC15ECCAD700D8B486 /* menu Sections 05.png */,
 				7FA22DB514D6B64500EBA739 /* circuit2.png */,
 				7FA22DB614D6B64500EBA739 /* follow-driver2.png */,
 				7FA22DB714D6B64500EBA739 /* head-to-head2.png */,
@@ -1957,6 +2066,7 @@
 		7FA4D54514CC23D700945ABD /* NationalFlags */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B87AE15EE178200D8B486 /* India.png */,
 				7FA4D59F14CC263D00945ABD /* Mexico.png */,
 				7FA4D5A014CC263D00945ABD /* Russia.png */,
 				7FA4D54614CC244000945ABD /* Australia.png */,
@@ -1995,6 +2105,8 @@
 				7FA965C614B453F1006B072C /* MidasAppDelegate.m */,
 				7FA9666514B47371006B072C /* MidasCoordinator.h */,
 				7FA9666614B47371006B072C /* MidasCoordinator.m */,
+				7F4B862015ED121E00D8B486 /* MidasDatabase.h */,
+				7F4B862115ED121E00D8B486 /* MidasDatabase.m */,
 			);
 			path = Midas;
 			sourceTree = "<group>";
@@ -2002,6 +2114,9 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B858A15ED018700D8B486 /* Cameras */,
+				7F4B856F15ECF9AF00D8B486 /* MenuDriverButtonNegative.png */,
+				7F4B857015ECF9AF00D8B486 /* MenuDriverButtonPositive.png */,
 				7FA23AF214E80FBD00EBA739 /* MovieViewEmpty.png */,
 				7FA239E214E45F1D00EBA739 /* Copyright.png */,
 				7FA235A614DEE43A00EBA739 /* Thumbnails */,
@@ -2102,6 +2217,8 @@
 				7FFE7C4614BB227B007D27A2 /* MidasChatViewController.m */,
 				7FA21E0C14CDA27900EBA739 /* MidasDemoViewControllers.h */,
 				7FA21E0D14CDA27900EBA739 /* MidasDemoViewControllers.m */,
+				7F4B87C415EE1BCB00D8B486 /* MidasCameraViewController.h */,
+				7F4B87C515EE1BCB00D8B486 /* MidasCameraViewController.m */,
 			);
 			path = MidasControllers;
 			sourceTree = "<group>";
@@ -2109,6 +2226,7 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B82FC15ECD02200D8B486 /* MidasCamerasView.xib */,
 				7F661DA015D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib */,
 				7FA22F6614D6EEB800EBA739 /* MidasSetup.xib */,
 				7FA2221914D1583F00EBA739 /* MidasMyTeamView.xib */,
@@ -2177,6 +2295,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B8A0B15EE6C2100D8B486 /* NoCameraThumbnail.png */,
 				7FA966A514B47CD5006B072C /* MidasImages */,
 				7F9157CC1497A0D100A013BC /* GreyTextureBG.png */,
 				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
@@ -2351,6 +2470,7 @@
 		7FFE79F114B8A381007D27A2 /* FollowDriver */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B856015ECF84A00D8B486 /* MenuDriverMenuBaseGradient.png */,
 				7FA228B414D31BEB00EBA739 /* Follow-graphics-def.png */,
 				7FA223E414D1B82400EBA739 /* Follow-driver-graphic_dummy.png */,
 				7FFE85F614C08C43007D27A2 /* Line-FD-5.png */,
@@ -2994,6 +3114,34 @@
 				7FA239E314E45F1D00EBA739 /* Copyright.png in Resources */,
 				7FA23AF314E80FBD00EBA739 /* MovieViewEmpty.png in Resources */,
 				7F661DA115D9103A00D7F2D6 /* MidasSocialmediaBaseView.xib in Resources */,
+				7F4B82CD15ECCAD700D8B486 /* menu Sections 01.png in Resources */,
+				7F4B82CE15ECCAD700D8B486 /* menu Sections 02.png in Resources */,
+				7F4B82CF15ECCAD700D8B486 /* menu Sections 03.png in Resources */,
+				7F4B82D015ECCAD700D8B486 /* menu Sections 04.png in Resources */,
+				7F4B82D115ECCAD700D8B486 /* menu Sections 05.png in Resources */,
+				7F4B82FD15ECD02200D8B486 /* MidasCamerasView.xib in Resources */,
+				7F4B856115ECF84A00D8B486 /* MenuDriverMenuBaseGradient.png in Resources */,
+				7F4B857115ECF9AF00D8B486 /* MenuDriverButtonNegative.png in Resources */,
+				7F4B857215ECF9AF00D8B486 /* MenuDriverButtonPositive.png in Resources */,
+				7F4B85A315ED01D300D8B486 /* MenuCameraButtonDivider.png in Resources */,
+				7F4B85A415ED01D300D8B486 /* MenuCamerasBackground.png in Resources */,
+				7F4B85A515ED01D300D8B486 /* MenuCamerasButtonDriversActive.png in Resources */,
+				7F4B85A615ED01D300D8B486 /* MenuCamerasButtonDriversInActive.png in Resources */,
+				7F4B85A715ED01D300D8B486 /* MenuCamerasButtonTrackActive.png in Resources */,
+				7F4B85A815ED01D300D8B486 /* MenuCamerasButtonTrackInActive.png in Resources */,
+				7F4B85A915ED01D300D8B486 /* MenuCamerasScrollBar.png in Resources */,
+				7F4B85AA15ED01D300D8B486 /* MenuCamerasScrollButton.png in Resources */,
+				7F4B85AB15ED01D300D8B486 /* MenuCamerasTopBar.png in Resources */,
+				7F4B85AC15ED01D300D8B486 /* MenuCamerasTopBarTab.png in Resources */,
+				7F4B85AD15ED01D300D8B486 /* MenuCamerasVideoSelectedFrame.png in Resources */,
+				7F4B85AE15ED01D300D8B486 /* MenuCameraTopBarDivider.png in Resources */,
+				7F4B87AF15EE178200D8B486 /* India.png in Resources */,
+				7F4B88C915EE4E6400D8B486 /* MenuCameraThumbnail~ipad.png in Resources */,
+				7F4B8A0C15EE6C2100D8B486 /* NoCameraThumbnail.png in Resources */,
+				7F4B8AB815EE751100D8B486 /* MenuMainHelp.png in Resources */,
+				7F4B8AB915EE751100D8B486 /* MenuMainIncidents.png in Resources */,
+				7F4B8ABA15EE751100D8B486 /* MenuMainSocial.png in Resources */,
+				7F4B8ABB15EE751100D8B486 /* MenuMainVIP.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3125,6 +3273,10 @@
 				7FA4D6D514CC4ADC00945ABD /* MovieSelectorView.m in Sources */,
 				7FA21E0E14CDA27900EBA739 /* MidasDemoViewControllers.m in Sources */,
 				7FA2331414DAA57E00EBA739 /* AnimationTimer.m in Sources */,
+				7F4B85B415ED025600D8B486 /* MidasVoting.m in Sources */,
+				7F4B85C815ED058100D8B486 /* MidasVotingView.m in Sources */,
+				7F4B862215ED121E00D8B486 /* MidasDatabase.m in Sources */,
+				7F4B87C615EE1BCB00D8B486 /* MidasCameraViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

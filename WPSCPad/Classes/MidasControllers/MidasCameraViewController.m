@@ -1,32 +1,29 @@
-//
-//  MidasCircuitViewController.m
+    //
+//  MidasCameraViewController.m
 //  MidasDemo
 //
-//  Created by Gareth Griffith on 1/7/12.
+//  Created by Gareth Griffith on 8/29/12.
 //  Copyright 2012 SBG Racing Services Ltd. All rights reserved.
 //
 
-#import "MidasCircuitViewController.h"
+#import "MidasCameraViewController.h"
+
 #import "MidasVideoViewController.h"
 #import "MidasPopupManager.h"
 
 #import "RacePadCoordinator.h"
 
-@implementation MidasCircuitViewController
+@implementation MidasCameraViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
-	[trackMapView setIsZoomView:false];
-	[trackMapView setIsOverlayView:true];
-	[trackMapView setSmallSized:true];
-	[trackMapView setMidasStyle:true];
+		
+	[movieSelectorView SetBackgroundAlpha:0.0];
+	[movieSelectorView setVertical:true];
 	
 	[self addTapRecognizerToView:movieSelectorView];
-	
-	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 }
 
 
@@ -65,31 +62,31 @@
 {	
 	if(gestureView == heading)
 	{
-		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:true];
+		[[MidasCameraManager Instance] hideAnimated:true Notify:true];
 	}
 	else if(gestureView == movieSelectorView)
 	{
 		int row, col;
 		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
-			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtIndex:col];
+			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtIndex:row];
 			
 			if(videoSource && ![videoSource movieDisplayed])
 			{
-				BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
-			
+				BasePadViewController * parentViewController = [[MidasCameraManager Instance] parentViewController];
+				
 				if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
 				{
 					MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
-				
+					
 					MovieView * movieView = [videoViewController findFreeMovieView];
 					if(movieView)
 					{
 						[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 						[movieView setMovieViewDelegate:self];
 						[movieView displayMovieSource:videoSource]; // Will get notification below when finished
-
-						BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];						
+						
+						BasePadViewController * parentViewController = [[MidasCameraManager Instance] parentViewController];						
 						if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
 							[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 					}
@@ -109,35 +106,13 @@
 
 - (void) onDisplay
 {
-	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
 }
 
 - (void) onHide
 {
-	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 }
 
--(IBAction)addToViewButtonPressed:(id)sender
+-(IBAction)buttonPressed:(id)sender
 {
-	BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
-		
-	if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-	{
-		MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
-			
-		if(videoViewController)
-		{
-			if([videoViewController displayMap])
-			{
-				[videoViewController setMapDisplayed:false];
-				[sender setSelected:false];
-			}
-			else
-			{
-				[videoViewController setMapDisplayed:true];
-				[sender setSelected:true];
-			}
-		}
-	}
 }
 @end

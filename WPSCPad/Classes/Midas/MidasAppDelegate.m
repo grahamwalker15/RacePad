@@ -21,7 +21,7 @@
 #import "RacePadSponsor.h"
 #import "BasePadPrefs.h"
 
-#import "RacePadDatabase.h"
+#import "MidasDatabase.h"
 
 @implementation MidasAppDelegate
 
@@ -38,7 +38,7 @@
 		[MidasCoordinator Instance];
 		
 		[RacePadTitleBarController Instance];
-		[RacePadDatabase Instance];
+		[MidasDatabase Instance];
 		
 		tabBarController= nil;
 	}

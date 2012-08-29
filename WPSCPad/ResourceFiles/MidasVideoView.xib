@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="225"/>
+			<integer value="87"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -532,7 +532,7 @@
 							<object class="IBUIButton" id="1007234758">
 								<reference key="NSNextResponder" ref="939045570"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{978, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{938, 0}, {62, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -547,13 +547,13 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">standings2.png</string>
+									<string key="NSResourceName">menu Sections 05.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="444875745">
 								<reference key="NSNextResponder" ref="939045570"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{908, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{874, 0}, {62, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -568,13 +568,13 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">circuit2.png</string>
+									<string key="NSResourceName">menu Sections 04.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="547783339">
 								<reference key="NSNextResponder" ref="939045570"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{838, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{810, 0}, {62, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -589,13 +589,13 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">follow-driver2.png</string>
+									<string key="NSResourceName">menu Sections 03.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="29299771">
 								<reference key="NSNextResponder" ref="939045570"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{768, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{746, 0}, {62, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -610,13 +610,13 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">head-to-head2.png</string>
+									<string key="NSResourceName">menu Sections 02.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="278806301">
 								<reference key="NSNextResponder" ref="939045570"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{698, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{682, 0}, {62, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -631,12 +631,12 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">option-replay2.png</string>
+									<string key="NSResourceName">menu Sections 01.png</string>
 								</object>
 							</object>
 							<object class="IBUIButton" id="1061369447">
 								<reference key="NSNextResponder" ref="939045570"/>
-								<int key="NSvFlags">268</int>
+								<int key="NSvFlags">-2147483380</int>
 								<string key="NSFrame">{{264, 0}, {52, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -657,7 +657,7 @@
 							</object>
 							<object class="IBUIButton" id="621810825">
 								<reference key="NSNextResponder" ref="939045570"/>
-								<int key="NSvFlags">268</int>
+								<int key="NSvFlags">-2147483380</int>
 								<string key="NSFrame">{{194, 0}, {52, 44}}</string>
 								<reference key="NSSuperview" ref="939045570"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -719,7 +719,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">F1-mini-icon.png</string>
+									<string key="NSResourceName">MenuMainHelp.png</string>
 								</object>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="42995560">
 									<string key="NSClassName">NSImage</string>
@@ -729,7 +729,7 @@
 							<object class="IBUIButton" id="853583487">
 								<reference key="NSNextResponder" ref="834175002"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{98, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{114, 0}, {52, 44}}</string>
 								<reference key="NSSuperview" ref="834175002"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -743,14 +743,14 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Twitter-mini-icon.png</string>
+									<string key="NSResourceName">MenuMainIncidents.png</string>
 								</object>
 								<reference key="IBUINormalBackgroundImage" ref="42995560"/>
 							</object>
 							<object class="IBUIButton" id="409082169">
 								<reference key="NSNextResponder" ref="834175002"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{136, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{168, 0}, {52, 44}}</string>
 								<reference key="NSSuperview" ref="834175002"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -764,14 +764,14 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Facebook-mini-icon.png</string>
+									<string key="NSResourceName">MenuMainSocial.png</string>
 								</object>
 								<reference key="IBUINormalBackgroundImage" ref="42995560"/>
 							</object>
 							<object class="IBUIButton" id="532112256">
 								<reference key="NSNextResponder" ref="834175002"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{174, 0}, {52, 44}}</string>
+								<string key="NSFrame">{{222, 0}, {52, 44}}</string>
 								<reference key="NSSuperview" ref="834175002"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -785,29 +785,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Midas-mini-icon.png</string>
-								</object>
-								<reference key="IBUINormalBackgroundImage" ref="42995560"/>
-							</object>
-							<object class="IBUIButton" id="438746811">
-								<reference key="NSNextResponder" ref="834175002"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{212, 0}, {52, 44}}</string>
-								<reference key="NSSuperview" ref="834175002"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<reference key="IBUIFont" ref="692500460"/>
-								<reference key="IBUIHighlightedTitleColor" ref="423603641"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-								</object>
-								<reference key="IBUINormalTitleShadowColor" ref="726873192"/>
-								<object class="NSCustomResource" key="IBUINormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">DigiFortress.png</string>
+									<string key="NSResourceName">MenuMainVIP.png</string>
 								</object>
 								<reference key="IBUINormalBackgroundImage" ref="42995560"/>
 							</object>
@@ -850,6 +828,7 @@
 								<string key="NSFrameSize">{110, 44}</string>
 								<reference key="NSSuperview" ref="730085753"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentVerticalAlignment">2</int>
 								<object class="NSFont" key="IBUIFont">
@@ -1036,14 +1015,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">headToHeadButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="29299771"/>
-					</object>
-					<int key="connectionID">54</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">timeControlsButton</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="278806301"/>
@@ -1052,51 +1023,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">vipButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1061369447"/>
-					</object>
-					<int key="connectionID">56</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">myTeamButton</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="621810825"/>
 					</object>
 					<int key="connectionID">57</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">twitterButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="853583487"/>
-					</object>
-					<int key="connectionID">59</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">facebookButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="409082169"/>
-					</object>
-					<int key="connectionID">60</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">alertsButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="984952354"/>
-					</object>
-					<int key="connectionID">61</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">midasChatButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="532112256"/>
-					</object>
-					<int key="connectionID">62</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -1346,23 +1277,6 @@
 					<int key="connectionID">116</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">menuButtonHit:</string>
-						<reference key="source" ref="438746811"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">118</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">dfButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="438746811"/>
-					</object>
-					<int key="connectionID">119</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">trackStateButton</string>
 						<reference key="source" ref="372490531"/>
@@ -1552,6 +1466,46 @@
 					</object>
 					<int key="connectionID">226</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">cameraButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="29299771"/>
+					</object>
+					<int key="connectionID">227</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">helpButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="984952354"/>
+					</object>
+					<int key="connectionID">228</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">alertsButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="853583487"/>
+					</object>
+					<int key="connectionID">229</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">vipButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="532112256"/>
+					</object>
+					<int key="connectionID">231</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">socialMediaButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="409082169"/>
+					</object>
+					<int key="connectionID">232</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1598,13 +1552,13 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="984686059"/>
-							<reference ref="854886990"/>
 							<reference ref="223948886"/>
 							<reference ref="163879853"/>
 							<reference ref="515315171"/>
 							<reference ref="988770480"/>
 							<reference ref="179871706"/>
 							<reference ref="222542454"/>
+							<reference ref="854886990"/>
 						</object>
 						<reference key="parent" ref="389611430"/>
 					</object>
@@ -1674,7 +1628,6 @@
 							<reference ref="984952354"/>
 							<reference ref="167484118"/>
 							<reference ref="362925225"/>
-							<reference ref="438746811"/>
 						</object>
 						<reference key="parent" ref="389611430"/>
 						<string key="objectName">View (Top buttons)</string>
@@ -1803,11 +1756,6 @@
 						<int key="objectID">112</int>
 						<reference key="object" ref="220402872"/>
 						<reference key="parent" ref="251792200"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">117</int>
-						<reference key="object" ref="438746811"/>
-						<reference key="parent" ref="834175002"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
@@ -1954,8 +1902,6 @@
 					<string>111.IBViewBoundsToFrameTransform</string>
 					<string>112.IBPluginDependency</string>
 					<string>112.IBViewBoundsToFrameTransform</string>
-					<string>117.IBPluginDependency</string>
-					<string>117.IBViewBoundsToFrameTransform</string>
 					<string>120.IBPluginDependency</string>
 					<string>120.IBViewBoundsToFrameTransform</string>
 					<string>123.IBPluginDependency</string>
@@ -2073,7 +2019,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUPIAAAAAAAAA</bytes>
 					</object>
-					<string>{{376, 108}, {1024, 748}}</string>
+					<string>{{401, 108}, {1024, 748}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -2083,10 +2029,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUP1AABDsAAAA</bytes>
-					</object>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUObAAAAAAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -2249,7 +2191,7 @@
 					<string>TrackMapView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAxG+AAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAxDqAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -2284,7 +2226,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">226</int>
+			<int key="maxID">232</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2443,11 +2385,10 @@
 							<string>auxMovieView2LoadingTwirl</string>
 							<string>auxMovieView2MovieType</string>
 							<string>bottomButtonPanel</string>
+							<string>cameraButton</string>
 							<string>copyright</string>
-							<string>dfButton</string>
-							<string>facebookButton</string>
 							<string>followDriverButton</string>
-							<string>headToHeadButton</string>
+							<string>helpButton</string>
 							<string>lapCounterButton</string>
 							<string>leaderboardView</string>
 							<string>mainMovieView</string>
@@ -2455,7 +2396,6 @@
 							<string>mainMovieViewLoadingScreen</string>
 							<string>mainMovieViewMovieType</string>
 							<string>mapButton</string>
-							<string>midasChatButton</string>
 							<string>midasMenuButton</string>
 							<string>moreLeftImage</string>
 							<string>moreRightImage</string>
@@ -2463,6 +2403,7 @@
 							<string>overlayView</string>
 							<string>pushNotificationAnimationImage</string>
 							<string>pushNotificationAnimationLabel</string>
+							<string>socialMediaButton</string>
 							<string>standingsButton</string>
 							<string>timeControlsButton</string>
 							<string>topButtonPanel</string>
@@ -2471,7 +2412,6 @@
 							<string>trackZoomCloseButton</string>
 							<string>trackZoomContainer</string>
 							<string>trackZoomView</string>
-							<string>twitterButton</string>
 							<string>vipButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2494,9 +2434,8 @@
 							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
 							<string>UIView</string>
+							<string>UIButton</string>
 							<string>UIImageView</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -2504,7 +2443,6 @@
 							<string>MovieView</string>
 							<string>UIButton</string>
 							<string>UIImageView</string>
-							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -2516,13 +2454,13 @@
 							<string>UILabel</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UIButton</string>
 							<string>UIView</string>
 							<string>TrackMapView</string>
 							<string>UIImageView</string>
 							<string>UIButton</string>
 							<string>BackgroundView</string>
 							<string>TrackMapView</string>
-							<string>UIButton</string>
 							<string>UIButton</string>
 						</object>
 					</object>
@@ -2548,11 +2486,10 @@
 							<string>auxMovieView2LoadingTwirl</string>
 							<string>auxMovieView2MovieType</string>
 							<string>bottomButtonPanel</string>
+							<string>cameraButton</string>
 							<string>copyright</string>
-							<string>dfButton</string>
-							<string>facebookButton</string>
 							<string>followDriverButton</string>
-							<string>headToHeadButton</string>
+							<string>helpButton</string>
 							<string>lapCounterButton</string>
 							<string>leaderboardView</string>
 							<string>mainMovieView</string>
@@ -2560,7 +2497,6 @@
 							<string>mainMovieViewLoadingScreen</string>
 							<string>mainMovieViewMovieType</string>
 							<string>mapButton</string>
-							<string>midasChatButton</string>
 							<string>midasMenuButton</string>
 							<string>moreLeftImage</string>
 							<string>moreRightImage</string>
@@ -2568,6 +2504,7 @@
 							<string>overlayView</string>
 							<string>pushNotificationAnimationImage</string>
 							<string>pushNotificationAnimationLabel</string>
+							<string>socialMediaButton</string>
 							<string>standingsButton</string>
 							<string>timeControlsButton</string>
 							<string>topButtonPanel</string>
@@ -2576,7 +2513,6 @@
 							<string>trackZoomCloseButton</string>
 							<string>trackZoomContainer</string>
 							<string>trackZoomView</string>
-							<string>twitterButton</string>
 							<string>vipButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2654,23 +2590,19 @@
 								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">cameraButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">copyright</string>
 								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">dfButton</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">facebookButton</string>
-								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">followDriverButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">headToHeadButton</string>
+								<string key="name">helpButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2702,10 +2634,6 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">midasChatButton</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">midasMenuButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
@@ -2732,6 +2660,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">pushNotificationAnimationLabel</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">socialMediaButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">standingsButton</string>
@@ -2764,10 +2696,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">trackZoomView</string>
 								<string key="candidateClassName">TrackMapView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">twitterButton</string>
-								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">vipButton</string>
@@ -3111,53 +3039,51 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>Copyright.png</string>
-				<string>DigiFortress.png</string>
-				<string>F1-mini-icon.png</string>
-				<string>Facebook-mini-icon.png</string>
 				<string>M-Menu-selected-icon.png</string>
 				<string>M-long.png</string>
-				<string>Midas-mini-icon.png</string>
+				<string>MenuMainHelp.png</string>
+				<string>MenuMainIncidents.png</string>
+				<string>MenuMainSocial.png</string>
+				<string>MenuMainVIP.png</string>
 				<string>MidasMoreLeft.png</string>
 				<string>MidasMoreRight.png</string>
 				<string>MidasTitleSC.png</string>
 				<string>MovieViewEmpty.png</string>
-				<string>Twitter-mini-icon.png</string>
 				<string>bottom-container-unselected.png</string>
-				<string>circuit2.png</string>
 				<string>close-window-button.png</string>
-				<string>follow-driver2.png</string>
-				<string>head-to-head2.png</string>
 				<string>lap-counter-white.png</string>
+				<string>menu Sections 01.png</string>
+				<string>menu Sections 02.png</string>
+				<string>menu Sections 03.png</string>
+				<string>menu Sections 04.png</string>
+				<string>menu Sections 05.png</string>
 				<string>midas_background.png</string>
 				<string>my-team2.png</string>
-				<string>option-replay2.png</string>
 				<string>paddock-2.png</string>
-				<string>standings2.png</string>
 				<string>top-container-unselected.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{20, 150}</string>
-				<string>{36, 30}</string>
-				<string>{36, 30}</string>
-				<string>{52, 44}</string>
 				<string>{90, 61}</string>
 				<string>{91, 61}</string>
+				<string>{52, 44}</string>
+				<string>{52, 44}</string>
+				<string>{52, 44}</string>
 				<string>{52, 44}</string>
 				<string>{36, 30}</string>
 				<string>{36, 30}</string>
 				<string>{30, 44}</string>
 				<string>{320, 180}</string>
-				<string>{52, 44}</string>
 				<string>{66, 55}</string>
-				<string>{52, 44}</string>
 				<string>{20, 20}</string>
-				<string>{52, 44}</string>
-				<string>{52, 44}</string>
 				<string>{110, 44}</string>
+				<string>{62, 44}</string>
+				<string>{62, 44}</string>
+				<string>{62, 44}</string>
+				<string>{62, 44}</string>
+				<string>{62, 44}</string>
 				<string>{1024, 748}</string>
-				<string>{52, 44}</string>
-				<string>{52, 44}</string>
 				<string>{52, 44}</string>
 				<string>{52, 44}</string>
 				<string>{66, 55}</string>

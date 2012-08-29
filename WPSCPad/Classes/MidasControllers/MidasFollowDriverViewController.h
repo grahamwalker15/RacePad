@@ -16,13 +16,14 @@
 @class LeaderboardView;
 @class BackgroundView;
 @class HeadToHeadView;
+@class MidasVotingView;
 
 @interface MidasFollowDriverLapListView : TableDataView
 {
 }
 @end
 
-@interface MidasFollowDriverViewController : MidasBaseViewController <MovieViewDelegate>
+@interface MidasFollowDriverViewController : MidasBaseViewController
 {
 	IBOutlet UIButton * expandButton;
 	IBOutlet UIView * extensionContainer;
@@ -37,9 +38,11 @@
 	IBOutlet UIImageView * driverPhoto;
 	IBOutlet UIImageView * driverHelmet;
 	IBOutlet UIImageView * driverCar;
+	IBOutlet UIImageView * driverFlag;
 	
 	IBOutlet UILabel * driverNameLabel;
-	IBOutlet UILabel * driverNumberLabel;
+	IBOutlet UILabel * driverAgeLabel;
+	IBOutlet UILabel * driverNationalityLabel;
 	IBOutlet UILabel * driverTeamLabel;
 	
 	IBOutlet UILabel * positionLabel;
@@ -50,11 +53,17 @@
 	IBOutlet UILabel * carAheadLabel;
 	IBOutlet UILabel * gapAheadLabel;
 	
-	IBOutlet UIButton * onboardVideoButton;
+	IBOutlet UILabel * votesForCount;
+	IBOutlet UILabel * votesAgainstCount;
+	IBOutlet UILabel * ratingLabel;
+	
+	IBOutlet UIButton * voteForButton;
+	IBOutlet UIButton * voteAgainstButton;
 
 	IBOutlet LeaderboardView * leaderboardView;
 	IBOutlet TrackMapView * trackMapView;
 	IBOutlet BackgroundView *trackMapContainer;
+	IBOutlet MidasVotingView * midasVotingView;
 	
 	bool expanded;
 	
@@ -67,8 +76,12 @@
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 
 - (IBAction) expandPressed;
-- (IBAction) movieSelected:(id)sender;
 
 - (int) getDriverNumber:(NSString *)tag;
+- (int) getDriverAge:(NSString *)tag;
+- (NSString *) getDriverNationality:(NSString *)tag;
+- (UIImage *) getNationalFlag:(NSString *)tag;
+
+- (IBAction) votePressed:(id)sender;
 
 @end

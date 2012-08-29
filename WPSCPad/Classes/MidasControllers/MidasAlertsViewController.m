@@ -161,7 +161,7 @@
 		
 		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
-			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtCol:col];
+			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtIndex:col];
 			
 			if(videoSource)
 			{
