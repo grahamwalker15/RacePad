@@ -138,6 +138,10 @@
 		7F4B8AB915EE751100D8B486 /* MenuMainIncidents.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB515EE751100D8B486 /* MenuMainIncidents.png */; };
 		7F4B8ABA15EE751100D8B486 /* MenuMainSocial.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB615EE751100D8B486 /* MenuMainSocial.png */; };
 		7F4B8ABB15EE751100D8B486 /* MenuMainVIP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8AB715EE751100D8B486 /* MenuMainVIP.png */; };
+		7F4B8B8C15F21A3C00D8B486 /* iconCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8B8A15F21A3C00D8B486 /* iconCamera.png */; };
+		7F4B8B8D15F21A3C00D8B486 /* textCameras.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8B8B15F21A3C00D8B486 /* textCameras.png */; };
+		7F4B8B9115F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8B9015F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png */; };
+		7F4B8BD315F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8BD215F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png */; };
 		7F610C8F13018636004DC056 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
 		7F610C9213018778004DC056 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; };
 		7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
@@ -862,6 +866,10 @@
 		7F4B8AB515EE751100D8B486 /* MenuMainIncidents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainIncidents.png; sourceTree = "<group>"; };
 		7F4B8AB615EE751100D8B486 /* MenuMainSocial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainSocial.png; sourceTree = "<group>"; };
 		7F4B8AB715EE751100D8B486 /* MenuMainVIP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainVIP.png; sourceTree = "<group>"; };
+		7F4B8B8A15F21A3C00D8B486 /* iconCamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconCamera.png; sourceTree = "<group>"; };
+		7F4B8B8B15F21A3C00D8B486 /* textCameras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textCameras.png; sourceTree = "<group>"; };
+		7F4B8B9015F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuCircuitIconDetachMap~ipad.png"; sourceTree = "<group>"; };
+		7F4B8BD215F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuCircuitIconAttachMap~ipad.png"; sourceTree = "<group>"; };
 		7F610C8E13018636004DC056 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoView.xib; path = ResourceFiles/InfoView.xib; sourceTree = "<group>"; };
 		7F610C9013018778004DC056 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		7F610C9113018778004DC056 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
@@ -1640,6 +1648,8 @@
 		7F4B858A15ED018700D8B486 /* Cameras */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B8B8A15F21A3C00D8B486 /* iconCamera.png */,
+				7F4B8B8B15F21A3C00D8B486 /* textCameras.png */,
 				7F4B88C815EE4E6400D8B486 /* MenuCameraThumbnail~ipad.png */,
 				7F4B859715ED01D300D8B486 /* MenuCameraButtonDivider.png */,
 				7F4B859815ED01D300D8B486 /* MenuCamerasBackground.png */,
@@ -2449,6 +2459,8 @@
 		7FFE79C314B89BAE007D27A2 /* CircuitViews */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B8BD215F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png */,
+				7F4B8B9015F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png */,
 				7FA2283114D30A7800EBA739 /* map-enlarger.png */,
 				7FA2283214D30A7800EBA739 /* map-reducer.png */,
 				7FA4C65814C45CA800945ABD /* Onboard1.png */,
@@ -3142,6 +3154,10 @@
 				7F4B8AB915EE751100D8B486 /* MenuMainIncidents.png in Resources */,
 				7F4B8ABA15EE751100D8B486 /* MenuMainSocial.png in Resources */,
 				7F4B8ABB15EE751100D8B486 /* MenuMainVIP.png in Resources */,
+				7F4B8B8C15F21A3C00D8B486 /* iconCamera.png in Resources */,
+				7F4B8B8D15F21A3C00D8B486 /* textCameras.png in Resources */,
+				7F4B8B9115F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png in Resources */,
+				7F4B8BD315F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

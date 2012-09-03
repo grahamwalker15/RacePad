@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
+			<integer value="27"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -360,6 +360,38 @@
 					<object class="IBUIScrollView" id="17637316">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">268</int>
+						<object class="NSMutableArray" key="NSSubviews">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIButton" id="871555219">
+								<reference key="NSNextResponder" ref="17637316"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{14, 23}, {135, 35}}</string>
+								<reference key="NSSuperview" ref="17637316"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Light</string>
+									<double key="NSSize">48</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<reference key="IBUIHighlightedTitleColor" ref="460040716"/>
+								<reference key="IBUINormalTitleColor" ref="460040716"/>
+								<object class="NSColor" key="IBUINormalTitleShadowColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUISelectedImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">menuCircuitIconDetachMap~ipad.png</string>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">menuCircuitIconAttachMap~ipad.png</string>
+								</object>
+							</object>
+						</object>
 						<string key="NSFrame">{{14, 135}, {336, 298}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="212231466">
@@ -403,35 +435,6 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					</object>
-					<object class="IBUIButton" id="871555219">
-						<reference key="NSNextResponder" ref="730374200"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{19, 369}, {53, 61}}</string>
-						<reference key="NSSuperview" ref="730374200"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Light</string>
-							<double key="NSSize">48</double>
-							<int key="NSfFlags">16</int>
-						</object>
-						<reference key="IBUIHighlightedTitleColor" ref="460040716"/>
-						<reference key="IBUINormalTitleColor" ref="460040716"/>
-						<object class="NSColor" key="IBUINormalTitleShadowColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC41AA</bytes>
-						</object>
-						<object class="NSCustomResource" key="IBUISelectedImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">map-reducer.png</string>
-						</object>
-						<object class="NSCustomResource" key="IBUINormalImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">map-enlarger.png</string>
-						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{364, 552}</string>
@@ -542,7 +545,6 @@
 							<reference ref="35956690"/>
 							<reference ref="682073685"/>
 							<reference ref="619811149"/>
-							<reference ref="871555219"/>
 							<reference ref="751041763"/>
 							<reference ref="110462301"/>
 							<reference ref="561599981"/>
@@ -577,6 +579,7 @@
 						<reference key="object" ref="17637316"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="871555219"/>
 						</object>
 						<reference key="parent" ref="730374200"/>
 					</object>
@@ -636,11 +639,6 @@
 						<reference key="parent" ref="730374200"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">46</int>
-						<reference key="object" ref="871555219"/>
-						<reference key="parent" ref="730374200"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">49</int>
 						<reference key="object" ref="751041763"/>
 						<reference key="parent" ref="730374200"/>
@@ -669,6 +667,11 @@
 						<int key="objectID">54</int>
 						<reference key="object" ref="535565124"/>
 						<reference key="parent" ref="730374200"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">46</int>
+						<reference key="object" ref="871555219"/>
+						<reference key="parent" ref="17637316"/>
 					</object>
 				</object>
 			</object>
@@ -787,7 +790,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AUFAAABDfAAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBEAAAw4sAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -1228,8 +1231,8 @@
 				<string>Sunny-weather-icons.png</string>
 				<string>Thumbs-line-Standings.png</string>
 				<string>circuit-views-selected.png</string>
-				<string>map-enlarger.png</string>
-				<string>map-reducer.png</string>
+				<string>menuCircuitIconAttachMap~ipad.png</string>
+				<string>menuCircuitIconDetachMap~ipad.png</string>
 				<string>shadow-CV-1.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -1241,8 +1244,8 @@
 				<string>{32, 28}</string>
 				<string>{1, 48}</string>
 				<string>{364, 60}</string>
-				<string>{28, 28}</string>
-				<string>{28, 28}</string>
+				<string>{135, 35}</string>
+				<string>{135, 35}</string>
 				<string>{364, 40}</string>
 			</object>
 		</object>

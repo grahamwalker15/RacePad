@@ -290,49 +290,64 @@
 				
 				if(position > 0)
 				{
-					[positionLabel setText:[NSString stringWithFormat:@"P%d", position]];
-					
-					if(inPit)
+					if(stopped)
 					{
-						[carAheadLabel setText:@"IN PIT"];			
-						[carBehindLabel setText:@""];
-						[carAheadLabel setText:@""];
-						[gapAheadLabel setText:@""];
-					}
-					else if(stopped)
-					{
-						[carAheadLabel setText:@"OUT"];			
+						[positionLabel setText:@"OUT"];
+						[placeLabel setHidden:true];
+						
+						[carAheadLabel setText:@""];			
 						[carBehindLabel setText:@""];
 						[carAheadLabel setText:@""];
 						[gapAheadLabel setText:@""];
 					}
 					else
 					{
-						if(position == 1)
-						{
-							[carAheadLabel setText:@"LAPS"];			
-							[gapAheadLabel setText:[NSString stringWithFormat:@"%d", laps]];
-						}
-						else if(gapAhead > 0.0)
-						{
-							[carAheadLabel setText:carAhead];			
-							[gapAheadLabel setText:[NSString stringWithFormat:@"+%.1f", gapAhead]];
-						}
+						if((position % 10) == 1 && position != 11)
+							[positionLabel setText:[NSString stringWithFormat:@"%dst", position]];
+						else if((position % 10) == 2 && position != 12)
+							[positionLabel setText:[NSString stringWithFormat:@"%dnd", position]];
+						else if((position % 10) == 3 && position != 13)
+							[positionLabel setText:[NSString stringWithFormat:@"%drd", position]];
 						else
+							[positionLabel setText:[NSString stringWithFormat:@"%dth", position]];
+
+						[placeLabel setHidden:false];
+						
+						if(inPit)
 						{
+							[carAheadLabel setText:@"IN PIT"];			
+							[carBehindLabel setText:@""];
 							[carAheadLabel setText:@""];
 							[gapAheadLabel setText:@""];
 						}
-						
-						if(gapBehind > 0.0)
-						{
-							[carBehindLabel setText:carBehind];
-							[gapBehindLabel setText:[NSString stringWithFormat:@"-%.1f", gapBehind]];
-						}
 						else
 						{
-							[carBehindLabel setText:@""];
-							[gapBehindLabel setText:@""];
+							if(position == 1)
+							{
+								[carAheadLabel setText:@"LAPS"];			
+								[gapAheadLabel setText:[NSString stringWithFormat:@"%d", laps]];
+							}
+							else if(gapAhead > 0.0)
+							{
+								[carAheadLabel setText:carAhead];			
+								[gapAheadLabel setText:[NSString stringWithFormat:@"+%.1f", gapAhead]];
+							}
+							else
+							{
+								[carAheadLabel setText:@""];
+								[gapAheadLabel setText:@""];
+							}
+							
+							if(gapBehind > 0.0)
+							{
+								[carBehindLabel setText:carBehind];
+								[gapBehindLabel setText:[NSString stringWithFormat:@"-%.1f", gapBehind]];
+							}
+							else
+							{
+								[carBehindLabel setText:@""];
+								[gapBehindLabel setText:@""];
+							}
 						}
 					}
 					

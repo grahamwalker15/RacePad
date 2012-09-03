@@ -46,6 +46,7 @@
 	IBOutlet UILabel * driverTeamLabel;
 	
 	IBOutlet UILabel * positionLabel;
+	IBOutlet UILabel * placeLabel;
 	
 	IBOutlet UILabel * carBehindLabel;
 	IBOutlet UILabel * gapBehindLabel;
