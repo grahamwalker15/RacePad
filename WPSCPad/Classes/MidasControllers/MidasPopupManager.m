@@ -277,6 +277,34 @@ static MidasTwitterManager * twitterInstance_ = nil;
 
 @end
 
+@implementation MidasSocialMediaManager
+
+static MidasSocialMediaManager * socialmediaInstance_ = nil;
+
++(MidasSocialMediaManager *)Instance
+{
+	if(!socialmediaInstance_)
+		socialmediaInstance_ = [[MidasTwitterManager alloc] init];
+	
+	return socialmediaInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		viewController = [[MidasSocialController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MIDAS_TWITTER_POPUP_];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+
+@end
+
 @implementation MidasFacebookManager
 
 static MidasFacebookManager * facebookInstance_ = nil;
