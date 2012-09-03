@@ -20,6 +20,7 @@
 @class MidasMyTeamViewController;
 @class MidasVIPViewController;
 @class MidasAlertsViewController;
+@class MidasSocialController;
 @class MidasTwitterViewController;
 @class MidasFacebookViewController;
 @class MidasChatViewController;
@@ -36,8 +37,8 @@ enum PopupViewTypes
 	MIDAS_VIP_POPUP_,
 	MIDAS_MY_TEAM_POPUP_,
 	MIDAS_ALERTS_POPUP_,
-	MIDAS_TWITTER_POPUP_,
-	MIDAS_FACEBOOK_POPUP_,
+	MIDAS_SOCIAL_MEDIA_POPUP_,
+	MIDAS_HELP_POPUP_,
 	MIDAS_CHAT_POPUP_,
 	MIDAS_MASTER_MENU_POPUP_,
 };
@@ -207,30 +208,21 @@ enum PopupMenuZones
 
 @end
 
+@interface MidasHelpManager : MidasPopupManager
+{
+	MidasFacebookViewController * viewController;
+}
+
++(MidasHelpManager *)Instance;
+
+@end
+
 @interface MidasAlertsManager : MidasPopupManager
 {
 	MidasAlertsViewController * viewController;
 }
 
 +(MidasAlertsManager *)Instance;
-
-@end
-
-@interface MidasTwitterManager : MidasPopupManager
-{
-	MidasTwitterViewController * viewController;
-}
-
-+(MidasTwitterManager *)Instance;
-
-@end
-
-@interface MidasTwitterManager : MidasPopupManager
-{
-	MidasTwitterViewController * viewController;
-}
-
-+(MidasTwitterManager *)Instance;
 
 @end
 

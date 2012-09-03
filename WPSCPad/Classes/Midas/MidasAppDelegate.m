@@ -73,8 +73,8 @@
 	[[MidasMyTeamManager Instance] onStartUp];
 	[[MidasVIPManager Instance] onStartUp];
 	[[MidasAlertsManager Instance] onStartUp];
-	[[MidasTwitterManager Instance] onStartUp];
-	[[MidasFacebookManager Instance] onStartUp];
+	[[MidasSocialMediaManager Instance] onStartUp];
+	[[MidasHelpManager Instance] onStartUp];
 	[[MidasChatManager Instance] onStartUp];
 	
 	// Load the prefs

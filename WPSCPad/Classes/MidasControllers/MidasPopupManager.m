@@ -249,34 +249,6 @@ static MidasAlertsManager * alertsInstance_ = nil;
 
 @end
 
-@implementation MidasTwitterManager
-
-static MidasTwitterManager * twitterInstance_ = nil;
-
-+(MidasTwitterManager *)Instance
-{
-	if(!twitterInstance_)
-		twitterInstance_ = [[MidasTwitterManager alloc] init];
-	
-	return twitterInstance_;
-}
-
--(id)init
-{
-	if(self = [super init])
-	{			
-		viewController = [[MidasTwitterViewController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
-		[self setManagedViewController:viewController];
-		[self setManagedViewType:MIDAS_TWITTER_POPUP_];
-		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
-		[viewController setAssociatedManager:self];
-	}
-	
-	return self;
-}
-
-@end
-
 @implementation MidasSocialMediaManager
 
 static MidasSocialMediaManager * socialmediaInstance_ = nil;
@@ -284,7 +256,7 @@ static MidasSocialMediaManager * socialmediaInstance_ = nil;
 +(MidasSocialMediaManager *)Instance
 {
 	if(!socialmediaInstance_)
-		socialmediaInstance_ = [[MidasTwitterManager alloc] init];
+		socialmediaInstance_ = [[MidasSocialMediaManager alloc] init];
 	
 	return socialmediaInstance_;
 }
@@ -295,7 +267,7 @@ static MidasSocialMediaManager * socialmediaInstance_ = nil;
 	{			
 		viewController = [[MidasSocialController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
 		[self setManagedViewController:viewController];
-		[self setManagedViewType:MIDAS_TWITTER_POPUP_];
+		[self setManagedViewType:MIDAS_SOCIAL_MEDIA_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
 		[viewController setAssociatedManager:self];
 	}
@@ -305,16 +277,16 @@ static MidasSocialMediaManager * socialmediaInstance_ = nil;
 
 @end
 
-@implementation MidasFacebookManager
+@implementation MidasHelpManager
 
-static MidasFacebookManager * facebookInstance_ = nil;
+static MidasHelpManager * helpInstance_ = nil;
 
-+(MidasFacebookManager *)Instance
++(MidasHelpManager *)Instance
 {
-	if(!facebookInstance_)
-		facebookInstance_ = [[MidasFacebookManager alloc] init];
+	if(!helpInstance_)
+		helpInstance_ = [[MidasHelpManager alloc] init];
 	
-	return facebookInstance_;
+	return helpInstance_;
 }
 
 -(id)init
@@ -323,7 +295,7 @@ static MidasFacebookManager * facebookInstance_ = nil;
 	{			
 		viewController = [[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
 		[self setManagedViewController:viewController];
-		[self setManagedViewType:MIDAS_FACEBOOK_POPUP_];
+		[self setManagedViewType:MIDAS_HELP_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
 		[viewController setAssociatedManager:self];
 	}

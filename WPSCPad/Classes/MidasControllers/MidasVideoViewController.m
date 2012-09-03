@@ -1347,13 +1347,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(sender == helpButton)
 	{
-		if(![[MidasFacebookManager Instance] viewDisplayed])
+		if(![[MidasHelpManager Instance] viewDisplayed])
 		{
 			helpButtonOpen = true;
 			
-			[[MidasFacebookManager Instance] grabExclusion:self];
+			[[MidasHelpManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasFacebookManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasHelpManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 	
@@ -1371,13 +1371,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(sender == socialMediaButton)
 	{
-		if(![[MidasTwitterManager Instance] viewDisplayed])
+		if(![[MidasSocialMediaManager Instance] viewDisplayed])
 		{
 			socialMediaButtonOpen = true;
 			
-			[[MidasTwitterManager Instance] grabExclusion:self];
+			[[MidasSocialMediaManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasTwitterManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasSocialMediaManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
 		}
 	}
 	
@@ -1502,10 +1502,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	buttonFrame = [helpButton frame];
 	[helpButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 	if(helpButtonOpen)
-		[[MidasFacebookManager Instance] moveToPositionX:leftX Animated:false];
+		[[MidasHelpManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(helpButtonOpen)
-		leftX += [[MidasFacebookManager Instance] widthOfView];
+		leftX += [[MidasHelpManager Instance] widthOfView];
 	else
 		leftX += CGRectGetWidth(buttonFrame);
 	
@@ -1528,10 +1528,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	buttonFrame = [socialMediaButton frame];
 	[socialMediaButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 	if(socialMediaButtonOpen)
-		[[MidasTwitterManager Instance] moveToPositionX:leftX Animated:false];
+		[[MidasSocialMediaManager Instance] moveToPositionX:leftX Animated:false];
 	
 	if(socialMediaButtonOpen)
-		leftX += [[MidasTwitterManager Instance] widthOfView];
+		leftX += [[MidasSocialMediaManager Instance] widthOfView];
 	else
 		leftX += CGRectGetWidth(buttonFrame);
 	
@@ -2145,11 +2145,11 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	bool popupDismissed = false;
 	
-	if(excludedPopupType != MIDAS_FACEBOOK_POPUP_ &&
-	   [[MidasFacebookManager Instance] viewDisplayed] &&
+	if(excludedPopupType != MIDAS_HELP_POPUP_ &&
+	   [[MidasHelpManager Instance] viewDisplayed] &&
 	   (popupZone & MIDAS_ZONE_TOP_) > 0)
 	{
-		[[MidasFacebookManager Instance] hideAnimated:true Notify:false];
+		[[MidasHelpManager Instance] hideAnimated:true Notify:false];
 		helpButtonOpen = false;
 		[helpButton setHidden:false];
 		popupDismissed= true;
@@ -2165,11 +2165,11 @@ static UIImage * newButtonBackgroundImage = nil;
 		popupDismissed= true;
 	}
 	
-	if(excludedPopupType != MIDAS_TWITTER_POPUP_ &&
-	   [[MidasTwitterManager Instance] viewDisplayed] &&
+	if(excludedPopupType != MIDAS_SOCIAL_MEDIA_POPUP_ &&
+	   [[MidasSocialMediaManager Instance] viewDisplayed] &&
 	   ((popupZone & MIDAS_ZONE_TOP_) > 0 || (popupZone & MIDAS_ZONE_SOCIAL_MEDIA_) > 0))
 	{
-		[[MidasTwitterManager Instance] hideAnimated:true Notify:false];
+		[[MidasSocialMediaManager Instance] hideAnimated:true Notify:false];
 		socialMediaButtonOpen = false;
 		[socialMediaButton setHidden:false];
 		popupDismissed= true;
@@ -2274,7 +2274,7 @@ static UIImage * newButtonBackgroundImage = nil;
 {
 	switch(popupType)
 	{
-		case MIDAS_FACEBOOK_POPUP_:
+		case MIDAS_HELP_POPUP_:
 			[helpButton setHidden:true];
 			break;
 			
@@ -2282,7 +2282,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			[alertsButton setHidden:true];
 			break;
 			
-		case MIDAS_TWITTER_POPUP_:
+		case MIDAS_SOCIAL_MEDIA_POPUP_:
 			[socialMediaButton setHidden:true];
 			break;
 			
@@ -2331,7 +2331,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			[self positionMenuButtons];
 			break;
 			
-		case MIDAS_FACEBOOK_POPUP_:
+		case MIDAS_HELP_POPUP_:
 			helpButtonOpen = false;
 			[helpButton setHidden:false];
 			[self positionMenuButtons];
@@ -2343,7 +2343,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			[self positionMenuButtons];
 			break;
 			
-		case MIDAS_TWITTER_POPUP_:
+		case MIDAS_SOCIAL_MEDIA_POPUP_:
 			socialMediaButtonOpen = false;
 			[socialMediaButton setHidden:false];
 			[self positionMenuButtons];
