@@ -2010,15 +2010,7 @@
 				240F203915F50F9A001C08C1 /* Products */,
 				240F279E15F51100001C08C1 /* Other Sources */,
 				240F20F115F5100E001C08C1 /* Resources */,
-				24362FBD15F60BC9006F3DFC /* DCTAuth.xcodeproj */,
-				24362FCD15F60BCE006F3DFC /* DCTCoreData.xcodeproj */,
-				24362FD915F60BD2006F3DFC /* DCTCoreDataStack.xcodeproj */,
-				24362FE915F60BD5006F3DFC /* DCTImageCache.xcodeproj */,
-				24362FF915F60BD9006F3DFC /* DCTImageSizing.xcodeproj */,
-				2436300915F60BDC006F3DFC /* DCTPullToRefresh.xcodeproj */,
-				2436301515F60BE0006F3DFC /* DCTTableViewDataSources.xcodeproj */,
-				2436302415F60BE6006F3DFC /* DCTTextFieldValidator.xcodeproj */,
-				2436303415F60BEA006F3DFC /* facebook-ios-sdk.xcodeproj */,
+				2464946F15F666F0003E4617 /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3380,6 +3372,22 @@
 				2436303F15F60C04006F3DFC /* ISO8601DateFormatter.m */,
 			);
 			name = ISO8601DateFormatter;
+			sourceTree = "<group>";
+		};
+		2464946F15F666F0003E4617 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				24362FBD15F60BC9006F3DFC /* DCTAuth.xcodeproj */,
+				24362FCD15F60BCE006F3DFC /* DCTCoreData.xcodeproj */,
+				24362FD915F60BD2006F3DFC /* DCTCoreDataStack.xcodeproj */,
+				24362FE915F60BD5006F3DFC /* DCTImageCache.xcodeproj */,
+				24362FF915F60BD9006F3DFC /* DCTImageSizing.xcodeproj */,
+				2436300915F60BDC006F3DFC /* DCTPullToRefresh.xcodeproj */,
+				2436301515F60BE0006F3DFC /* DCTTableViewDataSources.xcodeproj */,
+				2436302415F60BE6006F3DFC /* DCTTextFieldValidator.xcodeproj */,
+				2436303415F60BEA006F3DFC /* facebook-ios-sdk.xcodeproj */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		24942D1115F6249400613F87 /* Midas VIP */ = {
