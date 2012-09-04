@@ -26,6 +26,13 @@ enum MovieViewButtonAlignments
 	MV_ALIGN_LEFT,
 } ;
 
+enum MovieViewTitleDisplays
+{
+	MV_CLOSE_AND_AUDIO,
+	MV_CLOSE_NO_AUDIO,
+	MV_NO_CLOSE_NO_AUDIO
+} ;
+
 @class MovieView;
 
 @protocol MovieViewDelegate
@@ -36,10 +43,16 @@ enum MovieViewButtonAlignments
 @interface MovieView : BackgroundView
 {
 	BasePadVideoSource * movieSource;
+	BasePadVideoSource * pendingMovieSource; // Used to restore a previous view
+	
 	bool moviePlayerLayerAdded;
 	bool movieScheduledForDisplay;
 	bool movieScheduledForRemoval;
 
+	UIView * titleView;
+	UIImageView * titleBackgroundImage;
+
+	UIImageView * audioImage;
 	UIButton * closeButton;
 	
 	UIButton * driverNameButton;
@@ -64,6 +77,9 @@ enum MovieViewButtonAlignments
 @property (nonatomic) bool moviePlayerLayerAdded;
 @property (nonatomic) bool movieScheduledForDisplay;
 @property (nonatomic) bool movieScheduledForRemoval;
+@property (nonatomic, retain) UIView * titleView;
+@property (nonatomic, retain) UIImageView * titleBackgroundImage;
+@property (nonatomic, retain) UIImageView * audioImage;
 @property (nonatomic, retain) UIButton * closeButton;
 @property (nonatomic, retain) UIButton * driverNameButton;
 @property (nonatomic, retain) UIButton * movieTypeButton;
@@ -82,6 +98,10 @@ enum MovieViewButtonAlignments
 
 - (bool) movieSourceAssociated;
 
+- (void) storeMovieSource;
+- (void) restoreMovieSource;
+- (void) clearMovieSourceStore;
+
 - (void) notifyMovieAboutToShowSource:(BasePadVideoSource *)source;
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source;
 - (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source;
@@ -89,7 +109,7 @@ enum MovieViewButtonAlignments
 - (void) removeMovieFromView;
 - (void) resizeMovieSourceAnimated:(bool)animated WithDuration:(float)duration;
 
-- (void) showMovieLabels;
+- (void) showMovieLabels:(int)titleStyle;
 - (void) hideMovieLabels;
 
 - (void) showMovieLoading;

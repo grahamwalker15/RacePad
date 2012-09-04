@@ -31,6 +31,7 @@
 @synthesize liveVideoDelay;
 
 @synthesize movieLoop;
+@synthesize movieForceLive;
 @synthesize shouldAutoDisplay;
 
 @synthesize resyncCount;
@@ -52,6 +53,7 @@
 @synthesize movieGoLivePending;
 @synthesize moviePausedInPlace;
 @synthesize moviePlaying;
+@synthesize movieInLiveMode;
 
 @synthesize movieType;
 @synthesize movieMarkedPlayable;
@@ -81,14 +83,14 @@
 		
 		moviePausedInPlace = false;
 		moviePlaying = false;
+		movieInLiveMode = false;
 		
 		movieStartTime = -1.0;
 		movieSeekTime = 0.0;
 		streamSeekStartTime = 0.0;
 		
 		movieLoop = false;
-		
-		resyncCount = 0;
+		movieForceLive = false;
 		
 		lastMoviePlayTime = 0.0;
 		lastResyncTime = 0.0;
@@ -107,6 +109,19 @@
 			
 		loading = false;
 		looping = false;
+		liveVideoDelay = 0.0;
+		
+		restartCount = 0;
+		resyncCount = 0;
+		
+		lastMoviePlayTime = 0.0;
+		lastResyncTime = 0.0;
+		
+		moviePlayElapsedTime = nil;
+		
+		playStartTimer = nil;
+		playTimer = nil;
+		
 	}
 	
 	return self;
@@ -562,8 +577,11 @@
 // Movie controls
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) moviePrepareToPlay
+- (void) moviePrepareToPlayLive
 {
+
+	[self movieGoLive];
+	[self startLivePlayTimer];
 }
 
 - (void) moviePlayAtRate:(float)playbackRate
@@ -583,7 +601,10 @@
 
 - (void) moviePlay
 {
-	[self moviePlayAtRate:[[BasePadMedia Instance] activePlaybackRate]];
+	if(movieForceLive)
+		[self moviePlayAtRate:1.0];
+	else
+		[self moviePlayAtRate:[[BasePadMedia Instance] activePlaybackRate]];
 }
 
 - (void) movieStop
@@ -597,6 +618,14 @@
 
 - (void) movieGotoTime:(float)time
 {
+	if(movieForceLive && !moviePlaying && !moviePlayPending)
+	{
+		[self moviePrepareToPlayLive];
+		return;
+	}
+	
+	movieInLiveMode = false;
+	
 	if(movieSeekable && movieActive)
 	{
 		Float64 movie_time = time - movieStartTime;
@@ -671,6 +700,8 @@
 
 - (void) movieGoLive
 {
+	movieInLiveMode = true;
+	
 	if(!moviePlayer || !moviePlayerItem)
 	{
 		movieGoLivePending = true;
@@ -919,6 +950,7 @@
 			bool full = [object isPlaybackBufferFull];
 			bool likelyToKeepUp = [object isPlaybackLikelyToKeepUp];
 			
+			/*
 			NSString * infoMessage = [NSString stringWithFormat:@"Tracks : %d/%d", tracksEnabled, tracksCount];
 			
 			if(empty)
@@ -929,12 +961,13 @@
 			
 			if(!likelyToKeepUp)					
 				infoMessage = [infoMessage stringByAppendingString:@" - Playback unlikely to keep up"];
+			*/
 			
 			if(parentMovieView)
 			{
-				if([infoMessage length] > 0)
-					[parentMovieView notifyInfoOnVideoSource:self withMessage:infoMessage];
-				else
+				//if([infoMessage length] > 0)
+				//	[parentMovieView notifyInfoOnVideoSource:self withMessage:infoMessage];
+				//else
 					[parentMovieView hideMovieError];
 			}
 		}		
@@ -1060,5 +1093,113 @@
 	[moviePlayer setRate:[[BasePadMedia Instance] activePlaybackRate]];
 }
 
+
+////////////////////////////////////////////////////////////////////////
+//  Play timer functions
+
+- (void) startLivePlayTimer;
+{
+	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
+	{
+		// A 5 second timer kicked off at start of live play.
+		// Stream will resync on expiration.
+		[self stopPlayTimers];
+		
+		playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
+		
+		if(parentMovieView)
+			[parentMovieView showLoadingIndicators];
+	}
+}
+
+- (void) stopPlayTimers
+{
+	if(playStartTimer)
+	{
+		[playStartTimer invalidate];
+		playStartTimer = nil;
+	}
+	
+	if(playTimer)
+	{
+		[playTimer invalidate];
+		playTimer = nil;
+	}
+	
+	if(moviePlayElapsedTime)
+	{
+		[moviePlayElapsedTime release];
+		moviePlayElapsedTime = nil;
+	}
+	
+	if(parentMovieView)
+		[parentMovieView hideLoadingIndicators];
+}
+
+- (void) playStartTimerExpired: (NSTimer *)theTimer
+{
+	// If there is a go live or play still pending, just kick off the timer again
+	if(movieGoLivePending || moviePlayPending)
+	{
+		[self startLivePlayTimer];
+		return;
+	}
+	
+	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
+	[self movieResyncLive];
+	
+	if(parentMovieView)
+		[parentMovieView hideLoadingIndicators];
+	
+	playStartTimer = nil;
+	
+	if(moviePlayElapsedTime)
+		[moviePlayElapsedTime release];
+	
+	moviePlayElapsedTime = [[ElapsedTime alloc] init];
+	
+	if(playTimer)
+		[playTimer invalidate];
+	
+	playTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(livePlayTimerFired:) userInfo:nil repeats:YES];
+}
+
+- (void) livePlayTimerFired: (NSTimer *)theTimer
+{
+	if([[BasePadCoordinator Instance] liveMode])
+	{
+		// Check the player status is still OK
+		if(![self moviePlayable])
+		{
+			[self restartConnection];
+			return;
+		}
+			
+		// Then check time hasn't slipped
+		float timeNow = [moviePlayElapsedTime value];
+		if(movieDisplayed && ![self moviePlayingRealTime:timeNow])
+		{
+			[self restartConnection];
+		}
+	}
+}
+
+- (void) restartConnection
+{
+	[self movieStop];
+	[self stopPlayTimers];
+	
+	if(parentMovieView)
+		[self loadMovieIntoView:parentMovieView];
+	else
+		[self loadMovie];
+	
+	[self movieGoLive];
+	[self moviePlay];
+	
+	[self startLivePlayTimer];
+	
+	restartCount++;
+}
 
 @end

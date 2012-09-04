@@ -718,7 +718,6 @@ static BasePadCoordinator * instance_ = nil;
 		if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 		{
 			[[BasePadMedia Instance] movieGotoTime:currentTime];
-			[[BasePadMedia Instance] moviePrepareToPlay];
 		}
 	
 		[[BasePadMedia Instance] audioGotoTime:currentTime];
@@ -1113,8 +1112,7 @@ static BasePadCoordinator * instance_ = nil;
 		{
 			if ( live )
 			{
-				[[BasePadMedia Instance] movieGoLive];
-				[[BasePadMedia Instance]  startLivePlayTimer];
+				[[BasePadMedia Instance]  moviePrepareToPlayLive];
 			}
 			else
 			{
@@ -1171,8 +1169,7 @@ static BasePadCoordinator * instance_ = nil;
 		{
 			if ( live )
 			{
-				[[BasePadMedia Instance] movieGoLive];
-				[[BasePadMedia Instance]  startLivePlayTimer];
+				[[BasePadMedia Instance]  moviePrepareToPlayLive];
 			}
 			else
 			{

@@ -32,18 +32,25 @@
 	IBOutlet MovieView * mainMovieView;
 	IBOutlet MovieView * auxMovieView1;	
 	IBOutlet MovieView * auxMovieView2;
-	
-	IBOutlet UIButton * auxMovieView1CloseButton;
-	IBOutlet UIButton * auxMovieView2CloseButton;
-	
+		
+	IBOutlet UIView * mainMovieViewTitleView;
+	IBOutlet UIImageView * mainMovieViewTitleBackgroundImage;
 	IBOutlet UIButton * mainMovieViewDriverName;
 	IBOutlet UIButton * mainMovieViewMovieType;
 	
+	IBOutlet UIView * auxMovieView1TitleView;
+	IBOutlet UIImageView * auxMovieView1TitleBackgroundImage;
+	IBOutlet UIImageView * auxMovieView1AudioImage;
 	IBOutlet UIButton * auxMovieView1DriverName;
 	IBOutlet UIButton * auxMovieView1MovieType;
+	IBOutlet UIButton * auxMovieView1CloseButton;
 	
+	IBOutlet UIView * auxMovieView2TitleView;
+	IBOutlet UIImageView * auxMovieView2TitleBackgroundImage;
+	IBOutlet UIImageView * auxMovieView2AudioImage;
 	IBOutlet UIButton * auxMovieView2DriverName;
 	IBOutlet UIButton * auxMovieView2MovieType;
+	IBOutlet UIButton * auxMovieView2CloseButton;
 	
 	IBOutlet UIImageView * mainMovieViewLoadingScreen;
 
@@ -110,6 +117,7 @@
 	CGRect movieRect;
 	
 	int priorityAuxMovie;
+	bool movieViewsStored;
 	
 	int unselectedButtonWidth;
 	int selectedButtonWidth;
@@ -162,6 +170,12 @@
 - (bool) displayMovieSource:(BasePadVideoSource *)source InView:(MovieView *)view;
 - (void) prePositionMovieView:(MovieView *)newView From:(int)movieDirection;
 - (void) positionMovieViews;
+
+- (int) countMovieViews;
+
+- (void) storeMovieViews;
+- (void) restoreMovieViews;
+- (void) clearMovieViewStore;
 
 - (void) showZoomMap;
 - (void) hideZoomMap;

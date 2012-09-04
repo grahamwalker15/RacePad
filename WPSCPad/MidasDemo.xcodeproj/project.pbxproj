@@ -142,6 +142,11 @@
 		7F4B8B8D15F21A3C00D8B486 /* textCameras.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8B8B15F21A3C00D8B486 /* textCameras.png */; };
 		7F4B8B9115F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8B9015F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png */; };
 		7F4B8BD315F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8BD215F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png */; };
+		7F4B8CD015F508E800D8B486 /* videoTitleOverlayFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8CCD15F508E800D8B486 /* videoTitleOverlayFull.png */; };
+		7F4B8CD115F508E800D8B486 /* videoTitleOverlayNoAudio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8CCE15F508E800D8B486 /* videoTitleOverlayNoAudio.png */; };
+		7F4B8CD215F508E800D8B486 /* videoTitleOverlayNoClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8CCF15F508E800D8B486 /* videoTitleOverlayNoClose.png */; };
+		7F4B8ED115F5348E00D8B486 /* MenuAudioOff~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8ECF15F5348E00D8B486 /* MenuAudioOff~ipad.png */; };
+		7F4B8ED215F5348E00D8B486 /* MenuAudioOn~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B8ED015F5348E00D8B486 /* MenuAudioOn~ipad.png */; };
 		7F610C8F13018636004DC056 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
 		7F610C9213018778004DC056 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; };
 		7F610CE31301B2B0004DC056 /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
@@ -870,6 +875,11 @@
 		7F4B8B8B15F21A3C00D8B486 /* textCameras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textCameras.png; sourceTree = "<group>"; };
 		7F4B8B9015F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuCircuitIconDetachMap~ipad.png"; sourceTree = "<group>"; };
 		7F4B8BD215F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuCircuitIconAttachMap~ipad.png"; sourceTree = "<group>"; };
+		7F4B8CCD15F508E800D8B486 /* videoTitleOverlayFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayFull.png; sourceTree = "<group>"; };
+		7F4B8CCE15F508E800D8B486 /* videoTitleOverlayNoAudio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoAudio.png; sourceTree = "<group>"; };
+		7F4B8CCF15F508E800D8B486 /* videoTitleOverlayNoClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoClose.png; sourceTree = "<group>"; };
+		7F4B8ECF15F5348E00D8B486 /* MenuAudioOff~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuAudioOff~ipad.png"; sourceTree = "<group>"; };
+		7F4B8ED015F5348E00D8B486 /* MenuAudioOn~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuAudioOn~ipad.png"; sourceTree = "<group>"; };
 		7F610C8E13018636004DC056 /* InfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoView.xib; path = ResourceFiles/InfoView.xib; sourceTree = "<group>"; };
 		7F610C9013018778004DC056 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		7F610C9113018778004DC056 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
@@ -2124,6 +2134,11 @@
 		7FA966A514B47CD5006B072C /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B8ECF15F5348E00D8B486 /* MenuAudioOff~ipad.png */,
+				7F4B8ED015F5348E00D8B486 /* MenuAudioOn~ipad.png */,
+				7F4B8CCD15F508E800D8B486 /* videoTitleOverlayFull.png */,
+				7F4B8CCE15F508E800D8B486 /* videoTitleOverlayNoAudio.png */,
+				7F4B8CCF15F508E800D8B486 /* videoTitleOverlayNoClose.png */,
 				7F4B858A15ED018700D8B486 /* Cameras */,
 				7F4B856F15ECF9AF00D8B486 /* MenuDriverButtonNegative.png */,
 				7F4B857015ECF9AF00D8B486 /* MenuDriverButtonPositive.png */,
@@ -3158,6 +3173,11 @@
 				7F4B8B8D15F21A3C00D8B486 /* textCameras.png in Resources */,
 				7F4B8B9115F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png in Resources */,
 				7F4B8BD315F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png in Resources */,
+				7F4B8CD015F508E800D8B486 /* videoTitleOverlayFull.png in Resources */,
+				7F4B8CD115F508E800D8B486 /* videoTitleOverlayNoAudio.png in Resources */,
+				7F4B8CD215F508E800D8B486 /* videoTitleOverlayNoClose.png in Resources */,
+				7F4B8ED115F5348E00D8B486 /* MenuAudioOff~ipad.png in Resources */,
+				7F4B8ED215F5348E00D8B486 /* MenuAudioOn~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

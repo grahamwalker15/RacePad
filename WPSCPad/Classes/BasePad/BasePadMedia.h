@@ -46,8 +46,6 @@ enum MovieConnectionTypes
 
 #define BPM_MAX_VIDEO_STREAMS 16
 
-@class ElapsedTime;
-
 @interface BasePadMedia : NSObject
 {				
 	BasePadVideoSource * movieSources[BPM_MAX_VIDEO_STREAMS];
@@ -74,8 +72,6 @@ enum MovieConnectionTypes
 	
 	int resyncCount;
 	int restartCount;
-	
-	ElapsedTime * moviePlayElapsedTime;
 	
 	int currentStatus;
 	NSString *currentError;
@@ -129,28 +125,25 @@ enum MovieConnectionTypes
 - (NSURL *) getMovieURL;
 - (NSURL *) getAudioURL;
 
+- (void) moviePrepareToPlayLive;
 - (void) moviePlayAtRate:(float)playbackRate;
 - (void) moviePlay;
 - (void) movieStop;
+- (void) movieStopAll;
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) movieSeekToLive;
-- (void) moviePrepareToPlay;
 - (void) movieResyncLive;
+
 - (void) setMoviePlaying:(bool)value;
 - (void) setMoviePausedInPlace:(bool)value;
+- (void) stopPlayTimers;
 
 - (void) audioPlayAtRate:(float)playbackRate;
 - (void) audioPlay;
 - (void) audioStop;
 - (void) audioGotoTime:(float)time;
 - (void) audioPrepareToPlay;
-
-- (void) startLivePlayTimer;
-- (void) stopPlayTimers;
-- (void) playStartTimerExpired: (NSTimer *)theTimer;
-- (void) livePlayTimerFired: (NSTimer *)theTimer;
-- (void) restartConnection;
 
 -(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
 -(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;

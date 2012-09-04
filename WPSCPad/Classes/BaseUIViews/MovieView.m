@@ -25,6 +25,9 @@
 @synthesize loadingScreen;	
 @synthesize errorLabel;
 
+@synthesize titleView;
+@synthesize titleBackgroundImage;
+@synthesize audioImage;
 @synthesize driverNameButton;
 @synthesize movieTypeButton;
 @synthesize labelAlignment;
@@ -50,8 +53,12 @@
 		shouldShowLabels = false;
 		labelAlignment = MV_ALIGN_TOP;
 		
+		titleView = nil;
+		titleBackgroundImage = nil;
+		
 		driverNameButton = nil;
 		movieTypeButton = nil;
+		audioImage = nil;
 		
 		live = false;
 		
@@ -114,6 +121,35 @@
 	return (moviePlayerLayerAdded || movieScheduledForDisplay);
 }
 
+- (void) storeMovieSource
+{
+	[self clearMovieSourceStore];
+	
+	if(movieSource)
+		pendingMovieSource = [movieSource retain];		
+}
+
+- (void) restoreMovieSource
+{
+	if(pendingMovieSource)
+	{
+		[self setMovieViewDelegate:nil];
+		[self displayMovieSource:pendingMovieSource];
+
+		[pendingMovieSource release];
+		pendingMovieSource = nil;
+	}
+}
+
+- (void) clearMovieSourceStore
+{
+	if(pendingMovieSource)
+	{
+		[pendingMovieSource release];
+		pendingMovieSource = nil;
+	}
+}
+
 - (void) notifyMovieAboutToShowSource:(BasePadVideoSource *)source
 {
 	// Show the loading indicator if we're loading a remote movie
@@ -126,7 +162,7 @@
 
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source
 {	
-	// Set the movieas active
+	// Set the movie as active
 	[source setMovieActive:true];
 	
 	// Add the source's player layer to this movie view
@@ -155,15 +191,9 @@
 		else
 			[source movieStop];
 		
-		if(closeButton)
-			[self bringSubviewToFront:closeButton];
-		
-		if(driverNameButton)
-			[self bringSubviewToFront:driverNameButton];
-		
-		if(movieTypeButton)
-			[self bringSubviewToFront:movieTypeButton];
-		
+		if(titleView)
+			[self bringSubviewToFront:titleView];
+				
 		// Tell the delegate that we've done it
 		if(movieViewDelegate)
 			[movieViewDelegate notifyMovieAttachedToView:self];
@@ -282,16 +312,37 @@
 {
 }
 
-- (void) showMovieLabels
+- (void) showMovieLabels:(int)titleStyle;
 {
-	if(!movieSource || !driverNameButton || !movieTypeButton)
+	if(!movieSource || !titleView || !titleBackgroundImage || !driverNameButton || !movieTypeButton)
 		return;
 	
-	[driverNameButton setAlpha:0.0];
-	[driverNameButton setHidden:false];
+	[titleView setAlpha:0.0];
+	[titleView setHidden:false];
 	
-	[movieTypeButton setAlpha:0.0];
-	[movieTypeButton setHidden:false];
+	float xRight = CGRectGetMaxX([titleView bounds]);
+	
+	if(titleStyle == MV_CLOSE_AND_AUDIO)
+	{
+		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayFull.png"]];
+		[driverNameButton setFrame:CGRectMake(xRight - 190, 0, 115, 16)];
+		[movieTypeButton setFrame:CGRectMake(xRight - 190, 16, 115, 16)];
+		[audioImage setHidden:false];
+	}
+	else if(titleStyle == MV_CLOSE_NO_AUDIO)
+	{
+		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoAudio.png"]];
+		[driverNameButton setFrame:CGRectMake(xRight - 160, 0, 115, 16)];
+		[movieTypeButton setFrame:CGRectMake(xRight - 160, 16, 115, 16)];
+		[audioImage setHidden:true];
+	}
+	else if(titleStyle == MV_NO_CLOSE_NO_AUDIO)
+	{
+		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoClose.png"]];
+		[driverNameButton setFrame:CGRectMake(xRight - 125, 0, 115, 16)];
+		[movieTypeButton setFrame:CGRectMake(xRight - 125, 16, 115, 16)];
+		[audioImage setHidden:true];
+	}
 	
 	[driverNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
 	
@@ -306,41 +357,39 @@
 	
 	if(labelAlignment == MV_ALIGN_TOP)
 	{
-		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 		
-		float ytop = ourBounds.origin.y - 2;
-		[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - movieTypeBounds.size.height, movieTypeBounds.size.width, movieTypeBounds.size.height)];
-		ytop -= movieTypeBounds.size.height;
-		[driverNameButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - driverNameBounds.size.height, driverNameBounds.size.width, driverNameBounds.size.height)];
+		//float ytop = ourBounds.origin.y - 2;
+		//[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - movieTypeBounds.size.height, movieTypeBounds.size.width, movieTypeBounds.size.height)];
+		//ytop -= movieTypeBounds.size.height;
+		//[driverNameButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - driverNameBounds.size.height, driverNameBounds.size.width, driverNameBounds.size.height)];
 	}
 	else
 	{
 		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 		
-		float ytop = ourBounds.origin.y;
-		[driverNameButton setFrame:CGRectMake(ourBounds.origin.x - driverNameBounds.size.width - 3, ytop, driverNameBounds.size.width, driverNameBounds.size.height)];
-		ytop += driverNameBounds.size.height;
-		[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x - movieTypeBounds.size.width - 3, ytop, movieTypeBounds.size.width, movieTypeBounds.size.height)];
+		//float ytop = ourBounds.origin.y;
+		//[driverNameButton setFrame:CGRectMake(ourBounds.origin.x - driverNameBounds.size.width - 3, ytop, driverNameBounds.size.width, driverNameBounds.size.height)];
+		//ytop += driverNameBounds.size.height;
+		//[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x - movieTypeBounds.size.width - 3, ytop, movieTypeBounds.size.width, movieTypeBounds.size.height)];
 	}
 	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
 	
-	[driverNameButton setAlpha:1.0];
-	[movieTypeButton setAlpha:1.0];
+	[titleView setAlpha:1.0];
 	
 	[UIView commitAnimations];
 }
 
 - (void) hideMovieLabels
 {
-	if(!driverNameButton || !movieTypeButton)
+	if(!titleView)
 		return;
 	
-	[driverNameButton setHidden:true];
-	[movieTypeButton setHidden:true];
+	[titleView setHidden:true];
 }
 
 - (void) showMovieLoading

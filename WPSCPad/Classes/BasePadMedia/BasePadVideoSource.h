@@ -21,6 +21,7 @@
 #import "BasePadVideoViewController.h"
 
 @class MovieView;
+@class ElapsedTime;
 
 @interface BasePadVideoSource : NSObject
 {				
@@ -38,15 +39,8 @@
 	float streamSeekStartTime;
 	
 	bool movieLoop;
-	
-	float liveVideoDelay;
-	
-	Float64 lastMoviePlayTime;
-	float lastResyncTime;
-	bool movieRecentlyResynced;
-	
-	int resyncCount;
-	
+	bool movieForceLive;
+			
 	NSString *currentMovie;
 	NSString *movieTag;
 	NSString *movieName;
@@ -82,6 +76,22 @@
 		
 	bool loading;
 	bool looping;
+	
+	bool movieInLiveMode;
+	
+	NSTimer * playStartTimer;
+	NSTimer * playTimer;
+	
+	float liveVideoDelay;
+	
+	Float64 lastMoviePlayTime;
+	float lastResyncTime;
+	bool movieRecentlyResynced;
+		
+	int resyncCount;
+	int restartCount;
+	
+	ElapsedTime * moviePlayElapsedTime;
 }
 
 @property (readonly) AVURLAsset * moviePlayerAsset;
@@ -99,6 +109,7 @@
 @property (readonly) int resyncCount;
 
 @property (nonatomic) bool movieLoop;
+@property (nonatomic) bool movieForceLive;
 @property (nonatomic) bool shouldAutoDisplay;
 
 @property (readonly) NSString *currentMovie;
@@ -116,6 +127,8 @@
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
 @property (readonly) bool movieGoLivePending;
+
+@property (readonly) bool movieInLiveMode;
 
 @property (nonatomic) bool moviePausedInPlace;
 @property (nonatomic) bool moviePlaying;
@@ -140,13 +153,13 @@
 - (void) setStartTime:(float)time;
 - (void) getStartTime;
 
+- (void) moviePrepareToPlayLive;
 - (void) moviePlayAtRate:(float)playbackRate;
 - (void) moviePlay;
 - (void) movieStop;
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) movieSeekToLive;
-- (void) moviePrepareToPlay;
 - (void) movieResyncLive;
 
 - (bool) moviePlayable;
@@ -161,5 +174,11 @@
 - (void) actOnReadyToPlay;
 - (void) actOnPlayerError:(NSError *)error;
 - (void) actOnLoopingReachedEnd;
+
+- (void) startLivePlayTimer;
+- (void) stopPlayTimers;
+- (void) playStartTimerExpired: (NSTimer *)theTimer;
+- (void) livePlayTimerFired: (NSTimer *)theTimer;
+- (void) restartConnection;
 
 @end

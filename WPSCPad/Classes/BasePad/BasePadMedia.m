@@ -9,7 +9,6 @@
 #import "BasePadMedia.h"
 
 #import "BasePadCoordinator.h"
-#import "ElapsedTime.h"
 #import "BasePadPrefs.h"
 #import "BasePadDatabase.h"
 
@@ -71,11 +70,6 @@ static BasePadMedia * instance_ = nil;
 		
 		lastMoviePlayTime = 0.0;
 		lastResyncTime = 0.0;
-		
-		moviePlayElapsedTime = nil;
-		
-		playStartTimer = nil;
-		playTimer = nil;
 		
 		movieType = MOVIE_TYPE_NONE_;
 	}
@@ -334,8 +328,13 @@ static BasePadMedia * instance_ = nil;
 // Movie controls
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) moviePrepareToPlay
+- (void) moviePrepareToPlayLive
 {
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] moviePrepareToPlayLive];
+	}
 }
 
 - (void) moviePlayAtRate:(float)playbackRate
@@ -359,6 +358,17 @@ static BasePadMedia * instance_ = nil;
 
 - (void) movieStop
 {
+	// Does not stop movies which are supposed to stay live
+	for(int i = 0 ; i < movieSourceCount ; i++)
+	{
+		if([movieSources[i] movieDisplayed] && ![movieSources[i] movieForceLive])
+			[movieSources[i] movieStop];
+	}
+}
+
+- (void) movieStopAll
+{
+	// Stops all movies including those which are supposed to stay live
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
 		if([movieSources[i] movieDisplayed])
@@ -420,119 +430,13 @@ static BasePadMedia * instance_ = nil;
 	}
 }
 
-- (void) startLivePlayTimer;
-{
-	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
-	{
-		// A 5 second timer kicked off at start of live play.
-		// Stream will resync on expiration.
-		[self stopPlayTimers];
-		
-		playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
-		
-		if(registeredViewController)
-			[registeredViewController showLoadingIndicators];
-	}
-}
-
 - (void) stopPlayTimers
 {
-	if(playStartTimer)
-	{
-		[playStartTimer invalidate];
-		playStartTimer = nil;
-	}
-	
-	if(playTimer)
-	{
-		[playTimer invalidate];
-		playTimer = nil;
-	}
-	
-	if(moviePlayElapsedTime)
-	{
-		[moviePlayElapsedTime release];
-		moviePlayElapsedTime = nil;
-	}
-	
-	if(registeredViewController)
-		[registeredViewController hideLoadingIndicators];
-}
-
-- (void) playStartTimerExpired: (NSTimer *)theTimer
-{
-	// If there is a go live or play still pending, just kick off the timer again
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
-		if([movieSources[i] movieGoLivePending] || [movieSources[i] moviePlayPending])
-		{
-			[self startLivePlayTimer];
-			return;
-		}
+		if([movieSources[i] movieDisplayed])
+			[movieSources[i] stopPlayTimers];
 	}
-	
-	// Re-syncs play back in live mode, then kicks off regular timer to keep track of sync
-	[self movieResyncLive];
-	
-	if(registeredViewController)
-		[registeredViewController hideLoadingIndicators];
-	
-	playStartTimer = nil;
-	
-	if(moviePlayElapsedTime)
-		[moviePlayElapsedTime release];
-	
-	moviePlayElapsedTime = [[ElapsedTime alloc] init];
-	
-	if(playTimer)
-		[playTimer invalidate];
-	
-	playTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(livePlayTimerFired:) userInfo:nil repeats:YES];
-}
-
-- (void) livePlayTimerFired: (NSTimer *)theTimer
-{
-	if([[BasePadCoordinator Instance] liveMode])
-	{
-		for(int i = 0 ; i < movieSourceCount ; i++)
-		{
-			// Check the player status is still OK
-			if(![movieSources[i] moviePlayable])
-			{
-				[self restartConnection];
-				return;
-			}
-		
-			// Then check time hasn't slipped
-			float timeNow = [moviePlayElapsedTime value];
-			if([movieSources[i] movieDisplayed] && ![movieSources[i] moviePlayingRealTime:timeNow])
-			{
-				[self restartConnection];
-			}
-		}
-			
-		resyncCount = [movieSources[0] resyncCount];
-		liveVideoDelay = [movieSources[0] liveVideoDelay];
-		
-		if(registeredViewController)
-			[registeredViewController notifyMovieInformation];
-	}
-}
-
-- (void) restartConnection
-{
-	[self movieStop];
-	[self stopPlayTimers];
-	
-	[self disconnectVideoServer];
-	[self connectToVideoServer];
-	
-	[self movieGoLive];
-	[self moviePlay];
-	
-	[self startLivePlayTimer];
-	
-	restartCount++;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -618,7 +522,7 @@ static BasePadMedia * instance_ = nil;
 	{
 		[self stopPlayTimers];
 		
-		[self movieStop];	
+		[self movieStopAll];	
 		[registeredViewController removeMoviesFromView];
 		
 		[registeredViewController release];
@@ -756,8 +660,13 @@ static BasePadMedia * instance_ = nil;
 				break;
 			
 			bool movieIsURL = false;
-			if ( strcmp ( movieTypeString, "url" ) == 0 )
+			bool movieForceLive = false;
+			
+			if ( strcmp ( movieTypeString, "url" ) == 0 || strcmp ( movieTypeString, "url-live" ) == 0 )
 				movieIsURL = true;
+			
+			if ( strcmp ( movieTypeString, "url-live" ) == 0 )
+				movieForceLive = true;
 			
 			// If it is a file name, append document path - otherwise if it is a url, leave as it is
 			
