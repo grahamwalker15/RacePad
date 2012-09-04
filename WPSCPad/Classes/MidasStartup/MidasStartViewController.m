@@ -50,9 +50,11 @@ CGPoint const LogoEndPoint;
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_COUNT_VIEW_];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
+	[super viewDidDisappear:animated];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
+	[self.particleView removeFromSuperview];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
