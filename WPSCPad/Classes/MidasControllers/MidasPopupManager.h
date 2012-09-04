@@ -24,6 +24,7 @@
 @class MidasTwitterViewController;
 @class MidasFacebookViewController;
 @class MidasChatViewController;
+@class MidasSocialViewController;
 
 // View types
 enum PopupViewTypes
@@ -228,7 +229,7 @@ enum PopupMenuZones
 
 @interface MidasSocialMediaManager : MidasPopupManager
 {
-	MidasSocialController * viewController;
+	MidasSocialViewController * viewController;
 }
 
 +(MidasSocialMediaManager *)Instance;

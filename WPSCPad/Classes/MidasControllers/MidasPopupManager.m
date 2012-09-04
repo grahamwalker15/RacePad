@@ -22,6 +22,7 @@
 #import "MidasDemoViewControllers.h"
 
 #import "BasePadViewController.h"
+#import "MidasSocialViewController.h"
 
 @implementation MidasMasterMenuManager
 
@@ -265,7 +266,7 @@ static MidasSocialMediaManager * socialmediaInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasSocialController alloc] initWithNibName:@"MidasTwitterView" bundle:nil];
+		viewController = [[MidasSocialViewController alloc] init];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_SOCIAL_MEDIA_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];

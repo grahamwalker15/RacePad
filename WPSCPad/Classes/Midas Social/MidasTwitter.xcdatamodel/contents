@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="12B19" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MidasTwitterTweet" representedClassName="MidasTwitterTweet" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="read" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tweetID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userRetweeted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MidasTwitterUser" inverseName="tweets" inverseEntity="MidasTwitterUser" syncable="YES"/>
+    </entity>
+    <entity name="MidasTwitterUser" representedClassName="MidasTwitterUser" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tweets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MidasTwitterTweet" inverseName="user" inverseEntity="MidasTwitterTweet" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MidasTwitterTweet" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MidasTwitterUser" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

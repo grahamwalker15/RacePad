@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="12B19" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MidasFacebookComment" representedClassName="MidasFacebookComment" syncable="YES">
+        <attribute name="commentID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="likesCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="read" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MidasFacebookUser" inverseName="comments" inverseEntity="MidasFacebookUser" syncable="YES"/>
+    </entity>
+    <entity name="MidasFacebookUser" representedClassName="MidasFacebookUser" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MidasFacebookComment" inverseName="user" inverseEntity="MidasFacebookComment" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MidasFacebookComment" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="MidasFacebookUser" positionX="160" positionY="192" width="128" height="90"/>
+    </elements>
+</model>

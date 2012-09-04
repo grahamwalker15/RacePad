@@ -10,6 +10,31 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		24BFDBE315F4FD030052BCFB /* _MidasTwitterTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBBA15F4FD030052BCFB /* _MidasTwitterTweet.m */; };
+		24BFDBE415F4FD030052BCFB /* _MidasTwitterUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBBC15F4FD030052BCFB /* _MidasTwitterUser.m */; };
+		24BFDBE515F4FD030052BCFB /* MidasTwitterTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBBE15F4FD030052BCFB /* MidasTwitterTweet.m */; };
+		24BFDBE615F4FD030052BCFB /* MidasTwitterUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBC015F4FD030052BCFB /* MidasTwitterUser.m */; };
+		24BFDBE715F4FD030052BCFB /* MidasTwitter.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBC115F4FD030052BCFB /* MidasTwitter.xcdatamodel */; };
+		24BFDBE815F4FD030052BCFB /* MidasTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBC315F4FD030052BCFB /* MidasTwitter.m */; };
+		24BFDBE915F4FD030052BCFB /* MidasTwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBC515F4FD030052BCFB /* MidasTwitterViewController.m */; };
+		24BFDBEA15F4FD030052BCFB /* MidasTwitterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BFDBC615F4FD030052BCFB /* MidasTwitterViewController.xib */; };
+		24BFDBEB15F4FD030052BCFB /* MidasTweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBC815F4FD030052BCFB /* MidasTweetTableViewCell.m */; };
+		24BFDBEC15F4FD030052BCFB /* MidasTweetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BFDBC915F4FD030052BCFB /* MidasTweetTableViewCell.xib */; };
+		24BFDBED15F4FD030052BCFB /* MidasTwitterProfileImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBCB15F4FD030052BCFB /* MidasTwitterProfileImageCache.m */; };
+		24BFDBEE15F4FD030052BCFB /* _MidasFacebookComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBCD15F4FD030052BCFB /* _MidasFacebookComment.m */; };
+		24BFDBEF15F4FD030052BCFB /* _MidasFacebookUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBCF15F4FD030052BCFB /* _MidasFacebookUser.m */; };
+		24BFDBF015F4FD030052BCFB /* MidasFacebookComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBD115F4FD030052BCFB /* MidasFacebookComment.m */; };
+		24BFDBF115F4FD030052BCFB /* MidasFacebookUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBD315F4FD030052BCFB /* MidasFacebookUser.m */; };
+		24BFDBF215F4FD030052BCFB /* MidasFacebook.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBD415F4FD030052BCFB /* MidasFacebook.xcdatamodel */; };
+		24BFDBF315F4FD030052BCFB /* MidasFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBD615F4FD030052BCFB /* MidasFacebookViewController.m */; };
+		24BFDBF415F4FD030052BCFB /* MidasFacebookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BFDBD715F4FD030052BCFB /* MidasFacebookViewController.xib */; };
+		24BFDBF515F4FD030052BCFB /* MidasFacebookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBD915F4FD030052BCFB /* MidasFacebookTableViewCell.m */; };
+		24BFDBF615F4FD030052BCFB /* MidasFacebookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BFDBDA15F4FD030052BCFB /* MidasFacebookTableViewCell.xib */; };
+		24BFDBF715F4FD030052BCFB /* MidasFacebookProfileImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBDC15F4FD030052BCFB /* MidasFacebookProfileImageCache.m */; };
+		24BFDBF815F4FD030052BCFB /* MidasSocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBDE15F4FD030052BCFB /* MidasSocialViewController.m */; };
+		24BFDBF915F4FD030052BCFB /* MidasSocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BFDBDF15F4FD030052BCFB /* MidasSocialViewController.xib */; };
+		24BFDBFA15F4FD030052BCFB /* MidasSocialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BFDBE115F4FD030052BCFB /* MidasSocialTableViewCell.m */; };
+		24BFDBFB15F4FD030052BCFB /* MidasSocialTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BFDBE215F4FD030052BCFB /* MidasSocialTableViewCell.xib */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
 		4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
@@ -856,6 +881,48 @@
 		245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTTableViewDataSources.xcodeproj; path = Libraries/DCTTableViewDataSources/DCTTableViewDataSources.xcodeproj; sourceTree = "<group>"; };
 		245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTTextFieldValidator.xcodeproj; path = Libraries/DCTTextFieldValidator/DCTTextFieldValidator.xcodeproj; sourceTree = "<group>"; };
 		245B58C115F4F6AF00DC8600 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "Libraries/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
+		24BFDBB915F4FD030052BCFB /* _MidasTwitterTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MidasTwitterTweet.h; sourceTree = "<group>"; };
+		24BFDBBA15F4FD030052BCFB /* _MidasTwitterTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MidasTwitterTweet.m; sourceTree = "<group>"; };
+		24BFDBBB15F4FD030052BCFB /* _MidasTwitterUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MidasTwitterUser.h; sourceTree = "<group>"; };
+		24BFDBBC15F4FD030052BCFB /* _MidasTwitterUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MidasTwitterUser.m; sourceTree = "<group>"; };
+		24BFDBBD15F4FD030052BCFB /* MidasTwitterTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTwitterTweet.h; sourceTree = "<group>"; };
+		24BFDBBE15F4FD030052BCFB /* MidasTwitterTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTwitterTweet.m; sourceTree = "<group>"; };
+		24BFDBBF15F4FD030052BCFB /* MidasTwitterUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTwitterUser.h; sourceTree = "<group>"; };
+		24BFDBC015F4FD030052BCFB /* MidasTwitterUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTwitterUser.m; sourceTree = "<group>"; };
+		24BFDBC115F4FD030052BCFB /* MidasTwitter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MidasTwitter.xcdatamodel; sourceTree = "<group>"; };
+		24BFDBC215F4FD030052BCFB /* MidasTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTwitter.h; sourceTree = "<group>"; };
+		24BFDBC315F4FD030052BCFB /* MidasTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTwitter.m; sourceTree = "<group>"; };
+		24BFDBC415F4FD030052BCFB /* MidasTwitterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTwitterViewController.h; sourceTree = "<group>"; };
+		24BFDBC515F4FD030052BCFB /* MidasTwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTwitterViewController.m; sourceTree = "<group>"; };
+		24BFDBC615F4FD030052BCFB /* MidasTwitterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasTwitterViewController.xib; sourceTree = "<group>"; };
+		24BFDBC715F4FD030052BCFB /* MidasTweetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTweetTableViewCell.h; sourceTree = "<group>"; };
+		24BFDBC815F4FD030052BCFB /* MidasTweetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTweetTableViewCell.m; sourceTree = "<group>"; };
+		24BFDBC915F4FD030052BCFB /* MidasTweetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasTweetTableViewCell.xib; sourceTree = "<group>"; };
+		24BFDBCA15F4FD030052BCFB /* MidasTwitterProfileImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTwitterProfileImageCache.h; sourceTree = "<group>"; };
+		24BFDBCB15F4FD030052BCFB /* MidasTwitterProfileImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTwitterProfileImageCache.m; sourceTree = "<group>"; };
+		24BFDBCC15F4FD030052BCFB /* _MidasFacebookComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MidasFacebookComment.h; sourceTree = "<group>"; };
+		24BFDBCD15F4FD030052BCFB /* _MidasFacebookComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MidasFacebookComment.m; sourceTree = "<group>"; };
+		24BFDBCE15F4FD030052BCFB /* _MidasFacebookUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MidasFacebookUser.h; sourceTree = "<group>"; };
+		24BFDBCF15F4FD030052BCFB /* _MidasFacebookUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MidasFacebookUser.m; sourceTree = "<group>"; };
+		24BFDBD015F4FD030052BCFB /* MidasFacebookComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasFacebookComment.h; sourceTree = "<group>"; };
+		24BFDBD115F4FD030052BCFB /* MidasFacebookComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasFacebookComment.m; sourceTree = "<group>"; };
+		24BFDBD215F4FD030052BCFB /* MidasFacebookUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasFacebookUser.h; sourceTree = "<group>"; };
+		24BFDBD315F4FD030052BCFB /* MidasFacebookUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasFacebookUser.m; sourceTree = "<group>"; };
+		24BFDBD415F4FD030052BCFB /* MidasFacebook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MidasFacebook.xcdatamodel; sourceTree = "<group>"; };
+		24BFDBD515F4FD030052BCFB /* MidasFacebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasFacebookViewController.h; sourceTree = "<group>"; };
+		24BFDBD615F4FD030052BCFB /* MidasFacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasFacebookViewController.m; sourceTree = "<group>"; };
+		24BFDBD715F4FD030052BCFB /* MidasFacebookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasFacebookViewController.xib; sourceTree = "<group>"; };
+		24BFDBD815F4FD030052BCFB /* MidasFacebookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasFacebookTableViewCell.h; sourceTree = "<group>"; };
+		24BFDBD915F4FD030052BCFB /* MidasFacebookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasFacebookTableViewCell.m; sourceTree = "<group>"; };
+		24BFDBDA15F4FD030052BCFB /* MidasFacebookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasFacebookTableViewCell.xib; sourceTree = "<group>"; };
+		24BFDBDB15F4FD030052BCFB /* MidasFacebookProfileImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasFacebookProfileImageCache.h; sourceTree = "<group>"; };
+		24BFDBDC15F4FD030052BCFB /* MidasFacebookProfileImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasFacebookProfileImageCache.m; sourceTree = "<group>"; };
+		24BFDBDD15F4FD030052BCFB /* MidasSocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasSocialViewController.h; sourceTree = "<group>"; };
+		24BFDBDE15F4FD030052BCFB /* MidasSocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasSocialViewController.m; sourceTree = "<group>"; };
+		24BFDBDF15F4FD030052BCFB /* MidasSocialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasSocialViewController.xib; sourceTree = "<group>"; };
+		24BFDBE015F4FD030052BCFB /* MidasSocialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasSocialTableViewCell.h; sourceTree = "<group>"; };
+		24BFDBE115F4FD030052BCFB /* MidasSocialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasSocialTableViewCell.m; sourceTree = "<group>"; };
+		24BFDBE215F4FD030052BCFB /* MidasSocialTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasSocialTableViewCell.xib; sourceTree = "<group>"; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1660,6 +1727,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				24BFDBB815F4FCF20052BCFB /* Midas Social */,
 				7F4B85C515ED055800D8B486 /* MidasViews */,
 				7FFE7E4914BB6F49007D27A2 /* MidasSocialMedia */,
 				7FC149EF14B701BA003CE61E /* MidasControllers */,
@@ -1771,6 +1839,71 @@
 				245B58C915F4F6AF00DC8600 /* libFacebook.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		24BFDBB815F4FCF20052BCFB /* Midas Social */ = {
+			isa = PBXGroup;
+			children = (
+				24BFDBFD15F4FD180052BCFB /* Facebook */,
+				24BFDBFC15F4FD080052BCFB /* Twitter */,
+				24BFDBDD15F4FD030052BCFB /* MidasSocialViewController.h */,
+				24BFDBDE15F4FD030052BCFB /* MidasSocialViewController.m */,
+				24BFDBDF15F4FD030052BCFB /* MidasSocialViewController.xib */,
+				24BFDBE015F4FD030052BCFB /* MidasSocialTableViewCell.h */,
+				24BFDBE115F4FD030052BCFB /* MidasSocialTableViewCell.m */,
+				24BFDBE215F4FD030052BCFB /* MidasSocialTableViewCell.xib */,
+			);
+			path = "Midas Social";
+			sourceTree = "<group>";
+		};
+		24BFDBFC15F4FD080052BCFB /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				24BFDBB915F4FD030052BCFB /* _MidasTwitterTweet.h */,
+				24BFDBBA15F4FD030052BCFB /* _MidasTwitterTweet.m */,
+				24BFDBBB15F4FD030052BCFB /* _MidasTwitterUser.h */,
+				24BFDBBC15F4FD030052BCFB /* _MidasTwitterUser.m */,
+				24BFDBBD15F4FD030052BCFB /* MidasTwitterTweet.h */,
+				24BFDBBE15F4FD030052BCFB /* MidasTwitterTweet.m */,
+				24BFDBBF15F4FD030052BCFB /* MidasTwitterUser.h */,
+				24BFDBC015F4FD030052BCFB /* MidasTwitterUser.m */,
+				24BFDBC115F4FD030052BCFB /* MidasTwitter.xcdatamodel */,
+				24BFDBC215F4FD030052BCFB /* MidasTwitter.h */,
+				24BFDBC315F4FD030052BCFB /* MidasTwitter.m */,
+				24BFDBC415F4FD030052BCFB /* MidasTwitterViewController.h */,
+				24BFDBC515F4FD030052BCFB /* MidasTwitterViewController.m */,
+				24BFDBC615F4FD030052BCFB /* MidasTwitterViewController.xib */,
+				24BFDBC715F4FD030052BCFB /* MidasTweetTableViewCell.h */,
+				24BFDBC815F4FD030052BCFB /* MidasTweetTableViewCell.m */,
+				24BFDBC915F4FD030052BCFB /* MidasTweetTableViewCell.xib */,
+				24BFDBCA15F4FD030052BCFB /* MidasTwitterProfileImageCache.h */,
+				24BFDBCB15F4FD030052BCFB /* MidasTwitterProfileImageCache.m */,
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
+		24BFDBFD15F4FD180052BCFB /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				24BFDBCC15F4FD030052BCFB /* _MidasFacebookComment.h */,
+				24BFDBCD15F4FD030052BCFB /* _MidasFacebookComment.m */,
+				24BFDBCE15F4FD030052BCFB /* _MidasFacebookUser.h */,
+				24BFDBCF15F4FD030052BCFB /* _MidasFacebookUser.m */,
+				24BFDBD015F4FD030052BCFB /* MidasFacebookComment.h */,
+				24BFDBD115F4FD030052BCFB /* MidasFacebookComment.m */,
+				24BFDBD215F4FD030052BCFB /* MidasFacebookUser.h */,
+				24BFDBD315F4FD030052BCFB /* MidasFacebookUser.m */,
+				24BFDBD415F4FD030052BCFB /* MidasFacebook.xcdatamodel */,
+				24BFDBD515F4FD030052BCFB /* MidasFacebookViewController.h */,
+				24BFDBD615F4FD030052BCFB /* MidasFacebookViewController.m */,
+				24BFDBD715F4FD030052BCFB /* MidasFacebookViewController.xib */,
+				24BFDBD815F4FD030052BCFB /* MidasFacebookTableViewCell.h */,
+				24BFDBD915F4FD030052BCFB /* MidasFacebookTableViewCell.m */,
+				24BFDBDA15F4FD030052BCFB /* MidasFacebookTableViewCell.xib */,
+				24BFDBDB15F4FD030052BCFB /* MidasFacebookProfileImageCache.h */,
+				24BFDBDC15F4FD030052BCFB /* MidasFacebookProfileImageCache.m */,
+			);
+			name = Facebook;
 			sourceTree = "<group>";
 		};
 		29B97314FDCFA39411CA2CEA /* RacePad */ = {
@@ -3635,11 +3768,20 @@
 				7F4B8B8D15F21A3C00D8B486 /* textCameras.png in Resources */,
 				7F4B8B9115F21CE400D8B486 /* menuCircuitIconDetachMap~ipad.png in Resources */,
 				7F4B8BD315F225BE00D8B486 /* menuCircuitIconAttachMap~ipad.png in Resources */,
+<<<<<<< HEAD
 				7F4B8CD015F508E800D8B486 /* videoTitleOverlayFull.png in Resources */,
 				7F4B8CD115F508E800D8B486 /* videoTitleOverlayNoAudio.png in Resources */,
 				7F4B8CD215F508E800D8B486 /* videoTitleOverlayNoClose.png in Resources */,
 				7F4B8ED115F5348E00D8B486 /* MenuAudioOff~ipad.png in Resources */,
 				7F4B8ED215F5348E00D8B486 /* MenuAudioOn~ipad.png in Resources */,
+=======
+				24BFDBEA15F4FD030052BCFB /* MidasTwitterViewController.xib in Resources */,
+				24BFDBEC15F4FD030052BCFB /* MidasTweetTableViewCell.xib in Resources */,
+				24BFDBF415F4FD030052BCFB /* MidasFacebookViewController.xib in Resources */,
+				24BFDBF615F4FD030052BCFB /* MidasFacebookTableViewCell.xib in Resources */,
+				24BFDBF915F4FD030052BCFB /* MidasSocialViewController.xib in Resources */,
+				24BFDBFB15F4FD030052BCFB /* MidasSocialTableViewCell.xib in Resources */,
+>>>>>>> Add social media classes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3775,6 +3917,25 @@
 				7F4B85C815ED058100D8B486 /* MidasVotingView.m in Sources */,
 				7F4B862215ED121E00D8B486 /* MidasDatabase.m in Sources */,
 				7F4B87C615EE1BCB00D8B486 /* MidasCameraViewController.m in Sources */,
+				24BFDBE315F4FD030052BCFB /* _MidasTwitterTweet.m in Sources */,
+				24BFDBE415F4FD030052BCFB /* _MidasTwitterUser.m in Sources */,
+				24BFDBE515F4FD030052BCFB /* MidasTwitterTweet.m in Sources */,
+				24BFDBE615F4FD030052BCFB /* MidasTwitterUser.m in Sources */,
+				24BFDBE715F4FD030052BCFB /* MidasTwitter.xcdatamodel in Sources */,
+				24BFDBE815F4FD030052BCFB /* MidasTwitter.m in Sources */,
+				24BFDBE915F4FD030052BCFB /* MidasTwitterViewController.m in Sources */,
+				24BFDBEB15F4FD030052BCFB /* MidasTweetTableViewCell.m in Sources */,
+				24BFDBED15F4FD030052BCFB /* MidasTwitterProfileImageCache.m in Sources */,
+				24BFDBEE15F4FD030052BCFB /* _MidasFacebookComment.m in Sources */,
+				24BFDBEF15F4FD030052BCFB /* _MidasFacebookUser.m in Sources */,
+				24BFDBF015F4FD030052BCFB /* MidasFacebookComment.m in Sources */,
+				24BFDBF115F4FD030052BCFB /* MidasFacebookUser.m in Sources */,
+				24BFDBF215F4FD030052BCFB /* MidasFacebook.xcdatamodel in Sources */,
+				24BFDBF315F4FD030052BCFB /* MidasFacebookViewController.m in Sources */,
+				24BFDBF515F4FD030052BCFB /* MidasFacebookTableViewCell.m in Sources */,
+				24BFDBF715F4FD030052BCFB /* MidasFacebookProfileImageCache.m in Sources */,
+				24BFDBF815F4FD030052BCFB /* MidasSocialViewController.m in Sources */,
+				24BFDBFA15F4FD030052BCFB /* MidasSocialTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
