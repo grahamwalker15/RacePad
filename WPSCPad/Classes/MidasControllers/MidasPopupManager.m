@@ -265,8 +265,10 @@ static MidasSocialMediaManager * socialmediaInstance_ = nil;
 -(id)init
 {
 	if(self = [super init])
-	{			
-		viewController = [[MidasSocialViewController alloc] init];
+	{
+		MidasFacebookViewController *facebookViewController = [MidasFacebookViewController new];
+		MidasTwitterViewController *twitterViewController = [MidasTwitterViewController new];
+		viewController = [[MidasSocialViewController alloc] initWithViewControllers:@[twitterViewController, facebookViewController]];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_SOCIAL_MEDIA_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];

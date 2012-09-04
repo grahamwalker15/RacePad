@@ -37,6 +37,10 @@
 }
 @synthesize tweetIndicator = _tweetIndicator;
 
+- (id)init {
+	return [self initWithNibName:@"MidasTwitterViewController" bundle:nil];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (!self) return nil;

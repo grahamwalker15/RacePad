@@ -37,7 +37,10 @@
 	__strong DCTFetchedResultsTableViewDataSource *_dataSource;
 	NSUInteger _unreadCount;
 }
-@synthesize userImageView = _userImageView;
+
+- (id)init {
+	return [self initWithNibName:@"MidasFacebookViewController" bundle:nil];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
