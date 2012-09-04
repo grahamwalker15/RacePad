@@ -65,9 +65,11 @@
 }
 
 - (void)moviePlayerDidExitFullscreenNotification:(NSNotification *)notification {
-
-	if (_moviePlayer.duration == _moviePlayer.playableDuration)
-		if (_moviePlayer.playbackState == MPMoviePlaybackStatePaused || _moviePlayer.playbackState == MPMoviePlaybackStateStopped)
+	
+	if (_moviePlayer.currentPlaybackTime != _moviePlayer.playableDuration)
+		return;
+	
+	if (_moviePlayer.playbackState == MPMoviePlaybackStatePaused || _moviePlayer.playbackState == MPMoviePlaybackStateStopped)
 		[self _removeMoviePlayer];
 }
 
