@@ -26,7 +26,7 @@
 @implementation MidasAppDelegate
 
 @synthesize window;
-@synthesize homeController;
+@synthesize mainViewController;
 @synthesize tabBarController;
 
 -(id)init
@@ -81,7 +81,7 @@
 	[BasePadPrefs Instance];
 	
     // Add the tab bar controller's current view as a subview of the window
-    [window addSubview:homeController.view];
+    [window addSubview:self.mainViewController.view];
     [window makeKeyAndVisible];
 	
 	// There's some start-up race condition that means this doesn't display unless we delay slightly

@@ -72,7 +72,7 @@ CGPoint const LogoEndPoint;
 	if (_canAnimateOffScreenCount > 0) return;
 	
 	[self _animateObjectsOffScreenWithDelay:0.5f completion:^(BOOL finished) {
-		
+		[self loadLive:nil];
 	}];
 	
 }
@@ -165,6 +165,14 @@ CGPoint const LogoEndPoint;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+-(IBAction)loadArchive:(id)sender {
+	[[RacePadCoordinator Instance] loadSession:@"09_11Mza" Session:@"Race"];
+}
+
+-(IBAction)loadLive:(id)sender {
+	[[RacePadCoordinator Instance] loadSession:@"09_11Lve" Session:@"Race"];
 }
 
 @end
