@@ -155,7 +155,7 @@ static NSUInteger const kTwitReplyTag = 11;
 		
 		lastEntryCount = 0;
 		
-		int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == Facebook) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
+		int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == MidasFacebookViewType) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
 		[[MidasCoordinator Instance] AddSocialmediaSource:self WithType:messageType];
 
     }
@@ -515,7 +515,7 @@ static NSUInteger const kTwitReplyTag = 11;
             }
 			/* NO REPLY  NOW*/
 #if 1
-            else if (locationInView.y > ((self.viewType == Facebook) ? kHeaderHeight : 2 * kHeaderHeight)
+            else if (locationInView.y > ((self.viewType == MidasFacebookViewType) ? kHeaderHeight : 2 * kHeaderHeight)
                      && locationInView.y < self.frame.size.height - kHeaderHeight)
             {
                 locationInView = [sender locationInView:self.socialTable];
@@ -917,7 +917,7 @@ static NSUInteger const kTwitReplyTag = 11;
             ctwitReply.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
             [ctwitReply setTitle:@"Tweet" forState:UIControlStateNormal];
             [ctwitReply setBackgroundImage:[UIImage imageNamed:@"Twitter-capsule.png"] forState:UIControlStateNormal];
-            if (self.viewType == Facebook)
+            if (self.viewType == MidasFacebookViewType)
             {
                 [ctwitReply setTitle:@"Send" forState:UIControlStateNormal];
                 [ctwitReply setBackgroundImage:[UIImage imageNamed:@"Facebook-capsule.png"] forState:UIControlStateNormal];
@@ -943,7 +943,7 @@ static NSUInteger const kTwitReplyTag = 11;
             [cell.contentView addSubview:cRepliedIcon];
         }
         
-        if (0 && self.viewType == Facebook)
+        if (0 && self.viewType == MidasFacebookViewType)
         {
             cLike = [UIButton buttonWithType:UIButtonTypeCustom];
             cLike.tag = kLikeTag;
@@ -1151,7 +1151,7 @@ static NSUInteger const kTwitReplyTag = 11;
 					[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(scrollToEnd) userInfo:nil repeats:NO];
 					
 					NSString * messageSender = (NSString *)[self.entryUserId objectAtIndex:0];
-					int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == Facebook) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
+					int messageType = (self.viewType == Twitter) ? MIDAS_SM_TWITTER_ : (self.viewType == MidasFacebookViewType) ? MIDAS_SM_FACEBOOK_ : MIDAS_SM_MIDAS_CHAT_;
 					MidasSocialmediaMessage * newMessage = [[MidasSocialmediaMessage alloc] initWithSender:messageSender Type:messageType Time:messageTime ID:lastEntryCount];
 					[messageQueue addObject:newMessage];
 					[newMessage release];

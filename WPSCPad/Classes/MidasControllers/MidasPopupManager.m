@@ -294,7 +294,7 @@ static MidasHelpManager * helpInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
+		viewController = nil;//[[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_HELP_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];

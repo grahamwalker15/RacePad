@@ -43,6 +43,10 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 81.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	[self.tabTableView selectRowAtIndexPath:indexPath

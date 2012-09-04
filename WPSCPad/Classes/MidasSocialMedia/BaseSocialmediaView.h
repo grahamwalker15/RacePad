@@ -28,7 +28,7 @@
 
 @class BaseSocialmediaView;
 
-typedef enum { Twitter = 0, Facebook, Midas } ViewType;
+typedef enum { Twitter = 0, MidasFacebookViewType, Midas } ViewType;
 
 @protocol BaseSocialmediaViewDelegate
 - (void)baseSocialmediaAboutToShow:(BaseSocialmediaView *)controller;

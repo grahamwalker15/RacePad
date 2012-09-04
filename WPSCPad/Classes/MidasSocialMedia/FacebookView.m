@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.viewType = Facebook;
+        self.viewType = MidasFacebookViewType;
         
         self.sendText.hidden = YES;
         

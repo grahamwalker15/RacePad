@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseSocialmediaViewController.h"
 
-@interface MidasSocialViewController : UIViewController
+@interface MidasSocialViewController : BaseSocialmediaViewController
 
 - (id)initWithViewControllers:(NSArray *)viewControllers;
 
