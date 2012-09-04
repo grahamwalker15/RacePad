@@ -661,6 +661,167 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		245B585315F4F68900DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B584915F4F68900DC8600 /* DCTAuth.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24FA8FE415E93D8E00E1ED99;
+			remoteInfo = DCTAuth;
+		};
+		245B585515F4F68900DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B584915F4F68900DC8600 /* DCTAuth.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24FA8FF515E93D8E00E1ED99;
+			remoteInfo = DCTAuthTests;
+		};
+		245B585715F4F68900DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B584915F4F68900DC8600 /* DCTAuth.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24FA901315E93E0200E1ED99;
+			remoteInfo = "DCTAuth Demo";
+		};
+		245B586215F4F68E00DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B585A15F4F68E00DC8600 /* DCTCoreData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2437B5FA15B9788A00750117;
+			remoteInfo = DCTCoreData;
+		};
+		245B586415F4F68E00DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B585A15F4F68E00DC8600 /* DCTCoreData.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F6EEEC158A442800CEDD41;
+			remoteInfo = DCTCoreDataTests;
+		};
+		245B587015F4F69100DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B586615F4F69100DC8600 /* DCTCoreDataStack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2437B68D15B97C2600750117;
+			remoteInfo = DCTCoreDataStack;
+		};
+		245B587215F4F69100DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B586615F4F69100DC8600 /* DCTCoreDataStack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F6EC00158A261000CEDD41;
+			remoteInfo = DCTCoreDataStackTests;
+		};
+		245B587415F4F69100DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B586615F4F69100DC8600 /* DCTCoreDataStack.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24E91B5715BEB1FA00E0DB54;
+			remoteInfo = Demo;
+		};
+		245B588015F4F69600DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B587615F4F69600DC8600 /* DCTImageCache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2437B67715B97BA600750117;
+			remoteInfo = DCTImageCache;
+		};
+		245B588215F4F69600DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B587615F4F69600DC8600 /* DCTImageCache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F7CB50158A1B9D00B2E33E;
+			remoteInfo = DCTImageCacheTests;
+		};
+		245B588415F4F69600DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B587615F4F69600DC8600 /* DCTImageCache.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24B3EEB815A2EB1F00D5E63C;
+			remoteInfo = DCTImageCaccheDemo;
+		};
+		245B589015F4F69900DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B588615F4F69900DC8600 /* DCTImageSizing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2437B75515B97ED900750117;
+			remoteInfo = DCTImageSizing;
+		};
+		245B589215F4F69900DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B588615F4F69900DC8600 /* DCTImageSizing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24BE274015A8373F00161A59;
+			remoteInfo = DCTImageSizingTests;
+		};
+		245B589415F4F69900DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B588615F4F69900DC8600 /* DCTImageSizing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24036F4A15A844F900644C6D;
+			remoteInfo = DCTImageSizingDemo;
+		};
+		245B589E15F4F69D00DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B589615F4F69D00DC8600 /* DCTPullToRefresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F6ECE8158A32E300CEDD41;
+			remoteInfo = DCTPullToRefresh;
+		};
+		245B58A015F4F69D00DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B589615F4F69D00DC8600 /* DCTPullToRefresh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24F6ECF8158A32E400CEDD41;
+			remoteInfo = DCTPullToRefreshTests;
+		};
+		245B58AB15F4F6A300DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2437B77D15B97FA900750117;
+			remoteInfo = DCTTableViewDataSources;
+		};
+		245B58AD15F4F6A300DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 244A6775158B1AB100952890;
+			remoteInfo = DCTTableViewDataSourcesTests;
+		};
+		245B58AF15F4F6A300DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24700B3815B835A100FA5843;
+			remoteInfo = DCTTableViewDataSourcesBundle;
+		};
+		245B58BB15F4F6A700DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2437B6A215B97C9C00750117;
+			remoteInfo = DCTTextFieldValidator;
+		};
+		245B58BD15F4F6A700DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24B494E41591CB410004A76A;
+			remoteInfo = DCTTextFieldValidatorTests;
+		};
+		245B58BF15F4F6A700DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 24E8FEC815B70C9900240A87;
+			remoteInfo = Demo;
+		};
+		245B58C815F4F6AF00DC8600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 245B58C115F4F6AF00DC8600 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
 		7FFE87C814C0CEA3007D27A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7FFE86F814C0CE9C007D27A2 /* RacePad.xcodeproj */;
@@ -686,6 +847,15 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Midas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Midas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		245B584915F4F68900DC8600 /* DCTAuth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTAuth.xcodeproj; path = Libraries/DCTAuth/DCTAuth.xcodeproj; sourceTree = "<group>"; };
+		245B585A15F4F68E00DC8600 /* DCTCoreData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTCoreData.xcodeproj; path = Libraries/DCTCoreData/DCTCoreData.xcodeproj; sourceTree = "<group>"; };
+		245B586615F4F69100DC8600 /* DCTCoreDataStack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTCoreDataStack.xcodeproj; path = Libraries/DCTCoreDataStack/DCTCoreDataStack.xcodeproj; sourceTree = "<group>"; };
+		245B587615F4F69600DC8600 /* DCTImageCache.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTImageCache.xcodeproj; path = Libraries/DCTImageCache/DCTImageCache.xcodeproj; sourceTree = "<group>"; };
+		245B588615F4F69900DC8600 /* DCTImageSizing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTImageSizing.xcodeproj; path = Libraries/DCTImageSizing/DCTImageSizing.xcodeproj; sourceTree = "<group>"; };
+		245B589615F4F69D00DC8600 /* DCTPullToRefresh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTPullToRefresh.xcodeproj; path = Libraries/DCTPullToRefresh/DCTPullToRefresh.xcodeproj; sourceTree = "<group>"; };
+		245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTTableViewDataSources.xcodeproj; path = Libraries/DCTTableViewDataSources/DCTTableViewDataSources.xcodeproj; sourceTree = "<group>"; };
+		245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DCTTextFieldValidator.xcodeproj; path = Libraries/DCTTextFieldValidator/DCTTextFieldValidator.xcodeproj; sourceTree = "<group>"; };
+		245B58C115F4F6AF00DC8600 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "Libraries/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1517,6 +1687,92 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		245B584A15F4F68900DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B585415F4F68900DC8600 /* libDCTAuth.a */,
+				245B585615F4F68900DC8600 /* DCTAuthTests.octest */,
+				245B585815F4F68900DC8600 /* DCTAuth.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B585B15F4F68E00DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B586315F4F68E00DC8600 /* libDCTCoreData.a */,
+				245B586515F4F68E00DC8600 /* DCTCoreDataTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B586715F4F69100DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B587115F4F69100DC8600 /* libDCTCoreDataStack.a */,
+				245B587315F4F69100DC8600 /* DCTCoreDataStackTests.octest */,
+				245B587515F4F69100DC8600 /* CoreDataStack.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B587715F4F69600DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B588115F4F69600DC8600 /* libDCTImageCache.a */,
+				245B588315F4F69600DC8600 /* DCTImageCacheTests.octest */,
+				245B588515F4F69600DC8600 /* DCTImageCaccheDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B588715F4F69900DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B589115F4F69900DC8600 /* libDCTImageSizing.a */,
+				245B589315F4F69900DC8600 /* DCTImageSizingTests.octest */,
+				245B589515F4F69900DC8600 /* DCTImageSizingDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B589715F4F69D00DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B589F15F4F69D00DC8600 /* libDCTPullToRefresh.a */,
+				245B58A115F4F69D00DC8600 /* DCTPullToRefreshTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B58A315F4F6A300DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B58AC15F4F6A300DC8600 /* libDCTTableViewDataSources.a */,
+				245B58AE15F4F6A300DC8600 /* DCTTableViewDataSourcesTests.octest */,
+				245B58B015F4F6A300DC8600 /* DCTTableViewDataSources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B58B215F4F6A700DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B58BC15F4F6A700DC8600 /* libDCTTextFieldValidator.a */,
+				245B58BE15F4F6A700DC8600 /* DCTTextFieldValidatorTests.octest */,
+				245B58C015F4F6A700DC8600 /* Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		245B58C215F4F6AF00DC8600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				245B58C915F4F6AF00DC8600 /* libFacebook.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* RacePad */ = {
 			isa = PBXGroup;
 			children = (
@@ -1525,6 +1781,15 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				245B584915F4F68900DC8600 /* DCTAuth.xcodeproj */,
+				245B585A15F4F68E00DC8600 /* DCTCoreData.xcodeproj */,
+				245B586615F4F69100DC8600 /* DCTCoreDataStack.xcodeproj */,
+				245B587615F4F69600DC8600 /* DCTImageCache.xcodeproj */,
+				245B588615F4F69900DC8600 /* DCTImageSizing.xcodeproj */,
+				245B589615F4F69D00DC8600 /* DCTPullToRefresh.xcodeproj */,
+				245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */,
+				245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */,
+				245B58C115F4F6AF00DC8600 /* facebook-ios-sdk.xcodeproj */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -2636,6 +2901,42 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 245B584A15F4F68900DC8600 /* Products */;
+					ProjectRef = 245B584915F4F68900DC8600 /* DCTAuth.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B585B15F4F68E00DC8600 /* Products */;
+					ProjectRef = 245B585A15F4F68E00DC8600 /* DCTCoreData.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B586715F4F69100DC8600 /* Products */;
+					ProjectRef = 245B586615F4F69100DC8600 /* DCTCoreDataStack.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B587715F4F69600DC8600 /* Products */;
+					ProjectRef = 245B587615F4F69600DC8600 /* DCTImageCache.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B588715F4F69900DC8600 /* Products */;
+					ProjectRef = 245B588615F4F69900DC8600 /* DCTImageSizing.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B589715F4F69D00DC8600 /* Products */;
+					ProjectRef = 245B589615F4F69D00DC8600 /* DCTPullToRefresh.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B58A315F4F6A300DC8600 /* Products */;
+					ProjectRef = 245B58A215F4F6A300DC8600 /* DCTTableViewDataSources.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B58B215F4F6A700DC8600 /* Products */;
+					ProjectRef = 245B58B115F4F6A700DC8600 /* DCTTextFieldValidator.xcodeproj */;
+				},
+				{
+					ProductGroup = 245B58C215F4F6AF00DC8600 /* Products */;
+					ProjectRef = 245B58C115F4F6AF00DC8600 /* facebook-ios-sdk.xcodeproj */;
+				},
+				{
 					ProductGroup = 7FFE87C514C0CEA3007D27A2 /* Products */;
 					ProjectRef = 7FFE86F814C0CE9C007D27A2 /* RacePad.xcodeproj */;
 				},
@@ -2648,6 +2949,167 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		245B585415F4F68900DC8600 /* libDCTAuth.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTAuth.a;
+			remoteRef = 245B585315F4F68900DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B585615F4F68900DC8600 /* DCTAuthTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTAuthTests.octest;
+			remoteRef = 245B585515F4F68900DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B585815F4F68900DC8600 /* DCTAuth.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DCTAuth.app;
+			remoteRef = 245B585715F4F68900DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B586315F4F68E00DC8600 /* libDCTCoreData.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTCoreData.a;
+			remoteRef = 245B586215F4F68E00DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B586515F4F68E00DC8600 /* DCTCoreDataTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTCoreDataTests.octest;
+			remoteRef = 245B586415F4F68E00DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B587115F4F69100DC8600 /* libDCTCoreDataStack.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTCoreDataStack.a;
+			remoteRef = 245B587015F4F69100DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B587315F4F69100DC8600 /* DCTCoreDataStackTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTCoreDataStackTests.octest;
+			remoteRef = 245B587215F4F69100DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B587515F4F69100DC8600 /* CoreDataStack.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CoreDataStack.app;
+			remoteRef = 245B587415F4F69100DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B588115F4F69600DC8600 /* libDCTImageCache.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTImageCache.a;
+			remoteRef = 245B588015F4F69600DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B588315F4F69600DC8600 /* DCTImageCacheTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTImageCacheTests.octest;
+			remoteRef = 245B588215F4F69600DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B588515F4F69600DC8600 /* DCTImageCaccheDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DCTImageCaccheDemo.app;
+			remoteRef = 245B588415F4F69600DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B589115F4F69900DC8600 /* libDCTImageSizing.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTImageSizing.a;
+			remoteRef = 245B589015F4F69900DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B589315F4F69900DC8600 /* DCTImageSizingTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTImageSizingTests.octest;
+			remoteRef = 245B589215F4F69900DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B589515F4F69900DC8600 /* DCTImageSizingDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DCTImageSizingDemo.app;
+			remoteRef = 245B589415F4F69900DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B589F15F4F69D00DC8600 /* libDCTPullToRefresh.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTPullToRefresh.a;
+			remoteRef = 245B589E15F4F69D00DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58A115F4F69D00DC8600 /* DCTPullToRefreshTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTPullToRefreshTests.octest;
+			remoteRef = 245B58A015F4F69D00DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58AC15F4F6A300DC8600 /* libDCTTableViewDataSources.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTTableViewDataSources.a;
+			remoteRef = 245B58AB15F4F6A300DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58AE15F4F6A300DC8600 /* DCTTableViewDataSourcesTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTTableViewDataSourcesTests.octest;
+			remoteRef = 245B58AD15F4F6A300DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58B015F4F6A300DC8600 /* DCTTableViewDataSources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTTableViewDataSources.bundle;
+			remoteRef = 245B58AF15F4F6A300DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58BC15F4F6A700DC8600 /* libDCTTextFieldValidator.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDCTTextFieldValidator.a;
+			remoteRef = 245B58BB15F4F6A700DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58BE15F4F6A700DC8600 /* DCTTextFieldValidatorTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DCTTextFieldValidatorTests.octest;
+			remoteRef = 245B58BD15F4F6A700DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58C015F4F6A700DC8600 /* Demo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Demo.app;
+			remoteRef = 245B58BF15F4F6A700DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		245B58C915F4F6AF00DC8600 /* libFacebook.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFacebook.a;
+			remoteRef = 245B58C815F4F6AF00DC8600 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7FFE87C914C0CEA3007D27A2 /* Midas.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
