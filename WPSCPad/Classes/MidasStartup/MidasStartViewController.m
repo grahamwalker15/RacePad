@@ -7,10 +7,7 @@
 //
 
 #import "MidasStartViewController.h"
-#import "MidasFadingViewController.h"
 #import "MidasCountdownTimer.h"
-
-#import "TabPresentationViewController.h"
 #import "MidasSocialViewController.h"
 #import "MidasTwitterViewController.h"
 #import "MidasFacebookViewController.h"
@@ -75,11 +72,7 @@ CGPoint const LogoEndPoint;
 	if (_canAnimateOffScreenCount > 0) return;
 	
 	[self _animateObjectsOffScreenWithDelay:0.5f completion:^(BOOL finished) {
-		MidasTwitterViewController *twitterViewController = [MidasTwitterViewController new];
-		MidasFacebookViewController *facebookViewController = [MidasFacebookViewController new];
-		MidasSocialViewController *tabViewController = [[MidasSocialViewController alloc] initWithViewControllers:@[twitterViewController, facebookViewController]];
-		UIViewController *viewController = [[TabPresentationViewController alloc] initWithViewController:tabViewController];
-		[self.midas_fadingViewController setChildViewController:viewController animated:YES];
+		
 	}];
 	
 }
