@@ -77,7 +77,7 @@ static MidasCoordinator * instance_ = nil;
 	// We display the default video view once session is loaded
 	
 	// Set the style for its presentation
-	[registeredViewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+	[registeredViewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
 	[registeredViewController setModalPresentationStyle:UIModalPresentationCurrentContext];
 	
 	// And present it

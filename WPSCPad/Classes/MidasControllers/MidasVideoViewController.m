@@ -56,7 +56,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	{
 		// This view is always displayed as a subview
 		// Set the style for its presentation
-		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		if(!selectedTopButtonImage)
