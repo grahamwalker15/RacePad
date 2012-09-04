@@ -165,9 +165,6 @@
 
 @end
 
-@implementation MidasVIPViewController : MidasBaseViewController
-@end
-
 @implementation MidasSetupViewController
 
 static MidasSetupViewController * setupInstance_ = nil;

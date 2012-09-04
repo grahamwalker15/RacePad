@@ -23,6 +23,7 @@
 
 #import "BasePadViewController.h"
 #import "MidasSocialViewController.h"
+#import "MidasVIPViewController.h"
 
 @implementation MidasMasterMenuManager
 
@@ -352,7 +353,7 @@ static MidasVIPManager * vipInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasVIPViewController alloc] initWithNibName:@"MidasVIPView" bundle:nil];
+		viewController = [MidasVIPViewController new];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_VIP_POPUP_];
 		[self setManagedExclusionZone:MIDAS_ZONE_BOTTOM_];

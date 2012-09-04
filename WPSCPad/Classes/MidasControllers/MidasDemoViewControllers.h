@@ -47,12 +47,6 @@
 
 @end
 
-@interface MidasVIPViewController : MidasBaseViewController
-{
-}
-
-@end
-
 @interface MidasSetupViewController : UIViewController
 {
 	IBOutlet UITextField *sm_name_edit_;
