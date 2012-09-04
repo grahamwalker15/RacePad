@@ -12,6 +12,7 @@
 #import "MidasTwitterViewController.h"
 #import "MidasFacebookViewController.h"
 #import "MidasSettings.h"
+#import "RacePadCoordinator.h"
 
 CGPoint const LogoEndPoint;
 
