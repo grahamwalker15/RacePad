@@ -1454,7 +1454,56 @@
 		2436305715F60C33006F3DFC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436305015F60C33006F3DFC /* Security.framework */; };
 		2436305915F60C4A006F3DFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2436305815F60C4A006F3DFC /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2436305B15F60D07006F3DFC /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436305A15F60D07006F3DFC /* libresolv.dylib */; };
+<<<<<<< HEAD
 >>>>>>> Get project building with Xcode 4 and libraries etc
+=======
+		24F7E8F415F61716003115E1 /* SocialArrowRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */; };
+		24F7E8F515F61716003115E1 /* SocialMenuArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C715F61716003115E1 /* SocialMenuArrow.png */; };
+		24F7E8F615F61716003115E1 /* SocialMenuFacebookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */; };
+		24F7E8F715F61716003115E1 /* SocialMenuFacebookCommentButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C915F61716003115E1 /* SocialMenuFacebookCommentButton.png */; };
+		24F7E8F815F61716003115E1 /* SocialMenuFacebookCommentTextFieldBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8CA15F61716003115E1 /* SocialMenuFacebookCommentTextFieldBackground.png */; };
+		24F7E8F915F61716003115E1 /* SocialMenuFacebookLike.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8CB15F61716003115E1 /* SocialMenuFacebookLike.png */; };
+		24F7E8FA15F61716003115E1 /* SocialMenuFacebookLikeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8CC15F61716003115E1 /* SocialMenuFacebookLikeBackground.png */; };
+		24F7E8FB15F61716003115E1 /* SocialMenuFacebookTopBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8CD15F61716003115E1 /* SocialMenuFacebookTopBackground.png */; };
+		24F7E8FC15F61716003115E1 /* SocialMenuGrabBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8CE15F61716003115E1 /* SocialMenuGrabBar.png */; };
+		24F7E8FD15F61716003115E1 /* SocialMenuNotification.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8CF15F61716003115E1 /* SocialMenuNotification.png */; };
+		24F7E8FE15F61716003115E1 /* SocialMenuTabAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D015F61716003115E1 /* SocialMenuTabAdd.png */; };
+		24F7E8FF15F61716003115E1 /* SocialMenuTabBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D115F61716003115E1 /* SocialMenuTabBackground.png */; };
+		24F7E90015F61716003115E1 /* SocialMenuTabBackgroundSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D215F61716003115E1 /* SocialMenuTabBackgroundSelected.png */; };
+		24F7E90115F61716003115E1 /* SocialMenuTabDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D315F61716003115E1 /* SocialMenuTabDivider.png */; };
+		24F7E90215F61716003115E1 /* SocialMenuTabFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D415F61716003115E1 /* SocialMenuTabFacebook.png */; };
+		24F7E90315F61716003115E1 /* SocialMenuTabTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D515F61716003115E1 /* SocialMenuTabTwitter.png */; };
+		24F7E90415F61716003115E1 /* SocialMenuTextFieldBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D615F61716003115E1 /* SocialMenuTextFieldBackground.png */; };
+		24F7E90515F61716003115E1 /* SocialMenuTitleBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D715F61716003115E1 /* SocialMenuTitleBar.png */; };
+		24F7E90615F61716003115E1 /* SocialMenuTwitterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D815F61716003115E1 /* SocialMenuTwitterButton.png */; };
+		24F7E90715F61716003115E1 /* SocialMenuTwitterTopBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D915F61716003115E1 /* SocialMenuTwitterTopBackground.png */; };
+		24F7E90815F61716003115E1 /* VIPTitleBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DA15F61716003115E1 /* VIPTitleBar.png */; };
+		24F7E90915F61716003115E1 /* VIPTopBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DB15F61716003115E1 /* VIPTopBar.png */; };
+		24F7E90A15F61716003115E1 /* VIPTopBarDropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DC15F61716003115E1 /* VIPTopBarDropShadow.png */; };
+		24F7E90B15F61716003115E1 /* VIPTopBarIndicatorArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DD15F61716003115E1 /* VIPTopBarIndicatorArrow.png */; };
+		24F7E90C15F61716003115E1 /* VIPVideoStripPanelLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DE15F61716003115E1 /* VIPVideoStripPanelLeft.png */; };
+		24F7E90D15F61716003115E1 /* VIPVideoStripPanelMiddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DF15F61716003115E1 /* VIPVideoStripPanelMiddle.png */; };
+		24F7E90E15F61716003115E1 /* VIPVideoStripPanelRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E015F61716003115E1 /* VIPVideoStripPanelRight.png */; };
+		24F7E90F15F61716003115E1 /* VIPVideoStripShadowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E115F61716003115E1 /* VIPVideoStripShadowLeft.png */; };
+		24F7E91015F61716003115E1 /* VIPVideoStripShadowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E215F61716003115E1 /* VIPVideoStripShadowRight.png */; };
+		24F7E91115F61716003115E1 /* VIPVideoThumbnailBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E315F61716003115E1 /* VIPVideoThumbnailBar.png */; };
+		24F7E91215F61716003115E1 /* VIPVideoThumbnailPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E415F61716003115E1 /* VIPVideoThumbnailPlaceholder.png */; };
+		24F7E91315F61716003115E1 /* VIPVideoThumbnailPlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E515F61716003115E1 /* VIPVideoThumbnailPlayButton.png */; };
+		24F7E91415F61716003115E1 /* VIPVideoThumbnailShadowOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E615F61716003115E1 /* VIPVideoThumbnailShadowOverlay.png */; };
+		24F7E91515F61716003115E1 /* bgd.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E715F61716003115E1 /* bgd.png */; };
+		24F7E91615F61716003115E1 /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E815F61716003115E1 /* car.png */; };
+		24F7E91715F61716003115E1 /* countdown_blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8E915F61716003115E1 /* countdown_blank.png */; };
+		24F7E91815F61716003115E1 /* countdown_fade_over_numbers.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8EA15F61716003115E1 /* countdown_fade_over_numbers.png */; };
+		24F7E91915F61716003115E1 /* countdown_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8EB15F61716003115E1 /* countdown_text.png */; };
+		24F7E91A15F61716003115E1 /* facebook-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8EC15F61716003115E1 /* facebook-logo.png */; };
+		24F7E91B15F61716003115E1 /* ipad_countdown_layout.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8ED15F61716003115E1 /* ipad_countdown_layout.jpg */; };
+		24F7E91C15F61716003115E1 /* layout.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8EE15F61716003115E1 /* layout.jpg */; };
+		24F7E91D15F61716003115E1 /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8EF15F61716003115E1 /* man.png */; };
+		24F7E91E15F61716003115E1 /* midas_logo_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F015F61716003115E1 /* midas_logo_text.png */; };
+		24F7E91F15F61716003115E1 /* particle0.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F115F61716003115E1 /* particle0.png */; };
+		24F7E92015F61716003115E1 /* particle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F215F61716003115E1 /* particle1.png */; };
+		24F7E92115F61716003115E1 /* twitter-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F315F61716003115E1 /* twitter-logo.png */; };
+>>>>>>> Change project
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3371,7 +3420,56 @@
 		2436305015F60C33006F3DFC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2436305815F60C4A006F3DFC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2436305A15F60D07006F3DFC /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+<<<<<<< HEAD
 >>>>>>> Get project building with Xcode 4 and libraries etc
+=======
+		24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialArrowRefresh.png; sourceTree = "<group>"; };
+		24F7E8C715F61716003115E1 /* SocialMenuArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuArrow.png; sourceTree = "<group>"; };
+		24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookButton.png; sourceTree = "<group>"; };
+		24F7E8C915F61716003115E1 /* SocialMenuFacebookCommentButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookCommentButton.png; sourceTree = "<group>"; };
+		24F7E8CA15F61716003115E1 /* SocialMenuFacebookCommentTextFieldBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookCommentTextFieldBackground.png; sourceTree = "<group>"; };
+		24F7E8CB15F61716003115E1 /* SocialMenuFacebookLike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookLike.png; sourceTree = "<group>"; };
+		24F7E8CC15F61716003115E1 /* SocialMenuFacebookLikeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookLikeBackground.png; sourceTree = "<group>"; };
+		24F7E8CD15F61716003115E1 /* SocialMenuFacebookTopBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookTopBackground.png; sourceTree = "<group>"; };
+		24F7E8CE15F61716003115E1 /* SocialMenuGrabBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuGrabBar.png; sourceTree = "<group>"; };
+		24F7E8CF15F61716003115E1 /* SocialMenuNotification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuNotification.png; sourceTree = "<group>"; };
+		24F7E8D015F61716003115E1 /* SocialMenuTabAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTabAdd.png; sourceTree = "<group>"; };
+		24F7E8D115F61716003115E1 /* SocialMenuTabBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTabBackground.png; sourceTree = "<group>"; };
+		24F7E8D215F61716003115E1 /* SocialMenuTabBackgroundSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTabBackgroundSelected.png; sourceTree = "<group>"; };
+		24F7E8D315F61716003115E1 /* SocialMenuTabDivider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTabDivider.png; sourceTree = "<group>"; };
+		24F7E8D415F61716003115E1 /* SocialMenuTabFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTabFacebook.png; sourceTree = "<group>"; };
+		24F7E8D515F61716003115E1 /* SocialMenuTabTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTabTwitter.png; sourceTree = "<group>"; };
+		24F7E8D615F61716003115E1 /* SocialMenuTextFieldBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTextFieldBackground.png; sourceTree = "<group>"; };
+		24F7E8D715F61716003115E1 /* SocialMenuTitleBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTitleBar.png; sourceTree = "<group>"; };
+		24F7E8D815F61716003115E1 /* SocialMenuTwitterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTwitterButton.png; sourceTree = "<group>"; };
+		24F7E8D915F61716003115E1 /* SocialMenuTwitterTopBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTwitterTopBackground.png; sourceTree = "<group>"; };
+		24F7E8DA15F61716003115E1 /* VIPTitleBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTitleBar.png; sourceTree = "<group>"; };
+		24F7E8DB15F61716003115E1 /* VIPTopBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTopBar.png; sourceTree = "<group>"; };
+		24F7E8DC15F61716003115E1 /* VIPTopBarDropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTopBarDropShadow.png; sourceTree = "<group>"; };
+		24F7E8DD15F61716003115E1 /* VIPTopBarIndicatorArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTopBarIndicatorArrow.png; sourceTree = "<group>"; };
+		24F7E8DE15F61716003115E1 /* VIPVideoStripPanelLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoStripPanelLeft.png; sourceTree = "<group>"; };
+		24F7E8DF15F61716003115E1 /* VIPVideoStripPanelMiddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoStripPanelMiddle.png; sourceTree = "<group>"; };
+		24F7E8E015F61716003115E1 /* VIPVideoStripPanelRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoStripPanelRight.png; sourceTree = "<group>"; };
+		24F7E8E115F61716003115E1 /* VIPVideoStripShadowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoStripShadowLeft.png; sourceTree = "<group>"; };
+		24F7E8E215F61716003115E1 /* VIPVideoStripShadowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoStripShadowRight.png; sourceTree = "<group>"; };
+		24F7E8E315F61716003115E1 /* VIPVideoThumbnailBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoThumbnailBar.png; sourceTree = "<group>"; };
+		24F7E8E415F61716003115E1 /* VIPVideoThumbnailPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoThumbnailPlaceholder.png; sourceTree = "<group>"; };
+		24F7E8E515F61716003115E1 /* VIPVideoThumbnailPlayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoThumbnailPlayButton.png; sourceTree = "<group>"; };
+		24F7E8E615F61716003115E1 /* VIPVideoThumbnailShadowOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPVideoThumbnailShadowOverlay.png; sourceTree = "<group>"; };
+		24F7E8E715F61716003115E1 /* bgd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgd.png; sourceTree = "<group>"; };
+		24F7E8E815F61716003115E1 /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car.png; sourceTree = "<group>"; };
+		24F7E8E915F61716003115E1 /* countdown_blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_blank.png; sourceTree = "<group>"; };
+		24F7E8EA15F61716003115E1 /* countdown_fade_over_numbers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_fade_over_numbers.png; sourceTree = "<group>"; };
+		24F7E8EB15F61716003115E1 /* countdown_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_text.png; sourceTree = "<group>"; };
+		24F7E8EC15F61716003115E1 /* facebook-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-logo.png"; sourceTree = "<group>"; };
+		24F7E8ED15F61716003115E1 /* ipad_countdown_layout.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ipad_countdown_layout.jpg; sourceTree = "<group>"; };
+		24F7E8EE15F61716003115E1 /* layout.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = layout.jpg; sourceTree = "<group>"; };
+		24F7E8EF15F61716003115E1 /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
+		24F7E8F015F61716003115E1 /* midas_logo_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = midas_logo_text.png; sourceTree = "<group>"; };
+		24F7E8F115F61716003115E1 /* particle0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle0.png; sourceTree = "<group>"; };
+		24F7E8F215F61716003115E1 /* particle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle1.png; sourceTree = "<group>"; };
+		24F7E8F315F61716003115E1 /* twitter-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-logo.png"; sourceTree = "<group>"; };
+>>>>>>> Change project
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3519,6 +3617,7 @@
 		240F214F15F51038001C08C1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				24F7E8C515F61716003115E1 /* Social */,
 				240F215015F51038001C08C1 /* 17-bar-chart.png */,
 				240F215115F51038001C08C1 /* 66-microphone.png */,
 				240F215215F51038001C08C1 /* AlertChequeredFlag.png */,
@@ -4839,6 +4938,59 @@
 				2436303F15F60C04006F3DFC /* ISO8601DateFormatter.m */,
 			);
 			name = ISO8601DateFormatter;
+			sourceTree = "<group>";
+		};
+		24F7E8C515F61716003115E1 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */,
+				24F7E8C715F61716003115E1 /* SocialMenuArrow.png */,
+				24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */,
+				24F7E8C915F61716003115E1 /* SocialMenuFacebookCommentButton.png */,
+				24F7E8CA15F61716003115E1 /* SocialMenuFacebookCommentTextFieldBackground.png */,
+				24F7E8CB15F61716003115E1 /* SocialMenuFacebookLike.png */,
+				24F7E8CC15F61716003115E1 /* SocialMenuFacebookLikeBackground.png */,
+				24F7E8CD15F61716003115E1 /* SocialMenuFacebookTopBackground.png */,
+				24F7E8CE15F61716003115E1 /* SocialMenuGrabBar.png */,
+				24F7E8CF15F61716003115E1 /* SocialMenuNotification.png */,
+				24F7E8D015F61716003115E1 /* SocialMenuTabAdd.png */,
+				24F7E8D115F61716003115E1 /* SocialMenuTabBackground.png */,
+				24F7E8D215F61716003115E1 /* SocialMenuTabBackgroundSelected.png */,
+				24F7E8D315F61716003115E1 /* SocialMenuTabDivider.png */,
+				24F7E8D415F61716003115E1 /* SocialMenuTabFacebook.png */,
+				24F7E8D515F61716003115E1 /* SocialMenuTabTwitter.png */,
+				24F7E8D615F61716003115E1 /* SocialMenuTextFieldBackground.png */,
+				24F7E8D715F61716003115E1 /* SocialMenuTitleBar.png */,
+				24F7E8D815F61716003115E1 /* SocialMenuTwitterButton.png */,
+				24F7E8D915F61716003115E1 /* SocialMenuTwitterTopBackground.png */,
+				24F7E8DA15F61716003115E1 /* VIPTitleBar.png */,
+				24F7E8DB15F61716003115E1 /* VIPTopBar.png */,
+				24F7E8DC15F61716003115E1 /* VIPTopBarDropShadow.png */,
+				24F7E8DD15F61716003115E1 /* VIPTopBarIndicatorArrow.png */,
+				24F7E8DE15F61716003115E1 /* VIPVideoStripPanelLeft.png */,
+				24F7E8DF15F61716003115E1 /* VIPVideoStripPanelMiddle.png */,
+				24F7E8E015F61716003115E1 /* VIPVideoStripPanelRight.png */,
+				24F7E8E115F61716003115E1 /* VIPVideoStripShadowLeft.png */,
+				24F7E8E215F61716003115E1 /* VIPVideoStripShadowRight.png */,
+				24F7E8E315F61716003115E1 /* VIPVideoThumbnailBar.png */,
+				24F7E8E415F61716003115E1 /* VIPVideoThumbnailPlaceholder.png */,
+				24F7E8E515F61716003115E1 /* VIPVideoThumbnailPlayButton.png */,
+				24F7E8E615F61716003115E1 /* VIPVideoThumbnailShadowOverlay.png */,
+				24F7E8E715F61716003115E1 /* bgd.png */,
+				24F7E8E815F61716003115E1 /* car.png */,
+				24F7E8E915F61716003115E1 /* countdown_blank.png */,
+				24F7E8EA15F61716003115E1 /* countdown_fade_over_numbers.png */,
+				24F7E8EB15F61716003115E1 /* countdown_text.png */,
+				24F7E8EC15F61716003115E1 /* facebook-logo.png */,
+				24F7E8ED15F61716003115E1 /* ipad_countdown_layout.jpg */,
+				24F7E8EE15F61716003115E1 /* layout.jpg */,
+				24F7E8EF15F61716003115E1 /* man.png */,
+				24F7E8F015F61716003115E1 /* midas_logo_text.png */,
+				24F7E8F115F61716003115E1 /* particle0.png */,
+				24F7E8F215F61716003115E1 /* particle1.png */,
+				24F7E8F315F61716003115E1 /* twitter-logo.png */,
+			);
+			path = Social;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -6230,7 +6382,56 @@
 				24362F9F15F60A4D006F3DFC /* MidasSocialViewController.xib in Resources */,
 				24362FA115F60A4D006F3DFC /* MidasTweetTableViewCell.xib in Resources */,
 				24362FA815F60A4D006F3DFC /* MidasTwitterViewController.xib in Resources */,
+<<<<<<< HEAD
 >>>>>>> Get project building with Xcode 4 and libraries etc
+=======
+				24F7E8F415F61716003115E1 /* SocialArrowRefresh.png in Resources */,
+				24F7E8F515F61716003115E1 /* SocialMenuArrow.png in Resources */,
+				24F7E8F615F61716003115E1 /* SocialMenuFacebookButton.png in Resources */,
+				24F7E8F715F61716003115E1 /* SocialMenuFacebookCommentButton.png in Resources */,
+				24F7E8F815F61716003115E1 /* SocialMenuFacebookCommentTextFieldBackground.png in Resources */,
+				24F7E8F915F61716003115E1 /* SocialMenuFacebookLike.png in Resources */,
+				24F7E8FA15F61716003115E1 /* SocialMenuFacebookLikeBackground.png in Resources */,
+				24F7E8FB15F61716003115E1 /* SocialMenuFacebookTopBackground.png in Resources */,
+				24F7E8FC15F61716003115E1 /* SocialMenuGrabBar.png in Resources */,
+				24F7E8FD15F61716003115E1 /* SocialMenuNotification.png in Resources */,
+				24F7E8FE15F61716003115E1 /* SocialMenuTabAdd.png in Resources */,
+				24F7E8FF15F61716003115E1 /* SocialMenuTabBackground.png in Resources */,
+				24F7E90015F61716003115E1 /* SocialMenuTabBackgroundSelected.png in Resources */,
+				24F7E90115F61716003115E1 /* SocialMenuTabDivider.png in Resources */,
+				24F7E90215F61716003115E1 /* SocialMenuTabFacebook.png in Resources */,
+				24F7E90315F61716003115E1 /* SocialMenuTabTwitter.png in Resources */,
+				24F7E90415F61716003115E1 /* SocialMenuTextFieldBackground.png in Resources */,
+				24F7E90515F61716003115E1 /* SocialMenuTitleBar.png in Resources */,
+				24F7E90615F61716003115E1 /* SocialMenuTwitterButton.png in Resources */,
+				24F7E90715F61716003115E1 /* SocialMenuTwitterTopBackground.png in Resources */,
+				24F7E90815F61716003115E1 /* VIPTitleBar.png in Resources */,
+				24F7E90915F61716003115E1 /* VIPTopBar.png in Resources */,
+				24F7E90A15F61716003115E1 /* VIPTopBarDropShadow.png in Resources */,
+				24F7E90B15F61716003115E1 /* VIPTopBarIndicatorArrow.png in Resources */,
+				24F7E90C15F61716003115E1 /* VIPVideoStripPanelLeft.png in Resources */,
+				24F7E90D15F61716003115E1 /* VIPVideoStripPanelMiddle.png in Resources */,
+				24F7E90E15F61716003115E1 /* VIPVideoStripPanelRight.png in Resources */,
+				24F7E90F15F61716003115E1 /* VIPVideoStripShadowLeft.png in Resources */,
+				24F7E91015F61716003115E1 /* VIPVideoStripShadowRight.png in Resources */,
+				24F7E91115F61716003115E1 /* VIPVideoThumbnailBar.png in Resources */,
+				24F7E91215F61716003115E1 /* VIPVideoThumbnailPlaceholder.png in Resources */,
+				24F7E91315F61716003115E1 /* VIPVideoThumbnailPlayButton.png in Resources */,
+				24F7E91415F61716003115E1 /* VIPVideoThumbnailShadowOverlay.png in Resources */,
+				24F7E91515F61716003115E1 /* bgd.png in Resources */,
+				24F7E91615F61716003115E1 /* car.png in Resources */,
+				24F7E91715F61716003115E1 /* countdown_blank.png in Resources */,
+				24F7E91815F61716003115E1 /* countdown_fade_over_numbers.png in Resources */,
+				24F7E91915F61716003115E1 /* countdown_text.png in Resources */,
+				24F7E91A15F61716003115E1 /* facebook-logo.png in Resources */,
+				24F7E91B15F61716003115E1 /* ipad_countdown_layout.jpg in Resources */,
+				24F7E91C15F61716003115E1 /* layout.jpg in Resources */,
+				24F7E91D15F61716003115E1 /* man.png in Resources */,
+				24F7E91E15F61716003115E1 /* midas_logo_text.png in Resources */,
+				24F7E91F15F61716003115E1 /* particle0.png in Resources */,
+				24F7E92015F61716003115E1 /* particle1.png in Resources */,
+				24F7E92115F61716003115E1 /* twitter-logo.png in Resources */,
+>>>>>>> Change project
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
