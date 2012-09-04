@@ -44,6 +44,17 @@ CGPoint const LogoEndPoint;
 	_canAnimateOffScreenCount++;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	// Register the view controller
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_COUNT_VIEW_];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	

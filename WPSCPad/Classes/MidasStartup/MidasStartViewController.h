@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BasePadViewController.h"
 
-@interface MidasStartViewController : UIViewController
+@interface MidasStartViewController : BasePadViewController
 @end
