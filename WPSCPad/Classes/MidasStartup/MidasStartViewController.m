@@ -49,6 +49,10 @@ CGPoint const LogoEndPoint;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	_canAnimateOffScreenCount++;
+	__weak MidasStartViewController *weakSelf = self;
+	self.loginTextFieldValidator.returnHandler = ^{
+		[weakSelf login:nil];
+	};
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -146,9 +150,39 @@ CGPoint const LogoEndPoint;
 			return;
 		}
 
-		
-
+		[self _shakeView:self.usernameField];
+		[self _shakeView:self.passwordField];
+		self.passwordField.text = @"";
+		self.passwordField.placeholder = @"Please try again";
 	}];
+}
+
+- (void)_shakeView:(UIView *)view {
+
+	CGRect frame = view.frame;
+	__block NSUInteger shakes = 10;
+	__block NSInteger amount = 5;
+	__block void (^animate)() = ^{};
+
+	void (^completion)(BOOL success) = ^(BOOL success) {
+		shakes--;
+		if (shakes == 0) {
+			view.frame = frame;
+			return;
+		}
+		animate();
+	};
+
+	animate = ^{
+		[UIView animateWithDuration:0.05f animations:^{
+			CGRect rect = frame;
+			rect.origin.x += amount;
+			view.frame = rect;
+			amount *= -1;
+		} completion:completion];
+	};
+	
+	animate();
 }
 
 - (void)_animateManStage1Completion:(void(^)(BOOL finished))completion {
