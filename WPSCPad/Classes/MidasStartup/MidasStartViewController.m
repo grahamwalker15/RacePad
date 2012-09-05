@@ -13,6 +13,8 @@
 #import "MidasFacebookViewController.h"
 #import "MidasSettings.h"
 #import "RacePadCoordinator.h"
+#import "MidasLoginController.h"
+#import <DCTTextFieldValidator/DCTTextFieldValidator.h>
 
 CGPoint const LogoEndPoint;
 
@@ -27,6 +29,11 @@ CGPoint const LogoEndPoint;
 @property (weak, nonatomic) IBOutlet UILabel *countdownSecondLabel;
 @property (weak, nonatomic) IBOutlet UIView *countdownView;
 @property (weak, nonatomic) IBOutlet UIView *particleView;
+
+@property (weak, nonatomic) IBOutlet UIView *loginView;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) IBOutlet DCTTextFieldValidator *loginTextFieldValidator;
 @end
 
 @implementation MidasStartViewController {
@@ -108,7 +115,7 @@ CGPoint const LogoEndPoint;
 		};
 		
 		_countdownTimer.eventDateHandler = ^{
-			[weakSelf _checkToAnimateOffScreen];
+			[weakSelf _showLoginView];
 		};
 		
 		[UIView animateWithDuration:0.6 animations:^{
@@ -116,6 +123,31 @@ CGPoint const LogoEndPoint;
 			frame.origin = _countdownEndPoint;
 			self.countdownView.frame = frame;
 		}];
+	}];
+}
+
+- (void)_showLoginView {
+	self.loginView.alpha = 0.0f;
+	self.loginView.hidden = NO;
+	[UIView animateWithDuration:1.0f/3.0f animations:^{
+		self.loginView.alpha = 1.0f;
+	} completion:^(BOOL finished) {
+		[self.usernameField becomeFirstResponder];
+	}];
+}
+
+- (IBAction)login:(id)sender {
+	NSString *username = self.usernameField.text;
+	NSString *password = self.passwordField.text;
+	[[MidasLoginController new] loginWithUsername:username password:password handler:^(BOOL success, NSError *error) {
+
+		if (success) {
+			[self _checkToAnimateOffScreen];
+			return;
+		}
+
+		
+
 	}];
 }
 
@@ -173,6 +205,7 @@ CGPoint const LogoEndPoint;
 		self.logoView.alpha = 0.0f;
 		self.countdownView.alpha = 0.0f;
 		self.particleView.alpha = 0.0f;
+		self.loginView.alpha = 0.0f;
 		
 	} completion:completion];
 }

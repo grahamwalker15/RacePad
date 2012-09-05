@@ -773,6 +773,8 @@
 		2436305715F60C33006F3DFC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436305015F60C33006F3DFC /* Security.framework */; };
 		2436305915F60C4A006F3DFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2436305815F60C4A006F3DFC /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2436305B15F60D07006F3DFC /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436305A15F60D07006F3DFC /* libresolv.dylib */; };
+		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
+		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
 		24942D0C15F621CB00613F87 /* videoTitleOverlayFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */; };
 		24942D0E15F621D500613F87 /* videoTitleOverlayNoClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */; };
 		24942D1015F621DD00613F87 /* MenuAudioOn~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */; };
@@ -1908,6 +1910,9 @@
 		2436305015F60C33006F3DFC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2436305815F60C4A006F3DFC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2436305A15F60D07006F3DFC /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		247EBACE15F783BB00CAE3CD /* MidasLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasLoginController.h; sourceTree = "<group>"; };
+		247EBACF15F783BB00CAE3CD /* MidasLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasLoginController.m; sourceTree = "<group>"; };
+		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
 		24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayFull.png; sourceTree = "<group>"; };
 		24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoClose.png; sourceTree = "<group>"; };
 		24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuAudioOn~ipad.png"; sourceTree = "<group>"; };
@@ -3410,6 +3415,8 @@
 				24942D6315F64FB900613F87 /* MidasStartViewController.h */,
 				24942D6415F64FB900613F87 /* MidasStartViewController.m */,
 				24942D6515F64FB900613F87 /* MidasStartViewController.xib */,
+				247EBACE15F783BB00CAE3CD /* MidasLoginController.h */,
+				247EBACF15F783BB00CAE3CD /* MidasLoginController.m */,
 			);
 			path = MidasStartup;
 			sourceTree = "<group>";
@@ -3417,6 +3424,7 @@
 		24F7E8C515F61716003115E1 /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */,
 				24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */,
 				24F7E8C715F61716003115E1 /* SocialMenuArrow.png */,
 				24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */,
@@ -4373,6 +4381,7 @@
 				24942D1615F6249400613F87 /* MidasVIPViewController.xib in Resources */,
 				24942D1815F6253C00613F87 /* test.mov in Resources */,
 				24942D6915F64FB900613F87 /* MidasStartViewController.xib in Resources */,
+				247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4531,6 +4540,7 @@
 				24942D6615F64FB900613F87 /* MidasCountdownTimer.m in Sources */,
 				24942D6715F64FB900613F87 /* MidasParticleView.m in Sources */,
 				24942D6815F64FB900613F87 /* MidasStartViewController.m in Sources */,
+				247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
