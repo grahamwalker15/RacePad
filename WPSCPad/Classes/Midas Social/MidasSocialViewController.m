@@ -40,7 +40,7 @@
 	self.tabTableView.dataSource = _tableViewDataSource;
 	_tableViewDataSource.tableView = self.tabTableView;
 	
-	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 81.0f, 0.0f, 13.0f)];
+	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
 }
 
