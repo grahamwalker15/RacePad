@@ -51,10 +51,24 @@
 										consumerKey:@"5lMw8Ldk2hhnhffI89GKg"
 									 consumerSecret:@"vyuPX2BdDTNXi7vaiAuUZatr92b2bG25MEQ1WKuXyI"];
 	
-	[_account authenticateWithHandler:^(NSDictionary *returnedValues, NSError *error) {
-		_account.accountDescription = [returnedValues objectForKey:@"screen_name"];
+	[_account authenticateWithHandler:^(NSDictionary *responses, NSError *error) {
+		[self _findScreenNameInDictionary:responses];
 		[_accountStore saveAccount:_account];
 		completion();
+	}];
+}
+
+- (void)_findScreenNameInDictionary:(NSDictionary *)responses {
+
+	[responses enumerateKeysAndObjectsUsingBlock:^(NSString *key, id object, BOOL *stop) {
+
+		if ([object isKindOfClass:[NSDictionary class]]) {
+			[self _findScreenNameInDictionary:object];
+			return;
+		}
+
+		if ([key isEqualToString:@"screen_name"])
+			_account.accountDescription = object;
 	}];
 }
 
@@ -64,8 +78,20 @@
 }
 
 - (void)fetchUserWithHandler:(void(^)(id, NSError *error))handler {
-	NSString *userLookupURLString = [NSString stringWithFormat:@"https://api.twitter.com/1/users/show.json?screen_name=%@", _account.accountDescription];
-	[self getURL:[NSURL URLWithString:userLookupURLString] parameters:nil handler:handler];
+
+	if (!_account.accountDescription) {
+
+		if (handler != NULL) {
+			NSError *error = [NSError errorWithDomain:@"MidasTwitter" code:404 userInfo:@{ NSLocalizedDescriptionKey : @"Username is not present." }];
+			handler(nil, error);
+		}
+
+		return;
+	}
+
+	[self getURL:[NSURL URLWithString:@"https://api.twitter.com/1/users/show.json"]
+	  parameters:@{ @"screen_name" : _account.accountDescription }
+		 handler:handler];
 }
 
 - (void)getURL:(NSURL *)URL parameters:(NSDictionary *)parameters handler:(void(^)(id, NSError *error))handler {

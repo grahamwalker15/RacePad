@@ -219,7 +219,7 @@
 			
 			CGFloat scale = [UIScreen mainScreen].scale;
 			CGSize size = CGSizeMake(self.userImageView.bounds.size.width* scale, self.userImageView.bounds.size.height * scale);
-			
+
 			[[MidasTwitterProfileImageCache sharedCache] fetchImageForUsername:username size:size handler:^(UIImage *image) {
 				dispatch_async(dispatch_get_main_queue(), ^{
 					self.userImageView.image = image;

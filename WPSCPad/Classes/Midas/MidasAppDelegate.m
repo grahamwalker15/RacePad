@@ -22,6 +22,7 @@
 #import "BasePadPrefs.h"
 
 #import "MidasDatabase.h"
+#import <DCTAuth/DCTAuth.h>
 
 @implementation MidasAppDelegate
 
@@ -102,6 +103,27 @@
 	[[BasePadPrefs Instance] save];
 }
 
+// These methods fire the URL as a request in a connection. Custom protocol handlers
+// will handle these. For instance, the Facebook handler will handle Facebook callbacks
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)URL {
+
+	BOOL handled = [DCTAuth handleURL:URL];
+	if (handled) return YES;
+
+	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+	[NSURLConnection connectionWithRequest:request delegate:nil];
+	return NO;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)URL sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+
+	BOOL handled = [DCTAuth handleURL:URL];
+	if (handled) return YES;
+
+	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+	[NSURLConnection connectionWithRequest:request delegate:nil];
+	return NO;
+}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
