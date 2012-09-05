@@ -84,8 +84,6 @@
 		240F235A15F51039001C08C1 /* ChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F216A15F51038001C08C1 /* ChequeredFlag.png */; };
 		240F235B15F51039001C08C1 /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F216B15F51038001C08C1 /* CloseButton.png */; };
 		240F235C15F51039001C08C1 /* Commentary.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F216C15F51038001C08C1 /* Commentary.png */; };
-		240F235D15F51039001C08C1 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F216D15F51038001C08C1 /* Default-Landscape.png */; };
-		240F235E15F51039001C08C1 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F216E15F51038001C08C1 /* Default-Portrait.png */; };
 		240F235F15F51039001C08C1 /* DriverTextBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F216F15F51038001C08C1 /* DriverTextBG.png */; };
 		240F236015F51039001C08C1 /* DrivingWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F217015F51038001C08C1 /* DrivingWheel.png */; };
 		240F236115F51039001C08C1 /* DrivingWheelOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F217115F51038001C08C1 /* DrivingWheelOutline.png */; };
@@ -146,20 +144,6 @@
 		240F239815F51039001C08C1 /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21A815F51038001C08C1 /* MGPLogo.png */; };
 		240F239915F51039001C08C1 /* MGPLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21A915F51038001C08C1 /* MGPLogoBig.png */; };
 		240F239A15F51039001C08C1 /* MSCTelemetry.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21AA15F51038001C08C1 /* MSCTelemetry.png */; };
-		240F239B15F51039001C08C1 /* Alert2ndYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21AC15F51038001C08C1 /* Alert2ndYellow.png */; };
-		240F239C15F51039001C08C1 /* AlertCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21AD15F51038001C08C1 /* AlertCorner.png */; };
-		240F239D15F51039001C08C1 /* AlertFKCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21AE15F51038001C08C1 /* AlertFKCorner.png */; };
-		240F239E15F51039001C08C1 /* AlertFreeKick.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21AF15F51038001C08C1 /* AlertFreeKick.png */; };
-		240F239F15F51039001C08C1 /* AlertGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B015F51038001C08C1 /* AlertGoal.png */; };
-		240F23A015F51039001C08C1 /* AlertInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B115F51038001C08C1 /* AlertInfo.png */; };
-		240F23A115F51039001C08C1 /* AlertPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B215F51038001C08C1 /* AlertPlayer.png */; };
-		240F23A215F51039001C08C1 /* AlertRedCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B315F51038001C08C1 /* AlertRedCard.png */; };
-		240F23A315F51039001C08C1 /* AlertYellowCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B415F51038001C08C1 /* AlertYellowCard.png */; };
-		240F23A415F51039001C08C1 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B515F51038001C08C1 /* Default-Landscape.png */; };
-		240F23A515F51039001C08C1 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B615F51038001C08C1 /* Default-Portrait.png */; };
-		240F23A615F51039001C08C1 /* Icon-72MP.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B715F51038001C08C1 /* Icon-72MP.png */; };
-		240F23A715F51039001C08C1 /* IconMP.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B815F51038001C08C1 /* IconMP.png */; };
-		240F23A815F51039001C08C1 /* TackleBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21B915F51038001C08C1 /* TackleBG.png */; };
 		240F23A915F51039001C08C1 /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21BA15F51038001C08C1 /* Metal.png */; };
 		240F23AA15F51039001C08C1 /* Available-Replay-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21BD15F51038001C08C1 /* Available-Replay-icon.png */; };
 		240F23AB15F51039001C08C1 /* F1-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 240F21BE15F51038001C08C1 /* F1-icon.png */; };
@@ -1078,8 +1062,6 @@
 		240F216A15F51038001C08C1 /* ChequeredFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChequeredFlag.png; sourceTree = "<group>"; };
 		240F216B15F51038001C08C1 /* CloseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseButton.png; sourceTree = "<group>"; };
 		240F216C15F51038001C08C1 /* Commentary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Commentary.png; sourceTree = "<group>"; };
-		240F216D15F51038001C08C1 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
-		240F216E15F51038001C08C1 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		240F216F15F51038001C08C1 /* DriverTextBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DriverTextBG.png; sourceTree = "<group>"; };
 		240F217015F51038001C08C1 /* DrivingWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DrivingWheel.png; sourceTree = "<group>"; };
 		240F217115F51038001C08C1 /* DrivingWheelOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DrivingWheelOutline.png; sourceTree = "<group>"; };
@@ -1140,20 +1122,6 @@
 		240F21A815F51038001C08C1 /* MGPLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGPLogo.png; sourceTree = "<group>"; };
 		240F21A915F51038001C08C1 /* MGPLogoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGPLogoBig.png; sourceTree = "<group>"; };
 		240F21AA15F51038001C08C1 /* MSCTelemetry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSCTelemetry.png; sourceTree = "<group>"; };
-		240F21AC15F51038001C08C1 /* Alert2ndYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alert2ndYellow.png; sourceTree = "<group>"; };
-		240F21AD15F51038001C08C1 /* AlertCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCorner.png; sourceTree = "<group>"; };
-		240F21AE15F51038001C08C1 /* AlertFKCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertFKCorner.png; sourceTree = "<group>"; };
-		240F21AF15F51038001C08C1 /* AlertFreeKick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertFreeKick.png; sourceTree = "<group>"; };
-		240F21B015F51038001C08C1 /* AlertGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertGoal.png; sourceTree = "<group>"; };
-		240F21B115F51038001C08C1 /* AlertInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertInfo.png; sourceTree = "<group>"; };
-		240F21B215F51038001C08C1 /* AlertPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertPlayer.png; sourceTree = "<group>"; };
-		240F21B315F51038001C08C1 /* AlertRedCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertRedCard.png; sourceTree = "<group>"; };
-		240F21B415F51038001C08C1 /* AlertYellowCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertYellowCard.png; sourceTree = "<group>"; };
-		240F21B515F51038001C08C1 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
-		240F21B615F51038001C08C1 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
-		240F21B715F51038001C08C1 /* Icon-72MP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72MP.png"; sourceTree = "<group>"; };
-		240F21B815F51038001C08C1 /* IconMP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMP.png; sourceTree = "<group>"; };
-		240F21B915F51038001C08C1 /* TackleBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TackleBG.png; sourceTree = "<group>"; };
 		240F21BA15F51038001C08C1 /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Metal.png; sourceTree = "<group>"; };
 		240F21BD15F51038001C08C1 /* Available-Replay-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Available-Replay-icon.png"; sourceTree = "<group>"; };
 		240F21BE15F51038001C08C1 /* F1-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "F1-icon.png"; sourceTree = "<group>"; };
@@ -2143,8 +2111,6 @@
 				240F216A15F51038001C08C1 /* ChequeredFlag.png */,
 				240F216B15F51038001C08C1 /* CloseButton.png */,
 				240F216C15F51038001C08C1 /* Commentary.png */,
-				240F216D15F51038001C08C1 /* Default-Landscape.png */,
-				240F216E15F51038001C08C1 /* Default-Portrait.png */,
 				240F216F15F51038001C08C1 /* DriverTextBG.png */,
 				240F217015F51038001C08C1 /* DrivingWheel.png */,
 				240F217115F51038001C08C1 /* DrivingWheelOutline.png */,
@@ -2205,7 +2171,6 @@
 				240F21A815F51038001C08C1 /* MGPLogo.png */,
 				240F21A915F51038001C08C1 /* MGPLogoBig.png */,
 				240F21AA15F51038001C08C1 /* MSCTelemetry.png */,
-				240F21AB15F51038001C08C1 /* MatchPad */,
 				240F21BA15F51038001C08C1 /* Metal.png */,
 				240F21BB15F51038001C08C1 /* MidasImages */,
 				240F230215F51039001C08C1 /* NewsFeed.png */,
@@ -2272,27 +2237,6 @@
 				240F233F15F51039001C08C1 /* world.png */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		240F21AB15F51038001C08C1 /* MatchPad */ = {
-			isa = PBXGroup;
-			children = (
-				240F21AC15F51038001C08C1 /* Alert2ndYellow.png */,
-				240F21AD15F51038001C08C1 /* AlertCorner.png */,
-				240F21AE15F51038001C08C1 /* AlertFKCorner.png */,
-				240F21AF15F51038001C08C1 /* AlertFreeKick.png */,
-				240F21B015F51038001C08C1 /* AlertGoal.png */,
-				240F21B115F51038001C08C1 /* AlertInfo.png */,
-				240F21B215F51038001C08C1 /* AlertPlayer.png */,
-				240F21B315F51038001C08C1 /* AlertRedCard.png */,
-				240F21B415F51038001C08C1 /* AlertYellowCard.png */,
-				240F21B515F51038001C08C1 /* Default-Landscape.png */,
-				240F21B615F51038001C08C1 /* Default-Portrait.png */,
-				240F21B715F51038001C08C1 /* Icon-72MP.png */,
-				240F21B815F51038001C08C1 /* IconMP.png */,
-				240F21B915F51038001C08C1 /* TackleBG.png */,
-			);
-			path = MatchPad;
 			sourceTree = "<group>";
 		};
 		240F21BB15F51038001C08C1 /* MidasImages */ = {
@@ -3801,8 +3745,6 @@
 				240F235A15F51039001C08C1 /* ChequeredFlag.png in Resources */,
 				240F235B15F51039001C08C1 /* CloseButton.png in Resources */,
 				240F235C15F51039001C08C1 /* Commentary.png in Resources */,
-				240F235D15F51039001C08C1 /* Default-Landscape.png in Resources */,
-				240F235E15F51039001C08C1 /* Default-Portrait.png in Resources */,
 				240F235F15F51039001C08C1 /* DriverTextBG.png in Resources */,
 				240F236015F51039001C08C1 /* DrivingWheel.png in Resources */,
 				240F236115F51039001C08C1 /* DrivingWheelOutline.png in Resources */,
@@ -3863,20 +3805,6 @@
 				240F239815F51039001C08C1 /* MGPLogo.png in Resources */,
 				240F239915F51039001C08C1 /* MGPLogoBig.png in Resources */,
 				240F239A15F51039001C08C1 /* MSCTelemetry.png in Resources */,
-				240F239B15F51039001C08C1 /* Alert2ndYellow.png in Resources */,
-				240F239C15F51039001C08C1 /* AlertCorner.png in Resources */,
-				240F239D15F51039001C08C1 /* AlertFKCorner.png in Resources */,
-				240F239E15F51039001C08C1 /* AlertFreeKick.png in Resources */,
-				240F239F15F51039001C08C1 /* AlertGoal.png in Resources */,
-				240F23A015F51039001C08C1 /* AlertInfo.png in Resources */,
-				240F23A115F51039001C08C1 /* AlertPlayer.png in Resources */,
-				240F23A215F51039001C08C1 /* AlertRedCard.png in Resources */,
-				240F23A315F51039001C08C1 /* AlertYellowCard.png in Resources */,
-				240F23A415F51039001C08C1 /* Default-Landscape.png in Resources */,
-				240F23A515F51039001C08C1 /* Default-Portrait.png in Resources */,
-				240F23A615F51039001C08C1 /* Icon-72MP.png in Resources */,
-				240F23A715F51039001C08C1 /* IconMP.png in Resources */,
-				240F23A815F51039001C08C1 /* TackleBG.png in Resources */,
 				240F23A915F51039001C08C1 /* Metal.png in Resources */,
 				240F23AA15F51039001C08C1 /* Available-Replay-icon.png in Resources */,
 				240F23AB15F51039001C08C1 /* F1-icon.png in Resources */,
