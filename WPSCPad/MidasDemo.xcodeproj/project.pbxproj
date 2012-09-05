@@ -713,6 +713,7 @@
 		240F279C15F510BA001C08C1 /* TrackMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F26FB15F510BA001C08C1 /* TrackMapView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F279D15F510BA001C08C1 /* TrackProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F26FD15F510BA001C08C1 /* TrackProfileView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2432DCC715F7A8CA00DDB1FC /* BottomHeading.png in Resources */ = {isa = PBXBuildFile; fileRef = 2432DCC615F7A8CA00DDB1FC /* BottomHeading.png */; };
+		2432DCC915F7AC3600DDB1FC /* TopHeading.png in Resources */ = {isa = PBXBuildFile; fileRef = 2432DCC815F7AC3600DDB1FC /* TopHeading.png */; };
 		24362F9415F60A4D006F3DFC /* MidasFacebook.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 24362F6A15F60A4D006F3DFC /* MidasFacebook.xcdatamodel */; };
 		24362F9515F60A4D006F3DFC /* MidasFacebookComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 24362F6C15F60A4D006F3DFC /* MidasFacebookComment.m */; };
 		24362F9615F60A4D006F3DFC /* MidasFacebookProfileImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 24362F6E15F60A4D006F3DFC /* MidasFacebookProfileImageCache.m */; };
@@ -1816,6 +1817,7 @@
 		240F26FD15F510BA001C08C1 /* TrackProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackProfileView.m; sourceTree = "<group>"; };
 		240F279F15F5110D001C08C1 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
 		2432DCC615F7A8CA00DDB1FC /* BottomHeading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BottomHeading.png; sourceTree = "<group>"; };
+		2432DCC815F7AC3600DDB1FC /* TopHeading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopHeading.png; sourceTree = "<group>"; };
 		24362F6A15F60A4D006F3DFC /* MidasFacebook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MidasFacebook.xcdatamodel; sourceTree = "<group>"; };
 		24362F6B15F60A4D006F3DFC /* MidasFacebookComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasFacebookComment.h; sourceTree = "<group>"; };
 		24362F6C15F60A4D006F3DFC /* MidasFacebookComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasFacebookComment.m; sourceTree = "<group>"; };
@@ -2084,6 +2086,7 @@
 			isa = PBXGroup;
 			children = (
 				2432DCC615F7A8CA00DDB1FC /* BottomHeading.png */,
+				2432DCC815F7AC3600DDB1FC /* TopHeading.png */,
 				24F7E8C515F61716003115E1 /* Social */,
 				240F215015F51038001C08C1 /* 17-bar-chart.png */,
 				240F215115F51038001C08C1 /* 66-microphone.png */,
@@ -4314,6 +4317,7 @@
 				24942D6915F64FB900613F87 /* MidasStartViewController.xib in Resources */,
 				247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */,
 				2432DCC715F7A8CA00DDB1FC /* BottomHeading.png in Resources */,
+				2432DCC915F7AC3600DDB1FC /* TopHeading.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
