@@ -15,6 +15,10 @@
 
 #import "MidasVideoViewController.h"
 
+@interface MidasStandingsViewController ()
+@property (nonatomic, unsafe_unretained) IBOutlet UIImageView *titleImageView;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *titleLabel;
+@end
 
 @implementation MidasStandingsViewController
 
@@ -46,6 +50,9 @@
 	
 	// Tell the RacePadCoordinator that we're interested in data for this view
 	[[RacePadCoordinator Instance] AddView:standingsView WithType:RPC_MIDAS_STANDINGS_VIEW_];
+	
+	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
+	self.titleImageView.image = image;
 }
 
 
