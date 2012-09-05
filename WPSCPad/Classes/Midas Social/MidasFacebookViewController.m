@@ -123,6 +123,7 @@
 					[request addCompletionHandler:^(FBRequest *request, id result) {
 						NSString *commentID = [result objectForKey:@"id"];
 						[self _getCommentWithID:commentID];
+						self.commentTextField.text = nil;
 					}];
 					
 					[request addErrorHandler:^(FBRequest *request, NSError *error) {
