@@ -13,6 +13,10 @@
 
 #import "RacePadCoordinator.h"
 
+@interface MidasCameraViewController ()
+@property (nonatomic, unsafe_unretained) IBOutlet UIImageView *titleImageView;
+@end
+
 @implementation MidasCameraViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -24,6 +28,9 @@
 	[movieSelectorView setVertical:true];
 	
 	[self addTapRecognizerToView:movieSelectorView];
+	
+	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
+	self.titleImageView.image = image;
 }
 
 
