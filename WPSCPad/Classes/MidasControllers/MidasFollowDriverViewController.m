@@ -20,6 +20,11 @@
 #import "BasePadMedia.h"
 #import "MidasVideoViewController.h"
 
+@interface MidasFollowDriverViewController ()
+@property (nonatomic, unsafe_unretained) IBOutlet UIImageView *titleImageView;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *titleLabel;
+@end
+
 @implementation MidasFollowDriverViewController
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -84,7 +89,10 @@
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	[[RacePadCoordinator Instance] AddView:headToHeadView WithType:RPC_HEAD_TO_HEAD_VIEW_];
-	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];			
+	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
+
+	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
+	self.titleImageView.image = image;
 }
 
 
