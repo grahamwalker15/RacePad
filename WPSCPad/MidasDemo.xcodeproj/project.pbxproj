@@ -761,6 +761,8 @@
 		2436305B15F60D07006F3DFC /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2436305A15F60D07006F3DFC /* libresolv.dylib */; };
 		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
 		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
+		248392B815F89C13003BE8A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 248392B615F89C13003BE8A8 /* Localizable.strings */; };
+		248392BA15F89C1A003BE8A8 /* test.mov in Resources */ = {isa = PBXBuildFile; fileRef = 24942D1715F6253C00613F87 /* test.mov */; };
 		24942D0C15F621CB00613F87 /* videoTitleOverlayFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */; };
 		24942D0E15F621D500613F87 /* videoTitleOverlayNoClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */; };
 		24942D1015F621DD00613F87 /* MenuAudioOn~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */; };
@@ -1885,6 +1887,8 @@
 		247EBACE15F783BB00CAE3CD /* MidasLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasLoginController.h; sourceTree = "<group>"; };
 		247EBACF15F783BB00CAE3CD /* MidasLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasLoginController.m; sourceTree = "<group>"; };
 		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
+		248392B715F89C13003BE8A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		248392B915F89C1A003BE8A8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = Resources/ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayFull.png; sourceTree = "<group>"; };
 		24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoClose.png; sourceTree = "<group>"; };
 		24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuAudioOn~ipad.png"; sourceTree = "<group>"; };
@@ -2021,6 +2025,7 @@
 		240F20F115F5100E001C08C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				248392B615F89C13003BE8A8 /* Localizable.strings */,
 				24942D1715F6253C00613F87 /* test.mov */,
 				240F20F615F5102D001C08C1 /* HTML */,
 				240F214F15F51038001C08C1 /* Images */,
@@ -3460,6 +3465,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = 240F202D15F50F9A001C08C1;
 			productRefGroup = 240F203915F50F9A001C08C1 /* Products */;
@@ -4318,6 +4324,8 @@
 				247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */,
 				2432DCC715F7A8CA00DDB1FC /* BottomHeading.png in Resources */,
 				2432DCC915F7AC3600DDB1FC /* TopHeading.png in Resources */,
+				248392B815F89C13003BE8A8 /* Localizable.strings in Resources */,
+				248392BA15F89C1A003BE8A8 /* test.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4481,6 +4489,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		248392B615F89C13003BE8A8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				248392B715F89C13003BE8A8 /* en */,
+				248392B915F89C1A003BE8A8 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		240F205315F50F9B001C08C1 /* Debug */ = {

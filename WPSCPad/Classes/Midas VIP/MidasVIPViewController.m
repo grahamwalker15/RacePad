@@ -11,6 +11,7 @@
 
 @interface MidasVIPViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *videoScrollView;
 @property (strong, nonatomic) IBOutlet UIView *videoContent;
 @end
@@ -28,6 +29,7 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
+	self.titleLabel.text = NSLocalizedString(@"vip lounge", @"VIP popup title");
 	
 	self.videoScrollView.contentSize = self.videoContent.bounds.size;
 	[self.videoScrollView addSubview:self.videoContent];

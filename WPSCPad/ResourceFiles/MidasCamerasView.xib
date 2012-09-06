@@ -324,6 +324,14 @@
 					<int key="connectionID">69</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">titleLabel</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="934282715"/>
+					</object>
+					<int key="connectionID">70</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">buttonPressed:</string>
 						<reference key="source" ref="70064982"/>
@@ -498,7 +506,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">69</int>
+			<int key="maxID">70</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -580,6 +588,7 @@
 							<string>movieSelectorView</string>
 							<string>onboardButton</string>
 							<string>titleImageView</string>
+							<string>titleLabel</string>
 							<string>trackCameraButton</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -587,6 +596,7 @@
 							<string>MovieSelectorView</string>
 							<string>UIButton</string>
 							<string>UIImageView</string>
+							<string>UILabel</string>
 							<string>UIButton</string>
 						</object>
 					</object>
@@ -597,6 +607,7 @@
 							<string>movieSelectorView</string>
 							<string>onboardButton</string>
 							<string>titleImageView</string>
+							<string>titleLabel</string>
 							<string>trackCameraButton</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -612,6 +623,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">titleImageView</string>
 								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">titleLabel</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">trackCameraButton</string>

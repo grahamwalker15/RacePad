@@ -15,6 +15,7 @@
 
 @interface MidasCameraViewController ()
 @property (nonatomic, unsafe_unretained) IBOutlet UIImageView *titleImageView;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *titleLabel;
 @end
 
 @implementation MidasCameraViewController
@@ -31,6 +32,7 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
+	self.titleLabel.text = NSLocalizedString(@"cameras", @"Cameras popup title");
 }
 
 

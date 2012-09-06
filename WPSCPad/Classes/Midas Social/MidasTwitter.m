@@ -126,7 +126,7 @@
 			NSString *errorString = [object valueForKey:@"error"];
 			if (errorString) {
 				NSString *description = NSLocalizedString(@"Twitter Error", @"Twitter error title");
-				NSString *failureReason = NSLocalizedString(errorString, @"Error string");
+				NSString *failureReason = errorString;
 				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : description,
 									 NSLocalizedFailureReasonErrorKey : failureReason };
 				NSError *error = [[NSError alloc] initWithDomain:@"Twitter" code:0 userInfo:userInfo];

@@ -12,6 +12,7 @@
 @interface MidasSocialViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *buttonContainer;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UITableView *tabTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *topBackgroundImageView;
@@ -42,6 +43,7 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
+	self.titleLabel.text = NSLocalizedString(@"social", @"Social popup title");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
