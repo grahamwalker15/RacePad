@@ -772,6 +772,7 @@
 		24942D6715F64FB900613F87 /* MidasParticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24942D6215F64FB900613F87 /* MidasParticleView.m */; };
 		24942D6815F64FB900613F87 /* MidasStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24942D6415F64FB900613F87 /* MidasStartViewController.m */; };
 		24942D6915F64FB900613F87 /* MidasStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24942D6515F64FB900613F87 /* MidasStartViewController.xib */; };
+		24AF8DE615F8BAF900A16FE3 /* MenuMainDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */; };
 		24F7E8F415F61716003115E1 /* SocialArrowRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */; };
 		24F7E8F515F61716003115E1 /* SocialMenuArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C715F61716003115E1 /* SocialMenuArrow.png */; };
 		24F7E8F615F61716003115E1 /* SocialMenuFacebookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */; };
@@ -1900,6 +1901,7 @@
 		24942D6315F64FB900613F87 /* MidasStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasStartViewController.h; sourceTree = "<group>"; };
 		24942D6415F64FB900613F87 /* MidasStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasStartViewController.m; sourceTree = "<group>"; };
 		24942D6515F64FB900613F87 /* MidasStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasStartViewController.xib; sourceTree = "<group>"; };
+		24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainDF.png; sourceTree = "<group>"; };
 		24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialArrowRefresh.png; sourceTree = "<group>"; };
 		24F7E8C715F61716003115E1 /* SocialMenuArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuArrow.png; sourceTree = "<group>"; };
 		24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookButton.png; sourceTree = "<group>"; };
@@ -2350,6 +2352,7 @@
 				240F21D615F51038001C08C1 /* MenuMainIncidents.png */,
 				240F21D715F51038001C08C1 /* MenuMainSocial.png */,
 				240F21D815F51038001C08C1 /* MenuMainVIP.png */,
+				24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */,
 				240F21D915F51038001C08C1 /* circuit2.png */,
 				240F21DA15F51038001C08C1 /* follow-driver2.png */,
 				240F21DB15F51038001C08C1 /* head-to-head2.png */,
@@ -4318,6 +4321,7 @@
 				2432DCC915F7AC3600DDB1FC /* TopHeading.png in Resources */,
 				248392B815F89C13003BE8A8 /* Localizable.strings in Resources */,
 				248392BA15F89C1A003BE8A8 /* test.mov in Resources */,
+				24AF8DE615F8BAF900A16FE3 /* MenuMainDF.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
