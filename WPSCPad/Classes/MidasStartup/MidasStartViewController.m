@@ -167,7 +167,9 @@ CGPoint const LogoEndPoint;
 	void (^completion)(BOOL success) = ^(BOOL success) {
 		shakes--;
 		if (shakes == 0) {
-			view.frame = frame;
+			[UIView animateWithDuration:0.05f animations:^{
+				view.frame = frame;
+			}];
 			return;
 		}
 		animate();
