@@ -26,7 +26,7 @@
 		return;
 	}
 
-	NSError *error = [NSError errorWithDomain:@"MidasLogin" code:404 userInfo:@{ NSLocalizedDescriptionKey :NSLocalizedString(@"MidasLoginFail", @"Please try again") }];
+	NSError *error = [NSError errorWithDomain:@"MidasLogin" code:404 userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"midas.login.failure", @"Please try again") }];
 
 	handler(NO, error);
 }

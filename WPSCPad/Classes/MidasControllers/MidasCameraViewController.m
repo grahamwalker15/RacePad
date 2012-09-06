@@ -32,7 +32,7 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
-	self.titleLabel.text = NSLocalizedString(@"cameras", @"Cameras popup title");
+	self.titleLabel.text = NSLocalizedString(@"midas.cameras.title", @"Cameras popup title");
 }
 
 

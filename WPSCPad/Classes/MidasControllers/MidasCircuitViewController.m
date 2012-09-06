@@ -35,7 +35,7 @@
 
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
-	self.titleLabel.text = NSLocalizedString(@"circuit views", @"Circuit popup title");
+	self.titleLabel.text = NSLocalizedString(@"midas.circuit.title", @"Circuit popup title");
 }
 
 

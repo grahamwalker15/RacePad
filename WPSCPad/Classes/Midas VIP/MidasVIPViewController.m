@@ -29,7 +29,7 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
-	self.titleLabel.text = NSLocalizedString(@"vip lounge", @"VIP popup title");
+	self.titleLabel.text = NSLocalizedString(@"midas.vip.title", @"VIP popup title");
 	
 	self.videoScrollView.contentSize = self.videoContent.bounds.size;
 	[self.videoScrollView addSubview:self.videoContent];

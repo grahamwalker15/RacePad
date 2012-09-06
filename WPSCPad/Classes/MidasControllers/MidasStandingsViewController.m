@@ -53,7 +53,7 @@
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
-	self.titleLabel.text = NSLocalizedString(@"standings", @"Standings popup title");
+	self.titleLabel.text = NSLocalizedString(@"midas.standings.title", @"Standings popup title");
 }
 
 
