@@ -571,7 +571,6 @@
 		240F259D15F5106F001C08C1 /* MidasStandingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255315F5106F001C08C1 /* MidasStandingsView.xib */; };
 		240F259E15F5106F001C08C1 /* MidasTwitterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255415F5106F001C08C1 /* MidasTwitterView.xib */; };
 		240F259F15F5106F001C08C1 /* MidasVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255515F5106F001C08C1 /* MidasVideoView.xib */; };
-		240F25A015F5106F001C08C1 /* MidasVIPView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255615F5106F001C08C1 /* MidasVIPView.xib */; };
 		240F25A115F5106F001C08C1 /* MidasWorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255715F5106F001C08C1 /* MidasWorkOffline.xib */; };
 		240F25A215F5106F001C08C1 /* NewCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255815F5106F001C08C1 /* NewCompetitor.xib */; };
 		240F25A315F5106F001C08C1 /* PitWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255915F5106F001C08C1 /* PitWindowView.xib */; };
@@ -793,7 +792,6 @@
 		24F7E90515F61716003115E1 /* SocialMenuTitleBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D715F61716003115E1 /* SocialMenuTitleBar.png */; };
 		24F7E90615F61716003115E1 /* SocialMenuTwitterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D815F61716003115E1 /* SocialMenuTwitterButton.png */; };
 		24F7E90715F61716003115E1 /* SocialMenuTwitterTopBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8D915F61716003115E1 /* SocialMenuTwitterTopBackground.png */; };
-		24F7E90815F61716003115E1 /* VIPTitleBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DA15F61716003115E1 /* VIPTitleBar.png */; };
 		24F7E90915F61716003115E1 /* VIPTopBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DB15F61716003115E1 /* VIPTopBar.png */; };
 		24F7E90A15F61716003115E1 /* VIPTopBarDropShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DC15F61716003115E1 /* VIPTopBarDropShadow.png */; };
 		24F7E90B15F61716003115E1 /* VIPTopBarIndicatorArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8DD15F61716003115E1 /* VIPTopBarIndicatorArrow.png */; };
@@ -1553,7 +1551,6 @@
 		240F255315F5106F001C08C1 /* MidasStandingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasStandingsView.xib; path = ResourceFiles/MidasStandingsView.xib; sourceTree = "<group>"; };
 		240F255415F5106F001C08C1 /* MidasTwitterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasTwitterView.xib; path = ResourceFiles/MidasTwitterView.xib; sourceTree = "<group>"; };
 		240F255515F5106F001C08C1 /* MidasVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasVideoView.xib; path = ResourceFiles/MidasVideoView.xib; sourceTree = "<group>"; };
-		240F255615F5106F001C08C1 /* MidasVIPView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasVIPView.xib; path = ResourceFiles/MidasVIPView.xib; sourceTree = "<group>"; };
 		240F255715F5106F001C08C1 /* MidasWorkOffline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasWorkOffline.xib; path = ResourceFiles/MidasWorkOffline.xib; sourceTree = "<group>"; };
 		240F255815F5106F001C08C1 /* NewCompetitor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewCompetitor.xib; path = ResourceFiles/NewCompetitor.xib; sourceTree = "<group>"; };
 		240F255915F5106F001C08C1 /* PitWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PitWindowView.xib; path = ResourceFiles/PitWindowView.xib; sourceTree = "<group>"; };
@@ -1923,7 +1920,6 @@
 		24F7E8D715F61716003115E1 /* SocialMenuTitleBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTitleBar.png; sourceTree = "<group>"; };
 		24F7E8D815F61716003115E1 /* SocialMenuTwitterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTwitterButton.png; sourceTree = "<group>"; };
 		24F7E8D915F61716003115E1 /* SocialMenuTwitterTopBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuTwitterTopBackground.png; sourceTree = "<group>"; };
-		24F7E8DA15F61716003115E1 /* VIPTitleBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTitleBar.png; sourceTree = "<group>"; };
 		24F7E8DB15F61716003115E1 /* VIPTopBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTopBar.png; sourceTree = "<group>"; };
 		24F7E8DC15F61716003115E1 /* VIPTopBarDropShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTopBarDropShadow.png; sourceTree = "<group>"; };
 		24F7E8DD15F61716003115E1 /* VIPTopBarIndicatorArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIPTopBarIndicatorArrow.png; sourceTree = "<group>"; };
@@ -2752,7 +2748,6 @@
 				240F255315F5106F001C08C1 /* MidasStandingsView.xib */,
 				240F255415F5106F001C08C1 /* MidasTwitterView.xib */,
 				240F255515F5106F001C08C1 /* MidasVideoView.xib */,
-				240F255615F5106F001C08C1 /* MidasVIPView.xib */,
 				240F255715F5106F001C08C1 /* MidasWorkOffline.xib */,
 				240F255815F5106F001C08C1 /* NewCompetitor.xib */,
 				240F255915F5106F001C08C1 /* PitWindowView.xib */,
@@ -3400,7 +3395,6 @@
 				24F7E8D715F61716003115E1 /* SocialMenuTitleBar.png */,
 				24F7E8D815F61716003115E1 /* SocialMenuTwitterButton.png */,
 				24F7E8D915F61716003115E1 /* SocialMenuTwitterTopBackground.png */,
-				24F7E8DA15F61716003115E1 /* VIPTitleBar.png */,
 				24F7E8DB15F61716003115E1 /* VIPTopBar.png */,
 				24F7E8DC15F61716003115E1 /* VIPTopBarDropShadow.png */,
 				24F7E8DD15F61716003115E1 /* VIPTopBarIndicatorArrow.png */,
@@ -4244,7 +4238,6 @@
 				240F259D15F5106F001C08C1 /* MidasStandingsView.xib in Resources */,
 				240F259E15F5106F001C08C1 /* MidasTwitterView.xib in Resources */,
 				240F259F15F5106F001C08C1 /* MidasVideoView.xib in Resources */,
-				240F25A015F5106F001C08C1 /* MidasVIPView.xib in Resources */,
 				240F25A115F5106F001C08C1 /* MidasWorkOffline.xib in Resources */,
 				240F25A215F5106F001C08C1 /* NewCompetitor.xib in Resources */,
 				240F25A315F5106F001C08C1 /* PitWindowView.xib in Resources */,
@@ -4289,7 +4282,6 @@
 				24F7E90515F61716003115E1 /* SocialMenuTitleBar.png in Resources */,
 				24F7E90615F61716003115E1 /* SocialMenuTwitterButton.png in Resources */,
 				24F7E90715F61716003115E1 /* SocialMenuTwitterTopBackground.png in Resources */,
-				24F7E90815F61716003115E1 /* VIPTitleBar.png in Resources */,
 				24F7E90915F61716003115E1 /* VIPTopBar.png in Resources */,
 				24F7E90A15F61716003115E1 /* VIPTopBarDropShadow.png in Resources */,
 				24F7E90B15F61716003115E1 /* VIPTopBarIndicatorArrow.png in Resources */,

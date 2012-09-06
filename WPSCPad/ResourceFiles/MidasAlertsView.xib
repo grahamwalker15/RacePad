@@ -220,6 +220,14 @@
 					</object>
 					<int key="connectionID">39</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">titleLabel</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="33245647"/>
+					</object>
+					<int key="connectionID">40</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -349,7 +357,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">39</int>
+			<int key="maxID">40</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -417,6 +425,7 @@
 							<string>expansionView</string>
 							<string>movieSelectorView</string>
 							<string>titleImageView</string>
+							<string>titleLabel</string>
 							<string>typeChooser</string>
 							<string>viewAnimationImage</string>
 						</object>
@@ -427,6 +436,7 @@
 							<string>MidasAlertsExpansionView</string>
 							<string>MovieSelectorView</string>
 							<string>UIImageView</string>
+							<string>UILabel</string>
 							<string>UISegmentedControl</string>
 							<string>UIImageView</string>
 						</object>
@@ -440,6 +450,7 @@
 							<string>expansionView</string>
 							<string>movieSelectorView</string>
 							<string>titleImageView</string>
+							<string>titleLabel</string>
 							<string>typeChooser</string>
 							<string>viewAnimationImage</string>
 						</object>
@@ -464,6 +475,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">titleImageView</string>
 								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">titleLabel</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">typeChooser</string>

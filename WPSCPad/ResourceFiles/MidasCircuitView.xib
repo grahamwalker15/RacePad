@@ -527,7 +527,6 @@
 						<string key="NSFrame">{{12, 454}, {340, 70}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="212231466"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -600,6 +599,14 @@
 						<reference key="destination" ref="518675801"/>
 					</object>
 					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">titleLabel</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="558725304"/>
+					</object>
+					<int key="connectionID">57</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -865,7 +872,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">57</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -947,6 +954,7 @@
 							<string>addCircuit</string>
 							<string>movieSelectorView</string>
 							<string>titleImageView</string>
+							<string>titleLabel</string>
 							<string>trackMapView</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -954,6 +962,7 @@
 							<string>UIButton</string>
 							<string>MovieSelectorView</string>
 							<string>UIImageView</string>
+							<string>UILabel</string>
 							<string>TrackMapView</string>
 						</object>
 					</object>
@@ -964,6 +973,7 @@
 							<string>addCircuit</string>
 							<string>movieSelectorView</string>
 							<string>titleImageView</string>
+							<string>titleLabel</string>
 							<string>trackMapView</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -979,6 +989,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">titleImageView</string>
 								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">titleLabel</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">trackMapView</string>

@@ -57,10 +57,10 @@
 					<object class="IBUIImageView" id="75228104">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 233}, {469, 61}}</string>
+						<string key="NSFrame">{{0, 233}, {469, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1019303730"/>
+						<reference key="NSNextKeyView" ref="331699557"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -225,6 +225,7 @@
 						<string key="NSFrame">{{219, 282}, {30, 1}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">4</int>
@@ -238,9 +239,10 @@
 					<object class="IBUILabel" id="331699557">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{20, 249}, {428, 30}}</string>
+						<string key="NSFrame">{{20, 248}, {428, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1019303730"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -273,7 +275,7 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrameSize">{469, 294}</string>
+				<string key="NSFrameSize">{469, 293}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1030284159"/>
@@ -1045,6 +1047,7 @@
 					<string key="superclassName">MidasBaseViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="titleImageView">UIImageView</string>
+						<string key="titleLabel">UILabel</string>
 						<string key="videoContent">UIView</string>
 						<string key="videoScrollView">UIScrollView</string>
 					</dictionary>
@@ -1052,6 +1055,10 @@
 						<object class="IBToOneOutletInfo" key="titleImageView">
 							<string key="name">titleImageView</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="titleLabel">
+							<string key="name">titleLabel</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="videoContent">
 							<string key="name">videoContent</string>
