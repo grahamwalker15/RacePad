@@ -77,7 +77,6 @@
 	[[MidasAlertsManager Instance] onStartUp];
 	[[MidasSocialMediaManager Instance] onStartUp];
 	[[MidasHelpManager Instance] onStartUp];
-	[[MidasChatManager Instance] onStartUp];
 	
 	// Load the prefs
 	[BasePadPrefs Instance];

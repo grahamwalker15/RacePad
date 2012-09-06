@@ -15,14 +15,15 @@
 #import "MidasFollowDriverViewController.h"
 
 #import "MidasAlertsViewController.h"
-#import "MidasTwitterViewController.h"
-#import "MidasFacebookViewController.h"
-#import "MidasChatViewController.h"
 
 #import "MidasDemoViewControllers.h"
 
 #import "BasePadViewController.h"
+
 #import "MidasSocialViewController.h"
+#import "MidasTwitterViewController.h"
+#import "MidasFacebookViewController.h"
+
 #import "MidasVIPViewController.h"
 
 @implementation MidasMasterMenuManager
@@ -300,34 +301,6 @@ static MidasHelpManager * helpInstance_ = nil;
 		viewController = nil;//[[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_HELP_POPUP_];
-		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
-		[viewController setAssociatedManager:self];
-	}
-	
-	return self;
-}
-
-@end
-
-@implementation MidasChatManager
-
-static MidasChatManager * chatInstance_ = nil;
-
-+(MidasChatManager *)Instance
-{
-	if(!chatInstance_)
-		chatInstance_ = [[MidasChatManager alloc] init];
-	
-	return chatInstance_;
-}
-
--(id)init
-{
-	if(self = [super init])
-	{			
-		viewController = [[MidasChatViewController alloc] initWithNibName:@"MidasChatView" bundle:nil];
-		[self setManagedViewController:viewController];
-		[self setManagedViewType:MIDAS_CHAT_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
 		[viewController setAssociatedManager:self];
 	}

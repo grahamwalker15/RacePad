@@ -211,7 +211,7 @@ enum PopupMenuZones
 
 @interface MidasHelpManager : MidasPopupManager
 {
-	MidasFacebookViewController * viewController;
+	MidasVIPViewController * viewController;
 }
 
 +(MidasHelpManager *)Instance;
@@ -233,14 +233,5 @@ enum PopupMenuZones
 }
 
 +(MidasSocialMediaManager *)Instance;
-
-@end
-
-@interface MidasChatManager : MidasPopupManager
-{
-	MidasChatViewController * viewController;
-}
-
-+(MidasChatManager *)Instance;
 
 @end

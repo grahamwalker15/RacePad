@@ -642,7 +642,6 @@
 		240F274D15F510BA001C08C1 /* MidasAlertsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F265615F510BA001C08C1 /* MidasAlertsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F274E15F510BA001C08C1 /* MidasBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F265815F510BA001C08C1 /* MidasBaseViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F274F15F510BA001C08C1 /* MidasCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F265A15F510BA001C08C1 /* MidasCameraViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		240F275015F510BA001C08C1 /* MidasChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F265C15F510BA001C08C1 /* MidasChatViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F275115F510BA001C08C1 /* MidasCircuitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F265E15F510BA001C08C1 /* MidasCircuitViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F275215F510BA001C08C1 /* MidasDemoViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F266015F510BA001C08C1 /* MidasDemoViewControllers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F275415F510BA001C08C1 /* MidasFollowDriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F266415F510BA001C08C1 /* MidasFollowDriverViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -650,11 +649,6 @@
 		240F275615F510BA001C08C1 /* MidasPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F266815F510BA001C08C1 /* MidasPopupManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F275715F510BA001C08C1 /* MidasStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F266A15F510BA001C08C1 /* MidasStandingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F275915F510BA001C08C1 /* MidasVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F266E15F510BA001C08C1 /* MidasVideoViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		240F275A15F510BA001C08C1 /* BaseSocialmediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267115F510BA001C08C1 /* BaseSocialmediaView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		240F275B15F510BA001C08C1 /* BaseSocialmediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267315F510BA001C08C1 /* BaseSocialmediaViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		240F275C15F510BA001C08C1 /* FacebookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267515F510BA001C08C1 /* FacebookView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		240F275D15F510BA001C08C1 /* MidasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267715F510BA001C08C1 /* MidasView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		240F275E15F510BA001C08C1 /* TwitterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267915F510BA001C08C1 /* TwitterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F275F15F510BA001C08C1 /* MidasVotingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267C15F510BA001C08C1 /* MidasVotingView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F276015F510BA001C08C1 /* RacePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F267F15F510BA001C08C1 /* RacePadAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		240F276115F510BA001C08C1 /* RacePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 240F268115F510BA001C08C1 /* RacePadClientSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1676,8 +1670,6 @@
 		240F265815F510BA001C08C1 /* MidasBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasBaseViewController.m; sourceTree = "<group>"; };
 		240F265915F510BA001C08C1 /* MidasCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasCameraViewController.h; sourceTree = "<group>"; };
 		240F265A15F510BA001C08C1 /* MidasCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasCameraViewController.m; sourceTree = "<group>"; };
-		240F265B15F510BA001C08C1 /* MidasChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasChatViewController.h; sourceTree = "<group>"; };
-		240F265C15F510BA001C08C1 /* MidasChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasChatViewController.m; sourceTree = "<group>"; };
 		240F265D15F510BA001C08C1 /* MidasCircuitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasCircuitViewController.h; sourceTree = "<group>"; };
 		240F265E15F510BA001C08C1 /* MidasCircuitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasCircuitViewController.m; sourceTree = "<group>"; };
 		240F265F15F510BA001C08C1 /* MidasDemoViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasDemoViewControllers.h; sourceTree = "<group>"; };
@@ -1692,16 +1684,6 @@
 		240F266A15F510BA001C08C1 /* MidasStandingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasStandingsViewController.m; sourceTree = "<group>"; };
 		240F266D15F510BA001C08C1 /* MidasVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVideoViewController.h; sourceTree = "<group>"; };
 		240F266E15F510BA001C08C1 /* MidasVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVideoViewController.m; sourceTree = "<group>"; };
-		240F267015F510BA001C08C1 /* BaseSocialmediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSocialmediaView.h; sourceTree = "<group>"; };
-		240F267115F510BA001C08C1 /* BaseSocialmediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSocialmediaView.m; sourceTree = "<group>"; };
-		240F267215F510BA001C08C1 /* BaseSocialmediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSocialmediaViewController.h; sourceTree = "<group>"; };
-		240F267315F510BA001C08C1 /* BaseSocialmediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSocialmediaViewController.m; sourceTree = "<group>"; };
-		240F267415F510BA001C08C1 /* FacebookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookView.h; sourceTree = "<group>"; };
-		240F267515F510BA001C08C1 /* FacebookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookView.m; sourceTree = "<group>"; };
-		240F267615F510BA001C08C1 /* MidasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasView.h; sourceTree = "<group>"; };
-		240F267715F510BA001C08C1 /* MidasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasView.m; sourceTree = "<group>"; };
-		240F267815F510BA001C08C1 /* TwitterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterView.h; sourceTree = "<group>"; };
-		240F267915F510BA001C08C1 /* TwitterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterView.m; sourceTree = "<group>"; };
 		240F267B15F510BA001C08C1 /* MidasVotingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVotingView.h; sourceTree = "<group>"; };
 		240F267C15F510BA001C08C1 /* MidasVotingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVotingView.m; sourceTree = "<group>"; };
 		240F267E15F510BA001C08C1 /* RacePadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadAppDelegate.h; sourceTree = "<group>"; };
@@ -2802,7 +2784,6 @@
 				24362F6915F60A4D006F3DFC /* Midas Social */,
 				24942D1115F6249400613F87 /* Midas VIP */,
 				240F267A15F510BA001C08C1 /* MidasViews */,
-				240F266F15F510BA001C08C1 /* MidasSocialMedia */,
 				240F265415F510BA001C08C1 /* MidasControllers */,
 				240F262215F510BA001C08C1 /* Midas */,
 				240F25D315F510BA001C08C1 /* BasePadMedia */,
@@ -2985,8 +2966,6 @@
 				240F265815F510BA001C08C1 /* MidasBaseViewController.m */,
 				240F265915F510BA001C08C1 /* MidasCameraViewController.h */,
 				240F265A15F510BA001C08C1 /* MidasCameraViewController.m */,
-				240F265B15F510BA001C08C1 /* MidasChatViewController.h */,
-				240F265C15F510BA001C08C1 /* MidasChatViewController.m */,
 				240F265D15F510BA001C08C1 /* MidasCircuitViewController.h */,
 				240F265E15F510BA001C08C1 /* MidasCircuitViewController.m */,
 				240F265F15F510BA001C08C1 /* MidasDemoViewControllers.h */,
@@ -3003,23 +2982,6 @@
 				240F266E15F510BA001C08C1 /* MidasVideoViewController.m */,
 			);
 			path = MidasControllers;
-			sourceTree = "<group>";
-		};
-		240F266F15F510BA001C08C1 /* MidasSocialMedia */ = {
-			isa = PBXGroup;
-			children = (
-				240F267015F510BA001C08C1 /* BaseSocialmediaView.h */,
-				240F267115F510BA001C08C1 /* BaseSocialmediaView.m */,
-				240F267415F510BA001C08C1 /* FacebookView.h */,
-				240F267515F510BA001C08C1 /* FacebookView.m */,
-				240F267615F510BA001C08C1 /* MidasView.h */,
-				240F267715F510BA001C08C1 /* MidasView.m */,
-				240F267815F510BA001C08C1 /* TwitterView.h */,
-				240F267915F510BA001C08C1 /* TwitterView.m */,
-				240F267215F510BA001C08C1 /* BaseSocialmediaViewController.h */,
-				240F267315F510BA001C08C1 /* BaseSocialmediaViewController.m */,
-			);
-			path = MidasSocialMedia;
 			sourceTree = "<group>";
 		};
 		240F267A15F510BA001C08C1 /* MidasViews */ = {
@@ -4385,7 +4347,6 @@
 				240F274D15F510BA001C08C1 /* MidasAlertsViewController.m in Sources */,
 				240F274E15F510BA001C08C1 /* MidasBaseViewController.m in Sources */,
 				240F274F15F510BA001C08C1 /* MidasCameraViewController.m in Sources */,
-				240F275015F510BA001C08C1 /* MidasChatViewController.m in Sources */,
 				240F275115F510BA001C08C1 /* MidasCircuitViewController.m in Sources */,
 				240F275215F510BA001C08C1 /* MidasDemoViewControllers.m in Sources */,
 				240F275415F510BA001C08C1 /* MidasFollowDriverViewController.m in Sources */,
@@ -4393,11 +4354,6 @@
 				240F275615F510BA001C08C1 /* MidasPopupManager.m in Sources */,
 				240F275715F510BA001C08C1 /* MidasStandingsViewController.m in Sources */,
 				240F275915F510BA001C08C1 /* MidasVideoViewController.m in Sources */,
-				240F275A15F510BA001C08C1 /* BaseSocialmediaView.m in Sources */,
-				240F275B15F510BA001C08C1 /* BaseSocialmediaViewController.m in Sources */,
-				240F275C15F510BA001C08C1 /* FacebookView.m in Sources */,
-				240F275D15F510BA001C08C1 /* MidasView.m in Sources */,
-				240F275E15F510BA001C08C1 /* TwitterView.m in Sources */,
 				240F275F15F510BA001C08C1 /* MidasVotingView.m in Sources */,
 				240F276015F510BA001C08C1 /* RacePadAppDelegate.m in Sources */,
 				240F276115F510BA001C08C1 /* RacePadClientSocket.m in Sources */,
