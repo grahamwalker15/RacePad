@@ -14,4 +14,6 @@
 				 password:(NSString *)password
 				  handler:(void(^)(BOOL success, NSError *error))handler;
 
+@property (nonatomic, readonly, getter=isLoggedIn) BOOL loggedIn;
+
 @end

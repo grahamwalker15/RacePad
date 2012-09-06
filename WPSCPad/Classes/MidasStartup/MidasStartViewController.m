@@ -131,6 +131,12 @@ CGPoint const LogoEndPoint;
 }
 
 - (void)_showLoginView {
+	
+	if ([[MidasLoginController new] isLoggedIn]) {
+		[self _checkToAnimateOffScreen];
+		return;
+	}
+	
 	self.loginView.alpha = 0.0f;
 	self.loginView.hidden = NO;
 	[UIView animateWithDuration:1.0f/3.0f animations:^{
@@ -153,7 +159,7 @@ CGPoint const LogoEndPoint;
 		[self _shakeView:self.usernameField];
 		[self _shakeView:self.passwordField];
 		self.passwordField.text = @"";
-		self.passwordField.placeholder = @"Please try again";
+		self.passwordField.placeholder = [error localizedDescription];
 	}];
 }
 

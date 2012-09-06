@@ -59,6 +59,10 @@ typedef enum : NSUInteger {
 	}];
 }
 
+- (NSDictionary *)logins {
+	return @{ @"user" : @"password" };
+}
+
 - (void)waitForSettings:(void(^)())handler {
 	
 	if (_status == MidasSettingsStatusNoSettings) {
