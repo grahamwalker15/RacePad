@@ -60,8 +60,8 @@ typedef NSUInteger FBRequestState;
  * standard Objective-C object-to-string conversion facilities.
  */
 @property(weak, nonatomic) NSMutableDictionary* params;
-@property(nonatomic) NSURLConnection*  connection;
-@property(nonatomic) NSMutableData* responseText;
+@property(nonatomic, strong) NSURLConnection*  connection;
+@property(nonatomic, strong) NSMutableData* responseText;
 @property(nonatomic,readonly) FBRequestState state;
 @property(nonatomic,readonly) BOOL sessionDidExpire;
 
