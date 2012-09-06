@@ -39,7 +39,7 @@
 	
 	[self _removeMoviePlayer];
 	
-	NSURL *URL = [[NSBundle mainBundle] URLForResource:@"test" withExtension:@"mov"];
+	NSURL *URL = [[NSBundle mainBundle] URLForResource:@"Movie on 2010-10-04 at 16.26" withExtension:@"mov"];
 	_moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:URL];
 	_moviePlayer.view.frame = sender.superview.bounds;
 	[sender.superview addSubview:_moviePlayer.view];
