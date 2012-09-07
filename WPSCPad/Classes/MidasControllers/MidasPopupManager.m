@@ -23,7 +23,7 @@
 #import "MidasSocialViewController.h"
 #import "MidasTwitterViewController.h"
 #import "MidasFacebookViewController.h"
-
+#import "MidasHelpViewController.h"
 #import "MidasVIPViewController.h"
 
 @implementation MidasMasterMenuManager
@@ -298,7 +298,7 @@ static MidasHelpManager * helpInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = nil;//[[MidasFacebookViewController alloc] initWithNibName:@"MidasFacebookView" bundle:nil];
+		viewController = [MidasHelpViewController new];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_HELP_POPUP_];
 		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
