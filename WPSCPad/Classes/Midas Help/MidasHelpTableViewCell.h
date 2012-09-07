@@ -9,5 +9,6 @@
 #import <DCTTableViewDataSources/DCTTableViewDataSources.h>
 
 @interface MidasHelpTableViewCell : DCTTableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *helpImageView;
+@property (weak, nonatomic) IBOutlet UILabel *helpTextLabel;
 @end

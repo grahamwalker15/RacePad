@@ -9,5 +9,6 @@
 #import "MidasHelpTableViewCell.h"
 
 @implementation MidasHelpTableViewCell
-
+@synthesize helpImageView;
+@synthesize helpTextLabel;
 @end
