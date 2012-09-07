@@ -61,15 +61,19 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="300001409"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<object class="NSColor" key="IBUIBackgroundColor" id="613749025">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xMDE5NjA3ODU3IDAuMTAxOTYwNzg1NyAwLjEwMTk2MDc4NTcgMAA</bytes>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<object class="NSColor" key="IBUITextColor" id="564597825">
+								<object class="NSColor" key="IBUITextColor" id="929560449">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAAA</bytes>
+									<bytes key="NSRGB">MC4xMDE5NjA3ODU3IDAuMTAxOTYwNzg1NyAwLjEwMTk2MDc4NTcAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUIHighlightedColor" id="920057442">
 									<int key="NSColorSpace">3</int>
@@ -95,13 +99,14 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="765181641"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<reference key="IBUIBackgroundColor" ref="613749025"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<reference key="IBUITextColor" ref="564597825"/>
+								<reference key="IBUITextColor" ref="929560449"/>
 								<reference key="IBUIHighlightedColor" ref="920057442"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -124,6 +129,10 @@
 								<reference key="NSSuperview" ref="831568124"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xMjU0OTAyMDM1IDAuNjExNzY0NzI5IDAuNzUyOTQxMTkxMiAwAA</bytes>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -139,7 +148,7 @@
 								<reference key="IBUISelectedTitleColor" ref="287239749"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+									<bytes key="NSRGB">MC4xMjU0OTAyMDM1IDAuNjExNzY0NzI5IDAuNzUyOTQxMTkxMgA</bytes>
 								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">3</int>
@@ -188,6 +197,7 @@
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="831568124"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
+				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="831568124"/>
@@ -315,7 +325,7 @@
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="3" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -336,17 +346,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MidasTweetTableViewCell</string>
 					<string key="superclassName">DCTTableViewCell</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">retweet:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">retweet:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">retweet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="nameLabel">UILabel</string>
 						<string key="retweetButton">UIButton</string>

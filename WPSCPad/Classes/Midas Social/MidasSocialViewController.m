@@ -37,6 +37,7 @@
 	_tableViewDataSource.cellClass = [MidasSocialTableViewCell class];
 	_tableViewDataSource.cellConfigurer = ^(MidasSocialTableViewCell *cell, NSIndexPath *indexPath, UIViewController *viewController) {
 		cell.imageView.image = viewController.tabBarItem.image;
+		cell.selectedBackgroundView.backgroundColor = viewController.view.backgroundColor;
 	};
 	self.tabTableView.dataSource = _tableViewDataSource;
 	_tableViewDataSource.tableView = self.tabTableView;

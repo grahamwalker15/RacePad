@@ -194,13 +194,20 @@
 								<reference key="NSSuperview" ref="256696150"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4yMzEzNzI1NTAxIDAuMzQ5MDE5NjE2OCAwLjU5NjA3ODQ1NTQgMAA</bytes>
+								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">230</string>
-								<reference key="IBUITextColor" ref="923682818"/>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4yMzEzNzI1NTAxIDAuMzQ5MDE5NjE2OCAwLjU5NjA3ODQ1NTQAA</bytes>
+								</object>
 								<reference key="IBUIHighlightedColor" ref="314636678"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -247,7 +254,7 @@
 				<real value="109" key="IBUIRowHeight"/>
 			</object>
 			<object class="IBUIView" id="166009162">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="949853018">
@@ -255,7 +262,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{320, 197}</string>
 						<reference key="NSSuperview" ref="166009162"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -268,8 +274,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 202}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="949853018"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
