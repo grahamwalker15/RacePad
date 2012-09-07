@@ -9,6 +9,10 @@
 #import "MidasHelpTableViewCell.h"
 
 @implementation MidasHelpTableViewCell
-@synthesize helpImageView;
-@synthesize helpTextLabel;
+
+- (void)configureWithObject:(NSDictionary *)dictionary {
+	self.helpImageView.image = [UIImage imageNamed:[dictionary objectForKey:@"image"]];
+	self.helpTextLabel.text = [dictionary objectForKey:@"text"];
+}
+
 @end

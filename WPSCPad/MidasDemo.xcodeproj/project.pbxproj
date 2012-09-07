@@ -746,6 +746,10 @@
 		2492EF3015FA0EB500A462CD /* MidasHelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2492EF2E15FA0EB500A462CD /* MidasHelpViewController.xib */; };
 		2492EF3315FA10F200A462CD /* MidasHelpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2492EF3215FA10F200A462CD /* MidasHelpTableViewCell.m */; };
 		2492EF3515FA110C00A462CD /* MidasHelpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2492EF3415FA110C00A462CD /* MidasHelpTableViewCell.xib */; };
+		2492EF3715FA222600A462CD /* MidasHelp.json in Resources */ = {isa = PBXBuildFile; fileRef = 2492EF3615FA222500A462CD /* MidasHelp.json */; };
+		2492EF3915FA276400A462CD /* MidasHelp1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2492EF3815FA276400A462CD /* MidasHelp1.png */; };
+		2492EF3C15FA295000A462CD /* MidasHelp2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2492EF3A15FA295000A462CD /* MidasHelp2.png */; };
+		2492EF3D15FA295000A462CD /* MidasHelp3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2492EF3B15FA295000A462CD /* MidasHelp3.png */; };
 		24942D0C15F621CB00613F87 /* videoTitleOverlayFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */; };
 		24942D0E15F621D500613F87 /* videoTitleOverlayNoClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */; };
 		24942D1015F621DD00613F87 /* MenuAudioOn~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */; };
@@ -1854,6 +1858,10 @@
 		2492EF3115FA10F200A462CD /* MidasHelpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasHelpTableViewCell.h; sourceTree = "<group>"; };
 		2492EF3215FA10F200A462CD /* MidasHelpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasHelpTableViewCell.m; sourceTree = "<group>"; };
 		2492EF3415FA110C00A462CD /* MidasHelpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasHelpTableViewCell.xib; sourceTree = "<group>"; };
+		2492EF3615FA222500A462CD /* MidasHelp.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MidasHelp.json; sourceTree = "<group>"; };
+		2492EF3815FA276400A462CD /* MidasHelp1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasHelp1.png; sourceTree = "<group>"; };
+		2492EF3A15FA295000A462CD /* MidasHelp2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasHelp2.png; sourceTree = "<group>"; };
+		2492EF3B15FA295000A462CD /* MidasHelp3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasHelp3.png; sourceTree = "<group>"; };
 		24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayFull.png; sourceTree = "<group>"; };
 		24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoClose.png; sourceTree = "<group>"; };
 		24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuAudioOn~ipad.png"; sourceTree = "<group>"; };
@@ -3296,6 +3304,10 @@
 		2492EF2B15FA0EA200A462CD /* Midas Help */ = {
 			isa = PBXGroup;
 			children = (
+				2492EF3615FA222500A462CD /* MidasHelp.json */,
+				2492EF3815FA276400A462CD /* MidasHelp1.png */,
+				2492EF3A15FA295000A462CD /* MidasHelp2.png */,
+				2492EF3B15FA295000A462CD /* MidasHelp3.png */,
 				2492EF2C15FA0EB500A462CD /* MidasHelpViewController.h */,
 				2492EF2D15FA0EB500A462CD /* MidasHelpViewController.m */,
 				2492EF2E15FA0EB500A462CD /* MidasHelpViewController.xib */,
@@ -4268,6 +4280,10 @@
 				2492EED715FA01BA00A462CD /* MidasWebViewController.xib in Resources */,
 				2492EF3015FA0EB500A462CD /* MidasHelpViewController.xib in Resources */,
 				2492EF3515FA110C00A462CD /* MidasHelpTableViewCell.xib in Resources */,
+				2492EF3715FA222600A462CD /* MidasHelp.json in Resources */,
+				2492EF3915FA276400A462CD /* MidasHelp1.png in Resources */,
+				2492EF3C15FA295000A462CD /* MidasHelp2.png in Resources */,
+				2492EF3D15FA295000A462CD /* MidasHelp3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
