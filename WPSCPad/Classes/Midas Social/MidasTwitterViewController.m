@@ -133,6 +133,7 @@
 		postComment();
 	} else
 		[_twitter loginWithCompletion:^{
+			[self _updateLoginState];
 			postComment();
 		}];
 }
@@ -187,6 +188,7 @@
 	NSURL *URL = [NSURL URLWithString:URLString];
 	
 	[_twitter loginWithCompletion:^{
+		[self _updateLoginState];
 		[_twitter postURL:URL parameters:nil handler:^(id object, NSError *error) {
 			
 			if (error) {
