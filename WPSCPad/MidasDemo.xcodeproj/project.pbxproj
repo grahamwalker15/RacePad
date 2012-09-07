@@ -740,6 +740,8 @@
 		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
 		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
 		248392B815F89C13003BE8A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 248392B615F89C13003BE8A8 /* Localizable.strings */; };
+		2492EED615FA01BA00A462CD /* MidasWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2492EED415FA01BA00A462CD /* MidasWebViewController.m */; };
+		2492EED715FA01BA00A462CD /* MidasWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2492EED515FA01BA00A462CD /* MidasWebViewController.xib */; };
 		24942D0C15F621CB00613F87 /* videoTitleOverlayFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */; };
 		24942D0E15F621D500613F87 /* videoTitleOverlayNoClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */; };
 		24942D1015F621DD00613F87 /* MenuAudioOn~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */; };
@@ -1839,6 +1841,9 @@
 		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
 		248392B715F89C13003BE8A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		248392B915F89C1A003BE8A8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = Resources/ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2492EED315FA01BA00A462CD /* MidasWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasWebViewController.h; sourceTree = "<group>"; };
+		2492EED415FA01BA00A462CD /* MidasWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasWebViewController.m; sourceTree = "<group>"; };
+		2492EED515FA01BA00A462CD /* MidasWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasWebViewController.xib; sourceTree = "<group>"; };
 		24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayFull.png; sourceTree = "<group>"; };
 		24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoClose.png; sourceTree = "<group>"; };
 		24942D0F15F621DD00613F87 /* MenuAudioOn~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuAudioOn~ipad.png"; sourceTree = "<group>"; };
@@ -2734,6 +2739,7 @@
 		240F25B415F510BA001C08C1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2492EED215FA019500A462CD /* Midas Store */,
 				2436303D15F60BF4006F3DFC /* ISO8601DateFormatter */,
 				24942D5E15F64FB900613F87 /* MidasStartup */,
 				24362FAD15F60B9E006F3DFC /* Midas Settings */,
@@ -3264,6 +3270,16 @@
 				2436303415F60BEA006F3DFC /* facebook-ios-sdk.xcodeproj */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		2492EED215FA019500A462CD /* Midas Store */ = {
+			isa = PBXGroup;
+			children = (
+				2492EED315FA01BA00A462CD /* MidasWebViewController.h */,
+				2492EED415FA01BA00A462CD /* MidasWebViewController.m */,
+				2492EED515FA01BA00A462CD /* MidasWebViewController.xib */,
+			);
+			path = "Midas Store";
 			sourceTree = "<group>";
 		};
 		24942D1115F6249400613F87 /* Midas VIP */ = {
@@ -4225,6 +4241,7 @@
 				248392B815F89C13003BE8A8 /* Localizable.strings in Resources */,
 				24AF8DE615F8BAF900A16FE3 /* MenuMainDF.png in Resources */,
 				24AF8E3B15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov in Resources */,
+				2492EED715FA01BA00A462CD /* MidasWebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4378,6 +4395,7 @@
 				24942D6715F64FB900613F87 /* MidasParticleView.m in Sources */,
 				24942D6815F64FB900613F87 /* MidasStartViewController.m in Sources */,
 				247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */,
+				2492EED615FA01BA00A462CD /* MidasWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
