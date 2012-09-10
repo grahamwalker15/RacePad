@@ -761,6 +761,10 @@
 		24942D6915F64FB900613F87 /* MidasStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24942D6515F64FB900613F87 /* MidasStartViewController.xib */; };
 		24AF8DE615F8BAF900A16FE3 /* MenuMainDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */; };
 		24AF8E3B15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov in Resources */ = {isa = PBXBuildFile; fileRef = 24AF8E3A15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov */; };
+		24B4972415FDD76E007D5B2E /* Alert2ndYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972315FDD76E007D5B2E /* Alert2ndYellow.png */; };
+		24B4972615FDD780007D5B2E /* AlertFKCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972515FDD780007D5B2E /* AlertFKCorner.png */; };
+		24B4972815FDD78C007D5B2E /* AlertGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972715FDD78C007D5B2E /* AlertGoal.png */; };
+		24B4972A15FDD7A1007D5B2E /* AlertPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972915FDD7A1007D5B2E /* AlertPlayer.png */; };
 		24F7E8F415F61716003115E1 /* SocialArrowRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */; };
 		24F7E8F515F61716003115E1 /* SocialMenuArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C715F61716003115E1 /* SocialMenuArrow.png */; };
 		24F7E8F615F61716003115E1 /* SocialMenuFacebookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */; };
@@ -1876,6 +1880,10 @@
 		24942D6515F64FB900613F87 /* MidasStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasStartViewController.xib; sourceTree = "<group>"; };
 		24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainDF.png; sourceTree = "<group>"; };
 		24AF8E3A15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Movie on 2010-10-04 at 16.26.mov"; sourceTree = "<group>"; };
+		24B4972315FDD76E007D5B2E /* Alert2ndYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Alert2ndYellow.png; path = MatchPad/Alert2ndYellow.png; sourceTree = "<group>"; };
+		24B4972515FDD780007D5B2E /* AlertFKCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertFKCorner.png; path = MatchPad/AlertFKCorner.png; sourceTree = "<group>"; };
+		24B4972715FDD78C007D5B2E /* AlertGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertGoal.png; path = MatchPad/AlertGoal.png; sourceTree = "<group>"; };
+		24B4972915FDD7A1007D5B2E /* AlertPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertPlayer.png; path = MatchPad/AlertPlayer.png; sourceTree = "<group>"; };
 		24F7E8C615F61716003115E1 /* SocialArrowRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialArrowRefresh.png; sourceTree = "<group>"; };
 		24F7E8C715F61716003115E1 /* SocialMenuArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuArrow.png; sourceTree = "<group>"; };
 		24F7E8C815F61716003115E1 /* SocialMenuFacebookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SocialMenuFacebookButton.png; sourceTree = "<group>"; };
@@ -2062,6 +2070,10 @@
 		240F214F15F51038001C08C1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				24B4972315FDD76E007D5B2E /* Alert2ndYellow.png */,
+				24B4972515FDD780007D5B2E /* AlertFKCorner.png */,
+				24B4972715FDD78C007D5B2E /* AlertGoal.png */,
+				24B4972915FDD7A1007D5B2E /* AlertPlayer.png */,
 				2432DCC615F7A8CA00DDB1FC /* BottomHeading.png */,
 				2432DCC815F7AC3600DDB1FC /* TopHeading.png */,
 				24F7E8C515F61716003115E1 /* Social */,
@@ -4281,6 +4293,10 @@
 				2492EF3915FA276400A462CD /* MidasHelp1.png in Resources */,
 				2492EF3C15FA295000A462CD /* MidasHelp2.png in Resources */,
 				2492EF3D15FA295000A462CD /* MidasHelp3.png in Resources */,
+				24B4972415FDD76E007D5B2E /* Alert2ndYellow.png in Resources */,
+				24B4972615FDD780007D5B2E /* AlertFKCorner.png in Resources */,
+				24B4972815FDD78C007D5B2E /* AlertGoal.png in Resources */,
+				24B4972A15FDD7A1007D5B2E /* AlertPlayer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
