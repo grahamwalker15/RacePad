@@ -61,6 +61,13 @@
 	self.pageControl.currentPage = (NSUInteger)(self.tableView.contentOffset.y / self.tableView.bounds.size.height);
 }
 
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return self.tableView.bounds.size.height;
+}
+
+
 #pragma mark - Private
 
 - (NSArray *)_fetchMidasHelp {

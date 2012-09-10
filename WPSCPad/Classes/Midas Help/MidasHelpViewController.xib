@@ -41,7 +41,7 @@
 					<object class="IBUIImageView" id="596338215">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 440}, {500, 60}}</string>
+						<string key="NSFrame">{{0, 340}, {400, 60}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="247903176"/>
@@ -57,9 +57,10 @@
 					<object class="IBUILabel" id="1057570056">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{20, 455}, {460, 30}}</string>
+						<string key="NSFrame">{{20, 355}, {360, 30}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -87,7 +88,7 @@
 					<object class="IBUIImageView" id="1031573852">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrameSize">{500, 53}</string>
+						<string key="NSFrameSize">{400, 53}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="254370499"/>
@@ -103,7 +104,7 @@
 					<object class="IBUIImageView" id="254370499">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 53}, {500, 387}}</string>
+						<string key="NSFrame">{{0, 53}, {400, 287}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="499189431"/>
@@ -120,7 +121,7 @@
 					<object class="IBUITableView" id="499189431">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 53}, {500, 387}}</string>
+						<string key="NSFrame">{{0, 53}, {400, 287}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="596338215"/>
@@ -144,9 +145,9 @@
 					</object>
 					<object class="IBUIPageControl" id="247903176">
 						<reference key="NSNextResponder" ref="766721923"/>
-						<int key="NSvFlags">1316</int>
+						<int key="NSvFlags">1290</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{20, 411}, {460, 36}}</string>
+						<string key="NSFrame">{{20, 311}, {360, 36}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1057570056"/>
@@ -158,7 +159,7 @@
 						<int key="IBUINumberOfPages">3</int>
 					</object>
 				</array>
-				<string key="NSFrameSize">{500, 500}</string>
+				<string key="NSFrameSize">{400, 400}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1031573852"/>

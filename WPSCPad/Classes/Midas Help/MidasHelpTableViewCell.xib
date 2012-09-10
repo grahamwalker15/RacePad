@@ -34,7 +34,7 @@
 			</object>
 			<object class="IBUITableViewCell" id="804944430">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
+				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="881854179">
 						<reference key="NSNextResponder" ref="804944430"/>
@@ -43,7 +43,7 @@
 							<object class="IBUIImageView" id="721459237">
 								<reference key="NSNextResponder" ref="881854179"/>
 								<int key="NSvFlags">276</int>
-								<string key="NSFrame">{{20, 20}, {200, 346}}</string>
+								<string key="NSFrame">{{20, 20}, {171, 246}}</string>
 								<reference key="NSSuperview" ref="881854179"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="813696764"/>
@@ -56,9 +56,10 @@
 							<object class="IBUILabel" id="813696764">
 								<reference key="NSNextResponder" ref="881854179"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{228, 20}, {252, 346}}</string>
+								<string key="NSFrame">{{199, 20}, {181, 246}}</string>
 								<reference key="NSSuperview" ref="881854179"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -85,7 +86,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{500, 386}</string>
+						<string key="NSFrameSize">{400, 286}</string>
 						<reference key="NSSuperview" ref="804944430"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="721459237"/>
@@ -101,7 +102,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{500, 387}</string>
+				<string key="NSFrameSize">{400, 287}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="881854179"/>
