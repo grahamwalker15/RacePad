@@ -243,7 +243,7 @@ static MidasAlertsManager * alertsInstance_ = nil;
 		viewController = [[MidasAlertsViewController alloc] initWithNibName:@"MidasAlertsView" bundle:nil];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_ALERTS_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_BOTTOM_];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_TOP_)];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -273,7 +273,7 @@ static MidasSocialMediaManager * socialmediaInstance_ = nil;
 		viewController = [[MidasSocialViewController alloc] initWithViewControllers:@[twitterViewController, facebookViewController]];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_SOCIAL_MEDIA_POPUP_];
-		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_)];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_SOCIAL_MEDIA_ | MIDAS_ZONE_TOP_)];
 		[viewController setAssociatedManager:self];
 	}
 	
@@ -329,7 +329,7 @@ static MidasVIPManager * vipInstance_ = nil;
 		viewController = [MidasVIPViewController new];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_VIP_POPUP_];
-		[self setManagedExclusionZone:MIDAS_ZONE_BOTTOM_];
+		[self setManagedExclusionZone:(MIDAS_ZONE_BOTTOM_ | MIDAS_ZONE_TOP_)];
 		[viewController setAssociatedManager:self];
 	}
 	
