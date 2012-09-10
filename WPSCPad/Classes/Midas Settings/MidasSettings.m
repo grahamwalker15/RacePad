@@ -41,16 +41,24 @@ typedef enum : NSUInteger {
 - (void)fetchSettingsWithHandler:(void(^)())handler {
 	if (handler != NULL) [_handlers addObject:handler];
 	
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://danieltull.co.uk/Midas/settings.json"]];
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://danieltull.co.uk/Midas/settings.json"] cachePolicy:NSURLCacheStorageAllowed timeoutInterval:10.0];
 	_status = MidasSettingsStatusFetching;
 	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-		NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 		
-		_facebookPostID = [dictionary objectForKey:@"facebookPostID"];
-		_hashtag = [dictionary objectForKey:@"hashtag"];
-		
-		NSNumber *timeIntervalNumber = [dictionary objectForKey:@"raceStartTimeInterval"];
-		_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
+		if (data) {
+			NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+			
+			_facebookPostID = [dictionary objectForKey:@"facebookPostID"];
+			_hashtag = [dictionary objectForKey:@"hashtag"];
+			
+			NSNumber *timeIntervalNumber = [dictionary objectForKey:@"raceStartTimeInterval"];
+			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
+			
+		} else {
+			_facebookPostID = @"296502463790309";
+			_hashtag = @"#f1";
+			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:20.0];
+		}
 		
 		[_handlers enumerateObjectsUsingBlock:^(void(^handler)(), NSUInteger idx, BOOL *stop) {
 			handler();

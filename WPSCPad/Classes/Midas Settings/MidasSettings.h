@@ -13,7 +13,7 @@
 + (MidasSettings *)sharedSettings;
 - (void)waitForSettings:(void(^)())handler;
 
-@property (nonatomic, readonly) NSArray *hashtag;
+@property (nonatomic, readonly) NSString *hashtag;
 @property (nonatomic, readonly) NSString *facebookPostID;
 @property (nonatomic, readonly) NSDate *raceStartDate;
 @property (nonatomic, readonly) NSDictionary *logins;
