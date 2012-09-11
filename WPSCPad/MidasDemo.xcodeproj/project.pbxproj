@@ -741,6 +741,7 @@
 		243FF1F915FF537C00CDF732 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 243FF1F515FF537C00CDF732 /* README.txt */; };
 		243FF1FA15FF537C00CDF732 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 243FF1F615FF537C00CDF732 /* release_notes.txt */; };
 		243FF1FC15FF54AD00CDF732 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 243FF1FB15FF54AD00CDF732 /* libz.dylib */; };
+		243FF20115FF62CC00CDF732 /* MidasMasterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 243FF20015FF62CC00CDF732 /* MidasMasterMenuViewController.m */; };
 		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
 		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
 		248392B815F89C13003BE8A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 248392B615F89C13003BE8A8 /* Localizable.strings */; };
@@ -1526,7 +1527,7 @@
 		240F254C15F5106F001C08C1 /* MidasFollowDriverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasFollowDriverView.xib; path = ResourceFiles/MidasFollowDriverView.xib; sourceTree = "<group>"; };
 		240F254D15F5106F001C08C1 /* MidasHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasHomeView.xib; path = ResourceFiles/MidasHomeView.xib; sourceTree = "<group>"; };
 		240F254E15F5106F001C08C1 /* MidasMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasMainWindow.xib; path = ResourceFiles/MidasMainWindow.xib; sourceTree = "<group>"; };
-		240F254F15F5106F001C08C1 /* MidasMasterMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasMasterMenuView.xib; path = ResourceFiles/MidasMasterMenuView.xib; sourceTree = "<group>"; };
+		240F254F15F5106F001C08C1 /* MidasMasterMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasMasterMenuView.xib; path = ../../ResourceFiles/MidasMasterMenuView.xib; sourceTree = "<group>"; };
 		240F255015F5106F001C08C1 /* MidasMyTeamView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasMyTeamView.xib; path = ResourceFiles/MidasMyTeamView.xib; sourceTree = "<group>"; };
 		240F255115F5106F001C08C1 /* MidasSetup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasSetup.xib; path = ResourceFiles/MidasSetup.xib; sourceTree = "<group>"; };
 		240F255215F5106F001C08C1 /* MidasSocialmediaBaseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasSocialmediaBaseView.xib; path = ResourceFiles/MidasSocialmediaBaseView.xib; sourceTree = "<group>"; };
@@ -1856,6 +1857,8 @@
 		243FF1F615FF537C00CDF732 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		243FF1F715FF537C00CDF732 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		243FF1FB15FF54AD00CDF732 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		243FF1FF15FF62CC00CDF732 /* MidasMasterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasMasterMenuViewController.h; sourceTree = "<group>"; };
+		243FF20015FF62CC00CDF732 /* MidasMasterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasMasterMenuViewController.m; sourceTree = "<group>"; };
 		247EBACE15F783BB00CAE3CD /* MidasLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasLoginController.h; sourceTree = "<group>"; };
 		247EBACF15F783BB00CAE3CD /* MidasLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasLoginController.m; sourceTree = "<group>"; };
 		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
@@ -2727,7 +2730,6 @@
 				240F254C15F5106F001C08C1 /* MidasFollowDriverView.xib */,
 				240F254D15F5106F001C08C1 /* MidasHomeView.xib */,
 				240F254E15F5106F001C08C1 /* MidasMainWindow.xib */,
-				240F254F15F5106F001C08C1 /* MidasMasterMenuView.xib */,
 				240F255015F5106F001C08C1 /* MidasMyTeamView.xib */,
 				240F255115F5106F001C08C1 /* MidasSetup.xib */,
 				240F255215F5106F001C08C1 /* MidasSocialmediaBaseView.xib */,
@@ -2779,6 +2781,7 @@
 		240F25B415F510BA001C08C1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				243FF1FE15FF62B900CDF732 /* Midas Menu */,
 				2492EF2B15FA0EA200A462CD /* Midas Help */,
 				2492EED215FA019500A462CD /* Midas Store */,
 				2436303D15F60BF4006F3DFC /* ISO8601DateFormatter */,
@@ -3307,6 +3310,16 @@
 			);
 			name = "TestFlight SDK";
 			path = "Libraries/TestFlight SDK";
+			sourceTree = "<group>";
+		};
+		243FF1FE15FF62B900CDF732 /* Midas Menu */ = {
+			isa = PBXGroup;
+			children = (
+				243FF1FF15FF62CC00CDF732 /* MidasMasterMenuViewController.h */,
+				243FF20015FF62CC00CDF732 /* MidasMasterMenuViewController.m */,
+				240F254F15F5106F001C08C1 /* MidasMasterMenuView.xib */,
+			);
+			path = "Midas Menu";
 			sourceTree = "<group>";
 		};
 		2464946F15F666F0003E4617 /* Libraries */ = {
@@ -4480,6 +4493,7 @@
 				2492EED615FA01BA00A462CD /* MidasWebViewController.m in Sources */,
 				2492EF2F15FA0EB500A462CD /* MidasHelpViewController.m in Sources */,
 				2492EF3315FA10F200A462CD /* MidasHelpTableViewCell.m in Sources */,
+				243FF20115FF62CC00CDF732 /* MidasMasterMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

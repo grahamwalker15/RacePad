@@ -10,25 +10,6 @@
 
 #import	"BasePadPrefs.h"
 
-@implementation MidasMasterMenuViewController : MidasBaseViewController
-
--(IBAction) buttonPressed:(id)sender
-{
-	if(associatedManager)
-	{
-		if(sender == settingsButton && [associatedManager parentViewController])
-		{
-			[[associatedManager parentViewController] presentModalViewController:[MidasSetupViewController Instance] animated:true];
-		}
-		else
-		{
-			[associatedManager hideAnimated:true Notify:true];
-		}
-	}
-}
-
-@end
-
 @implementation MidasHeadToHeadViewController : MidasBaseViewController
 @end
 

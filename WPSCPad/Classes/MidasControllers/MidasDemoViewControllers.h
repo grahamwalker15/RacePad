@@ -8,21 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MidasMasterMenuViewController.h"
 #import "MidasBaseViewController.h"
 #import "TrackMapView.h"
 #import "MovieSelectorView.h"
-
-@interface MidasMasterMenuViewController : MidasBaseViewController
-{
-	IBOutlet UIButton * circuitButton;
-	IBOutlet UIButton * pitsButton;
-	IBOutlet UIButton * shopButton;
-	IBOutlet UIButton * settingsButton;
-}
-
--(IBAction) buttonPressed:(id)sender;
-
-@end
 
 @interface MidasHeadToHeadViewController : MidasBaseViewController
 {

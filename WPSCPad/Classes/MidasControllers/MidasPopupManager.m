@@ -42,7 +42,7 @@ static MidasMasterMenuManager * masterMenuInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MidasMasterMenuViewController alloc] initWithNibName:@"MidasMasterMenuView" bundle:nil];
+		viewController = [MidasMasterMenuViewController new];
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MIDAS_MASTER_MENU_POPUP_];
 		[self setManagedExclusionZone:MIDAS_ZONE_ALL_];
