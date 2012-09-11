@@ -17,11 +17,14 @@
 - (void)RequestEvent
 {
 	[self SimpleCommand:RPCS_REQUEST_EVENT];
+	[self sendMetric:1];
+
 }
 
 - (void)RequestTrackMap
 {
 	[self SimpleCommand:RPCS_REQUEST_TRACK_MAP];
+	[self sendMetric:2];
 }
 
 - (void)RequestTimingPage
@@ -32,6 +35,7 @@
 - (void)StreamTimingPage
 {
 	[self SimpleCommand:RPCS_STREAM_TIMING_PAGE];
+	[self sendMetric:3];
 }
 
 - (void)RequestStandingsView
@@ -42,6 +46,7 @@
 - (void)StreamStandingsView
 {
 	[self SimpleCommand:RPCS_STREAM_STANDINGS_VIEW];
+	[self sendMetric:4];
 }
 
 - (void)RequestLeaderBoard
@@ -52,6 +57,7 @@
 - (void)StreamLeaderBoard
 {
 	[self SimpleCommand:RPCS_STREAM_LEADER_BOARD];
+	[self sendMetric:5];
 }
 
 - (void)RequestCars
@@ -62,6 +68,7 @@
 - (void)StreamCars
 {
 	[self SimpleCommand:RPCS_STREAM_CARS];
+	[self sendMetric:6];
 }
 
 - (void) requestDriverView :(NSString *) driver
@@ -74,6 +81,21 @@
 	iData[1] = htonl(RPCS_REQUEST_DRIVER_VIEW);
 	iData[2] = htonl([driver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	[self SendData: data];
+	CFRelease(data);
+	free (buf);
+}
+
+- (void) sendMetric :(int) metric
+{
+	int messageLength = sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_CLIENT_METRIC);
+	iData[2] = htonl(metric);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	[self SendData: data];
 	CFRelease(data);
@@ -93,6 +115,7 @@
 - (void)StreamPitWindow
 {
 	[self SimpleCommand:RPCS_STREAM_PIT_WINDOW];
+	[self sendMetric:7];
 }
 
 - (void)RequestTelemetry
@@ -103,6 +126,7 @@
 - (void)StreamTelemetry
 {
 	[self SimpleCommand:RPCS_STREAM_TELEMETRY];
+	[self sendMetric:8];
 }
 
 - (void)RequestDriverGapInfo:(NSString *) driver
@@ -207,6 +231,7 @@
 	[self SendData: data];
 	CFRelease(data);
 	free (buf);
+	[self sendMetric:9];
 }
 
 -(void) sendPrediction: (NSString *)userName Command:(int)command
@@ -284,6 +309,7 @@
 - (void)StreamTrackProfile
 {
 	[self SimpleCommand:RPCS_STREAM_CARS];
+	[self sendMetric:10];
 }
 
 - (DataHandler *) constructDataHandler
