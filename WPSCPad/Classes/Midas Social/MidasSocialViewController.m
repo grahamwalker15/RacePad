@@ -50,10 +50,12 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
+	NSIndexPath *oldIndexPath = [self.tabTableView indexPathForSelectedRow];
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 	[self.tabTableView selectRowAtIndexPath:indexPath
 								   animated:NO
 							 scrollPosition:UITableViewScrollPositionTop];
+	[self tableView:self.tabTableView didDeselectRowAtIndexPath:oldIndexPath];
 	[self tableView:self.tabTableView didSelectRowAtIndexPath:indexPath];
 }
 
