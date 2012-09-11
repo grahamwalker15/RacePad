@@ -24,6 +24,7 @@
 #import "MidasDatabase.h"
 #import <DCTAuth/DCTAuth.h>
 #import <Facebook/Facebook.h>
+#import "TestFlight.h"
 
 @implementation MidasAppDelegate
 
@@ -54,7 +55,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+    [TestFlight takeOff:@"0ebc30a05c73c5b1ed825ef895a86047_MTMwNDUyMjAxMi0wOS0xMCAxMTo1MzozMS4yOTkxODY"];
     // Override point for customization after app launch.
 	
 	// Create the co-ordinator
