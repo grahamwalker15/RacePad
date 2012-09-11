@@ -80,6 +80,7 @@
 	IBOutlet UIButton * alertsButton;
 	IBOutlet UIButton * socialMediaButton;
 	IBOutlet UIButton * vipButton;
+	IBOutlet UIButton * dfButton;
 	
 	IBOutlet UIButton * lapCounterButton;
 	IBOutlet UIImageView * trackStateButton;

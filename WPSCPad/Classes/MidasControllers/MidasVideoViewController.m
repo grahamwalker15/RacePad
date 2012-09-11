@@ -1670,6 +1670,10 @@ static UIImage * newButtonBackgroundImage = nil;
 		leftX += CGRectGetWidth(buttonFrame);
 	
 	leftX += 2;
+	
+	// DF button
+	buttonFrame = [dfButton frame];
+	[dfButton setFrame:CGRectMake(leftX, 0, CGRectGetWidth(buttonFrame), CGRectGetHeight(buttonFrame))];
 }
 
 -(void)positionBottomMenuButtons
