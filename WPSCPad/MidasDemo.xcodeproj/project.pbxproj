@@ -742,6 +742,9 @@
 		243FF1FA15FF537C00CDF732 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 243FF1F615FF537C00CDF732 /* release_notes.txt */; };
 		243FF1FC15FF54AD00CDF732 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 243FF1FB15FF54AD00CDF732 /* libz.dylib */; };
 		243FF20115FF62CC00CDF732 /* MidasMasterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 243FF20015FF62CC00CDF732 /* MidasMasterMenuViewController.m */; };
+		243FF20615FF64AE00CDF732 /* MenuSplashLogoF1.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */; };
+		243FF20715FF64AE00CDF732 /* MenuSplashLogoMarussia.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */; };
+		243FF20915FF64AE00CDF732 /* MenuSplashLogoSoftbank.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */; };
 		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
 		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
 		248392B815F89C13003BE8A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 248392B615F89C13003BE8A8 /* Localizable.strings */; };
@@ -1859,6 +1862,9 @@
 		243FF1FB15FF54AD00CDF732 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		243FF1FF15FF62CC00CDF732 /* MidasMasterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasMasterMenuViewController.h; sourceTree = "<group>"; };
 		243FF20015FF62CC00CDF732 /* MidasMasterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasMasterMenuViewController.m; sourceTree = "<group>"; };
+		243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoF1.png; sourceTree = "<group>"; };
+		243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoMarussia.png; sourceTree = "<group>"; };
+		243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoSoftbank.png; sourceTree = "<group>"; };
 		247EBACE15F783BB00CAE3CD /* MidasLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasLoginController.h; sourceTree = "<group>"; };
 		247EBACF15F783BB00CAE3CD /* MidasLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasLoginController.m; sourceTree = "<group>"; };
 		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
@@ -2085,6 +2091,9 @@
 		240F214F15F51038001C08C1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */,
+				243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */,
+				243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */,
 				24B4972315FDD76E007D5B2E /* Alert2ndYellow.png */,
 				24B4972515FDD780007D5B2E /* AlertFKCorner.png */,
 				24B4972715FDD78C007D5B2E /* AlertGoal.png */,
@@ -4337,6 +4346,9 @@
 				24B4972A15FDD7A1007D5B2E /* AlertPlayer.png in Resources */,
 				243FF1F915FF537C00CDF732 /* README.txt in Resources */,
 				243FF1FA15FF537C00CDF732 /* release_notes.txt in Resources */,
+				243FF20615FF64AE00CDF732 /* MenuSplashLogoF1.png in Resources */,
+				243FF20715FF64AE00CDF732 /* MenuSplashLogoMarussia.png in Resources */,
+				243FF20915FF64AE00CDF732 /* MenuSplashLogoSoftbank.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

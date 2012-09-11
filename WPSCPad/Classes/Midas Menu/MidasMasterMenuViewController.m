@@ -7,6 +7,9 @@
 //
 
 #import "MidasMasterMenuViewController.h"
+#import "MidasWebViewController.h"
+
+NSString *const MidasMasterMenuViewControllerF1StoreURLString = @"http://f1store.formula1.com/stores/f1/";
 
 @implementation MidasMasterMenuViewController : MidasBaseViewController
 
@@ -26,6 +29,16 @@
 		{
 			[associatedManager hideAnimated:true Notify:true];
 		}
+	}
+}
+
+- (IBAction)f1Tapped:(id)sender {
+	
+	if ([associatedManager parentViewController]) {
+		MidasWebViewController *viewController = [[MidasWebViewController alloc] initWithURL:[NSURL URLWithString:MidasMasterMenuViewControllerF1StoreURLString]];
+		viewController.modalPresentationStyle = UIModalPresentationPageSheet;
+		viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+		[[associatedManager parentViewController] presentViewController:viewController animated:YES completion:NULL];
 	}
 }
 

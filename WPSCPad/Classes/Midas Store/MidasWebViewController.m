@@ -29,7 +29,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.rightBarButtonItem = self.navigationBar.topItem.rightBarButtonItem;
 	[self.navigationBar setItems:@[self.navigationItem] animated:NO];
+	[self _updateButtonStates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,6 +61,10 @@
 
 - (IBAction)webViewForward:(id)sender {
 	[self.webView goForward];
+}
+
+- (IBAction)dismiss:(id)sender {
+	[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)_updateButtonStates {
