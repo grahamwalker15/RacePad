@@ -10,6 +10,7 @@
 
 
 #import "MidasBaseViewController.h"
+#import "MidasVotingView.h"
 #import "TableDataView.h"
 #import "MovieView.h"
 
@@ -53,6 +54,8 @@
 	IBOutlet UIButton * voteAgainstButton;
 	IBOutlet UIButton * onboardVideoButton;
 	
+	IBOutlet MidasVotingView * midasVotingView;
+
 	// Expansion animation image
 	IBOutlet UIImageView * viewAnimationImage;
 	

@@ -278,6 +278,13 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_HEAD_TO_HEAD_VIEW_];
 			break;
 		}
+		case RPSC_DRIVER_VOTING_: // Midas voting (whole page)
+		{
+			TableData *voting = [[RacePadDatabase Instance] midasVotingData];
+			[voting loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_VOTING_VIEW_];
+			break;
+		}
 		case RPSC_NOTIFY_NEW_CONNECTION_:
 		{
 			[[RacePadCoordinator Instance] notifyNewConnection];

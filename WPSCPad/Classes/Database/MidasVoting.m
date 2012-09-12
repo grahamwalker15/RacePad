@@ -9,27 +9,25 @@
 #import "MidasVoting.h"
 #import "MidasVotingView.h"
 
-#import "DataStream.h"
-#import "RacePadDataHandler.h"
-
 @implementation MidasVoting
 
-@synthesize driver;
 @synthesize abbr;
 @synthesize votesFor;
 @synthesize votesAgainst;
 @synthesize position;
 @synthesize driverCount;
 
-- (id) init
+static int vf = 0;
+static int va = 0;
+
+- (id) initWithDriver:(NSString *)driver
 {
 	if(self = [super init])
 	{
-		driver =nil;
-		abbr = nil;
+		abbr = [driver retain];
 		
-		votesFor = 1000;
-		votesAgainst = 800;
+		votesFor = vf;
+		votesAgainst = va;
 		position = 5;
 		driverCount = 24;
 	}	
@@ -47,23 +45,18 @@
 
 - (void) clearData
 {
-	[driver release];
 	[abbr release];	
-	
-	driver = nil;
 	abbr = nil;
 }
 
-- (void) loadData : (DataStream *) stream
++ (void) localThumbsUp
 {
-	[abbr release];	
-	
-	abbr = [[stream PopString] retain];
-	
-	votesFor = [stream PopInt];
-	votesAgainst = [stream PopInt];
-	position = [stream PopInt];
-	driverCount = [stream PopInt];
+    vf++;
+}
+
++ (void) localThumbsDown
+{
+    va++;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -26,6 +26,7 @@
 #import "TabletState.h"
 #import "CommentaryView.h"
 #import	"CommentaryBubble.h"
+#import	"MidasVoting.h"
 
 #import "UIConstants.h"
 
@@ -140,6 +141,10 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[(RacePadClientSocket*)socket_ StreamStandingsView];
 	}
+	else if([existing_view Type] == RPC_DRIVER_VOTING_VIEW_)
+	{
+		[(RacePadClientSocket*)socket_ StreamDriverVoting];
+	}
 	else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
 	{
 		[(RacePadClientSocket*)socket_ StreamLeaderBoard];
@@ -189,6 +194,10 @@ static RacePadCoordinator * instance_ = nil;
 	{
 		[(RacePadClientSocket*)socket_ RequestStandingsView];
 	}
+	else if([existing_view Type] == RPC_DRIVER_VOTING_VIEW_)
+	{
+		[(RacePadClientSocket*)socket_ RequestDriverVoting];
+	}
 	else if([existing_view Type] == RPC_LEADER_BOARD_VIEW_)
 	{
 		[(RacePadClientSocket*)socket_ RequestLeaderBoard];
@@ -237,6 +246,10 @@ static RacePadCoordinator * instance_ = nil;
 	else if (type == RPC_MIDAS_STANDINGS_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"standings"];
+	}
+	else if (type == RPC_DRIVER_VOTING_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"voting"];
 	}
 	else if (type == RPC_LEADER_BOARD_VIEW_)
 	{
@@ -385,5 +398,22 @@ static RacePadCoordinator * instance_ = nil;
 {
 	[gameViewController badUser];
 }
+
+- (void) driverThumbsUp:(NSString *) driver
+{
+	if (connectionType == BPC_SOCKET_CONNECTION_)
+		[(RacePadClientSocket *)socket_ DriverThumbsUp:driver];
+	else
+		[MidasVoting localThumbsUp];
+}
+
+- (void) driverThumbsDown:(NSString *) driver
+{
+	if (connectionType == BPC_SOCKET_CONNECTION_)
+		[(RacePadClientSocket *)socket_ DriverThumbsDown:driver];
+	else
+		[MidasVoting localThumbsDown];
+}
+
 
 @end

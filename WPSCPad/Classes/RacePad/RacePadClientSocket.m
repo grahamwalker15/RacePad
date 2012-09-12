@@ -286,6 +286,55 @@
 	[self SimpleCommand:RPCS_STREAM_CARS];
 }
 
+- (void) RequestDriverVoting
+{
+	[self SimpleCommand:RPCS_REQUEST_DRIVER_VOTING];
+}
+
+- (void) StreamDriverVoting
+{
+	[self SimpleCommand:RPCS_STREAM_DRIVER_VOTING];
+}
+
+- (void) DriverThumbsUp:(NSString *) driver
+{
+	if(driver && [driver length] > 0)
+    {
+        int messageLength = [driver length] + sizeof(uint32_t) * 3;
+        unsigned char *buf = malloc(messageLength);
+        int *iData = (int *)buf;
+	
+        iData[0] = htonl(messageLength);
+        iData[1] = htonl(RPCS_DRIVER_THUMBS_UP);
+        iData[2] = htonl([driver length]);
+        memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
+        CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+        [self SendData: data];
+        CFRelease(data);
+        free (buf);
+	};
+}
+
+- (void) DriverThumbsDown:(NSString *) driver
+{
+	if(driver && [driver length] > 0)
+    {
+        int messageLength = [driver length] + sizeof(uint32_t) * 3;
+        unsigned char *buf = malloc(messageLength);
+        int *iData = (int *)buf;
+        
+        iData[0] = htonl(messageLength);
+        iData[1] = htonl(RPCS_DRIVER_THUMBS_DOWN);
+        iData[2] = htonl([driver length]);
+        memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
+        CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+        [self SendData: data];
+        CFRelease(data);
+        free (buf);
+	};
+}
+
+
 - (DataHandler *) constructDataHandler
 {
 	return [[RacePadDataHandler alloc] init];

@@ -20,13 +20,10 @@ static MidasDatabase *instance = nil;
 	return instance;
 }
 
-@synthesize midasVoting;
-
 - (MidasDatabase *)init
 {
 	if ( [super init] == self )
 	{
-		midasVoting = [[MidasVoting alloc] init];
 	}
 	
 	return self;
@@ -34,8 +31,6 @@ static MidasDatabase *instance = nil;
 
 - (void) dealloc
 {
-	[midasVoting release];
-	
 	[super dealloc];
 }
 

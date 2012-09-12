@@ -9,15 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "RacePadDatabase.h"	
-#import "MidasVoting.h"
 
 @interface MidasDatabase : RacePadDatabase
 {
-	MidasVoting *midasVoting;
 }
-	
-@property (readonly) MidasVoting *midasVoting;
-	
+		
 + (MidasDatabase *)Instance;
 - (void) clearStaticData;
 	

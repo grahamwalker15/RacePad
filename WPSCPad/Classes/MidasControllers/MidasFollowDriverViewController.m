@@ -11,11 +11,13 @@
 
 #import "RacePadDatabase.h"
 #import "RacePadCoordinator.h"
+#import "MidasVoting.h"
 
 #import "TrackMapView.h"
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 #import "HeadToHeadView.h"
+#import "MidasVotingView.h"
 
 #import "BasePadMedia.h"
 #import "MidasVideoViewController.h"
@@ -58,11 +60,14 @@
 	[trackMapView setSmallSized:true];
 	[trackMapView setMidasStyle:true];
 
-	
 	[trackMapView setUserScale:10.0];
 	[trackMapContainer setStyle:BG_STYLE_MIDAS_TRANSPARENT_];
 	
 	[headToHeadView setMiniDisplay:true];
+    
+    [midasVotingView setVotesForLabel:votesForCount];
+    [midasVotingView setVotesAgainstLabel:votesAgainstCount];
+    [midasVotingView setRatingLabel:ratingLabel];
 		
 	//  Add extra gesture recognizers
 		
@@ -89,6 +94,7 @@
 	[[RacePadCoordinator Instance] AddView:trackMapView WithType:RPC_TRACK_MAP_VIEW_];
 	[[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	[[RacePadCoordinator Instance] AddView:headToHeadView WithType:RPC_HEAD_TO_HEAD_VIEW_];
+	[[RacePadCoordinator Instance] AddView:midasVotingView WithType:RPC_DRIVER_VOTING_VIEW_];
 	[[RacePadCoordinator Instance] AddView:self WithType:RPC_DRIVER_GAP_INFO_VIEW_];
 
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
@@ -222,7 +228,6 @@
 				
 				[driverFlag setImage:[self getNationalFlag:abbr]];
 
-				
 				// Get image list for the driver images
 				RacePadDatabase *database = [RacePadDatabase Instance];
 				ImageListStore * image_store = [database imageListStore];
@@ -372,7 +377,7 @@
 			}
 		}
 	}
-}
+ }
 
 - (int) getDriverNumber:(NSString *)tag
 {
@@ -508,35 +513,35 @@
 		return 0;
 	
 	if([tag compare:@"VET"] == NSOrderedSame)
-		return 24;
+		return 25;
 	if([tag compare:@"WEB"] == NSOrderedSame)
-		return 32;
+		return 36;
 	if([tag compare:@"HAM"] == NSOrderedSame)
 		return 27;
 	if([tag compare:@"BUT"] == NSOrderedSame)
 		return 32;
 	if([tag compare:@"ALO"] == NSOrderedSame)
-		return 33;
+		return 31;
 	if([tag compare:@"MAS"] == NSOrderedSame)
 		return 33;
 	if([tag compare:@"MSC"] == NSOrderedSame)
 		return 43;
 	if([tag compare:@"ROS"] == NSOrderedSame)
-		return 26;
+		return 27;
 	if([tag compare:@"SEN"] == NSOrderedSame)
-		return 25;
+		return 28;
 	if([tag compare:@"PET"] == NSOrderedSame)
-		return 29;
+		return 28;
 	if([tag compare:@"SUT"] == NSOrderedSame)
 		return 32;
 	if([tag compare:@"DIR"] == NSOrderedSame)
-		return 25;
+		return 26;
 	if([tag compare:@"BAR"] == NSOrderedSame)
 		return 41;
 	if([tag compare:@"MAL"] == NSOrderedSame)
-		return 29;
+		return 27;
 	if([tag compare:@"PER"] == NSOrderedSame)
-		return 24;
+		return 22;
 	if([tag compare:@"KOB"] == NSOrderedSame)
 		return 26;
 	if([tag compare:@"BUE"] == NSOrderedSame)
@@ -552,28 +557,26 @@
 	if([tag compare:@"LIU"] == NSOrderedSame)
 		return 32;
 	if([tag compare:@"GLO"] == NSOrderedSame)
-		return 32;
+		return 30;
 	if([tag compare:@"DAM"] == NSOrderedSame)
 		return 25;
 	if([tag compare:@"PIC"] == NSOrderedSame)
-		return 23;
+		return 22;
 	if([tag compare:@"GRO"] == NSOrderedSame)
-		return 27;
+		return 26;
 	if([tag compare:@"RAI"] == NSOrderedSame)
-		return 31;
+		return 32;
 	if([tag compare:@"VER"] == NSOrderedSame)
-		return 25;
+		return 22;
 	if([tag compare:@"HUL"] == NSOrderedSame)
 		return 25;
 	if([tag compare:@"DLR"] == NSOrderedSame)
-		return 38;
+		return 41;
 	if([tag compare:@"KAR"] == NSOrderedSame)
-		return 31;
+		return 35;
 	
 	return 0;
 }
-
-
 
 - (UIImage *) getNationalFlag:(NSString *)tag
 {
@@ -682,19 +685,25 @@
 				[headToHead setDriver0:driverToFollow];
 				[headToHead setDriver1:nil];
 			}
+            
+            // Midas Voting
+            [midasVotingView setDriver:driverToFollow];
 			
 			// Force reload of data
 			[[RacePadCoordinator Instance] SetViewHidden:self];
 			[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
 			[[RacePadCoordinator Instance] SetViewHidden:headToHeadView];
 			[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
+			[[RacePadCoordinator Instance] SetViewHidden:midasVotingView];
 			[[RacePadCoordinator Instance] SetViewDisplayed:self];
 			[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
 			[[RacePadCoordinator Instance] SetViewDisplayed:headToHeadView];
+			[[RacePadCoordinator Instance] SetViewDisplayed:midasVotingView];
 
 			[leaderboardView RequestRedraw];
 			[trackMapView RequestRedraw];
 			[headToHeadView RequestRedraw];
+			[midasVotingView RequestRedraw];
 						
 			return;
 		}
@@ -809,6 +818,12 @@
 
 -(IBAction)votePressed:(id)sender
 {
+    if(sender == voteForButton)
+        [[RacePadCoordinator Instance] driverThumbsUp:driverToFollow];
+    else if(sender == voteAgainstButton)
+        [[RacePadCoordinator Instance] driverThumbsDown:driverToFollow];
+    
+    [midasVotingView RequestRedraw];
 }
 
 @end

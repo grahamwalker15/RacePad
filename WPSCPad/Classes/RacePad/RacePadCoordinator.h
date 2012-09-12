@@ -39,6 +39,7 @@ enum ViewTypes
 	RPC_HEAD_TO_HEAD_VIEW_ = 0x1000,
 	RPC_MIDAS_STANDINGS_VIEW_ = 0x2000,
 	RPC_TRACK_STATE_VIEW_ = 0x4000,
+	RPC_DRIVER_VOTING_VIEW_ = 0x8000,
 };
 
 @interface RacePadCoordinator : BasePadCoordinator
@@ -68,6 +69,9 @@ enum ViewTypes
 - (void) requestPrediction: (NSString *)name;
 - (void) registeredUser;
 - (void) badUser;
+
+- (void) driverThumbsUp:(NSString *) driver;
+- (void) driverThumbsDown:(NSString *) driver;
 
 - (void) notifyNewConnection;
 

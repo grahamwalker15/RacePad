@@ -13,6 +13,8 @@
 #import "RacePadCoordinator.h"
 #import "BasePadMedia.h"
 
+#import "MidasVoting.h"
+
 #import "MidasVideoViewController.h"
 
 @interface MidasStandingsViewController ()
@@ -43,13 +45,18 @@
 	
 	[expansionView setHidden:true];
 	[standingsView addSubview:expansionView];
-	
+    
+    [midasVotingView setVotesForLabel:votesForCount];
+    [midasVotingView setVotesAgainstLabel:votesAgainstCount];
+    [midasVotingView setRatingLabel:ratingLabel];
+    	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:standingsView];
 	[self addDoubleTapRecognizerToView:standingsView];
 	
 	// Tell the RacePadCoordinator that we're interested in data for this view
 	[[RacePadCoordinator Instance] AddView:standingsView WithType:RPC_MIDAS_STANDINGS_VIEW_];
+	[[RacePadCoordinator Instance] AddView:midasVotingView WithType:RPC_DRIVER_VOTING_VIEW_];
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
@@ -104,6 +111,7 @@
 			[standingsView UnexpandAllRows];
 			[expansionView setHidden:true];
 			[standingsView setExpandedDriver:nil];
+            [midasVotingView setDriver:nil];
 			
 			//UIImage * renderedView = [self renderViewToImage:container];
 			//[viewAnimationImage setImage:renderedView];
@@ -116,10 +124,13 @@
 				[standingsView setExpandedDriver:[standingsView GetRowTag:row]];	// Driver name
 				[self fillExpansionViewForRow:row];
 				[self placeExpansionViewAtRow:row];
+ 
+                [midasVotingView setDriver:[standingsView expandedDriver]];
 			}
 		}
 		
 		[standingsView RequestRedraw];
+		[midasVotingView RequestRedraw];
 	}
 }
 
@@ -131,11 +142,13 @@
 - (void) onDisplay
 {
 	[[RacePadCoordinator Instance] SetViewDisplayed:standingsView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 }
 
 - (void) onHide
 {
 	[[RacePadCoordinator Instance] SetViewHidden:standingsView];
+	[[RacePadCoordinator Instance] SetViewHidden:self];
 }
 
 -(IBAction)movieSelected:(id)sender
@@ -167,6 +180,12 @@
 
 -(IBAction)votePressed:(id)sender
 {
+    if(sender == voteForButton)
+        [[RacePadCoordinator Instance] driverThumbsUp:[standingsView expandedDriver]];
+    else if(sender == voteAgainstButton)
+        [[RacePadCoordinator Instance] driverThumbsDown:[standingsView expandedDriver]];
+    
+    [midasVotingView RequestRedraw];
 }
 
 - (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method

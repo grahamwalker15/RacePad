@@ -101,7 +101,7 @@
 
 - (int) GetFontAtRow:(int)row Col:(int)col
 {
-	return DW_CONTROL_FONT_;
+	return DW_LIGHT_CONTROL_FONT_;
 }
 
 - (int) InqCellTypeAtRow:(int)row Col:(int)col

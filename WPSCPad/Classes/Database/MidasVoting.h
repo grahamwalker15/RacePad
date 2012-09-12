@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class DataStream;
 @class MidasVotingView;
 
 @interface MidasVoting : NSObject
 {
-	NSString * driver;
 	NSString * abbr;
 				
 	int votesFor;
@@ -22,7 +20,6 @@
 	int driverCount;
 }
 	
-@property (retain) NSString * driver;	
 @property (readonly) NSString * abbr;
 	
 @property (readonly) int votesFor;
@@ -30,9 +27,13 @@
 @property (readonly) int position;
 @property (readonly) int driverCount;
 	
+- (id) initWithDriver:(NSString *)driver;
+
 - (void) clearData;
-- (void) loadData : (DataStream *) stream;
 		
 - (void) drawInView : (MidasVotingView *)view;
-	
+
++ (void) localThumbsUp;
++ (void) localThumbsDown;
+
 @end

@@ -36,6 +36,7 @@ static RacePadDatabase *instance = nil;
 @synthesize racePrediction;
 @synthesize competitorData;
 @synthesize headToHead;
+@synthesize midasVotingData;
 
 @synthesize session;
 
@@ -60,6 +61,7 @@ static RacePadDatabase *instance = nil;
 		racePrediction = [[RacePrediction alloc] init];
 		competitorData = [[TableData alloc] init];
 		headToHead = [[HeadToHead alloc] init];
+		midasVotingData = [[TableData alloc] init];
 		
 		[driverInfo fillWithDefaultData];
 	}

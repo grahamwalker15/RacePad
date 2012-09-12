@@ -45,6 +45,10 @@ enum ClientCommands {
 	RPCS_STREAM_HEAD_TO_HEAD,		// 37
 	RPCS_REQUEST_STANDINGS_VIEW,		// 38
 	RPCS_STREAM_STANDINGS_VIEW,		// 39
+	RPCS_REQUEST_DRIVER_VOTING,		// 40
+	RPCS_STREAM_DRIVER_VOTING,		// 41
+	RPCS_DRIVER_THUMBS_UP,          // 42
+	RPCS_DRIVER_THUMBS_DOWN,		// 43
 };
 
 @interface RacePadClientSocket : BasePadClientSocket
@@ -73,6 +77,11 @@ enum ClientCommands {
 - (void) RequestTrackProfile;
 - (void) RequestHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
 - (void) StreamHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
+- (void) RequestDriverVoting;
+- (void) StreamDriverVoting;
+- (void) DriverThumbsUp:(NSString *) driver;
+- (void) DriverThumbsDown:(NSString *) driver;
+
 
 - (void) requestPrediction: (NSString *)name;
 - (void) sendPrediction;
