@@ -94,7 +94,7 @@
 
 - (DriverName *) blueCar
 {
-	for ( int i = 0; i; i++ < count )
+	for ( int i = 0; i < count; i++)
 	{
 		DriverName *driver = [drivers objectAtIndex : i];
 		if ( [driver number] == redCar )
@@ -105,7 +105,7 @@
 
 - (DriverName *) redCar
 {
-	for ( int i = 0; i; i++ < count )
+	for ( int i = 0; i < count; i++)
 	{
 		DriverName *driver = [drivers objectAtIndex : i];
 		if ( [driver number] == redCar )

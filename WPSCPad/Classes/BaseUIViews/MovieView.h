@@ -55,7 +55,7 @@ enum MovieViewTitleDisplays
 	UIImageView * audioImage;
 	UIButton * closeButton;
 	
-	UIButton * driverNameButton;
+	UIButton * movieNameButton;
 	UIButton * movieTypeButton;
 	
 	IBOutlet UILabel * loadingLabel;
@@ -81,7 +81,7 @@ enum MovieViewTitleDisplays
 @property (nonatomic, retain) UIImageView * titleBackgroundImage;
 @property (nonatomic, retain) UIImageView * audioImage;
 @property (nonatomic, retain) UIButton * closeButton;
-@property (nonatomic, retain) UIButton * driverNameButton;
+@property (nonatomic, retain) UIButton * movieNameButton;
 @property (nonatomic, retain) UIButton * movieTypeButton;
 @property (nonatomic, retain) UILabel * loadingLabel;
 @property (nonatomic, retain) UIActivityIndicatorView * loadingTwirl;	

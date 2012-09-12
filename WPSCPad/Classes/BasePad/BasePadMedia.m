@@ -416,7 +416,7 @@ static BasePadMedia * instance_ = nil;
 {
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
-		if([movieSources[i] movieDisplayed])
+		if([movieSources[i] movieDisplayed] && ![movieSources[i] movieForceLive])
 			[movieSources[i] setMoviePlaying:value];
 	}
 }
@@ -425,7 +425,7 @@ static BasePadMedia * instance_ = nil;
 {
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
-		if([movieSources[i] movieDisplayed])
+		if([movieSources[i] movieDisplayed] && ![movieSources[i] movieForceLive])
 			[movieSources[i] setMoviePausedInPlace:value];
 	}
 }
@@ -665,7 +665,7 @@ static BasePadMedia * instance_ = nil;
 			if ( strcmp ( movieTypeString, "url" ) == 0 || strcmp ( movieTypeString, "url-live" ) == 0 )
 				movieIsURL = true;
 			
-			if ( strcmp ( movieTypeString, "url-live" ) == 0 )
+			if ( strcmp ( movieTypeString, "url-live" ) == 0 || strcmp ( movieTypeString, "file-live" ) == 0 )
 				movieForceLive = true;
 			
 			// If it is a file name, append document path - otherwise if it is a url, leave as it is
@@ -699,7 +699,15 @@ static BasePadMedia * instance_ = nil;
 			
 			if ( fscanf(listFile, "%128s %128s", keyword, stringValue ) != 2 )
 				break;
+            
+            // Strip underscore characters from movie names
+            for (int i = 0 ; i < strlen(stringValue) ; i++)
+            {
+                if(stringValue[i] == '_')
+                    stringValue[i] = ' ';
+            }
 			
+            // Then copy into an NSString
 			NSString * movieName = [NSString stringWithCString:stringValue encoding:NSASCIIStringEncoding];
 			
 			if ( fscanf(listFile, "%128s", keyword ) != 1 )
@@ -714,6 +722,7 @@ static BasePadMedia * instance_ = nil;
 				[movieSources[localMovieSourceCount] setMovieLoop:(movieLoop > 0)];
 				[movieSources[localMovieSourceCount] setMovieTag:movieTag];
 				[movieSources[localMovieSourceCount] setMovieName:movieName];
+				[movieSources[localMovieSourceCount] setMovieForceLive:movieForceLive];
 				
 				if(movieSourceCount == 0 && registeredViewController && [registeredViewController firstMovieView])
 					[self queueMovieLoad:movieSources[localMovieSourceCount] IntoView:[registeredViewController firstMovieView]];

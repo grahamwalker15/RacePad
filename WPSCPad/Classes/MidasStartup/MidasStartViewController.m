@@ -97,7 +97,7 @@ CGPoint const LogoEndPoint;
 	if (_canAnimateOffScreenCount > 0) return;
 	
 	[self _animateObjectsOffScreenWithDelay:0.5f completion:^(BOOL finished) {
-		[self loadLive:nil];
+		[self loadArchive:nil];
 	}];
 	
 }

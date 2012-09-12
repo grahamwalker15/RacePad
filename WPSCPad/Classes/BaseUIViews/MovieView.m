@@ -28,7 +28,7 @@
 @synthesize titleView;
 @synthesize titleBackgroundImage;
 @synthesize audioImage;
-@synthesize driverNameButton;
+@synthesize movieNameButton;
 @synthesize movieTypeButton;
 @synthesize labelAlignment;
 @synthesize shouldShowLabels;
@@ -56,7 +56,7 @@
 		titleView = nil;
 		titleBackgroundImage = nil;
 		
-		driverNameButton = nil;
+		movieNameButton = nil;
 		movieTypeButton = nil;
 		audioImage = nil;
 		
@@ -73,7 +73,7 @@
 	
 	[movieSource release];
 	[closeButton release];
-	[driverNameButton release];
+	[movieNameButton release];
 	[movieTypeButton release];
 	[loadingTwirl release];
 	[loadingScreen release];
@@ -91,6 +91,8 @@
 	
 	// Now mark ourselves as ready to display
 	movieScheduledForDisplay = true;
+    
+    // Set the movie type
 	
 	// If the movie is not attached to a player in this source, do it and wait for notification
 	// Otherwise we'll notify ourselves that it is attached
@@ -314,7 +316,7 @@
 
 - (void) showMovieLabels:(int)titleStyle;
 {
-	if(!movieSource || !titleView || !titleBackgroundImage || !driverNameButton || !movieTypeButton)
+	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
 		return;
 	
 	[titleView setAlpha:0.0];
@@ -325,53 +327,51 @@
 	if(titleStyle == MV_CLOSE_AND_AUDIO)
 	{
 		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayFull.png"]];
-		[driverNameButton setFrame:CGRectMake(xRight - 190, 0, 115, 16)];
+		[movieNameButton setFrame:CGRectMake(xRight - 190, 0, 115, 16)];
 		[movieTypeButton setFrame:CGRectMake(xRight - 190, 16, 115, 16)];
 		[audioImage setHidden:false];
 	}
 	else if(titleStyle == MV_CLOSE_NO_AUDIO)
 	{
 		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoAudio.png"]];
-		[driverNameButton setFrame:CGRectMake(xRight - 160, 0, 115, 16)];
+		[movieNameButton setFrame:CGRectMake(xRight - 160, 0, 115, 16)];
 		[movieTypeButton setFrame:CGRectMake(xRight - 160, 16, 115, 16)];
 		[audioImage setHidden:true];
 	}
 	else if(titleStyle == MV_NO_CLOSE_NO_AUDIO)
 	{
 		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoClose.png"]];
-		[driverNameButton setFrame:CGRectMake(xRight - 125, 0, 115, 16)];
+		[movieNameButton setFrame:CGRectMake(xRight - 125, 0, 115, 16)];
 		[movieTypeButton setFrame:CGRectMake(xRight - 125, 16, 115, 16)];
 		[audioImage setHidden:true];
 	}
 	
-	[driverNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
+	[movieNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
+	
+    live = [movieSource movieForceLive] ? true : [[BasePadCoordinator Instance] liveMode];
 	
 	if(live)
 		[movieTypeButton setTitle:@"LIVE" forState:UIControlStateNormal];
 	else
 		[movieTypeButton setTitle:@"REPLAY" forState:UIControlStateNormal];
-	
-	CGRect ourBounds = [self bounds];
-	CGRect driverNameBounds = [driverNameButton bounds];
-	CGRect movieTypeBounds = [movieTypeButton bounds];
-	
+		
 	if(labelAlignment == MV_ALIGN_TOP)
 	{
 		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+		[movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 		
 		//float ytop = ourBounds.origin.y - 2;
 		//[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - movieTypeBounds.size.height, movieTypeBounds.size.width, movieTypeBounds.size.height)];
 		//ytop -= movieTypeBounds.size.height;
-		//[driverNameButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - driverNameBounds.size.height, driverNameBounds.size.width, driverNameBounds.size.height)];
+		//[movieNameButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - driverNameBounds.size.height, driverNameBounds.size.width, driverNameBounds.size.height)];
 	}
 	else
 	{
 		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+		[movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 		
 		//float ytop = ourBounds.origin.y;
-		//[driverNameButton setFrame:CGRectMake(ourBounds.origin.x - driverNameBounds.size.width - 3, ytop, driverNameBounds.size.width, driverNameBounds.size.height)];
+		//[movieNameButton setFrame:CGRectMake(ourBounds.origin.x - driverNameBounds.size.width - 3, ytop, driverNameBounds.size.width, driverNameBounds.size.height)];
 		//ytop += driverNameBounds.size.height;
 		//[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x - movieTypeBounds.size.width - 3, ytop, movieTypeBounds.size.width, movieTypeBounds.size.height)];
 	}

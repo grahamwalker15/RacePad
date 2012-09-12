@@ -15,6 +15,7 @@
 
 @interface MidasCameraViewController : MidasBaseViewController <MovieViewDelegate>
 {
+	IBOutlet UIButton * allCamerasButton;
 	IBOutlet UIButton * onboardButton;
 	IBOutlet UIButton * trackCameraButton;
 	

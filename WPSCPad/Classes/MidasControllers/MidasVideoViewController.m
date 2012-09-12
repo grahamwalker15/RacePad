@@ -137,9 +137,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	[auxMovieView1 setCloseButton:auxMovieView1CloseButton];
 	[auxMovieView2 setCloseButton:auxMovieView2CloseButton];
 	
-	[mainMovieView setDriverNameButton:mainMovieViewDriverName];
-	[auxMovieView1 setDriverNameButton:auxMovieView1DriverName];
-	[auxMovieView2 setDriverNameButton:auxMovieView2DriverName];
+	[mainMovieView setMovieNameButton:mainMovieViewDriverName];
+	[auxMovieView1 setMovieNameButton:auxMovieView1DriverName];
+	[auxMovieView2 setMovieNameButton:auxMovieView2DriverName];
 	
 	[mainMovieView setMovieTypeButton:mainMovieViewMovieType];
 	[auxMovieView1 setMovieTypeButton:auxMovieView1MovieType];
@@ -306,6 +306,14 @@ static UIImage * newButtonBackgroundImage = nil;
 			[trackZoomContainer setHidden:false];
 		}
 	}
+    else
+    {
+        [trackZoomContainer setHidden:true];
+        [[RacePadCoordinator Instance] SetViewHidden:trackZoomView];
+        
+        [trackMapView setHidden:true];
+        [[RacePadCoordinator Instance] SetViewHidden:trackMapView];
+    }
 	
 	// GG - COMMENT OUT LEADERBOARD : if(displayLeaderboard)
 	// GG - COMMENT OUT LEADERBOARD : {
@@ -564,7 +572,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	CGRect topViewRect = CGRectMake(716, 54,308,174);
 	CGRect mapInsetRect = CGRectMake(0, 54,308,260);
 	
-	CGRect mainMovieViewRect = [mainMovieView frame];
 	CGRect auxMovieView1Rect = [auxMovieView1 frame];
 	CGRect auxMovieView2Rect = [auxMovieView2 frame];
 	
@@ -1825,7 +1832,6 @@ static UIImage * newButtonBackgroundImage = nil;
 	}
 	else if(leftButtonOffset > 1 && leftPopupX < 10)
 	{
-		float popupCentre = (rightPopupX + leftPopupX) / 2;
 		leftButtonOffset = 0.0;
 	}
 	

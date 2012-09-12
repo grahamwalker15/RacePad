@@ -27,12 +27,16 @@
 		
 	[movieSelectorView SetBackgroundAlpha:0.0];
 	[movieSelectorView setVertical:true];
+	[movieSelectorView setFilterString:nil];
 	
 	[self addTapRecognizerToView:movieSelectorView];
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
 	self.titleLabel.text = NSLocalizedString(@"midas.cameras.title", @"Cameras popup title");
+    
+    [allCamerasButton setSelected:true];
+    
 }
 
 
@@ -123,5 +127,18 @@
 
 -(IBAction)buttonPressed:(id)sender
 {
+    [allCamerasButton setSelected:false];
+    [onboardButton setSelected:false];
+    [trackCameraButton setSelected:false];
+
+    if(sender == allCamerasButton)
+        [movieSelectorView setFilterString:nil];
+    else if(sender == onboardButton)
+        [movieSelectorView setFilterString:@"ONBOARD"];
+    else if(sender == trackCameraButton)
+        [movieSelectorView setFilterString:@"TRACK"];
+    
+    [movieSelectorView ScrollToRow:-1]; // Forces it to top and requests redraw
+    [(UIButton *)sender setSelected:true];
 }
 @end

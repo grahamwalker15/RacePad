@@ -203,7 +203,6 @@
 		 // Completion handler block.
 		 
 		 // Check whether we're on the main thread
-		 bool onMainThread = [NSThread isMainThread];
 		 
 		 // Ignore this movie if we've called unload in the meantime
 		 NSError *error = nil;
@@ -618,10 +617,12 @@
 
 - (void) movieGotoTime:(float)time
 {
-	if(movieForceLive && !moviePlaying && !moviePlayPending)
-	{
-		[self moviePrepareToPlayLive];
-		return;
+	if(movieForceLive)
+    {
+        if(!moviePlaying && !moviePlayPending && !movieGoLivePending)
+            [self moviePrepareToPlayLive];
+        
+        return;
 	}
 	
 	movieInLiveMode = false;
@@ -751,7 +752,10 @@
 	
 	if(movieSeekable && movieActive)
 	{
-		[moviePlayer seekToTime:kCMTimePositiveInfinity];
+        if(movieType == MOVIE_TYPE_ARCHIVE_)
+            [moviePlayer seekToTime:kCMTimeZero];
+       else
+            [moviePlayer seekToTime:kCMTimePositiveInfinity];
 		
 		movieSeekPending = false;
 		moviePausedInPlace = false;
@@ -855,9 +859,6 @@
 
 - (void) timeObserverCallback:(CMTime) cmTime
 {
-	// Check whether we're on the main thread
-	bool onMainThread = [NSThread isMainThread];
-	
 	if(moviePlayerObserver)
 	{
 		AVPlayerItemStatus status = [moviePlayer status];
@@ -905,9 +906,7 @@
 	if(!object)
 		return;
 	
- 	// Check whether we're on the main thread
-	bool onMainThread = [NSThread isMainThread];
-	
+
 	if (object == moviePlayerItem)
 	{
 		if([keyPath isEqualToString:@"status"])
@@ -998,8 +997,6 @@
 
 -(void)playerItemDidReachEnd:(NSNotification *)notification
 {
-	bool onMainThread = [NSThread isMainThread];
-	
 	AVPlayerItem *player = [notification object];
 	
 	if(player == moviePlayerItem)	// Should always be
@@ -1040,7 +1037,7 @@
 	}
 	else
 	{
-		if(!looping && movieType == MOVIE_TYPE_ARCHIVE_ || movieType == MOVIE_TYPE_VOD_STREAM_ || ![[BasePadCoordinator Instance] liveMode])
+		if(!looping && (movieType == MOVIE_TYPE_ARCHIVE_ || movieType == MOVIE_TYPE_VOD_STREAM_ || ![[BasePadCoordinator Instance] liveMode]))
 			[self movieGotoTime:currentTime];
 		
 		if([[BasePadCoordinator Instance] playing])
@@ -1108,7 +1105,7 @@
 		playStartTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(playStartTimerExpired:) userInfo:nil repeats:NO];
 		
 		if(parentMovieView)
-			[parentMovieView showLoadingIndicators];
+			[parentMovieView showMovieLoading];
 	}
 }
 
@@ -1133,7 +1130,7 @@
 	}
 	
 	if(parentMovieView)
-		[parentMovieView hideLoadingIndicators];
+		[parentMovieView hideMovieLoading];
 }
 
 - (void) playStartTimerExpired: (NSTimer *)theTimer
@@ -1149,7 +1146,7 @@
 	[self movieResyncLive];
 	
 	if(parentMovieView)
-		[parentMovieView hideLoadingIndicators];
+		[parentMovieView hideMovieLoading];
 	
 	playStartTimer = nil;
 	

@@ -1215,12 +1215,13 @@ static BasePadCoordinator * instance_ = nil;
 	
 	BasePadTimeController * time_controller = [BasePadTimeController Instance];
 		
-	if([time_controller displayed]) {
+	if([time_controller displayed])
+    {
 		if ( [view_controller wantTimeControls] )
 			[time_controller displayInViewController:view_controller Animated:false];
 		else
 			[time_controller setDisplayed:NO];
-	}
+    }
 }
 
 -(void)ReleaseViewController:(BasePadViewController *)view_controller

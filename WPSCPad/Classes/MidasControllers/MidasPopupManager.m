@@ -410,7 +410,7 @@ static MidasVIPManager * vipInstance_ = nil;
 	if(hiding)
 		return;
 	
-	parentViewController = [viewController retain];
+	parentViewController = (BasePadViewController <MidasPopupParentDelegate>  *)[viewController retain];
 	
 	[managedViewController onDisplay];
 	

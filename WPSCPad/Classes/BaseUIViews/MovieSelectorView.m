@@ -11,6 +11,7 @@
 @implementation MovieSelectorView
 
 @synthesize vertical;
+@synthesize filterString;
 
 - (id)initWithCoder:(NSCoder*)coder
 {    
@@ -40,7 +41,7 @@
 - (int) RowCount
 {
 	if(vertical)
-		return [[BasePadMedia Instance] movieSourceCount];
+		return [self GetFilteredMovieCount];
 	else
 		return 2;
 }
@@ -50,21 +51,18 @@
 	if(vertical)
 		return 1;
 	else
-		return [[BasePadMedia Instance] movieSourceCount];
+		return [self GetFilteredMovieCount];
 }
 
 - (int) RowHeight:(int)row
 {
 	if(vertical)
 	{
-		return 150;
+		return [self ContentRowHeight:row] + 10;
 	}
 	else 
 	{
-		if(row == 0)
-			return 50;
-		else
-			return 20;
+		return [self ContentRowHeight:row];
 	}
 }
 
@@ -77,7 +75,7 @@
 	else 
 	{
 		if(row == 0)
-			return 50;
+            return (int) self.bounds.size.height - 20;
 		else
 			return 20;
 	}
@@ -88,7 +86,7 @@
 	if(vertical)
 		return self.bounds.size.width;
 	else
-		return 80;
+		return (int) ((self.bounds.size.height - 20) * 4 / 3);
 }
 
 - (int) ColumnType:(int)col;
@@ -128,20 +126,20 @@
 	
 	if(vertical)
 	{
-		BasePadVideoSource * movieSource = [[BasePadMedia Instance] movieSource:row];
+		BasePadVideoSource * movieSource = [self GetMovieSourceAtIndex:row];
 		if(movieSource)
 		{
-			return [movieSource movieTag];
+			return [movieSource movieName];
 		}
 	}
 	else
 	{
 		if(row == 1)
 		{
-			BasePadVideoSource * movieSource = [[BasePadMedia Instance] movieSource:col];
+			BasePadVideoSource * movieSource = [self GetMovieSourceAtIndex:col];
 			if(movieSource)
 			{
-				return [movieSource movieTag];
+				return [movieSource movieName];
 			}
 		}
 	}
@@ -151,18 +149,18 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	{
-		int index = vertical ? row : col;
-		
-		BasePadVideoSource * movieSource = [[BasePadMedia Instance] movieSource:index];
-		if(row < 3 && movieSource)
-		{
-			UIImage * thumbnail = [movieSource movieThumbnail];
+    /*
+    int index = vertical ? row : col;
+    
+    BasePadVideoSource * movieSource = [self GetMovieSourceAtIndex:index];
+    if(row < 3 && movieSource)
+    {
+        UIImage * thumbnail = [movieSource movieThumbnail];
 			
-			if(thumbnail)
-				return thumbnail;
-		}
+        if(thumbnail)
+            return thumbnail;
 	}
+    */
 
 	return [UIImage imageNamed:@"NoCameraThumbnail.png"];
 }
@@ -240,9 +238,80 @@
 	}
 }
 
+- (int) GetFilteredMovieCount
+{
+    int movie_count = 0;
+
+    for (int i = 0 ; i < [[BasePadMedia Instance] movieSourceCount] ; i++)
+    {
+        BasePadVideoSource * source = [[BasePadMedia Instance] movieSource:i];
+        if(source)
+        {
+            if(![source movieForceLive])
+            {
+                if(filterString && [filterString length] > 0)
+                {
+                    NSRange filterRange = [[source movieTag] rangeOfString:filterString];
+                    if(filterRange.length != 0)
+                    {
+                        movie_count++;
+                    }
+                }
+                else
+                {
+                    movie_count++;
+                }
+            }
+        }
+    }
+    
+    return movie_count;
+    
+}
+
 - (BasePadVideoSource *) GetMovieSourceAtIndex:(int)index
-{	
-	return [[BasePadMedia Instance] movieSource:index];
+{
+    int movie_index = -1;
+    int found_index = -1;
+    
+    for (int i = 0 ; i < [[BasePadMedia Instance] movieSourceCount] ; i++)
+    {
+        BasePadVideoSource * source = [[BasePadMedia Instance] movieSource:i];
+        if(source)
+        {
+            if(![source movieForceLive])
+            {
+                if(filterString && [filterString length] > 0)
+                {
+                    NSRange filterRange = [[source movieTag] rangeOfString:filterString];
+                    if(filterRange.length != 0)
+                    {
+                        movie_index++;
+                        if(movie_index == index)
+                        {
+                            found_index = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    movie_index++;
+                    if(movie_index == index)
+                    {
+                        found_index = i;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    if(found_index >= 0)
+        return [[BasePadMedia Instance] movieSource:found_index];
+    else
+        return nil;
+    
 }
 
 
