@@ -111,7 +111,7 @@ CGPoint const LogoEndPoint;
 		_countdownTimer = [[MidasCountdownTimer alloc] initWithTimeIntervalToEvent:timeInterval];
 		
 		__weak MidasStartViewController *weakSelf = self;
-		_countdownTimer.timeChangedHandler = ^(NSUInteger days, NSUInteger hours, NSUInteger minutes, NSUInteger seconds) {
+		_countdownTimer.timeChangedHandler = ^(NSInteger days, NSInteger hours, NSInteger minutes, NSInteger seconds) {
 			weakSelf.countdownDayLabel.text = [NSString stringWithFormat:@"%.2d", days];
 			weakSelf.countdownHourLabel.text = [NSString stringWithFormat:@"%.2d", hours];
 			weakSelf.countdownMinuteLabel.text = [NSString stringWithFormat:@"%.2d", minutes];

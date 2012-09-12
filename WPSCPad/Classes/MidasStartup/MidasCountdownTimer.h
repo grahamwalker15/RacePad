@@ -12,7 +12,7 @@
 
 - (id)initWithTimeIntervalToEvent:(NSTimeInterval)timeInterval;
 
-@property (nonatomic, copy) void(^timeChangedHandler) (NSUInteger days, NSUInteger hours, NSUInteger minutes, NSUInteger seconds);
+@property (nonatomic, copy) void(^timeChangedHandler) (NSInteger days, NSInteger hours, NSInteger minutes, NSInteger seconds);
 @property (nonatomic, copy) void(^eventDateHandler) ();
 
 @end
