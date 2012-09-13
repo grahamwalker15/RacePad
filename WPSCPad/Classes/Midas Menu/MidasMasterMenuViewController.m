@@ -18,6 +18,12 @@ NSString *const MidasMasterMenuViewControllerF1StoreURLString = @"http://f1store
 	return [self initWithNibName:@"MidasMasterMenuView" bundle:nil];
 }
 
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	[TestFlight passCheckpoint:@"Main Menu"];
+}
+
 -(IBAction) buttonPressed:(id)sender
 {
 	if(associatedManager)
