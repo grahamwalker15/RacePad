@@ -13,6 +13,7 @@
 #import <DCTCoreDataStack/DCTCoreDataStack.h>
 #import <DCTTableViewDataSources/DCTTableViewDataSources.h>
 #import <DCTPullToRefresh/DCTPullToRefresh.h>
+#import "TestFlight.h"
 
 #import "MidasSocialViewController.h"
 #import "MidasFacebookProfileImageCache.h"
@@ -81,6 +82,8 @@
 	_dataSource.tableView = self.commentTableView;
 	_dataSource.insertionAnimation = UITableViewRowAnimationNone;
 	self.commentTableView.dataSource = _dataSource;
+
+	[TestFlight passCheckpoint:@"Facebook"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -11,6 +11,7 @@
 #import <DCTPullToRefresh/DCTPullToRefresh.h>
 #import <DCTTableViewDataSources/DCTTableViewDataSources.h>
 #import <DCTCoreDataStack/DCTCoreDataStack.h>
+#import "TestFlight.h"
 
 #import "MidasTwitter.h"
 #import "MidasTweetTableViewCell.h"
@@ -74,6 +75,8 @@
 	_dataSource.tableView = self.commentTableView;
 	_dataSource.insertionAnimation = UITableViewRowAnimationNone;
 	self.commentTableView.dataSource = _dataSource;
+	
+	[TestFlight passCheckpoint:@"Twitter"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

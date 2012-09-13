@@ -9,6 +9,8 @@
 #import "MidasFollowDriverViewController.h"
 #import "MidasPopupManager.h"
 
+#import "TestFlight.h"
+
 #import "RacePadDatabase.h"
 #import "RacePadCoordinator.h"
 #import "MidasVoting.h"
@@ -100,6 +102,8 @@
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
 	self.titleLabel.text = NSLocalizedString(@"midas.driver.title", @"Follow driver popup title");
+
+	[TestFlight passCheckpoint:@"Follow Driver"];
 }
 
 

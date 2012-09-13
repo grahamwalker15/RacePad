@@ -8,6 +8,7 @@
 
 #import "MidasHelpViewController.h"
 #import "MidasHelpTableViewCell.h"
+#import "TestFlight.h"
 
 @interface MidasHelpViewController () <UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,6 +49,8 @@
 	_dataSource.tableView = self.tableView;
 	
 	self.pageControl.numberOfPages = [_helpArray count];
+
+	[TestFlight passCheckpoint:@"Help"];
 }
 
 - (IBAction)pageControlDidChangeValue:(id)sender {

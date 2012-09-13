@@ -14,6 +14,7 @@
 #import "MidasVideoViewController.h"
 #import "MovieView.h"
 #import "RacePadDatabase.h"
+#import "TestFlight.h"
 
 @interface MidasAlertsViewController ()
 @property (nonatomic, unsafe_unretained) IBOutlet UIImageView *titleImageView;
@@ -52,6 +53,8 @@
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
 	self.titleLabel.text = NSLocalizedString(@"midas.incidents.title", @"Incidents popup title");
+	
+	[TestFlight passCheckpoint:@"Incidents"];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -7,6 +7,7 @@
 //
 
 #import "MidasCameraViewController.h"
+#import "TestFlight.h"
 
 #import "MidasVideoViewController.h"
 #import "MidasPopupManager.h"
@@ -36,7 +37,8 @@
 	self.titleLabel.text = NSLocalizedString(@"midas.cameras.title", @"Cameras popup title");
     
     [allCamerasButton setSelected:true];
-    
+
+	[TestFlight passCheckpoint:@"Cameras"];
 }
 
 

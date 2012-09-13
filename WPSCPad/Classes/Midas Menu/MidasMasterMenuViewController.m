@@ -8,6 +8,7 @@
 
 #import "MidasMasterMenuViewController.h"
 #import "MidasWebViewController.h"
+#import "TestFlight.h"
 
 NSString *const MidasMasterMenuViewControllerF1StoreURLString = @"http://f1store.formula1.com/stores/f1/";
 
@@ -39,6 +40,7 @@ NSString *const MidasMasterMenuViewControllerF1StoreURLString = @"http://f1store
 		viewController.modalPresentationStyle = UIModalPresentationPageSheet;
 		viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 		[[associatedManager parentViewController] presentViewController:viewController animated:YES completion:NULL];
+		[TestFlight passCheckpoint:@"F1 Store"];
 	}
 }
 

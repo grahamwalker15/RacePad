@@ -8,6 +8,7 @@
 
 #import "MidasVIPViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "TestFlight.h"
 
 @interface MidasVIPViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
@@ -33,6 +34,8 @@
 	
 	self.videoScrollView.contentSize = self.videoContent.bounds.size;
 	[self.videoScrollView addSubview:self.videoContent];
+
+	[TestFlight passCheckpoint:@"VIP"];
 }
 
 - (IBAction)play:(UIControl *)sender {
