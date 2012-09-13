@@ -14,6 +14,21 @@
 
 @implementation RacePadClientSocket
 
+- (void) sendMetric :(int) metric
+{
+	int messageLength = sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_CLIENT_METRIC);
+	iData[2] = htonl(metric);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	[self SendData: data];
+	CFRelease(data);
+	free (buf);
+}
+
 - (void)RequestEvent
 {
 	[self SimpleCommand:RPCS_REQUEST_EVENT];
@@ -87,15 +102,16 @@
 	free (buf);
 }
 
-- (void) sendMetric :(int) metric
+- (void) streamDriverView :(NSString *) driver
 {
-	int messageLength = sizeof(uint32_t) * 3;
+	int messageLength = [driver length] + sizeof(uint32_t) * 3;
 	unsigned char *buf = malloc(messageLength);
 	int *iData = (int *)buf;
 	
 	iData[0] = htonl(messageLength);
-	iData[1] = htonl(RPCS_CLIENT_METRIC);
-	iData[2] = htonl(metric);
+	iData[1] = htonl(RPCS_STREAM_DRIVER_VIEW);
+	iData[2] = htonl([driver length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	[self SendData: data];
 	CFRelease(data);

@@ -50,6 +50,7 @@ enum ClientCommands {
 	RPCS_DRIVER_THUMBS_UP,			//42
 	RPCS_DRIVER_THUMBS_DOWN,		//43
 	RPCS_CLIENT_METRIC,				//44
+	RPCS_STREAM_DRIVER_VIEW,		//45
 };
 
 @interface RacePadClientSocket : BasePadClientSocket
@@ -67,6 +68,7 @@ enum ClientCommands {
 - (void) RequestCars;
 - (void) StreamCars;
 - (void) requestDriverView :(NSString *) driver;
+- (void) streamDriverView :(NSString *) driver;
 - (void) RequestPitWindowBase;
 - (void) RequestPitWindow;
 - (void) StreamPitWindow;

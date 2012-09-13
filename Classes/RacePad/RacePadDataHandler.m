@@ -116,13 +116,21 @@
 			break;
 		}
 			
-		case RPSC_DRIVER_VIEW_: // Driver view
+		case RPSC_DRIVER_VIEW_: // Driver view (whole page_
 		{
 			TableData *driver = [[RacePadDatabase Instance] driverData];
 			[driver loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LAP_LIST_VIEW_];
 			break;
 		}
+		case RPSC_UPDATE_DRIVER_VIEW_: // Driver view (Updates)
+		{
+			TableData *driver = [[RacePadDatabase Instance] driverData];
+			[driver updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LAP_LIST_VIEW_];
+			break;
+		}
+
 		case RPSC_LAP_COUNT_:
 		{
 			int count = [stream PopInt];
