@@ -34,7 +34,9 @@
 	
 	__weak DCTImageCache *weakImageCache = _imageCache;
 	[_imageCache setImageFetcher:^(NSString *username, CGSize size) {
-		
+
+		if ([username length] == 0) return;
+
 		if (!CGSizeEqualToSize(size, CGSizeZero)) {
 			[weakImageCache fetchImageForKey:username size:CGSizeZero handler:^(UIImage *image) {
 				UIImage *resizedImage = [image dct_imageWithSize:size contentMode:UIViewContentModeScaleAspectFill];
