@@ -82,8 +82,6 @@
 	_dataSource.tableView = self.commentTableView;
 	_dataSource.insertionAnimation = UITableViewRowAnimationNone;
 	self.commentTableView.dataSource = _dataSource;
-
-	[TestFlight passCheckpoint:@"Facebook"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,6 +90,11 @@
 	self.midas_socialViewController.backgroundImage = self.backgroundImageView.image;
 	[self _refreshComments];
 	[self _updateLoginState];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[TestFlight passCheckpoint:@"Facebook"];
 }
 
 #pragma mark - IBActions

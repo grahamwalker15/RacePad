@@ -75,8 +75,6 @@
 	_dataSource.tableView = self.commentTableView;
 	_dataSource.insertionAnimation = UITableViewRowAnimationNone;
 	self.commentTableView.dataSource = _dataSource;
-	
-	[TestFlight passCheckpoint:@"Twitter"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,6 +84,13 @@
 	[self _refreshComments];
 	[self _updateLoginState];
 }
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[TestFlight passCheckpoint:@"Twitter"];
+}
+
 
 #pragma mark - IBActions
 

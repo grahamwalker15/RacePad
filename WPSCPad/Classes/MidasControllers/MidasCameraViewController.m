@@ -37,7 +37,11 @@
 	self.titleLabel.text = NSLocalizedString(@"midas.cameras.title", @"Cameras popup title");
     
     [allCamerasButton setSelected:true];
+}
 
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
 	[TestFlight passCheckpoint:@"Cameras"];
 }
 

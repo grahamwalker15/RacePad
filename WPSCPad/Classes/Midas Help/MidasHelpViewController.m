@@ -49,7 +49,11 @@
 	_dataSource.tableView = self.tableView;
 	
 	self.pageControl.numberOfPages = [_helpArray count];
+}
 
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
 	[TestFlight passCheckpoint:@"Help"];
 }
 

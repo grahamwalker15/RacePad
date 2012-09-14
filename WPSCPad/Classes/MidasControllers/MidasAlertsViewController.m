@@ -53,8 +53,6 @@
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
 	self.titleLabel.text = NSLocalizedString(@"midas.incidents.title", @"Incidents popup title");
-	
-	[TestFlight passCheckpoint:@"Incidents"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +62,11 @@
 	[super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	[TestFlight passCheckpoint:@"Incidents"];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

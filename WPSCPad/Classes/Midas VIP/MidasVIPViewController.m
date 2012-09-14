@@ -34,9 +34,14 @@
 	
 	self.videoScrollView.contentSize = self.videoContent.bounds.size;
 	[self.videoScrollView addSubview:self.videoContent];
+}
 
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[TestFlight passCheckpoint:@"VIP"];
 }
+
 
 - (IBAction)play:(UIControl *)sender {
 	

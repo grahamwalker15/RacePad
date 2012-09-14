@@ -18,9 +18,9 @@ NSString *const MidasMasterMenuViewControllerF1StoreURLString = @"http://f1store
 	return [self initWithNibName:@"MidasMasterMenuView" bundle:nil];
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
 	[TestFlight passCheckpoint:@"Main Menu"];
 }
 
