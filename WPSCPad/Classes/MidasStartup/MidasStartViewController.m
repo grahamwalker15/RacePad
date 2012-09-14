@@ -22,7 +22,13 @@ CGPoint const LogoEndPoint;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIImageView *manView;
 @property (weak, nonatomic) IBOutlet UIImageView *carView;
-@property (weak, nonatomic) IBOutlet UIImageView *logoView;
+
+@property (weak, nonatomic) IBOutlet UIView *logoView;
+@property (weak, nonatomic) IBOutlet UILabel *logoWatchLabel;
+@property (weak, nonatomic) IBOutlet UILabel *logoShareLabel;
+@property (weak, nonatomic) IBOutlet UILabel *logoPlayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *logoChatLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *countdownDayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countdownHourLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countdownMinuteLabel;
@@ -53,6 +59,11 @@ CGPoint const LogoEndPoint;
 	self.loginTextFieldValidator.returnHandler = ^{
 		[weakSelf login:nil];
 	};
+
+	self.logoChatLabel.text = NSLocalizedString(@"midas.start.logo.chat", @"Chat label in start up");
+	self.logoPlayLabel.text = NSLocalizedString(@"midas.start.logo.play", @"Play label in start up");
+	self.logoWatchLabel.text = NSLocalizedString(@"midas.start.logo.watch", @"Watch label in start up");
+	self.logoShareLabel.text = NSLocalizedString(@"midas.start.logo.share", @"Share label in start up");
 }
 
 - (void)viewWillAppear:(BOOL)animated
