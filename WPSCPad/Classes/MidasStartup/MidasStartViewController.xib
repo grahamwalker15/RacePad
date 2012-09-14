@@ -66,7 +66,7 @@
 						<string key="NSFrame">{{-317, 342}, {1800, 542}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="869634901"/>
+						<reference key="NSNextKeyView" ref="706075691"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<float key="IBUIAlpha">0.0</float>
@@ -85,7 +85,7 @@
 						<string key="NSFrameSize">{1024, 768}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="326846070"/>
+						<reference key="NSNextKeyView" ref="869634901"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -278,7 +278,7 @@
 							<object class="IBUILabel" id="609261311">
 								<reference key="NSNextResponder" ref="869634901"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 0}, {92, 57}}</string>
+								<string key="NSFrameSize">{102, 57}</string>
 								<reference key="NSSuperview" ref="869634901"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="388093738"/>
@@ -377,7 +377,7 @@
 								<string key="NSFrame">{{10, 225}, {92, 28}}</string>
 								<reference key="NSSuperview" ref="869634901"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="706075691"/>
+								<reference key="NSNextKeyView" ref="326846070"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -1183,11 +1183,11 @@
 						<string key="countdownView">UIView</string>
 						<string key="loginTextFieldValidator">DCTTextFieldValidator</string>
 						<string key="loginView">UIView</string>
-						<string key="logoChatLabel">UIView</string>
-						<string key="logoPlayLabel">UIView</string>
-						<string key="logoShareLabel">UIView</string>
+						<string key="logoChatLabel">UILabel</string>
+						<string key="logoPlayLabel">UILabel</string>
+						<string key="logoShareLabel">UILabel</string>
 						<string key="logoView">UIView</string>
-						<string key="logoWatchLabel">UIView</string>
+						<string key="logoWatchLabel">UILabel</string>
 						<string key="manView">UIImageView</string>
 						<string key="particleView">UIView</string>
 						<string key="passwordField">UITextField</string>
@@ -1232,15 +1232,15 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="logoChatLabel">
 							<string key="name">logoChatLabel</string>
-							<string key="candidateClassName">UIView</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="logoPlayLabel">
 							<string key="name">logoPlayLabel</string>
-							<string key="candidateClassName">UIView</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="logoShareLabel">
 							<string key="name">logoShareLabel</string>
-							<string key="candidateClassName">UIView</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="logoView">
 							<string key="name">logoView</string>
@@ -1248,7 +1248,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="logoWatchLabel">
 							<string key="name">logoWatchLabel</string>
-							<string key="candidateClassName">UIView</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="manView">
 							<string key="name">manView</string>
@@ -1279,10 +1279,6 @@
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
 			<real value="1280" key="NS.object.0"/>
-		</object>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
