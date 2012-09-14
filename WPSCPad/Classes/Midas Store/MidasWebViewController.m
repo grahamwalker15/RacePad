@@ -11,12 +11,12 @@
 @interface MidasWebViewController ()
 @property (nonatomic, weak) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic, weak) IBOutlet UIWebView *webView;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *backBarButtonItem;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *forwardBarButtonItem;
 @end
 
 @implementation MidasWebViewController {
 	__strong NSURL *_URL;
+	__strong UIBarButtonItem *_backBarButtonItem;
+	__strong UIBarButtonItem *_forwardBarButtonItem;
 }
 
 #pragma mark - NSObject
@@ -69,8 +69,8 @@
 
 - (void)_updateButtonStates {
 	self.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-	self.backBarButtonItem.enabled = self.webView.canGoBack;
-	self.forwardBarButtonItem.enabled = self.webView.canGoForward;
+	_backBarButtonItem.enabled = self.webView.canGoBack;
+	_forwardBarButtonItem.enabled = self.webView.canGoForward;
 }
 
 #pragma mark - UIWebViewDelegate

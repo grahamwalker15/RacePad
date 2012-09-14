@@ -65,16 +65,10 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIBarStyle">2</int>
-						<array key="IBUIItems">
+						<array class="NSMutableArray" key="IBUIItems">
 							<object class="IBUINavigationItem" id="225306125">
 								<reference key="IBUINavigationBar" ref="939021372"/>
 								<string key="IBUITitle">Title</string>
-								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="277034480">
-									<string key="IBUITitle">Back</string>
-									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-									<int key="IBUIStyle">1</int>
-									<reference key="IBUINavigationItem" ref="225306125"/>
-								</object>
 								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="801233522">
 									<string key="IBUITitle">Done</string>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -127,14 +121,6 @@
 						<reference key="destination" ref="593767850"/>
 					</object>
 					<int key="connectionID">15</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">backBarButtonItem</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="277034480"/>
-					</object>
-					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -198,15 +184,9 @@
 						<int key="objectID">12</int>
 						<reference key="object" ref="225306125"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="277034480"/>
 							<reference ref="801233522"/>
 						</array>
 						<reference key="parent" ref="939021372"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">7</int>
-						<reference key="object" ref="277034480"/>
-						<reference key="parent" ref="225306125"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
@@ -225,7 +205,6 @@
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -239,20 +218,10 @@
 					<string key="className">MidasWebViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="backBarButtonItem">UIBarButtonItem</string>
-						<string key="forwardBarButtonItem">UIBarButtonItem</string>
 						<string key="navigationBar">UINavigationBar</string>
 						<string key="webView">UIWebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="backBarButtonItem">
-							<string key="name">backBarButtonItem</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="forwardBarButtonItem">
-							<string key="name">forwardBarButtonItem</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="navigationBar">
 							<string key="name">navigationBar</string>
 							<string key="candidateClassName">UINavigationBar</string>
