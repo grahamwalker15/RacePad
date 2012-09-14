@@ -11,6 +11,7 @@
 @implementation MidasHelpTableViewCell
 
 - (void)configureWithObject:(NSDictionary *)dictionary {
+	self.helpTitleLabel.text = NSLocalizedString([dictionary objectForKey:@"title"], @"title");
 	self.helpImageView.image = [UIImage imageNamed:[dictionary objectForKey:@"image"]];
 	self.helpTextLabel.text = [dictionary objectForKey:@"text"];
 }
