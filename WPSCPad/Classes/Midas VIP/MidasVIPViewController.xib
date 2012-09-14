@@ -38,26 +38,10 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">301</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIImageView" id="1030284159">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">290</int>
-						<string key="NSFrameSize">{469, 53}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="210609730"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">VIPTopBar.png</string>
-						</object>
-					</object>
 					<object class="IBUIImageView" id="75228104">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{0, 233}, {469, 60}}</string>
+						<string key="NSFrame">{{0, 180}, {469, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="331699557"/>
@@ -73,7 +57,7 @@
 					<object class="IBUIImageView" id="689392490">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{0, 53}, {184, 180}}</string>
+						<string key="NSFrameSize">{184, 180}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="135805933"/>
@@ -90,7 +74,7 @@
 					<object class="IBUIImageView" id="767058042">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{184, 53}, {264, 180}}</string>
+						<string key="NSFrame">{{184, 0}, {264, 180}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="316574973"/>
@@ -107,7 +91,7 @@
 					<object class="IBUIImageView" id="335507108">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{448, 53}, {21, 180}}</string>
+						<string key="NSFrame">{{448, 0}, {21, 180}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="75228104"/>
@@ -124,7 +108,7 @@
 					<object class="IBUIScrollView" id="316574973">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{184, 53}, {264, 180}}</string>
+						<string key="NSFrame">{{184, 0}, {264, 180}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="616079622"/>
@@ -141,7 +125,7 @@
 					<object class="IBUIImageView" id="1035016325">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{442, 53}, {6, 180}}</string>
+						<string key="NSFrame">{{442, 0}, {6, 180}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="335507108"/>
@@ -157,7 +141,7 @@
 					<object class="IBUIImageView" id="616079622">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{184, 53}, {6, 180}}</string>
+						<string key="NSFrame">{{184, 0}, {6, 180}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1035016325"/>
@@ -170,27 +154,10 @@
 							<string key="NSResourceName">VIPVideoStripShadowLeft.png</string>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="210609730">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrame">{{20, 45}, {11, 8}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="689392490"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">VIPTopBarIndicatorArrow.png</string>
-						</object>
-					</object>
 					<object class="IBUILabel" id="135805933">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 61}, {156, 164}}</string>
+						<string key="NSFrame">{{20, 8}, {156, 164}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="767058042"/>
@@ -222,7 +189,7 @@
 					<object class="IBUIImageView" id="1019303730">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">269</int>
-						<string key="NSFrame">{{219, 282}, {30, 1}}</string>
+						<string key="NSFrame">{{219, 229}, {30, 1}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -238,7 +205,7 @@
 					<object class="IBUILabel" id="331699557">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{20, 248}, {428, 30}}</string>
+						<string key="NSFrame">{{20, 195}, {428, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1019303730"/>
@@ -274,10 +241,10 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrameSize">{469, 293}</string>
+				<string key="NSFrameSize">{469, 240}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="1030284159"/>
+				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MSAwAA</bytes>
@@ -758,7 +725,6 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="1030284159"/>
 							<reference ref="75228104"/>
 							<reference ref="689392490"/>
 							<reference ref="335507108"/>
@@ -766,7 +732,6 @@
 							<reference ref="316574973"/>
 							<reference ref="1035016325"/>
 							<reference ref="616079622"/>
-							<reference ref="210609730"/>
 							<reference ref="135805933"/>
 							<reference ref="1019303730"/>
 							<reference ref="331699557"/>
@@ -783,11 +748,6 @@
 						<int key="objectID">-2</int>
 						<reference key="object" ref="975951072"/>
 						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="1030284159"/>
-						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
@@ -822,11 +782,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">12</int>
 						<reference key="object" ref="616079622"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">13</int>
-						<reference key="object" ref="210609730"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -981,7 +936,6 @@
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -996,7 +950,6 @@
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1098,8 +1051,6 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="BottomHeading.png">{27, 60}</string>
 			<string key="SocialMenuGrabBar.png">{30, 1}</string>
-			<string key="VIPTopBar.png">{1, 53}</string>
-			<string key="VIPTopBarIndicatorArrow.png">{11, 8}</string>
 			<string key="VIPVideoStripPanelLeft.png">{184, 180}</string>
 			<string key="VIPVideoStripPanelMiddle.png">{264, 180}</string>
 			<string key="VIPVideoStripPanelRight.png">{21, 180}</string>
