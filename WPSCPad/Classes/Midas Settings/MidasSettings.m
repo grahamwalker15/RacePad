@@ -14,6 +14,9 @@ typedef enum : NSUInteger {
 	MidasSettingsStatusHasSettings
 } MidasSettingsStatus;
 
+NSString *const MidasVLSServerAddress = @"http://31.221.40.202/videofile";
+NSString *const MidasVLSFilename = @"09_11Mza-Race-video.vls";
+
 NSString *const MidasSettingsServerAddress = @"http://31.221.40.202/settings";
 NSString *const MidasSettingsFacebookKey = @"fb_url";
 NSString *const MidasSettingsTwitterKey = @"tw_hash";
@@ -49,41 +52,54 @@ NSString *const MidasSettingsTwitterDefault = @"#f1";
 	
 - (void)fetchSettingsWithHandler:(void(^)())handler {
 	if (handler != NULL) [_handlers addObject:handler];
-	
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:MidasSettingsServerAddress]];
-	_status = MidasSettingsStatusFetching;
-	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-		
+
+	NSURLRequest *vlsRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:MidasVLSServerAddress]];
+	[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+
 		if (data) {
-			NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-			
-			_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
-			_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
-			
-			id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
-			NSNumber *timeIntervalNumber = nil;
-			
-			if ([countdownValue isKindOfClass:[NSNumber class]])
-				timeIntervalNumber = countdownValue;
-			else if ([countdownValue isKindOfClass:[NSString class]])
-				timeIntervalNumber = [NSNumber numberWithInteger:[countdownValue integerValue]];
-			
-			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
+			NSFileManager *fileManager = [NSFileManager defaultManager];
+			NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+			NSURL *URL = [documentsURL URLByAppendingPathComponent:MidasVLSFilename];
+			[fileManager removeItemAtURL:URL error:NULL];
+			[data writeToURL:URL atomically:YES];
 		}
-		
-		if (!_facebookPostID)
-			_facebookPostID = MidasSettingsFacebookDefault;
-		
-		if (!_hashtag)
-			_hashtag = MidasSettingsTwitterDefault;
-		
-		if (!_raceStartDate)
-			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
-		
-		[_handlers enumerateObjectsUsingBlock:^(void(^handler)(), NSUInteger idx, BOOL *stop) {
-			handler();
+
+		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:MidasSettingsServerAddress]];
+		_status = MidasSettingsStatusFetching;
+		[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+
+			if (data) {
+				NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+
+				_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
+				_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
+
+				id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
+				NSNumber *timeIntervalNumber = nil;
+
+				if ([countdownValue isKindOfClass:[NSNumber class]])
+					timeIntervalNumber = countdownValue;
+				else if ([countdownValue isKindOfClass:[NSString class]])
+					timeIntervalNumber = [NSNumber numberWithInteger:[countdownValue integerValue]];
+
+				_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
+			}
+
+			if (!_facebookPostID)
+				_facebookPostID = MidasSettingsFacebookDefault;
+
+			if (!_hashtag)
+				_hashtag = MidasSettingsTwitterDefault;
+
+			if (!_raceStartDate)
+				_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
+
+			[_handlers enumerateObjectsUsingBlock:^(void(^handler)(), NSUInteger idx, BOOL *stop) {
+				handler();
+			}];
+			[_handlers removeAllObjects];
+			_status = MidasSettingsStatusHasSettings;
 		}];
-		_status = MidasSettingsStatusHasSettings;
 	}];
 }
 
