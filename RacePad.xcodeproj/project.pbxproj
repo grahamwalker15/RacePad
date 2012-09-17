@@ -12,8 +12,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		4D0557A515A4524F0085F064 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0557A415A4524F0085F064 /* CoreLocation.framework */; };
-		4D0557AE15A48C4F0085F064 /* WilliamsLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D0557AC15A48C4F0085F064 /* WilliamsLogo.png */; };
-		4D0557AF15A48C4F0085F064 /* WilliamsLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D0557AD15A48C4F0085F064 /* WilliamsLogoBig.png */; };
 		4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
 		4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
 		4D1563F312898CD0000E959D /* PitWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F212898CD0000E959D /* PitWindowView.m */; };
@@ -98,6 +96,9 @@
 		7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */; };
 		7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; };
 		7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F2126379B000BD1627 /* RacePadDatabase.m */; };
+		7F3A6C8315938A840010E72D /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A6C8215938A840010E72D /* weather.png */; };
+		7F3A6C8815938D250010E72D /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A6C8715938D250010E72D /* WeatherViewController.m */; };
+		7F3A6CC015938F940010E72D /* WeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A6CBF15938F940010E72D /* WeatherView.xib */; };
 		7F3CC7211309153E006AEE61 /* InfoTeamRBR.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC7201309153E006AEE61 /* InfoTeamRBR.htm */; };
 		7F3CC74413092FE6006AEE61 /* FER.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74013092FE6006AEE61 /* FER.jpg */; };
 		7F3CC74513092FE6006AEE61 /* MCL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74113092FE6006AEE61 /* MCL.jpg */; };
@@ -520,6 +521,10 @@
 		7F3276E2126375F400BD1627 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		7F3276F1126379B000BD1627 /* RacePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDatabase.h; sourceTree = "<group>"; };
 		7F3276F2126379B000BD1627 /* RacePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDatabase.m; sourceTree = "<group>"; };
+		7F3A6C8215938A840010E72D /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weather.png; path = Images/weather.png; sourceTree = "<group>"; };
+		7F3A6C8615938D250010E72D /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		7F3A6C8715938D250010E72D /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
+		7F3A6CBF15938F940010E72D /* WeatherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WeatherView.xib; path = ResourceFiles/WeatherView.xib; sourceTree = "<group>"; };
 		7F3CC7201309153E006AEE61 /* InfoTeamRBR.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = InfoTeamRBR.htm; sourceTree = "<group>"; };
 		7F3CC74013092FE6006AEE61 /* FER.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = FER.jpg; sourceTree = "<group>"; };
 		7F3CC74113092FE6006AEE61 /* MCL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MCL.jpg; sourceTree = "<group>"; };
@@ -1170,6 +1175,8 @@
 				4D34502C12B7C33E00B15298 /* UserPin.m */,
 				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
 				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
+				7F3A6C8615938D250010E72D /* WeatherViewController.h */,
+				7F3A6C8715938D250010E72D /* WeatherViewController.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -1317,6 +1324,7 @@
 				4D34502212B7C17400B15298 /* UserPin.xib */,
 				7F9354CB12F6F18200AB1D07 /* VideoHelp.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
+				7F3A6CBF15938F940010E72D /* WeatherView.xib */,
 				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
 			);
 			name = "XIB Files";
@@ -1325,6 +1333,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F3A6C8215938A840010E72D /* weather.png */,
+				7F53D730150A253A00834E52 /* Refresh.png */,
 				7F48F196140FA62E00E293B4 /* 17-bar-chart.png */,
 				7F48F197140FA62E00E293B4 /* 66-microphone.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
@@ -1769,8 +1779,8 @@
 				4D8EBBA115013CBF00DA8303 /* UBSLogo.png in Resources */,
 				4D8EBBA215013CBF00DA8303 /* UBSLogoBig.png in Resources */,
 				7F53D731150A253A00834E52 /* Refresh.png in Resources */,
-				4D0557AE15A48C4F0085F064 /* WilliamsLogo.png in Resources */,
-				4D0557AF15A48C4F0085F064 /* WilliamsLogoBig.png in Resources */,
+				7F3A6C8315938A840010E72D /* weather.png in Resources */,
+				7F3A6CC015938F940010E72D /* WeatherView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,6 +1894,7 @@
 				7F94197C1497C03900E14090 /* BasePadAudioSource.m in Sources */,
 				7FA2332414DAA5D400EBA739 /* AnimationTimer.m in Sources */,
 				7FA2391714E2742B00EBA739 /* MovieSelectorView.m in Sources */,
+				7F3A6C8815938D250010E72D /* WeatherViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

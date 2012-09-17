@@ -73,8 +73,8 @@
 					</object>
 					<object class="IBUIButton" id="498838491">
 						<reference key="NSNextResponder" ref="869578354"/>
-						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{62, 6}, {144, 33}}</string>
+						<int key="NSvFlags">300</int>
+						<string key="NSFrame">{{62, 0}, {233, 44}}</string>
 						<reference key="NSSuperview" ref="869578354"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="830370891">
 							<int key="NSColorSpace">3</int>
@@ -98,8 +98,8 @@
 					</object>
 					<object class="IBUIButton" id="326770635">
 						<reference key="NSNextResponder" ref="869578354"/>
-						<int key="NSvFlags">301</int>
-						<string key="NSFrame">{{208, 5}, {288, 35}}</string>
+						<int key="NSvFlags">261</int>
+						<string key="NSFrame">{{253, 5}, {288, 35}}</string>
 						<reference key="NSSuperview" ref="869578354"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -117,7 +117,7 @@
 					</object>
 					<object class="IBUIButton" id="245645464">
 						<reference key="NSNextResponder" ref="869578354"/>
-						<int key="NSvFlags">-2147483356</int>
+						<int key="NSvFlags">-2147483359</int>
 						<string key="NSFrame">{{498, 10}, {30, 25}}</string>
 						<reference key="NSSuperview" ref="869578354"/>
 						<reference key="IBUIBackgroundColor" ref="830370891"/>
@@ -142,7 +142,7 @@
 					</object>
 					<object class="IBUIButton" id="855333708">
 						<reference key="NSNextResponder" ref="869578354"/>
-						<int key="NSvFlags">301</int>
+						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{538, 10}, {114, 25}}</string>
 						<reference key="NSSuperview" ref="869578354"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -161,7 +161,7 @@
 					</object>
 					<object class="IBUIButton" id="213162885">
 						<reference key="NSNextResponder" ref="869578354"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{696, 6}, {60, 33}}</string>
 						<reference key="NSSuperview" ref="869578354"/>
 						<reference key="IBUIBackgroundColor" ref="830370891"/>
@@ -521,7 +521,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>TitleBarViewController</string>
 					<string>UIResponder</string>
-					<string>{{366, 706}, {768, 44}}</string>
+					<string>{{488, 715}, {768, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwigAAA</bytes>
@@ -955,7 +955,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{12, 24}</string>
 				<string>{44, 36}</string>
-				<string>{147, 32}</string>
+				<string>{233, 44}</string>
 				<string>{24, 24}</string>
 				<string>{24, 20}</string>
 			</object>

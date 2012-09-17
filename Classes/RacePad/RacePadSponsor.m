@@ -9,6 +9,7 @@
 #import "RacePadSponsor.h"
 #import "BasePadPrefs.h"
 #import "RacePadDatabase.h"
+#import "RacePadCoordinator.h"
 
 @implementation RacePadSponsor
 
@@ -127,6 +128,8 @@ static RacePadSponsor * instance_ = nil;
 			return false;
 		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
 			return false;
+		else if(tab == RPS_WEATHER_TAB_)
+			return false;
 		
 		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
 			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
@@ -138,6 +141,8 @@ static RacePadSponsor * instance_ = nil;
 		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
 			return false;
 		else if(tab == RPS_VIDEO_TAB_ && !videoSupported)
+			return false;
+		else if(tab == RPS_WEATHER_TAB_)
 			return false;
 		
 		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
@@ -166,7 +171,10 @@ static RacePadSponsor * instance_ = nil;
 	
 		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
 			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
-					
+		
+		if ( tab == RPS_WEATHER_TAB_ )
+			return [[RacePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_;
+		
 		if ( tab == RPS_HOME_TAB_
 			|| tab == RPS_DRIVER_LIST_TAB_
 			|| tab == RPS_TRACK_MAP_TAB_

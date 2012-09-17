@@ -1065,7 +1065,15 @@ static bool statics_initialised_ = false;
 
 - (CGPoint)TransformPoint:(CGPoint)point
 {
-	return CGPointApplyAffineTransform (point, current_matrix_);	
+	float screenScale = [self contentScaleFactor];
+	CGPoint transformedPoint = CGPointApplyAffineTransform (point, current_matrix_);
+	if(screenScale > 1.0)
+	{
+		transformedPoint.x = transformedPoint.x / screenScale;
+		transformedPoint.y = transformedPoint.y / screenScale;
+	}
+	
+	return transformedPoint;
 }
 
 // Scrolling support

@@ -181,8 +181,8 @@
 	if(movieView)
 		[movieView notifyMovieAboutToShowSource:self];
 	
-	// Kick off a timer to fail if the connection doesn't get started within 15 secs
-	errorTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO];				 
+	// Kick off a timer to fail if the connection doesn't get started within 25 secs
+	errorTimer = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO];				 
 
 	loading = true;
 	

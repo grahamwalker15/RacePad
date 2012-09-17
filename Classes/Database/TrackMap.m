@@ -297,7 +297,6 @@ static UIImage *grassImage = nil;
 		free(y);
 	y = NULL;
 	
-	segmentCount = 0;
 	int i;
 	if ( segmentPaths )
 	{
@@ -306,6 +305,7 @@ static UIImage *grassImage = nil;
 		free (segmentPaths);
 	}
 	
+	segmentCount = 0;
 	segmentPaths = NULL;
 	
 }
@@ -533,7 +533,7 @@ static UIImage *grassImage = nil;
 	label = [[stream PopString] retain];
 }
 
--(void) labelPoint: (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
+-(void) getLabelPoint: (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
 {
 	float w, h;
 	[view GetStringBox:label WidthReturn: &w HeightReturn: &h];
@@ -971,7 +971,7 @@ static UIImage *grassImage = nil;
 		}
 		
 		float x, y;
-		[label labelPoint:view Scale: scale X:&x Y:&y];
+		[label getLabelPoint:view Scale:scale X:&x Y:&y];
 		CGPoint p = CGPointMake(x, y);
 		CGPoint tp = [view TransformPoint:p];
 		

@@ -141,7 +141,9 @@ static int fadeOffAfter = 8;
 			commentaryController.commentaryView.timeWindow = timeNow - showLastNSecs;
 		else
 			commentaryController.commentaryView.timeWindow = 0;
+		
 		[commentaryController.commentaryView countRows:&rowCount FirstRow:&firstRow];
+		
 		if ( ( timeNow < commentaryController.commentaryView.firstDisplayedTime && commentaryController.commentaryView.firstMessageTime < commentaryController.commentaryView.firstDisplayedTime )
 			|| ( timeNow > commentaryController.commentaryView.lastDisplayedTime && commentaryController.commentaryView.latestMessageTime > commentaryController.commentaryView.lastDisplayedTime ) )
 		{
