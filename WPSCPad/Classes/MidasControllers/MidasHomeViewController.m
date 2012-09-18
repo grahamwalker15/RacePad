@@ -103,12 +103,12 @@
 
 
 
--(IBAction)loadArchive
+-(IBAction)loadArchive:(id)sender
 {
 	[[RacePadCoordinator Instance] loadSession:@"09_11Mza" Session:@"Race"];
 }
 
--(IBAction)loadLive
+-(IBAction)loadLive:(id)sender
 {
 	[[RacePadCoordinator Instance] loadSession:@"09_11Lve" Session:@"Race"];
 }

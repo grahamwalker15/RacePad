@@ -701,6 +701,10 @@
 
 - (void) movieGoLive
 {
+    // Ignore if called on a forced live movie which is already playing
+    if(movieForceLive && moviePlaying)
+        return;
+    
 	movieInLiveMode = true;
 	
 	if(!moviePlayer || !moviePlayerItem)

@@ -28,7 +28,7 @@
 	IBOutlet UIButton * slowMotionButton;
 	IBOutlet UIButton * normalPlayButton;
 	
-	IBOutlet ShinyButton * goLiveButton;
+	IBOutlet UIButton * goLiveButton;
 
 	IBOutlet UIView * scrubControl;
 }
@@ -38,7 +38,7 @@
 @property (readonly) UIBarButtonItem * replayButton;
 @property (readonly) UISlider * timeSlider;
 @property (readonly) UIButton * clock;
-@property (readonly) ShinyButton * goLiveButton;
+@property (readonly) UIButton * goLiveButton;
 
 @property (readonly)  UIButton * minus1sButton;
 @property (readonly)  UIButton * minus10sButton;

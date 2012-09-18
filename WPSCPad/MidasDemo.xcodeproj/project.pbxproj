@@ -819,6 +819,13 @@
 		24F7E91F15F61716003115E1 /* particle0.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F115F61716003115E1 /* particle0.png */; };
 		24F7E92015F61716003115E1 /* particle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F215F61716003115E1 /* particle1.png */; };
 		24F7E92115F61716003115E1 /* twitter-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F7E8F315F61716003115E1 /* twitter-logo.png */; };
+		7F4B45C51608741D007C60D8 /* MenuCamerasButtonAllActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C31608741D007C60D8 /* MenuCamerasButtonAllActive.png */; };
+		7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */; };
+		7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B231601D89000C95FAF /* MidasClientSocket.m */; };
+		7FCF8B261601EFDB00C95FAF /* MidasServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */; };
+		7FCF8B2916071FC800C95FAF /* GoLiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2716071FC800C95FAF /* GoLiveButton.png */; };
+		7FCF8B2A16071FC800C95FAF /* LiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2816071FC800C95FAF /* LiveButton.png */; };
+		7FCF8B31160757F000C95FAF /* MidasTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B30160757F000C95FAF /* MidasTimeController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1949,6 +1956,15 @@
 		24F7E8F115F61716003115E1 /* particle0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle0.png; sourceTree = "<group>"; };
 		24F7E8F215F61716003115E1 /* particle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle1.png; sourceTree = "<group>"; };
 		24F7E8F315F61716003115E1 /* twitter-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-logo.png"; sourceTree = "<group>"; };
+		7F4B45C31608741D007C60D8 /* MenuCamerasButtonAllActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonAllActive.png; sourceTree = "<group>"; };
+		7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonAllInActive.png; sourceTree = "<group>"; };
+		7FCF8B221601D89000C95FAF /* MidasClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasClientSocket.h; sourceTree = "<group>"; };
+		7FCF8B231601D89000C95FAF /* MidasClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasClientSocket.m; sourceTree = "<group>"; };
+		7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasServerConnect.xib; path = ResourceFiles/MidasServerConnect.xib; sourceTree = "<group>"; };
+		7FCF8B2716071FC800C95FAF /* GoLiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoLiveButton.png; sourceTree = "<group>"; };
+		7FCF8B2816071FC800C95FAF /* LiveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LiveButton.png; sourceTree = "<group>"; };
+		7FCF8B2F160757EF00C95FAF /* MidasTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasTimeController.h; sourceTree = "<group>"; };
+		7FCF8B30160757F000C95FAF /* MidasTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasTimeController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2093,6 +2109,8 @@
 		240F214F15F51038001C08C1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FCF8B2716071FC800C95FAF /* GoLiveButton.png */,
+				7FCF8B2816071FC800C95FAF /* LiveButton.png */,
 				24A24BA315FF9B2B00C4026C /* MenuHelpBackgroundGradientAngled.png */,
 				243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */,
 				243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */,
@@ -2373,6 +2391,8 @@
 		240F21E415F51038001C08C1 /* Cameras */ = {
 			isa = PBXGroup;
 			children = (
+				7F4B45C31608741D007C60D8 /* MenuCamerasButtonAllActive.png */,
+				7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */,
 				240F21E515F51038001C08C1 /* MenuCameraButtonDivider.png */,
 				240F21E615F51038001C08C1 /* MenuCameraThumbnail~ipad.png */,
 				240F21E715F51038001C08C1 /* MenuCameraTopBarDivider.png */,
@@ -2753,6 +2773,7 @@
 				240F255915F5106F001C08C1 /* PitWindowView.xib */,
 				240F255A15F5106F001C08C1 /* SecondView.xib */,
 				240F255B15F5106F001C08C1 /* ServerConnect.xib */,
+				7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */,
 				240F255C15F5106F001C08C1 /* SettingsView.xib */,
 				240F255D15F5106F001C08C1 /* TelemetryHelp.xib */,
 				240F255E15F5106F001C08C1 /* TelemetryView.xib */,
@@ -2971,6 +2992,8 @@
 				240F262615F510BA001C08C1 /* MidasCoordinator.m */,
 				240F262715F510BA001C08C1 /* MidasDatabase.h */,
 				240F262815F510BA001C08C1 /* MidasDatabase.m */,
+				7FCF8B221601D89000C95FAF /* MidasClientSocket.h */,
+				7FCF8B231601D89000C95FAF /* MidasClientSocket.m */,
 			);
 			path = Midas;
 			sourceTree = "<group>";
@@ -2998,6 +3021,8 @@
 				240F266A15F510BA001C08C1 /* MidasStandingsViewController.m */,
 				240F266D15F510BA001C08C1 /* MidasVideoViewController.h */,
 				240F266E15F510BA001C08C1 /* MidasVideoViewController.m */,
+				7FCF8B2F160757EF00C95FAF /* MidasTimeController.h */,
+				7FCF8B30160757F000C95FAF /* MidasTimeController.m */,
 			);
 			path = MidasControllers;
 			sourceTree = "<group>";
@@ -4353,6 +4378,11 @@
 				243FF20715FF64AE00CDF732 /* MenuSplashLogoMarussia.png in Resources */,
 				243FF20915FF64AE00CDF732 /* MenuSplashLogoSoftbank.png in Resources */,
 				24A24BA415FF9B2B00C4026C /* MenuHelpBackgroundGradientAngled.png in Resources */,
+				7FCF8B261601EFDB00C95FAF /* MidasServerConnect.xib in Resources */,
+				7FCF8B2916071FC800C95FAF /* GoLiveButton.png in Resources */,
+				7FCF8B2A16071FC800C95FAF /* LiveButton.png in Resources */,
+				7F4B45C51608741D007C60D8 /* MenuCamerasButtonAllActive.png in Resources */,
+				7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4510,6 +4540,8 @@
 				2492EF2F15FA0EB500A462CD /* MidasHelpViewController.m in Sources */,
 				2492EF3315FA10F200A462CD /* MidasHelpTableViewCell.m in Sources */,
 				243FF20115FF62CC00CDF732 /* MidasMasterMenuViewController.m in Sources */,
+				7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */,
+				7FCF8B31160757F000C95FAF /* MidasTimeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

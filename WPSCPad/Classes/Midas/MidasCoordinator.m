@@ -10,7 +10,9 @@
 
 #import "ElapsedTime.h"
 #import "WorkOffline.h"
-#import "midasVideoViewController.h"
+#import "ServerConnect.h"
+#import "MidasVideoViewController.h"
+#import "BasePadPrefs.h"
 
 @implementation MidasCoordinator
 
@@ -86,10 +88,34 @@ static MidasCoordinator * instance_ = nil;
 	[self startPlay];
 }
 
+- (void) showConnecting
+{
+	if ( socket_ != nil && connectionType != BPC_SOCKET_CONNECTION_ && !showingConnecting )
+	{
+		if ( serverConnect == nil )
+			serverConnect = [[ServerConnect alloc] initWithNibName:@"MidasServerConnect" bundle:nil];
+        
+		showingConnecting = true;
+		[registeredViewController presentModalViewController:serverConnect animated:YES];
+	}
+}
+
 -(void)onSessionLoaded
 {
 	// We display the default video view once session is loaded
-	[self performSelector:@selector(displayVideoViewController) withObject:nil afterDelay: 0.1];
+    if(![midasVideoViewController presentingViewController])
+        [self performSelector:@selector(displayVideoViewController) withObject:nil afterDelay: 0.1];
+}
+
+- (void) onSuccessfulConnection
+{
+	// We display the default video view once session is loaded
+    if(![midasVideoViewController presentingViewController])
+        [self performSelector:@selector(displayVideoViewController) withObject:nil afterDelay: 1.0];
+}
+
+- (void) videoServerOnConnectionChange
+{
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////

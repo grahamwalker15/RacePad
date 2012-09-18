@@ -783,6 +783,7 @@
 	[[RacePadCoordinator Instance] SetViewDisplayed:lapTimesView];
 	
 	[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:midasVotingView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 }
 
@@ -800,6 +801,7 @@
 	[[RacePadCoordinator Instance] SetViewHidden:lapTimesView];
 	[[RacePadCoordinator Instance] SetViewHidden:trackMapView];
 	[[RacePadCoordinator Instance] SetViewHidden:leaderboardView];
+	[[RacePadCoordinator Instance] SetViewHidden:midasVotingView];
 	[[RacePadCoordinator Instance] SetViewHidden:self];
 }
 

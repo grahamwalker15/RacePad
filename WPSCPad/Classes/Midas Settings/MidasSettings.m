@@ -22,7 +22,7 @@ NSString *const MidasSettingsFacebookKey = @"fb_url";
 NSString *const MidasSettingsTwitterKey = @"tw_hash";
 NSString *const MidasSettingsCountdownKey = @"countdown";
 
-NSTimeInterval const MidasSettingsCountdownDefault = 20.0;
+NSTimeInterval const MidasSettingsCountdownDefault = 8.0;
 NSString *const MidasSettingsFacebookDefault = @"296502463790309";
 NSString *const MidasSettingsTwitterDefault = @"#f1";
 

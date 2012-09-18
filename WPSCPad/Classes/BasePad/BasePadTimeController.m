@@ -34,6 +34,8 @@ static BasePadTimeController * instance_ = nil;
 {
 	if(self = [super init])
 	{	
+		instance_ = self;
+		
 		[BasePadViewController specifyTimeControllerInstance:self];
 
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
@@ -173,7 +175,7 @@ static BasePadTimeController * instance_ = nil;
 	//[jog_control setTarget:instance_];
 	//[jog_control setSelector:@selector(JogControlChanged:)];
 	
-	ShinyButton *goLiveButton = [timeController goLiveButton];	
+	UIButton *goLiveButton = [timeController goLiveButton];
 	[goLiveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	[self updateLiveButton];
@@ -260,7 +262,7 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) setHideTimer
 {
-	if(autoHide)
+	if(displayed && autoHide)
 	{
 		// Timer to hide the controls if they're not touched for 5 seconds
 		if(hideTimer)
@@ -367,23 +369,12 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) updateLiveButton
 {
-	ShinyButton *liveButton = [timeController goLiveButton];
+	UIButton *liveButton = [timeController goLiveButton];
 	
 	if ( [[BasePadCoordinator Instance] liveMode] )
-	{
-		[liveButton setTitle:@"Live" forState:UIControlStateNormal];
-		[liveButton setButtonColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
-		[liveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-		[liveButton requestRedraw];
-	}
+        [liveButton setSelected:true];
 	else
-	{
-		[liveButton setTitle:@"Go Live" forState:UIControlStateNormal];
-		[liveButton setButtonColour:[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0]];
-		[liveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-		[liveButton requestRedraw];
-	}
-	
+		[liveButton setSelected:false];	
 }
 
 
@@ -392,11 +383,14 @@ static BasePadTimeController * instance_ = nil;
 //////////////////////////////////////////////////////////////////////////////////
 
 - (IBAction)PlayPressed:(id)sender
-{
+{    
 	//[jogController killUpdateTimer];	// Just in case it got stuck on
 	
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
-	if([coordinator playingRealTime])
+
+    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
+
+    if([coordinator playingRealTime])
 	{
 		[coordinator userPause];
 		[self updatePlayButtons];
@@ -419,6 +413,8 @@ static BasePadTimeController * instance_ = nil;
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
+    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
+    
 	if([coordinator playing] && ![coordinator playingRealTime])
 	{
 		[coordinator userPause];
@@ -440,7 +436,9 @@ static BasePadTimeController * instance_ = nil;
 
 - (IBAction)SliderChanged:(id)sender
 {
-	// Don't update movie while sliding -will do on finish
+    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
+    
+	// Don't update movie while sliding - will do on finish
 	[[BasePadCoordinator Instance] setLiveMovieSeekAllowed:false];
 	[self actOnSliderValue];
 }
@@ -449,6 +447,11 @@ static BasePadTimeController * instance_ = nil;
 {
 	[[BasePadCoordinator Instance] setLiveMovieSeekAllowed:true];
 	[self actOnSliderValue];
+}
+
+- (void)prepareForSliderAction
+{
+    // Override me to do something on switch to review mode
 }
 
 - (void)actOnSliderValue
@@ -464,9 +467,11 @@ static BasePadTimeController * instance_ = nil;
 }
 
 - (IBAction)JogControlChanged:(id)sender
-{
+{    
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
+    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
+
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
 
@@ -491,6 +496,8 @@ static BasePadTimeController * instance_ = nil;
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
+    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
+    
 	// Stop play and go to right place
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
@@ -517,6 +524,8 @@ static BasePadTimeController * instance_ = nil;
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
+    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
+    
 	bool playing = [coordinator playing];
 	bool playingRealTime = [coordinator playingRealTime];
 	

@@ -87,6 +87,12 @@ static BasePadMedia * instance_ = nil;
 			[movieSources[i] release];
 			movieSources[i] = nil;
 		}
+        
+		if(queuedMovieSource[i])
+		{
+			[queuedMovieSource[i] release];
+			queuedMovieSource[i] = nil;
+		}
 	}
 	
 	if(audioSource)
@@ -162,6 +168,13 @@ static BasePadMedia * instance_ = nil;
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];
 }
 
+- (void)clearMediaSources
+{
+    movieSourceCount = 0;
+    movieSourceQueueCount = 0;
+    movieSourceQueueBlocked = false;
+}
+
 - (void)verifyMovieLoaded
 {
 	// Check that we have the right movie loaded
@@ -171,8 +184,6 @@ static BasePadMedia * instance_ = nil;
 		NSString * newMovie = [url absoluteString];
 		if(!currentMovieRoot || [newMovie compare:currentMovieRoot] != NSOrderedSame )
 		{
-			currentMovieRoot = [newMovie retain];
-			
 			for(int i = 0 ; i < movieSourceCount ; i++)
 			{
 				if(movieSources[i] && [movieSources[i] movieLoaded])
@@ -181,7 +192,11 @@ static BasePadMedia * instance_ = nil;
 					[movieSources[i] unloadMovie];
 				}
 			}
+            
+            [self clearMediaSources];
 
+			currentMovieRoot = [newMovie retain];
+			
 			// If we have a video list, pass this on to the parser, else load directly here
 			if([currentMovieRoot hasSuffix:@".vls"])
 			{
@@ -280,18 +295,26 @@ static BasePadMedia * instance_ = nil;
 	// Live stream or archive name
 	if ( [[BasePadCoordinator Instance] connectionType] != BPC_ARCHIVE_CONNECTION_ && [[BasePadCoordinator Instance] videoConnectionType] == BPC_VIDEO_LIVE_CONNECTION_)
 	{
-		NSString * serverAddress = [[[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"] retain];
+ 		NSString * urlString = [[BasePadCoordinator Instance] getLiveVideoListName];
+		if(urlString && [urlString length] > 0)
+        {
+			url = [NSURL fileURLWithPath:urlString];	// auto released
+        }
+        else
+        {
+            NSString * serverAddress = [[[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"] retain];
 		
-		if(serverAddress && [serverAddress length] > 0)
-		{
-			NSString * urlString = @"http://";
-			urlString = [urlString stringByAppendingString:serverAddress];
-			urlString = [urlString stringByAppendingString:@"/iPad_ipad.m3u8"];
+            if(serverAddress && [serverAddress length] > 0)
+            {
+                NSString * urlString = @"http://";
+                urlString = [urlString stringByAppendingString:serverAddress];
+                urlString = [urlString stringByAppendingString:@"/iPad_ipad.m3u8"];
 			
-			url = [NSURL URLWithString:urlString];	// auto released
-		}
+                url = [NSURL URLWithString:urlString];	// auto released
+            }
 		
-		[serverAddress release];
+            [serverAddress release];
+        }
 		
 		movieType = MOVIE_TYPE_LIVE_STREAM_;
 	}
@@ -484,6 +507,26 @@ static BasePadMedia * instance_ = nil;
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////
+// Movie search tools
+////////////////////////////////////////////////////////////////////////////
+
+- (BasePadVideoSource *) findNextMovieForReview
+{
+    // Returns next movie which is not forced live, and not displayed.
+    // Returns nil if none found
+    if(movieSourceCount > 0)
+    {
+        for(int i = 0 ; i < movieSourceCount ; i++)
+        {
+            if(![movieSources[i] movieDisplayed] && ![movieSources[i] movieForceLive])
+                return movieSources[i];
+        }
+    }
+    
+    return nil;
+}
+
 ////////////////////////////////////////////////////////////////////////
 //  View Controller registration
 
@@ -631,9 +674,11 @@ static BasePadMedia * instance_ = nil;
 - (void) loadVideoList:(NSString *)fileName
 {
 	int localMovieSourceCount = 0;
+    
+    NSURL * url = [NSURL URLWithString:fileName];
+    NSString * fileString = [url path];
 	
 	FILE * listFile;
-	NSString * fileString = [[BasePadCoordinator Instance] getVideoArchiveName];
 	listFile = fopen([fileString fileSystemRepresentation], "rt" );
 	if ( listFile )
 	{

@@ -159,6 +159,11 @@
 @property (nonatomic) bool timeControlsButtonOpen;
 @property (nonatomic) bool myTeamButtonOpen;
 
+@property (readonly) MovieView * mainMovieView;
+@property (readonly) MovieView * auxMovieView1;
+@property (readonly) MovieView * auxMovieView2;
+
+
 - (void) setTrackState: (int)state;
 
 - (void) showOverlays;

@@ -9,6 +9,8 @@
 #import "MidasVoting.h"
 #import "MidasVotingView.h"
 
+#import "RacePadDatabase.h"
+
 @implementation MidasVoting
 
 @synthesize abbr;
@@ -25,12 +27,48 @@ static int va = 0;
 	if(self = [super init])
 	{
 		abbr = [driver retain];
+        
+        TableData * votingTable = [[RacePadDatabase Instance] midasVotingTable];
 		
+        if(votingTable && [votingTable cols] >= 4)
+        {
+            driverCount = [votingTable rows];
+            
+            // Find the right row
+            int row = -1;
+            for (int i = 0 ; i < driverCount ; i++)
+            {
+                TableCell * cell = [votingTable cell:i Col:1];
+                if(cell && [[cell string] compare:abbr] == NSOrderedSame)
+                {
+                    row = i;
+                    break;
+                }
+            }
+            
+            if(row >= 0)
+            {
+                TableCell * cell = [votingTable cell:row Col:0];
+                position = cell ? atoi([[cell string] UTF8String]) + 1 : 0;
+                
+                cell = [votingTable cell:row Col:2];
+                votesFor = cell ? atoi([[cell string] UTF8String]) : 0;
+                
+                cell = [votingTable cell:row Col:3];
+                votesAgainst = cell ? atoi([[cell string] UTF8String]) : 0;
+                
+                return self;
+            }
+        }
+        
+        // Falls through here if no table found
 		votesFor = vf;
 		votesAgainst = va;
 		position = 5;
 		driverCount = 24;
-	}	
+
+	}
+    
 	return self;
 }
 

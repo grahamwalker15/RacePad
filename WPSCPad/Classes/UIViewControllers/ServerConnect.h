@@ -27,5 +27,6 @@
 -(void) popDown;
 -(void) badVersion;
 -(void) connectionTimeout;
+-(void) goOffline;
 
 @end

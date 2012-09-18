@@ -357,7 +357,6 @@
 		NSString *text = [ip_address_edit_ text];
 		[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
 		[serverTwirl setHidden:false];
-
 	}
 }
 

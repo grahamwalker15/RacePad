@@ -21,8 +21,8 @@
 	IBOutlet UIButton * liveButton;
 }
 
--(IBAction)loadArchive;
--(IBAction)loadLive;
+-(IBAction)loadArchive:(id)sender;
+-(IBAction)loadLive:(id)sender;
 
 @end
 

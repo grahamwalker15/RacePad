@@ -62,6 +62,9 @@
 - (IBAction)PlayPressed:(id)sender;
 - (IBAction)SlowMotionPlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
+
+
+- (void)prepareForSliderAction;
 - (void)actOnSliderValue;
 
 - (IBAction)JogControlChanged:(id)sender;

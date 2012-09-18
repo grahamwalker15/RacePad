@@ -158,7 +158,7 @@ static RacePadCoordinator * instance_ = nil;
 		NSString * driver = [existing_view Parameter];					
 		if([driver length] > 0)
 		{
-			[(RacePadClientSocket*)socket_ requestDriverView:driver];
+			[(RacePadClientSocket*)socket_ StreamDriverView:driver];
 		}
 	}
 	else if([existing_view Type] == RPC_TRACK_MAP_VIEW_)

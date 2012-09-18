@@ -13,6 +13,7 @@
 #import "MidasFacebookViewController.h"
 #import "MidasSettings.h"
 #import "RacePadCoordinator.h"
+#import "BasePadMedia.h"
 #import "MidasLoginController.h"
 #import <DCTTextFieldValidator/DCTTextFieldValidator.h>
 
@@ -107,10 +108,11 @@ CGPoint const LogoEndPoint;
 	_canAnimateOffScreenCount--;
 	if (_canAnimateOffScreenCount > 0) return;
 	
+    // For loading archive
 	[self _animateObjectsOffScreenWithDelay:0.5f completion:^(BOOL finished) {
-		[self loadArchive:nil];
+		//[self loadArchive:nil]; // For loading archive
+		[self connectLive:nil]; // For connecting to live server
 	}];
-	
 }
 
 - (void)_animateCountdownTimerCompletion:(void(^)(BOOL finished))completion {
@@ -273,6 +275,13 @@ CGPoint const LogoEndPoint;
 
 -(IBAction)loadLive:(id)sender {
 	[[RacePadCoordinator Instance] loadSession:@"09_11Lve" Session:@"Race"];
+}
+
+-(IBAction)connectLive:(id)sender {
+    NSString * ipAddress = @"192.168.1.133";
+    [[RacePadCoordinator Instance] SetServerAddress:ipAddress ShowWindow:YES LightRestart:false];
+    [[BasePadMedia Instance] connectToVideoServer];
+    [[BasePadMedia Instance] resetConnectionCounts];
 }
 
 @end

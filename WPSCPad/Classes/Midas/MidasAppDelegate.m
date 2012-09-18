@@ -18,6 +18,7 @@
 #import "RacePadClientSocket.h"
 #import "BasePadMedia.h"
 #import "RacePadTitleBarController.h"
+#import "MidasTimeController.h"
 #import "RacePadSponsor.h"
 #import "BasePadPrefs.h"
 
@@ -40,7 +41,10 @@
 		
 		[MidasCoordinator Instance];
 		
+        // Create the time controller and title bar controller
 		[RacePadTitleBarController Instance];
+        [MidasTimeController Instance];
+        
 		[MidasDatabase Instance];
 		
 		tabBarController= nil;
@@ -55,9 +59,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [TestFlight takeOff:@"0ebc30a05c73c5b1ed825ef895a86047_MTMwNDUyMjAxMi0wOS0xMCAxMTo1MzozMS4yOTkxODY"];
     // Override point for customization after app launch.
 	
+    [TestFlight takeOff:@"0ebc30a05c73c5b1ed825ef895a86047_MTMwNDUyMjAxMi0wOS0xMCAxMTo1MzozMS4yOTkxODY"];
+
 	// Create the co-ordinator
 	[[BasePadCoordinator Instance] onStartUp];
 	

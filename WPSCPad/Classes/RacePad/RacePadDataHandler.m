@@ -280,7 +280,7 @@
 		}
 		case RPSC_DRIVER_VOTING_: // Midas voting (whole page)
 		{
-			TableData *voting = [[RacePadDatabase Instance] midasVotingData];
+			TableData *voting = [[RacePadDatabase Instance] midasVotingTable];
 			[voting loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_VOTING_VIEW_];
 			break;

@@ -9,4 +9,13 @@
 #import "BasePadViewController.h"
 
 @interface MidasStartViewController : BasePadViewController
+{
+
+}
+
+-(IBAction)loadArchive:(id)sender;
+-(IBAction)loadLive:(id)sender;
+-(IBAction)connectLive:(id)sender;
+
 @end
+

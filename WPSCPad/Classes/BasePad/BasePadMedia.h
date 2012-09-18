@@ -113,6 +113,8 @@ enum MovieConnectionTypes
 - (void)verifyMovieLoaded;
 - (void)verifyAudioLoaded;
 
+- (void)clearMediaSources;
+
 - (void)queueMovieLoad:(BasePadVideoSource *)movieSource IntoView:(MovieView *)movieView;
 - (void)blockMovieLoadQueue;
 - (void)unblockMovieLoadQueue;
@@ -144,6 +146,8 @@ enum MovieConnectionTypes
 - (void) audioStop;
 - (void) audioGotoTime:(float)time;
 - (void) audioPrepareToPlay;
+
+- (BasePadVideoSource *) findNextMovieForReview;
 
 -(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
 -(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;

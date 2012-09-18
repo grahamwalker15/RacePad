@@ -77,7 +77,7 @@
 						<string key="NSFrame">{{203, 18}, {30, 25}}</string>
 						<reference key="NSSuperview" ref="730374200"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="251735001"/>
+						<reference key="NSNextKeyView" ref="1063859656"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -129,7 +129,7 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIButton" id="251735001">
+					<object class="IBUIButton" id="1063859656">
 						<reference key="NSNextResponder" ref="730374200"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{5, 70}, {73, 48}}</string>
@@ -140,7 +140,6 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">ALL</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="460040716">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -153,13 +152,13 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUISelectedImage" id="689869019">
+						<object class="NSCustomResource" key="IBUISelectedImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">MenuCamerasButtonDriversActive.png</string>
+							<string key="NSResourceName">MenuCamerasButtonAllInActive.png</string>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalImage" id="331031276">
+						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">MenuCamerasButtonDriversInActive.png</string>
+							<string key="NSResourceName">MenuCamerasButtonAllActive.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="622906862">
 							<string key="name">Helvetica-Bold</string>
@@ -167,7 +166,7 @@
 							<int key="traits">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="456124425">
+						<object class="NSFont" key="IBUIFont" id="458884003">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -190,10 +189,16 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="85074361"/>
-						<reference key="IBUISelectedImage" ref="689869019"/>
-						<reference key="IBUINormalImage" ref="331031276"/>
+						<object class="NSCustomResource" key="IBUISelectedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">MenuCamerasButtonDriversActive.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">MenuCamerasButtonDriversInActive.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="622906862"/>
-						<reference key="IBUIFont" ref="456124425"/>
+						<reference key="IBUIFont" ref="458884003"/>
 					</object>
 					<object class="IBUIButton" id="252993554">
 						<reference key="NSNextResponder" ref="730374200"/>
@@ -221,7 +226,7 @@
 							<string key="NSResourceName">MenuCamerasButtonTrackInActive.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="622906862"/>
-						<reference key="IBUIFont" ref="456124425"/>
+						<reference key="IBUIFont" ref="458884003"/>
 					</object>
 					<object class="IBUIImageView" id="371881418">
 						<reference key="NSNextResponder" ref="730374200"/>
@@ -359,7 +364,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">allCamerasButton</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="251735001"/>
+						<reference key="destination" ref="1063859656"/>
 					</object>
 					<int key="connectionID">73</int>
 				</object>
@@ -384,7 +389,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">buttonPressed:</string>
-						<reference key="source" ref="251735001"/>
+						<reference key="source" ref="1063859656"/>
 						<reference key="destination" ref="841351856"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -427,7 +432,7 @@
 							<reference ref="371881418"/>
 							<reference ref="407868336"/>
 							<reference ref="934282715"/>
-							<reference ref="251735001"/>
+							<reference ref="1063859656"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -493,7 +498,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
-						<reference key="object" ref="251735001"/>
+						<reference key="object" ref="1063859656"/>
 						<reference key="parent" ref="730374200"/>
 					</object>
 				</object>
@@ -517,6 +522,7 @@
 					<string>56.IBPluginDependency</string>
 					<string>56.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>57.IBPluginDependency</string>
+					<string>57.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>58.IBPluginDependency</string>
 					<string>59.IBPluginDependency</string>
 					<string>68.IBPluginDependency</string>
@@ -540,11 +546,12 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="2"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -735,6 +742,8 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>MenuCameraButtonDivider.png</string>
 				<string>MenuCamerasBackground.png</string>
+				<string>MenuCamerasButtonAllActive.png</string>
+				<string>MenuCamerasButtonAllInActive.png</string>
 				<string>MenuCamerasButtonDriversActive.png</string>
 				<string>MenuCamerasButtonDriversInActive.png</string>
 				<string>MenuCamerasButtonTrackActive.png</string>
@@ -747,6 +756,8 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{1, 2}</string>
 				<string>{344, 640}</string>
+				<string>{73, 48}</string>
+				<string>{73, 48}</string>
 				<string>{73, 48}</string>
 				<string>{73, 48}</string>
 				<string>{73, 48}</string>

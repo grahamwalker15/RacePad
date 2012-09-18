@@ -202,6 +202,7 @@ enum ConnectionTypes
 -(void) connectionTimeout;
 
 - (void) videoServerOnConnectionChange;
+- (void) onSuccessfulConnection;
 
 -(void)SetVideoServerAddress:(NSString *)server;
 
@@ -235,6 +236,8 @@ enum ConnectionTypes
 -(NSString *)getAudioArchiveName;
 -(NSString *)getVideoArchiveRoot;
 -(NSString *)getAudioArchiveRoot;
+
+-(NSString *)getLiveVideoListName;
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;

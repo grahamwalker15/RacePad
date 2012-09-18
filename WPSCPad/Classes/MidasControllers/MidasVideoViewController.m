@@ -25,6 +25,11 @@
 
 @implementation MidasVideoViewController
 
+@synthesize mainMovieView;
+@synthesize auxMovieView1;
+@synthesize auxMovieView2;
+
+
 @synthesize displayVideo;
 @synthesize displayMap;
 @synthesize displayLeaderboard;

@@ -111,6 +111,8 @@ static BasePadCoordinator * instance_ = nil;
 		liveMovieSeekAllowed = true;
 		
 		currentSponsor = [[BasePadSponsor Instance] sponsor];
+        
+        settingsViewController = nil;
 	}
 	
 	return self;
@@ -866,6 +868,28 @@ static BasePadCoordinator * instance_ = nil;
 	return nil;
 }
 
+-(NSString *)getLiveVideoListName
+{
+	// Get base folder
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *folder = [paths objectAtIndex:0];
+	
+	// Look for LiveVideoConnection.vls - a video list file
+	NSString *name = @"LiveVideoConnection.vls";
+	NSString *fileName = [folder stringByAppendingPathComponent:name];
+	
+	// check whether it exists
+	FILE * f;
+	if((f = fopen ( [fileName UTF8String], "rt" )))
+	{
+		fclose(f);
+		return fileName;
+	}
+			
+	// If it is not present, return nil
+	return nil;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // Socket management
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -896,6 +920,8 @@ static BasePadCoordinator * instance_ = nil;
 
 		showingConnecting = false;
 		[serverConnect popDown];
+        
+        [self onSuccessfulConnection];
 	}
 	else
 	{
@@ -1042,6 +1068,11 @@ static BasePadCoordinator * instance_ = nil;
 - (void) videoServerOnConnectionChange
 {
 	[settingsViewController updateServerState];
+}
+
+- (void) onSuccessfulConnection
+{
+    // Override me
 }
 
 - (void) userExit
