@@ -14,6 +14,8 @@
 #import <AVFoundation/AVAssetImageGenerator.h>
 #import <AVFoundation/AVPlayerItemTrack.h>
 #import <AVFoundation/AVAssetTrack.h>
+#import <AVFoundation/AVMediaFormat.h>
+#import <AVFoundation/AVAudioMix.h>
 
 @implementation BasePadVideoSource
 
@@ -587,7 +589,11 @@
 {	
 	if([self moviePlayable] && movieActive)
 	{
-		[moviePlayer setRate:playbackRate];
+        if(movieForceLive)
+            [moviePlayer setRate:1.0];
+        else
+            [moviePlayer setRate:playbackRate];
+
 		moviePlayPending = false;
 		moviePausedInPlace = false;
 		moviePlaying = true;
@@ -782,6 +788,30 @@
 	}
 	
 	movieRecentlyResynced = true;
+}
+
+- (void) movieSetMuted:(bool)muted
+{
+    if(moviePlayer && moviePlayerAsset)
+    {
+        float volume = muted ? 0.0 : 1.0;
+        NSArray *audioTracks = [moviePlayerAsset tracksWithMediaType:AVMediaTypeAudio];
+        
+        // Mute all the audio tracks
+        NSMutableArray *allAudioParams = [NSMutableArray array];
+        for (AVAssetTrack *track in audioTracks)
+        {
+            AVMutableAudioMixInputParameters *audioInputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
+            [audioInputParams setVolume:volume atTime:kCMTimeZero];
+            [audioInputParams setTrackID:[track trackID]];
+            [allAudioParams addObject:audioInputParams];
+        }
+        
+        AVMutableAudioMix *audioZeroMix = [AVMutableAudioMix audioMix];
+        [audioZeroMix setInputParameters:allAudioParams];
+        
+        [[moviePlayer currentItem] setAudioMix:audioZeroMix];
+    }
 }
 
 - (bool) moviePlayable

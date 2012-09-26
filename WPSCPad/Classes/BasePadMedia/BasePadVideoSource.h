@@ -162,6 +162,8 @@
 - (void) movieSeekToLive;
 - (void) movieResyncLive;
 
+- (void) movieSetMuted:(bool)muted;
+
 - (bool) moviePlayable;
 - (bool) moviePlayingRealTime: (float)timeNow;
 

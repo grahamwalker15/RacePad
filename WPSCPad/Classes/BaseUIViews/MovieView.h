@@ -20,12 +20,6 @@ enum MovieViewAnimationDirections
 	MV_MOVIE_FROM_BOTTOM,
 } ;
 
-enum MovieViewButtonAlignments
-{
-	MV_ALIGN_TOP,
-	MV_ALIGN_LEFT,
-} ;
-
 enum MovieViewTitleDisplays
 {
 	MV_CLOSE_AND_AUDIO,
@@ -67,6 +61,7 @@ enum MovieViewTitleDisplays
 	bool shouldShowLabels;
 	
 	bool live;
+    bool muted;
 	
 	id movieViewDelegate;
 }
@@ -91,10 +86,13 @@ enum MovieViewTitleDisplays
 @property (nonatomic) int labelAlignment;
 @property (nonatomic) bool shouldShowLabels;
 @property (nonatomic) bool live;
+@property (readonly) bool muted;
 
 // Manage displayed movies
 - (bool) displayMovieSource:(BasePadVideoSource *)source;
 - (void) redisplayMovieSource;
+
+- (void) setAudioMuted:(bool)value;
 
 - (bool) movieSourceAssociated;
 

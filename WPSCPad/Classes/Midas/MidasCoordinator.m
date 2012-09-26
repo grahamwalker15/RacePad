@@ -41,10 +41,9 @@ static MidasCoordinator * instance_ = nil;
 
 		socialmediaResponderMask = 0;
 		socialmediaResponder = nil;
-		
-		//allowProtectMediaFromRestart = true;
-
-	}
+        
+        forceDataLive = true;
+    }
 	
 	return self;
 }

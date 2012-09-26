@@ -216,6 +216,8 @@
 -(void) animateMenuButton:(UIButton *)button;
 - (void) menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
+- (void) executeTimeControllerDisplay;
+
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 
 - (IBAction) movieCloseButtonHit:(id)sender;

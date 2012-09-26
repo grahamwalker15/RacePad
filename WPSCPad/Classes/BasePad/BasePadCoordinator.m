@@ -54,6 +54,7 @@
 @synthesize liveMovieSeekAllowed;
 @synthesize nameToFollow;
 @synthesize lightRestart;
+@synthesize forceDataLive;
 
 static BasePadCoordinator * instance_ = nil;
 
@@ -82,7 +83,11 @@ static BasePadCoordinator * instance_ = nil;
 		needsPlayRestart = true;
 		playing = false;
 		protectMediaFromRestart = false;
-		
+        
+        forceDataLive = false;
+        socketStreaming = false;
+        protectDataFromRestart = false;
+        
 		dataUpdateTimer = nil;
 		elapsedTime = nil;
 		
@@ -447,7 +452,13 @@ static BasePadCoordinator * instance_ = nil;
 	}
 	
 	if (connectionType == BPC_SOCKET_CONNECTION_)
-		[socket_ stopStreams];	
+    {
+        if(!protectDataFromRestart)
+        {
+            [socket_ stopStreams];
+            socketStreaming = false;
+        }
+    }
 	
 	if(!protectMediaFromRestart)
 	{
@@ -475,14 +486,22 @@ static BasePadCoordinator * instance_ = nil;
 
 -(void) userPause
 {
+    if(forceDataLive)
+        protectDataFromRestart = true;
+    
 	live = false;
 	[self stopPlay];
 	[settingsViewController updateConnectionType];
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+
+    protectDataFromRestart = false;
 }
 
 -(void)jumpToTime:(float)time
 {
+    if(forceDataLive)
+        protectDataFromRestart = true;
+    
 	[self stopPlay];
 	
 	[[BasePadMedia Instance] setMoviePausedInPlace:false];
@@ -497,6 +516,8 @@ static BasePadCoordinator * instance_ = nil;
 	[self resetCommentaryTimings];
 	[self resetListUpdateTimings];
 	[self showSnapshot];
+    
+    protectDataFromRestart = false;
 }
 
 -(bool)playingRealTime
@@ -1097,44 +1118,21 @@ static BasePadCoordinator * instance_ = nil;
 
 -(void)prepareToPlayFromSocket
 {
-	if ( live )
+	if ( live || forceDataLive )
 	{
-		playbackRate = 1.0;
-		[socket_ goLive];
+        if(!socketStreaming)
+        {
+            playbackRate = 1.0;
+            [socket_ goLive];
+            [self streamViewsFromSocket];
+        }
 	}
 	else
 	{
 		[socket_ SetPlaybackRate:playbackRate];
 		[socket_ SetReferenceTime:currentTime];
-	}
-	
-	int view_count = [views count];
-	
-	if(view_count > 0)
-	{
-		// We keep a mask of streams already started so that none get started twice
-		int stream_mask = 0;
-		
-		for ( int i = 0 ; i < view_count ; i++)
-		{
-			BPCView * existing_view = [views objectAtIndex:i];
-			if([existing_view Displayed])
-			{
-				int type = [existing_view Type];
-				
-				// Check it hasn't already started
-				if((stream_mask & type) > 0)
-					continue;
-				
-				// Otherwise we can start it
-				
-				stream_mask = (stream_mask | type);
-				[self streamData:existing_view];
-			}
-		}
-	}
-	
-	[self restartCommentary];
+        [self streamViewsFromSocket];
+	}	
 	
 	// If the registered view controller is interested in video, cue this to play live too
 	if(!protectMediaFromRestart)
@@ -1153,6 +1151,39 @@ static BasePadCoordinator * instance_ = nil;
 	}
 }
 
+- (void) streamViewsFromSocket
+{
+    int view_count = [views count];
+    
+    if(view_count > 0)
+    {
+        // We keep a mask of streams already started so that none get started twice
+        int stream_mask = 0;
+        
+        for ( int i = 0 ; i < view_count ; i++)
+        {
+            BPCView * existing_view = [views objectAtIndex:i];
+            if([existing_view Displayed])
+            {
+                int type = [existing_view Type];
+                
+                // Check it hasn't already started
+                if((stream_mask & type) > 0)
+                    continue;
+                
+                // Otherwise we can start it
+                
+                stream_mask = (stream_mask | type);
+                [self streamData:existing_view];
+            }
+        }
+    }
+
+    [self restartCommentary];
+    
+    socketStreaming = true;
+}
+
 - (void) requestData:(BPCView *) existing_view
 {
 	// Override Me
@@ -1160,26 +1191,40 @@ static BasePadCoordinator * instance_ = nil;
 
 -(void)showSnapshotFromSocket
 {
-	[socket_ SetPlaybackRate:playbackRate];
-	[socket_ SetReferenceTime:currentTime];
+    // If the data is forced to be live, we don't show a snapshot here, we start the live data play if needed
+    // Otherwise, we will set up snapshot
+    if(forceDataLive)
+    {
+        if(!socketStreaming)
+        {
+            playbackRate = 1.0;
+            [socket_ goLive];
+            [self streamViewsFromSocket];
+        }
+    }
+    else
+    {
+        [socket_ SetPlaybackRate:playbackRate];
+        [socket_ SetReferenceTime:currentTime];
+        
+        int view_count = [views count];
+        
+        if(view_count > 0)
+        {
+            for ( int i = 0 ; i < view_count ; i++)
+            {
+                BPCView * existing_view = [views objectAtIndex:i];
+                if([existing_view Displayed])
+                {
+                    [self requestData:existing_view];
+                }
+            }
+        }
+        
+        [self restartCommentary];
+    }
 	
-	int view_count = [views count];
-	
-	if(view_count > 0)
-	{
-		for ( int i = 0 ; i < view_count ; i++)
-		{
-			BPCView * existing_view = [views objectAtIndex:i];
-			if([existing_view Displayed])
-			{
-				[self requestData:existing_view];
-			}
-		}
-	}
-	
-	[self restartCommentary];
-	
-	// If the registered view controller is interested in video, cue this too
+	// If the registered view controller is interested in video, cue this too - always a snapshot regardless of forceDataLive flag
 	if(registeredViewController && (registeredViewControllerTypeMask & BPC_VIDEO_VIEW_) > 0)
 	{
 		if(liveMovieSeekAllowed)

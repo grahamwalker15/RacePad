@@ -19,6 +19,7 @@ static BasePadTimeController * instance_ = nil;
 @synthesize timeNow;
 @synthesize displayed;
 @synthesize autoHide;
+@synthesize reducedView;
 @synthesize timeController;
 
 
@@ -39,7 +40,6 @@ static BasePadTimeController * instance_ = nil;
 		[BasePadViewController specifyTimeControllerInstance:self];
 
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
-		//jogController = [[JogViewController alloc] initWithNibName:@"JogControlView" bundle:nil];
 		addOnOptionsView = nil;
 		
 		displayed = false;
@@ -48,6 +48,8 @@ static BasePadTimeController * instance_ = nil;
 		hideTimer = nil;
 		
 		timeNow = 0.0;
+        
+        reducedView = false;
 		
 		// Add a tap gesture recogniser to the time controller view to allow hiding of controls
 		UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
@@ -55,7 +57,6 @@ static BasePadTimeController * instance_ = nil;
 		[recognizer setDelegate:self];
 		[[timeController view] addGestureRecognizer:recognizer];
 		[recognizer release];
-		
 	}
 	
 	return self;
@@ -65,7 +66,6 @@ static BasePadTimeController * instance_ = nil;
 - (void)dealloc
 {
 	[timeController release];
-	//[jogController release];
 	[addOnOptionsView release];
     [super dealloc];
 }
@@ -74,10 +74,28 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) onStartUp
 {
+    if(reducedView)
+    {
+        NSArray * toolbarItems = [timeController.toolbar items];
+        NSMutableArray * reducedItems = [[NSMutableArray alloc] init];
+        
+        for(id item in toolbarItems)
+        {
+            if(item != timeController.playButton && item != timeController.replayButton)
+                [reducedItems addObject:item];
+        }
+        
+        [timeController.toolbar setItems:reducedItems];
+    }
 }
 
 - (void) displayInViewController:(BasePadViewController *)viewController Animated:(bool)animated
-{	
+{
+    [self displayInViewController:viewController InRect:[viewController.view bounds] Animated:animated];
+}
+
+- (void) displayInViewController:(BasePadViewController *)viewController InRect:(CGRect)rect Animated:(bool)animated;
+{
 	// Can't display if we're in the middle of hiding
 	if(hiding)
 		return;
@@ -94,28 +112,26 @@ static BasePadTimeController * instance_ = nil;
 	addOnOptionsView = [[viewController timeControllerAddOnOptionsView] retain];
 	
 	// Get the new positions
-	CGRect super_bounds = [viewController.view bounds];
 	CGRect time_controller_bounds = [timeController.view bounds];
 	CGRect time_toolbar_bounds = [timeController.toolbar bounds];
-	//CGRect jog_controller_bounds = [jogController.view bounds];
 	
-	CGRect timeFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_controller_bounds.size.height - 30, super_bounds.size.width - 60, time_controller_bounds.size.height);
-	CGRect toolbarFrame = CGRectMake(super_bounds.origin.x + 30, super_bounds.origin.y + super_bounds.size.height - time_toolbar_bounds.size.height - 30, super_bounds.size.width - 60, time_toolbar_bounds.size.height);
-	//CGRect jogFrame = CGRectMake(toolbarFrame.origin.x + toolbarFrame.size.width - jog_controller_bounds.size.width, toolbarFrame.origin.y - jog_controller_bounds.size.height - 20, jog_controller_bounds.size.width, jog_controller_bounds.size.height);
+    int xOffset = reducedView ? 0 : 30;
+    int yOffset = reducedView ? 0 : 30;
+    
+	CGRect timeFrame = CGRectMake(rect.origin.x + xOffset, rect.origin.y + rect.size.height - time_controller_bounds.size.height - yOffset, rect.size.width - xOffset * 2, time_controller_bounds.size.height);
+	CGRect toolbarFrame = CGRectMake(rect.origin.x + xOffset, rect.origin.y + rect.size.height - time_toolbar_bounds.size.height - yOffset, rect.size.width - xOffset * 2, time_toolbar_bounds.size.height);
 	[timeController.view setFrame:timeFrame];
-	//[jogController.view setFrame:jogFrame];
 	
 	if(addOnOptionsView)
 	{
 		CGRect options_bounds = [addOnOptionsView bounds];
-		CGRect optionsFrame = CGRectMake(super_bounds.origin.x + (super_bounds.size.width - options_bounds.size.width) / 2, toolbarFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
+		CGRect optionsFrame = CGRectMake(rect.origin.x + (rect.size.width - options_bounds.size.width) / 2, toolbarFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
 		[addOnOptionsView setFrame:optionsFrame];
 	}
 
 	if(animated)
 	{
 		[timeController.view setAlpha:0.0];
-		//[jogController.view setAlpha:0.0];
 		if(addOnOptionsView)
 		{
 			[addOnOptionsView setAlpha:0.0];
@@ -123,7 +139,6 @@ static BasePadTimeController * instance_ = nil;
 	}
 	
 	[viewController.view addSubview:timeController.view];
-	//[viewController.view addSubview:jogController.view];
 	[self updatePlayButtons];
 	
 	if(addOnOptionsView)
@@ -131,11 +146,11 @@ static BasePadTimeController * instance_ = nil;
 		[viewController.view addSubview:addOnOptionsView];
 	}
 	
-	if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
-		[[timeController goLiveButton] setHidden:true];
-	else
+	//if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
+	//	[[timeController goLiveButton] setHidden:true];
+	//else
 		[[timeController goLiveButton] setHidden:false];
-
+    
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
@@ -388,8 +403,6 @@ static BasePadTimeController * instance_ = nil;
 	
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 
-    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
-
     if([coordinator playingRealTime])
 	{
 		[coordinator userPause];
@@ -413,8 +426,6 @@ static BasePadTimeController * instance_ = nil;
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
-    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
-    
 	if([coordinator playing] && ![coordinator playingRealTime])
 	{
 		[coordinator userPause];
@@ -436,8 +447,6 @@ static BasePadTimeController * instance_ = nil;
 
 - (IBAction)SliderChanged:(id)sender
 {
-    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
-    
 	// Don't update movie while sliding - will do on finish
 	[[BasePadCoordinator Instance] setLiveMovieSeekAllowed:false];
 	[self actOnSliderValue];
@@ -447,11 +456,6 @@ static BasePadTimeController * instance_ = nil;
 {
 	[[BasePadCoordinator Instance] setLiveMovieSeekAllowed:true];
 	[self actOnSliderValue];
-}
-
-- (void)prepareForSliderAction
-{
-    // Override me to do something on switch to review mode
 }
 
 - (void)actOnSliderValue
@@ -470,8 +474,6 @@ static BasePadTimeController * instance_ = nil;
 {    
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
-    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
-
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
 
@@ -496,8 +498,6 @@ static BasePadTimeController * instance_ = nil;
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
-    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
-    
 	// Stop play and go to right place
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
@@ -524,8 +524,6 @@ static BasePadTimeController * instance_ = nil;
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
-    [self prepareForSliderAction];  // Does nothing by default. In Midas, pops up a replay video if only live is shown.
-    
 	bool playing = [coordinator playing];
 	bool playingRealTime = [coordinator playingRealTime];
 	
@@ -611,6 +609,11 @@ static BasePadTimeController * instance_ = nil;
 - (void) displayTimeControllerInViewController:(UIViewController *)viewController Animated:(bool)animated
 {
 	[self displayInViewController:viewController Animated:animated];
+}
+
+- (void) displayTimeControllerInViewController:(UIViewController *)viewController InRect:(CGRect)rect Animated:(bool)animated
+{
+	[self displayInViewController:viewController InRect:rect Animated:animated];
 }
 
 - (void) hideTimeController

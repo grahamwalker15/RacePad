@@ -582,12 +582,23 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(movieViewCount == 1)
 	{
+        // Switch off time controller if we're returning to a forced live view
+        if(mainMovieView && [mainMovieView movieSourceAssociated] && [mainMovieView movieSource] && [[mainMovieView movieSource] movieForceLive])
+        {
+            if([BasePadViewController timeControllerDisplayed])
+                [self toggleTimeControllerDisplay];
+        }
+        
+        // Then setup the movie view parameters
 		[self setOverlaysDisabled:false];
 		[self showOverlays];
 		[mainMovieView setFrame:superBounds];
 		[mainMovieView setShouldShowLabels:false];
 		[auxMovieView1 setShouldShowLabels:false];
 		[auxMovieView2 setShouldShowLabels:false];
+        [mainMovieView setAudioMuted:false];
+        [auxMovieView1 setAudioMuted:true];
+        [auxMovieView2 setAudioMuted:true];
 		priorityAuxMovie = 1;
 	}
 	else if(movieViewCount == 2)
@@ -596,13 +607,12 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomContainer setFrame:mapInsetRect];
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
-		[mainMovieView setLabelAlignment:MV_ALIGN_TOP];
 		[mainMovieView setShouldShowLabels:true];
+        [mainMovieView setAudioMuted:true];
 		if([auxMovieView1 movieSourceAssociated] && ![auxMovieView1 movieScheduledForRemoval])
 		{
 			priorityAuxMovie = 1;
 			[auxMovieView1 setFrame:centreViewRect];
-			[auxMovieView1 setLabelAlignment:MV_ALIGN_TOP];
 			[auxMovieView1 setShouldShowLabels:true];
 			[auxMovieView2 setShouldShowLabels:false];
 		}
@@ -610,10 +620,11 @@ static UIImage * newButtonBackgroundImage = nil;
 		{
 			priorityAuxMovie = 2;
 			[auxMovieView2 setFrame:centreViewRect];
-			[auxMovieView2 setLabelAlignment:MV_ALIGN_TOP];
 			[auxMovieView2 setShouldShowLabels:true];
 			[auxMovieView1 setShouldShowLabels:false];
 		}
+        //[auxMovieView1 setAudioMuted:priorityAuxMovie == 2];
+        //[auxMovieView2 setAudioMuted:priorityAuxMovie == 1];
 	}
 	else if(movieViewCount == 3)
 	{
@@ -621,17 +632,18 @@ static UIImage * newButtonBackgroundImage = nil;
 		[trackZoomContainer setFrame:mapInsetRect];
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
+        [mainMovieView setAudioMuted:true];
+        [auxMovieView1 setAudioMuted:priorityAuxMovie == 2];
+        [auxMovieView2 setAudioMuted:priorityAuxMovie == 1];
+        [auxMovieView1 setShouldShowLabels:true];
+        [auxMovieView2 setShouldShowLabels:true];
 		if([auxMovieView1 movieSourceAssociated])
 		{
 			[auxMovieView1 setFrame:(priorityAuxMovie == 1 ? centreViewRect : topViewRect)];
-			[auxMovieView1 setLabelAlignment:(priorityAuxMovie == 1 ? MV_ALIGN_TOP : MV_ALIGN_LEFT)];
-			[auxMovieView1 setShouldShowLabels:true];
 		}
 		if([auxMovieView2 movieSourceAssociated])
 		{
 			[auxMovieView2 setFrame:(priorityAuxMovie == 1 ? topViewRect : centreViewRect)];
-			[auxMovieView2 setLabelAlignment:(priorityAuxMovie == 1 ? MV_ALIGN_LEFT : MV_ALIGN_TOP)];
-			[auxMovieView2 setShouldShowLabels:true];
 		}
 	}
 	
@@ -1600,6 +1612,66 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void) notifyHidingTimeControls
 {
 	[self showMenuButtons];
+}
+
+- (void) toggleTimeControllerDisplay
+{
+    id timeControllerInstance = [BasePadViewController timeControllerInstance];
+    
+    bool delay = false;
+    
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+		if(![timeControllerInstance timeControllerDisplayed])
+		{
+            // If we only have a forced live video view displayed, add another one when the time controller is brought up
+            int movieCount = [self countMovieViews];
+            if(movieCount <= 1)
+            {
+                if(mainMovieView && [mainMovieView movieSourceAssociated] && [mainMovieView movieSource] && [[mainMovieView movieSource] movieForceLive])
+                {
+                    BasePadVideoSource * videoSource = [[BasePadMedia Instance] findNextMovieForReview];
+                    
+                    if(videoSource && ![videoSource movieDisplayed])
+                    {
+                        MovieView * auxMovieView = [self findFreeMovieView];
+                        if(auxMovieView)
+                        {
+                            [self prepareToAnimateMovieViews:auxMovieView From:MV_MOVIE_FROM_BOTTOM];
+                            [auxMovieView setMovieViewDelegate:self];
+                            [auxMovieView displayMovieSource:videoSource]; // Will get notification when finished
+                            
+                            [self animateMovieViews:auxMovieView From:MV_MOVIE_FROM_BOTTOM];
+                            
+                            delay = true;
+                            
+                        }
+                    }
+                }
+            }
+			
+            if(delay)
+                [self performSelector:@selector(executeTimeControllerDisplay) withObject:nil afterDelay: 1.0];
+            else
+                [self executeTimeControllerDisplay];
+            
+		}
+		else
+		{
+			[timeControllerInstance hideTimeController];
+		}
+	}
+}
+
+- (void) executeTimeControllerDisplay
+{
+    id timeControllerInstance = [BasePadViewController timeControllerInstance];
+	CGRect centreViewRect = CGRectMake(324, 244,700,394);
+    
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+        [timeControllerInstance displayTimeControllerInViewController:self InRect:centreViewRect Animated:true];
+    }
 }
 
 ///////////////////////////////////////////////////////////////////

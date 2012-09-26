@@ -34,6 +34,7 @@
 @synthesize shouldShowLabels;
 
 @synthesize live;
+@synthesize muted;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -51,7 +52,6 @@
 		errorLabel = nil;
 		
 		shouldShowLabels = false;
-		labelAlignment = MV_ALIGN_TOP;
 		
 		titleView = nil;
 		titleBackgroundImage = nil;
@@ -61,6 +61,7 @@
 		audioImage = nil;
 		
 		live = false;
+        muted = false;
 		
 		movieViewDelegate = nil;
     }
@@ -116,6 +117,13 @@
 {
 	if(movieSource)
 		[self displayMovieSource:movieSource];
+}
+
+- (void) setAudioMuted:(bool)value
+{
+    muted = value;
+	if(movieSource)
+        [movieSource movieSetMuted:muted];
 }
 
 - (bool) movieSourceAssociated
@@ -184,6 +192,7 @@
 		[source setParentMovieView:self];
 		
 		[source setMovieDisplayed:true];
+        [source movieSetMuted:muted];
 		
 		float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
 		[source movieGotoTime:currentTime];
@@ -200,10 +209,6 @@
 		if(movieViewDelegate)
 			[movieViewDelegate notifyMovieAttachedToView:self];
 		
-		// Get rid of loading screen
-		//if(loadingScreen)
-		//	[loadingScreen setHidden:true];
-		
 		// And keep the loading and error stuff visible if it's there
 		if(loadingTwirl)
 			[self bringSubviewToFront:loadingTwirl];
@@ -217,7 +222,9 @@
 - (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source
 {	
 	// Remove the loading indicators
-	[self hideMovieLoading];
+    // Don't do this for the moment - still seem to get black for a few seconds after this
+    // notification.
+	//[self hideMovieLoading];
 
 	// Tell the delegate that we're ready
 	if(movieViewDelegate)
@@ -355,27 +362,9 @@
 	else
 		[movieTypeButton setTitle:@"REPLAY" forState:UIControlStateNormal];
 		
-	if(labelAlignment == MV_ALIGN_TOP)
-	{
-		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		[movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		
-		//float ytop = ourBounds.origin.y - 2;
-		//[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - movieTypeBounds.size.height, movieTypeBounds.size.width, movieTypeBounds.size.height)];
-		//ytop -= movieTypeBounds.size.height;
-		//[movieNameButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - driverNameBounds.size.height, driverNameBounds.size.width, driverNameBounds.size.height)];
-	}
-	else
-	{
-		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		[movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		
-		//float ytop = ourBounds.origin.y;
-		//[movieNameButton setFrame:CGRectMake(ourBounds.origin.x - driverNameBounds.size.width - 3, ytop, driverNameBounds.size.width, driverNameBounds.size.height)];
-		//ytop += driverNameBounds.size.height;
-		//[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x - movieTypeBounds.size.width - 3, ytop, movieTypeBounds.size.width, movieTypeBounds.size.height)];
-	}
-	
+    [movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+			
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
 	

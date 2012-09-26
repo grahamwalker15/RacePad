@@ -129,6 +129,10 @@ enum ConnectionTypes
 	bool playing;
 	bool needsPlayRestart;
 	bool protectMediaFromRestart;
+    
+    bool forceDataLive;
+    bool socketStreaming;
+	bool protectDataFromRestart;
 	
 	bool reconnectOnBecomeActive;
 	bool playOnBecomeActive;
@@ -156,6 +160,7 @@ enum ConnectionTypes
 @property (nonatomic) float playbackRate;
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
+@property (nonatomic) bool forceDataLive;
 
 @property (nonatomic) int serverConnectionStatus;
 @property (nonatomic) bool showingConnecting;
@@ -220,6 +225,7 @@ enum ConnectionTypes
 
 -(void) prepareToPlayFromSocket;
 -(void) showSnapshotFromSocket;
+-(void) streamViewsFromSocket;
 
 -(void) acceptPushData:(NSString *)session;
 -(void) projectDownloadStarting:(NSString *)event SessionName:(NSString *)session SizeInMB:(int) sizeInMB;
