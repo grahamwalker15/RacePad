@@ -17,5 +17,6 @@
 @property (nonatomic, readonly) NSString *facebookPostID;
 @property (nonatomic, readonly) NSDate *raceStartDate;
 @property (nonatomic, readonly) NSDictionary *logins;
+@property (nonatomic, readonly) NSString *IPAddress;
 
 @end

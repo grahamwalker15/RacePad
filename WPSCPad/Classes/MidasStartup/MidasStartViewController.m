@@ -278,10 +278,12 @@ CGPoint const LogoEndPoint;
 }
 
 -(IBAction)connectLive:(id)sender {
-    NSString * ipAddress = @"192.168.1.133";
-    [[RacePadCoordinator Instance] SetServerAddress:ipAddress ShowWindow:YES LightRestart:false];
-    [[BasePadMedia Instance] connectToVideoServer];
-    [[BasePadMedia Instance] resetConnectionCounts];
+	MidasSettings *settings = [MidasSettings sharedSettings];
+	[settings waitForSettings:^{
+		[[RacePadCoordinator Instance] SetServerAddress:settings.IPAddress ShowWindow:YES LightRestart:false];
+		[[BasePadMedia Instance] connectToVideoServer];
+		[[BasePadMedia Instance] resetConnectionCounts];
+	}];
 }
 
 @end

@@ -21,10 +21,12 @@ NSString *const MidasSettingsServerAddress = @"http://31.221.40.202/settings";
 NSString *const MidasSettingsFacebookKey = @"fb_url";
 NSString *const MidasSettingsTwitterKey = @"tw_hash";
 NSString *const MidasSettingsCountdownKey = @"countdown";
+NSString *const MidasSettingsIPAddressKey = @"data_host";
 
 NSTimeInterval const MidasSettingsCountdownDefault = 8.0;
 NSString *const MidasSettingsFacebookDefault = @"296502463790309";
 NSString *const MidasSettingsTwitterDefault = @"#f1";
+NSString *const MidasSettingsIPAddressDefault = @"192.168.1.133";
 
 @implementation MidasSettings {
 	__strong NSMutableArray *_handlers;
@@ -73,7 +75,8 @@ NSString *const MidasSettingsTwitterDefault = @"#f1";
 
 				_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
 				_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
-
+				_IPAddress = [dictionary objectForKey:MidasSettingsIPAddressKey];
+				
 				id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
 				NSNumber *timeIntervalNumber = nil;
 
@@ -90,6 +93,9 @@ NSString *const MidasSettingsTwitterDefault = @"#f1";
 
 			if (!_hashtag)
 				_hashtag = MidasSettingsTwitterDefault;
+			
+			if (!_IPAddress)
+				_IPAddress = MidasSettingsIPAddressDefault;
 
 			if (!_raceStartDate)
 				_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
