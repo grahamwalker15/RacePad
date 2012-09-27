@@ -14,23 +14,28 @@ typedef enum : NSUInteger {
 	MidasSettingsStatusHasSettings
 } MidasSettingsStatus;
 
-NSString *const MidasVLSServerAddress = @"http://31.221.40.202/videofile";
 NSString *const MidasVLSFilename = @"LiveVideoConnection.vls";
 
-NSString *const MidasSettingsServerAddress = @"http://31.221.40.202/settings";
+NSString *const MidasSettingsPath = @"/settings";
+NSString *const MidasSettingsLocalServerHost = @"192.168.5.143";
+NSString *const MidasSettingsRemoteServerHost = @"31.221.40.202";
+
 NSString *const MidasSettingsFacebookKey = @"fb_url";
 NSString *const MidasSettingsTwitterKey = @"tw_hash";
 NSString *const MidasSettingsCountdownKey = @"countdown";
 NSString *const MidasSettingsIPAddressKey = @"data_host";
+NSString *const MidasSettingsVideoPathKey = @"videofile";
 
 NSTimeInterval const MidasSettingsCountdownDefault = 8.0;
 NSString *const MidasSettingsFacebookDefault = @"296502463790309";
 NSString *const MidasSettingsTwitterDefault = @"#f1";
 NSString *const MidasSettingsIPAddressDefault = @"192.168.1.133";
+NSString *const MidasSettingsVideoPathDefault = @"videofile";
 
 @implementation MidasSettings {
 	__strong NSMutableArray *_handlers;
 	MidasSettingsStatus _status;
+	__strong NSString *_videoPath;
 }
 
 + (MidasSettings *)sharedSettings {
@@ -55,57 +60,83 @@ NSString *const MidasSettingsIPAddressDefault = @"192.168.1.133";
 - (void)fetchSettingsWithHandler:(void(^)())handler {
 	if (handler != NULL) [_handlers addObject:handler];
 
-	NSURLRequest *vlsRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:MidasVLSServerAddress]];
-	[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-
+	
+	void (^settingsCompletion)(NSURLResponse*, NSData*, NSError*) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+		
 		if (data) {
-			NSFileManager *fileManager = [NSFileManager defaultManager];
-			NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-			NSURL *URL = [documentsURL URLByAppendingPathComponent:MidasVLSFilename];
-			[fileManager removeItemAtURL:URL error:NULL];
-			[data writeToURL:URL atomically:YES];
-		}
-
-		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:MidasSettingsServerAddress]];
-		_status = MidasSettingsStatusFetching;
-		[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-
-			if (data) {
-				NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-
-				_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
-				_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
-				
-				_IPAddress = [dictionary objectForKey:MidasSettingsIPAddressKey];
-				if ([_IPAddress isKindOfClass:[NSNull class]]) _IPAddress = nil;
-				
-				id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
-				NSNumber *timeIntervalNumber = nil;
-
-				if ([countdownValue isKindOfClass:[NSNumber class]])
-					timeIntervalNumber = countdownValue;
-				else if ([countdownValue isKindOfClass:[NSString class]])
-					timeIntervalNumber = [NSNumber numberWithInteger:[countdownValue integerValue]];
-
-				_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
-			}
-
-			if (!_facebookPostID)
-				_facebookPostID = MidasSettingsFacebookDefault;
-
-			if (!_hashtag)
-				_hashtag = MidasSettingsTwitterDefault;
+			NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 			
-			if (!_raceStartDate)
-				_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
-
+			_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
+			_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
+			
+			_IPAddress = [dictionary objectForKey:MidasSettingsIPAddressKey];
+			if ([_IPAddress isKindOfClass:[NSNull class]]) _IPAddress = nil;
+			
+			_videoPath = [dictionary objectForKey:MidasSettingsVideoPathKey];
+			
+			id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
+			NSNumber *timeIntervalNumber = nil;
+			
+			if ([countdownValue isKindOfClass:[NSNumber class]])
+				timeIntervalNumber = countdownValue;
+			else if ([countdownValue isKindOfClass:[NSString class]])
+				timeIntervalNumber = [NSNumber numberWithInteger:[countdownValue integerValue]];
+			
+			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
+		}
+		
+		if (!_facebookPostID) _facebookPostID = MidasSettingsFacebookDefault;
+		
+		if (!_hashtag) _hashtag = MidasSettingsTwitterDefault;
+		
+		if (!_videoPath) _videoPath = MidasSettingsVideoPathDefault;
+		
+		if (!_raceStartDate)
+			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
+		
+		NSURLRequest *vlsRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], _videoPath]]];
+		[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+			
+			if (data) {
+				NSFileManager *fileManager = [NSFileManager defaultManager];
+				NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+				NSURL *URL = [documentsURL URLByAppendingPathComponent:MidasVLSFilename];
+				[fileManager removeItemAtURL:URL error:NULL];
+				[data writeToURL:URL atomically:YES];
+			}
+			
 			[_handlers enumerateObjectsUsingBlock:^(void(^handler)(), NSUInteger idx, BOOL *stop) {
 				handler();
 			}];
 			[_handlers removeAllObjects];
 			_status = MidasSettingsStatusHasSettings;
 		}];
+	};
+	
+	_status = MidasSettingsStatusFetching;
+	
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], MidasSettingsPath]]
+												  cachePolicy:NSURLCacheStorageNotAllowed
+											  timeoutInterval:5.0f];
+	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+		
+		if (data) {
+			settingsCompletion(response, data, error);
+			return;
+		}
+		
+		_server = MidasSettingsServerRemote;
+		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], MidasSettingsPath]]];
+		[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:settingsCompletion];
 	}];
+}
+
+- (NSString *)_currentSettingsServerHost {
+	
+	if (self.server == MidasSettingsServerLocal)
+		return MidasSettingsLocalServerHost;
+	
+	return MidasSettingsRemoteServerHost;
 }
 
 - (NSDictionary *)logins {

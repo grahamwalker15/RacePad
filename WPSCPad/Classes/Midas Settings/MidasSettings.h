@@ -8,15 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+	MidasSettingsServerLocal = 0,
+	MidasSettingsServerRemote
+} MidasSettingsServer;
+
 @interface MidasSettings : NSObject
 
 + (MidasSettings *)sharedSettings;
 - (void)waitForSettings:(void(^)())handler;
 
-@property (nonatomic, readonly) NSString *hashtag;
-@property (nonatomic, readonly) NSString *facebookPostID;
-@property (nonatomic, readonly) NSDate *raceStartDate;
-@property (nonatomic, readonly) NSDictionary *logins;
-@property (nonatomic, readonly) NSString *IPAddress;
+@property (nonatomic, copy, readonly) NSString *hashtag;
+@property (nonatomic, copy, readonly) NSString *facebookPostID;
+@property (nonatomic, copy, readonly) NSDate *raceStartDate;
+@property (nonatomic, copy, readonly) NSDictionary *logins;
+@property (nonatomic, copy, readonly) NSString *IPAddress;
+
+@property (nonatomic, readonly) MidasSettingsServer server;
 
 @end

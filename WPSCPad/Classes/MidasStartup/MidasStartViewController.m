@@ -41,6 +41,8 @@ CGPoint const LogoEndPoint;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet DCTTextFieldValidator *loginTextFieldValidator;
+
+@property (weak, nonatomic) IBOutlet UILabel *serverLabel;
 @end
 
 @implementation MidasStartViewController {
@@ -55,6 +57,18 @@ CGPoint const LogoEndPoint;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	MidasSettings *settings = [MidasSettings sharedSettings];
+	[[MidasSettings sharedSettings] waitForSettings:^{
+		if (settings.server == MidasSettingsServerRemote) {
+			self.serverLabel.alpha = 0.0f;
+			self.serverLabel.text = @"Remote Server";
+			[UIView animateWithDuration:1.0f/3.0f animations:^{
+				self.serverLabel.alpha = 1.0f;
+			}];
+		}
+	}];
+	
 	_canAnimateOffScreenCount++;
 	__weak MidasStartViewController *weakSelf = self;
 	self.loginTextFieldValidator.returnHandler = ^{
@@ -294,4 +308,8 @@ CGPoint const LogoEndPoint;
 	}];
 }
 
+- (void)viewDidUnload {
+	[self setServerLabel:nil];
+	[super viewDidUnload];
+}
 @end
