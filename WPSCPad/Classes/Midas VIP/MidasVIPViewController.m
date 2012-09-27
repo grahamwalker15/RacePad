@@ -19,6 +19,7 @@
 
 @implementation MidasVIPViewController {
 	__strong MPMoviePlayerController *_moviePlayer;
+	__strong NSArray *_videos;
 }
 
 - (id)init {
@@ -27,6 +28,13 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	NSBundle *mainBundle = [NSBundle mainBundle];
+	_videos = @[
+		[mainBundle URLForResource:@"Eddie Jordan" withExtension:@"mov"],
+		[mainBundle URLForResource:@"Marussia" withExtension:@"mp4"],
+		[mainBundle URLForResource:@"Softbank" withExtension:@"mov"]
+	];
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
@@ -47,7 +55,7 @@
 	
 	[self _removeMoviePlayer];
 	
-	NSURL *URL = [[NSBundle mainBundle] URLForResource:@"Movie on 2010-10-04 at 16.26" withExtension:@"mov"];
+	NSURL *URL = [_videos objectAtIndex:sender.tag];
 	_moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:URL];
 	_moviePlayer.view.frame = sender.superview.bounds;
 	[sender.superview addSubview:_moviePlayer.view];

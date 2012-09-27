@@ -744,6 +744,9 @@
 		243FF20615FF64AE00CDF732 /* MenuSplashLogoF1.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */; };
 		243FF20715FF64AE00CDF732 /* MenuSplashLogoMarussia.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */; };
 		243FF20915FF64AE00CDF732 /* MenuSplashLogoSoftbank.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */; };
+		2444C8C616143D3E0062EC8F /* Eddie Jordan.mov in Resources */ = {isa = PBXBuildFile; fileRef = 2444C8C316143D3E0062EC8F /* Eddie Jordan.mov */; };
+		2444C8C716143D3E0062EC8F /* Marussia.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2444C8C416143D3E0062EC8F /* Marussia.mp4 */; };
+		2444C8C816143D3E0062EC8F /* Softbank.mov in Resources */ = {isa = PBXBuildFile; fileRef = 2444C8C516143D3E0062EC8F /* Softbank.mov */; };
 		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
 		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
 		248392B815F89C13003BE8A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 248392B615F89C13003BE8A8 /* Localizable.strings */; };
@@ -1873,6 +1876,9 @@
 		243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoF1.png; sourceTree = "<group>"; };
 		243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoMarussia.png; sourceTree = "<group>"; };
 		243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoSoftbank.png; sourceTree = "<group>"; };
+		2444C8C316143D3E0062EC8F /* Eddie Jordan.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Eddie Jordan.mov"; sourceTree = "<group>"; };
+		2444C8C416143D3E0062EC8F /* Marussia.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marussia.mp4; sourceTree = "<group>"; };
+		2444C8C516143D3E0062EC8F /* Softbank.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Softbank.mov; sourceTree = "<group>"; };
 		247EBACE15F783BB00CAE3CD /* MidasLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasLoginController.h; sourceTree = "<group>"; };
 		247EBACF15F783BB00CAE3CD /* MidasLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasLoginController.m; sourceTree = "<group>"; };
 		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
@@ -2046,6 +2052,7 @@
 		240F20F115F5100E001C08C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2444C8C216143D3E0062EC8F /* VIP Videos */,
 				24AF8E3A15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov */,
 				248392B615F89C13003BE8A8 /* Localizable.strings */,
 				240F20F615F5102D001C08C1 /* HTML */,
@@ -3362,6 +3369,16 @@
 			path = "Midas Menu";
 			sourceTree = "<group>";
 		};
+		2444C8C216143D3E0062EC8F /* VIP Videos */ = {
+			isa = PBXGroup;
+			children = (
+				2444C8C316143D3E0062EC8F /* Eddie Jordan.mov */,
+				2444C8C416143D3E0062EC8F /* Marussia.mp4 */,
+				2444C8C516143D3E0062EC8F /* Softbank.mov */,
+			);
+			path = "VIP Videos";
+			sourceTree = "<group>";
+		};
 		2464946F15F666F0003E4617 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -4387,6 +4404,9 @@
 				7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */,
 				7F4B45C8161325C8007C60D8 /* videoTitleOverlayNoAudio.png in Resources */,
 				7F4E17EE16145C25006025CD /* TimeControllerView.xib in Resources */,
+				2444C8C616143D3E0062EC8F /* Eddie Jordan.mov in Resources */,
+				2444C8C716143D3E0062EC8F /* Marussia.mp4 in Resources */,
+				2444C8C816143D3E0062EC8F /* Softbank.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
