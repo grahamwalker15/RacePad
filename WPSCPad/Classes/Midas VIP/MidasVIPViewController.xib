@@ -167,7 +167,9 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">THIS IS TEXT HERE</string>
+						<string type="base64-UTF8" key="IBUIText">V2F0Y2ggZXhjbHVzaXZlIEYxIGZvb3RhZ2UgaW4geW91ciB2ZXJ5IG93biBWSVAgYXJlYS4KRnJvbSBi
+ZWhpbmQgdGhlIHNjZW5lcyBpbnRlcnZpZXdzIHdpdGggZHJpdmVycywgdG8gY2VsZWJyaXR5IGdvc3Np
+cCBmcm9tIHRoZSBwYWRkb2NrLg</string>
 						<object class="NSColor" key="IBUITextColor" id="1059164447">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -1006,6 +1008,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MidasVIPViewController</string>
 					<string key="superclassName">MidasBaseViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">play:</string>
+						<string key="NS.object.0">UIControl</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">play:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">play:</string>
+							<string key="candidateClassName">UIControl</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="titleImageView">UIImageView</string>
 						<string key="titleLabel">UILabel</string>
