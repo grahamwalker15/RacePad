@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShinyButton.h"
 
 @interface TimeViewController : UIViewController
 {

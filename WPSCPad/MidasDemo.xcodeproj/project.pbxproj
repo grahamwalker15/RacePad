@@ -4641,7 +4641,7 @@
 		240F205715F50F9B001C08C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Indev Consulting Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gareth Griffith (BYS9H5K23F)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Midas-Info.plist";
@@ -4656,7 +4656,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BBEFE18A-53D4-443B-87B8-987DD3BCC9D2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37E38114-27E0-44E9-BDC2-0DE99F4596F1";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

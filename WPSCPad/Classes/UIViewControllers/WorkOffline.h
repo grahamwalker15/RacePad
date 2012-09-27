@@ -9,11 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "ShinyButton.h"
 #import "BackgroundView.h"
+#import "BasePadCoordinator.h"
 
 
-@interface WorkOffline : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface WorkOffline : UIViewController <ConnectionFeedbackDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 {
 	
+	IBOutlet UITextField *ip_address_edit_;
+	IBOutlet UIButton *connect;
+	IBOutlet UILabel *status;
+	IBOutlet UIActivityIndicatorView *serverTwirl;
+
 	IBOutlet BackgroundView *backgroundView;
 	IBOutlet UIPickerView *event;
 	IBOutlet ShinyButton *ok;
@@ -29,6 +35,11 @@
 }
 
 @property (nonatomic) bool animatedDismissal;
+
+- (void) updateServerState:(NSString *)message;
+
+- (IBAction)IPAddressChanged:(id)sender;
+- (IBAction)connectPressed:(id)sender;
 
 - (IBAction)okPressed:(id)sender;
 - (IBAction)onlinePressed:(id)sender;

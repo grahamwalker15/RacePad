@@ -36,6 +36,9 @@
 {
     [super viewDidLoad];
 
+	[ip_address_edit_ setText:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"]];
+	[self updateServerState:@""];
+
 	[backgroundView setStyle:BG_STYLE_TRANSPARENT_];
 	[online setButtonColour:[UIColor colorWithRed:0.3 green:1.0 blue:0.3 alpha:1.0]];
 	[online setShine:0.5];
@@ -70,7 +73,8 @@
 }
 
 
-- (void)dealloc {
+- (void)dealloc
+{
     [super dealloc];
 	[events release];
 	[sessions release];
@@ -200,7 +204,16 @@
 		[self updateSessions: [event selectedRowInComponent:0]];
 	}
 	else
+    {
 		[ok setEnabled:NO];
+    }
+    
+    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:nil];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -295,5 +308,79 @@
 			[tabControl setSelectedViewController:[tabs objectAtIndex:[tabs count]-1]];
 	}
 }
+
+-(IBAction)IPAddressChanged:(id)sender
+{
+	NSString *text = [sender text];
+	[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
+}
+
+-(IBAction)connectPressed:(id)sender
+{
+	if ( [[RacePadCoordinator Instance] serverConnected] )
+	{
+		[[RacePadCoordinator Instance] disconnect];
+		[self updateServerState:@"Working offline"];
+	}
+	else
+	{
+		NSString *text = [ip_address_edit_ text];
+		[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
+		[serverTwirl setHidden:false];
+        [serverTwirl startAnimating];
+        
+        [self updateServerState:@"Trying to connect..."];
+	}
+}
+
+- (void) updateServerState:(NSString *)message;
+{
+	if ( [[RacePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_ )
+	{
+		[connect setTitle:@"Disconnect" forState:UIControlStateNormal];
+		[status setText:@"Connected to server"];
+	}
+	else
+	{
+		[connect setTitle:@"Connect" forState:UIControlStateNormal];
+		[status setText:message];
+	}    
+}
+
+// ConnectionFeedbackDelegate methods
+
+- (void)notifyConnectionSucceeded
+{
+    
+	[serverTwirl setHidden:true];
+    [serverTwirl stopAnimating];
+
+    [self updateServerState:@"Connected to server"];
+    [self dismissModalViewControllerAnimated:animatedDismissal];
+}
+
+- (void)notifyConnectionRetry
+{
+    [self updateServerState:@"Trying again to connect..."];
+}
+
+- (void)notifyConnectionTimeout
+{
+    
+	[serverTwirl setHidden:true];
+    [serverTwirl stopAnimating];
+
+    [self updateServerState:@"Connection attempt timed out"];
+}
+
+- (void)notifyConnectionFailed
+{
+    
+	[serverTwirl setHidden:true];
+    [serverTwirl stopAnimating];
+
+    [self updateServerState:@"Connection failed"];
+}
+
 
 @end

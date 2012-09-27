@@ -41,6 +41,13 @@ enum ConnectionTypes
 	BPC_CONNECTION_FAILED_,
 } ;
 
+@protocol ConnectionFeedbackDelegate
+- (void)notifyConnectionSucceeded;
+- (void)notifyConnectionRetry;
+- (void)notifyConnectionTimeout;
+- (void)notifyConnectionFailed;
+@end
+
 @interface BPCView : NSObject
 {
 	id view_;
@@ -149,6 +156,8 @@ enum ConnectionTypes
 	bool lightRestart;
 
 	float appVersionNumber;
+    
+    id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
 }
 
 @property (readonly) float appVersionNumber;
@@ -178,6 +187,8 @@ enum ConnectionTypes
 
 @property (nonatomic, retain) NSString * nameToFollow;
 @property (nonatomic) bool lightRestart;
+
+@property (retain) id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
 
 +(BasePadCoordinator *)Instance;
 

@@ -228,7 +228,6 @@ static BasePadTimeController * instance_ = nil;
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	[timeController.view setAlpha:0.0];
-	//[jogController.view setAlpha:0.0];
 	
 	if(addOnOptionsView)
 	{

@@ -113,6 +113,7 @@
 	bool myTeamButtonOpen;
 	
 	bool socialMediaButtonFlashed;
+	bool timeControllerPending;
 
 	CGSize movieSize;
 	CGRect movieRect;
@@ -217,6 +218,7 @@
 - (void) menuButtonAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 - (void) executeTimeControllerDisplay;
+- (void) executeTimeControllerHide;
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
 

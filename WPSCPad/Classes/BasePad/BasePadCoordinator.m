@@ -55,6 +55,7 @@
 @synthesize nameToFollow;
 @synthesize lightRestart;
 @synthesize forceDataLive;
+@synthesize connectionFeedbackDelegate;
 
 static BasePadCoordinator * instance_ = nil;
 
@@ -118,6 +119,7 @@ static BasePadCoordinator * instance_ = nil;
 		currentSponsor = [[BasePadSponsor Instance] sponsor];
         
         settingsViewController = nil;
+        connectionFeedbackDelegate = nil;
 	}
 	
 	return self;
@@ -136,6 +138,7 @@ static BasePadCoordinator * instance_ = nil;
 	[serverConnect release];
 	[WorkOffline release];
 	[settingsViewController release];
+	[connectionFeedbackDelegate release];
 	[videoViewController release];
 	[allTabs release];
     [super dealloc];
@@ -957,6 +960,7 @@ static BasePadCoordinator * instance_ = nil;
 	}
 	
 	[settingsViewController updateServerState];
+    [connectionFeedbackDelegate notifyConnectionSucceeded];
 }
 
 - (void) retryConnection:(NSTimer *)timer
@@ -965,6 +969,7 @@ static BasePadCoordinator * instance_ = nil;
 	{
 		connectionRetryCount++;
 		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO LightRestart:false];
+        [connectionFeedbackDelegate notifyConnectionRetry];
 	}
 	else
 	{
@@ -984,6 +989,7 @@ static BasePadCoordinator * instance_ = nil;
 	restartTime = 0;
 	
 	[settingsViewController updateServerState];
+    [connectionFeedbackDelegate notifyConnectionTimeout];
 }
 
 -(bool) serverConnected
@@ -1032,7 +1038,7 @@ static BasePadCoordinator * instance_ = nil;
 		if ( showWindow )
 		{
 			// Slightly delay popping up the connect window, just in case we connect really quickly
-			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 0.5];
+			[self performSelector:@selector(showConnecting) withObject:nil afterDelay: 1.0];
 		}
 	}
 }
@@ -1077,6 +1083,9 @@ static BasePadCoordinator * instance_ = nil;
 		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:YES LightRestart:false];
 		[settingsViewController updateServerState];
 	}
+    
+    [connectionFeedbackDelegate notifyConnectionFailed];
+    
 }
 
 - (void) goOffline

@@ -108,7 +108,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	timeControlsButtonOpen = false;
 	myTeamButtonOpen = false;
 	
-	socialMediaButtonFlashed = false;	
+	socialMediaButtonFlashed = false;
+    timeControllerPending = false;
 
 	firstDisplay = true;
 	
@@ -582,11 +583,10 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(movieViewCount == 1)
 	{
-        // Switch off time controller if we're returning to a forced live view
+        // Make sure the time controller won't come back if we're returning to a forced live view
         if(mainMovieView && [mainMovieView movieSourceAssociated] && [mainMovieView movieSource] && [[mainMovieView movieSource] movieForceLive])
         {
-            if([BasePadViewController timeControllerDisplayed])
-                [self toggleTimeControllerDisplay];
+            timeControllerPending = false;
         }
         
         // Then setup the movie view parameters
@@ -615,7 +615,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			[auxMovieView1 setFrame:centreViewRect];
 			[auxMovieView1 setShouldShowLabels:true];
 			[auxMovieView2 setShouldShowLabels:false];
-		}
+ 		}
 		else if([auxMovieView2 movieSourceAssociated] && ![auxMovieView2 movieScheduledForRemoval])
 		{
 			priorityAuxMovie = 2;
@@ -623,8 +623,8 @@ static UIImage * newButtonBackgroundImage = nil;
 			[auxMovieView2 setShouldShowLabels:true];
 			[auxMovieView1 setShouldShowLabels:false];
 		}
-        //[auxMovieView1 setAudioMuted:priorityAuxMovie == 2];
-        //[auxMovieView2 setAudioMuted:priorityAuxMovie == 1];
+        [auxMovieView1 setAudioMuted:priorityAuxMovie == 2];
+        [auxMovieView2 setAudioMuted:priorityAuxMovie == 1];
 	}
 	else if(movieViewCount == 3)
 	{
@@ -707,7 +707,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	// Remove the backed up view layout
 	[self clearMovieViewStore];
-	
+    
 	if(newView && movieDirection != MV_CURRENT_POSITION)
 		[self prePositionMovieView:newView From:movieDirection];	
 }
@@ -719,6 +719,14 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	moviesAnimating = true;
 	
+    // Remove the time controls if they qre there
+    // Switch off time controller if we're returning to a forced live view
+    if([BasePadViewController timeControllerDisplayed])
+    {
+        [self toggleTimeControllerDisplay];
+        timeControllerPending = true;
+    }
+    
 	if(newView && movieDirection != MV_CURRENT_POSITION)
 		[self prePositionMovieView:newView From:movieDirection];
 	
@@ -774,6 +782,15 @@ static UIImage * newButtonBackgroundImage = nil;
 		[auxMovieView2 showMovieLabels:(priorityAuxMovie == 2) ? MV_CLOSE_AND_AUDIO : MV_CLOSE_NO_AUDIO];
 	else
 		[auxMovieView2 hideMovieLabels];
+    
+    // Restore the time controls if needed
+    if(timeControllerPending && ![BasePadViewController timeControllerDisplayed])
+    {
+        [self toggleTimeControllerDisplay];
+    }
+    
+    timeControllerPending = false;
+
 }
 
 - (void) showAuxMovieView:(MovieView *)viewPtr
@@ -1671,6 +1688,15 @@ static UIImage * newButtonBackgroundImage = nil;
 	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
 	{
         [timeControllerInstance displayTimeControllerInViewController:self InRect:centreViewRect Animated:true];
+    }
+}
+
+- (void) executeTimeControllerHide
+{
+    id timeControllerInstance = [BasePadViewController timeControllerInstance];
+	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
+	{
+        [timeControllerInstance hideTimeController];
     }
 }
 
