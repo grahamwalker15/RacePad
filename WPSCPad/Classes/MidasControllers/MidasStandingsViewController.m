@@ -151,12 +151,14 @@
 - (void) onDisplay
 {
 	[[RacePadCoordinator Instance] SetViewDisplayed:standingsView];
+	[[RacePadCoordinator Instance] SetViewDisplayed:midasVotingView];
 	[[RacePadCoordinator Instance] SetViewDisplayed:self];
 }
 
 - (void) onHide
 {
 	[[RacePadCoordinator Instance] SetViewHidden:standingsView];
+	[[RacePadCoordinator Instance] SetViewHidden:midasVotingView];
 	[[RacePadCoordinator Instance] SetViewHidden:self];
 }
 
