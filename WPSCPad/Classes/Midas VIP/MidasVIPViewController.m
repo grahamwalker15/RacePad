@@ -29,11 +29,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	NSBundle *mainBundle = [NSBundle mainBundle];
 	_videos = @[
-		[mainBundle URLForResource:@"Eddie Jordan" withExtension:@"mov"],
-		[mainBundle URLForResource:@"Marussia" withExtension:@"mp4"],
-		[mainBundle URLForResource:@"Softbank" withExtension:@"mov"]
+		[NSURL URLWithString:@"https://dl.dropbox.com/s/b4cz9m0aj5hiwfp/Eddie%20Jordan.mov"],
+		[NSURL URLWithString:@"https://dl.dropbox.com/s/immbs552106421n/Marussia.mp4"],
+		[NSURL URLWithString:@"https://dl.dropbox.com/s/6jf9yyyfrp5vft5/Softbank.mov"]
 	];
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
