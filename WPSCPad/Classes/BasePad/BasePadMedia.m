@@ -688,7 +688,7 @@ static BasePadMedia * instance_ = nil;
 		int movieStartTime;
 		int movieLoop;
 		
-		while(true)
+		while(localMovieSourceCount < BPM_MAX_VIDEO_STREAMS)
 		{
 			if ( fscanf(listFile, "%128s", keyword ) != 1 )
 				break;
