@@ -280,6 +280,14 @@ CGPoint const LogoEndPoint;
 -(IBAction)connectLive:(id)sender {
 	MidasSettings *settings = [MidasSettings sharedSettings];
 	[settings waitForSettings:^{
+		
+		NSString *server = settings.IPAddress;
+		
+		if (!server) {
+			[self loadArchive:self];
+			return;
+		}
+		
 		[[RacePadCoordinator Instance] SetServerAddress:settings.IPAddress ShowWindow:YES LightRestart:false];
 		[[BasePadMedia Instance] connectToVideoServer];
 		[[BasePadMedia Instance] resetConnectionCounts];

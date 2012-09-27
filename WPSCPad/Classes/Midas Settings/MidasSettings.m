@@ -75,7 +75,9 @@ NSString *const MidasSettingsIPAddressDefault = @"192.168.1.133";
 
 				_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
 				_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
+				
 				_IPAddress = [dictionary objectForKey:MidasSettingsIPAddressKey];
+				if ([_IPAddress isKindOfClass:[NSNull class]]) _IPAddress = nil;
 				
 				id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
 				NSNumber *timeIntervalNumber = nil;
@@ -94,9 +96,6 @@ NSString *const MidasSettingsIPAddressDefault = @"192.168.1.133";
 			if (!_hashtag)
 				_hashtag = MidasSettingsTwitterDefault;
 			
-			if (!_IPAddress)
-				_IPAddress = MidasSettingsIPAddressDefault;
-
 			if (!_raceStartDate)
 				_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
 
