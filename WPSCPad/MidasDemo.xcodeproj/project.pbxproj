@@ -566,7 +566,6 @@
 		240F25A815F5106F001C08C1 /* TelemetryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255E15F5106F001C08C1 /* TelemetryView.xib */; };
 		240F25A915F5106F001C08C1 /* TestTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F255F15F5106F001C08C1 /* TestTextView.xib */; };
 		240F25AA15F5106F001C08C1 /* ThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F256015F5106F001C08C1 /* ThirdView.xib */; };
-		240F25AB15F5106F001C08C1 /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F256115F5106F001C08C1 /* TimeControlView.xib */; };
 		240F25AC15F5106F001C08C1 /* TimingHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F256215F5106F001C08C1 /* TimingHelp.xib */; };
 		240F25AD15F5106F001C08C1 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F256315F5106F001C08C1 /* TitleBarView.xib */; };
 		240F25AE15F5106F001C08C1 /* TrackMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240F256415F5106F001C08C1 /* TrackMapView.xib */; };
@@ -822,6 +821,7 @@
 		7F4B45C51608741D007C60D8 /* MenuCamerasButtonAllActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C31608741D007C60D8 /* MenuCamerasButtonAllActive.png */; };
 		7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */; };
 		7F4B45C8161325C8007C60D8 /* videoTitleOverlayNoAudio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C7161325C8007C60D8 /* videoTitleOverlayNoAudio.png */; };
+		7F4E17EE16145C25006025CD /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E17ED16145C25006025CD /* TimeControllerView.xib */; };
 		7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B231601D89000C95FAF /* MidasClientSocket.m */; };
 		7FCF8B261601EFDB00C95FAF /* MidasServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */; };
 		7FCF8B2916071FC800C95FAF /* GoLiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2716071FC800C95FAF /* GoLiveButton.png */; };
@@ -1556,7 +1556,6 @@
 		240F255E15F5106F001C08C1 /* TelemetryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TelemetryView.xib; path = ResourceFiles/TelemetryView.xib; sourceTree = "<group>"; };
 		240F255F15F5106F001C08C1 /* TestTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TestTextView.xib; path = ResourceFiles/TestTextView.xib; sourceTree = "<group>"; };
 		240F256015F5106F001C08C1 /* ThirdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ThirdView.xib; path = ResourceFiles/ThirdView.xib; sourceTree = "<group>"; };
-		240F256115F5106F001C08C1 /* TimeControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
 		240F256215F5106F001C08C1 /* TimingHelp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimingHelp.xib; path = ResourceFiles/TimingHelp.xib; sourceTree = "<group>"; };
 		240F256315F5106F001C08C1 /* TitleBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TitleBarView.xib; path = ResourceFiles/TitleBarView.xib; sourceTree = "<group>"; };
 		240F256415F5106F001C08C1 /* TrackMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TrackMapView.xib; path = ResourceFiles/TrackMapView.xib; sourceTree = "<group>"; };
@@ -1960,6 +1959,7 @@
 		7F4B45C31608741D007C60D8 /* MenuCamerasButtonAllActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonAllActive.png; sourceTree = "<group>"; };
 		7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonAllInActive.png; sourceTree = "<group>"; };
 		7F4B45C7161325C8007C60D8 /* videoTitleOverlayNoAudio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoAudio.png; sourceTree = "<group>"; };
+		7F4E17ED16145C25006025CD /* TimeControllerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimeControllerView.xib; path = ResourceFiles/TimeControllerView.xib; sourceTree = "<group>"; };
 		7FCF8B221601D89000C95FAF /* MidasClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasClientSocket.h; sourceTree = "<group>"; };
 		7FCF8B231601D89000C95FAF /* MidasClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasClientSocket.m; sourceTree = "<group>"; };
 		7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasServerConnect.xib; path = ResourceFiles/MidasServerConnect.xib; sourceTree = "<group>"; };
@@ -2782,7 +2782,7 @@
 				240F255E15F5106F001C08C1 /* TelemetryView.xib */,
 				240F255F15F5106F001C08C1 /* TestTextView.xib */,
 				240F256015F5106F001C08C1 /* ThirdView.xib */,
-				240F256115F5106F001C08C1 /* TimeControlView.xib */,
+				7F4E17ED16145C25006025CD /* TimeControllerView.xib */,
 				240F256215F5106F001C08C1 /* TimingHelp.xib */,
 				240F256315F5106F001C08C1 /* TitleBarView.xib */,
 				240F256415F5106F001C08C1 /* TrackMapView.xib */,
@@ -4294,7 +4294,6 @@
 				240F25A815F5106F001C08C1 /* TelemetryView.xib in Resources */,
 				240F25A915F5106F001C08C1 /* TestTextView.xib in Resources */,
 				240F25AA15F5106F001C08C1 /* ThirdView.xib in Resources */,
-				240F25AB15F5106F001C08C1 /* TimeControlView.xib in Resources */,
 				240F25AC15F5106F001C08C1 /* TimingHelp.xib in Resources */,
 				240F25AD15F5106F001C08C1 /* TitleBarView.xib in Resources */,
 				240F25AE15F5106F001C08C1 /* TrackMapView.xib in Resources */,
@@ -4387,6 +4386,7 @@
 				7F4B45C51608741D007C60D8 /* MenuCamerasButtonAllActive.png in Resources */,
 				7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */,
 				7F4B45C8161325C8007C60D8 /* videoTitleOverlayNoAudio.png in Resources */,
+				7F4E17EE16145C25006025CD /* TimeControllerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

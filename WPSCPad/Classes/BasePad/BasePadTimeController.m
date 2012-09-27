@@ -39,7 +39,7 @@ static BasePadTimeController * instance_ = nil;
 		
 		[BasePadViewController specifyTimeControllerInstance:self];
 
-		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControlView" bundle:nil];
+		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControllerView" bundle:nil];
 		addOnOptionsView = nil;
 		
 		displayed = false;
