@@ -24,6 +24,10 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy, readonly) NSDictionary *logins;
 @property (nonatomic, copy, readonly) NSString *IPAddress;
 
+@property (nonatomic, copy, readonly) NSURL *VIPEddieJordanVideoURL;
+@property (nonatomic, copy, readonly) NSURL *VIPMarussiaVideoURL;
+@property (nonatomic, copy, readonly) NSURL *VIPSoftbankVideoURL;
+
 @property (nonatomic, readonly) MidasSettingsServer server;
 
 @end

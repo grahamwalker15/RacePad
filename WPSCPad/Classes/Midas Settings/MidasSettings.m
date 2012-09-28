@@ -26,12 +26,18 @@ NSString *const MidasSettingsTwitterKey = @"tw_hash";
 NSString *const MidasSettingsCountdownKey = @"countdown";
 NSString *const MidasSettingsIPAddressKey = @"data_host";
 NSString *const MidasSettingsVideoPathKey = @"videofile";
+NSString *const MidasSettingsVIPEddieJordanVideoKey = @"eddie_jordan_video";
+NSString *const MidasSettingsVIPSoftbankVideoKey = @"softbank_video";
+NSString *const MidasSettingsVIPMarussiaVideoKey = @"marussia_video";
 
 NSTimeInterval const MidasSettingsCountdownDefault = 8.0;
 NSString *const MidasSettingsFacebookDefault = @"296502463790309";
 NSString *const MidasSettingsTwitterDefault = @"#f1";
 NSString *const MidasSettingsIPAddressDefault = @"192.168.1.133";
 NSString *const MidasSettingsVideoPathDefault = @"videofile";
+NSString *const MidasSettingsVIPEddieJordanVideoDefault = @"https://dl.dropbox.com/s/b4cz9m0aj5hiwfp/Eddie%20Jordan.mov";
+NSString *const MidasSettingsVIPSoftbankVideoDefault = @"https://dl.dropbox.com/s/6jf9yyyfrp5vft5/Softbank.mov";
+NSString *const MidasSettingsVIPMarussiaVideoDefault = @"https://dl.dropbox.com/s/immbs552106421n/Marussia.mp4";
 
 @implementation MidasSettings {
 	__strong NSMutableArray *_handlers;
@@ -79,6 +85,15 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 			
 			_videoPath = [dictionary objectForKey:MidasSettingsVideoPathKey];
 			
+			NSString *eddieJordanURLString = [dictionary objectForKey:MidasSettingsVIPEddieJordanVideoKey];
+			if ([eddieJordanURLString length] > 0) _VIPEddieJordanVideoURL = [NSURL URLWithString:eddieJordanURLString];
+
+			NSString *marussiaURLString = [dictionary objectForKey:MidasSettingsVIPMarussiaVideoKey];
+			if ([marussiaURLString length] > 0) _VIPMarussiaVideoURL = [NSURL URLWithString:marussiaURLString];
+
+			NSString *softbankURLString = [dictionary objectForKey:MidasSettingsVIPSoftbankVideoKey];
+			if (softbankURLString) _VIPSoftbankVideoURL = [NSURL URLWithString:softbankURLString];
+			
 			id countdownValue = [dictionary objectForKey:MidasSettingsCountdownKey];
 			NSNumber *timeIntervalNumber = nil;
 			
@@ -102,10 +117,20 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 		if (!_raceStartDate)
 			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
 		
+		
+		if (!_VIPMarussiaVideoURL) _VIPMarussiaVideoURL = [NSURL URLWithString:MidasSettingsVIPMarussiaVideoDefault];
+
+		if (!_VIPEddieJordanVideoURL) _VIPEddieJordanVideoURL = [NSURL URLWithString:MidasSettingsVIPEddieJordanVideoDefault];
+		
+		if (!_VIPSoftbankVideoURL) _VIPSoftbankVideoURL = [NSURL URLWithString:MidasSettingsVIPSoftbankVideoDefault];
+		
 		TFLog(@"%@ hashtag = %@", self, self.hashtag);
 		TFLog(@"%@ facebookPostID = %@", self, self.facebookPostID);
 		TFLog(@"%@ raceStartDate = %@", self, self.raceStartDate);
 		TFLog(@"%@ IPAddress = %@", self, self.IPAddress);
+		TFLog(@"%@ VIPMarussiaVideoURL = %@", self, self.VIPMarussiaVideoURL);
+		TFLog(@"%@ VIPEddieJordanVideoURL = %@", self, self.VIPEddieJordanVideoURL);
+		TFLog(@"%@ VIPSoftbankVideoURL = %@", self, self.VIPSoftbankVideoURL);
 		
 		NSURLRequest *vlsRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], _videoPath]]];
 		TFLog(@"%@ Attempting to connect to %@", self, vlsRequest.URL);

@@ -9,6 +9,7 @@
 #import "MidasVIPViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "TestFlight.h"
+#import "MidasSettings.h"
 
 @interface MidasVIPViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
@@ -29,11 +30,14 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	_videos = @[
-		[NSURL URLWithString:@"https://dl.dropbox.com/s/b4cz9m0aj5hiwfp/Eddie%20Jordan.mov"],
-		[NSURL URLWithString:@"https://dl.dropbox.com/s/immbs552106421n/Marussia.mp4"],
-		[NSURL URLWithString:@"https://dl.dropbox.com/s/6jf9yyyfrp5vft5/Softbank.mov"]
-	];
+	MidasSettings *settings = [MidasSettings sharedSettings];
+	[settings waitForSettings:^{
+		_videos = @[
+			settings.VIPEddieJordanVideoURL,
+			settings.VIPMarussiaVideoURL,
+			settings.VIPSoftbankVideoURL
+		];
+	}];
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;
