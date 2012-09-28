@@ -768,7 +768,6 @@
 		24942D6915F64FB900613F87 /* MidasStartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24942D6515F64FB900613F87 /* MidasStartViewController.xib */; };
 		24A24BA415FF9B2B00C4026C /* MenuHelpBackgroundGradientAngled.png in Resources */ = {isa = PBXBuildFile; fileRef = 24A24BA315FF9B2B00C4026C /* MenuHelpBackgroundGradientAngled.png */; };
 		24AF8DE615F8BAF900A16FE3 /* MenuMainDF.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */; };
-		24AF8E3B15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov in Resources */ = {isa = PBXBuildFile; fileRef = 24AF8E3A15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov */; };
 		24B4972415FDD76E007D5B2E /* Alert2ndYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972315FDD76E007D5B2E /* Alert2ndYellow.png */; };
 		24B4972615FDD780007D5B2E /* AlertFKCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972515FDD780007D5B2E /* AlertFKCorner.png */; };
 		24B4972815FDD78C007D5B2E /* AlertGoal.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B4972715FDD78C007D5B2E /* AlertGoal.png */; };
@@ -1906,7 +1905,6 @@
 		24942D6515F64FB900613F87 /* MidasStartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MidasStartViewController.xib; sourceTree = "<group>"; };
 		24A24BA315FF9B2B00C4026C /* MenuHelpBackgroundGradientAngled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuHelpBackgroundGradientAngled.png; sourceTree = "<group>"; };
 		24AF8DE515F8BAF900A16FE3 /* MenuMainDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuMainDF.png; sourceTree = "<group>"; };
-		24AF8E3A15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Movie on 2010-10-04 at 16.26.mov"; sourceTree = "<group>"; };
 		24B4972315FDD76E007D5B2E /* Alert2ndYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Alert2ndYellow.png; path = MatchPad/Alert2ndYellow.png; sourceTree = "<group>"; };
 		24B4972515FDD780007D5B2E /* AlertFKCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertFKCorner.png; path = MatchPad/AlertFKCorner.png; sourceTree = "<group>"; };
 		24B4972715FDD78C007D5B2E /* AlertGoal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertGoal.png; path = MatchPad/AlertGoal.png; sourceTree = "<group>"; };
@@ -2046,7 +2044,6 @@
 		240F20F115F5100E001C08C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				24AF8E3A15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov */,
 				248392B615F89C13003BE8A8 /* Localizable.strings */,
 				240F20F615F5102D001C08C1 /* HTML */,
 				240F214F15F51038001C08C1 /* Images */,
@@ -4362,7 +4359,6 @@
 				2432DCC915F7AC3600DDB1FC /* TopHeading.png in Resources */,
 				248392B815F89C13003BE8A8 /* Localizable.strings in Resources */,
 				24AF8DE615F8BAF900A16FE3 /* MenuMainDF.png in Resources */,
-				24AF8E3B15F8C5FA00A16FE3 /* Movie on 2010-10-04 at 16.26.mov in Resources */,
 				2492EED715FA01BA00A462CD /* MidasWebViewController.xib in Resources */,
 				2492EF3015FA0EB500A462CD /* MidasHelpViewController.xib in Resources */,
 				2492EF3515FA110C00A462CD /* MidasHelpTableViewCell.xib in Resources */,
