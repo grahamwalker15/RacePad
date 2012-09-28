@@ -10,6 +10,6 @@
 
 @interface MidasHelpTableViewCell : DCTTableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *helpImageView;
-@property (weak, nonatomic) IBOutlet UILabel *helpTextLabel;
+@property (weak, nonatomic) IBOutlet UITextView *helpTextView;
 @property (weak, nonatomic) IBOutlet UILabel *helpTitleLabel;
 @end
