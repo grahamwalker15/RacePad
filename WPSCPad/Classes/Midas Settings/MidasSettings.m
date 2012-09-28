@@ -134,7 +134,7 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 	_status = MidasSettingsStatusFetching;
 	
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], MidasSettingsPath]]
-												  cachePolicy:NSURLCacheStorageNotAllowed
+												  cachePolicy:NSURLRequestReloadIgnoringCacheData
 											  timeoutInterval:5.0f];
 	TFLog(@"%@ Attempting to connect to %@", self, request.URL);
 	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
