@@ -7,6 +7,7 @@
 //
 
 #import "MidasSettings.h"
+#import "TestFlight.h"
 
 typedef enum : NSUInteger {
 	MidasSettingsStatusNoSettings,
@@ -63,8 +64,12 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 	
 	void (^settingsCompletion)(NSURLResponse*, NSData*, NSError*) = ^(NSURLResponse *response, NSData *data, NSError *error) {
 		
+		TFLog(@"%@ Connected to: %@", self, [self _currentSettingsServerHost]);
+		
 		if (data) {
 			NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+			
+			TFLog(@"%@ Received settings: %@", self, dictionary);
 			
 			_facebookPostID = [dictionary objectForKey:MidasSettingsFacebookKey];
 			_hashtag = [dictionary objectForKey:MidasSettingsTwitterKey];
@@ -94,7 +99,13 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 		if (!_raceStartDate)
 			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:MidasSettingsCountdownDefault];
 		
+		TFLog(@"%@ hashtag = %@", self, self.hashtag);
+		TFLog(@"%@ facebookPostID = %@", self, self.facebookPostID);
+		TFLog(@"%@ raceStartDate = %@", self, self.raceStartDate);
+		TFLog(@"%@ IPAddress = %@", self, self.IPAddress);
+		
 		NSURLRequest *vlsRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], _videoPath]]];
+		TFLog(@"%@ Attempting to connect to %@", self, vlsRequest.URL);
 		[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 			
 			if (data) {
@@ -118,6 +129,7 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], MidasSettingsPath]]
 												  cachePolicy:NSURLCacheStorageNotAllowed
 											  timeoutInterval:5.0f];
+	TFLog(@"%@ Attempting to connect to %@", self, request.URL);
 	[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 		
 		if (data) {
@@ -127,6 +139,7 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 		
 		_server = MidasSettingsServerRemote;
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], MidasSettingsPath]]];
+		TFLog(@"%@ Attempting to connect to %@", self, request.URL);
 		[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:settingsCompletion];
 	}];
 }
