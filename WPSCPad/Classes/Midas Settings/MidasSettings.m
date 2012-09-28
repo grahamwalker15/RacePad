@@ -88,6 +88,9 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 				timeIntervalNumber = [NSNumber numberWithInteger:[countdownValue integerValue]];
 			
 			_raceStartDate = [NSDate dateWithTimeIntervalSinceNow:[timeIntervalNumber doubleValue]];
+		} else {
+			TFLog(@"%@ Received error: %@", self, [error localizedDescription]);
+			TFLog(@"%@ Received error: %@", self, error);
 		}
 		
 		if (!_facebookPostID) _facebookPostID = MidasSettingsFacebookDefault;
@@ -109,11 +112,15 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 		[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 			
 			if (data) {
+				TFLog(@"%@ Received vls:\n%@", self, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 				NSFileManager *fileManager = [NSFileManager defaultManager];
 				NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 				NSURL *URL = [documentsURL URLByAppendingPathComponent:MidasVLSFilename];
 				[fileManager removeItemAtURL:URL error:NULL];
 				[data writeToURL:URL atomically:YES];
+			} else {
+				TFLog(@"%@ Received error: %@", self, [error localizedDescription]);
+				TFLog(@"%@ Received error: %@", self, error);
 			}
 			
 			[_handlers enumerateObjectsUsingBlock:^(void(^handler)(), NSUInteger idx, BOOL *stop) {
@@ -136,6 +143,9 @@ NSString *const MidasSettingsVideoPathDefault = @"videofile";
 			settingsCompletion(response, data, error);
 			return;
 		}
+		
+		TFLog(@"%@ Received error: %@", self, [error localizedDescription]);
+		TFLog(@"%@ Received error: %@", self, error);
 		
 		_server = MidasSettingsServerRemote;
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], MidasSettingsPath]]];
