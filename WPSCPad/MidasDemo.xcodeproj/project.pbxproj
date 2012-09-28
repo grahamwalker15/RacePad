@@ -744,6 +744,9 @@
 		243FF20615FF64AE00CDF732 /* MenuSplashLogoF1.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */; };
 		243FF20715FF64AE00CDF732 /* MenuSplashLogoMarussia.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */; };
 		243FF20915FF64AE00CDF732 /* MenuSplashLogoSoftbank.png in Resources */ = {isa = PBXBuildFile; fileRef = 243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */; };
+		2444EFF51615F1EF00614729 /* Eddie thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2444EFF21615F1EF00614729 /* Eddie thumb.jpg */; };
+		2444EFF61615F1EF00614729 /* Marussia thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2444EFF31615F1EF00614729 /* Marussia thumb.jpg */; };
+		2444EFF71615F1EF00614729 /* Softbank thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2444EFF41615F1EF00614729 /* Softbank thumb.jpg */; };
 		247EBAD015F783BB00CAE3CD /* MidasLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247EBACF15F783BB00CAE3CD /* MidasLoginController.m */; };
 		247EBAD215F7868600CAE3CD /* signInScreenButtonSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */; };
 		248392B815F89C13003BE8A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 248392B615F89C13003BE8A8 /* Localizable.strings */; };
@@ -1869,6 +1872,9 @@
 		243FF20215FF64AE00CDF732 /* MenuSplashLogoF1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoF1.png; sourceTree = "<group>"; };
 		243FF20315FF64AE00CDF732 /* MenuSplashLogoMarussia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoMarussia.png; sourceTree = "<group>"; };
 		243FF20515FF64AE00CDF732 /* MenuSplashLogoSoftbank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuSplashLogoSoftbank.png; sourceTree = "<group>"; };
+		2444EFF21615F1EF00614729 /* Eddie thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Eddie thumb.jpg"; sourceTree = "<group>"; };
+		2444EFF31615F1EF00614729 /* Marussia thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Marussia thumb.jpg"; sourceTree = "<group>"; };
+		2444EFF41615F1EF00614729 /* Softbank thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Softbank thumb.jpg"; sourceTree = "<group>"; };
 		247EBACE15F783BB00CAE3CD /* MidasLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasLoginController.h; sourceTree = "<group>"; };
 		247EBACF15F783BB00CAE3CD /* MidasLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasLoginController.m; sourceTree = "<group>"; };
 		247EBAD115F7868600CAE3CD /* signInScreenButtonSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInScreenButtonSignIn.png; sourceTree = "<group>"; };
@@ -3400,6 +3406,9 @@
 				24942D1215F6249400613F87 /* MidasVIPViewController.h */,
 				24942D1315F6249400613F87 /* MidasVIPViewController.m */,
 				24942D1415F6249400613F87 /* MidasVIPViewController.xib */,
+				2444EFF21615F1EF00614729 /* Eddie thumb.jpg */,
+				2444EFF31615F1EF00614729 /* Marussia thumb.jpg */,
+				2444EFF41615F1EF00614729 /* Softbank thumb.jpg */,
 			);
 			path = "Midas VIP";
 			sourceTree = "<group>";
@@ -4371,6 +4380,9 @@
 				7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */,
 				7F4B45C8161325C8007C60D8 /* videoTitleOverlayNoAudio.png in Resources */,
 				7F4E17EE16145C25006025CD /* TimeControllerView.xib in Resources */,
+				2444EFF51615F1EF00614729 /* Eddie thumb.jpg in Resources */,
+				2444EFF61615F1EF00614729 /* Marussia thumb.jpg in Resources */,
+				2444EFF71615F1EF00614729 /* Softbank thumb.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
