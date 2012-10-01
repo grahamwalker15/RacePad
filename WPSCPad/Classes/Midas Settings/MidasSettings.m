@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
 NSString *const MidasVLSFilename = @"LiveVideoConnection.vls";
 
 NSString *const MidasSettingsPath = @"/settings";
-NSString *const MidasSettingsLocalServerHost = @"192.168.71.154";
+NSString *const MidasSettingsLocalServerHost = @"192.168.5.143";
 NSString *const MidasSettingsRemoteServerHost = @"31.221.40.202";
 
 NSString *const MidasSettingsFacebookKey = @"fb_url";
