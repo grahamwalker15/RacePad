@@ -138,7 +138,7 @@ static BasePadCoordinator * instance_ = nil;
 	[serverConnect release];
 	[WorkOffline release];
 	[settingsViewController release];
-	[connectionFeedbackDelegate release];
+	[(id)connectionFeedbackDelegate release];
 	[videoViewController release];
 	[allTabs release];
     [super dealloc];
@@ -483,7 +483,10 @@ static BasePadCoordinator * instance_ = nil;
 	[self pausePlay];
 	needsPlayRestart = false;
 	activePlaybackRate = playbackRate = 1.0;
+    
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+    [registeredViewController notifyChangeToLiveMode];
+    
 	[[BasePadMedia Instance] stopPlayTimers];
 }
 
@@ -496,6 +499,7 @@ static BasePadCoordinator * instance_ = nil;
 	[self stopPlay];
 	[settingsViewController updateConnectionType];
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+    [registeredViewController notifyChangeToLiveMode];
 
     protectDataFromRestart = false;
 }
@@ -515,6 +519,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	[[BasePadTimeController Instance] updatePlayButtons];
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+    [registeredViewController notifyChangeToLiveMode];
 	[[BasePadTitleBarController Instance] updateTime:currentTime];
 	[self resetCommentaryTimings];
 	[self resetListUpdateTimings];
@@ -558,6 +563,7 @@ static BasePadCoordinator * instance_ = nil;
 			[self startPlay];
 			[[BasePadTimeController Instance] updatePlayButtons];
 			[[BasePadTitleBarController Instance] updateLiveIndicator];
+            [registeredViewController notifyChangeToLiveMode];
 		}
 	}
 	
@@ -582,10 +588,10 @@ static BasePadCoordinator * instance_ = nil;
 		[self prepareToPlay];
 		[self startPlay];
 		[[BasePadTimeController Instance] updatePlayButtons];
-		[[BasePadTitleBarController Instance] updateLiveIndicator];
 	}
 		
 	[[BasePadTitleBarController Instance] updateLiveIndicator];
+    [registeredViewController notifyChangeToLiveMode];
 
 }
 
@@ -1127,11 +1133,19 @@ static BasePadCoordinator * instance_ = nil;
 
 -(void)prepareToPlayFromSocket
 {
-	if ( live || forceDataLive )
+	if ( live )
 	{
         if(!socketStreaming)
         {
             playbackRate = 1.0;
+            [socket_ goLive];
+            [self streamViewsFromSocket];
+        }
+	}
+	else if ( forceDataLive )
+	{
+        if(!socketStreaming)
+        {
             [socket_ goLive];
             [self streamViewsFromSocket];
         }

@@ -109,6 +109,10 @@ static id timeControllerInstance = nil;
 	return YES;
 }
 
+- (void) notifyChangeToLiveMode
+{
+}
+
 - (void) RequestRedraw
 {
 }

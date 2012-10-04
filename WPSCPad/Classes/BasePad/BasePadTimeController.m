@@ -430,11 +430,17 @@ static BasePadTimeController * instance_ = nil;
 		[coordinator userPause];
 		[self updatePlayButtons];
 	}
+	else if([coordinator playing])
+	{
+		[coordinator userPause];
+
+		[coordinator setPlaybackRate:0.5];
+		[coordinator prepareToPlay];
+		[coordinator startPlay];
+		[self updatePlayButtons];
+	}
 	else
 	{
-		if([coordinator playing])
-			[coordinator pausePlay];
-		
 		[coordinator setPlaybackRate:0.5];
 		[coordinator prepareToPlay];
 		[coordinator startPlay];

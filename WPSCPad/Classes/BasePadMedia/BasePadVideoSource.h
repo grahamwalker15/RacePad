@@ -31,6 +31,9 @@
 	AVPlayerLayer * moviePlayerLayer;
 	
 	MovieView * parentMovieView;
+	MovieView * requestedMovieView;
+    
+    bool requestedShouldDisplay;
 	
 	id moviePlayerObserver;
 	
@@ -79,6 +82,7 @@
 	
 	bool movieInLiveMode;
 	
+	NSTimer * verificationTimer;
 	NSTimer * playStartTimer;
 	NSTimer * playTimer;
 	
@@ -152,6 +156,7 @@
 
 - (void) setStartTime:(float)time;
 - (void) getStartTime;
+- (void) updateStartTime;
 
 - (void) moviePrepareToPlayLive;
 - (void) moviePlayAtRate:(float)playbackRate;
@@ -173,9 +178,13 @@
 - (void) playerItemDidReachEnd:(NSNotification *)notification;
 - (void) playerItemFailedToReachEnd:(NSNotification *)notification;
 
+- (void) checkForReadyToPlay;
 - (void) actOnReadyToPlay;
 - (void) actOnPlayerError:(NSError *)error;
 - (void) actOnLoopingReachedEnd;
+
+- (void) startVerificationTimer;
+- (void) verificationTimerFired:(NSTimer *)theTimer;
 
 - (void) startLivePlayTimer;
 - (void) stopPlayTimers;

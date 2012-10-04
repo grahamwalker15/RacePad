@@ -497,20 +497,19 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (void)notifyMovieAttachedToView:(MovieView *)movieView	// MovieViewDelegate method
 {
-		if(movieView && movieView == mainMovieView)
-		{
-			[movieView bringSubviewToFront:overlayView];
-			[movieView bringSubviewToFront:trackMapView];
-			// GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
-			[movieView bringSubviewToFront:trackZoomContainer];
-			[movieView bringSubviewToFront:trackZoomView];
-			[movieView bringSubviewToFront:videoDelayLabel];
-			[movieView bringSubviewToFront:loadingLabel];
-			[movieView bringSubviewToFront:loadingTwirl];
+    if(movieView && movieView == mainMovieView)
+    {
+        [movieView bringSubviewToFront:overlayView];
+        [movieView bringSubviewToFront:trackMapView];
+        // GG - COMMENT OUT LEADERBOARD : [movieView bringSubviewToFront:leaderboardView];
+        [movieView bringSubviewToFront:trackZoomContainer];
+        [movieView bringSubviewToFront:trackZoomView];
+        [movieView bringSubviewToFront:videoDelayLabel];
+        [movieView bringSubviewToFront:loadingLabel];
+        [movieView bringSubviewToFront:loadingTwirl];
 
-			[self positionOverlays];
-		}
-		
+        [self positionOverlays];
+    }
 }
 
 - (void)notifyMovieReadyToPlayInView:(MovieView *)movieView	// MovieViewDelegate method
@@ -757,13 +756,17 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(![auxMovieView1 movieSourceAssociated] || [auxMovieView1 movieScheduledForRemoval])
 	{
-		[auxMovieView1 removeMovieFromView];
+        if(![auxMovieView1 movieSourceCached])
+            [auxMovieView1 removeMovieFromView];
+        
 		[self hideAuxMovieView:auxMovieView1];
 	}
 	
 	if(![auxMovieView2 movieSourceAssociated] || [auxMovieView2 movieScheduledForRemoval])
 	{
-		[auxMovieView2 removeMovieFromView];
+        if(![auxMovieView2 movieSourceCached])
+            [auxMovieView2 removeMovieFromView];
+        
 		[self hideAuxMovieView:auxMovieView2];
 	}
 	
@@ -888,6 +891,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	[videoDelayLabel setHidden:true];
 	
+}
+
+- (void) notifyChangeToLiveMode
+{
+    [mainMovieView updateMovieLabels];
+    [auxMovieView1 updateMovieLabels];
+	[auxMovieView2 updateMovieLabels];
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -1618,9 +1628,9 @@ static UIImage * newButtonBackgroundImage = nil;
 	if(sender == timeControlsButton)
 	{
 		
-		[self notifyExclusiveUse:MIDAS_POPUP_NONE_ InZone:MIDAS_ZONE_ALL_];	
-		[self hideMenuButtons];
-		[self positionMenuButtons];
+		//[self notifyExclusiveUse:MIDAS_POPUP_NONE_ InZone:MIDAS_ZONE_ALL_];
+		//[self hideMenuButtons];
+		//[self positionMenuButtons];
 		[self toggleTimeControllerDisplay];
 	}
 	
@@ -1689,6 +1699,23 @@ static UIImage * newButtonBackgroundImage = nil;
 	{
         [timeControllerInstance displayTimeControllerInViewController:self InRect:centreViewRect Animated:true];
     }
+    
+    // Ensure that all displayed popups are in front
+    if(standingsButtonOpen)
+        [[MidasStandingsManager Instance] bringToFront];
+    
+	if(mapButtonOpen)
+        [[MidasCircuitViewManager Instance] bringToFront];
+
+	if(followDriverButtonOpen)
+        [[MidasFollowDriverManager Instance] bringToFront];
+
+	if(cameraButtonOpen)
+        [[MidasCameraManager Instance] bringToFront];
+
+	if(myTeamButtonOpen)
+        [[MidasMyTeamManager Instance] bringToFront];
+        
 }
 
 - (void) executeTimeControllerHide

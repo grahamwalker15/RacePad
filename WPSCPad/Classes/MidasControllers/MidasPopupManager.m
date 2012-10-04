@@ -404,7 +404,7 @@ static MidasVIPManager * vipInstance_ = nil;
 		[viewController notifyExclusiveUse:managedViewType InZone:managedExclusionZone];	
 }
 
-- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated Direction:(int)direction XAlignment:(int)xAlign YAlignment:(int)yAlign;
+- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated Direction:(int)direction XAlignment:(int)xAlign YAlignment:(int)yAlign
 {	
 	// Can't display if we're in the middle of hiding
 	if(hiding)
@@ -616,6 +616,14 @@ static MidasVIPManager * vipInstance_ = nil;
 		[flagTimer invalidate];
 		flagTimer = nil;
 	}
+}
+
+- (void) bringToFront
+{
+	if(!viewDisplayed || !parentViewController || !parentViewController.view)
+		return;
+	
+	[parentViewController.view bringSubviewToFront:managedViewController.view];
 }
 
 - (void) flagTimerExpired:(NSTimer *)theTimer

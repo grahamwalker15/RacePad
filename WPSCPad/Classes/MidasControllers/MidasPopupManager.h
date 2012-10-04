@@ -80,14 +80,14 @@ enum PopupMenuZones
 - (void)notifyExclusiveUse:(int)popupType InZone:(int)popupZone;
 @end
 
-@protocol MidasPopupManagedDelegate
+@protocol MidasPopupManagerDelegate
 - (void)onDisplay;
 - (void)onHide;
 @end
 
 @interface MidasPopupManager : NSObject <UIGestureRecognizerDelegate>
 {
-	BasePadViewController <MidasPopupManagedDelegate> * managedViewController;
+	BasePadViewController <MidasPopupManagerDelegate> * managedViewController;
 	int managedViewType;
 	int managedExclusionZone;
 	
@@ -112,7 +112,7 @@ enum PopupMenuZones
 @property(nonatomic) int managedExclusionZone;
 @property(nonatomic) float overhang;
 @property(nonatomic) float preferredWidth;
-@property (nonatomic, assign) BasePadViewController <MidasPopupManagedDelegate> *managedViewController;
+@property (nonatomic, assign) BasePadViewController <MidasPopupManagerDelegate> *managedViewController;
 @property (readonly) BasePadViewController <MidasPopupParentDelegate> *parentViewController;
 
 - (void) onStartUp;
@@ -121,6 +121,7 @@ enum PopupMenuZones
 - (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated Direction:(int)direction XAlignment:(int)xAlign YAlignment:(int)yAlign;
 - (void) moveToPositionX:(float)x Animated:(bool)animated;
 - (void) hideAnimated:(bool)animated Notify:(bool)notify;
+- (void) bringToFront;
 
 - (void) displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
 - (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;

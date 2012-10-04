@@ -42,6 +42,7 @@ enum MovieViewTitleDisplays
 	bool moviePlayerLayerAdded;
 	bool movieScheduledForDisplay;
 	bool movieScheduledForRemoval;
+	bool movieSourceCached;
 
 	UIView * titleView;
 	UIImageView * titleBackgroundImage;
@@ -62,6 +63,7 @@ enum MovieViewTitleDisplays
 	
 	bool live;
     bool muted;
+    int titleStyle;
 	
 	id movieViewDelegate;
 }
@@ -72,6 +74,7 @@ enum MovieViewTitleDisplays
 @property (nonatomic) bool moviePlayerLayerAdded;
 @property (nonatomic) bool movieScheduledForDisplay;
 @property (nonatomic) bool movieScheduledForRemoval;
+@property (nonatomic) bool movieSourceCached;
 @property (nonatomic, retain) UIView * titleView;
 @property (nonatomic, retain) UIImageView * titleBackgroundImage;
 @property (nonatomic, retain) UIImageView * audioImage;
@@ -107,8 +110,9 @@ enum MovieViewTitleDisplays
 - (void) removeMovieFromView;
 - (void) resizeMovieSourceAnimated:(bool)animated WithDuration:(float)duration;
 
-- (void) showMovieLabels:(int)titleStyle;
+- (void) showMovieLabels:(int)requestedTitleStyle;
 - (void) hideMovieLabels;
+- (void) updateMovieLabels;
 
 - (void) showMovieLoading;
 - (void) hideMovieLoading;

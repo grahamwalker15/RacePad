@@ -549,11 +549,10 @@ static BasePadMedia * instance_ = nil;
 	
 	for(int i = 0 ; i < movieSourceCount ; i++)
 	{
-		[movieSources[i] setMoviePausedInPlace:false];
-		[movieSources[i]  setMovieActive:true];
-
 		if([movieSources[i] movieLoaded])
 		{
+            [movieSources[i] setMoviePausedInPlace:false];
+            [movieSources[i]  setMovieActive:true];
 			[registeredViewController displayMovieSource:movieSources[i]];
 		}
 	}
@@ -761,7 +760,7 @@ static BasePadMedia * instance_ = nil;
 			if ( strcmp ( keyword, "@end" ) == 0 )
 			{
 				[movieSources[localMovieSourceCount] setMovieURL:url] ;
-				[movieSources[localMovieSourceCount] setMovieType:(movieIsURL ? MOVIE_TYPE_VOD_STREAM_ : MOVIE_TYPE_ARCHIVE_)] ;
+				[movieSources[localMovieSourceCount] setMovieType:(movieIsURL ? MOVIE_TYPE_LIVE_STREAM_ : MOVIE_TYPE_ARCHIVE_)] ;
 				[movieSources[localMovieSourceCount] setShouldAutoDisplay:(movieSourceCount == 0)];	// Displays first one
 				[movieSources[localMovieSourceCount] setStartTime:movieStartTime];
 				[movieSources[localMovieSourceCount] setMovieLoop:(movieLoop > 0)];
