@@ -183,6 +183,8 @@
 - (void) actOnPlayerError:(NSError *)error;
 - (void) actOnLoopingReachedEnd;
 
+- (void) activateMovie;
+
 - (void) startVerificationTimer;
 - (void) verificationTimerFired:(NSTimer *)theTimer;
 

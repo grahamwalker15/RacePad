@@ -552,7 +552,7 @@ static BasePadMedia * instance_ = nil;
 		if([movieSources[i] movieLoaded])
 		{
             [movieSources[i] setMoviePausedInPlace:false];
-            [movieSources[i]  setMovieActive:true];
+            [movieSources[i]  activateMovie];
 			[registeredViewController displayMovieSource:movieSources[i]];
 		}
 	}
@@ -609,7 +609,7 @@ static BasePadMedia * instance_ = nil;
 	if(registeredViewController)
 	{
 		[videoSource setMoviePausedInPlace:false];
-		[videoSource setMovieActive:true];
+		[videoSource activateMovie];
 	}
 	
 	[[BasePadCoordinator Instance] videoServerOnConnectionChange];

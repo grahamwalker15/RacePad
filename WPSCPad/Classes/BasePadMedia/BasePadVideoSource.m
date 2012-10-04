@@ -1161,10 +1161,26 @@
 
 - (void) actOnReadyToPlay
 {
-    TFLog(@"movie ready to play: %@", [self movieName]);
-    
 	movieMarkedPlayable = [self moviePlayable];
 	
+    if(movieMarkedPlayable)
+        TFLog(@"movie ready to play: %@", [self movieName]);
+    else
+        TFLog(@"movie not ready to play: %@", [self movieName]);
+        
+    // Call parent to do anything needed with this movie
+    // If we have called to load into a view, we'll notify the view
+    // Otherwise, we notify BasePadMedia so that it can tell its registered view controller
+    if(requestedShouldDisplay && requestedMovieView)
+    {
+        [requestedMovieView notifyMovieAttachedToSource:self];
+ 		[requestedMovieView notifyMovieSourceReadyToPlay:self];
+    }
+    else
+    {
+        [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:requestedShouldDisplay];
+    }
+
 	float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
 	[self getStartTime];
 	
@@ -1186,19 +1202,7 @@
 	
 	looping = false;				
 	
-    // Call parent to do anything needed with this movie
-    // If we have called to load into a view, we'll notify the view
-    // Otherwise, we notify BasePadMedia so that it can tell its registered view controller
-    if(requestedShouldDisplay && requestedMovieView)
-    {
-        [requestedMovieView notifyMovieAttachedToSource:self];
- 		[requestedMovieView notifyMovieSourceReadyToPlay:self];
-    }
-    else
-    {
-        [[BasePadMedia Instance] notifyNewVideoSource:self ShouldDisplay:requestedShouldDisplay];
-    }
-    
+     
     if(requestedMovieView)
         [requestedMovieView release];
     
@@ -1245,6 +1249,33 @@
 	[moviePlayerItem seekToTime:kCMTimeZero];
 	[moviePlayer setRate:[[BasePadMedia Instance] activePlaybackRate]];
 }
+
+- (void) activateMovie
+{
+    [self setMovieActive:true];
+    
+    if([self moviePlayable])
+    {
+        if(movieGoLivePending)
+        {
+            [self movieGoLive];
+        }
+        else if(movieSeekPending)
+        {
+            if(movieSeekTime < 0)
+                [self movieSeekToLive];
+            else
+                [self movieGotoTime:movieSeekTime];
+        }
+        
+        if(moviePlayPending)
+        {
+            [self moviePlay];
+        }
+        
+    }
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////

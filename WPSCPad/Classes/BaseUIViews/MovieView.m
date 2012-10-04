@@ -195,7 +195,7 @@
     [self setMovieSource:source];
     
 	// Set the movie as active
-	[source setMovieActive:true];
+	[source activateMovie];
 	
 	// Add the source's player layer to this movie view
 	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
