@@ -127,7 +127,7 @@
 - (void) setAudioMuted:(bool)value
 {
     muted = value;
-	if(movieSource)
+	if(movieSource  && [movieSource movieLoaded])
         [movieSource movieSetMuted:muted];
 }
 
@@ -184,12 +184,16 @@
 	if(source && [source movieType] != MOVIE_TYPE_ARCHIVE_)
 		[self showMovieLoading];
 	
+    [self setMovieSource:source];
+
 	// Hide the error
 	[self hideMovieError];
 }
 
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source
 {	
+    [self setMovieSource:source];
+    
 	// Set the movie as active
 	[source setMovieActive:true];
 	
@@ -205,7 +209,6 @@
 		
 		[self setMoviePlayerLayerAdded:true];
 		[self setMovieScheduledForDisplay:false];
-		[self setMovieSource:source];
 		
 		[source setParentMovieView:self];
 		
@@ -255,7 +258,10 @@
 		[movieViewDelegate notifyMovieReadyToPlayInView:self];
     
     if(titleView)
+    {
         [self bringSubviewToFront:titleView];
+        [self updateMovieLabels];
+    }
     
     TFLog(@"play done: %@", [source movieName]);
 

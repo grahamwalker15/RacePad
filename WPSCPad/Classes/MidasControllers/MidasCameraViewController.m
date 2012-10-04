@@ -89,26 +89,28 @@
 		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
 			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtIndex:row];
-			
-			if(videoSource && ![videoSource movieDisplayed])
-			{
-				BasePadViewController * parentViewController = [[MidasCameraManager Instance] parentViewController];
-				
-				if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-				{
-					MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
-					
-					MovieView * movieView = [videoViewController findFreeMovieView];
-					if(movieView)
-					{
- 						[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
-						[movieView setMovieViewDelegate:self];
-						[movieView displayMovieSource:videoSource]; // Will get notification below when finished
+             
+			if(videoSource)
+            {
+                BasePadViewController * parentViewController = [[MidasCameraManager Instance] parentViewController];
+                
+                if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+                {
+                    MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+                    [videoViewController clearMovieViewStore];
+                  
+                    if(![videoSource movieDisplayed])
+                    {
+                        MovieView * movieView = [videoViewController findFreeMovieView];
+                        if(movieView)
+                        {
+                            [videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+                            [movieView setMovieViewDelegate:self];
+                            [movieView displayMovieSource:videoSource]; // Will get notification below when finished
 						
-						BasePadViewController * parentViewController = [[MidasCameraManager Instance] parentViewController];						
-						if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-							[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
-					}
+                            [videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+                        }
+                    }
 				}
 			}
 		}

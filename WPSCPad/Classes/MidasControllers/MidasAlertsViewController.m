@@ -183,6 +183,7 @@
 				if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
 				{
 					MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+                    [videoViewController clearMovieViewStore];
 					
 					MovieView * movieView = [videoViewController findFreeMovieView];
 					if(movieView)
@@ -212,9 +213,7 @@
 								if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
 									[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
 							}
-							
 						}
-						
 					}
 				}
 			}

@@ -89,25 +89,27 @@
 		{
 			BasePadVideoSource * videoSource = [movieSelectorView GetMovieSourceAtIndex:col];
 			
-			if(videoSource && ![videoSource movieDisplayed])
-			{
-				BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
-			
-				if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-				{
-					MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
-				
-					MovieView * movieView = [videoViewController findFreeMovieView];
-					if(movieView)
-					{
-						[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
-						[movieView setMovieViewDelegate:self];
-						[movieView displayMovieSource:videoSource]; // Will get notification below when finished
-
-						BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];						
-						if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
-							[(MidasVideoViewController *) parentViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
-					}
+			if(videoSource)
+            {
+                BasePadViewController * parentViewController = [[MidasCircuitViewManager Instance] parentViewController];
+                
+                if(parentViewController && [parentViewController isKindOfClass:[MidasVideoViewController class]])
+                {
+                    MidasVideoViewController * videoViewController = (MidasVideoViewController *) parentViewController;
+                    [videoViewController clearMovieViewStore];
+                    
+                    if(![videoSource movieDisplayed])
+                    {
+                        MovieView * movieView = [videoViewController findFreeMovieView];
+                        if(movieView)
+                        {
+                            [videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+                            [movieView setMovieViewDelegate:self];
+                            [movieView displayMovieSource:videoSource]; // Will get notification below when finished
+                            
+                            [videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_BOTTOM];
+                        }
+                    }
 				}
 			}
 		}

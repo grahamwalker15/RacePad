@@ -130,7 +130,6 @@
         verificationTimer = nil;
 		playStartTimer = nil;
 		playTimer = nil;
-		
 	}
 	
 	return self;
@@ -249,10 +248,10 @@
 			moviePausedInPlace= false;
 			moviePlaying = false;
 			 
-            [TestFlight passCheckpoint:@"movie loaded"];
+            TFLog(@"movie loaded: %@", [self movieName]);
              
             [self checkForReadyToPlay];
-            //[self startVerificationTimer];
+            [self performSelectorOnMainThread:@selector(startVerificationTimer) withObject:nil waitUntilDone:true];
          }
 		 else
 		 {
@@ -307,11 +306,25 @@
 
 - (void) unloadMovie
 {
+    TFLog(@"unloading movie: %@", [self movieName]);
+    
 	if(verificationTimer)
 	{
 		[verificationTimer invalidate];
 		verificationTimer = nil;
 	}
+    
+    if(playTimer)
+    {
+		[playTimer invalidate];
+        playTimer = nil;
+    }
+    
+    if(playStartTimer)
+    {
+		[playStartTimer invalidate];
+        playStartTimer = nil;
+    }
 	
 	if(loading)
 	{
@@ -663,7 +676,10 @@
 }
 
 - (void) moviePlayAtRate:(float)playbackRate
-{	
+{
+    if(!movieActive)
+        TFLog(@"trying to play inactive movie: %@", [self movieName]);
+            
 	if([self moviePlayable] && movieActive)
 	{
         if(movieForceLive)
@@ -708,6 +724,9 @@
         return;
 	}
 	
+    if(!movieActive)
+        TFLog(@"trying to seek in inactive movie: %@", [self movieName]);
+    
 	movieInLiveMode = false;
 	
 	if(movieSeekable && movieActive)
@@ -839,6 +858,9 @@
 		return;
 	}
 	
+    if(!movieActive)
+        TFLog(@"trying to go live in inactive movie: %@", [self movieName]);
+    
 	if(movieSeekable && movieActive)
 	{
         if(movieType == MOVIE_TYPE_ARCHIVE_)
@@ -1133,7 +1155,7 @@
 
     if(!movieMarkedPlayable /* && movieActive */ && ready && itemStatus == AVPlayerItemStatusReadyToPlay && playerStatus == AVPlayerItemStatusReadyToPlay)
     {
-        [self actOnReadyToPlay];
+        [self performSelectorOnMainThread:@selector(actOnReadyToPlay) withObject:nil waitUntilDone:true];
     }
 }
 
@@ -1232,25 +1254,28 @@
 {
 	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
 	{
+        TFLog(@"starting verification timer: %@", [self movieName]);
+        
         if(verificationTimer)
             [verificationTimer invalidate];
         
 		// A 1 second repeating timer kicked off on loading as a fallback to catch ready to play.
-		verificationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verificationTimerFired:) userInfo:nil repeats:NO];
+		verificationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verificationTimerFired:) userInfo:nil repeats:YES];
 	}
 }
 
 - (void) verificationTimerFired: (NSTimer *)theTimer
 {
-    verificationTimer = nil;
-    
     if(!movieMarkedPlayable)
         [self checkForReadyToPlay];
     
     TFLog(@"verification : %@ - %@ ", [self movieName], movieMarkedPlayable ? @"ready" : @"not ready");
 
-    if(!movieMarkedPlayable)
-		verificationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verificationTimerFired:) userInfo:nil repeats:NO];
+    if(movieMarkedPlayable)
+    {
+        [verificationTimer invalidate];
+        verificationTimer = nil;
+    }
 }
 
 - (void) startLivePlayTimer
