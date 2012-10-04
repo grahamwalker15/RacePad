@@ -53,7 +53,7 @@
     	
 	// Add gesture recognizers
  	[self addTapRecognizerToView:standingsView];
-	[self addDoubleTapRecognizerToView:standingsView];
+	//[self addDoubleTapRecognizerToView:standingsView];
 	
 	// Tell the RacePadCoordinator that we're interested in data for this view
 	[[RacePadCoordinator Instance] AddView:standingsView WithType:RPC_MIDAS_STANDINGS_VIEW_];
