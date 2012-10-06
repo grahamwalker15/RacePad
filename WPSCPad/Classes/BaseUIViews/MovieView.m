@@ -121,7 +121,16 @@
 - (void) redisplayMovieSource
 {
 	if(movieSource)
+    {
+        bool playing = [movieSource moviePlaying];
+        
 		[self displayMovieSource:movieSource];
+        
+        if([movieSource shouldAutoDisplay] && playing)
+        {
+            [movieSource moviePlay];
+        }
+    }
 }
 
 - (void) setAudioMuted:(bool)value
