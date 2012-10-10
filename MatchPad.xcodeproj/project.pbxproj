@@ -23,6 +23,8 @@
 		4D14605414BB537E00DADD63 /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D14605314BB537E00DADD63 /* BallView.m */; };
 		4D14605E14BB544A00DADD63 /* BallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D14605D14BB544A00DADD63 /* BallViewController.m */; };
 		4D14607614BB57DE00DADD63 /* BallView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D14607514BB57DE00DADD63 /* BallView.xib */; };
+		4D17BDE715DBCE6A00EC49DB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D17BDE615DBCE6A00EC49DB /* CoreLocation.framework */; };
+		4D17BE5115DBD65B00EC49DB /* Positions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D17BE5015DBD65B00EC49DB /* Positions.m */; };
 		4D19D92713A626380035F28E /* BasePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92213A626380035F28E /* BasePadDatabase.m */; };
 		4D19D92813A626380035F28E /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92413A626380035F28E /* ImageListStore.m */; };
 		4D19D92913A626380035F28E /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92613A626380035F28E /* TableData.m */; };
@@ -223,6 +225,9 @@
 		4D14605C14BB544A00DADD63 /* BallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallViewController.h; sourceTree = "<group>"; };
 		4D14605D14BB544A00DADD63 /* BallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallViewController.m; sourceTree = "<group>"; };
 		4D14607514BB57DE00DADD63 /* BallView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BallView.xib; path = ResourceFiles/MatchXIB/BallView.xib; sourceTree = "<group>"; };
+		4D17BDE615DBCE6A00EC49DB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4D17BE4F15DBD65B00EC49DB /* Positions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Positions.h; sourceTree = "<group>"; };
+		4D17BE5015DBD65B00EC49DB /* Positions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Positions.m; sourceTree = "<group>"; };
 		4D19D92113A626380035F28E /* BasePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadDatabase.h; sourceTree = "<group>"; };
 		4D19D92213A626380035F28E /* BasePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadDatabase.m; sourceTree = "<group>"; };
 		4D19D92313A626380035F28E /* ImageListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListStore.h; sourceTree = "<group>"; };
@@ -506,6 +511,7 @@
 				4DBE263513A10B730051C9B3 /* OpenGLES.framework in Frameworks */,
 				4DBE263613A10B750051C9B3 /* QuartzCore.framework in Frameworks */,
 				4DBE263713A10B780051C9B3 /* UIKit.framework in Frameworks */,
+				4D17BDE715DBCE6A00EC49DB /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +589,7 @@
 				7F9C15F51257646700770746 /* MediaPlayer.framework */,
 				7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */,
 				7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */,
+				4D17BDE615DBCE6A00EC49DB /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -684,6 +691,8 @@
 				4DBE26A413A10C820051C9B3 /* Pitch.m */,
 				4D0EE1F513C3612200797845 /* PlayerGraph.h */,
 				4D0EE1F613C3612200797845 /* PlayerGraph.m */,
+				4D17BE4F15DBD65B00EC49DB /* Positions.h */,
+				4D17BE5015DBD65B00EC49DB /* Positions.m */,
 				4D8FB71A14B616A9000B6B5A /* Possession.h */,
 				4D8FB71B14B616A9000B6B5A /* Possession.m */,
 			);
@@ -1200,6 +1209,7 @@
 				4D14604414BB481800DADD63 /* Ball.m in Sources */,
 				4D14605414BB537E00DADD63 /* BallView.m in Sources */,
 				4D14605E14BB544A00DADD63 /* BallViewController.m in Sources */,
+				4D17BE5115DBD65B00EC49DB /* Positions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
