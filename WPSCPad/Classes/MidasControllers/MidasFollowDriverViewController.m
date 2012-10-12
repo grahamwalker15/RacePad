@@ -819,7 +819,7 @@
 	else
 	{
 		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyExclusiveUse:InZone:)])
-			[parentViewController notifyExclusiveUse:MIDAS_FOLLOW_DRIVER_POPUP_ InZone:MIDAS_ZONE_ALL_];
+			[parentViewController notifyExclusiveUse:MIDAS_FOLLOW_DRIVER_POPUP_ InZone:MIDAS_POPUP_ZONE_ALL_];
 	
 		[self expandView];
 	}

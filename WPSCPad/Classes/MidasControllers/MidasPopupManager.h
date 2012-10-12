@@ -11,6 +11,8 @@
 
 #import "BasePadViewController.h"
 
+#import "BasePadPopupManager.h"
+
 @class MidasMasterMenuViewController;
 @class MidasStandingsViewController;
 @class MidasCircuitViewController;
@@ -28,9 +30,9 @@
 @class MidasHelpViewController;
 
 // View types
-enum PopupViewTypes
+enum MidasPopupViewTypes
 {
-	MIDAS_POPUP_NONE_,
+	MIDAS_POPUP_NONE_ = POPUP_NONE_,
 	MIDAS_STANDINGS_POPUP_,
 	MIDAS_CIRCUIT_POPUP_,
 	MIDAS_FOLLOW_DRIVER_POPUP_,
@@ -44,102 +46,23 @@ enum PopupViewTypes
 	MIDAS_CHAT_POPUP_,
 	MIDAS_MASTER_MENU_POPUP_,
 };
-
-// View alignment
-enum PopupViewAlignment
-{
-	MIDAS_ALIGN_LEFT_,
-	MIDAS_ALIGN_RIGHT_,
-	MIDAS_ALIGN_TOP_,
-	MIDAS_ALIGN_BOTTOM_,
-	MIDAS_ALIGN_FULL_SCREEN_,
-	
-	MIDAS_DIRECTION_UP_,
-	MIDAS_DIRECTION_DOWN_,
-	MIDAS_DIRECTION_LEFT_,
-	MIDAS_DIRECTION_RIGHT_,
-};
 	
 // View alignment
-enum PopupMenuZones
+
+// View alignment
+enum MidasPopupMenuZones
 {
-	MIDAS_ZONE_NONE_ = 0x0,
-	MIDAS_ZONE_ALL_ = 0xFFFF,
-	MIDAS_ZONE_BOTTOM_ = 0x1,
-	MIDAS_ZONE_TOP_ = 0x2,
-	MIDAS_ZONE_SOCIAL_MEDIA_ = 0x4,
-	MIDAS_ZONE_DATA_AREA_ = 0x8,
-	MIDAS_ZONE_MY_AREA_ = 0x10,
+	MIDAS_POPUP_ZONE_NONE_ = POPUP_ZONE_NONE_,
+	MIDAS_POPUP_ZONE_ALL_ = POPUP_ZONE_ALL_,
+	MIDAS_POPUP_ZONE_BOTTOM_ = 0x1,
+	MIDAS_POPUP_ZONE_TOP_ = 0x2,
+	MIDAS_POPUP_ZONE_SOCIAL_MEDIA_ = 0x4,
+	MIDAS_POPUP_ZONE_DATA_AREA_ = 0x8,
+	MIDAS_POPUP_ZONE_MY_AREA_ = 0x10,
 };
 
-@protocol MidasPopupParentDelegate
-- (void)notifyShowingPopup:(int)popupType;
-- (void)notifyShowedPopup:(int)popupType;
-- (void)notifyHidingPopup:(int)popupType;
-- (void)notifyResizingPopup:(int)popupType;
-- (void)notifyExclusiveUse:(int)popupType InZone:(int)popupZone;
-@end
 
-@protocol MidasPopupManagerDelegate
-- (void)onDisplay;
-- (void)onHide;
-@end
-
-@interface MidasPopupManager : NSObject <UIGestureRecognizerDelegate>
-{
-	BasePadViewController <MidasPopupManagerDelegate> * managedViewController;
-	int managedViewType;
-	int managedExclusionZone;
-	
-	NSTimer *hideTimer;
-	NSTimer *flagTimer;
-	
-	bool viewDisplayed;
-	bool hiding;
-	
-	int xAlignment;
-	int yAlignment;
-	int revealDirection;
-	
-	float overhang;
-	float preferredWidth;
-	
-	BasePadViewController <MidasPopupParentDelegate>  * parentViewController;
-}
-
-@property(nonatomic) bool viewDisplayed;
-@property(nonatomic) int managedViewType;
-@property(nonatomic) int managedExclusionZone;
-@property(nonatomic) float overhang;
-@property(nonatomic) float preferredWidth;
-@property (nonatomic, assign) BasePadViewController <MidasPopupManagerDelegate> *managedViewController;
-@property (readonly) BasePadViewController <MidasPopupParentDelegate> *parentViewController;
-
-- (void) onStartUp;
-
-- (void) grabExclusion:(UIViewController <MidasPopupParentDelegate> *)viewController;
-- (void) displayInViewController:(UIViewController *)viewController AtX:(float)x Animated:(bool)animated Direction:(int)direction XAlignment:(int)xAlign YAlignment:(int)yAlign;
-- (void) moveToPositionX:(float)x Animated:(bool)animated;
-- (void) hideAnimated:(bool)animated Notify:(bool)notify;
-- (void) bringToFront;
-
-- (void) displayAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
-- (void) hideAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
-
-- (void) setHideTimer;
-- (void) hideTimerExpired:(NSTimer *)theTimer;
-- (void) flagTimerExpired:(NSTimer *)theTimer;
-- (void) resetHidingFlag;
-
-- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
-
-- (float) preferredWidthOfView;
-- (float) widthOfView;
-- (float) heightOfView;
-
-@end
-
-@interface MidasMasterMenuManager : MidasPopupManager
+@interface MidasMasterMenuManager : BasePadPopupManager
 {
 	MidasMasterMenuViewController * viewController;
 }
@@ -148,7 +71,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasStandingsManager : MidasPopupManager
+@interface MidasStandingsManager : BasePadPopupManager
 {
 	MidasStandingsViewController * viewController;
 }
@@ -157,7 +80,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasCircuitViewManager : MidasPopupManager
+@interface MidasCircuitViewManager : BasePadPopupManager
 {
 	MidasCircuitViewController * viewController;
 }
@@ -166,7 +89,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasFollowDriverManager : MidasPopupManager
+@interface MidasFollowDriverManager : BasePadPopupManager
 {
 	MidasFollowDriverViewController * viewController;
 }
@@ -175,7 +98,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasCameraManager : MidasPopupManager
+@interface MidasCameraManager : BasePadPopupManager
 {
 	MidasCameraViewController * viewController;
 }
@@ -184,7 +107,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasHeadToHeadManager : MidasPopupManager
+@interface MidasHeadToHeadManager : BasePadPopupManager
 {
 	MidasHeadToHeadViewController * viewController;
 }
@@ -193,7 +116,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasMyTeamManager : MidasPopupManager
+@interface MidasMyTeamManager : BasePadPopupManager
 {
 	MidasMyTeamViewController * viewController;
 }
@@ -202,7 +125,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasVIPManager : MidasPopupManager
+@interface MidasVIPManager : BasePadPopupManager
 {
 	MidasVIPViewController * viewController;
 }
@@ -211,7 +134,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasHelpManager : MidasPopupManager
+@interface MidasHelpManager : BasePadPopupManager
 {
 	MidasHelpViewController * viewController;
 }
@@ -220,7 +143,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasAlertsManager : MidasPopupManager
+@interface MidasAlertsManager : BasePadPopupManager
 {
 	MidasAlertsViewController * viewController;
 }
@@ -229,7 +152,7 @@ enum PopupMenuZones
 
 @end
 
-@interface MidasSocialMediaManager : MidasPopupManager
+@interface MidasSocialMediaManager : BasePadPopupManager
 {
 	MidasSocialViewController * viewController;
 }

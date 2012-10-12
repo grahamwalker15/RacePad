@@ -3,7 +3,7 @@
 //  MidasDemo
 //
 //  Created by Gareth Griffith on 9/13/12.
-//  Copyright (c) 2012 Daniel Tull. All rights reserved.
+//  Copyright (c) 2012 SBG Sports Software Ltd.. All rights reserved.
 //
 
 #import "MidasClientSocket.h"

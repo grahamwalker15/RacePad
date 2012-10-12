@@ -1507,7 +1507,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			midasMenuButtonOpen = true;
 			
 			[[MidasMasterMenuManager Instance] grabExclusion:self];
-			[[MidasMasterMenuManager Instance] displayInViewController:self AtX:0 Animated:true Direction:MIDAS_DIRECTION_RIGHT_ XAlignment:MIDAS_ALIGN_FULL_SCREEN_ YAlignment:MIDAS_ALIGN_FULL_SCREEN_];
+			[[MidasMasterMenuManager Instance] displayInViewController:self AtX:0 Animated:true Direction:POPUP_DIRECTION_RIGHT_ XAlignment:POPUP_ALIGN_FULL_SCREEN_ YAlignment:POPUP_ALIGN_FULL_SCREEN_];
 		}
 		else
 		{
@@ -1525,7 +1525,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasHelpManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasHelpManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasHelpManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_DOWN_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_TOP_];
 		}
 	}
 	
@@ -1537,7 +1537,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasAlertsManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasAlertsManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasAlertsManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_DOWN_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_TOP_];
 		}
 	}
 	
@@ -1549,7 +1549,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasSocialMediaManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasSocialMediaManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasSocialMediaManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_DOWN_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_TOP_];
 		}
 	}
 	
@@ -1561,7 +1561,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasVIPManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasVIPManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_DOWN_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_TOP_];
+			[[MidasVIPManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_DOWN_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_TOP_];
 		}
 	}
 		
@@ -1573,7 +1573,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasStandingsManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasStandingsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasStandingsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_UP_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1585,7 +1585,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasCircuitViewManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasCircuitViewManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasCircuitViewManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_UP_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1597,7 +1597,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasFollowDriverManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasFollowDriverManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_UP_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1609,7 +1609,7 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasCameraManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasCameraManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_RIGHT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasCameraManager Instance] displayInViewController:self AtX:CGRectGetMaxX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_UP_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}
 	}
 	
@@ -1621,14 +1621,14 @@ static UIImage * newButtonBackgroundImage = nil;
 			
 			[[MidasMyTeamManager Instance] grabExclusion:self];
 			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MidasMyTeamManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:MIDAS_DIRECTION_UP_ XAlignment:MIDAS_ALIGN_LEFT_ YAlignment:MIDAS_ALIGN_BOTTOM_];
+			[[MidasMyTeamManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_UP_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}
 	}
 	
 	if(sender == timeControlsButton)
 	{
 		
-		//[self notifyExclusiveUse:MIDAS_POPUP_NONE_ InZone:MIDAS_ZONE_ALL_];
+		//[self notifyExclusiveUse:MIDAS_POPUP_NONE_ InZone:MIDAS_POPUP_ZONE_ALL_];
 		//[self hideMenuButtons];
 		//[self positionMenuButtons];
 		[self toggleTimeControllerDisplay];
@@ -2399,7 +2399,7 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (bool) dismissPopupViews
 {
-	return [self dismissPopupViewsWithExclusion:MIDAS_POPUP_NONE_  InZone:(int)MIDAS_ZONE_ALL_ AnimateMenus:true];
+	return [self dismissPopupViewsWithExclusion:MIDAS_POPUP_NONE_  InZone:(int)MIDAS_POPUP_ZONE_ALL_ AnimateMenus:true];
 }
 
 - (bool) dismissPopupViewsWithExclusion:(int)excludedPopupType InZone:(int)popupZone AnimateMenus:(bool)animateMenus
@@ -2408,7 +2408,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_HELP_POPUP_ &&
 	   [[MidasHelpManager Instance] viewDisplayed] &&
-	   (popupZone & MIDAS_ZONE_TOP_) > 0)
+	   (popupZone & MIDAS_POPUP_ZONE_TOP_) > 0)
 	{
 		[[MidasHelpManager Instance] hideAnimated:true Notify:false];
 		helpButtonOpen = false;
@@ -2418,7 +2418,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_ALERTS_POPUP_ &&
 	   [[MidasAlertsManager Instance] viewDisplayed] &&
-	   (popupZone & MIDAS_ZONE_TOP_) > 0)
+	   (popupZone & MIDAS_POPUP_ZONE_TOP_) > 0)
 	{
 		[[MidasAlertsManager Instance] hideAnimated:true Notify:false];
 		alertsButtonOpen = false;
@@ -2428,7 +2428,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_SOCIAL_MEDIA_POPUP_ &&
 	   [[MidasSocialMediaManager Instance] viewDisplayed] &&
-	   ((popupZone & MIDAS_ZONE_TOP_) > 0 || (popupZone & MIDAS_ZONE_SOCIAL_MEDIA_) > 0))
+	   ((popupZone & MIDAS_POPUP_ZONE_TOP_) > 0 || (popupZone & MIDAS_POPUP_ZONE_SOCIAL_MEDIA_) > 0))
 	{
 		[[MidasSocialMediaManager Instance] hideAnimated:true Notify:false];
 		socialMediaButtonOpen = false;
@@ -2438,7 +2438,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	   if(excludedPopupType != MIDAS_VIP_POPUP_ &&
 		  [[MidasVIPManager Instance] viewDisplayed] &&
-		  (popupZone & MIDAS_ZONE_TOP_) > 0)
+		  (popupZone & MIDAS_POPUP_ZONE_TOP_) > 0)
 	   {
 		   [[MidasVIPManager Instance] hideAnimated:true Notify:false];
 		   vipButtonOpen = false;
@@ -2448,7 +2448,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	   
 	   if(excludedPopupType != MIDAS_STANDINGS_POPUP_ &&
 	   [[MidasStandingsManager Instance] viewDisplayed] &&
-	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
+	   ((popupZone & MIDAS_POPUP_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_POPUP_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasStandingsManager Instance] hideAnimated:true Notify:false];
 		standingsButtonOpen = false;
@@ -2458,7 +2458,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_CIRCUIT_POPUP_ &&
 	   [[MidasCircuitViewManager Instance] viewDisplayed] &&
-	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
+	   ((popupZone & MIDAS_POPUP_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_POPUP_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasCircuitViewManager Instance] hideAnimated:true Notify:false];
 		mapButtonOpen = false;
@@ -2468,7 +2468,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_FOLLOW_DRIVER_POPUP_ &&
 	   [[MidasFollowDriverManager Instance] viewDisplayed] &&
-	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
+	   ((popupZone & MIDAS_POPUP_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_POPUP_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasFollowDriverManager Instance] hideAnimated:true Notify:false];
 		followDriverButtonOpen = false;
@@ -2478,7 +2478,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_CAMERA_POPUP_ &&
 	   [[MidasCameraManager Instance] viewDisplayed] &&
-	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_DATA_AREA_) > 0))
+	   ((popupZone & MIDAS_POPUP_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_POPUP_ZONE_DATA_AREA_) > 0))
 	{
 		[[MidasCameraManager Instance] hideAnimated:true Notify:false];
 		cameraButtonOpen = false;
@@ -2488,7 +2488,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	if(excludedPopupType != MIDAS_MY_TEAM_POPUP_ &&
 	   [[MidasMyTeamManager Instance] viewDisplayed] &&
-	   ((popupZone & MIDAS_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_ZONE_MY_AREA_) > 0))		
+	   ((popupZone & MIDAS_POPUP_ZONE_BOTTOM_) > 0 || (popupZone & MIDAS_POPUP_ZONE_MY_AREA_) > 0))		
 	{
 		[[MidasMyTeamManager Instance] hideAnimated:true Notify:false];
 		myTeamButtonOpen = false;
@@ -2522,9 +2522,9 @@ static UIImage * newButtonBackgroundImage = nil;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// MidasPopupParentDelegate methods
+// BasePadPopupParentDelegate methods
 
-#pragma mark MidasPopupParentDelegate methods
+#pragma mark BasePadPopupParentDelegate methods
 
 - (void)notifyShowingPopup:(int)popupType
 {

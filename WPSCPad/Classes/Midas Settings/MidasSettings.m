@@ -3,7 +3,7 @@
 //  Midas
 //
 //  Created by Daniel Tull on 29/08/2012.
-//  Copyright (c) 2012 Daniel Tull. All rights reserved.
+//  Copyright (c) 2012 SBG Sports Software Ltd.. All rights reserved.
 //
 
 #import "MidasSettings.h"
@@ -72,7 +72,7 @@ NSString *const MidasSettingsVIPMarussiaVideoDefault = @"https://dl.dropbox.com/
 		
 		TFLog(@"%@ Connected to: %@", self, [self _currentSettingsServerHost]);
 		
-		if (data) {
+		if (false && data) {
 			NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 			
 			TFLog(@"%@ Received settings: %@", self, dictionary);
@@ -131,12 +131,12 @@ NSString *const MidasSettingsVIPMarussiaVideoDefault = @"https://dl.dropbox.com/
 		TFLog(@"%@ VIPMarussiaVideoURL = %@", self, self.VIPMarussiaVideoURL);
 		TFLog(@"%@ VIPEddieJordanVideoURL = %@", self, self.VIPEddieJordanVideoURL);
 		TFLog(@"%@ VIPSoftbankVideoURL = %@", self, self.VIPSoftbankVideoURL);
-		
+		        
 		NSURLRequest *vlsRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@%@", [self _currentSettingsServerHost], _videoPath]]];
 		TFLog(@"%@ Attempting to connect to %@", self, vlsRequest.URL);
 		[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 			
-			if (data) {
+			if (false && data) {
 				TFLog(@"%@ Received vls:\n%@", self, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 				NSFileManager *fileManager = [NSFileManager defaultManager];
 				NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];

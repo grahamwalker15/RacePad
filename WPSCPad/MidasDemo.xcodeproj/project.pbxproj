@@ -821,11 +821,12 @@
 		7F4B45C61608741D007C60D8 /* MenuCamerasButtonAllInActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */; };
 		7F4B45C8161325C8007C60D8 /* videoTitleOverlayNoAudio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C7161325C8007C60D8 /* videoTitleOverlayNoAudio.png */; };
 		7F4E17EE16145C25006025CD /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E17ED16145C25006025CD /* TimeControllerView.xib */; };
-		7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B231601D89000C95FAF /* MidasClientSocket.m */; };
+		7F614A1E16285E010044E956 /* BasePadPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614A1D16285E010044E956 /* BasePadPopupManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B231601D89000C95FAF /* MidasClientSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FCF8B261601EFDB00C95FAF /* MidasServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */; };
 		7FCF8B2916071FC800C95FAF /* GoLiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2716071FC800C95FAF /* GoLiveButton.png */; };
 		7FCF8B2A16071FC800C95FAF /* LiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2816071FC800C95FAF /* LiveButton.png */; };
-		7FCF8B31160757F000C95FAF /* MidasTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B30160757F000C95FAF /* MidasTimeController.m */; };
+		7FCF8B31160757F000C95FAF /* MidasTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B30160757F000C95FAF /* MidasTimeController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1958,6 +1959,8 @@
 		7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCamerasButtonAllInActive.png; sourceTree = "<group>"; };
 		7F4B45C7161325C8007C60D8 /* videoTitleOverlayNoAudio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoTitleOverlayNoAudio.png; sourceTree = "<group>"; };
 		7F4E17ED16145C25006025CD /* TimeControllerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimeControllerView.xib; path = ResourceFiles/TimeControllerView.xib; sourceTree = "<group>"; };
+		7F614A1C16285E010044E956 /* BasePadPopupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadPopupManager.h; sourceTree = "<group>"; };
+		7F614A1D16285E010044E956 /* BasePadPopupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadPopupManager.m; sourceTree = "<group>"; };
 		7FCF8B221601D89000C95FAF /* MidasClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasClientSocket.h; sourceTree = "<group>"; };
 		7FCF8B231601D89000C95FAF /* MidasClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasClientSocket.m; sourceTree = "<group>"; };
 		7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasServerConnect.xib; path = ResourceFiles/MidasServerConnect.xib; sourceTree = "<group>"; };
@@ -3062,6 +3065,8 @@
 				240F268E15F510BA001C08C1 /* BasePadVideoViewController.m */,
 				240F268F15F510BA001C08C1 /* BasePadViewController.h */,
 				240F269015F510BA001C08C1 /* BasePadViewController.m */,
+				7F614A1C16285E010044E956 /* BasePadPopupManager.h */,
+				7F614A1D16285E010044E956 /* BasePadPopupManager.m */,
 				240F268B15F510BA001C08C1 /* BackgroundView.h */,
 				240F268C15F510BA001C08C1 /* BackgroundView.m */,
 				240F269115F510BA001C08C1 /* ColouredButton.h */,
@@ -4542,6 +4547,7 @@
 				243FF20115FF62CC00CDF732 /* MidasMasterMenuViewController.m in Sources */,
 				7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */,
 				7FCF8B31160757F000C95FAF /* MidasTimeController.m in Sources */,
+				7F614A1E16285E010044E956 /* BasePadPopupManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

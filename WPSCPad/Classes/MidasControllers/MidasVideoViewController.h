@@ -25,7 +25,7 @@
 #import "LeaderboardView.h"
 #import "BackgroundView.h"
 
-@interface MidasVideoViewController : BasePadVideoViewController <MidasPopupParentDelegate, MidasSocialmediaResponderDelegate, MovieViewDelegate>
+@interface MidasVideoViewController : BasePadVideoViewController <BasePadPopupParentDelegate, MidasSocialmediaResponderDelegate, MovieViewDelegate>
 {
 	IBOutlet UIImageView * copyright;
 

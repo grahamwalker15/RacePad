@@ -3,7 +3,7 @@
 //  Midas
 //
 //  Created by Daniel Tull on 14.08.2012.
-//  Copyright (c) 2012 Daniel Tull. All rights reserved.
+//  Copyright (c) 2012 SBG Sports Software Ltd.. All rights reserved.
 //
 
 #import "MidasSocialTableViewCell.h"

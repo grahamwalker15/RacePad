@@ -3,7 +3,7 @@
 //  MidasDemo
 //
 //  Created by Daniel Tull on 11.09.2012.
-//  Copyright (c) 2012 Daniel Tull. All rights reserved.
+//  Copyright (c) 2012 SBG Sports Software Ltd.. All rights reserved.
 //
 
 #import "MidasMasterMenuViewController.h"

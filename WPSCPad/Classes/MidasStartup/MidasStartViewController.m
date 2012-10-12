@@ -3,7 +3,7 @@
 //  Midas
 //
 //  Created by Daniel Tull on 11.08.2012.
-//  Copyright (c) 2012 Daniel Tull. All rights reserved.
+//  Copyright (c) 2012 SBG Sports Software Ltd.. All rights reserved.
 //
 
 #import "MidasStartViewController.h"
@@ -84,13 +84,17 @@ CGPoint const LogoEndPoint;
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Register the view controller
-	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_LAP_COUNT_VIEW_];
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:0];
+    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:self];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
+    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:nil];
+
 	[self.particleView removeFromSuperview];
 }
 
@@ -297,19 +301,43 @@ CGPoint const LogoEndPoint;
 		
 		NSString *server = settings.IPAddress;
 		
-		if (!server) {
+		if (!server)
+            server = @"10.0.1.165";
+        /*
+        {
 			[self loadArchive:self];
 			return;
 		}
+             */
 		
-		[[RacePadCoordinator Instance] SetServerAddress:settings.IPAddress ShowWindow:YES LightRestart:false];
-		[[BasePadMedia Instance] connectToVideoServer];
-		[[BasePadMedia Instance] resetConnectionCounts];
+		[[RacePadCoordinator Instance] SetServerAddress:server ShowWindow:YES LightRestart:false];
 	}];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
 	[self setServerLabel:nil];
 	[super viewDidUnload];
 }
+
+// ConnectionFeedbackDelegate methods
+
+- (void)notifyConnectionSucceeded
+{
+    [[BasePadMedia Instance] connectToVideoServer];
+    [[BasePadMedia Instance] resetConnectionCounts];
+}
+
+- (void)notifyConnectionRetry
+{
+}
+
+- (void)notifyConnectionTimeout
+{
+}
+
+- (void)notifyConnectionFailed
+{
+}
+
 @end
