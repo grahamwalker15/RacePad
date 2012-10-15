@@ -22,7 +22,7 @@ static BasePadDatabase *instance = nil;
 
 - (BasePadDatabase *)init
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		instance = self;
 	

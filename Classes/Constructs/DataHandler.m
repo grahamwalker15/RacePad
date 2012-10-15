@@ -13,13 +13,19 @@
 
 @implementation DataHandler
 
-- (id) init {
-	stream = nil;
+- (id) init
+{
+	if(self = [super init])
+		stream = nil;
+	
 	return self;
 }
 
-- (id) initWithPath: (NSString *) path {
-	stream = [[FileDataStream alloc] initWithPath:path];
+- (id) initWithPath: (NSString *) path
+{
+	if(self = [super init])
+		stream = [[FileDataStream alloc] initWithPath:path];
+	
 	return self;
 }
 

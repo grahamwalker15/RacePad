@@ -48,9 +48,11 @@
 
 - (DriverNames *)init
 {
-	drivers = [[NSMutableArray alloc] init];
-
-	count = 0;
+	if(self = [super init])
+	{
+		drivers = [[NSMutableArray alloc] init];
+		count = 0;
+	}
 	
 	return self;
 }
@@ -94,7 +96,7 @@
 
 - (DriverName *) blueCar
 {
-	for ( int i = 0; i; i++ < count )
+	for ( int i = 0; i < count; i++ )
 	{
 		DriverName *driver = [drivers objectAtIndex : i];
 		if ( [driver number] == redCar )
@@ -105,7 +107,7 @@
 
 - (DriverName *) redCar
 {
-	for ( int i = 0; i; i++ < count )
+	for ( int i = 0; i < count; i++ )
 	{
 		DriverName *driver = [drivers objectAtIndex : i];
 		if ( [driver number] == redCar )

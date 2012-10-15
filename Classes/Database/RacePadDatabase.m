@@ -36,12 +36,13 @@ static RacePadDatabase *instance = nil;
 @synthesize racePrediction;
 @synthesize competitorData;
 @synthesize headToHead;
+@synthesize midasVotingTable;
 
 @synthesize session;
 
 - (RacePadDatabase *)init
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		session = RPD_SESSION_RACE_;
 		driverListData = [[TableData alloc] init];
@@ -60,6 +61,7 @@ static RacePadDatabase *instance = nil;
 		racePrediction = [[RacePrediction alloc] init];
 		competitorData = [[TableData alloc] init];
 		headToHead = [[HeadToHead alloc] init];
+		midasVotingTable = [[TableData alloc] init];
 		
 		[driverInfo fillWithDefaultData];
 	}

@@ -148,6 +148,7 @@
 		int index = [stream PopInt];
 		AlertDataItem *item = [[AlertDataItem alloc] initWithStream:stream];
 		[alerts addObject:item];
+		[item release];
 	}
 }
 

@@ -52,6 +52,7 @@ enum SessionTypes {
 	RacePrediction *racePrediction;
 	TableData *competitorData;
 	HeadToHead *headToHead;
+	TableData *midasVotingTable;
 	
 	int session;
 }

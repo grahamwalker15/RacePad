@@ -22,7 +22,7 @@ static BasePadPrefs *instance = nil;
 
 - (id) init
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		NSString *errorDesc = nil;
 		NSPropertyListFormat format;

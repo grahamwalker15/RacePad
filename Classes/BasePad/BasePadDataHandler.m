@@ -18,10 +18,11 @@
 
 - (id) init
 {
-	[super init];
-	
-	saveFile = nil;
-	index = nil;
+	if(self = [super init])
+	{	
+		saveFile = nil;
+		index = nil;
+	}
 	return self;
 }
 

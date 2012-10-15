@@ -13,8 +13,9 @@
 
 -(id) initWithSize: (int) size
 {
-	[super init];
-	data = [[NSMutableData alloc]initWithLength:size];
+	if(self = [super init])
+		data = [[NSMutableData alloc]initWithLength:size];
+	
 	return self;
 }
 
@@ -52,8 +53,9 @@
 
 - (int)PopInt 
 {
-	int *buf = (int *)([data mutableBytes] + index);
-	int t = ntohl ( *buf );
+	int t;
+	memcpy( &t, [data mutableBytes] + index, sizeof ( int ) 0;
+	t = ntohl ( t );
 	index += sizeof ( int );
 	
 	return t;
@@ -61,10 +63,10 @@
 
 - (float)PopFloat
 {
-	float *buf = (float *)([data mutableBytes] + index);
 	unsigned int *ip = (unsigned int *)([data mutableBytes] + index);
 	*ip = ntohl ( *ip);
-	float t = ( *buf );
+	float t;
+	memcpy( &t, [data mutableBytes] + index, sizeof ( float ) 0;
 	index += sizeof ( float );
 	
 	return t;
