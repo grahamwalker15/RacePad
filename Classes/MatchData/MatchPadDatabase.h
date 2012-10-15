@@ -10,6 +10,7 @@
 #import "BasePadDatabase.h"
 #import "TableData.h"
 #import "Pitch.h"
+#import "Positions.h"
 #import "PlayerGraph.h"
 #import "AlertData.h"
 #import "Possession.h"
@@ -19,6 +20,7 @@
 @interface MatchPadDatabase : BasePadDatabase
 {
 	Pitch *pitch;
+	Positions *positions;
 	PlayerGraph *playerGraph;
 	TableData *playerStatsData;
 	AlertData *alertData;
@@ -33,6 +35,7 @@
 @property (retain) NSString *homeTeam;
 @property (retain) NSString *awayTeam;
 @property (readonly) Pitch *pitch;
+@property (readonly) Positions *positions;
 @property (readonly) Possession *possession;
 @property (readonly) Moves *moves;
 @property (readonly) Ball *ball;

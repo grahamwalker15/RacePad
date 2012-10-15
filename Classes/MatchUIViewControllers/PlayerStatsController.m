@@ -30,7 +30,7 @@
 	// Set up the table data for SimpleListView
 	[player_stats_view_ SetTableDataClass:[[MatchPadDatabase Instance] playerStatsData]];
 	
-	[player_stats_view_ SetRowHeight:26];
+	[player_stats_view_ setStandardRowHeight:26];
 	[player_stats_view_ SetHeading:true];
 	[player_stats_view_ SetBackgroundAlpha:0.5];
 	[player_stats_view_ setSmallHeadings:true];

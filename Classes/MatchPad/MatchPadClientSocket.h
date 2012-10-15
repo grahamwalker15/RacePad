@@ -36,6 +36,8 @@ enum ClientCommands {
 	MPCS_STREAM_MOVES,				// 46
 	MPCS_REQUEST_BALL,				// 47
 	MPCS_STREAM_BALL,				// 48
+	MPCS_REQUEST_POSITIONS,			// 49
+	MPCS_STREAM_POSITIONS,			// 50
 };
 
 @interface MatchPadClientSocket : BasePadClientSocket
@@ -46,6 +48,9 @@ enum ClientCommands {
 
 - (void) RequestPitch;
 - (void) StreamPitch;
+
+- (void) RequestPositions;
+- (void) StreamPositions;
 
 - (void) RequestScore;
 - (void) StreamScore;

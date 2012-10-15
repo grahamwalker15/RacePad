@@ -40,13 +40,6 @@
 
 @interface Pitch : NSObject
 {
-	
-	float xCentre;
-	float yCentre;
-	
-	float width;
-	float height;
-	
 	NSMutableArray *lines;
 	UIColor **colours;
 	int coloursCount;
@@ -63,20 +56,13 @@
 	NSString *third;
 	UIColor *thirdColour;
 	UIColor *thirdBG;
-	UIColor *pitchColour;
-
-	float a13, a23, a11, a21, a31, a12, a22, a32;
+	
+	int playerNameFont;
 }
-
-- (void) initialisePerspective;
 
 - (void) loadPitch : (DataStream *) stream AllNames:(bool) allNames;
 
-- (void) drawInView:(PitchView *)view AllNames:(bool) allNames;
-
-- (void) constructTransformMatrixForView:(PitchView *)view;
-- (void) constructTransformMatrixForView:(PitchView *)view WithCentreX:(float)x Y:(float)y Rotation:(float) rotation;
-- (void) adjustScaleInView:(PitchView *)view Scale:(float)scale X:(float)x Y:(float)y;
-- (void) adjustPanInView:(PitchView *)view X:(float)x Y:(float)y;
+- (void) drawPassesInView:(PitchView *)view AllNames: (bool) allNames Scale: (float) scale XScale: (float) x_scale YScale:(float) y_scale;
+- (void) drawNamesInView:(PitchView *)view AllNames: (bool) allNames Scale: (float) scale XScale: (float) x_scale YScale:(float) y_scale;
 
 @end

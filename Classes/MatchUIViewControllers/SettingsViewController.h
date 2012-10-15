@@ -24,6 +24,11 @@
 	IBOutlet UILabel *status;
 	IBOutlet UILabel *video_status;
 	IBOutlet UISwitch *supportVideo;
+	IBOutlet UISwitch *playerTrails;
+	IBOutlet UISwitch *ballTrail;
+	IBOutlet UISwitch *playerPos;
+	IBOutlet UISwitch *passes;
+	IBOutlet UISwitch *passNames;
 
 	IBOutlet UIActivityIndicatorView *serverTwirl;
 	IBOutlet UIActivityIndicatorView *videoServerTwirl;
@@ -40,6 +45,11 @@
 - (IBAction)restartPressed:(id)sender;
 - (IBAction)exitPressed:(id)sender;
 - (IBAction)supportVideoChanged:(id)sender;
+- (IBAction)playerTrailsChanged:(id)sender;
+- (IBAction)ballTrailChanged:(id)sender;
+- (IBAction)playerPosChanged:(id)sender;
+- (IBAction)passesChanged:(id)sender;
+- (IBAction)passNamesChanged:(id)sender;
 
 - (void) updateEvents;
 - (void) updateServerState;

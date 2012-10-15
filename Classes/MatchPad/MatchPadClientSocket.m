@@ -153,6 +153,16 @@
 	[self SimpleCommand:MPCS_STREAM_BALL];
 }
 
+- (void)RequestPositions
+{
+	[self SimpleCommand:MPCS_REQUEST_POSITIONS];
+}
+
+- (void)StreamPositions
+{
+	[self SimpleCommand:MPCS_STREAM_POSITIONS];
+}
+
 - (DataHandler *) constructDataHandler
 {
 	return [[MatchPadDataHandler alloc] init];

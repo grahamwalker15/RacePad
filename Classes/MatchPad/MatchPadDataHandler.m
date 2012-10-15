@@ -66,7 +66,14 @@
 		case MPSC_PITCH_MOVE_: // PitchMove
 		{
 			Pitch *pitch = [[MatchPadDatabase Instance] pitch];
-			[pitch loadPitch:stream AllNames:true];
+			[pitch loadPitch:stream AllNames:false];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PITCH_VIEW_];
+			break;
+		}
+		case MPSC_POSITIONS_: // Positions
+		{
+			Positions *positions = [[MatchPadDatabase Instance] positions];
+			[positions loadPositions:stream];
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PITCH_VIEW_];
 			break;
 		}

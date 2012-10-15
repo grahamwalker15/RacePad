@@ -43,6 +43,7 @@ enum ServerCommands {
 	MPSC_POSSESSION_,							// 50
 	MPSC_MOVES_,								// 51
 	MPSC_BALL_,									// 52
+	MPSC_POSITIONS_,							// 53
 };
 
 @interface MatchPadDataHandler : BasePadDataHandler

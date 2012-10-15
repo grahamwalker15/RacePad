@@ -16,6 +16,7 @@
 @implementation TableDataView
 
 @synthesize table_data_;
+@synthesize smallHeadings;
 
 - (void)dealloc
 {
@@ -200,6 +201,14 @@
 	
 	return nil;
 	
+}
+
+- (int) GetFontAtRow:(int)row Col:(int)col
+{
+	if ( smallHeadings && row == 0 && if_heading_ )
+		return DW_MEDIUM_BOLD_FONT_;
+	
+	return [super GetFontAtRow:row Col:col];
 }
 
 @end

@@ -116,6 +116,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ StreamPitch];
 	}
+	else if([existing_view Type] == MPC_POSITIONS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ StreamPositions];
+	}
 	else if([existing_view Type] == MPC_SCORE_VIEW_)
 	{
 		[(MatchPadClientSocket *)socket_ StreamScore];
@@ -149,6 +153,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ RequestPitch];
 	}
+	else if([existing_view Type] == MPC_POSITIONS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ RequestPositions];
+	}
 	else if([existing_view Type] == MPC_SCORE_VIEW_)
 	{
 		[(MatchPadClientSocket *)socket_ RequestScore];
@@ -181,6 +189,10 @@ static MatchPadCoordinator * instance_ = nil;
 	if (type == MPC_PITCH_VIEW_)
 	{
 		[self AddDataSourceWithType:type AndFile: @"pitch"];
+	}
+	else if (type == MPC_POSITIONS_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"positions"];
 	}
 	else if (type == MPC_SCORE_VIEW_)
 	{

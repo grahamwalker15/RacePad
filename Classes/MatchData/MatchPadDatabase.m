@@ -24,6 +24,7 @@ static MatchPadDatabase *instance = nil;
 }
 
 @synthesize pitch;
+@synthesize positions;
 @synthesize possession;
 @synthesize moves;
 @synthesize ball;
@@ -34,6 +35,7 @@ static MatchPadDatabase *instance = nil;
 - (MatchPadDatabase *)init
 {
 	pitch = [[Pitch alloc] init];
+	positions = [[Positions alloc] init];
 	possession = [[Possession alloc] init];
 	moves = [[Moves alloc] init];
 	ball= [[Ball alloc] init];
@@ -50,6 +52,7 @@ static MatchPadDatabase *instance = nil;
 - (void) dealloc
 {
 	[pitch release];
+	[positions release];
 	[possession release];
 	[moves release];
 	[ball release];

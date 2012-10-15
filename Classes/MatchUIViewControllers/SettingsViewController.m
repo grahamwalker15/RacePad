@@ -211,6 +211,21 @@
 	NSNumber *v = [[BasePadPrefs Instance]getPref:@"supportVideo"];
 	if ( v )
 		supportVideo.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"playerTrails"];
+	if ( v )
+		playerTrails.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"playerPos"];
+	if ( v )
+		playerPos.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passes"];
+	if ( v )
+		passes.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passNames"];
+	if ( v )
+		passNames.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"ballTrail"];
+	if ( v )
+		ballTrail.on = [v boolValue];
 	[self updateSponsor];
 }
 
@@ -404,6 +419,41 @@
 	[[BasePadPrefs Instance] setPref:@"supportVideo" Value:v];
 	[[BasePadPrefs Instance] save];
 	[[MatchPadCoordinator Instance] updateTabs];
+}
+
+- (IBAction)playerTrailsChanged:(id)sender
+{
+	NSNumber *v = [NSNumber numberWithBool:playerTrails.on ];
+	[[BasePadPrefs Instance] setPref:@"playerTrails" Value:v];
+	[[BasePadPrefs Instance] save];
+}
+
+- (IBAction)playerPosChanged:(id)sender
+{
+	NSNumber *v = [NSNumber numberWithBool:playerPos.on ];
+	[[BasePadPrefs Instance] setPref:@"playerPos" Value:v];
+	[[BasePadPrefs Instance] save];
+}
+
+- (IBAction)passesChanged:(id)sender
+{
+	NSNumber *v = [NSNumber numberWithBool:passes.on ];
+	[[BasePadPrefs Instance] setPref:@"passes" Value:v];
+	[[BasePadPrefs Instance] save];
+}
+
+- (IBAction)passNamesChanged:(id)sender
+{
+	NSNumber *v = [NSNumber numberWithBool:passNames.on ];
+	[[BasePadPrefs Instance] setPref:@"passNames" Value:v];
+	[[BasePadPrefs Instance] save];
+}
+
+- (IBAction)ballTrailChanged:(id)sender
+{
+	NSNumber *v = [NSNumber numberWithBool:ballTrail.on ];
+	[[BasePadPrefs Instance] setPref:@"ballTrail" Value:v];
+	[[BasePadPrefs Instance] save];	[[MatchPadCoordinator Instance] updateTabs];
 }
 
 

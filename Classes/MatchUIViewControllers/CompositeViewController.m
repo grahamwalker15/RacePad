@@ -61,6 +61,9 @@
 	// Tell the MatchPadCoordinator that we will be interested in data for this view
 	[[MatchPadCoordinator Instance] AddView:movieView WithType:MPC_VIDEO_VIEW_];
 	[[MatchPadCoordinator Instance] AddView:pitchView WithType:MPC_PITCH_VIEW_];
+	[[MatchPadCoordinator Instance] AddView:backgroundView WithType:MPC_POSITIONS_VIEW_];
+	// FIXME - we're using the background view here to fool the coordinator
+	// becuase we have two data sources, but only one view
 	
 	[[MatchPadCoordinator Instance] setVideoViewController:self];
 	
@@ -73,7 +76,7 @@
 	// Grab the title bar
 	[[MatchPadTitleBarController Instance] displayInViewController:self];
 	
-	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_VIDEO_VIEW_ | MPC_PITCH_VIEW_)];
+	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_VIDEO_VIEW_ | MPC_PITCH_VIEW_ | MPC_POSITIONS_VIEW_)];
 
 	// We'll get notification when we know the movie size - set it to a default for now
 	movieSize = CGSizeMake(768, 576);
@@ -96,8 +99,25 @@
 	if(displayPitch)
 	{
 		[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
+		[[MatchPadCoordinator Instance] SetViewDisplayed:backgroundView];
 	}
 	
+	NSNumber *v = [[BasePadPrefs Instance]getPref:@"playerTrails"];
+	if ( v )
+		pitchView.playerTrails = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"playerPos"];
+	if ( v )
+		pitchView.playerPos = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passes"];
+	if ( v )
+		pitchView.passes = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passNames"];
+	if ( v )
+		pitchView.passNames = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"ballTrail"];
+	if ( v )
+		pitchView.ballTrail = [v boolValue];
+
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
@@ -413,10 +433,7 @@
 		return;
 	}
 			
-	MatchPadDatabase *database = [MatchPadDatabase Instance];
-	Pitch *pitch = [database pitch];
-	
-	[pitch adjustScaleInView:(PitchView *)gestureView Scale:scale X:x Y:y];
+	[pitchView adjustScale: scale X:x Y:y];
 
 	[pitchView RequestRedraw];
 }
@@ -430,9 +447,7 @@
 	// If we're on the track map, pan the map
 	if(gestureView == pitchView)
 	{
-		MatchPadDatabase *database = [MatchPadDatabase Instance];
-		Pitch *pitch = [database pitch];
-		[pitch adjustPanInView:(PitchView *)gestureView X:x Y:y];	
+		[pitchView adjustPan:x Y:y];	
 		[pitchView RequestRedraw];
 	}
 }
