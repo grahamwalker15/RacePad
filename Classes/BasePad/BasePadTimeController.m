@@ -180,7 +180,7 @@ static BasePadTimeController * instance_ = nil;
 	//[jog_control setTarget:instance_];
 	//[jog_control setSelector:@selector(JogControlChanged:)];
 	
-	ShinyButton *goLiveButton = [timeController goLiveButton];	
+	UIButton *goLiveButton = [timeController goLiveButton];	
 	[goLiveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
 	[self updateLiveButton];
 
@@ -375,21 +375,15 @@ static BasePadTimeController * instance_ = nil;
 
 - (void) updateLiveButton
 {
-	ShinyButton *liveButton = [timeController goLiveButton];
+	UIButton *liveButton = [timeController goLiveButton];
 	
 	if ( [[BasePadCoordinator Instance] liveMode] )
 	{
-		[liveButton setTitle:@"Live" forState:UIControlStateNormal];
-		[liveButton setButtonColour:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
-		[liveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-		[liveButton requestRedraw];
+		[liveButton setSelected:true];
 	}
 	else
 	{
-		[liveButton setTitle:@"Go Live" forState:UIControlStateNormal];
-		[liveButton setButtonColour:[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0]];
-		[liveButton setTextColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-		[liveButton requestRedraw];
+		[liveButton setSelected:false];
 	}
 	
 }
