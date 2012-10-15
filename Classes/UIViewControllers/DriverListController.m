@@ -75,7 +75,6 @@
 	if(!driver_lap_list_controller_closing_)
 	{
 		[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
-		//[[RacePadTitleBarController Instance] hide];
 		[[RacePadCoordinator Instance] ReleaseViewController:self];
 		
 	}

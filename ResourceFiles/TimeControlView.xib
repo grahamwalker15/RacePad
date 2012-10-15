@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="22"/>
+			<integer value="25"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,9 +56,6 @@
 							<double key="NSSize">18</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<int key="IBUIButtonType">1</int>
-						<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
-						<string key="IBUINormalTitle">Live</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="525197151">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -70,6 +67,14 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="1041804783">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUISelectedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">LiveButton.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">GoLiveButton.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="297824249">
@@ -841,7 +846,6 @@
 					<string>2.IBViewBoundsToFrameTransform</string>
 					<string>22.IBEditorWindowLastContentRect</string>
 					<string>22.IBPluginDependency</string>
-					<string>25.CustomClassName</string>
 					<string>25.IBEditorWindowLastContentRect</string>
 					<string>25.IBPluginDependency</string>
 					<string>25.IBViewBoundsToFrameTransform</string>
@@ -890,9 +894,8 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwpwAAA</bytes>
 					</object>
-					<string>{{416, 312}, {1024, 240}}</string>
+					<string>{{395, 284}, {1024, 240}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>ShinyButton</string>
 					<string>{{385, 697}, {72, 37}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -980,22 +983,6 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">ColouredButton</string>
-					<string key="superclassName">UIButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UISupport/ColouredButton.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ShinyButton</string>
-					<string key="superclassName">ColouredButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/UISupport/ShinyButton.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">TimeViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
@@ -1022,7 +1009,7 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
-							<string>ShinyButton</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -1068,7 +1055,7 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">goLiveButton</string>
-								<string key="candidateClassName">ShinyButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">minus10sButton</string>
@@ -1413,6 +1400,8 @@
 				<string>BigLeftArrowButton.png</string>
 				<string>BigPlayButton.png</string>
 				<string>BigRightArrowButton.png</string>
+				<string>GoLiveButton.png</string>
+				<string>LiveButton.png</string>
 				<string>Refresh.png</string>
 				<string>Replay.png</string>
 				<string>SlowMotion.png</string>
@@ -1424,6 +1413,8 @@
 				<string>{36, 36}</string>
 				<string>{32, 32}</string>
 				<string>{36, 36}</string>
+				<string>{115, 57}</string>
+				<string>{115, 57}</string>
 				<string>{48, 48}</string>
 				<string>{24, 24}</string>
 				<string>{32, 32}</string>
