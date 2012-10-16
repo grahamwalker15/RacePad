@@ -27,11 +27,14 @@
 
 - (TableCell *) initWithStream : (DataStream *) stream Colours: (UIColor **)colours ColoursCount: (int)coloursCount
 {
-	string = nil;
-	fg = nil;
-	bg = nil;
+	if(self = [super init])
+	{
+		string = nil;
+		fg = nil;
+		bg = nil;
 	
-	[self updateFromStream:stream Colours:colours ColoursCount:coloursCount];
+		[self updateFromStream:stream Colours:colours ColoursCount:coloursCount];
+	}
 	
 	return self;
 }
