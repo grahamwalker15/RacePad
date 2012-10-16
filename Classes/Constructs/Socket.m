@@ -21,23 +21,26 @@
 
 -(id)CreateSocket /*SocketConnection * parent, char * buffer*/
 {
-	//parent_ = parent;
-	//buffer_ = buffer;
-	buffer_size_ = 0 ;
+	if(self = [super init])
+	{
+		//parent_ = parent;
+		//buffer_ = buffer;
+		buffer_size_ = 0 ;
 	
-	socket_ref_ = nil;
-	status_ = SOCKET_NOT_CONNECTED_;
-	error_ = 0;
+		socket_ref_ = nil;
+		status_ = SOCKET_NOT_CONNECTED_;
+		error_ = 0;
 	
-	run_loop_source_ = nil;
+		run_loop_source_ = nil;
 	
-	new_transfer_ = true;
+		new_transfer_ = true;
 	
-	sizeBytesReceived = 0;
+		sizeBytesReceived = 0;
 	
-	transferData = [self constructDataHandler];
+		transferData = [self constructDataHandler];
 	
-	verifyTimer = nil;
+		verifyTimer = nil;
+	}
 	
 	return self;
 }
@@ -60,6 +63,9 @@
 	CFSocketInvalidate(socket_ref_);
 	CFRelease(socket_ref_);
 	socket_ref_ = nil;
+	
+	[transferData release];
+	transferData = nil;
 }
 
 -(void)ConnectSocket:(const char *) server_address Port:(int) port
@@ -105,10 +111,11 @@
 			{
 				[self OnDisconnect:true];
 			}
+		
+			CFRelease(cf_server_address);
 
 		}
 													
-		CFRelease(cf_server_address);
 	}
 }
 	
