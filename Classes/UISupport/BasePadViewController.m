@@ -109,6 +109,10 @@ static id timeControllerInstance = nil;
 	return YES;
 }
 
+- (void) notifyChangeToLiveMode
+{
+}
+
 - (void) RequestRedraw
 {
 }
@@ -336,8 +340,8 @@ static id timeControllerInstance = nil;
 
 - (void) doubleTapTimerExpired: (NSTimer *)theTimer
 {
-	doubleTapTimer = nil;
 	[self OnTapGestureInView:tapView AtX:tapPoint.x Y:tapPoint.y];
+	doubleTapTimer = nil;
 }
 
 - (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer

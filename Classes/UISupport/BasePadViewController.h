@@ -80,6 +80,9 @@
 //Virtual method - defaults YES, override if you don't want them
 - (BOOL) wantTimeControls;
 
+// Virtual method to be overwritten if you want to react to changes in live / replay status
+- (void) notifyChangeToLiveMode;
+
 // Virtual method to be overwritten in order to update any title bars etc.
 - (void) RequestRedrawForType:(int)type;
 - (void) RequestRedrawForUpdate;
