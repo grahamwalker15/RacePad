@@ -135,6 +135,7 @@ enum ConnectionTypes
 	
 	bool playing;
 	bool needsPlayRestart;
+	bool allowProtectMediaFromRestart;
 	bool protectMediaFromRestart;
     
     bool forceDataLive;
@@ -154,6 +155,8 @@ enum ConnectionTypes
 	unsigned char currentSponsor;
 	
 	bool lightRestart;
+    
+    bool diagnostics;
 
 	float appVersionNumber;
     
@@ -187,6 +190,8 @@ enum ConnectionTypes
 
 @property (nonatomic, retain) NSString * nameToFollow;
 @property (nonatomic) bool lightRestart;
+
+@property (nonatomic) bool diagnostics;
 
 @property (retain) id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
 

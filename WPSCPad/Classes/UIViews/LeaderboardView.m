@@ -149,6 +149,7 @@
 	}
 	
 	[text release];
+    [pitText release];
 	
 	[self RestoreGraphicsState];
 

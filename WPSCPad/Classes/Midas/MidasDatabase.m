@@ -22,7 +22,7 @@ static MidasDatabase *instance = nil;
 
 - (MidasDatabase *)init
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 	}
 	

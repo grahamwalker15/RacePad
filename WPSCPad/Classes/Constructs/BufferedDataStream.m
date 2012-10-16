@@ -13,8 +13,9 @@
 
 -(id) initWithSize: (int) size
 {
-	[super init];
-	data = [[NSMutableData alloc]initWithLength:size];
+	if(self = [super init])
+        data = [[NSMutableData alloc]initWithLength:size];
+    
 	return self;
 }
 

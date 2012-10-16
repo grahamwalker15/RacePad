@@ -27,11 +27,14 @@
 
 - (TableCell *) initWithStream : (DataStream *) stream Colours: (UIColor **)colours ColoursCount: (int)coloursCount
 {
-	string = nil;
-	fg = nil;
-	bg = nil;
-	
-	[self updateFromStream:stream Colours:colours ColoursCount:coloursCount];
+	if(self = [super init])
+	{
+		string = nil;
+		fg = nil;
+		bg = nil;
+        
+		[self updateFromStream:stream Colours:colours ColoursCount:coloursCount];
+	}
 	
 	return self;
 }
@@ -68,15 +71,18 @@
 
 - (TableHeader *) initHWithStream : (DataStream *) stream Colours: (UIColor **)colours ColoursCount: (int)colourCount
 {
-	width = [stream PopInt];
-	[super initWithStream:stream Colours:colours ColoursCount:colourCount];
-	columnUse = [stream PopUnsignedChar];
-	columnType = [stream PopUnsignedChar];
-	columnContent = [stream PopUnsignedChar];
-	if ( columnContent == TD_IMAGES )
-		imageListName = [[stream PopString] retain];
-	else
-		imageListName = nil;
+    if(self = [super init])
+    {
+        width = [stream PopInt];
+        [super initWithStream:stream Colours:colours ColoursCount:colourCount];
+        columnUse = [stream PopUnsignedChar];
+        columnType = [stream PopUnsignedChar];
+        columnContent = [stream PopUnsignedChar];
+        if ( columnContent == TD_IMAGES )
+            imageListName = [[stream PopString] retain];
+        else
+            imageListName = nil;
+    }
 
 	return self;
 }
@@ -112,13 +118,16 @@
 
 - (TableData *)init
 {
-	columnHeaders = [[NSMutableArray alloc] init];
-	cells = [[NSMutableArray alloc] init];
+    if(self = [super init])
+    {
+        columnHeaders = [[NSMutableArray alloc] init];
+        cells = [[NSMutableArray alloc] init];
 	
-	titleFields = [[NSMutableDictionary alloc] init];
+        titleFields = [[NSMutableDictionary alloc] init];
 
-	rows = 0;
-	cols = 0;
+        rows = 0;
+        cols = 0;
+    }
 	
 	return self;
 }

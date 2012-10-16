@@ -290,9 +290,7 @@
 			[video_status setText:reportString];
 			[videoServerTwirl stopAnimating];
 			[videoServerTwirl setHidden:true];
-			
-			[reportString release];
-		}
+        }
 		else if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_FAILED_ )
 		{
 			NSString * reportString = @"Connection failed :";

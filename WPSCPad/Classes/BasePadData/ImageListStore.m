@@ -13,8 +13,10 @@
 
 - (id) init
 {
-	dictionary = [[NSMutableDictionary alloc] init];
-	return [super init];	
+    if(self = [super init])
+        dictionary = [[NSMutableDictionary alloc] init];
+    
+	return self;
 }
 
 - (void) dealloc
@@ -35,6 +37,7 @@
 	
 	[dictionary setObject:item forKey:itemName];
 	[itemName release];
+    [item release];
 }
 
 - (UIImage *)findItem:(NSString *)key
@@ -48,8 +51,10 @@
 
 - (id) init
 {
-	dictionary = [[NSMutableDictionary alloc] init];
-	return [super init];	
+    if(self = [super init] )
+        dictionary = [[NSMutableDictionary alloc] init];
+    
+	return self;
 }
 
 - (void) dealloc

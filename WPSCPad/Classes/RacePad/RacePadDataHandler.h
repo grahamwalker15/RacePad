@@ -66,7 +66,8 @@ enum ServerCommands {
 	RPSC_COMMENTARY_NO_CHANGE_, // 50
 	RPSC_WHOLE_STANDINGS_VIEW_, // 51
 	RPSC_UPDATE_STANDINGS_VIEW_, // 52
-	RPSC_DRIVER_VOTING_,        // 53
+	RPSC_DRIVER_VOTING_,		// 53
+	RPSC_UPDATE_DRIVER_VIEW_,	// 54
 };
 
 @interface RacePadDataHandler : BasePadDataHandler

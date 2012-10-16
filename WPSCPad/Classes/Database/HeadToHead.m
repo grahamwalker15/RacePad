@@ -25,7 +25,7 @@ static UIImage *redPosArrowImage = nil;
 
 - (HeadToHeadLap *) initWithStream: (DataStream *) stream
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		pos0 = [stream PopInt];
 		flags0 = [stream PopInt];
@@ -157,6 +157,7 @@ static UIImage *redPosArrowImage = nil;
 	{
 		HeadToHeadLap *lap = [[HeadToHeadLap alloc] initWithStream: stream];
 		[laps addObject:lap];
+        [lap release];
 	}
 }
 

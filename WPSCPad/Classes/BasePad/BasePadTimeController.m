@@ -7,8 +7,10 @@
 //
 
 #import "BasePadCoordinator.h"
+#import "BasePadMedia.h"
 #import "BasePadTimeController.h"
 #import "BasePadViewController.h"
+#import "BasePadVideoViewController.h"
 #import "TimeViewController.h"
 #import "JogViewController.h"
 
@@ -34,11 +36,11 @@ static BasePadTimeController * instance_ = nil;
 -(id)init
 {
 	if(self = [super init])
-	{	
+	{
 		instance_ = self;
 		
 		[BasePadViewController specifyTimeControllerInstance:self];
-
+		
 		timeController = [[TimeViewController alloc] initWithNibName:@"TimeControllerView" bundle:nil];
 		addOnOptionsView = nil;
 		
@@ -48,7 +50,7 @@ static BasePadTimeController * instance_ = nil;
 		hideTimer = nil;
 		
 		timeNow = 0.0;
-        
+		
         reducedView = false;
 		
 		// Add a tap gesture recogniser to the time controller view to allow hiding of controls
@@ -86,6 +88,8 @@ static BasePadTimeController * instance_ = nil;
         }
         
         [timeController.toolbar setItems:reducedItems];
+        
+        [reducedItems release];
     }
 }
 
@@ -128,7 +132,7 @@ static BasePadTimeController * instance_ = nil;
 		CGRect optionsFrame = CGRectMake(rect.origin.x + (rect.size.width - options_bounds.size.width) / 2, toolbarFrame.origin.y - options_bounds.size.height - 10, options_bounds.size.width, options_bounds.size.height);
 		[addOnOptionsView setFrame:optionsFrame];
 	}
-
+	
 	if(animated)
 	{
 		[timeController.view setAlpha:0.0];
@@ -149,8 +153,8 @@ static BasePadTimeController * instance_ = nil;
 	//if([[BasePadCoordinator Instance] connectionType] == BPC_ARCHIVE_CONNECTION_)
 	//	[[timeController goLiveButton] setHidden:true];
 	//else
-		[[timeController goLiveButton] setHidden:false];
-    
+    [[timeController goLiveButton] setHidden:false];
+	
 	if(animated)
 	{
 		[UIView beginAnimations:nil context:NULL];
@@ -164,7 +168,7 @@ static BasePadTimeController * instance_ = nil;
 		[UIView commitAnimations];
 	}
 	
-	UIBarButtonItem * play_button = [timeController playButton];	
+	UIBarButtonItem * play_button = [timeController playButton];
 	[play_button setTarget:instance_];
 	[play_button setAction:@selector(PlayPressed:)];
 	
@@ -172,7 +176,7 @@ static BasePadTimeController * instance_ = nil;
 	[slider addTarget:instance_ action:@selector(SliderChanged:) forControlEvents:UIControlEventValueChanged];
 	[slider addTarget:instance_ action:@selector(SliderFinished:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 	
-	UIBarButtonItem * replay_button = [timeController replayButton];	
+	UIBarButtonItem * replay_button = [timeController replayButton];
 	[replay_button setTarget:instance_];
 	[replay_button setAction:@selector(ReplayPressed:)];
 	
@@ -185,8 +189,8 @@ static BasePadTimeController * instance_ = nil;
 	
 	[[timeController normalPlayButton] addTarget:instance_ action:@selector(PlayPressed:) forControlEvents:UIControlEventTouchDown];
 	[[timeController slowMotionButton] addTarget:instance_ action:@selector(SlowMotionPlayPressed:) forControlEvents:UIControlEventTouchDown];
-
-	//JogControlView * jog_control = [jogController jogControl];	
+	
+	//JogControlView * jog_control = [jogController jogControl];
 	//[jog_control setTarget:instance_];
 	//[jog_control setSelector:@selector(JogControlChanged:)];
 	
@@ -194,6 +198,8 @@ static BasePadTimeController * instance_ = nil;
 	[goLiveButton addTarget:instance_ action:@selector(goLivePressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	[self updateLiveButton];
+    
+	[[timeController refreshButton] addTarget:instance_ action:@selector(refreshPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	float current_time = [[BasePadCoordinator Instance] currentTime];
 	float start_time = [[BasePadCoordinator Instance] startTime];
@@ -222,7 +228,7 @@ static BasePadTimeController * instance_ = nil;
 		[hideTimer invalidate];
 		hideTimer = nil;
 	}
-
+	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.15];
 	[UIView setAnimationDelegate:self];
@@ -241,7 +247,7 @@ static BasePadTimeController * instance_ = nil;
 	
 	[parentController release];
 	parentController = 0;
-
+	
 }
 
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
@@ -281,7 +287,7 @@ static BasePadTimeController * instance_ = nil;
 		// Timer to hide the controls if they're not touched for 5 seconds
 		if(hideTimer)
 			[hideTimer invalidate];
-	
+		
 		hideTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideTimerExpired:) userInfo:nil repeats:NO];
 	}
 }
@@ -346,9 +352,9 @@ static BasePadTimeController * instance_ = nil;
 - (void) updatePlayButtons
 {
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
-	UIBarButtonItem * play_button = [timeController playButton];	
-	UIButton * normal_play_button = [timeController normalPlayButton];	
-	UIButton * slow_button = [timeController slowMotionButton];	
+	UIBarButtonItem * play_button = [timeController playButton];
+	UIButton * normal_play_button = [timeController normalPlayButton];
+	UIButton * slow_button = [timeController slowMotionButton];
 	
 	if(play_button)
 	{
@@ -386,10 +392,11 @@ static BasePadTimeController * instance_ = nil;
 	UIButton *liveButton = [timeController goLiveButton];
 	
 	if ( [[BasePadCoordinator Instance] liveMode] )
-        [liveButton setSelected:true];
+		[liveButton setSelected:true];
 	else
-		[liveButton setSelected:false];	
+		[liveButton setSelected:false];
 }
+
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -397,12 +404,12 @@ static BasePadTimeController * instance_ = nil;
 //////////////////////////////////////////////////////////////////////////////////
 
 - (IBAction)PlayPressed:(id)sender
-{    
+{
 	//[jogController killUpdateTimer];	// Just in case it got stuck on
 	
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
-
-    if([coordinator playingRealTime])
+    
+	if([coordinator playingRealTime])
 	{
 		[coordinator userPause];
 		[self updatePlayButtons];
@@ -433,7 +440,7 @@ static BasePadTimeController * instance_ = nil;
 	else if([coordinator playing])
 	{
 		[coordinator userPause];
-
+		
 		[coordinator setPlaybackRate:0.5];
 		[coordinator prepareToPlay];
 		[coordinator startPlay];
@@ -452,7 +459,7 @@ static BasePadTimeController * instance_ = nil;
 
 - (IBAction)SliderChanged:(id)sender
 {
-	// Don't update movie while sliding - will do on finish
+	// Don't update movie while sliding -will do on finish
 	[[BasePadCoordinator Instance] setLiveMovieSeekAllowed:false];
 	[self actOnSliderValue];
 }
@@ -476,12 +483,12 @@ static BasePadTimeController * instance_ = nil;
 }
 
 - (IBAction)JogControlChanged:(id)sender
-{    
+{
 	BasePadCoordinator * coordinator = [BasePadCoordinator Instance];
 	
 	[coordinator stopPlay];
 	float time = [coordinator currentTime];
-
+	
 	JogControlView * jog_control = [jogController jogControl];
 	float change = [jog_control value];
 	float sign = change < 0 ? -1.0 :1.0;
@@ -489,7 +496,7 @@ static BasePadTimeController * instance_ = nil;
 	change = sign * change * change; // Square it to get finer control on slow motion
 	
 	time -= change * 0.8;	// 20 * real time for half turn - -ve angle = positive time change
-							// Called on 25 hz timer
+	// Called on 25 hz timer
 	
 	if(time < [coordinator startTime])
 		time = [coordinator startTime];
@@ -549,16 +556,16 @@ static BasePadTimeController * instance_ = nil;
 		jump = 10.0;
 	else if(sender == [timeController plus30sButton])
 		jump = 30.0;
-																	  
+	
 	time += jump;
-
+	
 	UISlider * slider = [timeController timeSlider];
 	
 	if(time < [slider minimumValue])
 		time = [slider minimumValue];
 	else if(time > [slider maximumValue])
 		time = [slider maximumValue];
-			
+	
 	[coordinator jumpToTime:time];
 	[self updateTime:time];
 	
@@ -568,7 +575,7 @@ static BasePadTimeController * instance_ = nil;
 			[coordinator setPlaybackRate:0.5];
 		else
 			[coordinator setPlaybackRate:1.0];
-
+		
 		[coordinator prepareToPlay];
 		[coordinator startPlay];
 	}
@@ -586,6 +593,13 @@ static BasePadTimeController * instance_ = nil;
 		[[BasePadCoordinator Instance] goLive:true];
 	}
 }
+
+- (IBAction)refreshPressed:(id)sender;
+{
+	if([[BasePadMedia Instance] movieSourceCount] > 0)
+		[[BasePadMedia Instance] restartConnection];
+}
+
 
 //////////////////////////////////////////////////////////
 

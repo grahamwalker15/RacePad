@@ -888,6 +888,8 @@
 				if(thisRowHeight > maxHeight)
 					maxHeight = thisRowHeight;
 			}
+            
+            [text release];
 		}
 	}
 	

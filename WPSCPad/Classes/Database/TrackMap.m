@@ -36,21 +36,24 @@ static UIImage *grassImage = nil;
 
 - (id) init
 {
-	pointColour = nil;
-	fillColour = nil;
-	lineColour = nil;
-	textColour = nil;
+    if(self = [super init])
+    {
+        pointColour = nil;
+        fillColour = nil;
+        lineColour = nil;
+        textColour = nil;
+        
+        name = nil;
+        team = nil;
+        
+        row = 0;
+        
+        moving = false;
+        pitted = false;
+        stopped= false;
+    }
 	
-	name = nil;
-	team = nil;
-	
-	row = 0;
-	
-	moving = false;
-	pitted = false;
-	stopped= false;
-
-	return [super init];
+	return self;
 }
 
 - (void) dealloc
@@ -82,15 +85,15 @@ static UIImage *grassImage = nil;
 	[textColour release];
 	[name release];
 	[team release];
-
+	
 	pointColour = nil;
 	fillColour = nil;
 	lineColour = nil;
 	textColour = nil;
 	name = nil;
 	team = nil;
-
-
+	
+	
 	pointColour = [self loadColour:stream Colours:colours ColoursCount:coloursCount];
 	x = [stream PopFloat];
 	y = -[stream PopFloat];
@@ -143,9 +146,9 @@ static UIImage *grassImage = nil;
 		float y1 = y0 - boxHeight;
 		
 		// Shadow
-		[view SetBGToShadowColour];		
+		[view SetBGToShadowColour];
 		[view FillRectangleX0:x0+5 Y0:y0+5 X1:x1+5 Y1:y1+5];
-
+		
 		// Box
 		if(isFollowCar)
 			[view SetBGColour:[view dark_magenta_]];
@@ -168,7 +171,7 @@ static UIImage *grassImage = nil;
 				[view SetFGColour:[view white_]];
 			else
 				[view SetFGColour:textColour];
-
+			
 			if ( [view smallSized] )
 				[view DrawString:name AtX:px + 6 Y:py - 13];
 			else
@@ -219,7 +222,7 @@ static UIImage *grassImage = nil;
 		float y1 = y0 - boxHeight;
 		
 		// Shadow
-		[view SetBGToShadowColour];		
+		[view SetBGToShadowColour];
 		[view FillRectangleX0:x0+5 Y0:y0+5 X1:x1+5 Y1:y1+5];
 		
 		// Box
@@ -278,7 +281,7 @@ static UIImage *grassImage = nil;
 		max_x = 0.0;
 		min_y = 0.0;
 		max_y = 0.0;
-
+		
 		width = 0.0;
 		height = 0.0;
 	}
@@ -297,7 +300,6 @@ static UIImage *grassImage = nil;
 		free(y);
 	y = NULL;
 	
-	segmentCount = 0;
 	int i;
 	if ( segmentPaths )
 	{
@@ -306,6 +308,7 @@ static UIImage *grassImage = nil;
 		free (segmentPaths);
 	}
 	
+	segmentCount = 0;
 	segmentPaths = NULL;
 	
 }
@@ -464,7 +467,7 @@ static UIImage *grassImage = nil;
 	
 	free ( x );
 	free ( y );
-
+	
 	colour = [[stream PopRGB]retain];
 	lineType = [stream PopUnsignedChar];
 }
@@ -576,7 +579,7 @@ static UIImage *grassImage = nil;
 
 - (id) init: (int) inIndex State: (unsigned char)inState
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		index = inIndex;
 		state = inState;
@@ -685,7 +688,7 @@ static UIImage *grassImage = nil;
 	[labels release];
 	[segmentStates removeAllObjects];
 	[segmentStates release];
-
+	
 	int c;
 	if ( colours )
 	{
@@ -725,7 +728,7 @@ static UIImage *grassImage = nil;
 	s2Length = 0;
 	sc1Length = 0;
 	sc2Length = 0;
-
+	
 	trackProfileLength = 0;
 	s1ProfileLength = 0;
 	s2ProfileLength = 0;
@@ -736,7 +739,7 @@ static UIImage *grassImage = nil;
 	pitStopLossSC = 0;
 	
 	[turns removeAllObjects];
-
+	
 	int c;
 	if ( colours )
 	{
@@ -762,12 +765,12 @@ static UIImage *grassImage = nil;
 	}
 	
 	int count = [stream PopInt];
-
+	
 	if ( count == 2 )
 	{
 		[inner loadShape:stream];
 		[outer loadShape:stream];
-
+		
 		while ( true )
 		{
 			int count = [stream PopInt];
@@ -806,7 +809,7 @@ static UIImage *grassImage = nil;
 		
 		xCentre = (min_x + max_x) * 0.5;
 		yCentre = (min_y + max_y) * 0.5;
-
+		
 		trackProfileLength = [stream PopFloat];
 		s1ProfileLength = [stream PopFloat];
 		s2ProfileLength = [stream PopFloat];
@@ -873,7 +876,7 @@ static UIImage *grassImage = nil;
 		
 		[view SetLineWidth:2 / scale];
 		[view SetDropShadowXOffset:5.0 YOffset:5.0 Blur:0.0];
-
+		
 		[view SetBGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
 		
 		[view BeginPath];
@@ -882,14 +885,14 @@ static UIImage *grassImage = nil;
 		[view FillCurrentPath];
 		
 		[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-
+		
 		[view BeginPath];
 		[view LoadPath:[inner path]];
 		[view LoadPath:[outer path]];
 		[view LineCurrentPath];
 		
 		[view ResetDropShadow];
-
+		
 		int i;
 		// Now draw the other lines
 		int count = [lines count];
@@ -949,11 +952,11 @@ static UIImage *grassImage = nil;
 	for ( int i = 0; i < count; i++)
 	{
 		TrackLabel *label = [labels objectAtIndex:i];
-
+		
 		/*
-		if ( [label lineType] == TM_L_TIMING_LINE )
-			[view UseBoldFont];
-		else
+		 if ( [label lineType] == TM_L_TIMING_LINE )
+		 [view UseBoldFont];
+		 else
 		 */
 		if([view midasStyle])
 		{
@@ -969,17 +972,17 @@ static UIImage *grassImage = nil;
 			else
 				[view UseMediumBoldFont];
 		}
-				
+		
 		float x, y;
-		[label getLabelPoint:view Scale: scale X:&x Y:&y];
+		[label getLabelPoint:view Scale:scale X:&x Y:&y];
 		CGPoint p = CGPointMake(x, y);
 		CGPoint tp = [view TransformPoint:p];
 		
 		float px = tp.x;
 		float py = size.height - tp.y;
-
+		
 		[view SetFGColour:[label colour]];
-
+		
 		[view DrawString:[label label] AtX:px Y:py];
 	}
 }
@@ -1000,7 +1003,7 @@ static UIImage *grassImage = nil;
 		else
 			[view UseRegularFont];
 	}
-
+	
 	int i;
 	for ( i = 0; i < carCount; i++ )
 	{
@@ -1040,7 +1043,7 @@ static UIImage *grassImage = nil;
 		if ( followCar != nil )
 		{
 			[view SetFGColour:[view white_]];
-		
+			
 			[view DrawString:followCar AtX:3 Y:3];
 			
 			if ( ![self carExistsByName:followCar] )
@@ -1067,7 +1070,7 @@ static UIImage *grassImage = nil;
 }
 
 - (NSString *) nearestCarInView:(TrackMapView *)view ToX:(float)x Y:(float)y
-{	
+{
 	int nearest_index = -1;
 	float nearest_dist = 0.0;
 	
@@ -1116,9 +1119,9 @@ static UIImage *grassImage = nil;
 			float userScale = [view userScale];
 			int direction = [view animationDirection];
 			float s1, s2;
-		
+			
 			float s = [view interpolatedUserScale];
-
+			
 			if(direction == 1)
 			{
 				s1 = userScale;
@@ -1130,7 +1133,7 @@ static UIImage *grassImage = nil;
 				s2 = userScale;
 				alpha = 1.0 - alpha;
 			}
-									
+			
 			// Calculate centre of transformation such that the car position varies linearly with
 			// alpha from the centre to it's 1:1 track position.
 			// Note : only works correctly with square maps
@@ -1165,7 +1168,7 @@ static UIImage *grassImage = nil;
 	
 	// Get dimensions of current view
 	CGRect map_rect = [view bounds];
-		
+	
 	CGSize viewSize = map_rect.size;
 	
 	// Make the map as big as possible in the rectangle
@@ -1175,7 +1178,7 @@ static UIImage *grassImage = nil;
 	float mapScale = (x_scale < y_scale) ? x_scale : y_scale;
 	
 	float mapXOffset, mapYOffset;
-
+	
 	
 	// If it is an overlay view, we move it to the right. Otherwise centre.
 	if([view isOverlayView])
@@ -1202,13 +1205,13 @@ static UIImage *grassImage = nil;
 	//  And build the matrix
 	[view ResetTransformMatrix];
 	
-	[view SetTranslateX:userXOffset * viewSize.width Y:userYOffset * viewSize.height];	
+	[view SetTranslateX:userXOffset * viewSize.width Y:userYOffset * viewSize.height];
 	[view SetTranslateX:mapXOffset Y:mapYOffset];
 	[view SetScale:mapScale * userScale];
 	[view SetRotationInDegrees:rotation];
 	[view SetTranslateX:-x Y:-y];
 	
-	[view StoreTransformMatrix];	
+	[view StoreTransformMatrix];
 }
 
 - (void) adjustScaleInView:(TrackMapView *)view Scale:(float)scale X:(float)x Y:(float)y
@@ -1227,10 +1230,10 @@ static UIImage *grassImage = nil;
 	{
 		CGRect viewBounds = [view bounds];
 		CGSize viewSize = viewBounds.size;
-
+		
 		if(viewSize.width < 1 || viewSize.height < 1)
 			return;
-
+		
 		float currentUserPanX = [view userXOffset] * viewSize.width;
 		float currentUserPanY = [view userYOffset] * viewSize.height;
 		float currentUserScale = [view userScale];
@@ -1238,26 +1241,26 @@ static UIImage *grassImage = nil;
 		float currentMapPanY = [view homeYOffset];
 		float currentMapScale = [view homeScale];
 		float currentScale = currentUserScale * currentMapScale;
-
+		
 		if(fabsf(currentScale) < 0.001 || fabsf(scale) < 0.001)
 			return;
-
+		
 		// Calculate where the centre point is in the untransformed map
-		float x_in_map = (x - currentUserPanX - currentMapPanX) / currentScale; 
+		float x_in_map = (x - currentUserPanX - currentMapPanX) / currentScale;
 		float y_in_map = (y - currentUserPanY - currentMapPanY) / currentScale;
-
-		// Now work out the new scale	
+		
+		// Now work out the new scale
 		float newScale = currentScale * scale;
 		float newUserScale = currentUserScale * scale;
-
+		
 		// Now work out where that point in the map would go now
 		float new_x = (x_in_map) * newScale + currentMapPanX;
 		float new_y = (y_in_map) * newScale + currentMapPanY;
-
+		
 		// Andset the user pan to put it back where it was on the screen
 		float newPanX = (x - new_x) / viewSize.width ;
 		float newPanY = (y - new_y) / viewSize.height;
-
+		
 		[view setUserXOffset:newPanX];
 		[view setUserYOffset:newPanY];
 		[view setUserScale:newUserScale];
@@ -1275,13 +1278,13 @@ static UIImage *grassImage = nil;
 	
 	float newPanX = ([view userXOffset] * viewSize.width + x) / viewSize.width;
 	float newPanY = ([view userYOffset] * viewSize.height + y)  / viewSize.height;
-		
+	
 	[view setUserXOffset:newPanX];
 	[view setUserYOffset:newPanY];
 }
 
 - (int) getTrackState
-{	
+{
 	return overallTrackState;
 }
 
@@ -1300,7 +1303,7 @@ static UIImage *grassImage = nil;
 {
 	return [inner directionAtPoint:xp Y:yp];
 }
-	
+
 // TrackProfile
 
 -(void) drawTrackLine: (TrackProfileView *)view Distance:(float)distance Name:(NSString *)name Offset:(float)offset Y0:(int)y0 Y1:(int)y1
@@ -1319,13 +1322,13 @@ static UIImage *grassImage = nil;
 	float w, h;
 	[view GetStringBox:name WidthReturn:&w HeightReturn:&h];
 	
-	[view SetFGColour:[view dark_red_]];		
+	[view SetFGColour:[view dark_red_]];
 	[view LineX0:px-1 Y0:y0 X1:px-1 Y1:y1];
 	[view LineX0:px+1 Y0:y0 X1:px+1 Y1:y1];
-	[view SetFGColour:[view white_]];		
+	[view SetFGColour:[view white_]];
 	[view LineX0:px Y0:y0 X1:px Y1:y1];
 	
-	[view SetFGColour:[view white_]];		
+	[view SetFGColour:[view white_]];
 	[view DrawString:name AtX:px - w * 0.5 Y:y1 - h - 1];
 }
 
@@ -1350,9 +1353,9 @@ static UIImage *grassImage = nil;
 	float w, h;
 	[view GetStringBox:turnName WidthReturn:&w HeightReturn:&h];
 	
-	[view SetFGColour:[view light_grey_]];		
+	[view SetFGColour:[view light_grey_]];
 	[view LineX0:px Y0:y0 X1:px Y1:y1];
-	[view SetFGColour:[UIColor colorWithRed:0.5 green:0.8 blue:0.8 alpha:1.0]];		
+	[view SetFGColour:[UIColor colorWithRed:0.5 green:0.8 blue:0.8 alpha:1.0]];
 	[view DrawString:turnName AtX:px - w * 0.5 Y:y1 - h - 1];
 }
 
@@ -1463,8 +1466,8 @@ static UIImage *grassImage = nil;
 			
 			if ( counter == 0 )
 			{
-				[view LineRectangleX0:xRight Y0:x_axis X1:xRight Y1:x_axis + 5]; 
-				[view LineRectangleX0:xLeft Y0:x_axis X1:xLeft Y1:x_axis + 5]; 
+				[view LineRectangleX0:xRight Y0:x_axis X1:xRight Y1:x_axis + 5];
+				[view LineRectangleX0:xLeft Y0:x_axis X1:xLeft Y1:x_axis + 5];
 				
 				counter = 4;
 				
@@ -1487,7 +1490,7 @@ static UIImage *grassImage = nil;
 			}
 			else
 			{
-				[view LineRectangleX0:xRight Y0:x_axis X1:xRight Y1:x_axis + 2]; 
+				[view LineRectangleX0:xRight Y0:x_axis X1:xRight Y1:x_axis + 2];
 				[view LineRectangleX0:xLeft Y0:x_axis X1:xLeft Y1:x_axis + 2];
 				
 				counter --;
@@ -1501,7 +1504,7 @@ static UIImage *grassImage = nil;
 }
 
 - (void) drawInProfileView:(TrackProfileView *)view
-{	
+{
 	RacePadDatabase *database = [RacePadDatabase Instance];
 	ImageListStore * image_store = [database imageListStore];
 	
@@ -1554,7 +1557,7 @@ static UIImage *grassImage = nil;
 			double lapProgress_1 = [[cars objectAtIndex:carAhead] lapProgress] * trackProfileLength;
 			
 			while(true)
-			{				
+			{
 				int carBehind = carAhead > 0 ? carAhead - 1 : (carCount - 1);
 				
 				while(carBehind != biggestGapCar &&

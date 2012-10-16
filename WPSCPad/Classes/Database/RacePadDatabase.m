@@ -42,7 +42,7 @@ static RacePadDatabase *instance = nil;
 
 - (RacePadDatabase *)init
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		session = RPD_SESSION_RACE_;
 		driverListData = [[TableData alloc] init];

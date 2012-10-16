@@ -21,21 +21,26 @@
 
 -(id)CreateSocket /*SocketConnection * parent, char * buffer*/
 {
-	//parent_ = parent;
-	//buffer_ = buffer;
-	buffer_size_ = 0 ;
-	
-	socket_ref_ = nil;
-	status_ = SOCKET_NOT_CONNECTED_;
-	error_ = 0;
-	
-	run_loop_source_ = nil;
-	
-	new_transfer_ = true;
-	
-	sizeBytesReceived = 0;
-	
-	transferData = [self constructDataHandler];
+	if(self = [super init])
+	{
+		//parent_ = parent;
+		//buffer_ = buffer;
+		buffer_size_ = 0 ;
+        
+		socket_ref_ = nil;
+		status_ = SOCKET_NOT_CONNECTED_;
+		error_ = 0;
+        
+		run_loop_source_ = nil;
+        
+		new_transfer_ = true;
+        
+		sizeBytesReceived = 0;
+        
+		transferData = [self constructDataHandler];
+        
+		verifyTimer = nil;
+	}
 	
 	return self;
 }
@@ -58,6 +63,9 @@
 	CFSocketInvalidate(socket_ref_);
 	CFRelease(socket_ref_);
 	socket_ref_ = nil;
+	
+	[transferData release];
+	transferData = nil;
 }
 
 -(void)ConnectSocket:(const char *) server_address Port:(int) port
@@ -75,7 +83,7 @@
 	socket_ref_ = CFSocketCreate (NULL, PF_INET, SOCK_STREAM, IPPROTO_TCP,
 								  kCFSocketConnectCallBack | kCFSocketDataCallBack, SocketCallback, &cf_context );
 	
- 
+    
 	if( socket_ref_ )
 	{
 		struct sockaddr_in socket_address;
@@ -83,7 +91,7 @@
 		socket_address.sin_family = AF_INET;
 		socket_address.sin_port = htons(port);
 		inet_pton(AF_INET, server_address, &socket_address.sin_addr.s_addr);
-
+        
 		CFDataRef cf_server_address = CFDataCreate (NULL, (const UInt8 *) &socket_address, sizeof(struct sockaddr_in));
 		if(cf_server_address)
 		{
@@ -91,11 +99,11 @@
 			
 			if(error == kCFSocketSuccess)
 			{
+				lastReceiveTime = [ElapsedTime LocalTimeOfDay];
 				run_loop_source_ = CFSocketCreateRunLoopSource (NULL, socket_ref_, 1);
 				if(run_loop_source_)
 				{
 					CFRunLoopAddSource (CFRunLoopGetMain(), run_loop_source_, kCFRunLoopCommonModes);
-					lastReceiveTime = [ElapsedTime LocalTimeOfDay];
 					verifyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verifySocketTimer:) userInfo:nil repeats:YES];
 				}
 			}
@@ -103,14 +111,15 @@
 			{
 				[self OnDisconnect:true];
 			}
-
+            
+			CFRelease(cf_server_address);
+            
 		}
-													
-		CFRelease(cf_server_address);
+        
 	}
 }
-	
-													
+
+
 - (void)OnConnect:(CFSocketRef) socket_ref Error:(CFSocketError) error
 {
 	if(error == kCFSocketSuccess)
@@ -177,12 +186,12 @@
 				
 				sizeBytesReceived = 0;
 			}
-			else 
+			else
 			{
 				new_transfer_ = true;
 				break;
 			}
-
+            
 		}
 		
 		if ( !new_transfer_ )
@@ -207,7 +216,7 @@
 				assert ( data_size == 0 );
 				break;
 			}
-
+            
 		}
 	}
 }
@@ -248,12 +257,13 @@
 
 - (void) verifySocketTimer: (NSTimer *)theTimer
 {
-	if ( [ElapsedTime LocalTimeOfDay] - lastReceiveTime > 3 )
+	double timeNow = [ElapsedTime LocalTimeOfDay];
+	if ( timeNow - lastReceiveTime > 10 )
 		[self OnDisconnect:false];
 }
 
 @end
-	
+
 
 //////////////////////////////////////////////////////////////////////////////////////
 // Global socket event callback
@@ -265,9 +275,9 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 		return;
 	
 	Socket *owner = (Socket *)info;
-
+    
 	if ( CFSocketIsValid(s) )
-	{		
+	{
 		switch (callbackType)
 		{
 			case kCFSocketNoCallBack:
@@ -277,19 +287,19 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 			case kCFSocketAcceptCallBack:
 				break;
 			case kCFSocketDataCallBack:
-				{				
-					// Pass on to owner of socket
-					[owner OnReceive:s Data:data];
-				}
+            {
+                // Pass on to owner of socket
+                [owner OnReceive:s Data:data];
+            }
 				break;
 			case kCFSocketConnectCallBack:
-				{
-					// Get error code from data
-					CFSocketError error = (SInt32)data;
-					
-					// Pass on to owner of socket
-					[owner OnConnect:s Error:error];
-				}
+            {
+                // Get error code from data
+                CFSocketError error = (SInt32)data;
+                
+                // Pass on to owner of socket
+                [owner OnConnect:s Error:error];
+            }
 				break;
 			case kCFSocketWriteCallBack:
 				break;
@@ -300,7 +310,7 @@ void SocketCallback ( CFSocketRef s, CFSocketCallBackType callbackType, CFDataRe
 	else {
 		[owner OnDisconnect:false];
 	}
-
+    
 }
 
 

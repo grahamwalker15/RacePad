@@ -16,6 +16,8 @@
 	IBOutlet UISlider * timeSlider;
 	IBOutlet UIBarButtonItem * replayButton;
 	
+	IBOutlet UIButton * refreshButton;
+    
 	IBOutlet UIButton * minus1sButton;
 	IBOutlet UIButton * minus10sButton;
 	IBOutlet UIButton * minus30sButton;
@@ -28,7 +30,7 @@
 	IBOutlet UIButton * normalPlayButton;
 	
 	IBOutlet UIButton * goLiveButton;
-
+    
 	IBOutlet UIView * scrubControl;
 }
 
@@ -37,6 +39,7 @@
 @property (readonly) UIBarButtonItem * replayButton;
 @property (readonly) UISlider * timeSlider;
 @property (readonly) UIButton * clock;
+@property (readonly) UIButton * refreshButton;
 @property (readonly) UIButton * goLiveButton;
 
 @property (readonly)  UIButton * minus1sButton;

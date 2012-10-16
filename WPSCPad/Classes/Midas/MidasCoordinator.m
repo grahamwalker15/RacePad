@@ -12,6 +12,7 @@
 #import "WorkOffline.h"
 #import "ServerConnect.h"
 #import "MidasVideoViewController.h"
+#import "BasePadMedia.h"
 #import "BasePadPrefs.h"
 
 @implementation MidasCoordinator
@@ -43,6 +44,10 @@ static MidasCoordinator * instance_ = nil;
 		socialmediaResponder = nil;
         
         forceDataLive = true;
+        allowProtectMediaFromRestart = true;
+        
+        [[BasePadMedia Instance] setExtendedNotification:false];
+
     }
 	
 	return self;

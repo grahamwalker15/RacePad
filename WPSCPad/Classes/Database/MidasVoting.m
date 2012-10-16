@@ -148,6 +148,7 @@ static int va = 0;
 	// Draw grid
 	[view SetFGColour:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.5]];
 	float yval = 0;
+    y = ymin;
 	while ( y < graphicHeight)
 	{
 		y = yval / maxValue * graphicHeight + ymin;

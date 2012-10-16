@@ -48,9 +48,12 @@
 
 - (DriverNames *)init
 {
-	drivers = [[NSMutableArray alloc] init];
+    if(self = [super init])
+    {
+        drivers = [[NSMutableArray alloc] init];
 
-	count = 0;
+        count = 0;
+    }
 	
 	return self;
 }

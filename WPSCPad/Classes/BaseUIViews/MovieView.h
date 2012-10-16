@@ -43,10 +43,10 @@ enum MovieViewTitleDisplays
 	bool movieScheduledForDisplay;
 	bool movieScheduledForRemoval;
 	bool movieSourceCached;
-
+	
 	UIView * titleView;
 	UIImageView * titleBackgroundImage;
-
+    
 	UIImageView * audioImage;
 	UIButton * closeButton;
 	
@@ -54,7 +54,7 @@ enum MovieViewTitleDisplays
 	UIButton * movieTypeButton;
 	
 	IBOutlet UILabel * loadingLabel;
-	IBOutlet UIActivityIndicatorView * loadingTwirl;	
+	IBOutlet UIActivityIndicatorView * loadingTwirl;
 	IBOutlet UILabel * errorLabel;
 	IBOutlet UIImageView * loadingScreen;
 	
@@ -82,7 +82,7 @@ enum MovieViewTitleDisplays
 @property (nonatomic, retain) UIButton * movieNameButton;
 @property (nonatomic, retain) UIButton * movieTypeButton;
 @property (nonatomic, retain) UILabel * loadingLabel;
-@property (nonatomic, retain) UIActivityIndicatorView * loadingTwirl;	
+@property (nonatomic, retain) UIActivityIndicatorView * loadingTwirl;
 @property (nonatomic, retain) UIImageView * loadingScreen;
 @property (nonatomic, retain) UILabel * errorLabel;
 

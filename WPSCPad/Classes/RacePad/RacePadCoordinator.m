@@ -57,6 +57,8 @@ static RacePadCoordinator * instance_ = nil;
 		
 		gameViewController = nil;
 		lightRestart = false;
+		
+		[[BasePadMedia Instance] setExtendedNotification:true];
 	}
 	
 	return self;
@@ -155,7 +157,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 	{
-		NSString * driver = [existing_view Parameter];					
+		NSString * driver = [existing_view Parameter];
 		if([driver length] > 0)
 		{
 			[(RacePadClientSocket*)socket_ StreamDriverView:driver];
@@ -208,7 +210,7 @@ static RacePadCoordinator * instance_ = nil;
 	}
 	else if([existing_view Type] == RPC_LAP_LIST_VIEW_)
 	{
-		NSString * driver = [existing_view Parameter];					
+		NSString * driver = [existing_view Parameter];
 		if([driver length] > 0)
 		{
 			[(RacePadClientSocket*)socket_ requestDriverView:driver];
@@ -359,7 +361,7 @@ static RacePadCoordinator * instance_ = nil;
 				break;
 			}
 		}
-	}	
+	}
 }
 
 -(void) sendPrediction
@@ -384,7 +386,7 @@ static RacePadCoordinator * instance_ = nil;
 		[(RacePadClientSocket *)socket_ requestPrediction:name];
 	else
 	{
-		[self loadBPF:@"race_pad.rpa" File:@"player" SubIndex:name];		
+		[self loadBPF:@"race_pad.rpa" File:@"player" SubIndex:name];
 	}
 	
 }

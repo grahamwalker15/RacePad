@@ -24,15 +24,17 @@
 @class ElapsedTime;
 
 @interface BasePadVideoSource : NSObject
-{				
+{
 	AVURLAsset * moviePlayerAsset;
 	AVPlayerItem * moviePlayerItem;
 	AVPlayer * moviePlayer;
 	AVPlayerLayer * moviePlayerLayer;
 	
+	NSTimer *errorTimer;
+	
 	MovieView * parentMovieView;
 	MovieView * requestedMovieView;
-    
+	
     bool requestedShouldDisplay;
 	
 	id moviePlayerObserver;
@@ -43,7 +45,7 @@
 	
 	bool movieLoop;
 	bool movieForceLive;
-			
+	
 	NSString *currentMovie;
 	NSString *movieTag;
 	NSString *movieName;
@@ -69,14 +71,14 @@
 	bool audioSeekPending;
 	
 	float audioStartTime;
-		
+	
 	int movieType;
 	
 	bool movieActive;
 	bool movieDisplayed;
 	
 	bool shouldAutoDisplay;
-		
+	
 	bool loading;
 	bool looping;
 	
@@ -91,7 +93,7 @@
 	Float64 lastMoviePlayTime;
 	float lastResyncTime;
 	bool movieRecentlyResynced;
-		
+    
 	int resyncCount;
 	int restartCount;
 	
@@ -165,7 +167,7 @@
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) movieSeekToLive;
-- (void) movieResyncLive;
+- (void) movieResyncLiveWithRestart:(bool)restart;
 
 - (void) movieSetMuted:(bool)muted;
 
@@ -184,6 +186,9 @@
 - (void) actOnLoopingReachedEnd;
 
 - (void) activateMovie;
+
+- (void) errorTimerExpired: (NSTimer *)theTimer;
+- (void) killErrorTimer;
 
 - (void) startVerificationTimer;
 - (void) verificationTimerFired:(NSTimer *)theTimer;

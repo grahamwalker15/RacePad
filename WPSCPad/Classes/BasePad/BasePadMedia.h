@@ -42,12 +42,13 @@ enum MovieConnectionTypes
 	BPM_TRYING_TO_CONNECT_,
 	BPM_CONNECTION_FAILED_,
 	BPM_CONNECTION_ERROR_,
+	BPM_WAITING_FOR_STREAM_,
 } ;
 
 #define BPM_MAX_VIDEO_STREAMS 16
 
 @interface BasePadMedia : NSObject
-{				
+{
 	BasePadVideoSource * movieSources[BPM_MAX_VIDEO_STREAMS];
 	int movieSourceCount;
 	
@@ -61,7 +62,7 @@ enum MovieConnectionTypes
 	NSString *currentMovieRoot;
 	NSString *currentAudioRoot;
 	int currentMovieType;
-		
+	
 	NSTimer * playStartTimer;
 	NSTimer * playTimer;
 	
@@ -79,6 +80,8 @@ enum MovieConnectionTypes
 	float activePlaybackRate;
 	
 	int movieType;
+	
+	bool extendedNotification;
 	
 	BasePadVideoViewController * registeredViewController;
 	
@@ -102,6 +105,8 @@ enum MovieConnectionTypes
 @property (readonly) NSString *currentError;
 
 @property (readonly) int movieType;
+
+@property (nonatomic) bool extendedNotification;
 
 - (void)onStartUp;
 
@@ -135,11 +140,11 @@ enum MovieConnectionTypes
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) movieSeekToLive;
-- (void) movieResyncLive;
-
+- (void) movieResyncLiveWithRestart:(bool)restart;
 - (void) setMoviePlaying:(bool)value;
 - (void) setMoviePausedInPlace:(bool)value;
 - (void) stopPlayTimers;
+- (void) restartConnection;
 
 - (void) audioPlayAtRate:(float)playbackRate;
 - (void) audioPlay;
@@ -152,10 +157,11 @@ enum MovieConnectionTypes
 -(void)RegisterViewController:(BasePadVideoViewController *)view_controller;
 -(void)ReleaseViewController:(BasePadVideoViewController *)view_controller;
 
--(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource ShouldDisplay:(bool)shouldDisplay;
+-(void)notifyNewVideoSource:(BasePadVideoSource *)videoSource Status:(int)status ShouldDisplay:(bool)shouldDisplay;
 
--(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error;
+-(void)notifyErrorOnVideoSource:(BasePadVideoSource *)videoSource withError:(NSString *)error AutoRetry:(bool)autoRetry;
 -(void)notifyUnloadingVideoSource:(BasePadVideoSource *)videoSource;
+-(void) notifyVideoSourceReadyToPlay:(BasePadVideoSource *)videoSource;
 
 -(void)notifyVideoSourceConnecting:(BasePadVideoSource *)videoSource showIndicators:(bool)showIndicators;
 

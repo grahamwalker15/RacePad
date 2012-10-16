@@ -25,8 +25,8 @@
 @synthesize closeButton;
 
 @synthesize loadingLabel;
-@synthesize loadingTwirl;	
-@synthesize loadingScreen;	
+@synthesize loadingTwirl;
+@synthesize loadingScreen;
 @synthesize errorLabel;
 
 @synthesize titleView;
@@ -90,14 +90,14 @@
 }
 
 - (bool) displayMovieSource:(BasePadVideoSource *)source
-{	
+{
 	// Remove any existing movie from this view
 	if(moviePlayerLayerAdded)
 		[self removeMovieFromView];
 	
 	// Now mark ourselves as ready to display
 	movieScheduledForDisplay = true;
-    
+	
     // Set the movie type
 	
 	// If the movie is not attached to a player in this source, do it and wait for notification
@@ -164,7 +164,7 @@
             [self setMovieViewDelegate:nil];
             [self displayMovieSource:pendingMovieSource];
         }
-
+        
 		[pendingMovieSource release];
 		pendingMovieSource = nil;
         
@@ -177,7 +177,7 @@
 {
     if(movieSourceCached)
         [self removeMovieFromView];
-        
+    
     movieSourceCached = false;
     
 	if(pendingMovieSource)
@@ -194,16 +194,16 @@
 		[self showMovieLoading];
 	
     [self setMovieSource:source];
-
+    
 	// Hide the error
 	[self hideMovieError];
 }
 
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source
-{	
+{
     [self setMovieSource:source];
     
-	// Set the movie as active
+	// Set the movieas active
 	[source activateMovie];
 	
 	// Add the source's player layer to this movie view
@@ -222,10 +222,10 @@
 		[source setParentMovieView:self];
 		
 		[source setMovieDisplayed:true];
-
+		
 		if(titleView)
 			[self bringSubviewToFront:titleView];
-				
+		
 		// Tell the delegate that we've done it
 		if(movieViewDelegate)
 			[movieViewDelegate notifyMovieAttachedToView:self];
@@ -241,10 +241,10 @@
 }
 
 - (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source
-{	
+{
 	// Remove the loading indicators
 	[self hideMovieLoading];
-
+	
     [source movieSetMuted:muted];
     
     if([[BasePadCoordinator Instance] liveMode])
@@ -273,7 +273,7 @@
     }
     
     TFLog(@"play done: %@", [source movieName]);
-
+    
 }
 
 - (void)removeMovieFromView
@@ -289,7 +289,7 @@
 		movieScheduledForRemoval = false;
 		
 		[movieSource setParentMovieView:nil];
-
+		
 		[movieSource movieStop];
 		[movieSource setMovieDisplayed:false];
 		
@@ -312,7 +312,7 @@
 }
 
 - (void) resizeMovieSourceAnimated:(bool)animated WithDuration:(float)duration
-{	
+{
 	if(!movieSource || !moviePlayerLayerAdded)
 		return;
 	
@@ -341,7 +341,11 @@
 	
 	if(errorLabel)
 	{
-		[errorLabel setText:error];
+		if(error)
+			[errorLabel setText:error];
+		else
+			[errorLabel setText:@"Unknown error"];
+		
 		[self showMovieError];
 	}
 }
@@ -370,14 +374,14 @@
 {
 	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
 		return;
-    
+	
     titleStyle = requestedTitleStyle;
 	
 	[titleView setAlpha:0.0];
 	[titleView setHidden:false];
 	
     [self updateMovieLabels];
-    			
+	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
 	
@@ -390,7 +394,7 @@
 {
 	if(!titleView)
 		return;
-	
+    
 	[titleView setHidden:true];
 }
 
@@ -398,7 +402,7 @@
 {
 	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
 		return;
-	
+    
 	float xRight = CGRectGetMaxX([titleView bounds]);
 	
 	if(titleStyle == MV_CLOSE_AND_AUDIO)
@@ -440,7 +444,7 @@
 {
 	if(loadingScreen)
 		[loadingScreen setHidden:false];
-
+	
 	if(loadingTwirl)
 	{
 		[loadingTwirl setHidden:false];
