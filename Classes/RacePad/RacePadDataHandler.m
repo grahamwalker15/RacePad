@@ -20,7 +20,7 @@
 
 - (id) init
 {
-	[super init];
+	self = [super init];
 	
 	return self;
 }
@@ -116,7 +116,7 @@
 			break;
 		}
 			
-		case RPSC_DRIVER_VIEW_: // Driver view (whole page_
+		case RPSC_DRIVER_VIEW_: // Driver view (whole page)
 		{
 			TableData *driver = [[RacePadDatabase Instance] driverData];
 			[driver loadData:stream];
@@ -130,7 +130,7 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_LAP_LIST_VIEW_];
 			break;
 		}
-
+            
 		case RPSC_LAP_COUNT_:
 		{
 			int count = [stream PopInt];
@@ -284,6 +284,13 @@
 			HeadToHead *headToHead = [[RacePadDatabase Instance] headToHead];
 			[headToHead loadData:stream];
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_HEAD_TO_HEAD_VIEW_];
+			break;
+		}
+		case RPSC_DRIVER_VOTING_: // Midas voting (whole page)
+		{
+			TableData *voting = [[RacePadDatabase Instance] midasVotingTable];
+			[voting loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_VOTING_VIEW_];
 			break;
 		}
 		case RPSC_NOTIFY_NEW_CONNECTION_:

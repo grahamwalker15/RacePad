@@ -41,6 +41,13 @@ enum ConnectionTypes
 	BPC_CONNECTION_FAILED_,
 } ;
 
+@protocol ConnectionFeedbackDelegate
+- (void)notifyConnectionSucceeded;
+- (void)notifyConnectionRetry;
+- (void)notifyConnectionTimeout;
+- (void)notifyConnectionFailed;
+@end
+
 @interface BPCView : NSObject
 {
 	id view_;
@@ -50,11 +57,11 @@ enum ConnectionTypes
 	bool refresh_enabled_;
 }
 
-@property (nonatomic, retain, setter=SetView, getter=View) id view_;
-@property (nonatomic, retain, setter=SetParameter, getter=Parameter) NSString * parameter_;
-@property (nonatomic, setter=SetType, getter=Type) int type_;
-@property (nonatomic, setter=SetDisplayed, getter=Displayed) bool displayed_;
-@property (nonatomic, setter=SetRefreshEnabled, getter=RefreshEnabled) bool refresh_enabled_;
+@property (nonatomic, retain, setter=SetView:, getter=View) id view_;
+@property (nonatomic, retain, setter=SetParameter:, getter=Parameter) NSString * parameter_;
+@property (nonatomic, setter=SetType:, getter=Type) int type_;
+@property (nonatomic, setter=SetDisplayed:, getter=Displayed) bool displayed_;
+@property (nonatomic, setter=SetRefreshEnabled:, getter=RefreshEnabled) bool refresh_enabled_;
 
 -(id)initWithView:(id)view AndType:(int)type;
 
@@ -102,7 +109,7 @@ enum ConnectionTypes
 	bool showingConnecting;
 	
 	int serverConnectionStatus;
-	
+    
 	int videoConnectionType;
 	int videoConnectionStatus;
 	
@@ -130,6 +137,10 @@ enum ConnectionTypes
 	bool needsPlayRestart;
 	bool allowProtectMediaFromRestart;
 	bool protectMediaFromRestart;
+    
+    bool forceDataLive;
+    bool socketStreaming;
+	bool protectDataFromRestart;
 	
 	bool reconnectOnBecomeActive;
 	bool playOnBecomeActive;
@@ -139,15 +150,17 @@ enum ConnectionTypes
 	bool liveMovieSeekAllowed;
 	
 	NSString * nameToFollow;
-	
+    
 	NSMutableArray *allTabs;
 	unsigned char currentSponsor;
 	
 	bool lightRestart;
-	
-	bool diagnostics;
-	
+    
+    bool diagnostics;
+    
 	float appVersionNumber;
+    
+    id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
 }
 
 @property (readonly) float appVersionNumber;
@@ -159,6 +172,7 @@ enum ConnectionTypes
 @property (nonatomic) float playbackRate;
 @property (nonatomic) bool playing;
 @property (nonatomic) bool needsPlayRestart;
+@property (nonatomic) bool forceDataLive;
 
 @property (nonatomic) int serverConnectionStatus;
 @property (nonatomic) bool showingConnecting;
@@ -178,6 +192,8 @@ enum ConnectionTypes
 @property (nonatomic) bool lightRestart;
 
 @property (nonatomic) bool diagnostics;
+
+@property (retain) id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
 
 +(BasePadCoordinator *)Instance;
 
@@ -207,6 +223,7 @@ enum ConnectionTypes
 -(void) connectionTimeout;
 
 - (void) videoServerOnConnectionChange;
+- (void) onSuccessfulConnection;
 
 -(void)SetVideoServerAddress:(NSString *)server;
 
@@ -224,6 +241,7 @@ enum ConnectionTypes
 
 -(void) prepareToPlayFromSocket;
 -(void) showSnapshotFromSocket;
+-(void) streamViewsFromSocket;
 
 -(void) acceptPushData:(NSString *)session;
 -(void) projectDownloadStarting:(NSString *)event SessionName:(NSString *)session SizeInMB:(int) sizeInMB;
@@ -240,6 +258,8 @@ enum ConnectionTypes
 -(NSString *)getAudioArchiveName;
 -(NSString *)getVideoArchiveRoot;
 -(NSString *)getAudioArchiveRoot;
+
+-(NSString *)getLiveVideoListName;
 
 -(void) prepareToPlayArchives;
 -(void) showSnapshotOfArchives;

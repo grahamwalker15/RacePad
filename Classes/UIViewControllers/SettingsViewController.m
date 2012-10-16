@@ -300,7 +300,7 @@
 					
 		if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_ERROR_ )
 		{
-			NSString * reportString = [NSString  stringWithString:@"Connection error :"];
+			NSString * reportString = @"Connection error :";
 			if([[BasePadMedia Instance] currentError])
 				reportString = [reportString stringByAppendingString:[[BasePadMedia Instance] currentError]];
 			else
@@ -314,7 +314,7 @@
 		}
 		else if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_FAILED_ )
 		{
-			NSString * reportString = [NSString stringWithString:@"Connection failed :"];
+			NSString * reportString = @"Connection failed :";
 			
 			if([[BasePadMedia Instance] currentError])
 				reportString = [reportString stringByAppendingString:[[BasePadMedia Instance] currentError]];

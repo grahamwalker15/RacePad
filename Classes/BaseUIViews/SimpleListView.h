@@ -10,23 +10,24 @@
 
 // Cell types
 enum CellTypes {
-	SLV_TEXT_CELL_,			
+	SLV_TEXT_CELL_,
 	SLV_IMAGE_CELL_,
 	SLV_CLIENT_IMAGE_,
+	SLV_CUSTOM_DRAW_,
 } ;
 
 // Text align types
 enum AlignTypes {
-	SLV_TEXT_LEFT_,			
-	SLV_TEXT_RIGHT_,			
-	SLV_TEXT_CENTRE_,			
+	SLV_TEXT_LEFT_,
+	SLV_TEXT_RIGHT_,
+	SLV_TEXT_CENTRE_,
 } ;
 
 // Column types
 enum ColumnTypes {
-	SLV_COL_STANDALONE_,			
-	SLV_COL_PARENT_,			
-	SLV_COL_CHILD_			
+	SLV_COL_STANDALONE_,
+	SLV_COL_PARENT_,
+	SLV_COL_CHILD_
 } ;
 
 // Column priority
@@ -50,7 +51,7 @@ enum ColumnPriority {
 	UIColor * prime_tyre_;
 	UIColor * inter_tyre_;
 	UIColor * wet_tyre_;
-	
+    
 	int row_count_ ;
 	int standardRowHeight;
 	int expansionRowHeight;
@@ -80,9 +81,9 @@ enum ColumnPriority {
 	bool reset_scroll_requested_;
 	bool scroll_animating_;
 	NSTimer *scrollTimeoutTimer;
-	
+    
 	int text_baseline_;
-	
+    
 	int selected_row_;
 	int selected_col_;
 	
@@ -108,7 +109,7 @@ enum ColumnPriority {
 	int alignment_;
 	
 	bool portraitMode;;
-	
+    
 }
 
 @property (nonatomic) int standardRowHeight;
@@ -122,15 +123,15 @@ enum ColumnPriority {
 @property (nonatomic) bool rowDivider;
 @property (nonatomic) bool shadeHeading;
 
-@property (nonatomic, setter=SetFont, getter=GetFont) int font_;
-@property (nonatomic, setter=SetDrawAllCells, getter=DrawAllCells) bool draw_all_cells_;
-@property (nonatomic, setter=SetBackgroundAlpha, getter=BackgroundAlpha) float background_alpha_;
-@property (nonatomic, retain, setter=SetBaseColour, getter=BaseColour) UIColor * base_colour_;
-@property (nonatomic, retain, setter=SetSelectedColour, getter=SelectedColour) UIColor * selected_colour_;
-@property (nonatomic, retain, setter=SetFocusColour, getter=FocusColour) UIColor * focus_colour_;
-@property (nonatomic, retain, setter=SetSelectedTextColour, getter=SetSelectedTextColour) UIColor * selected_text_colour_;
-@property (nonatomic, retain, setter=SetTextColour, getter=TextColour) UIColor * text_colour_;
-@property (nonatomic, retain, setter=SetBackgroundColour, getter=BackgroundColour) UIColor * background_colour_;
+@property (nonatomic, setter=SetFont:, getter=GetFont) int font_;
+@property (nonatomic, setter=SetDrawAllCells:, getter=DrawAllCells) bool draw_all_cells_;
+@property (nonatomic, setter=SetBackgroundAlpha:, getter=BackgroundAlpha) float background_alpha_;
+@property (nonatomic, retain, setter=SetBaseColour:, getter=BaseColour) UIColor * base_colour_;
+@property (nonatomic, retain, setter=SetSelectedColour:, getter=SelectedColour) UIColor * selected_colour_;
+@property (nonatomic, retain, setter=SetFocusColour:, getter=FocusColour) UIColor * focus_colour_;
+@property (nonatomic, retain, setter=SetSelectedTextColour:, getter=SetSelectedTextColour) UIColor * selected_text_colour_;
+@property (nonatomic, retain, setter=SetTextColour:, getter=TextColour) UIColor * text_colour_;
+@property (nonatomic, retain, setter=SetBackgroundColour:, getter=BackgroundColour) UIColor * background_colour_;
 
 - (void) DeleteTable;
 
@@ -179,6 +180,7 @@ enum ColumnPriority {
 - (void) Draw:(CGRect)region;
 - (void) DrawBase;
 
+-(void)	CustomDrawCellForRow:(int)row Col:(int)col AtX:(float)x Y:(float)y WithRowHeight:(float)row_height ColumnWidth:(int)column_width AndLineHeight:(float)line_height;
 
 // Functions that CAN be overridden for customised content (defaults return local array counts)
 - (int) RowCount;

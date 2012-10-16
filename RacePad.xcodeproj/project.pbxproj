@@ -135,6 +135,8 @@
 		7F610F4F13030073004DC056 /* LogoStandox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4413030073004DC056 /* LogoStandox.png */; };
 		7F610F531303052C004DC056 /* InfoPartners.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F521303052C004DC056 /* InfoPartners.xib */; };
 		7F610F56130319BC004DC056 /* InfoPartnersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610F55130319BC004DC056 /* InfoPartnersController.m */; };
+		7F614B55162DACDB0044E956 /* BasePadPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614B54162DACDB0044E956 /* BasePadPopupManager.m */; };
+		7F614B5B162DAE040044E956 /* MidasVoting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614B5A162DAE040044E956 /* MidasVoting.m */; };
 		7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */; };
 		7F6244F31282EFB5009A9D4F /* CompositeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6244F21282EFB5009A9D4F /* CompositeView.xib */; };
 		7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246A21284471E009A9D4F /* MGPLogo.png */; };
@@ -567,6 +569,10 @@
 		7F610F521303052C004DC056 /* InfoPartners.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoPartners.xib; path = ResourceFiles/InfoPartners.xib; sourceTree = "<group>"; };
 		7F610F54130319BC004DC056 /* InfoPartnersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPartnersController.h; sourceTree = "<group>"; };
 		7F610F55130319BC004DC056 /* InfoPartnersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPartnersController.m; sourceTree = "<group>"; };
+		7F614B53162DACDB0044E956 /* BasePadPopupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadPopupManager.h; sourceTree = "<group>"; };
+		7F614B54162DACDB0044E956 /* BasePadPopupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadPopupManager.m; sourceTree = "<group>"; };
+		7F614B59162DAE040044E956 /* MidasVoting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVoting.h; sourceTree = "<group>"; };
+		7F614B5A162DAE040044E956 /* MidasVoting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVoting.m; sourceTree = "<group>"; };
 		7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeViewController.h; sourceTree = "<group>"; };
 		7F6244F01282EF9E009A9D4F /* CompositeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeViewController.m; sourceTree = "<group>"; };
 		7F6244F21282EFB5009A9D4F /* CompositeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CompositeView.xib; path = ResourceFiles/CompositeView.xib; sourceTree = "<group>"; };
@@ -1007,6 +1013,8 @@
 		7F3276EE126379B000BD1627 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				7F614B59162DAE040044E956 /* MidasVoting.h */,
+				7F614B5A162DAE040044E956 /* MidasVoting.m */,
 				7F866023128ABEE300F13CB6 /* AlertData.h */,
 				7F866024128ABEE300F13CB6 /* AlertData.m */,
 				7F8F913012E6D59F00EA04A6 /* CommentaryData.h */,
@@ -1255,6 +1263,8 @@
 		7F9C1B75125CA10A00770746 /* UISupport */ = {
 			isa = PBXGroup;
 			children = (
+				7F614B53162DACDB0044E956 /* BasePadPopupManager.h */,
+				7F614B54162DACDB0044E956 /* BasePadPopupManager.m */,
 				4D5A35CF13A2695F007C4AA9 /* BasePadVideoViewController.h */,
 				4D5A35D013A2695F007C4AA9 /* BasePadVideoViewController.m */,
 				4D5A35D113A2695F007C4AA9 /* BasePadViewController.h */,
@@ -1523,6 +1533,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -1903,6 +1916,8 @@
 				7FA2332414DAA5D400EBA739 /* AnimationTimer.m in Sources */,
 				7FA2391714E2742B00EBA739 /* MovieSelectorView.m in Sources */,
 				7F3A6C8815938D250010E72D /* WeatherViewController.m in Sources */,
+				7F614B55162DACDB0044E956 /* BasePadPopupManager.m in Sources */,
+				7F614B5B162DAE040044E956 /* MidasVoting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1954,7 +1969,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SYMROOT = ../RacePad.build;
@@ -1973,7 +1987,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SYMROOT = ../RacePad.build;

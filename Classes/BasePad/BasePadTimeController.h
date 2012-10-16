@@ -22,15 +22,19 @@
 	
 	NSTimer *hideTimer;
 	
+    bool reducedView;
+    
 	bool displayed;
 	bool hiding;
 	
 	bool autoHide;
-		
+    
 	float timeNow;
 	
 	BasePadViewController * parentController;
 }
+
+@property(nonatomic) bool reducedView;
 
 @property(nonatomic) bool displayed;
 @property(nonatomic) bool autoHide;
@@ -41,6 +45,7 @@
 
 - (void) onStartUp;
 
+- (void) displayInViewController:(UIViewController *)viewController InRect:(CGRect)rect Animated:(bool)animated;
 - (void) displayInViewController:(UIViewController *)viewController Animated:(bool)animated;
 - (void) hide;
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
@@ -62,6 +67,8 @@
 - (IBAction)PlayPressed:(id)sender;
 - (IBAction)SlowMotionPlayPressed:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
+
+
 - (void)actOnSliderValue;
 
 - (IBAction)JogControlChanged:(id)sender;
@@ -74,6 +81,7 @@
 
 - (bool) timeControllerDisplayed;
 - (void) displayTimeControllerInViewController:(UIViewController *)viewController Animated:(bool)animated;
+- (void) displayTimeControllerInViewController:(UIViewController *)viewController InRect:(CGRect)rect Animated:(bool)animated;
 - (void) hideTimeController;
 
 @end

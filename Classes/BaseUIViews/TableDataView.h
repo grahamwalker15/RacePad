@@ -16,7 +16,7 @@
 	bool smallHeadings;
 }
 
-@property (nonatomic, retain, setter=SetTableDataClass, getter=TableData) id table_data_;
+@property (nonatomic, retain, setter=SetTableDataClass:, getter=TableData) id table_data_;
 @property (nonatomic) bool smallHeadings;
 
 @end

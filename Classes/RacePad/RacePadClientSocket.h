@@ -43,14 +43,14 @@ enum ClientCommands {
 	RPCS_SET_PLAYBACK_RATE = BPCS_SET_PLAYBACK_RATE, // 35
 	RPCS_REQUEST_HEAD_TO_HEAD,		// 36
 	RPCS_STREAM_HEAD_TO_HEAD,		// 37
-	RPCS_REQUEST_STANDINGS_VIEW,	// 38
+	RPCS_REQUEST_STANDINGS_VIEW,		// 38
 	RPCS_STREAM_STANDINGS_VIEW,		// 39
-	RPCS_REQUEST_DRIVER_VOTING,		//40
-	RPCS_STREAM_DRIVER_VOTING,		//41
-	RPCS_DRIVER_THUMBS_UP,			//42
-	RPCS_DRIVER_THUMBS_DOWN,		//43
-	RPCS_CLIENT_METRIC,				//44
-	RPCS_STREAM_DRIVER_VIEW,		//45
+	RPCS_REQUEST_DRIVER_VOTING,		// 40
+	RPCS_STREAM_DRIVER_VOTING,		// 41
+	RPCS_DRIVER_THUMBS_UP,          // 42
+	RPCS_DRIVER_THUMBS_DOWN,		// 43
+	RPCS_CLIENT_METRIC,             // 44
+	RPCS_STREAM_DRIVER_VIEW,		// 45
 };
 
 @interface RacePadClientSocket : BasePadClientSocket
@@ -68,7 +68,7 @@ enum ClientCommands {
 - (void) RequestCars;
 - (void) StreamCars;
 - (void) requestDriverView :(NSString *) driver;
-- (void) streamDriverView :(NSString *) driver;
+- (void) StreamDriverView :(NSString *) driver;
 - (void) RequestPitWindowBase;
 - (void) RequestPitWindow;
 - (void) StreamPitWindow;
@@ -80,6 +80,11 @@ enum ClientCommands {
 - (void) RequestTrackProfile;
 - (void) RequestHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
 - (void) StreamHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
+- (void) RequestDriverVoting;
+- (void) StreamDriverVoting;
+- (void) DriverThumbsUp:(NSString *) driver;
+- (void) DriverThumbsDown:(NSString *) driver;
+
 
 - (void) requestPrediction: (NSString *)name;
 - (void) sendPrediction;

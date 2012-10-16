@@ -14,8 +14,15 @@
 
 @interface MovieSelectorView : SimpleListView
 {
+	bool vertical;
+    
+    NSString * filterString;
 }
 
-- (BasePadVideoSource *) GetMovieSourceAtCol:(int)col;
+@property (nonatomic) bool vertical;
+@property (nonatomic, retain) NSString * filterString;
+
+- (int) GetFilteredMovieCount;
+- (BasePadVideoSource *) GetMovieSourceAtIndex:(int)index;
 
 @end

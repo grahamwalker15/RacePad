@@ -17,15 +17,17 @@
 @synthesize tableData;
 @synthesize associatedTrackMapView;
 @synthesize smallDisplay;
+@synthesize useBoldFont;
 @synthesize addOutlines;
 @synthesize highlightCar;
 
 - (id)initWithCoder:(NSCoder*)coder
-{    
+{
     if ((self = [super initWithCoder:coder]))
     {
 		associatedTrackMapView = nil;
 		smallDisplay = false;
+		useBoldFont = true;
 		addOutlines = true;
 	}
 	
@@ -45,7 +47,7 @@
 	// y is the top of the row
 	
 	// We highlight any car being followed in the associated map view, so get this car
-	
+    
 	bool followingCar = false;
 	NSString * carToFollow = nil;
 	
@@ -59,14 +61,24 @@
 		carToFollow = highlightCar;
 		followingCar = [carToFollow length] > 0;
 	}
-	
-	
+    
+    
 	[self SaveGraphicsState];
 	
 	if(smallDisplay)
-		[self UseFont:DW_LARGER_CONTROL_FONT_];
-	else 
-		[self UseFont:DW_REGULAR_FONT_];
+	{
+		if(useBoldFont)
+			[self UseFont:DW_LARGER_CONTROL_FONT_];
+		else
+			[self UseFont:DW_LIGHT_LARGER_CONTROL_FONT_];
+	}
+	else
+	{
+		if(useBoldFont)
+			[self UseFont:DW_REGULAR_FONT_];
+		else
+			[self UseFont:DW_LIGHT_REGULAR_FONT_];
+	}
 	
 	float row_height = [self RowHeight];
 	
@@ -75,10 +87,10 @@
 	
 	//float xmin = current_bottom_left_.x;
 	//float xmax = current_top_right_.x;
-	
+    
 	NSString * text = [[self GetCellTextAtRow:row_index Col:2] retain];
 	NSString * pitText = [[self GetCellTextAtRow:row_index Col:1] retain];
-	
+    
 	bool shadeBackground = addOutlines;
 	
 	if(followingCar && [text isEqualToString:carToFollow])
@@ -113,9 +125,9 @@
 		[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 	else
 		[self FillShadedRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height WithHighlight:false];
-	
+    
 	if([text length] > 0)
-	{				
+	{
 		float w, h;
 		[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
 		
@@ -137,9 +149,10 @@
 	}
 	
 	[text release];
+    [pitText release];
 	
 	[self RestoreGraphicsState];
-	
+    
 }
 
 - (void) Draw:(CGRect)region
@@ -153,6 +166,11 @@
 	float table_height = row_count * row_height;
 	
 	float y = (current_size_.height - table_height) / 2;
+	
+	float content_width = current_size_.width;
+	float content_height = table_height > current_size_.height ? table_height : current_size_.height;
+	
+	[self SetContentWidth:content_width AndHeight:content_height];
 	
 	if(y < 0)
 		y = 0;
@@ -177,7 +195,7 @@
 		y += row_height ;
 		
 		if ( y > ymax )
-			break;		
+			break;
 	}
 	
 	// Then draw the line dividers
@@ -191,7 +209,7 @@
 		{
 			[self SetFGColour:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.7]];
 			[self LineX0:x_draw Y0:y X1:x_draw + column_width Y1:y];
-			
+            
 			y += row_height ;
 			
 			if ( y > ymax )
@@ -207,7 +225,7 @@
 		[self LineX0:x_draw + column_width+1 Y0:ybase X1:x_draw + column_width+1 Y1:ymax];
 	}
 	
-	
+    
 	[self EndDrawing];
 }
 
@@ -229,7 +247,7 @@
 	int row = (int)((float)(y - ytop) / row_height);
 	
 	if(tableData && row < [tableData rows])
-		return [self GetCellTextAtRow:row Col:2];
+        return [self GetCellTextAtRow:row Col:2];
 	else
 		return nil;
 }
@@ -272,5 +290,6 @@
 	
 	return nil;
 }
+
 
 @end

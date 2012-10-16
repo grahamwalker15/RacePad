@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ShinyButton.h"
 
 @interface TimeViewController : UIViewController
 {
@@ -18,7 +17,7 @@
 	IBOutlet UIBarButtonItem * replayButton;
 	
 	IBOutlet UIButton * refreshButton;
-
+    
 	IBOutlet UIButton * minus1sButton;
 	IBOutlet UIButton * minus10sButton;
 	IBOutlet UIButton * minus30sButton;
@@ -31,7 +30,7 @@
 	IBOutlet UIButton * normalPlayButton;
 	
 	IBOutlet UIButton * goLiveButton;
-
+    
 	IBOutlet UIView * scrubControl;
 }
 

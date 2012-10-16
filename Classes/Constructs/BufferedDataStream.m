@@ -54,7 +54,7 @@
 - (int)PopInt 
 {
 	int t;
-	memcpy( &t, [data mutableBytes] + index, sizeof ( int ) 0;
+	memcpy( &t, [data mutableBytes] + index, sizeof ( int ) );
 	t = ntohl ( t );
 	index += sizeof ( int );
 	
@@ -66,7 +66,7 @@
 	unsigned int *ip = (unsigned int *)([data mutableBytes] + index);
 	*ip = ntohl ( *ip);
 	float t;
-	memcpy( &t, [data mutableBytes] + index, sizeof ( float ) 0;
+	memcpy( &t, [data mutableBytes] + index, sizeof ( float ) );
 	index += sizeof ( float );
 	
 	return t;

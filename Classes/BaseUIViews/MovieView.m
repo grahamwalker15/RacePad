@@ -18,19 +18,25 @@
 @synthesize moviePlayerLayerAdded;
 @synthesize movieScheduledForDisplay;
 @synthesize movieScheduledForRemoval;
+@synthesize movieSourceCached;
+
 @synthesize closeButton;
 
 @synthesize loadingLabel;
-@synthesize loadingTwirl;	
-@synthesize loadingScreen;	
+@synthesize loadingTwirl;
+@synthesize loadingScreen;
 @synthesize errorLabel;
 
-@synthesize driverNameButton;
+@synthesize titleView;
+@synthesize titleBackgroundImage;
+@synthesize audioImage;
+@synthesize movieNameButton;
 @synthesize movieTypeButton;
 @synthesize labelAlignment;
 @synthesize shouldShowLabels;
 
 @synthesize live;
+@synthesize muted;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -41,6 +47,7 @@
 		moviePlayerLayerAdded = false;
 		movieScheduledForDisplay = false;
 		movieScheduledForRemoval = false;
+        movieSourceCached = false;
 		closeButton = nil;
 		loadingTwirl = nil;
 		loadingLabel = nil;
@@ -48,12 +55,16 @@
 		errorLabel = nil;
 		
 		shouldShowLabels = false;
-		labelAlignment = MV_ALIGN_TOP;
 		
-		driverNameButton = nil;
+		titleView = nil;
+		titleBackgroundImage = nil;
+		
+		movieNameButton = nil;
 		movieTypeButton = nil;
+		audioImage = nil;
 		
 		live = false;
+        muted = false;
 		
 		movieViewDelegate = nil;
     }
@@ -66,7 +77,7 @@
 	
 	[movieSource release];
 	[closeButton release];
-	[driverNameButton release];
+	[movieNameButton release];
 	[movieTypeButton release];
 	[loadingTwirl release];
 	[loadingScreen release];
@@ -77,13 +88,15 @@
 }
 
 - (bool) displayMovieSource:(BasePadVideoSource *)source
-{	
+{
 	// Remove any existing movie from this view
 	if(moviePlayerLayerAdded)
 		[self removeMovieFromView];
 	
 	// Now mark ourselves as ready to display
 	movieScheduledForDisplay = true;
+	
+    // Set the movie type
 	
 	// If the movie is not attached to a player in this source, do it and wait for notification
 	// Otherwise we'll notify ourselves that it is attached
@@ -106,12 +119,70 @@
 - (void) redisplayMovieSource
 {
 	if(movieSource)
+    {
+        bool playing = [movieSource moviePlaying];
+        
 		[self displayMovieSource:movieSource];
+        
+        if([movieSource shouldAutoDisplay] && playing)
+        {
+            [movieSource moviePlay];
+        }
+    }
+}
+
+- (void) setAudioMuted:(bool)value
+{
+    muted = value;
+	if(movieSource  && [movieSource movieLoaded])
+        [movieSource movieSetMuted:muted];
 }
 
 - (bool) movieSourceAssociated
 {
 	return (moviePlayerLayerAdded || movieScheduledForDisplay);
+}
+
+- (void) storeMovieSource
+{
+	[self clearMovieSourceStore];
+	
+	if(movieSource)
+		pendingMovieSource = [movieSource retain];
+    
+    movieSourceCached = true;
+}
+
+- (void) restoreMovieSource
+{
+	if(movieSourceCached || pendingMovieSource)
+	{
+        if(!movieSourceCached)
+        {
+            [self setMovieViewDelegate:nil];
+            [self displayMovieSource:pendingMovieSource];
+        }
+        
+		[pendingMovieSource release];
+		pendingMovieSource = nil;
+        
+        movieSourceCached = false;
+        movieScheduledForRemoval = false;
+	}
+}
+
+- (void) clearMovieSourceStore
+{
+    if(movieSourceCached)
+        [self removeMovieFromView];
+    
+    movieSourceCached = false;
+    
+	if(pendingMovieSource)
+	{
+		[pendingMovieSource release];
+		pendingMovieSource = nil;
+	}
 }
 
 - (void) notifyMovieAboutToShowSource:(BasePadVideoSource *)source
@@ -120,14 +191,18 @@
 	if(source && [source movieType] != MOVIE_TYPE_ARCHIVE_)
 		[self showMovieLoading];
 	
+    [self setMovieSource:source];
+    
 	// Hide the error
 	[self hideMovieError];
 }
 
 - (void) notifyMovieAttachedToSource:(BasePadVideoSource *)source
-{	
+{
+    [self setMovieSource:source];
+    
 	// Set the movieas active
-	[source setMovieActive:true];
+	[source activateMovie];
 	
 	// Add the source's player layer to this movie view
 	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
@@ -136,41 +211,22 @@
 	{
 		CALayer *superlayer = self.layer;
 		
-		[moviePlayerLayer setFrame:self.bounds];
 		[superlayer addSublayer:moviePlayerLayer];
+		[moviePlayerLayer setFrame:self.bounds];
 		
 		[self setMoviePlayerLayerAdded:true];
 		[self setMovieScheduledForDisplay:false];
-		[self setMovieSource:source];
 		
 		[source setParentMovieView:self];
 		
 		[source setMovieDisplayed:true];
 		
-		float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
-		[source movieGotoTime:currentTime];
-		
-		if([[BasePadCoordinator Instance] playing])
-			[source moviePlay];
-		else
-			[source movieStop];
-		
-		if(closeButton)
-			[self bringSubviewToFront:closeButton];
-		
-		if(driverNameButton)
-			[self bringSubviewToFront:driverNameButton];
-		
-		if(movieTypeButton)
-			[self bringSubviewToFront:movieTypeButton];
+		if(titleView)
+			[self bringSubviewToFront:titleView];
 		
 		// Tell the delegate that we've done it
 		if(movieViewDelegate)
 			[movieViewDelegate notifyMovieAttachedToView:self];
-		
-		// Get rid of loading screen
-		//if(loadingScreen)
-		//	[loadingScreen setHidden:true];
 		
 		// And keep the loading and error stuff visible if it's there
 		if(loadingTwirl)
@@ -183,13 +239,36 @@
 }
 
 - (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source
-{	
+{
 	// Remove the loading indicators
 	[self hideMovieLoading];
 	
+    [source movieSetMuted:muted];
+    
+    if([[BasePadCoordinator Instance] liveMode])
+    {
+        [source moviePrepareToPlayLive];
+    }
+    else
+    {
+        float currentTime = [[BasePadCoordinator Instance] currentPlayTime];
+        [source movieGotoTime:currentTime];
+    }
+    
+    if([source movieForceLive] || [[BasePadCoordinator Instance] playing])
+        [source moviePlay];
+    else
+        [source movieStop];
+    
 	// Tell the delegate that we're ready
 	if(movieViewDelegate)
 		[movieViewDelegate notifyMovieReadyToPlayInView:self];
+    
+    if(titleView)
+    {
+        [self bringSubviewToFront:titleView];
+        [self updateMovieLabels];
+    }
 }
 
 - (void)removeMovieFromView
@@ -211,10 +290,10 @@
 		
 		if(![movieSource shouldAutoDisplay])
 		{
-			if([movieSource movieType] == MOVIE_TYPE_VOD_STREAM_)
-				[movieSource unloadMovie];
-			else
+			if([movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
 				[movieSource detachMovie];
+			else
+				[movieSource unloadMovie];
 		}
 	}
 	
@@ -228,7 +307,7 @@
 }
 
 - (void) resizeMovieSourceAnimated:(bool)animated WithDuration:(float)duration
-{	
+{
 	if(!movieSource || !moviePlayerLayerAdded)
 		return;
 	
@@ -286,65 +365,74 @@
 {
 }
 
-- (void) showMovieLabels
+- (void) showMovieLabels:(int)requestedTitleStyle;
 {
-	if(!movieSource || !driverNameButton || !movieTypeButton)
+	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
 		return;
 	
-	[driverNameButton setAlpha:0.0];
-	[driverNameButton setHidden:false];
+    titleStyle = requestedTitleStyle;
 	
-	[movieTypeButton setAlpha:0.0];
-	[movieTypeButton setHidden:false];
+	[titleView setAlpha:0.0];
+	[titleView setHidden:false];
 	
-	[driverNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
-	
-	if(live)
-		[movieTypeButton setTitle:@"LIVE" forState:UIControlStateNormal];
-	else
-		[movieTypeButton setTitle:@"REPLAY" forState:UIControlStateNormal];
-	
-	CGRect ourBounds = [self bounds];
-	CGRect driverNameBounds = [driverNameButton bounds];
-	CGRect movieTypeBounds = [movieTypeButton bounds];
-	
-	if(labelAlignment == MV_ALIGN_TOP)
-	{
-		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-		
-		float ytop = ourBounds.origin.y - 2;
-		[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - movieTypeBounds.size.height, movieTypeBounds.size.width, movieTypeBounds.size.height)];
-		ytop -= movieTypeBounds.size.height;
-		[driverNameButton setFrame:CGRectMake(ourBounds.origin.x + 5, ytop - driverNameBounds.size.height, driverNameBounds.size.width, driverNameBounds.size.height)];
-	}
-	else
-	{
-		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		[driverNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-		
-		float ytop = ourBounds.origin.y;
-		[driverNameButton setFrame:CGRectMake(ourBounds.origin.x - driverNameBounds.size.width - 3, ytop, driverNameBounds.size.width, driverNameBounds.size.height)];
-		ytop += driverNameBounds.size.height;
-		[movieTypeButton setFrame:CGRectMake(ourBounds.origin.x - movieTypeBounds.size.width - 3, ytop, movieTypeBounds.size.width, movieTypeBounds.size.height)];
-	}
+    [self updateMovieLabels];
 	
 	[UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
 	
-	[driverNameButton setAlpha:1.0];
-	[movieTypeButton setAlpha:1.0];
+	[titleView setAlpha:1.0];
 	
 	[UIView commitAnimations];
 }
 
 - (void) hideMovieLabels
 {
-	if(!driverNameButton || !movieTypeButton)
+	if(!titleView)
 		return;
+    
+	[titleView setHidden:true];
+}
+
+- (void) updateMovieLabels
+{
+	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
+		return;
+    
+	float xRight = CGRectGetMaxX([titleView bounds]);
 	
-	[driverNameButton setHidden:true];
-	[movieTypeButton setHidden:true];
+	if(titleStyle == MV_CLOSE_AND_AUDIO)
+	{
+		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayFull.png"]];
+		[movieNameButton setFrame:CGRectMake(xRight - 190, 0, 115, 16)];
+		[movieTypeButton setFrame:CGRectMake(xRight - 190, 16, 115, 16)];
+		[audioImage setHidden:false];
+	}
+	else if(titleStyle == MV_CLOSE_NO_AUDIO)
+	{
+		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoAudio.png"]];
+		[movieNameButton setFrame:CGRectMake(xRight - 160, 0, 115, 16)];
+		[movieTypeButton setFrame:CGRectMake(xRight - 160, 16, 115, 16)];
+		[audioImage setHidden:true];
+	}
+	else if(titleStyle == MV_NO_CLOSE_NO_AUDIO)
+	{
+		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoClose.png"]];
+		[movieNameButton setFrame:CGRectMake(xRight - 125, 0, 115, 16)];
+		[movieTypeButton setFrame:CGRectMake(xRight - 125, 16, 115, 16)];
+		[audioImage setHidden:true];
+	}
+	
+	[movieNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
+	
+    live = [movieSource movieForceLive] ? true : [[BasePadCoordinator Instance] liveMode];
+	
+	if(live)
+		[movieTypeButton setTitle:@"LIVE" forState:UIControlStateNormal];
+	else
+		[movieTypeButton setTitle:@"REPLAY" forState:UIControlStateNormal];
+    
+    [movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 }
 
 - (void) showMovieLoading

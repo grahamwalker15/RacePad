@@ -73,6 +73,7 @@ enum SessionTypes {
 @property (readonly) RacePrediction * racePrediction;
 @property (readonly) TableData *competitorData;
 @property (readonly) HeadToHead *headToHead;
+@property (readonly) TableData *midasVotingTable;
 
 @property int session;
 

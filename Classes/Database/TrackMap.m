@@ -36,21 +36,24 @@ static UIImage *grassImage = nil;
 
 - (id) init
 {
-	pointColour = nil;
-	fillColour = nil;
-	lineColour = nil;
-	textColour = nil;
+    if(self = [super init])
+    {
+        pointColour = nil;
+        fillColour = nil;
+        lineColour = nil;
+        textColour = nil;
 	
-	name = nil;
-	team = nil;
+        name = nil;
+        team = nil;
 	
-	row = 0;
+        row = 0;
 	
-	moving = false;
-	pitted = false;
-	stopped= false;
+        moving = false;
+        pitted = false;
+        stopped= false;
+    }
 	
-	return [super init];
+	return self;
 }
 
 - (void) dealloc
@@ -576,7 +579,7 @@ static UIImage *grassImage = nil;
 
 - (id) init: (int) inIndex State: (unsigned char)inState
 {
-	if ( [super init] == self )
+	if ( self = [super init] )
 	{
 		index = inIndex;
 		state = inState;

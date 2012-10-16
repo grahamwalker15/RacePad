@@ -21,9 +21,10 @@
 #import "BasePadVideoViewController.h"
 
 @class MovieView;
+@class ElapsedTime;
 
 @interface BasePadVideoSource : NSObject
-{				
+{
 	AVURLAsset * moviePlayerAsset;
 	AVPlayerItem * moviePlayerItem;
 	AVPlayer * moviePlayer;
@@ -32,6 +33,9 @@
 	NSTimer *errorTimer;
 	
 	MovieView * parentMovieView;
+	MovieView * requestedMovieView;
+	
+    bool requestedShouldDisplay;
 	
 	id moviePlayerObserver;
 	
@@ -40,14 +44,7 @@
 	float streamSeekStartTime;
 	
 	bool movieLoop;
-	
-	float liveVideoDelay;
-	
-	Float64 lastMoviePlayTime;
-	float lastResyncTime;
-	bool movieRecentlyResynced;
-	
-	int resyncCount;
+	bool movieForceLive;
 	
 	NSString *currentMovie;
 	NSString *movieTag;
@@ -84,6 +81,23 @@
 	
 	bool loading;
 	bool looping;
+	
+	bool movieInLiveMode;
+	
+	NSTimer * verificationTimer;
+	NSTimer * playStartTimer;
+	NSTimer * playTimer;
+	
+	float liveVideoDelay;
+	
+	Float64 lastMoviePlayTime;
+	float lastResyncTime;
+	bool movieRecentlyResynced;
+    
+	int resyncCount;
+	int restartCount;
+	
+	ElapsedTime * moviePlayElapsedTime;
 }
 
 @property (readonly) AVURLAsset * moviePlayerAsset;
@@ -101,6 +115,7 @@
 @property (readonly) int resyncCount;
 
 @property (nonatomic) bool movieLoop;
+@property (nonatomic) bool movieForceLive;
 @property (nonatomic) bool shouldAutoDisplay;
 
 @property (readonly) NSString *currentMovie;
@@ -118,6 +133,8 @@
 @property (readonly) bool movieSeekable;
 @property (readonly) bool movieSeekPending;
 @property (readonly) bool movieGoLivePending;
+
+@property (readonly) bool movieInLiveMode;
 
 @property (nonatomic) bool moviePausedInPlace;
 @property (nonatomic) bool moviePlaying;
@@ -141,15 +158,18 @@
 
 - (void) setStartTime:(float)time;
 - (void) getStartTime;
+- (void) updateStartTime;
 
+- (void) moviePrepareToPlayLive;
 - (void) moviePlayAtRate:(float)playbackRate;
 - (void) moviePlay;
 - (void) movieStop;
 - (void) movieGotoTime:(float)time;
 - (void) movieGoLive;
 - (void) movieSeekToLive;
-- (void) moviePrepareToPlay;
 - (void) movieResyncLiveWithRestart:(bool)restart;
+
+- (void) movieSetMuted:(bool)muted;
 
 - (bool) moviePlayable;
 - (bool) moviePlayingRealTime: (float)timeNow;
@@ -160,11 +180,23 @@
 - (void) playerItemDidReachEnd:(NSNotification *)notification;
 - (void) playerItemFailedToReachEnd:(NSNotification *)notification;
 
+- (void) checkForReadyToPlay;
 - (void) actOnReadyToPlay;
 - (void) actOnPlayerError:(NSError *)error;
 - (void) actOnLoopingReachedEnd;
 
+- (void) activateMovie;
+
 - (void) errorTimerExpired: (NSTimer *)theTimer;
 - (void) killErrorTimer;
+
+- (void) startVerificationTimer;
+- (void) verificationTimerFired:(NSTimer *)theTimer;
+
+- (void) startLivePlayTimer;
+- (void) stopPlayTimers;
+- (void) playStartTimerExpired: (NSTimer *)theTimer;
+- (void) livePlayTimerFired: (NSTimer *)theTimer;
+- (void) restartConnection;
 
 @end

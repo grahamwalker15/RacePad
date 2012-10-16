@@ -14,7 +14,7 @@
 
 @implementation RacePadClientSocket
 
-- (void) sendMetric :(int) metric
+- (void) sendMetric:(int) metric
 {
 	int messageLength = sizeof(uint32_t) * 3;
 	unsigned char *buf = malloc(messageLength);
@@ -32,14 +32,11 @@
 - (void)RequestEvent
 {
 	[self SimpleCommand:RPCS_REQUEST_EVENT];
-	[self sendMetric:1];
-
 }
 
 - (void)RequestTrackMap
 {
 	[self SimpleCommand:RPCS_REQUEST_TRACK_MAP];
-	[self sendMetric:2];
 }
 
 - (void)RequestTimingPage
@@ -50,7 +47,6 @@
 - (void)StreamTimingPage
 {
 	[self SimpleCommand:RPCS_STREAM_TIMING_PAGE];
-	[self sendMetric:3];
 }
 
 - (void)RequestStandingsView
@@ -61,7 +57,6 @@
 - (void)StreamStandingsView
 {
 	[self SimpleCommand:RPCS_STREAM_STANDINGS_VIEW];
-	[self sendMetric:4];
 }
 
 - (void)RequestLeaderBoard
@@ -72,7 +67,6 @@
 - (void)StreamLeaderBoard
 {
 	[self SimpleCommand:RPCS_STREAM_LEADER_BOARD];
-	[self sendMetric:5];
 }
 
 - (void)RequestCars
@@ -83,7 +77,6 @@
 - (void)StreamCars
 {
 	[self SimpleCommand:RPCS_STREAM_CARS];
-	[self sendMetric:6];
 }
 
 - (void) requestDriverView :(NSString *) driver
@@ -94,22 +87,6 @@
 	
 	iData[0] = htonl(messageLength);
 	iData[1] = htonl(RPCS_REQUEST_DRIVER_VIEW);
-	iData[2] = htonl([driver length]);
-	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
-	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
-	[self SendData: data];
-	CFRelease(data);
-	free (buf);
-}
-
-- (void) streamDriverView :(NSString *) driver
-{
-	int messageLength = [driver length] + sizeof(uint32_t) * 3;
-	unsigned char *buf = malloc(messageLength);
-	int *iData = (int *)buf;
-	
-	iData[0] = htonl(messageLength);
-	iData[1] = htonl(RPCS_STREAM_DRIVER_VIEW);
 	iData[2] = htonl([driver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
@@ -131,7 +108,6 @@
 - (void)StreamPitWindow
 {
 	[self SimpleCommand:RPCS_STREAM_PIT_WINDOW];
-	[self sendMetric:7];
 }
 
 - (void)RequestTelemetry
@@ -142,7 +118,6 @@
 - (void)StreamTelemetry
 {
 	[self SimpleCommand:RPCS_STREAM_TELEMETRY];
-	[self sendMetric:8];
 }
 
 - (void)RequestDriverGapInfo:(NSString *) driver
@@ -152,7 +127,7 @@
 		sentDriver = driver;
 	else
 		sentDriver = @"-";	// Will result in nothing coming back
-	
+    
 	int messageLength = [sentDriver length] + sizeof(uint32_t) * 3;
 	unsigned char *buf = malloc(messageLength);
 	int *iData = (int *)buf;
@@ -183,6 +158,22 @@
 	iData[1] = htonl(RPCS_STREAM_DRIVER_GAP_INFO);
 	iData[2] = htonl([sentDriver length]);
 	memcpy(buf + sizeof(uint32_t) * 3, [sentDriver UTF8String], [sentDriver length]);
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	[self SendData: data];
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)StreamDriverView:(NSString *) driver
+{
+	int messageLength = [driver length] + sizeof(uint32_t) * 3;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(RPCS_STREAM_DRIVER_VIEW);
+	iData[2] = htonl([driver length]);
+	memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	[self SendData: data];
 	CFRelease(data);
@@ -247,7 +238,6 @@
 	[self SendData: data];
 	CFRelease(data);
 	free (buf);
-	[self sendMetric:9];
 }
 
 -(void) sendPrediction: (NSString *)userName Command:(int)command
@@ -295,7 +285,7 @@
 	[self pushBuffer: &b Int:messageLength];
 	[self pushBuffer: &b Int:RPCS_REQUEST_PREDICTION];
 	[self pushBuffer: &b String:user];
-	
+    
 	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
 	[self SendData: data];
 	CFRelease(data);
@@ -325,8 +315,56 @@
 - (void)StreamTrackProfile
 {
 	[self SimpleCommand:RPCS_STREAM_CARS];
-	[self sendMetric:10];
 }
+
+- (void) RequestDriverVoting
+{
+	[self SimpleCommand:RPCS_REQUEST_DRIVER_VOTING];
+}
+
+- (void) StreamDriverVoting
+{
+	[self SimpleCommand:RPCS_STREAM_DRIVER_VOTING];
+}
+
+- (void) DriverThumbsUp:(NSString *) driver
+{
+	if(driver && [driver length] > 0)
+    {
+        int messageLength = [driver length] + sizeof(uint32_t) * 3;
+        unsigned char *buf = malloc(messageLength);
+        int *iData = (int *)buf;
+        
+        iData[0] = htonl(messageLength);
+        iData[1] = htonl(RPCS_DRIVER_THUMBS_UP);
+        iData[2] = htonl([driver length]);
+        memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
+        CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+        [self SendData: data];
+        CFRelease(data);
+        free (buf);
+	};
+}
+
+- (void) DriverThumbsDown:(NSString *) driver
+{
+	if(driver && [driver length] > 0)
+    {
+        int messageLength = [driver length] + sizeof(uint32_t) * 3;
+        unsigned char *buf = malloc(messageLength);
+        int *iData = (int *)buf;
+        
+        iData[0] = htonl(messageLength);
+        iData[1] = htonl(RPCS_DRIVER_THUMBS_DOWN);
+        iData[2] = htonl([driver length]);
+        memcpy(buf + sizeof(uint32_t) * 3, [driver UTF8String], [driver length]);
+        CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+        [self SendData: data];
+        CFRelease(data);
+        free (buf);
+	};
+}
+
 
 - (DataHandler *) constructDataHandler
 {

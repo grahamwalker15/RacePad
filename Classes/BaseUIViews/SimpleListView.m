@@ -39,7 +39,7 @@
 //If the view is stored in the nib file,when it's unarchived it's sent -initWithCoder:
 
 - (id)initWithCoder:(NSCoder*)coder
-{    
+{
     if ((self = [super initWithCoder:coder]))
     {
 		[self InitialiseSimpleListViewMembers];
@@ -84,10 +84,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-//  Methods for this class 
+//  Methods for this class
 
 - (void)InitialiseSimpleListViewMembers
-{	
+{
 	[self setDelegate:self];
 	
 	row_count_ = 0;
@@ -107,11 +107,11 @@
 	rowDivider = false;
 	
 	font_ = DW_BOLD_FONT_;
-	
+    
 	if_heading_ = false;
 	shadeHeading = false;
 	swiping_enabled_ = false;
-	
+    
 	text_baseline_ = 0;
 	
 	selected_row_ = -1;
@@ -253,7 +253,7 @@
 }
 
 - (int) TableHeight
-{	
+{
 	int h = 0;
 	for ( int i = 0 ; i < [self RowCount] ; i++)
 	{
@@ -264,7 +264,7 @@
 }
 
 - (int) TableHeightToRow:(int)row
-{	
+{
 	if(row < 0)
 		return 0;
 	
@@ -308,7 +308,7 @@
 	}
 	
 	CGRect bounds = [self bounds];
-	
+    
 	float table_height = [self TableHeight];
 	float table_width = [self TableWidth];
 	
@@ -338,7 +338,7 @@
 		return;
 	
 	scroll_to_end_requested_ = false;
-	
+    
 	CGRect bounds = [self bounds];
 	
 	float yOffset = floorf([self TableHeight] - bounds.size.height);
@@ -353,7 +353,7 @@
 		
 		[self setContentOffset:CGPointMake(0.0, yOffset) animated:true];
 		[self getCurrentBoundsInfo];
-		
+        
 		// Set timer to catch it if the end callback isn't called for any reason
 		[self setScrollTimer];
 	}
@@ -365,10 +365,10 @@
 {
 	CGRect bounds = [self bounds];
 	float yOffset = [self TableHeightToRow:row] - bounds.size.height;
-	
+    
 	if(yOffset < 0)
 		yOffset = 0;
-	
+    
 	[self setContentOffset:CGPointMake(0.0, yOffset) animated:false];
 	[self RequestRedraw];
 }
@@ -390,11 +390,11 @@
 		[scrollTimeoutTimer invalidate];
 		scrollTimeoutTimer = nil;
 	}
-	
+    
 	[self getCurrentBoundsInfo];
 	
 	scroll_animating_ = false;
-	
+    
 	if(scroll_to_end_requested_)
 		[self performSelector:@selector(RequestScrollToEnd) withObject:nil afterDelay: 0.1];
 }
@@ -405,7 +405,7 @@
 	if(scrollTimeoutTimer)
 		[scrollTimeoutTimer invalidate];
 	
-	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];	
+	scrollTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scrollTimerExpired:) userInfo:nil repeats:NO];
 }
 
 - (void) scrollTimerExpired:(NSTimer *)theTimer
@@ -415,10 +415,10 @@
 	[self getCurrentBoundsInfo];
 	
 	scroll_animating_ = false;
-	
+    
 	if(scroll_to_end_requested_)
 		[self RequestScrollToEnd];
-	
+    
 }
 
 - (bool) IfHeading
@@ -485,7 +485,7 @@
 	// y is the top of the row
 	
 	bool heading = if_heading_ && row == 0 ;
-	
+    
 	// Prepare any data specific to a derived class
 	if(!heading)
 		[self PrepareRow:row];
@@ -528,7 +528,7 @@
 		
 		int font = [self GetFontAtRow:row Col:col];
 		[self UseFont:font];
-		
+        
 		if((x + column_width) > xmin && x < xmax)
 		{
 			float x_draw = x;
@@ -542,13 +542,17 @@
 			else
 				cell_type  = [self InqCellTypeAtRow:row_index Col:col];
 			
-			if(cell_type  == SLV_TEXT_CELL_)
+			if(cell_type  == SLV_CUSTOM_DRAW_)
+			{
+				[self CustomDrawCellForRow:row Col:col AtX:(float)x Y:(float)y WithRowHeight:row_height ColumnWidth:column_width AndLineHeight:line_height];
+			}
+			else if(cell_type  == SLV_TEXT_CELL_)
 			{
 				NSString * text = heading ? [[self GetHeadingAtCol:col] retain] : [[self GetCellTextAtRow:row_index Col:col] retain];
 				
 				if(selected)
 				{
-					
+                    
 					[self SetBGColour:[selected_colour_ colorWithAlphaComponent:background_alpha_]];
 					[self SetFGColour:selected_text_colour_];
 				}
@@ -569,12 +573,12 @@
 				{
 					[self FillRectangleX0:x_draw Y0:y X1:x_draw + column_width Y1:y + row_height];
 				}
-				
+                
 				if([text length] > 0)
-				{				
+				{
 					float w, h;
 					[self GetStringBox:text WidthReturn:&w HeightReturn:&h];
-					
+                    
 					float text_y = y + line_height - text_baseline_ - cellYMargin - 2 - h;
 					
 					float xpos ;
@@ -590,7 +594,7 @@
 					if (xpos < x_draw + text_offset)
 						xpos = x_draw + text_offset;
 					
-					float max_width = column_width - (xpos - x_draw) ;					
+					float max_width = column_width - (xpos - x_draw) ;
 					
 					if(adaptableRowHeight)
 						[self DrawMultiLineString:text AtX:xpos Y:text_y MaxWidth:max_width Height:row_height];
@@ -660,9 +664,9 @@
 						float xpos = x_draw + (column_width / 2) - (w / 2) ;
 						[self DrawImage:image AtX:xpos Y:y - cellYMargin];
 					}
-					
+                    
 					[image release];
-				}				
+				}
 			}
 		}
 		
@@ -672,12 +676,17 @@
 	
 }
 
+-(void)	CustomDrawCellForRow:(int)row Col:(int)col AtX:(float)x Y:(float)y WithRowHeight:(float)row_height ColumnWidth:(int)column_width AndLineHeight:(float)line_height
+{
+	// Override to draw custom cells
+}
+
 - (void) Draw:(CGRect)region
 {
 	// Get the device orientation
 	int orientation = [[BasePadCoordinator Instance] deviceOrientation];
 	portraitMode = (orientation == UI_ORIENTATION_PORTRAIT_);
-	
+    
 	// Prepare any data specific to a derived class
 	[self PrepareData];
 	
@@ -696,7 +705,7 @@
 	float content_height = table_height > current_size_.height ? table_height : swiping_enabled_ ? current_size_.height + 1 : current_size_.height;
 	
 	[self SetContentWidth:content_width AndHeight:content_height];
-	
+    
 	[self SaveFont];
 	
 	// If there is a heading, we'll draw it at the end at the origin - leave space for it and set it to clip
@@ -711,19 +720,19 @@
 	
 	if(if_heading)
 		[self SetClippingArea:CGRectMake(current_bottom_left_.x, ymin, current_size_.width, ymax - ymin) ];
-	
+    
 	// Draw the table rows first
 	for ( int i = first_row; i < row_count; i ++ )
 	{
 		int line_height = [self ContentRowHeight:i];
 		int content_row_height = adaptableRowHeight ? [self MaxContentRowHeight:i] : [self ContentRowHeight:i];
 		int row_height = [self RowHeight:i];
-		
+        
 		if ( (y + row_height) >= ymin )
 		{
 			[self DrawRow:i AtY:y WithRowHeight:content_row_height AndLineHeight:line_height];
 		}
-		
+        
 		y += row_height ;
 		
 		if ( y > ymax )
@@ -743,23 +752,23 @@
 	if(rowDivider)
 	{
 		y = if_heading ? [self standardRowHeight] : 0;
-		
+        
 		for ( int i = first_row; i < row_count; i ++ )
 		{
 			y += [self RowHeight:i] ;
-			
+            
 			if ( y > ymax )
 				break;
-			
+            
 			[self SetFGColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8]];
 			[self LineX0:0 Y0:y-1 X1:content_width Y1:y-1];
 			[self SetFGColour:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.8]];
 			[self LineX0:0 Y0:y X1:content_width Y1:y];
 		}
 	}
-	
+    
 	[self RestoreGraphicsState];	// Restores clip region
-	
+    
 	// Then add the heading if there is one
 	if(if_heading)
 	{
@@ -768,7 +777,7 @@
 	}
 	
 	[self RestoreFont];
-	
+    
 	[self EndDrawing];
 }
 
@@ -821,14 +830,14 @@
 	
 	// Prepare any data specific to a derived class
 	[self PrepareRow:row];
-	
+    
 	int column_count = [self ColumnCount];
-	
+    
 	int row_index = if_heading_ ? row - 1 : row;
 	
 	float row_height = [self ContentRowHeight:row];
 	float maxHeight = row_height;
-	
+    
 	for ( int col = 0 ; col < column_count ; col ++)
 	{
 		// Skip headings on child columns
@@ -859,16 +868,16 @@
 		[self UseFont:font];
 		
 		int cell_type = heading ? SLV_TEXT_CELL_ : [self InqCellTypeAtRow:row_index Col:col];
-		
+        
 		if(cell_type  == SLV_TEXT_CELL_)
 		{
 			NSString * text = heading ? [[self GetHeadingAtCol:col] retain] : [[self GetCellTextAtRow:row_index Col:col] retain];
-			
+            
 			if([text length] > 0)
-			{				
-				
+			{
+                
 				float text_offset = 3;
-				
+                
 				float max_width = column_width - text_offset ; // Multi-line only works with left alignment
 				
 				CGSize sls = [text sizeWithFont:current_font_];
@@ -879,6 +888,8 @@
 				if(thisRowHeight > maxHeight)
 					maxHeight = thisRowHeight;
 			}
+            
+            [text release];
 		}
 	}
 	
@@ -893,7 +904,7 @@
 {
 	if(expansionAllowed && [self RowExpanded:row])
 		return expansionRowHeight;
-	else 
+	else
 		return 0;
 }
 
@@ -992,7 +1003,7 @@
 			break;
 		}
 	}
-	
+    
 	int w = 0;
 	int col = 0;
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
@@ -1004,7 +1015,7 @@
 			continue;
 		else if(!portraitMode && [self ColumnUse:i] == TD_USE_FOR_PORTRAIT)
 			continue;
-		
+        
 		w += [self ColumnWidth:i];
 		if(w >= x)
 		{
