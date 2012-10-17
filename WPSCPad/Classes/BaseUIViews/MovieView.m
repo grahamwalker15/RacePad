@@ -203,9 +203,6 @@
 {
     [self setMovieSource:source];
     
-	// Set the movieas active
-	[source activateMovie];
-	
 	// Add the source's player layer to this movie view
 	AVPlayerLayer * moviePlayerLayer = [source moviePlayerLayer];
 	
@@ -238,6 +235,11 @@
 		if(errorLabel)
 			[self bringSubviewToFront:errorLabel];
 	}
+    
+    // Set the movie as active
+	[source activateMovie];
+	
+
 }
 
 - (void) notifyMovieSourceReadyToPlay:(BasePadVideoSource *)source
