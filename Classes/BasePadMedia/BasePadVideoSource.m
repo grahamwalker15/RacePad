@@ -258,11 +258,7 @@
                  currentStatus = BPM_WAITING_FOR_STREAM_;
                  [[BasePadMedia Instance] notifyNewVideoSource:self Status:BPM_WAITING_FOR_STREAM_ ShouldDisplay:shouldDisplay];
              }
-             
-             [self checkForReadyToPlay];
-             [self performSelectorOnMainThread:@selector(startVerificationTimer) withObject:nil waitUntilDone:true];
-             
-		 }
+         }
 		 else
 		 {
 			 // Deal with the error appropriately.
@@ -316,24 +312,6 @@
 
 - (void) unloadMovie
 {
-	if(verificationTimer)
-	{
-		[verificationTimer invalidate];
-		verificationTimer = nil;
-	}
-    
-    if(playTimer)
-    {
-		[playTimer invalidate];
-        playTimer = nil;
-    }
-    
-    if(playStartTimer)
-    {
-		[playStartTimer invalidate];
-        playStartTimer = nil;
-    }
-	
 	if(loading)
 	{
 		[moviePlayerAsset cancelLoading];
@@ -412,10 +390,32 @@
 	moviePlaying = false;
 	
 	movieAttached = true;
+    
+    [self checkForReadyToPlay];
+    [self performSelectorOnMainThread:@selector(startVerificationTimer) withObject:nil waitUntilDone:true];
+    
 }
 
 - (void) detachMovie
 {
+	if(verificationTimer)
+	{
+		[verificationTimer invalidate];
+		verificationTimer = nil;
+	}
+    
+    if(playTimer)
+    {
+		[playTimer invalidate];
+        playTimer = nil;
+    }
+    
+    if(playStartTimer)
+    {
+		[playStartTimer invalidate];
+        playStartTimer = nil;
+    }
+	
 	if(moviePlayerObserver)
 	{
 		[moviePlayer removeTimeObserver:moviePlayerObserver];
@@ -1347,14 +1347,11 @@
 
 - (void) startVerificationTimer
 {
-	if(movieType == MOVIE_TYPE_LIVE_STREAM_)
-	{
-        if(verificationTimer)
-            [verificationTimer invalidate];
-        
-		// A 1 second repeating timer kicked off on loading as a fallback to catch ready to play.
-		verificationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verificationTimerFired:) userInfo:nil repeats:YES];
-	}
+    if(verificationTimer)
+        [verificationTimer invalidate];
+    
+    // A 1 second repeating timer kicked off on loading as a fallback to catch ready to play.
+    verificationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(verificationTimerFired:) userInfo:nil repeats:YES];
 }
 
 - (void) verificationTimerFired: (NSTimer *)theTimer
@@ -1364,8 +1361,9 @@
     
     if(movieMarkedPlayable)
     {
-        [verificationTimer invalidate];
-        verificationTimer = nil;
+        // Keep it playing - will have no effect if already playing, but gets it going again if stalled
+        if(movieForceLive || [[BasePadCoordinator Instance] playing])
+            [self moviePlay];
     }
 }
 
