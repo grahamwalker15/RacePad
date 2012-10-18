@@ -137,6 +137,7 @@
 		7F610F56130319BC004DC056 /* InfoPartnersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610F55130319BC004DC056 /* InfoPartnersController.m */; };
 		7F614B55162DACDB0044E956 /* BasePadPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614B54162DACDB0044E956 /* BasePadPopupManager.m */; };
 		7F614B5B162DAE040044E956 /* MidasVoting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614B5A162DAE040044E956 /* MidasVoting.m */; };
+		7F614B5D16301DC00044E956 /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F614B5C16301DC00044E956 /* TimeControllerView.xib */; };
 		7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */; };
 		7F6244F31282EFB5009A9D4F /* CompositeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6244F21282EFB5009A9D4F /* CompositeView.xib */; };
 		7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246A21284471E009A9D4F /* MGPLogo.png */; };
@@ -573,6 +574,7 @@
 		7F614B54162DACDB0044E956 /* BasePadPopupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadPopupManager.m; sourceTree = "<group>"; };
 		7F614B59162DAE040044E956 /* MidasVoting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasVoting.h; sourceTree = "<group>"; };
 		7F614B5A162DAE040044E956 /* MidasVoting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasVoting.m; sourceTree = "<group>"; };
+		7F614B5C16301DC00044E956 /* TimeControllerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimeControllerView.xib; path = ResourceFiles/TimeControllerView.xib; sourceTree = "<group>"; };
 		7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeViewController.h; sourceTree = "<group>"; };
 		7F6244F01282EF9E009A9D4F /* CompositeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeViewController.m; sourceTree = "<group>"; };
 		7F6244F21282EFB5009A9D4F /* CompositeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CompositeView.xib; path = ResourceFiles/CompositeView.xib; sourceTree = "<group>"; };
@@ -1295,6 +1297,7 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F614B5C16301DC00044E956 /* TimeControllerView.xib */,
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
 				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
@@ -1802,6 +1805,7 @@
 				7F3A6CC015938F940010E72D /* WeatherView.xib in Resources */,
 				7F604FDB16070F0600AB5D1E /* LiveButton.png in Resources */,
 				7F604FF3160711CE00AB5D1E /* GoLiveButton.png in Resources */,
+				7F614B5D16301DC00044E956 /* TimeControllerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
