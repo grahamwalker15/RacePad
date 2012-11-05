@@ -115,26 +115,27 @@
 		int row, col;
 		if([(SimpleListView *)gestureView FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
 		{
-			bool wasExpanded = [standingsView RowExpanded:row];
+            bool inExpansion = [standingsView InExpansionForRow:row AtY:y];
 			
-			[standingsView UnexpandAllRows];
-			[expansionView setHidden:true];
-			[standingsView setExpandedDriver:nil];
-            [midasVotingView setDriver:nil];
-			
-			//UIImage * renderedView = [self renderViewToImage:container];
-			//[viewAnimationImage setImage:renderedView];
-			//[viewAnimationImage setFrame:[standingsView frame]];
-			//[viewAnimationImage setHidden:false]; 
-			
-			if(!wasExpanded)
-			{
-				[standingsView SetRow:row Expanded:true];
-				[standingsView setExpandedDriver:[standingsView GetRowTag:row]];	// Driver name
-				[self fillExpansionViewForRow:row];
-				[self placeExpansionViewAtRow:row];
+            // Don't unexpand if tap is in expansion
+            
+            if(!inExpansion)
+            {
+                bool wasExpanded = [standingsView RowExpanded:row];
+                [standingsView UnexpandAllRows];
+                [expansionView setHidden:true];
+                [standingsView setExpandedDriver:nil];
+                [midasVotingView setDriver:nil];
+						
+                if(!wasExpanded)
+                {
+                    [standingsView SetRow:row Expanded:true];
+                    [standingsView setExpandedDriver:[standingsView GetRowTag:row]];	// Driver name
+                    [self fillExpansionViewForRow:row];
+                    [self placeExpansionViewAtRow:row];
  
-                [midasVotingView setDriver:[standingsView expandedDriver]];
+                    [midasVotingView setDriver:[standingsView expandedDriver]];
+                }
 			}
 		}
 		

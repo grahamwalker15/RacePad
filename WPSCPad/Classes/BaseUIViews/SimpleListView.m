@@ -1003,7 +1003,7 @@
 			break;
 		}
 	}
-
+    
 	int w = 0;
 	int col = 0;
 	for ( int i = 0 ; i < [self ColumnCount] ; i++)
@@ -1015,7 +1015,7 @@
 			continue;
 		else if(!portraitMode && [self ColumnUse:i] == TD_USE_FOR_PORTRAIT)
 			continue;
-
+        
 		w += [self ColumnWidth:i];
 		if(w >= x)
 		{
@@ -1030,5 +1030,44 @@
 	return true;
 }
 
+- (bool) InExpansionForRow:(int)row AtY:(float)y
+{
+	float table_height = [self TableHeight];
+	
+	if(y < 0 || y > table_height)
+	{
+		return false;
+	}
+	
+	int lasth = 0;
+	int h = 0;
+	int foundRow = -1;
+	for ( int i = 0 ; i < [self RowCount] ; i++)
+	{
+        lasth = h;
+		h += [self RowHeight:i];
+		if(h >= y)
+		{
+			foundRow = i;
+			break;
+		}
+	}
+    
+    if(foundRow < 0)
+        return false;
+    
+    int expansionHeight = [self ExpansionRowHeight:foundRow];
+    
+    if(expansionHeight <= 0)
+        return false;
+    
+    int rowHeight = [self RowHeight:foundRow];
+	int hIntoRow = y - lasth;
+    
+    if(hIntoRow > rowHeight - expansionHeight)
+        return true;
+	
+	return false;
+}
 
 @end

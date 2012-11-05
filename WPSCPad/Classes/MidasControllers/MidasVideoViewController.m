@@ -110,6 +110,8 @@ static UIImage * newButtonBackgroundImage = nil;
 	
 	socialMediaButtonFlashed = false;
     timeControllerPending = false;
+    
+    popupNotificationPending = false;
 
 	firstDisplay = true;
 	
@@ -2404,6 +2406,14 @@ static UIImage * newButtonBackgroundImage = nil;
 
 - (bool) dismissPopupViewsWithExclusion:(int)excludedPopupType InZone:(int)popupZone AnimateMenus:(bool)animateMenus
 {
+    // We can arrive here out of sync with popup menu button presses
+    // The tap will have waited for the double tap timer to expire, and we may
+    // have pressed a menu button in the meantime, but not dealt with the display.
+    // If this is so, we'll ignore this tap, but mark it as dealt with.
+    
+    if(popupNotificationPending)
+        return true;
+    
 	bool popupDismissed = false;
 	
 	if(excludedPopupType != MIDAS_HELP_POPUP_ &&
@@ -2529,52 +2539,55 @@ static UIImage * newButtonBackgroundImage = nil;
 - (void)notifyShowingPopup:(int)popupType
 {
 	[self positionMenuButtons];
+    popupNotificationPending = true; // means there will be a call to notifyShowedPopup
 }
 	
 - (void)notifyShowedPopup:(int)popupType
 {
-	switch(popupType)
-	{
-		case MIDAS_HELP_POPUP_:
-			[helpButton setHidden:true];
-			break;
-			
-		case MIDAS_ALERTS_POPUP_:
-			[alertsButton setHidden:true];
-			break;
-			
-		case MIDAS_SOCIAL_MEDIA_POPUP_:
-			[socialMediaButton setHidden:true];
-			break;
-			
-		case MIDAS_VIP_POPUP_:
-			[vipButton setHidden:true];
-			break;
-			
-		case MIDAS_STANDINGS_POPUP_:
-			[standingsButton setHidden:true];
-			break;
-			
-		case MIDAS_CIRCUIT_POPUP_:
-			[mapButton setHidden:true];
-			break;
-			
-		case MIDAS_FOLLOW_DRIVER_POPUP_:
-			[followDriverButton setHidden:true];
-			break;
-			
-		case MIDAS_CAMERA_POPUP_:
-			[cameraButton setHidden:true];
-			break;
-			
-		case MIDAS_MY_TEAM_POPUP_:
-			[myTeamButton setHidden:true];
-			break;
-			
-		default:
-			break;
-	}
+    switch(popupType)
+    {
+        case MIDAS_HELP_POPUP_:
+            [helpButton setHidden:true];
+            break;
+            
+        case MIDAS_ALERTS_POPUP_:
+            [alertsButton setHidden:true];
+            break;
+            
+        case MIDAS_SOCIAL_MEDIA_POPUP_:
+            [socialMediaButton setHidden:true];
+            break;
+            
+        case MIDAS_VIP_POPUP_:
+            [vipButton setHidden:true];
+            break;
+            
+        case MIDAS_STANDINGS_POPUP_:
+            [standingsButton setHidden:true];
+            break;
+            
+        case MIDAS_CIRCUIT_POPUP_:
+            [mapButton setHidden:true];
+            break;
+            
+        case MIDAS_FOLLOW_DRIVER_POPUP_:
+            [followDriverButton setHidden:true];
+            break;
+            
+        case MIDAS_CAMERA_POPUP_:
+            [cameraButton setHidden:true];
+            break;
+            
+        case MIDAS_MY_TEAM_POPUP_:
+            [myTeamButton setHidden:true];
+            break;
+            
+        default:
+            break;
+    }
 	
+    popupNotificationPending = false;
+    
 //	[self.view bringSubviewToFront:bottomButtonPanel];
 //	[self.view bringSubviewToFront:topButtonPanel];
 	

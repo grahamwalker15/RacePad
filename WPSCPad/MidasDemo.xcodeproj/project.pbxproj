@@ -822,6 +822,9 @@
 		7F4B45C8161325C8007C60D8 /* videoTitleOverlayNoAudio.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4B45C7161325C8007C60D8 /* videoTitleOverlayNoAudio.png */; };
 		7F4E17EE16145C25006025CD /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E17ED16145C25006025CD /* TimeControllerView.xib */; };
 		7F614A1E16285E010044E956 /* BasePadPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614A1D16285E010044E956 /* BasePadPopupManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7F8A5B1916482B270084093E /* MenuCameraHost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1616482B270084093E /* MenuCameraHost.png */; };
+		7F8A5B1A16482B270084093E /* MenuCameraOnboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1716482B270084093E /* MenuCameraOnboard.png */; };
+		7F8A5B1B16482B270084093E /* MenuCameraPitcam.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1816482B270084093E /* MenuCameraPitcam.png */; };
 		7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B231601D89000C95FAF /* MidasClientSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FCF8B261601EFDB00C95FAF /* MidasServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */; };
 		7FCF8B2916071FC800C95FAF /* GoLiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2716071FC800C95FAF /* GoLiveButton.png */; };
@@ -1961,6 +1964,9 @@
 		7F4E17ED16145C25006025CD /* TimeControllerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TimeControllerView.xib; path = ResourceFiles/TimeControllerView.xib; sourceTree = "<group>"; };
 		7F614A1C16285E010044E956 /* BasePadPopupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadPopupManager.h; sourceTree = "<group>"; };
 		7F614A1D16285E010044E956 /* BasePadPopupManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadPopupManager.m; sourceTree = "<group>"; };
+		7F8A5B1616482B270084093E /* MenuCameraHost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraHost.png; sourceTree = "<group>"; };
+		7F8A5B1716482B270084093E /* MenuCameraOnboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraOnboard.png; sourceTree = "<group>"; };
+		7F8A5B1816482B270084093E /* MenuCameraPitcam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraPitcam.png; sourceTree = "<group>"; };
 		7FCF8B221601D89000C95FAF /* MidasClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasClientSocket.h; sourceTree = "<group>"; };
 		7FCF8B231601D89000C95FAF /* MidasClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasClientSocket.m; sourceTree = "<group>"; };
 		7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasServerConnect.xib; path = ResourceFiles/MidasServerConnect.xib; sourceTree = "<group>"; };
@@ -2394,6 +2400,9 @@
 		240F21E415F51038001C08C1 /* Cameras */ = {
 			isa = PBXGroup;
 			children = (
+				7F8A5B1616482B270084093E /* MenuCameraHost.png */,
+				7F8A5B1716482B270084093E /* MenuCameraOnboard.png */,
+				7F8A5B1816482B270084093E /* MenuCameraPitcam.png */,
 				7F4B45C31608741D007C60D8 /* MenuCamerasButtonAllActive.png */,
 				7F4B45C41608741D007C60D8 /* MenuCamerasButtonAllInActive.png */,
 				240F21E515F51038001C08C1 /* MenuCameraButtonDivider.png */,
@@ -4388,6 +4397,9 @@
 				2444EFF51615F1EF00614729 /* Eddie thumb.jpg in Resources */,
 				2444EFF61615F1EF00614729 /* Marussia thumb.jpg in Resources */,
 				2444EFF71615F1EF00614729 /* Softbank thumb.jpg in Resources */,
+				7F8A5B1916482B270084093E /* MenuCameraHost.png in Resources */,
+				7F8A5B1A16482B270084093E /* MenuCameraOnboard.png in Resources */,
+				7F8A5B1B16482B270084093E /* MenuCameraPitcam.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

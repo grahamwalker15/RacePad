@@ -217,5 +217,6 @@ enum ColumnPriority {
 - (void) InitialiseSimpleListViewMembers;
 
 - (bool) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row_return ColReturn:(int *)col_return;
+- (bool) InExpansionForRow:(int)row AtY:(float)y;
 
 @end

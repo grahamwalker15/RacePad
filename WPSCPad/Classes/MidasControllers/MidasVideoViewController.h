@@ -135,6 +135,8 @@
 	bool menuButtonsAnimating;
 	bool moviesAnimating;
 	bool firstDisplay;
+    
+    bool popupNotificationPending;
 	
 	UIButton * flashedMenuButton;
 		

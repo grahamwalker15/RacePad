@@ -890,6 +890,45 @@
 	return 30;
 }
 
+// Override heading colour - set to white
+
+- (NSString *) GetHeadingAtCol:(int)col
+{
+	if(table_data_)
+	{
+		TableHeader *columnHeader = [table_data_ columnHeader:col];
+		if ( columnHeader )
+		{
+			//[self SetTextColour:[columnHeader fg]];
+			[self SetTextColour:white_];
+			[self SetBackgroundColour:[columnHeader	bg]];
+			[self SetAlignment:[columnHeader alignment]];
+			return [columnHeader string];
+		}
+	}
+	
+	return nil;
+	
+}
+
+// Override background colour for columns 0 and 1
+
+- (NSString *) GetCellTextAtRow:(int)row Col:(int)col
+{
+	if(table_data_)
+	{
+        NSString *text = [super GetCellTextAtRow:row Col:col];
+        
+        if(col <= 1)
+            [self SetBackgroundColour:white_];
+        
+        return text;
+	}
+	
+	return nil;
+}
+
+
 
 @end
 

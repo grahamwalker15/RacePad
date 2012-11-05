@@ -149,18 +149,25 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-    /*
     int index = vertical ? row : col;
     
     BasePadVideoSource * movieSource = [self GetMovieSourceAtIndex:index];
-    if(row < 3 && movieSource)
+    if(movieSource)
     {
-        UIImage * thumbnail = [movieSource movieThumbnail];
+        NSRange filterRange = [[movieSource movieTag] rangeOfString:@"ONBOARD"];
+        if(filterRange.length != 0)
+        {
+            return [UIImage imageNamed:@"MenuCameraOnboard.png"];
+        }
+        
+        filterRange = [[movieSource movieTag] rangeOfString:@"TRACK"];
+        if(filterRange.length != 0)
+        {
+            return [UIImage imageNamed:@"MenuCameraPitcam.png"];
+        }
 			
-        if(thumbnail)
-            return thumbnail;
+        return [UIImage imageNamed:@"MenuCameraHost.png"];
 	}
-    */
 
 	return [UIImage imageNamed:@"NoCameraThumbnail.png"];
 }
