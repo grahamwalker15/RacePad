@@ -95,6 +95,10 @@
 	IBOutlet UIImageView * moreLeftImage;
 	IBOutlet UIImageView * moreRightImage;
 	
+	IBOutlet UIView * logoImageBase;
+	IBOutlet UIImageView * logoImageView0;
+	IBOutlet UIImageView * logoImageView1;
+	
 	IBOutlet UIImageView * pushNotificationAnimationImage;
 	IBOutlet UILabel * pushNotificationAnimationLabel;
 	
@@ -126,6 +130,7 @@
 	
 	bool displayVideo;
 	bool displayMap;
+	bool displayLogos;
 	bool displayLeaderboard;
 	
 	bool disableOverlays;
@@ -141,10 +146,16 @@
 	UIButton * flashedMenuButton;
 		
 	int trackZoomOffsetX, trackZoomOffsetY;
+    
+    NSTimer *logoAnimationTimer;
+    int currentLogoIndex;
+    int currentLogoImageView;
+
 }
 
 @property (nonatomic) bool displayVideo;
 @property (nonatomic) bool displayMap;
+@property (nonatomic) bool displayLogos;
 @property (nonatomic) bool displayLeaderboard;
 
 @property (nonatomic) bool allowBubbleCommentary;
@@ -230,5 +241,16 @@
 - (IBAction) menuButtonHit:(id)sender;
 - (bool) dismissPopupViews;
 - (bool) dismissPopupViewsWithExclusion:(int)excludedPopupType InZone:(int)popupZone AnimateMenus:(bool)animateMenus;
+
+- (void) initialiseLogoImages;
+- (void) showLogoImages;
+- (void) hideLogoImages;
+- (void) hideLogoImagesAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context;
+- (void) startLogoAnimation;
+- (void) endLogoAnimation;
+- (bool) setNextLogoImage:(int)imageIndex InView:(int)viewIndex;
+- (void) logoAnimationTimerFired: (NSTimer *)theTimer;
+
+- (IBAction) logoDisplayButtonHit:(id)sender;
 
 @end

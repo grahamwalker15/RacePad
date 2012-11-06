@@ -825,6 +825,12 @@
 		7F8A5B1916482B270084093E /* MenuCameraHost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1616482B270084093E /* MenuCameraHost.png */; };
 		7F8A5B1A16482B270084093E /* MenuCameraOnboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1716482B270084093E /* MenuCameraOnboard.png */; };
 		7F8A5B1B16482B270084093E /* MenuCameraPitcam.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1816482B270084093E /* MenuCameraPitcam.png */; };
+		7F8A5B1F1649D4B40084093E /* LogoATT.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1C1649D4B40084093E /* LogoATT.png */; };
+		7F8A5B201649D4B40084093E /* LogoMobil1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1D1649D4B40084093E /* LogoMobil1.png */; };
+		7F8A5B211649D4B40084093E /* LogoPirelli.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B1E1649D4B40084093E /* LogoPirelli.png */; };
+		7F8A5B251649D9150084093E /* MidasLogoATT.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B221649D9150084093E /* MidasLogoATT.png */; };
+		7F8A5B261649D9150084093E /* MidasLogoMobil1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B231649D9150084093E /* MidasLogoMobil1.png */; };
+		7F8A5B271649D9150084093E /* MidasLogoPirelli.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8A5B241649D9150084093E /* MidasLogoPirelli.png */; };
 		7FCF8B241601D89000C95FAF /* MidasClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCF8B231601D89000C95FAF /* MidasClientSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FCF8B261601EFDB00C95FAF /* MidasServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */; };
 		7FCF8B2916071FC800C95FAF /* GoLiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCF8B2716071FC800C95FAF /* GoLiveButton.png */; };
@@ -1967,6 +1973,12 @@
 		7F8A5B1616482B270084093E /* MenuCameraHost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraHost.png; sourceTree = "<group>"; };
 		7F8A5B1716482B270084093E /* MenuCameraOnboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraOnboard.png; sourceTree = "<group>"; };
 		7F8A5B1816482B270084093E /* MenuCameraPitcam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuCameraPitcam.png; sourceTree = "<group>"; };
+		7F8A5B1C1649D4B40084093E /* LogoATT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoATT.png; sourceTree = "<group>"; };
+		7F8A5B1D1649D4B40084093E /* LogoMobil1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoMobil1.png; sourceTree = "<group>"; };
+		7F8A5B1E1649D4B40084093E /* LogoPirelli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoPirelli.png; sourceTree = "<group>"; };
+		7F8A5B221649D9150084093E /* MidasLogoATT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasLogoATT.png; sourceTree = "<group>"; };
+		7F8A5B231649D9150084093E /* MidasLogoMobil1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasLogoMobil1.png; sourceTree = "<group>"; };
+		7F8A5B241649D9150084093E /* MidasLogoPirelli.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MidasLogoPirelli.png; sourceTree = "<group>"; };
 		7FCF8B221601D89000C95FAF /* MidasClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidasClientSocket.h; sourceTree = "<group>"; };
 		7FCF8B231601D89000C95FAF /* MidasClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidasClientSocket.m; sourceTree = "<group>"; };
 		7FCF8B251601EFDA00C95FAF /* MidasServerConnect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MidasServerConnect.xib; path = ResourceFiles/MidasServerConnect.xib; sourceTree = "<group>"; };
@@ -2289,6 +2301,12 @@
 		240F21BB15F51038001C08C1 /* MidasImages */ = {
 			isa = PBXGroup;
 			children = (
+				7F8A5B221649D9150084093E /* MidasLogoATT.png */,
+				7F8A5B231649D9150084093E /* MidasLogoMobil1.png */,
+				7F8A5B241649D9150084093E /* MidasLogoPirelli.png */,
+				7F8A5B1C1649D4B40084093E /* LogoATT.png */,
+				7F8A5B1D1649D4B40084093E /* LogoMobil1.png */,
+				7F8A5B1E1649D4B40084093E /* LogoPirelli.png */,
 				7F4B45C7161325C8007C60D8 /* videoTitleOverlayNoAudio.png */,
 				24942D0B15F621CB00613F87 /* videoTitleOverlayFull.png */,
 				24942D0D15F621D500613F87 /* videoTitleOverlayNoClose.png */,
@@ -4400,6 +4418,12 @@
 				7F8A5B1916482B270084093E /* MenuCameraHost.png in Resources */,
 				7F8A5B1A16482B270084093E /* MenuCameraOnboard.png in Resources */,
 				7F8A5B1B16482B270084093E /* MenuCameraPitcam.png in Resources */,
+				7F8A5B1F1649D4B40084093E /* LogoATT.png in Resources */,
+				7F8A5B201649D4B40084093E /* LogoMobil1.png in Resources */,
+				7F8A5B211649D4B40084093E /* LogoPirelli.png in Resources */,
+				7F8A5B251649D9150084093E /* MidasLogoATT.png in Resources */,
+				7F8A5B261649D9150084093E /* MidasLogoMobil1.png in Resources */,
+				7F8A5B271649D9150084093E /* MidasLogoPirelli.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

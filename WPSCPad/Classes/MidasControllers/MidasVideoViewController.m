@@ -29,9 +29,9 @@
 @synthesize auxMovieView1;
 @synthesize auxMovieView2;
 
-
 @synthesize displayVideo;
 @synthesize displayMap;
+@synthesize displayLogos;
 @synthesize displayLeaderboard;
 
 @synthesize allowBubbleCommentary;
@@ -118,6 +118,7 @@ static UIImage * newButtonBackgroundImage = nil;
 	displayMap = false;
 	displayLeaderboard = false;
 	displayVideo = true;
+    displayLogos = true;
 	
 	disableOverlays = false;
 	
@@ -266,6 +267,13 @@ static UIImage * newButtonBackgroundImage = nil;
 	// GG - COMMENT OUT LEADERBOARD : [[RacePadCoordinator Instance] AddView:leaderboardView WithType:RPC_LEADER_BOARD_VIEW_];
 	
 	[[RacePadCoordinator Instance] setVideoViewController:self];
+    
+    logoAnimationTimer = nil;
+    currentLogoIndex = 0;
+    currentLogoImageView = 0;
+
+    [self initialiseLogoImages];
+    [logoImageBase setHidden:true];
 	
 }
 
@@ -1162,6 +1170,12 @@ static UIImage * newButtonBackgroundImage = nil;
 				[[RacePadCoordinator Instance] SetViewDisplayed:trackMapView];			
 				[trackMapView RequestRedraw];
 			}
+            
+            if(displayLogos)
+            {
+                [self hideLogoImages];
+                [self endLogoAnimation];
+            }
 		}
 	}
 	else
@@ -1178,6 +1192,12 @@ static UIImage * newButtonBackgroundImage = nil;
 				[[RacePadCoordinator Instance] SetViewDisplayed:trackZoomView];			
 				[trackZoomView RequestRedraw];
 			}
+            
+            if(displayLogos)
+            {
+                [self showLogoImages];
+                [self startLogoAnimation];
+            }
 		}
 	}
 }
@@ -2706,6 +2726,137 @@ static UIImage * newButtonBackgroundImage = nil;
 	else
 		[self flashMenuButton:button WithName:[message messageSender]];
 }
+
+/////////////////////////////////
+// Advertising logo animations
+
+- (void) initialiseLogoImages
+{
+    currentLogoIndex = 0;
+    currentLogoImageView = 0;
+    
+    [logoImageView0 setHidden:false];
+    [logoImageView1 setHidden:false];
+    
+    [logoImageView0 setAlpha:1.0];
+    [logoImageView1 setAlpha:0.0];
+    
+    [self setNextLogoImage:0 InView:0];
+}
+
+- (void) showLogoImages
+{
+	[logoImageBase setAlpha:0.0];
+	[logoImageBase setHidden:false];
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[logoImageBase setAlpha:1.0];
+	[UIView commitAnimations];
+}
+
+- (void) hideLogoImages
+{
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+	[logoImageBase setAlpha:0.0];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(hideLogoImagesAnimationDidStop:finished:context:)];
+	[UIView commitAnimations];
+}
+
+- (void) hideLogoImagesAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+    [logoImageBase setHidden:true];
+}
+
+- (void) startLogoAnimation
+{
+	logoAnimationTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(logoAnimationTimerFired:) userInfo:nil repeats:YES];
+}
+
+- (void) endLogoAnimation
+{
+    if(logoAnimationTimer)
+        [logoAnimationTimer invalidate];
+    
+    logoAnimationTimer = nil;
+}
+
+- (bool) setNextLogoImage:(int)imageIndex InView:(int)viewIndex
+{
+    UIImageView * imageView = viewIndex == 0 ? logoImageView0 : logoImageView1;
+    
+    UIImage * image = nil;
+    
+    if(imageIndex == 0)
+        image = [UIImage imageNamed:@"MidasLogoPirelli.png"];
+    else if(imageIndex == 1)
+        image = [UIImage imageNamed:@"MidasLogoMobil1.png"];
+    else if(imageIndex == 2)
+        image = [UIImage imageNamed:@"MidasLogoATT.png"];
+    
+    if(imageView && image)
+    {
+        [imageView setImage:image];
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+-(void)logoAnimationTimerFired: (NSTimer *)theTimer
+{
+    int nextLogoIndex = (currentLogoIndex + 1) % 3;
+    int nextLogoImageView = 1 - currentLogoImageView;
+    
+    bool imageFound = [self setNextLogoImage:nextLogoIndex InView:nextLogoImageView];
+
+    UIImageView * imageView = nextLogoImageView == 0 ? logoImageView0 : logoImageView1;
+    UIImageView * otherImageView = nextLogoImageView == 0 ? logoImageView1 : logoImageView0;
+    
+    if(imageFound && imageView)
+    {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:1.0];
+        [imageView setAlpha:1.0];
+        [otherImageView setAlpha:0.0];
+        [UIView commitAnimations];
+        
+        currentLogoImageView = nextLogoImageView;
+    }
+    
+    currentLogoIndex = nextLogoIndex;
+
+}
+
+- (IBAction) logoDisplayButtonHit:(id)sender
+{
+	if(!moviesAnimating)
+	{
+        if(displayLogos)
+        {
+            [logoImageBase setHidden:true];
+            [self endLogoAnimation];
+            displayLogos = false;
+        }
+        else
+        {
+            int movieCount = [self countMovieViews];
+
+            if(movieCount > 1)
+            {
+                [logoImageBase setHidden:false];
+                [self startLogoAnimation];
+            }
+        
+            displayLogos = true;
+        }
+    }
+}
+
 
 @end
 
