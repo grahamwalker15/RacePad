@@ -79,7 +79,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.midas_socialViewController.loginButton = self.loginButton;
+	self.midas_socialViewController.loginButton = nil;
 	self.midas_socialViewController.backgroundImage = self.backgroundImageView.image;
 	[self _refreshComments];
 	[self _updateLoginState];

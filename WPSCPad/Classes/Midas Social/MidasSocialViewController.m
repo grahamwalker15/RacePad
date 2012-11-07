@@ -67,7 +67,7 @@
 - (void)setLoginButton:(UIButton *)loginButton {
 	_loginButton = loginButton;
 	[self.buttonContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	[self.buttonContainer addSubview:loginButton];
+	if (_loginButton) [self.buttonContainer addSubview:loginButton];
 }
 
 #pragma mark - UITableViewDelegate
