@@ -7,12 +7,17 @@
 //
 
 #import "DCTAuthAccount.h"
+#import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthAccount.h"
 #import "_DCTOAuth1Account.h"
 #import "_DCTOAuth2Account.h"
 #import "_DCTBasicAuthAccount.h"
 #import <Security/Security.h>
 #import "NSString+DCTAuth.h"
+
+@interface DCTAuthAccount ()
+@property (nonatomic, readwrite, getter = isAuthorized) BOOL authorized;
+@end
 
 @implementation DCTAuthAccount {
 	__strong NSURL *_discoveredCallbackURL;
@@ -67,6 +72,25 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [self init];
+	if (!self) return nil;
+	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
+	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
+	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
+	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
+	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
+	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
+	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
+	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
+	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
+}
+
 - (NSURL *)callbackURL {
 	
 	if (_callbackURL) return _callbackURL;
@@ -88,41 +112,21 @@
 
 @implementation DCTAuthAccount (Private)
 
-- (void)_setAuthorized:(BOOL)authorized {
-	[self willChangeValueForKey:@"authorized"];
-	_authorized = authorized;
-	[self didChangeValueForKey:@"authorized"];
-}
-
-- (id)initWithCoder:(NSCoder *)coder {
-	self = [self init];
-	if (!self) return nil;
-	_type = [coder decodeObjectForKey:NSStringFromSelector(@selector(type))];
-	_identifier = [coder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
-	_callbackURL = [coder decodeObjectForKey:NSStringFromSelector(@selector(callbackURL))];
-	_accountDescription = [coder decodeObjectForKey:NSStringFromSelector(@selector(accountDescription))];
-	_authorized = [coder decodeBoolForKey:NSStringFromSelector(@selector(isAuthorized))];
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:self.type forKey:NSStringFromSelector(@selector(type))];
-	[coder encodeObject:self.identifier forKey:NSStringFromSelector(@selector(identifier))];
-	[coder encodeObject:self.callbackURL forKey:NSStringFromSelector(@selector(callbackURL))];
-	[coder encodeObject:self.accountDescription forKey:NSStringFromSelector(@selector(accountDescription))];
-	[coder encodeBool:_authorized forKey:NSStringFromSelector(@selector(isAuthorized))];
-}
-
 - (void)_willBeDeleted {
-	[self _removeSecureValueForKey:nil];
+	[self removeSecureValueForKey:nil];
 }
 
-- (void)_setSecureValue:(NSString *)value forKey:(NSString *)key {
+@end
+
+@implementation DCTAuthAccount (SubclassMethods)
+@dynamic authorized;
+
+- (void)setSecureValue:(NSString *)value forKey:(NSString *)key {
 	if (!value) return;
 	if (!key) return;
-	
-	[self _removeSecureValueForKey:key];
-	
+
+	[self removeSecureValueForKey:key];
+
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
 #ifdef TARGET_OS_IPHONE
@@ -131,9 +135,9 @@
 	SecItemAdd((__bridge CFDictionaryRef)query, NULL);
 }
 
-- (NSString *)_secureValueForKey:(NSString *)key {
+- (NSString *)secureValueForKey:(NSString *)key {
 	if (!key) return nil;
-	
+
 	NSMutableDictionary *query = [self _queryForKey:key];
 	[query setObject:(__bridge id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
 	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
@@ -143,7 +147,7 @@
 	return [[NSString alloc] initWithData:(__bridge_transfer NSData *)result encoding:NSUTF8StringEncoding];
 }
 
-- (void)_removeSecureValueForKey:(NSString *)key {
+- (void)removeSecureValueForKey:(NSString *)key {
 	NSMutableDictionary *query = [self _queryForKey:key];
     SecItemDelete((__bridge CFDictionaryRef)query);
 }

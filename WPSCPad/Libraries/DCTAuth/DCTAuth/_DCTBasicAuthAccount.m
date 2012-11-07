@@ -6,9 +6,13 @@
 //  Copyright (c) 2012 Daniel Tull. All rights reserved.
 //
 
+#import "DCTAuthAccountSubclass.h"
 #import "_DCTBasicAuthAccount.h"
 #import "_DCTAuthAccount.h"
 #import "NSData+DCTAuth.h"
+
+@interface _DCTBasicAuthAccount () <DCTAuthAccountSubclass>
+@end
 
 @implementation _DCTBasicAuthAccount {
 	__strong NSURL *_authenticationURL;
@@ -35,25 +39,29 @@
 	self = [super initWithCoder:coder];
 	if (!self) return nil;
 	_authenticationURL = [coder decodeObjectForKey:@"_authenticationURL"];
-	_username = [self _secureValueForKey:@"_username"];
-	_password = [self _secureValueForKey:@"_password"];
+	_username = [self secureValueForKey:@"_username"];
+	_password = [self secureValueForKey:@"_password"];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:_authenticationURL forKey:@"_authenticationURL"];
-	[self _setSecureValue:_username forKey:@"_username"];
-	[self _setSecureValue:_password forKey:@"_password"];
+	[self setSecureValue:_username forKey:@"_username"];
+	[self setSecureValue:_password forKey:@"_password"];
 }
 
 - (void)authenticateWithHandler:(void(^)(NSDictionary *responses, NSError *error))handler {
+
+	self.authorized = NO;
 
 	DCTAuthRequest *request = [[DCTAuthRequest alloc] initWithRequestMethod:DCTAuthRequestMethodGET
 																		URL:_authenticationURL
 																 parameters:nil];
 	request.account = self;
 	[request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *urlResponse, NSError *error) {
+
+		self.authorized = (urlResponse.statusCode == 200);
 
 		if (handler == NULL) return;
 		

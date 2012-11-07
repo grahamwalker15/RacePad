@@ -7,6 +7,7 @@
 //
 
 #import "DCTAuthRequest.h"
+#import "DCTAuthAccountSubclass.h"
 #import "_DCTAuthAccount.h"
 #import "_DCTAuthPlatform.h"
 #import "_DCTAuthMultipartData.h"
@@ -148,6 +149,14 @@ NSString * const _DCTAuthRequestMethodString[] = {
         
         handler(data, HTTPURLResponse, error);
 	}];
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p; %@ %@>",
+			NSStringFromClass([self class]),
+			self,
+			_DCTAuthRequestMethodString[self.requestMethod],
+			self.URL];
 }
 
 @end

@@ -9,14 +9,8 @@
 #import "DCTAuthAccount.h"
 #import "DCTAuthRequest.h"
 
-@interface DCTAuthAccount (Private) <NSCoding>
-
-- (void)_setAuthorized:(BOOL)authorized;
+@interface DCTAuthAccount (Private)
 
 - (void)_willBeDeleted;
-
-- (void)_setSecureValue:(NSString *)value forKey:(NSString *)key;
-- (NSString *)_secureValueForKey:(NSString *)key;
-- (void)_removeSecureValueForKey:(NSString *)key;
 
 @end

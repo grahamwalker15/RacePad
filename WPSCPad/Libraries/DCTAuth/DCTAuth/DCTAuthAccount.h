@@ -10,7 +10,7 @@
 
 /** A DCTAuthAccount object encapsulates information about a user account stored in the database. You can create and retrieve accounts using an DCTAuthAccountStore object. The DCTAuthAccountStore object provides an interface to the persistent database. All account objects belong to a single DCTAuthAccountStore object.
  */
-@interface DCTAuthAccount : NSObject
+@interface DCTAuthAccount : NSObject <NSCoding>
 
 /// @name Creating accounts
 
@@ -67,10 +67,18 @@
 
 /// @name Accessing Properties
 
-/** The type of service account. */
+/** The type of service account, which is user defined at the creation of an account.
+ 
+ Once set for an account, it will always be the same and can be used to lookup accounts
+ for a particular service. It is currently not used for any other purpose.
+ 
+ @see -[DCTAuthAccountStore accountsWithType:]
+ */
 @property (nonatomic, readonly) NSString *type;
 
 /** A unique identifier for this account.
+ 
+ This identifier is random and assigned when the account is created.
  
  Use the -[DCTAuthAccountStore accountWithIdentifier:] method to get an account with the specified identifier.
  
@@ -126,19 +134,3 @@
 @end
 
 @class DCTAuthRequest;
-
-/** This is a protocol that should be adopted by DCTAuthAccount subclasses. */
-@protocol DCTAuthAccountSubclass <NSObject>
-
-/** A method to allow account subclasses to sign a URL request.
- 
- DCTAuthAccount subclasses need to implment this method and use their credentials to modify
- the given mutable request so that it is authorized for the user's account. For example in the
- case of OAuth 1.0, the account adds a signed Authorization header to the request, with the 
- correct OAuth parameters.
-
- @param request The request to be signed.
- @param authRequest The DCTAuthRequest object that is asking for the request to be signed.
- */
-- (void)signURLRequest:(NSMutableURLRequest *)request forAuthRequest:(DCTAuthRequest *)authRequest;
-@end
