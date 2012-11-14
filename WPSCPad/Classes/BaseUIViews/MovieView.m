@@ -190,7 +190,7 @@
 - (void) notifyMovieAboutToShowSource:(BasePadVideoSource *)source
 {
 	// Show the loading indicator if we're loading a remote movie
-	if(source && [source movieType] != MOVIE_TYPE_ARCHIVE_)
+	if(source)// && [source movieType] != MOVIE_TYPE_ARCHIVE_)
 		[self showMovieLoading];
 	
     [self setMovieSource:source];
@@ -297,9 +297,9 @@
 		
 		if(![movieSource shouldAutoDisplay])
 		{
-			if([movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
-				[movieSource detachMovie];
-			else
+			//if([movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
+			//	[movieSource detachMovie];
+			//else
 				[movieSource unloadMovie];
 		}
 	}

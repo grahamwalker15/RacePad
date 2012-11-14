@@ -836,7 +836,7 @@ static BasePadMedia * instance_ = nil;
 	{
 		// Only load archives and the main view to start
 		// Streamed feeds will be loaded as needed - indicated by movieView being set
-		if(movieView || [movieSource shouldAutoDisplay] || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
+		if(movieView || [movieSource shouldAutoDisplay])// || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
 		{
 			if(movieView)
 			{
@@ -914,7 +914,7 @@ static BasePadMedia * instance_ = nil;
 		
 		// Only load archives an the main view to start
 		// Streamed feeds will be loaded as needed - indicated by movieView being set
-		if(movieView || [movieSource shouldAutoDisplay] || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
+		if(movieView || [movieSource shouldAutoDisplay])// || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
 		{
 			if(movieView)
 				[movieSource loadMovieIntoView:movieView];
