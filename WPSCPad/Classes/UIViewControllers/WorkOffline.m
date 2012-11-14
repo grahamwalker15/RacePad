@@ -208,12 +208,12 @@
 		[ok setEnabled:NO];
     }
     
-    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:self];
+    [[BasePadCoordinator Instance] AddConnectionFeedbackDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:nil];
+    [[BasePadCoordinator Instance] RemoveConnectionFeedbackDelegate:self];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -311,8 +311,10 @@
 
 -(IBAction)IPAddressChanged:(id)sender
 {
+    /*
 	NSString *text = [sender text];
 	[[RacePadCoordinator Instance] SetServerAddress:text ShowWindow:YES LightRestart:false];
+     */
 }
 
 -(IBAction)connectPressed:(id)sender
