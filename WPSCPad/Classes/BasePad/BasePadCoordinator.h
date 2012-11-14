@@ -160,7 +160,7 @@ enum ConnectionTypes
 
 	float appVersionNumber;
     
-    id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
+	NSMutableArray * connectionFeedbackDelegates;		// id <ConnectionFeedbackDelegate>
 }
 
 @property (readonly) float appVersionNumber;
@@ -193,8 +193,6 @@ enum ConnectionTypes
 
 @property (nonatomic) bool diagnostics;
 
-@property (retain) id <ConnectionFeedbackDelegate> connectionFeedbackDelegate;
-
 +(BasePadCoordinator *)Instance;
 
 -(void)onStartUp;
@@ -213,6 +211,9 @@ enum ConnectionTypes
 -(void)jumpToTime:(float)time;
 
 -(bool)playingRealTime;
+
+-(void)AddConnectionFeedbackDelegate:(id <ConnectionFeedbackDelegate>)object;
+-(void)RemoveConnectionFeedbackDelegate:(id <ConnectionFeedbackDelegate>)object;
 
 -(void)setServerConnected:(bool)ok;
 -(bool)serverConnected;

@@ -17,7 +17,7 @@
 #import "MidasLoginController.h"
 #import <DCTTextFieldValidator/DCTTextFieldValidator.h>
 
-#define LOAD_ARCHIVE
+//#define LOAD_ARCHIVE
 
 CGPoint const LogoEndPoint;
 
@@ -87,7 +87,7 @@ CGPoint const LogoEndPoint;
 {
 	// Register the view controller
 	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:0];
-    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:self];
+    [[BasePadCoordinator Instance] AddConnectionFeedbackDelegate:self];
 
 }
 
@@ -95,7 +95,7 @@ CGPoint const LogoEndPoint;
 {
 	[super viewDidDisappear:animated];
 	[[RacePadCoordinator Instance] ReleaseViewController:self];
-    [[BasePadCoordinator Instance] setConnectionFeedbackDelegate:nil];
+    [[BasePadCoordinator Instance] RemoveConnectionFeedbackDelegate:self];
 
 	[self.particleView removeFromSuperview];
 }
@@ -306,14 +306,15 @@ CGPoint const LogoEndPoint;
 		
 		NSString *server = settings.IPAddress;
 		
-		if (!server)
+ 		if (!server)
+            //server = @"10.28.87.56";
             server = @"10.0.1.165";
         /*
-        {
+       {
 			[self loadArchive:self];
 			return;
 		}
-             */
+        */
 		
 		[[RacePadCoordinator Instance] SetServerAddress:server ShowWindow:YES LightRestart:false];
 	}];
