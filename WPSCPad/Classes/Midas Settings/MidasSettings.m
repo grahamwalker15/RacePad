@@ -72,7 +72,7 @@ NSString *const MidasSettingsVIPMarussiaVideoDefault = @"https://dl.dropbox.com/
 		
 		TFLog(@"%@ Connected to: %@", self, [self _currentSettingsServerHost]);
 		
-		if (false && data) {
+		if (data) {
 			NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 			
 			TFLog(@"%@ Received settings: %@", self, dictionary);
@@ -136,7 +136,7 @@ NSString *const MidasSettingsVIPMarussiaVideoDefault = @"https://dl.dropbox.com/
 		TFLog(@"%@ Attempting to connect to %@", self, vlsRequest.URL);
 		[NSURLConnection sendAsynchronousRequest:vlsRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 			
-			if (false && data) {
+			if (data) {
 				TFLog(@"%@ Received vls:\n%@", self, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 				NSFileManager *fileManager = [NSFileManager defaultManager];
 				NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];

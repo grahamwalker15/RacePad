@@ -17,8 +17,6 @@
 #import "MidasLoginController.h"
 #import <DCTTextFieldValidator/DCTTextFieldValidator.h>
 
-//#define LOAD_ARCHIVE
-
 CGPoint const LogoEndPoint;
 
 @interface MidasStartViewController ()
@@ -128,13 +126,16 @@ CGPoint const LogoEndPoint;
 	_canAnimateOffScreenCount--;
 	if (_canAnimateOffScreenCount > 0) return;
 	
-    // For loading archive
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    bool loadArchive = defaults ? [defaults boolForKey:@"archive_preference"] : false;
+    
 	[self _animateObjectsOffScreenWithDelay:0.5f completion:^(BOOL finished) {
-#ifdef LOAD_ARCHIVE
+
+    if(loadArchive)
 		[self loadArchive:nil]; // For loading archive
-#else
+    else
 		[self connectLive:nil]; // For connecting to live server
-#endif
 	}];
 }
 

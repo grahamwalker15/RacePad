@@ -8,6 +8,7 @@
 
 #import "MidasVIPViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "BasePadCoordinator.h"
 #import "TestFlight.h"
 #import "MidasSettings.h"
 
@@ -31,13 +32,35 @@
 	[super viewDidLoad];
 	
 	MidasSettings *settings = [MidasSettings sharedSettings];
-	[settings waitForSettings:^{
-		_videos = @[
-			settings.VIPEddieJordanVideoURL,
-			settings.VIPMarussiaVideoURL,
-			settings.VIPSoftbankVideoURL
-		];
-	}];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    bool loadArchive = defaults ? [defaults boolForKey:@"archive_preference"] : false;
+
+    if(loadArchive)
+    {
+        NSString * documentFolderString = [[BasePadCoordinator Instance] getVideoArchiveRoot];
+
+        NSURL * VIPEddieJordanVideoURL = [NSURL fileURLWithPath:[documentFolderString stringByAppendingPathComponent:@"VIPEddieJordanVideo.m4v"]];	// auto released
+        NSURL * VIPMarussiaVideoURL = [NSURL fileURLWithPath:[documentFolderString stringByAppendingPathComponent:@"VIPMarussiaVideo.m4v"]];	// auto released
+        NSURL * VIPSoftbankVideoURL = [NSURL fileURLWithPath:[documentFolderString stringByAppendingPathComponent:@"VIPSoftbankVideo.m4v"]];	// auto released
+
+        _videos = @[
+            VIPEddieJordanVideoURL,
+            VIPMarussiaVideoURL,
+            VIPSoftbankVideoURL
+        ];
+    }
+    else
+    {
+        [settings waitForSettings:^{
+            _videos = @[
+                settings.VIPEddieJordanVideoURL,
+                settings.VIPMarussiaVideoURL,
+                settings.VIPSoftbankVideoURL
+            ];
+        }];
+    }
 	
 	UIImage *image = [self.titleImageView.image resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)];
 	self.titleImageView.image = image;

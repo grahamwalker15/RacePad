@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
+		<int key="IBDocument.SystemTarget">1280</int>
 		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
@@ -275,7 +275,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">SUZUKA</string>
+						<string key="IBUIText">AUSTIN</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -308,7 +308,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">JAPAN</string>
+						<string key="IBUIText">USA</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -340,7 +340,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Japan.png</string>
+							<string key="NSResourceName">USA.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="328709372">
@@ -355,7 +355,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">7.10.2012</string>
+						<string key="IBUIText">18.11.2012</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -1034,10 +1034,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
 			<integer value="3100" key="NS.object.0"/>
@@ -1050,10 +1046,10 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>Circuit-views-container.png</string>
 				<string>Circuit-views-icon.png</string>
-				<string>Japan.png</string>
 				<string>Sunny-weather-icons.png</string>
 				<string>Thumbs-line-Standings.png</string>
 				<string>TopHeading.png</string>
+				<string>USA.png</string>
 				<string>menuCircuitIconAttachMap~ipad.png</string>
 				<string>menuCircuitIconDetachMap~ipad.png</string>
 				<string>shadow-CV-1.png</string>
@@ -1062,10 +1058,10 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{364, 552}</string>
 				<string>{55, 60}</string>
-				<string>{48, 48}</string>
 				<string>{32, 28}</string>
 				<string>{1, 48}</string>
 				<string>{27, 60}</string>
+				<string>{48, 48}</string>
 				<string>{135, 35}</string>
 				<string>{135, 35}</string>
 				<string>{364, 40}</string>
