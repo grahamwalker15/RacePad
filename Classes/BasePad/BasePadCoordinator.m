@@ -56,7 +56,6 @@
 @synthesize lightRestart;
 @synthesize diagnostics;
 @synthesize forceDataLive;
-@synthesize connectionFeedbackDelegate;
 
 static BasePadCoordinator * instance_ = nil;
 
@@ -123,7 +122,8 @@ static BasePadCoordinator * instance_ = nil;
 		currentSponsor = [[BasePadSponsor Instance] sponsor];
         
         settingsViewController = nil;
-        connectionFeedbackDelegate = nil;
+        
+        connectionFeedbackDelegates = [[NSMutableArray alloc] init];
 	}
 	
 	return self;
@@ -132,17 +132,23 @@ static BasePadCoordinator * instance_ = nil;
 - (void)dealloc
 {
 	[socket_ Disconnect];
+    
 	[views removeAllObjects];
 	[views release];
+    
 	[dataSources removeAllObjects];
 	[dataSources release];
+    
 	[registeredViewController release];
 	[sessionPrefix release];
 	[downloadProgress release];
 	[serverConnect release];
 	[workOffline release];
 	[settingsViewController release];
-	[(id)connectionFeedbackDelegate release];
+    
+	[connectionFeedbackDelegates removeAllObjects];
+	[connectionFeedbackDelegates release];
+    
 	[videoViewController release];
 	[allTabs release];
     [super dealloc];
@@ -931,6 +937,40 @@ static BasePadCoordinator * instance_ = nil;
 // Socket management
 ////////////////////////////////////////////////////////////////////////////////////////
 
+-(void)AddConnectionFeedbackDelegate:(id <ConnectionFeedbackDelegate>)object
+{
+	// First make sure that this object is not already in the list
+    int delegate_count = [connectionFeedbackDelegates count];
+    if(delegate_count > 0)
+    {
+        for ( int i = 0 ; i < delegate_count ; i++)
+        {
+            if(object == [connectionFeedbackDelegates objectAtIndex:i])
+                return;
+        }
+    }
+	
+	// Reach here if the view wasn't found - so we'll add a new one
+	[connectionFeedbackDelegates addObject:object];
+}
+
+-(void)RemoveConnectionFeedbackDelegate:(id <ConnectionFeedbackDelegate>)object
+{
+	// First make sure that this object is not already in the list
+    int delegate_count = [connectionFeedbackDelegates count];
+    if(delegate_count > 0)
+    {
+        for ( int i = 0 ; i < delegate_count ; i++)
+        {
+            if(object == [connectionFeedbackDelegates objectAtIndex:i])
+            {
+                [connectionFeedbackDelegates removeObjectAtIndex:i];
+                return;
+            }
+        }
+    }
+}
+
 -(void) requestInitialData
 {
 	// Override me
@@ -973,7 +1013,16 @@ static BasePadCoordinator * instance_ = nil;
 	}
 	
 	[settingsViewController updateServerState];
-    [connectionFeedbackDelegate notifyConnectionSucceeded];
+    
+    int delegate_count = [connectionFeedbackDelegates count];
+    if(delegate_count > 0)
+    {
+        for ( int i = 0 ; i < delegate_count ; i++)
+        {
+            id <ConnectionFeedbackDelegate> delegate = [connectionFeedbackDelegates objectAtIndex:i];
+            [delegate notifyConnectionSucceeded];
+        }
+    }
 }
 
 - (void) retryConnection:(NSTimer *)timer
@@ -982,7 +1031,16 @@ static BasePadCoordinator * instance_ = nil;
 	{
 		connectionRetryCount++;
 		[self SetServerAddress:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"] ShowWindow:NO LightRestart:false];
-        [connectionFeedbackDelegate notifyConnectionRetry];
+        
+        int delegate_count = [connectionFeedbackDelegates count];
+        if(delegate_count > 0)
+        {
+            for ( int i = 0 ; i < delegate_count ; i++)
+            {
+                id <ConnectionFeedbackDelegate> delegate = [connectionFeedbackDelegates objectAtIndex:i];
+                [delegate notifyConnectionRetry];
+            }
+        }
 	}
 	else
 	{
@@ -1002,7 +1060,16 @@ static BasePadCoordinator * instance_ = nil;
 	restartTime = 0;
 	
 	[settingsViewController updateServerState];
-    [connectionFeedbackDelegate notifyConnectionTimeout];
+    
+    int delegate_count = [connectionFeedbackDelegates count];
+    if(delegate_count > 0)
+    {
+        for ( int i = 0 ; i < delegate_count ; i++)
+        {
+            id <ConnectionFeedbackDelegate> delegate = [connectionFeedbackDelegates objectAtIndex:i];
+            [delegate notifyConnectionTimeout];
+        }
+    }
 }
 
 -(bool) serverConnected
@@ -1098,8 +1165,15 @@ static BasePadCoordinator * instance_ = nil;
 		[settingsViewController updateServerState];
 	}
     
-    [connectionFeedbackDelegate notifyConnectionFailed];
-    
+    int delegate_count = [connectionFeedbackDelegates count];
+    if(delegate_count > 0)
+    {
+        for ( int i = 0 ; i < delegate_count ; i++)
+        {
+            id <ConnectionFeedbackDelegate> delegate = [connectionFeedbackDelegates objectAtIndex:i];
+            [delegate notifyConnectionFailed];
+        }
+    }
 }
 
 - (void) goOffline
