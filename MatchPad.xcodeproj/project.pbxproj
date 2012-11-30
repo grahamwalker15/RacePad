@@ -207,6 +207,7 @@
 		7F7F8F8F16302CC4001F1229 /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F7F8F8E16302CC4001F1229 /* TimeControllerView.xib */; };
 		7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157D51497A0FA00A013BC /* GreyTextureBG.png */; };
 		7F9B68461667EA5A00B219AF /* MatchPadMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */; };
+		7F9B6A101669605900B219AF /* StatsTeam.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9B6A0F1669605900B219AF /* StatsTeam.png */; };
 		7FA862DA13D430DB006CCD74 /* Icon-72MP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA862D813D430DB006CCD74 /* Icon-72MP.png */; };
 		7FA862DB13D430DB006CCD74 /* IconMP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA862D913D430DB006CCD74 /* IconMP.png */; };
 /* End PBXBuildFile section */
@@ -519,6 +520,7 @@
 		7F93547B12F6E48600AB1D07 /* HelpButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelpButton.png; path = Images/HelpButton.png; sourceTree = "<group>"; };
 		7F93547C12F6E48600AB1D07 /* HelpButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelpButtonHighlighted.png; path = Images/HelpButtonHighlighted.png; sourceTree = "<group>"; };
 		7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MatchPadMainWindow.xib; path = ResourceFiles/MatchXIB/MatchPadMainWindow.xib; sourceTree = "<group>"; };
+		7F9B6A0F1669605900B219AF /* StatsTeam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StatsTeam.png; path = Images/MatchPad/StatsTeam.png; sourceTree = "<group>"; };
 		7F9C12CD12560D5700770746 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7F9C12CF12560D6600770746 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		7F9C1514125759D900770746 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -955,6 +957,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F9B6A0F1669605900B219AF /* StatsTeam.png */,
 				7F6D188A1667D238007672DF /* ShadowListBottom.png */,
 				7F6D164E1666409A007672DF /* MenuReplaysBG.png */,
 				7F6D164416664043007672DF /* MenuShadow.png */,
@@ -1210,6 +1213,7 @@
 				7F6D164F1666409A007672DF /* MenuReplaysBG.png in Resources */,
 				7F6D188B1667D238007672DF /* ShadowListBottom.png in Resources */,
 				7F9B68461667EA5A00B219AF /* MatchPadMainWindow.xib in Resources */,
+				7F9B6A101669605900B219AF /* StatsTeam.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
