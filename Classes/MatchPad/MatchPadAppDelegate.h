@@ -8,8 +8,13 @@
 
 #import "BasePadAppDelegate.h"
 
+@class MatchPadVideoViewController;
+
 @interface MatchPadAppDelegate : BasePadAppDelegate
 {
+	MatchPadVideoViewController *mainViewController;
 }
+
+@property (nonatomic, retain) IBOutlet MatchPadVideoViewController *mainViewController;
 
 @end

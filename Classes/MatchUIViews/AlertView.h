@@ -24,7 +24,13 @@ enum AlertFilter {
 {
 	int filter;
 	NSString *player;
+
+	UIColor * defaultTextColour;
+	UIColor * defaultBackgroundColour;
 }
+
+@property (retain) UIColor * defaultTextColour;
+@property (retain) UIColor * defaultBackgroundColour;
 
 -(void) setFilter:(int) type Player:(NSString *)player;
 -(int) filteredRowToDataRow:(int)row;

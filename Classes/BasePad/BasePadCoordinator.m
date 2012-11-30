@@ -832,6 +832,7 @@ static BasePadCoordinator * instance_ = nil;
 
 -(void)onSessionLoaded
 {
+	// Override to do something
 }
 
 -(NSString *)getVideoArchiveRoot
@@ -1180,6 +1181,7 @@ static BasePadCoordinator * instance_ = nil;
 {
 	if ( workOffline == nil )
 		workOffline = [[WorkOffline alloc] initWithNibName:@"WorkOffline" bundle:nil];
+	
 	[registeredViewController presentModalViewController:workOffline animated:YES];
 }
 

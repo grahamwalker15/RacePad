@@ -209,7 +209,7 @@
 		[movieView notifyMovieAboutToShowSource:self];
 	
 	// Kick off a timer to fail if the connection doesn't get started within 25 secs
-	errorTimer = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO];
+	errorTimer = [[NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO] retain];
     
 	loading = true;
 	
@@ -240,7 +240,7 @@
 			 if(shouldDisplay)
 			 {
 				 // Kick off a timer to fail if the connection doesn't complete within 15 secs
-				 errorTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO];
+				 errorTimer = [[NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(errorTimerExpired:) userInfo:nil repeats:NO] retain];
                  
 				 // Attach to a player
 				 [self performSelectorOnMainThread:@selector(attachMovie) withObject:nil waitUntilDone:true];
@@ -1307,8 +1307,9 @@
 
 - (void) errorTimerExpired:(NSTimer *)theTimer
 {
+	[errorTimer release];
 	errorTimer = nil;
-	
+
 	[self unloadMovie];
 	
 	if(currentError)
@@ -1337,6 +1338,7 @@
 	if(errorTimer)
 	{
 		[errorTimer invalidate];
+		[errorTimer release];
 		errorTimer = nil;
 	}
 }

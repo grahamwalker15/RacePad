@@ -28,18 +28,8 @@
     
     // Override point for customization after app launch.
 	
-	// Create the co-ordinator
-	[[BasePadCoordinator Instance] onStartUp];
-	
-	// Create the media handler
-	[[BasePadMedia Instance] onStartUp];
-	
-	// Create the time controller and title bar controller
-	[[BasePadTimeController Instance] onStartUp];
-	[[BasePadTitleBarController Instance] onStartUp];
-	
-	// Load the prefs
-	[BasePadPrefs Instance];
+	// Start the coordinator, media handler etc.
+	[self startBaseServices];
 	
     // Add the tab bar controller's current view as a subview of the window
     [window addSubview:tabBarController.view];
@@ -52,6 +42,25 @@
 	[[BasePadCoordinator Instance] performSelector:@selector(onDisplayFirstView) withObject:nil afterDelay: 0.1];
 	// [[BasePadCoordinator Instance] onDisplayFirstView];
     return YES;
+}
+
+- (void) startBaseServices
+{
+    
+    // Override point for customization after app launch.
+	
+	// Create the co-ordinator
+	[[BasePadCoordinator Instance] onStartUp];
+	
+	// Create the media handler
+	[[BasePadMedia Instance] onStartUp];
+	
+	// Create the time controller and title bar controller
+	[[BasePadTimeController Instance] onStartUp];
+	[[BasePadTitleBarController Instance] onStartUp];
+	
+	// Load the prefs
+	[BasePadPrefs Instance];
 }
 
 

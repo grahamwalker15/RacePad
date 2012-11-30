@@ -17,6 +17,7 @@
 @synthesize managedExclusionZone;
 @synthesize overhang;
 @synthesize preferredWidth;
+@synthesize showHeadingAtStart;
 
 -(id)init
 {
@@ -29,12 +30,15 @@
 		
 		viewDisplayed = false;
 		hiding = false;
+		notifyAfterHide = false;
 		
 		xAlignment = POPUP_ALIGN_LEFT_;
 		yAlignment = POPUP_ALIGN_BOTTOM_;
 		
 		overhang = 0.0;
 		preferredWidth = -1.0;
+		
+		showHeadingAtStart = false;
 		
 		hideTimer = nil;
 		flagTimer = nil;
@@ -87,7 +91,8 @@
 	// Get the new positions
 	CGRect superBounds = [viewController.view bounds];
 	CGRect ourBounds = [managedViewController.view bounds];
-	
+	CGRect ourContainerBounds = [managedViewController.container bounds];
+
 	xAlignment = xAlign;
 	yAlignment = yAlign;
 	revealDirection= direction;
@@ -97,7 +102,7 @@
 	if(xAlignment == POPUP_ALIGN_FULL_SCREEN_)
 	{
 		if(direction == POPUP_DIRECTION_RIGHT_)
-			initialX = - CGRectGetWidth(ourBounds);
+			initialX = -CGRectGetWidth(ourBounds);
 		else if(direction == POPUP_DIRECTION_LEFT_)
 			initialX = CGRectGetWidth(superBounds);
 		else
@@ -107,11 +112,27 @@
 	}
 	else if(xAlignment == POPUP_ALIGN_RIGHT_)
 	{
-		initialX = finalX = x - CGRectGetWidth(ourBounds) + overhang;
+		if(direction == POPUP_DIRECTION_RIGHT_)
+			initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
+		else if(direction == POPUP_DIRECTION_LEFT_)
+			initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
+		else
+			initialX = x - CGRectGetWidth(ourBounds) + overhang;
+		
+		finalX = x - CGRectGetWidth(ourBounds) + overhang;
+
 	}
-	else
+	else // Align left
 	{
-		initialX = finalX = x;
+		if(direction == POPUP_DIRECTION_RIGHT_)
+			initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
+		else if(direction == POPUP_DIRECTION_LEFT_)
+			initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
+		else
+			initialX = x;
+		
+		finalX = x;
+
 	}
 	
 	if(yAlignment == POPUP_ALIGN_FULL_SCREEN_)
@@ -127,13 +148,25 @@
 	}
 	else if(yAlignment == POPUP_ALIGN_TOP_)
 	{
-		initialY = - CGRectGetHeight(ourBounds);
+		if(direction == POPUP_DIRECTION_DOWN_)
+			initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
+		else if(direction == POPUP_DIRECTION_UP_)
+			initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
+		else
+			initialY = 0;
+		
 		finalY = 0;
 	}
-	else
+	else // Align bottom
 	{
-		initialY = CGRectGetMaxY(superBounds);
-		finalY = initialY - CGRectGetHeight(ourBounds);
+		if(direction == POPUP_DIRECTION_DOWN_)
+			initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
+		else if(direction == POPUP_DIRECTION_UP_)
+			initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
+		else
+			initialY = CGRectGetMaxY(superBounds) - CGRectGetHeight(ourBounds);
+
+		finalY = CGRectGetMaxY(superBounds) - CGRectGetHeight(ourBounds);
 	}
 	
 	[managedViewController.view setHidden:true];
@@ -223,6 +256,7 @@
 	}
 	
 	hiding = true;
+	notifyAfterHide = notify;
 	
 	if(hideTimer)
 	{
@@ -233,31 +267,24 @@
 	// Get the new positions
 	CGRect superBounds = [parentViewController.view bounds];
 	CGRect ourFrame = [managedViewController.view frame];
+	CGRect ourContainerBounds = [managedViewController.container bounds];
+	
+	float remainder = showHeadingAtStart ? CGRectGetWidth(ourFrame) - CGRectGetWidth(ourContainerBounds) : 0.0;
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:0.5];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(hideAnimationDidStop:finished:context:)];
 	
-	if(xAlignment == POPUP_ALIGN_FULL_SCREEN_ || xAlignment == POPUP_ALIGN_FULL_SCREEN_)
-	{
-		if(revealDirection == POPUP_DIRECTION_RIGHT_)
-			[managedViewController.view setFrame:CGRectOffset(ourFrame, -CGRectGetWidth(superBounds), 0)];
-		else if(revealDirection == POPUP_DIRECTION_LEFT_)
-			[managedViewController.view setFrame:CGRectOffset(ourFrame, CGRectGetWidth(superBounds), 0)];
-		else if(revealDirection == POPUP_DIRECTION_UP_)
-			[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds))];
-		else if(revealDirection == POPUP_DIRECTION_DOWN_)
-			[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, -CGRectGetHeight(superBounds))];
-	}
-	else if(yAlignment == POPUP_ALIGN_TOP_)
-	{
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, -CGRectGetHeight(ourFrame) )];
-	}
-	else
-	{
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(ourFrame))];
-	}
+	if(revealDirection == POPUP_DIRECTION_RIGHT_)
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, remainder - CGRectGetMaxX(ourFrame), 0)];
+	else if(revealDirection == POPUP_DIRECTION_LEFT_)
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, CGRectGetWidth(superBounds) - CGRectGetMinX(ourFrame) - remainder, 0)];
+	else if(revealDirection == POPUP_DIRECTION_UP_)
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds) - CGRectGetMinY(ourFrame) - remainder)];
+	else if(revealDirection == POPUP_DIRECTION_DOWN_)
+		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, remainder - CGRectGetMaxY(ourFrame))];
+
 	
 	if(notify && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidingPopup:)])
 		[parentViewController notifyHidingPopup:managedViewType];
@@ -273,6 +300,9 @@
 {
 	hiding = false;
     
+	if(notifyAfterHide && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidPopup:)])
+		[parentViewController notifyHidPopup:managedViewType];
+	
 	[managedViewController onHide];
     
 	[managedViewController.view removeFromSuperview];

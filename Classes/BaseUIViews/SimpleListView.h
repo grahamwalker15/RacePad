@@ -8,6 +8,8 @@
 
 #import "DrawingView.h"
 
+#import <UIKit/UIGestureRecognizerSubclass.h>
+
 // Cell types
 enum CellTypes {
 	SLV_TEXT_CELL_,
@@ -40,7 +42,18 @@ enum ColumnPriority {
 #define SLV_MAX_COLUMNS 1024
 #define SLV_MAX_ROWS 1024	// Actually just max number of rows that can be expanded, or have adaptable height cached
 
-@interface SimpleListView : DrawingView <UIScrollViewDelegate>
+@class SimpleListView;
+
+@protocol SimpleListViewDelegate
+- (bool) SLVHandleSelectHeadingInView:(SimpleListView *)view;
+- (bool) SLVHandleSelectRowInView:(SimpleListView *)view Row:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (bool) SLVHandleSelectColInView:(SimpleListView *)view Col:(int)col;
+- (bool) SLVHandleSelectCellInView:(SimpleListView *)view Row:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (bool) SLVHandleSelectBackgroundInView:(SimpleListView *)view DoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (void) SLVHandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+@end
+
+@interface SimpleListView : DrawingView <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 {
 @protected
 	
@@ -109,6 +122,11 @@ enum ColumnPriority {
 	int alignment_;
 	
 	bool portraitMode;;
+
+	NSTimer *doubleTapTimer;
+	CGPoint tapPoint;
+	
+	UIViewController <SimpleListViewDelegate> * gestureDelegate;
     
 }
 
@@ -132,6 +150,8 @@ enum ColumnPriority {
 @property (nonatomic, retain, setter=SetSelectedTextColour:, getter=SetSelectedTextColour) UIColor * selected_text_colour_;
 @property (nonatomic, retain, setter=SetTextColour:, getter=TextColour) UIColor * text_colour_;
 @property (nonatomic, retain, setter=SetBackgroundColour:, getter=BackgroundColour) UIColor * background_colour_;
+
+@property (nonatomic, retain) UIViewController <SimpleListViewDelegate> * gestureDelegate;
 
 - (void) DeleteTable;
 
@@ -218,5 +238,30 @@ enum ColumnPriority {
 
 - (bool) FindCellAtX:(float)x Y:(float)y RowReturn:(int *)row_return ColReturn:(int *)col_return;
 - (bool) InExpansionForRow:(int)row AtY:(float)y;
+
+- (bool) HandleSelectHeading;
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (bool) HandleSelectCol:(int)col;
+- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press;
+- (void) HandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+
+// Gesture recognizer creation
+
+-(void) addTapRecognizer;
+-(void) addDoubleTapRecognizer;
+-(void) addLongPressRecognizer;
+
+// Gesture recognizer callbacks
+
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
+- (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer;
+- (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer;
+
+// Action callbacks
+
+- (void) OnTapGestureAtX:(float)x Y:(float)y;
+- (void) OnDoubleTapGestureAtX:(float)x Y:(float)y;
+- (void) OnLongPressGestureAtX:(float)x Y:(float)y;
 
 @end

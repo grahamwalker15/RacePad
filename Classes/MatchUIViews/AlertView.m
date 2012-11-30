@@ -14,6 +14,21 @@
 
 @implementation AlertView
 
+@synthesize defaultBackgroundColour;
+@synthesize defaultTextColour;
+
+- (id)initWithCoder:(NSCoder*)coder
+{    
+    if ((self = [super initWithCoder:coder]))
+    {
+		[self SetBaseColour:white_];
+		[self setDefaultTextColour:black_];
+		[self setDefaultBackgroundColour:white_];
+		[self setStandardRowHeight:28];
+	}
+	
+    return self;
+}
 
 - (void)dealloc
 {
@@ -29,7 +44,6 @@
 - (void)PrepareData
 {
 	[super PrepareData];
-	[self SetBaseColour:white_];
 }
 
 - (int) ColumnCount
@@ -49,7 +63,7 @@
 		case 0:
 			return 30;
 		case 1:
-			return 620;
+			return 290;
 		default:
 			return 0;
 	}
@@ -155,8 +169,8 @@
 
 - (NSString *) GetCellTextAtRow:(int)row Col:(int)col
 {
-	[self SetTextColour:black_];
-	[self SetBackgroundColour:white_];
+	[self SetTextColour:defaultTextColour];
+	[self SetBackgroundColour:defaultBackgroundColour];
 	
 	AlertData * alertData = [[MatchPadDatabase Instance] alertData];
 	int dataRow = [self filteredRowToDataRow:row];
@@ -180,7 +194,7 @@
 
 - (UIImage *) GetCellImageAtRow:(int)row Col:(int)col
 {
-	[self SetBackgroundColour:white_];
+	[self SetBackgroundColour:defaultBackgroundColour];
 	
 	if(col != 0)
 		return nil;

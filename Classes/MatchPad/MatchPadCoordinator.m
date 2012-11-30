@@ -229,6 +229,21 @@ static MatchPadCoordinator * instance_ = nil;
 	}
 }
 
+///////////////////////////////////////
+// Overrides for connection callbacks
+
+-(void)onSessionLoaded
+{
+	[[BasePadMedia Instance] verifyMovieLoaded];
+	[self prepareToPlay];
+	[self startPlay];
+}
+
+- (void) onSuccessfulConnection
+{
+	[[BasePadMedia Instance] verifyMovieLoaded];
+}
+
 @end
 
 

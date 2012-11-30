@@ -32,6 +32,8 @@
 @synthesize text_colour_;
 @synthesize background_colour_;
 
+@synthesize gestureDelegate;
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 //  Super class overrides
@@ -78,6 +80,8 @@
 	[text_colour_ release];
 	[background_colour_ release];
 	
+	[gestureDelegate release];
+	
     [super dealloc];
 }
 
@@ -89,6 +93,8 @@
 - (void)InitialiseSimpleListViewMembers
 {
 	[self setDelegate:self];
+	
+	gestureDelegate = nil;
 	
 	row_count_ = 0;
 	standardRowHeight = 20;
@@ -155,6 +161,8 @@
 	reset_scroll_requested_ = false;
 	scroll_animating_ = false;
 	scrollTimeoutTimer = nil;
+	
+	doubleTapTimer = nil;
 }
 
 - (void) DeleteTable
@@ -1068,6 +1076,264 @@
         return true;
 	
 	return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// Gesture recognizers
+
+-(void) addTapRecognizer
+{
+	// Tap recognizer
+	UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleTapFrom:)];
+	[recognizer setCancelsTouchesInView:false];
+	[recognizer setDelegate:self];
+	[self addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
+-(void) addDoubleTapRecognizer
+{
+	// Double Tap recognizer
+	UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(HandleDoubleTapFrom:)];
+	[(UITapGestureRecognizer *)recognizer setNumberOfTapsRequired:2];
+	[self addGestureRecognizer:recognizer];
+	[recognizer release];
+		
+	[self SetDoubleTapEnabled:true];
+}
+
+-(void) addLongPressRecognizer
+{	
+	// Long press recognizer
+	UILongPressGestureRecognizer * recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(HandleLongPressFrom:)];
+	[recognizer setCancelsTouchesInView:false];
+	[recognizer setDelegate:self];
+	[self addGestureRecognizer:recognizer];
+	[recognizer release];
+}
+
+// Gesture recognizer callbacks
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+	// Prevent us grabbing touches on control buttons
+	if(touch && [[touch.view class] isSubclassOfClass:[UIControl class]])
+		return false;	
+	
+	return true;
+}
+
+- (void)HandleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	UIView * tapView = [gestureRecognizer view];
+
+	if(tapView != self)
+		return;
+	
+	tapPoint = [gestureRecognizer locationInView:tapView];
+	
+	if(double_tap_enabled_)
+	{
+		doubleTapTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(doubleTapTimerExpired:) userInfo:nil repeats:NO];
+	}
+	else
+	{
+		[self OnTapGestureAtX:tapPoint.x Y:tapPoint.y];
+	}
+}
+
+- (void)HandleDoubleTapFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	if(doubleTapTimer)
+	{
+		[doubleTapTimer invalidate];
+		doubleTapTimer = nil;
+	}
+	
+	UIView * gestureView = [gestureRecognizer view];
+
+	if(gestureView != self)
+		return;
+	
+	CGPoint point = [gestureRecognizer locationInView:gestureView];
+	[self OnDoubleTapGestureAtX:point.x Y:point.y];
+}
+
+- (void)HandleLongPressFrom:(UIGestureRecognizer *)gestureRecognizer
+{
+	// Don't respond to end state
+	if([gestureRecognizer state] == UIGestureRecognizerStateEnded)
+		return;
+	
+	UIView * gestureView = [gestureRecognizer view];
+
+	if(gestureView != self)
+		return;
+	
+	CGPoint point = [gestureRecognizer locationInView:gestureView];
+	[self OnLongPressGestureAtX:point.x Y:point.y];
+}
+
+- (void) doubleTapTimerExpired: (NSTimer *)theTimer
+{
+	[self OnTapGestureAtX:tapPoint.x Y:tapPoint.y];
+	doubleTapTimer = nil;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+// Action callbacks
+
+- (bool) HandleSelectHeading
+{
+	if(gestureDelegate && [gestureDelegate respondsToSelector:@selector(SLVHandleSelectHeadingInView:)])
+		return [gestureDelegate SLVHandleSelectHeadingInView:self];
+	else
+		return false;
+}
+
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	if(gestureDelegate && [gestureDelegate respondsToSelector:@selector(SLVHandleSelectRowInView:Row:DoubleClick:LongPress:)])
+		return [gestureDelegate SLVHandleSelectRowInView:self Row:row DoubleClick:double_click LongPress:long_press];
+	else
+		return false;
+}
+
+- (bool) HandleSelectCol:(int)col
+{
+	if(gestureDelegate && [gestureDelegate respondsToSelector:@selector(SLVHandleSelectColInView:Col:)])
+		return [gestureDelegate SLVHandleSelectColInView:self Col:col];
+	else
+		return false;
+}
+
+- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	if(gestureDelegate && [gestureDelegate respondsToSelector:@selector(SLVHandleSelectCellInView:Row:Col:DoubleClick:LongPress:)])
+		return [gestureDelegate SLVHandleSelectCellInView:self Row:row Col:col DoubleClick:double_click LongPress:long_press];
+	else
+		return false;
+}
+
+- (bool) HandleSelectBackgroundDoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	if(gestureDelegate && [gestureDelegate respondsToSelector:@selector(SLVHandleSelectBackgroundInView:DoubleClick:LongPress:)])
+		return [gestureDelegate SLVHandleSelectBackgroundInView:self DoubleClick:double_click LongPress:long_press];
+	else
+		return false;
+}
+
+- (void) HandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+	if(gestureDelegate && [gestureDelegate respondsToSelector:@selector(SLVHandleTapGestureInView:AtX:Y:)])
+		return [gestureDelegate SLVHandleTapGestureInView:gestureView AtX:x Y:y];
+}
+
+- (void) OnTapGestureAtX:(float)x Y:(float)y
+{
+	int row = -1;
+	int col = -1;
+	
+	if([self FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+	{
+		bool if_heading = [self IfHeading];
+		
+		if(if_heading && row == 0)
+		{
+			if(![self HandleSelectCol:col])
+			{
+				[self HandleSelectHeading];
+			}
+		}
+		else
+		{
+			if(if_heading)
+				row --;
+			
+			if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:false])
+			{
+				if(![self HandleSelectRow:row DoubleClick:false LongPress:false])
+				{
+					[self HandleTapGestureInView:self AtX:x Y:y];
+				}
+			}
+		}
+	}
+	else
+	{
+		if(![self HandleSelectBackgroundDoubleClick:false LongPress:false])
+		{
+			[self HandleTapGestureInView:self AtX:x Y:y];
+		}
+	}
+}
+
+- (void) OnDoubleTapGestureAtX:(float)x Y:(float)y
+{
+	int row = -1;
+	int col = -1;
+	
+	if([self FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+	{
+		bool if_heading = [self IfHeading];
+		
+		if(if_heading && row == 0)
+		{
+			if(![self HandleSelectCol:col])
+			{
+				[self HandleSelectHeading];
+			}
+		}
+		else
+		{
+			if(if_heading)
+				row --;
+			
+			if(![self HandleSelectCellRow:row Col:col DoubleClick:true LongPress:false])
+			{
+				[self HandleSelectRow:row DoubleClick:true LongPress:false];
+			}
+		}
+	}
+	else
+	{
+		[self HandleSelectBackgroundDoubleClick:true LongPress:false];
+	}		
+}
+
+- (void) OnLongPressGestureAtX:(float)x Y:(float)y
+{
+	int row = -1;
+	int col = -1;
+	
+	if([self FindCellAtX:x Y:y RowReturn:&row ColReturn:&col])
+	{
+		bool if_heading = [self IfHeading];
+		
+		if(if_heading && row == 0)
+		{
+			if(![self HandleSelectCol:col])
+			{
+				[self HandleSelectHeading];
+			}
+		}
+		else
+		{
+			if(if_heading)
+				row --;
+			
+			if(![self HandleSelectCellRow:row Col:col DoubleClick:false LongPress:true])
+			{
+				[self HandleSelectRow:row DoubleClick:false LongPress:true];
+			}
+		}
+	}
+	else
+	{
+		[self HandleSelectBackgroundDoubleClick:false LongPress:true];
+	}
 }
 
 @end

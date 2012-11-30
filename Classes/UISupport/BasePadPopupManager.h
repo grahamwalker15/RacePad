@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "BasePadViewController.h"
+#import "BasePadPopupViewController.h"
 
 // View alignment
 enum PopupViewAlignment
@@ -43,18 +44,14 @@ enum PopupViewTypes // Defined by derived class
 - (void)notifyShowingPopup:(int)popupType;
 - (void)notifyShowedPopup:(int)popupType;
 - (void)notifyHidingPopup:(int)popupType;
+- (void)notifyHidPopup:(int)popupType;
 - (void)notifyResizingPopup:(int)popupType;
 - (void)notifyExclusiveUse:(int)popupType InZone:(int)popupZone;
 @end
 
-@protocol BasePadPopupManagerDelegate
-- (void)onDisplay;
-- (void)onHide;
-@end
-
 @interface BasePadPopupManager : NSObject <UIGestureRecognizerDelegate>
 {
-	BasePadViewController <BasePadPopupManagerDelegate> * managedViewController;
+	BasePadPopupViewController * managedViewController;
 	int managedViewType;
 	int managedExclusionZone;
 	
@@ -62,7 +59,9 @@ enum PopupViewTypes // Defined by derived class
 	NSTimer *flagTimer;
 	
 	bool viewDisplayed;
+	
 	bool hiding;
+	bool notifyAfterHide;
 	
 	int xAlignment;
 	int yAlignment;
@@ -70,6 +69,8 @@ enum PopupViewTypes // Defined by derived class
 	
 	float overhang;
 	float preferredWidth;
+	
+	bool showHeadingAtStart;
 	
 	BasePadViewController <BasePadPopupParentDelegate>  * parentViewController;
 }
@@ -79,8 +80,9 @@ enum PopupViewTypes // Defined by derived class
 @property(nonatomic) int managedExclusionZone;
 @property(nonatomic) float overhang;
 @property(nonatomic) float preferredWidth;
-@property (nonatomic, assign) BasePadViewController <BasePadPopupManagerDelegate> *managedViewController;
+@property (nonatomic, assign) BasePadPopupViewController *managedViewController;
 @property (readonly) BasePadViewController <BasePadPopupParentDelegate> *parentViewController;
+@property(nonatomic) bool showHeadingAtStart;
 
 - (void) onStartUp;
 
