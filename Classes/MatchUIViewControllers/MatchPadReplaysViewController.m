@@ -88,14 +88,6 @@
 
 ////////////////////////////////////////////////////////////////////////////
 
-- (void) onDisplay
-{
-}
-
-- (void) onHide
-{
-}
-
 -(IBAction)replaySelected:(id)sender
 {
 }

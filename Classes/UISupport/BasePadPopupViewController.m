@@ -100,11 +100,19 @@
 	}
 }
 
-- (void) onDisplay
+- (void) willDisplay
 {
 }
 
-- (void) onHide
+- (void) willHide
+{
+}
+
+- (void) didDisplay
+{
+}
+
+- (void) didHide
 {
 }
 

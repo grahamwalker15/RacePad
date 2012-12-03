@@ -15,6 +15,8 @@
 @synthesize parentViewController;
 @synthesize managedViewType;
 @synthesize managedExclusionZone;
+@synthesize appearStyle;
+@synthesize dismissStyle;
 @synthesize overhang;
 @synthesize preferredWidth;
 @synthesize showHeadingAtStart;
@@ -34,6 +36,9 @@
 		
 		xAlignment = POPUP_ALIGN_LEFT_;
 		yAlignment = POPUP_ALIGN_BOTTOM_;
+		
+		appearStyle = POPUP_SLIDE_;
+		dismissStyle = POPUP_SLIDE_;
 		
 		overhang = 0.0;
 		preferredWidth = -1.0;
@@ -87,7 +92,7 @@
 	parentViewController = (BasePadViewController <BasePadPopupParentDelegate>  *)[viewController retain];
 	
 	[managedViewController setParentViewController:viewController];
-	[managedViewController onDisplay];
+	[managedViewController willDisplay];
 	
 	// Get the new positions
 	CGRect superBounds = [viewController.view bounds];
@@ -100,97 +105,44 @@
 	
 	float initialX, finalX, initialY, finalY;
 	
+	// Set final position based on alignment
 	if(xAlignment == POPUP_ALIGN_FULL_SCREEN_)
-	{
-		if(direction == POPUP_DIRECTION_RIGHT_)
-			initialX = -CGRectGetWidth(ourBounds);
-		else if(direction == POPUP_DIRECTION_LEFT_)
-			initialX = CGRectGetWidth(superBounds);
-		else
-			initialX = 0;
-        
 		finalX = 0;
-	}
 	else if(xAlignment == POPUP_ALIGN_CENTRE_)
-	{
-		if(direction == POPUP_DIRECTION_RIGHT_)
-			initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
-		else if(direction == POPUP_DIRECTION_LEFT_)
-			initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
-		else
-			initialX = x - CGRectGetWidth(ourBounds) + overhang;
-		
 		finalX = x - CGRectGetWidth(ourBounds) * 0.5;		
-	}
 	else if(xAlignment == POPUP_ALIGN_RIGHT_)
-	{
-		if(direction == POPUP_DIRECTION_RIGHT_)
-			initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
-		else if(direction == POPUP_DIRECTION_LEFT_)
-			initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
-		else
-			initialX = x - CGRectGetWidth(ourBounds) + overhang;
-		
 		finalX = x - CGRectGetWidth(ourBounds) + overhang;
-		
-	}
 	else // Align left
-	{
-		if(direction == POPUP_DIRECTION_RIGHT_)
-			initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
-		else if(direction == POPUP_DIRECTION_LEFT_)
-			initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
-		else
-			initialX = x;
-		
 		finalX = x;
-
-	}
 	
 	if(yAlignment == POPUP_ALIGN_FULL_SCREEN_)
-	{
-		if(direction == POPUP_DIRECTION_DOWN_)
-			initialY = - CGRectGetHeight(ourBounds);
-		else if(direction == POPUP_DIRECTION_UP_)
-			initialY = CGRectGetHeight(superBounds);
-		else
-			initialY = 0;
-		
 		finalY = 0;
-	}
 	else if(yAlignment == POPUP_ALIGN_CENTRE_)
-	{
-		if(direction == POPUP_DIRECTION_DOWN_)
-			initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
-		else if(direction == POPUP_DIRECTION_UP_)
-			initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
-		else
-			initialY = 0;
-		
 		finalY = (CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds)) * 0.5;
-	}
 	else if(yAlignment == POPUP_ALIGN_TOP_)
-	{
-		if(direction == POPUP_DIRECTION_DOWN_)
-			initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
-		else if(direction == POPUP_DIRECTION_UP_)
-			initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
-		else
-			initialY = 0;
-		
 		finalY = 0;
-	}
 	else // Align bottom
-	{
-		if(direction == POPUP_DIRECTION_DOWN_)
-			initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
-		else if(direction == POPUP_DIRECTION_UP_)
-			initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
-		else
-			initialY = CGRectGetMaxY(superBounds) - CGRectGetHeight(ourBounds);
-
 		finalY = CGRectGetMaxY(superBounds) - CGRectGetHeight(ourBounds);
-	}
+	
+	// Set initial X position based on reveal direction
+	if(direction == POPUP_DIRECTION_NONE_ || appearStyle == POPUP_FADE_)
+		initialX = finalX;
+	else if(direction == POPUP_DIRECTION_RIGHT_)
+		initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
+	else if(direction == POPUP_DIRECTION_LEFT_)
+		initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
+	else	// Up or down
+		initialX = finalX;
+	
+	// Set initial Y position based on reveal direction
+	if(direction == POPUP_DIRECTION_NONE_ || appearStyle == POPUP_FADE_)
+		initialY = finalY;
+	else if(direction == POPUP_DIRECTION_DOWN_)
+		initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
+	else if(direction == POPUP_DIRECTION_UP_)
+		initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
+	else
+		initialY = finalY;
 	
 	[managedViewController.view setHidden:true];
 	
@@ -198,15 +150,22 @@
 	
 	if(animated)
 	{
+		if(direction == POPUP_DIRECTION_NONE_ || appearStyle == POPUP_FADE_)
+			[managedViewController.view setAlpha:0.0];
+		
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, initialX, initialY)];
 	}
 	else
 	{
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
+		[managedViewController.view setAlpha:1.0];
+		
 		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowedPopup:)])
 			[parentViewController notifyShowedPopup:managedViewType];
+		
+		[managedViewController didDisplay];
 	}
-	
+		
 	[managedViewController.view setHidden:false];
 	
 	if(animated)
@@ -217,6 +176,9 @@
 		[UIView setAnimationDidStopSelector:@selector(displayAnimationDidStop:finished:context:)];
 		[managedViewController.view setFrame:CGRectOffset(ourBounds, finalX, finalY)];
         
+		if(direction == POPUP_DIRECTION_NONE_ || appearStyle == POPUP_FADE_)
+			[managedViewController.view setAlpha:1.0];
+
 		if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowingPopup:)])
 			[parentViewController notifyShowingPopup:managedViewType];
 		
@@ -231,6 +193,8 @@
 {
 	if(parentViewController && [parentViewController respondsToSelector:@selector(notifyShowedPopup:)])
         [parentViewController notifyShowedPopup:managedViewType];
+	
+	[managedViewController didDisplay];
 }
 
 - (void) moveToPositionX:(float)x Animated:(bool)animated
@@ -269,9 +233,11 @@
 	if(!viewDisplayed || !parentViewController)
 		return;
 	
+	[managedViewController willHide];
+
 	if(!animated)
 	{
-		[managedViewController onHide];
+		[managedViewController didHide];
 
 		[managedViewController.view removeFromSuperview];
 		[managedViewController setParentViewController:nil];
@@ -303,15 +269,21 @@
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(hideAnimationDidStop:finished:context:)];
 	
-	if(revealDirection == POPUP_DIRECTION_RIGHT_)
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, remainder - CGRectGetMaxX(ourFrame), 0)];
-	else if(revealDirection == POPUP_DIRECTION_LEFT_)
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, CGRectGetWidth(superBounds) - CGRectGetMinX(ourFrame) - remainder, 0)];
-	else if(revealDirection == POPUP_DIRECTION_UP_)
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds) - CGRectGetMinY(ourFrame) - remainder)];
-	else if(revealDirection == POPUP_DIRECTION_DOWN_)
-		[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, remainder - CGRectGetMaxY(ourFrame))];
-
+	if(revealDirection == POPUP_DIRECTION_NONE_ || dismissStyle == POPUP_FADE_)
+	{
+		[managedViewController.view setAlpha:0.0];
+	}
+	else
+	{
+		if(revealDirection == POPUP_DIRECTION_RIGHT_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, remainder - CGRectGetMaxX(ourFrame), 0)];
+		else if(revealDirection == POPUP_DIRECTION_LEFT_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, CGRectGetWidth(superBounds) - CGRectGetMinX(ourFrame) - remainder, 0)];
+		else if(revealDirection == POPUP_DIRECTION_UP_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, CGRectGetHeight(superBounds) - CGRectGetMinY(ourFrame) - remainder)];
+		else if(revealDirection == POPUP_DIRECTION_DOWN_)
+			[managedViewController.view setFrame:CGRectOffset(ourFrame, 0, remainder - CGRectGetMaxY(ourFrame))];
+	}
 	
 	if(notify && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidingPopup:)])
 		[parentViewController notifyHidingPopup:managedViewType];
@@ -330,10 +302,11 @@
 	if(notifyAfterHide && parentViewController && [parentViewController respondsToSelector:@selector(notifyHidPopup:)])
 		[parentViewController notifyHidPopup:managedViewType];
 	
-	[managedViewController onHide];
+	[managedViewController didHide];
     
 	[managedViewController.view removeFromSuperview];
 	[managedViewController setParentViewController:nil];
+	[managedViewController.view setAlpha:1.0];	// Just in case it was faded - and to get it ready for next time
 
 	viewDisplayed = false;
 	

@@ -208,6 +208,7 @@
 		7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157D51497A0FA00A013BC /* GreyTextureBG.png */; };
 		7F9B68461667EA5A00B219AF /* MatchPadMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */; };
 		7F9B6A101669605900B219AF /* StatsTeam.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9B6A0F1669605900B219AF /* StatsTeam.png */; };
+		7F9B6A82166D018200B219AF /* TeamStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9B6A81166D018200B219AF /* TeamStatsViewController.m */; };
 		7FA862DA13D430DB006CCD74 /* Icon-72MP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA862D813D430DB006CCD74 /* Icon-72MP.png */; };
 		7FA862DB13D430DB006CCD74 /* IconMP.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA862D913D430DB006CCD74 /* IconMP.png */; };
 /* End PBXBuildFile section */
@@ -521,6 +522,8 @@
 		7F93547C12F6E48600AB1D07 /* HelpButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelpButtonHighlighted.png; path = Images/HelpButtonHighlighted.png; sourceTree = "<group>"; };
 		7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MatchPadMainWindow.xib; path = ResourceFiles/MatchXIB/MatchPadMainWindow.xib; sourceTree = "<group>"; };
 		7F9B6A0F1669605900B219AF /* StatsTeam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StatsTeam.png; path = Images/MatchPad/StatsTeam.png; sourceTree = "<group>"; };
+		7F9B6A80166D018200B219AF /* TeamStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStatsViewController.h; sourceTree = "<group>"; };
+		7F9B6A81166D018200B219AF /* TeamStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStatsViewController.m; sourceTree = "<group>"; };
 		7F9C12CD12560D5700770746 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7F9C12CF12560D6600770746 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		7F9C1514125759D900770746 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -756,6 +759,8 @@
 				7F6D12C71664DF42007672DF /* MatchPadVideoViewController.m */,
 				7F6D13031664F608007672DF /* MatchPadReplaysViewController.h */,
 				7F6D13041664F608007672DF /* MatchPadReplaysViewController.m */,
+				7F9B6A80166D018200B219AF /* TeamStatsViewController.h */,
+				7F9B6A81166D018200B219AF /* TeamStatsViewController.m */,
 				4DA3CF4413CDE13D0097A5FB /* AlertViewController.h */,
 				4DA3CF4513CDE13D0097A5FB /* AlertViewController.m */,
 				4D14605C14BB544A00DADD63 /* BallViewController.h */,
@@ -1302,6 +1307,7 @@
 				7F6D12F91664F430007672DF /* BasePadPopupManager.m in Sources */,
 				7F6D12FA1664F430007672DF /* BasePadPopupViewController.m in Sources */,
 				7F6D13051664F608007672DF /* MatchPadReplaysViewController.m in Sources */,
+				7F9B6A82166D018200B219AF /* TeamStatsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

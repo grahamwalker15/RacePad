@@ -25,7 +25,10 @@
 @property (nonatomic,retain) BasePadPopupManager * associatedManager;
 @property (nonatomic,retain) UIViewController * parentViewController;
 
-- (void) onDisplay;
-- (void) onHide;
+- (void) willDisplay;
+- (void) willHide;
+
+- (void) didDisplay;
+- (void) didHide;
 
 @end

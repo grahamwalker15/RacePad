@@ -67,11 +67,7 @@
 	[self OnTapGestureInView:gestureView AtX:x Y:y];
 }
 
-- (void) onDisplay
-{
-}
-
-- (void) onHide
+- (void) willHide
 {
 	[self hideStatsControllers];
 }
@@ -90,7 +86,7 @@
 	{
 		if(![[MatchPadTeamStatsManager Instance] viewDisplayed])
 		{
-			[[MatchPadTeamStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+			[[MatchPadTeamStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
 		}		
 	}
 }
@@ -99,7 +95,7 @@
 {
 	if([[MatchPadTeamStatsManager Instance] viewDisplayed])
 	{
-		[[MatchPadTeamStatsManager Instance] hideAnimated:false Notify:false];
+		[[MatchPadTeamStatsManager Instance] hideAnimated:true Notify:false];
 	}
 }
 

@@ -10,6 +10,7 @@
 #import "MatchPadCoordinator.h"
 #import "MatchPadStatsViewController.h"
 #import "MatchPadReplaysViewController.h"
+#import "TeamStatsViewController.h"
 //#import "MatchPadHelpViewController.h"
 //#import "MatchPadMasterMenuViewController.h"
 
@@ -35,11 +36,14 @@ static MatchPadMasterMenuManager * masterMenuInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = nil;//[MatchPadMasterMenuViewController new];
+		id viewController = nil;//[MatchPadMasterMenuViewController new];
+		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_MASTER_MENU_POPUP_];
 		[self setManagedExclusionZone:MP_ZONE_ALL_];
-		[viewController setAssociatedManager:self];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
 	}
 	
 	return self;
@@ -63,12 +67,14 @@ static MatchPadStatsManager * statsInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MatchPadStatsViewController alloc] initWithNibName:@"MatchPadStatsView" bundle:nil];
+		MatchPadStatsViewController * viewController = [[MatchPadStatsViewController alloc] initWithNibName:@"MatchPadStatsView" bundle:nil];
+		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_STATS_POPUP_];
 		[self setManagedExclusionZone:MP_ZONE_ALL_];
 		[self setShowHeadingAtStart:true];
-		[viewController setAssociatedManager:self];
+		[managedViewController setAssociatedManager:self];
+		[viewController release];
 	}
 	
 	return self;
@@ -92,12 +98,15 @@ static MatchPadReplaysManager * replaysInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = [[MatchPadReplaysViewController alloc] initWithNibName:@"MatchPadReplaysView" bundle:nil];
+		MatchPadReplaysViewController * viewController = [[MatchPadReplaysViewController alloc] initWithNibName:@"MatchPadReplaysView" bundle:nil];
+		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_REPLAYS_POPUP_];
 		[self setManagedExclusionZone:MP_ZONE_ALL_];
 		[self setShowHeadingAtStart:true];
-		[viewController setAssociatedManager:self];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
 	}
 	
 	return self;
@@ -121,12 +130,15 @@ static MatchPadHelpManager * helpInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		viewController = nil;//[MatchPadHelpViewController new];
+		id viewController = nil;//[MatchPadHelpViewController new];
+		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_HELP_POPUP_];
 		[self setManagedExclusionZone:(MP_ZONE_ALL_)];
 		[self setShowHeadingAtStart:true];
-		[viewController setAssociatedManager:self];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
 	}
 	
 	return self;
@@ -156,12 +168,17 @@ static MatchPadTeamStatsManager * teamStatsInstance_ = nil;
 	if(self = [super init])
 	{			
 		//viewController = [[TeamStatsViewController alloc] initWithNibName:@"TeamStatsView" bundle:nil];
-		viewController = [[TeamStatsViewController alloc] initWithNibName:@"MatchPadReplaysView" bundle:nil];
+		TeamStatsViewController * viewController = [[TeamStatsViewController alloc] initWithNibName:@"MatchPadReplaysView" bundle:nil];
+		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_TEAM_STATS_POPUP_];
 		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
 		[self setShowHeadingAtStart:false];
-		[viewController setAssociatedManager:self];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
 	}
 	
 	return self;

@@ -48,8 +48,6 @@ enum MatchPadPopupMenuZones
 
 @interface MatchPadMasterMenuManager : BasePadPopupManager
 {
-	id viewController;
-	//MatchPadMasterMenuViewController * viewController;
 }
 
 +(MatchPadMasterMenuManager *)Instance;
@@ -58,7 +56,6 @@ enum MatchPadPopupMenuZones
 
 @interface MatchPadStatsManager : BasePadPopupManager
 {
-	MatchPadStatsViewController * viewController;
 }
 
 +(MatchPadStatsManager *)Instance;
@@ -67,7 +64,6 @@ enum MatchPadPopupMenuZones
 
 @interface MatchPadReplaysManager : BasePadPopupManager
 {
-	MatchPadReplaysViewController * viewController;
 }
 
 +(MatchPadReplaysManager *)Instance;
@@ -76,8 +72,6 @@ enum MatchPadPopupMenuZones
 
 @interface MatchPadHelpManager : BasePadPopupManager
 {
-	id viewController;
-	//MatchPadHelpViewController * viewController;
 }
 
 +(MatchPadHelpManager *)Instance;
@@ -89,7 +83,6 @@ enum MatchPadPopupMenuZones
 
 @interface MatchPadTeamStatsManager : BasePadPopupManager
 {
-	TeamStatsViewController * viewController;
 }
 
 +(MatchPadTeamStatsManager *)Instance;

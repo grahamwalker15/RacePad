@@ -21,10 +21,14 @@ enum PopupViewAlignment
 	POPUP_ALIGN_BOTTOM_,
 	POPUP_ALIGN_FULL_SCREEN_,
 	
+	POPUP_DIRECTION_NONE_,
 	POPUP_DIRECTION_UP_,
 	POPUP_DIRECTION_DOWN_,
 	POPUP_DIRECTION_LEFT_,
 	POPUP_DIRECTION_RIGHT_,
+	
+	POPUP_SLIDE_,
+	POPUP_FADE_,
 };
 
 // View alignment
@@ -68,6 +72,9 @@ enum PopupViewTypes // Defined by derived class
 	int yAlignment;
 	int revealDirection;
 	
+	int appearStyle;
+	int dismissStyle;
+	
 	float overhang;
 	float preferredWidth;
 	
@@ -79,9 +86,11 @@ enum PopupViewTypes // Defined by derived class
 @property(nonatomic) bool viewDisplayed;
 @property(nonatomic) int managedViewType;
 @property(nonatomic) int managedExclusionZone;
+@property(nonatomic) int appearStyle;
+@property(nonatomic) int dismissStyle;
 @property(nonatomic) float overhang;
 @property(nonatomic) float preferredWidth;
-@property (nonatomic, assign) BasePadPopupViewController *managedViewController;
+@property (nonatomic, retain) BasePadPopupViewController *managedViewController;
 @property (readonly) BasePadViewController <BasePadPopupParentDelegate> *parentViewController;
 @property(nonatomic) bool showHeadingAtStart;
 
