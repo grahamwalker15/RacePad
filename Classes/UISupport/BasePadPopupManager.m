@@ -86,6 +86,7 @@
 	
 	parentViewController = (BasePadViewController <BasePadPopupParentDelegate>  *)[viewController retain];
 	
+	[managedViewController setParentViewController:viewController];
 	[managedViewController onDisplay];
 	
 	// Get the new positions
@@ -110,6 +111,17 @@
         
 		finalX = 0;
 	}
+	else if(xAlignment == POPUP_ALIGN_CENTRE_)
+	{
+		if(direction == POPUP_DIRECTION_RIGHT_)
+			initialX = showHeadingAtStart ? -CGRectGetWidth(ourContainerBounds) : -CGRectGetWidth(ourBounds);
+		else if(direction == POPUP_DIRECTION_LEFT_)
+			initialX = showHeadingAtStart ? CGRectGetWidth(superBounds) - CGRectGetWidth(ourBounds) + CGRectGetWidth(ourContainerBounds): CGRectGetWidth(superBounds);
+		else
+			initialX = x - CGRectGetWidth(ourBounds) + overhang;
+		
+		finalX = x - CGRectGetWidth(ourBounds) * 0.5;		
+	}
 	else if(xAlignment == POPUP_ALIGN_RIGHT_)
 	{
 		if(direction == POPUP_DIRECTION_RIGHT_)
@@ -120,7 +132,7 @@
 			initialX = x - CGRectGetWidth(ourBounds) + overhang;
 		
 		finalX = x - CGRectGetWidth(ourBounds) + overhang;
-
+		
 	}
 	else // Align left
 	{
@@ -145,6 +157,17 @@
 			initialY = 0;
 		
 		finalY = 0;
+	}
+	else if(yAlignment == POPUP_ALIGN_CENTRE_)
+	{
+		if(direction == POPUP_DIRECTION_DOWN_)
+			initialY = showHeadingAtStart ? -CGRectGetHeight(ourContainerBounds) : -CGRectGetHeight(ourBounds);
+		else if(direction == POPUP_DIRECTION_UP_)
+			initialY = showHeadingAtStart ? CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds) + CGRectGetHeight(ourContainerBounds): CGRectGetHeight(superBounds);
+		else
+			initialY = 0;
+		
+		finalY = (CGRectGetHeight(superBounds) - CGRectGetHeight(ourBounds)) * 0.5;
 	}
 	else if(yAlignment == POPUP_ALIGN_TOP_)
 	{
@@ -248,7 +271,11 @@
 	
 	if(!animated)
 	{
+		[managedViewController onHide];
+
 		[managedViewController.view removeFromSuperview];
+		[managedViewController setParentViewController:nil];
+		
 		viewDisplayed = false;
 		[parentViewController release];
 		parentViewController = nil;
@@ -306,6 +333,8 @@
 	[managedViewController onHide];
     
 	[managedViewController.view removeFromSuperview];
+	[managedViewController setParentViewController:nil];
+
 	viewDisplayed = false;
 	
 	[parentViewController release];

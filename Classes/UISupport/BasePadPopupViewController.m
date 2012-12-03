@@ -13,6 +13,7 @@
 @synthesize associatedManager;
 @synthesize container;
 @synthesize heading;
+@synthesize parentViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -20,6 +21,7 @@
 	if (self)
 	{
 		associatedManager = nil;
+		parentViewController = nil;
 	}
 	return self;
 }
@@ -69,6 +71,7 @@
     [super dealloc];
 	
 	[associatedManager release];
+	[parentViewController release];
 }
 
 ////////////////////////////////////////////////////////////////////////////

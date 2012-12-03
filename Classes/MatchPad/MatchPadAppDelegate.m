@@ -45,6 +45,8 @@
 	[[MatchPadStatsManager Instance] onStartUp];
 	[[MatchPadReplaysManager Instance] onStartUp];
 	
+	[[MatchPadTeamStatsManager Instance] onStartUp];
+	
     // Add the home controller's current view as a subview of the window
     [window addSubview:mainViewController.view];
     [window makeKeyAndVisible];

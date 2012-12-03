@@ -73,11 +73,36 @@
 
 - (void) onHide
 {
+	[self hideStatsControllers];
 }
 
 -(IBAction)buttonSelected:(id)sender
 {
+	if(!parentViewController)
+		return;
+	
+	[self hideStatsControllers];
+
+	CGRect superBounds = [parentViewController.view bounds];
+	CGRect viewBounds = [self.view bounds];
+	float xCentre = (CGRectGetWidth(superBounds) - CGRectGetWidth(viewBounds)) * 0.5;
+	if(sender == teamStatsButton)
+	{
+		if(![[MatchPadTeamStatsManager Instance] viewDisplayed])
+		{
+			[[MatchPadTeamStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+		}		
+	}
 }
+
+- (void) hideStatsControllers
+{
+	if([[MatchPadTeamStatsManager Instance] viewDisplayed])
+	{
+		[[MatchPadTeamStatsManager Instance] hideAnimated:false Notify:false];
+	}
+}
+
 
 @end
 

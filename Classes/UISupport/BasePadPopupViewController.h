@@ -17,11 +17,13 @@
 	IBOutlet UIImageView * heading;
 	
 	BasePadPopupManager * associatedManager;
+	UIViewController * parentViewController;
 }
 
 @property (readonly) UIImageView * container;
 @property (readonly) UIImageView * heading;
 @property (nonatomic,retain) BasePadPopupManager * associatedManager;
+@property (nonatomic,retain) UIViewController * parentViewController;
 
 - (void) onDisplay;
 - (void) onHide;

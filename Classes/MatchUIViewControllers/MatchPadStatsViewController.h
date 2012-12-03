@@ -12,7 +12,10 @@
 
 @interface MatchPadStatsViewController : BasePadPopupViewController
 {
+	IBOutlet UIButton * teamStatsButton;
 }
+
+- (void) hideStatsControllers;
 
 -(IBAction)buttonSelected:(id)sender;
 

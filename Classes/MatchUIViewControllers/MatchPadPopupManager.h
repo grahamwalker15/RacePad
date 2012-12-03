@@ -14,6 +14,8 @@
 
 @class MatchPadStatsViewController;
 @class MatchPadReplaysViewController;
+@class TeamStatsViewController;
+
 //@class MatchPadHelpViewController;
 //@class MatchPadMasterMenuViewController;
 
@@ -25,6 +27,7 @@ enum MatchPadPopupViewTypes
 	MP_REPLAYS_POPUP_,
 	MP_HELP_POPUP_,
 	MP_MASTER_MENU_POPUP_,
+	MP_TEAM_STATS_POPUP_,
 };
 	
 // View alignment
@@ -36,8 +39,12 @@ enum MatchPadPopupMenuZones
 	MP_ZONE_ALL_ = POPUP_ZONE_ALL_,
 	MP_ZONE_BOTTOM_ = 0x1,
 	MP_ZONE_TOP_ = 0x2,
+	MP_ZONE_CENTRE_ = 0x4,
 };
 
+
+//////////////////////////////////////////////////////////////////////
+//  Main window popups
 
 @interface MatchPadMasterMenuManager : BasePadPopupManager
 {
@@ -76,3 +83,16 @@ enum MatchPadPopupMenuZones
 +(MatchPadHelpManager *)Instance;
 
 @end
+
+//////////////////////////////////////////////////////////////////////
+//  Stats popups
+
+@interface MatchPadTeamStatsManager : BasePadPopupManager
+{
+	TeamStatsViewController * viewController;
+}
+
++(MatchPadTeamStatsManager *)Instance;
+
+@end
+

@@ -15,6 +15,10 @@
 
 #import "BasePadViewController.h"
 
+
+//////////////////////////////////////////////////////////////////////
+//  Main window popups
+
 @implementation MatchPadMasterMenuManager
 
 static MatchPadMasterMenuManager * masterMenuInstance_ = nil;
@@ -127,5 +131,41 @@ static MatchPadHelpManager * helpInstance_ = nil;
 	
 	return self;
 }
+
+
+@end
+
+
+//////////////////////////////////////////////////////////////////////
+//  Stats popups
+
+@implementation MatchPadTeamStatsManager
+
+static MatchPadTeamStatsManager * teamStatsInstance_ = nil;
+
++(MatchPadTeamStatsManager *)Instance
+{
+	if(!teamStatsInstance_)
+		teamStatsInstance_ = [[MatchPadTeamStatsManager alloc] init];
+	
+	return teamStatsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		//viewController = [[TeamStatsViewController alloc] initWithNibName:@"TeamStatsView" bundle:nil];
+		viewController = [[TeamStatsViewController alloc] initWithNibName:@"MatchPadReplaysView" bundle:nil];
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_TEAM_STATS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setShowHeadingAtStart:false];
+		[viewController setAssociatedManager:self];
+	}
+	
+	return self;
+}
+
 
 @end
