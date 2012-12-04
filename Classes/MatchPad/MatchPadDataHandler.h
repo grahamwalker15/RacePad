@@ -44,6 +44,7 @@ enum ServerCommands {
 	MPSC_MOVES_,								// 51
 	MPSC_BALL_,									// 52
 	MPSC_POSITIONS_,							// 53
+	MPSC_TEAM_STATS_,							// 54
 };
 
 @interface MatchPadDataHandler : BasePadDataHandler

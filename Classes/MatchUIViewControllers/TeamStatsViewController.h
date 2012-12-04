@@ -11,10 +11,12 @@
 #import "BasePadPopupViewController.h"
 #import "AlertView.h"
 
+@class TeamStatsView;
+
 @interface TeamStatsViewController : BasePadPopupViewController
 {
-	IBOutlet AlertView * alertView;
 	IBOutlet UISegmentedControl * typeChooser;
+	IBOutlet TeamStatsView *team_stats_view_;
 }
 		
 @end

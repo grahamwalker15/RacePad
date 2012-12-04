@@ -128,6 +128,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ StreamPlayerStats];
 	}
+	else if([existing_view Type] == MPC_TEAM_STATS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ StreamTeamStats];
+	}
 	else if([existing_view Type] == MPC_PLAYER_GRAPH_VIEW_)
 	{
 		PlayerGraph *graph = [[MatchPadDatabase Instance]playerGraph];
@@ -164,6 +168,10 @@ static MatchPadCoordinator * instance_ = nil;
 	else if([existing_view Type] == MPC_PLAYER_STATS_VIEW_)
 	{
 		[(MatchPadClientSocket *)socket_ RequestPlayerStats];
+	}
+	else if([existing_view Type] == MPC_TEAM_STATS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ RequestTeamStats];
 	}
 	else if([existing_view Type] == MPC_PLAYER_GRAPH_VIEW_)
 	{
@@ -204,6 +212,10 @@ static MatchPadCoordinator * instance_ = nil;
 			[self AddDataSourceWithType:type AndFile: @"HomePlayerStats"];
 		else
 			[self AddDataSourceWithType:type AndFile: @"AwayPlayerStats"];
+	}
+	else if (type == MPC_TEAM_STATS_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"TeamStats"];
 	}
 	else if (type == MPC_PLAYER_GRAPH_VIEW_)
 	{

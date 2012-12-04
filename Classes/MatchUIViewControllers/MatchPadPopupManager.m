@@ -167,8 +167,7 @@ static MatchPadTeamStatsManager * teamStatsInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		//viewController = [[TeamStatsViewController alloc] initWithNibName:@"TeamStatsView" bundle:nil];
-		TeamStatsViewController * viewController = [[TeamStatsViewController alloc] initWithNibName:@"MatchPadReplaysView" bundle:nil];
+		TeamStatsViewController * viewController = [[TeamStatsViewController alloc] initWithNibName:@"TeamStatsView" bundle:nil];
 		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_TEAM_STATS_POPUP_];

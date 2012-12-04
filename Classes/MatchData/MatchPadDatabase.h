@@ -16,6 +16,7 @@
 #import "Possession.h"
 #import "Moves.h"
 #import "Ball.h"
+#import "TeamStats.h"
 
 @interface MatchPadDatabase : BasePadDatabase
 {
@@ -23,6 +24,7 @@
 	Positions *positions;
 	PlayerGraph *playerGraph;
 	TableData *playerStatsData;
+	TeamStats *teamStatsData;
 	AlertData *alertData;
 	Possession *possession;
 	Moves *moves;
@@ -41,6 +43,7 @@
 @property (readonly) Ball *ball;
 @property (readonly) PlayerGraph *playerGraph;
 @property (readonly) TableData *playerStatsData;
+@property (readonly) TeamStats *teamStatsData;
 @property (readonly) AlertData *alertData;
 
 + (MatchPadDatabase *)Instance;

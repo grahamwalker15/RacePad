@@ -644,6 +644,19 @@ static bool statics_initialised_ = false;
 	}
 }
 
+- (void)FillArc:(float)x0 Y0:(float)y0 StartAngle:(float)startAngle EndAngle:(float)endAngle Clockwise:(bool) clockwise Radius:(float)r;
+{
+	if(current_context_)
+	{
+		[bg_ set];
+		CGContextBeginPath (current_context_);
+		CGContextMoveToPoint (current_context_, x0, y0);
+		CGContextAddArc(current_context_, x0, y0, r, startAngle, endAngle, clockwise);
+		CGContextClosePath (current_context_);
+		CGContextFillPath (current_context_);
+	}
+}
+
 - (void)EtchRectangle:(CGRect)rect EtchIn:(bool)etch_in
 {
 }

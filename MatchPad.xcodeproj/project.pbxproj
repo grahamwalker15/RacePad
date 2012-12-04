@@ -30,6 +30,7 @@
 		4D19D92913A626380035F28E /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D92613A626380035F28E /* TableData.m */; };
 		4D19D94113A62FB40035F28E /* BasePadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D93E13A62FB40035F28E /* BasePadVideoViewController.m */; };
 		4D19D94213A62FB40035F28E /* BasePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D19D94013A62FB40035F28E /* BasePadViewController.m */; };
+		4D337E9B166E0D9300EEEF19 /* TeamStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D337E9A166E0D9300EEEF19 /* TeamStatsView.m */; };
 		4D5A344713A207E5007C4AA9 /* Grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5A344613A207E5007C4AA9 /* Grass.png */; };
 		4D5A358513A23A86007C4AA9 /* BasePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A357413A23A86007C4AA9 /* BasePadAppDelegate.m */; };
 		4D5A358613A23A86007C4AA9 /* BasePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A357613A23A86007C4AA9 /* BasePadClientSocket.m */; };
@@ -40,6 +41,7 @@
 		4D5A358B13A23A86007C4AA9 /* BasePadSponsor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A358013A23A86007C4AA9 /* BasePadSponsor.m */; };
 		4D5A358C13A23A86007C4AA9 /* BasePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A358213A23A86007C4AA9 /* BasePadTimeController.m */; };
 		4D5A358D13A23A86007C4AA9 /* BasePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A358413A23A86007C4AA9 /* BasePadTitleBarController.m */; };
+		4D707AF8166E0724003627BC /* TeamStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D707AF7166E0724003627BC /* TeamStatsView.xib */; };
 		4D8245AB14BB657600938349 /* AlertCornerAwarded.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A114BB657600938349 /* AlertCornerAwarded.png */; };
 		4D8245AC14BB657600938349 /* AlertFreeKickAwarded.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A214BB657600938349 /* AlertFreeKickAwarded.png */; };
 		4D8245AD14BB657600938349 /* AlertMiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A314BB657600938349 /* AlertMiss.png */; };
@@ -50,6 +52,7 @@
 		4D8245B214BB657600938349 /* AlertSaved.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A814BB657600938349 /* AlertSaved.png */; };
 		4D8245B314BB657600938349 /* moves.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245A914BB657600938349 /* moves.png */; };
 		4D8245B414BB657600938349 /* tracker.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8245AA14BB657600938349 /* tracker.png */; };
+		4D8B72F0166E085A007A3243 /* TeamStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8B72EF166E085A007A3243 /* TeamStats.m */; };
 		4D8FB71914B611DF000B6B5A /* 17-bar-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FB71814B611DF000B6B5A /* 17-bar-chart.png */; };
 		4D8FB71C14B616A9000B6B5A /* Possession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FB71B14B616A9000B6B5A /* Possession.m */; };
 		4D8FB72214B6E20F000B6B5A /* PossessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FB72114B6E20F000B6B5A /* PossessionView.m */; };
@@ -259,6 +262,8 @@
 		4D19D93E13A62FB40035F28E /* BasePadVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadVideoViewController.m; sourceTree = "<group>"; };
 		4D19D93F13A62FB40035F28E /* BasePadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadViewController.h; sourceTree = "<group>"; };
 		4D19D94013A62FB40035F28E /* BasePadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadViewController.m; sourceTree = "<group>"; };
+		4D337E99166E0D9300EEEF19 /* TeamStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStatsView.h; sourceTree = "<group>"; };
+		4D337E9A166E0D9300EEEF19 /* TeamStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStatsView.m; sourceTree = "<group>"; };
 		4D423ECC135ECAC400561C92 /* RacePadLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RacePadLogo.png; path = Images/RacePadLogo.png; sourceTree = "<group>"; };
 		4D5A344613A207E5007C4AA9 /* Grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Grass.png; path = Images/Grass.png; sourceTree = "<group>"; };
 		4D5A357313A23A86007C4AA9 /* BasePadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadAppDelegate.h; sourceTree = "<group>"; };
@@ -279,6 +284,7 @@
 		4D5A358213A23A86007C4AA9 /* BasePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadTimeController.m; sourceTree = "<group>"; };
 		4D5A358313A23A86007C4AA9 /* BasePadTitleBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePadTitleBarController.h; sourceTree = "<group>"; };
 		4D5A358413A23A86007C4AA9 /* BasePadTitleBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePadTitleBarController.m; sourceTree = "<group>"; };
+		4D707AF7166E0724003627BC /* TeamStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TeamStatsView.xib; path = ResourceFiles/MatchXIB/TeamStatsView.xib; sourceTree = "<group>"; };
 		4D8245A114BB657600938349 /* AlertCornerAwarded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertCornerAwarded.png; path = Images/MatchPad/AlertCornerAwarded.png; sourceTree = "<group>"; };
 		4D8245A214BB657600938349 /* AlertFreeKickAwarded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertFreeKickAwarded.png; path = Images/MatchPad/AlertFreeKickAwarded.png; sourceTree = "<group>"; };
 		4D8245A314BB657600938349 /* AlertMiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertMiss.png; path = Images/MatchPad/AlertMiss.png; sourceTree = "<group>"; };
@@ -289,6 +295,8 @@
 		4D8245A814BB657600938349 /* AlertSaved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertSaved.png; path = Images/MatchPad/AlertSaved.png; sourceTree = "<group>"; };
 		4D8245A914BB657600938349 /* moves.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moves.png; path = Images/MatchPad/moves.png; sourceTree = "<group>"; };
 		4D8245AA14BB657600938349 /* tracker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tracker.png; path = Images/MatchPad/tracker.png; sourceTree = "<group>"; };
+		4D8B72EE166E085A007A3243 /* TeamStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStats.h; sourceTree = "<group>"; };
+		4D8B72EF166E085A007A3243 /* TeamStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStats.m; sourceTree = "<group>"; };
 		4D8FB71814B611DF000B6B5A /* 17-bar-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "17-bar-chart.png"; path = "Images/17-bar-chart.png"; sourceTree = "<group>"; };
 		4D8FB71A14B616A9000B6B5A /* Possession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Possession.h; sourceTree = "<group>"; };
 		4D8FB71B14B616A9000B6B5A /* Possession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Possession.m; sourceTree = "<group>"; };
@@ -744,6 +752,8 @@
 				4D17BE5015DBD65B00EC49DB /* Positions.m */,
 				4D8FB71A14B616A9000B6B5A /* Possession.h */,
 				4D8FB71B14B616A9000B6B5A /* Possession.m */,
+				4D8B72EE166E085A007A3243 /* TeamStats.h */,
+				4D8B72EF166E085A007A3243 /* TeamStats.m */,
 			);
 			path = MatchData;
 			sourceTree = "<group>";
@@ -751,16 +761,6 @@
 		4DBE22D613A0DAF90051C9B3 /* MatchUIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				7F6D12E71664ED12007672DF /* MatchPadPopupManager.h */,
-				7F6D12E81664ED12007672DF /* MatchPadPopupManager.m */,
-				7F6D12E91664ED12007672DF /* MatchPadStatsViewController.h */,
-				7F6D12EA1664ED12007672DF /* MatchPadStatsViewController.m */,
-				7F6D12C61664DF42007672DF /* MatchPadVideoViewController.h */,
-				7F6D12C71664DF42007672DF /* MatchPadVideoViewController.m */,
-				7F6D13031664F608007672DF /* MatchPadReplaysViewController.h */,
-				7F6D13041664F608007672DF /* MatchPadReplaysViewController.m */,
-				7F9B6A80166D018200B219AF /* TeamStatsViewController.h */,
-				7F9B6A81166D018200B219AF /* TeamStatsViewController.m */,
 				4DA3CF4413CDE13D0097A5FB /* AlertViewController.h */,
 				4DA3CF4513CDE13D0097A5FB /* AlertViewController.m */,
 				4D14605C14BB544A00DADD63 /* BallViewController.h */,
@@ -771,6 +771,14 @@
 				4DBE26CD13A10CA40051C9B3 /* DownloadProgress.m */,
 				4DBE26CE13A10CA40051C9B3 /* HomeViewController.h */,
 				4DBE26CF13A10CA40051C9B3 /* HomeViewController.m */,
+				7F6D12E71664ED12007672DF /* MatchPadPopupManager.h */,
+				7F6D12E81664ED12007672DF /* MatchPadPopupManager.m */,
+				7F6D13031664F608007672DF /* MatchPadReplaysViewController.h */,
+				7F6D13041664F608007672DF /* MatchPadReplaysViewController.m */,
+				7F6D12E91664ED12007672DF /* MatchPadStatsViewController.h */,
+				7F6D12EA1664ED12007672DF /* MatchPadStatsViewController.m */,
+				7F6D12C61664DF42007672DF /* MatchPadVideoViewController.h */,
+				7F6D12C71664DF42007672DF /* MatchPadVideoViewController.m */,
 				4D145F7014B7732D00DADD63 /* MoveViewController.h */,
 				4D145F7114B7732D00DADD63 /* MoveViewController.m */,
 				4DBE26D013A10CA40051C9B3 /* PitchViewController.h */,
@@ -785,6 +793,8 @@
 				4DBE26D313A10CA40051C9B3 /* ServerConnect.m */,
 				4DBE26D413A10CA40051C9B3 /* SettingsViewController.h */,
 				4DBE26D513A10CA40051C9B3 /* SettingsViewController.m */,
+				7F9B6A80166D018200B219AF /* TeamStatsViewController.h */,
+				7F9B6A81166D018200B219AF /* TeamStatsViewController.m */,
 				4DBE26D613A10CA40051C9B3 /* WorkOffline.h */,
 				4DBE26D713A10CA40051C9B3 /* WorkOffline.m */,
 			);
@@ -806,6 +816,8 @@
 				4D0EE1CE13C3579500797845 /* PlayerGraphView.m */,
 				4D8FB72014B6E20F000B6B5A /* PossessionView.h */,
 				4D8FB72114B6E20F000B6B5A /* PossessionView.m */,
+				4D337E99166E0D9300EEEF19 /* TeamStatsView.h */,
+				4D337E9A166E0D9300EEEF19 /* TeamStatsView.m */,
 			);
 			path = MatchUIViews;
 			sourceTree = "<group>";
@@ -934,24 +946,25 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
-				7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */,
-				7F6D160216654262007672DF /* MatchPadStatsView.xib */,
-				7F6D1605166543FA007672DF /* MatchPadReplaysView.xib */,
-				7F6D12BF1664DC96007672DF /* PositionsView.xib */,
-				7F6D12BD1664DC82007672DF /* MatchPadVideoView.xib */,
-				7F7F8F8E16302CC4001F1229 /* TimeControllerView.xib */,
 				4DBE231613A0DE440051C9B3 /* AlertControlView.xib */,
 				4D14607514BB57DE00DADD63 /* BallView.xib */,
 				4DBE231713A0DE440051C9B3 /* CompositeView.xib */,
 				4DBE231813A0DE440051C9B3 /* HomeView.xib */,
 				4DBE231913A0DE440051C9B3 /* MainWindow.xib */,
+				7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */,
+				7F6D1605166543FA007672DF /* MatchPadReplaysView.xib */,
+				7F6D160216654262007672DF /* MatchPadStatsView.xib */,
+				7F6D12BD1664DC82007672DF /* MatchPadVideoView.xib */,
 				4D145F9E14B7762500DADD63 /* MoveView.xib */,
 				4DBE232A13A0DF780051C9B3 /* PitchView.xib */,
 				4D0EE23D13C374C200797845 /* PlayerGraphView.xib */,
 				4D02A4E313B4E93C0010E06B /* PlayerStatsView.xib */,
+				7F6D12BF1664DC96007672DF /* PositionsView.xib */,
 				4D8FB74F14B6E689000B6B5A /* PossessionView.xib */,
 				4DBE231A13A0DE440051C9B3 /* ServerConnect.xib */,
 				4DBE231B13A0DE440051C9B3 /* SettingsView.xib */,
+				4D707AF7166E0724003627BC /* TeamStatsView.xib */,
+				7F7F8F8E16302CC4001F1229 /* TimeControllerView.xib */,
 				4DBE231C13A0DE440051C9B3 /* TimeControlView.xib */,
 				4DBE231D13A0DE440051C9B3 /* TitleBarView.xib */,
 				4DBE231E13A0DE440051C9B3 /* WorkOffline.xib */,
@@ -1219,6 +1232,7 @@
 				7F6D188B1667D238007672DF /* ShadowListBottom.png in Resources */,
 				7F9B68461667EA5A00B219AF /* MatchPadMainWindow.xib in Resources */,
 				7F9B6A101669605900B219AF /* StatsTeam.png in Resources */,
+				4D707AF8166E0724003627BC /* TeamStatsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1308,6 +1322,8 @@
 				7F6D12FA1664F430007672DF /* BasePadPopupViewController.m in Sources */,
 				7F6D13051664F608007672DF /* MatchPadReplaysViewController.m in Sources */,
 				7F9B6A82166D018200B219AF /* TeamStatsViewController.m in Sources */,
+				4D8B72F0166E085A007A3243 /* TeamStats.m in Sources */,
+				4D337E9B166E0D9300EEEF19 /* TeamStatsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,49 +7,35 @@
 //
 
 #import "TeamStatsViewController.h"
+#import "MatchPadCoordinator.h"
 
 @implementation TeamStatsViewController
 
 - (void)viewDidLoad
 {
 	// Set parameters for display
-	[alertView SetHeading:false];
-	[alertView setStandardRowHeight:35];
-	[alertView setCellYMargin:5];
-	[alertView SetFont:DW_CONTROL_FONT_];
-	[alertView setRowDivider:true];
-	[alertView setAdaptableRowHeight:true];
-	
-	[alertView SetBackgroundAlpha:0.5];
-	
-	[alertView setDefaultTextColour:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
-	[alertView setDefaultBackgroundColour:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
-	[alertView SetSelectedColour:[UIColor colorWithRed:0.8 green:0.8 blue:1.0 alpha:0.8]];
-		
-	// Add gesture recognizers to alert view - these will be sent to view itself and we will be notified as delegate
- 	[alertView addTapRecognizer];
-	[alertView addLongPressRecognizer];
-	
+	[[MatchPadCoordinator Instance] AddView:team_stats_view_ WithType:MPC_TEAM_STATS_VIEW_];	
+	[[MatchPadCoordinator Instance] AddView:self WithType:MPC_TEAM_STATS_VIEW_];
+
 	[super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)willDisplay
 {
-	[alertView SelectRow:-1];
-	[super viewWillAppear:animated];
+	[super willDisplay];
+	
+	[[MatchPadCoordinator Instance] SetViewDisplayed:team_stats_view_];
+	[[MatchPadCoordinator Instance] SetViewDisplayed:self];
+	
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)willHide
 {
-	[super viewDidAppear:animated];
+	[[MatchPadCoordinator Instance] SetViewHidden:team_stats_view_];
+	[[MatchPadCoordinator Instance] SetViewHidden:self];
+	
+	[[MatchPadCoordinator Instance] ReleaseViewController:self];
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Overriden to allow any orientation.
-    return YES;
-}
-
 
 - (void)didReceiveMemoryWarning
 {

@@ -100,6 +100,13 @@
 			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_STATS_VIEW_];
 			break;
 		}
+		case MPSC_TEAM_STATS_:
+		{
+			TeamStats *team_stats = [[MatchPadDatabase Instance] teamStatsData];
+			[team_stats loadStats:stream];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_TEAM_STATS_VIEW_];
+			break;
+		}
 		case MPSC_PLAYER_GRAPH_:
 		{
 			PlayerGraph *playerGraph = [[MatchPadDatabase Instance] playerGraph];

@@ -91,6 +91,16 @@
 	free (buf);
 }
 
+- (void)RequestTeamStats
+{
+	[self SimpleCommand:MPCS_REQUEST_TEAM_STATS];
+}
+
+- (void)StreamTeamStats
+{
+	[self SimpleCommand:MPCS_STREAM_TEAM_STATS];
+}
+
 - (void)RequestPlayerGraph:(int) player GraphType:(unsigned char)graphType
 {
 	int messageLength = sizeof(uint32_t) * 3 + 1;
