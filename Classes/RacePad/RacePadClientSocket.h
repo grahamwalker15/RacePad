@@ -51,6 +51,10 @@ enum ClientCommands {
 	RPCS_DRIVER_THUMBS_DOWN,		// 43
 	RPCS_CLIENT_METRIC,             // 44
 	RPCS_STREAM_DRIVER_VIEW,		// 45
+	RPCS_REQUEST_TIMING_PAGE_1,		// 46
+	RPCS_STREAM_TIMING_PAGE_1,		// 47
+	RPCS_REQUEST_TIMING_PAGE_2,		// 48
+	RPCS_STREAM_TIMING_PAGE_2,		// 49
 };
 
 @interface RacePadClientSocket : BasePadClientSocket
@@ -61,6 +65,10 @@ enum ClientCommands {
 - (void) RequestTrackMap;
 - (void) RequestTimingPage;
 - (void) StreamTimingPage;
+- (void) RequestTimingPage1;
+- (void) StreamTimingPage1;
+- (void) RequestTimingPage2;
+- (void) StreamTimingPage2;
 - (void) RequestStandingsView;
 - (void) StreamStandingsView;
 - (void) RequestLeaderBoard;

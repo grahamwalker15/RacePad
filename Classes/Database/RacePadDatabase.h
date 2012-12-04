@@ -53,6 +53,8 @@ enum SessionTypes {
 	TableData *competitorData;
 	HeadToHead *headToHead;
 	TableData *midasVotingTable;
+	TableData *timingPage1;
+	TableData *timingPage2;
 	
 	int session;
 }
@@ -74,6 +76,8 @@ enum SessionTypes {
 @property (readonly) TableData *competitorData;
 @property (readonly) HeadToHead *headToHead;
 @property (readonly) TableData *midasVotingTable;
+@property (readonly) TableData *timingPage1;
+@property (readonly) TableData *timingPage2;
 
 @property int session;
 

@@ -48,6 +48,10 @@
 		4D5A366313A5F6B4007C4AA9 /* BasePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A365E13A5F6B4007C4AA9 /* BasePadDatabase.m */; };
 		4D5A366413A5F6B4007C4AA9 /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A366013A5F6B4007C4AA9 /* ImageListStore.m */; };
 		4D5A366513A5F6B4007C4AA9 /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */; };
+		4D7079E0166D1B47003627BC /* TimingPage1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7079DF166D1B47003627BC /* TimingPage1Controller.m */; };
+		4D7079E4166D1DD3003627BC /* TimingPage1View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D7079E3166D1DD3003627BC /* TimingPage1View.xib */; };
+		4D707A36166DFE9F003627BC /* TimingPage2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D707A35166DFE9F003627BC /* TimingPage2Controller.m */; };
+		4D707A40166DFF6F003627BC /* TimingPage2View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D707A3F166DFF6F003627BC /* TimingPage2View.xib */; };
 		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
 		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
@@ -452,6 +456,12 @@
 		4D5A366013A5F6B4007C4AA9 /* ImageListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListStore.m; sourceTree = "<group>"; };
 		4D5A366113A5F6B4007C4AA9 /* TableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableData.h; sourceTree = "<group>"; };
 		4D5A366213A5F6B4007C4AA9 /* TableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableData.m; sourceTree = "<group>"; };
+		4D7079DE166D1B47003627BC /* TimingPage1Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimingPage1Controller.h; sourceTree = "<group>"; };
+		4D7079DF166D1B47003627BC /* TimingPage1Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimingPage1Controller.m; sourceTree = "<group>"; };
+		4D7079E3166D1DD3003627BC /* TimingPage1View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimingPage1View.xib; path = ResourceFiles/TimingPage1View.xib; sourceTree = "<group>"; };
+		4D707A34166DFE9F003627BC /* TimingPage2Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimingPage2Controller.h; sourceTree = "<group>"; };
+		4D707A35166DFE9F003627BC /* TimingPage2Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimingPage2Controller.m; sourceTree = "<group>"; };
+		4D707A3F166DFF6F003627BC /* TimingPage2View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimingPage2View.xib; path = ResourceFiles/TimingPage2View.xib; sourceTree = "<group>"; };
 		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
 		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
 		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
@@ -1183,14 +1193,18 @@
 				7F3276E2126375F400BD1627 /* SettingsViewController.m */,
 				7FC2FBC1129AC94E00DAC96E /* TelemetryViewController.h */,
 				7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */,
+				4D7079DE166D1B47003627BC /* TimingPage1Controller.h */,
+				4D7079DF166D1B47003627BC /* TimingPage1Controller.m */,
+				4D707A34166DFE9F003627BC /* TimingPage2Controller.h */,
+				4D707A35166DFE9F003627BC /* TimingPage2Controller.m */,
 				7F9C10DA1255E68B00770746 /* TrackMapViewController.h */,
 				7F9C10DB1255E68B00770746 /* TrackMapViewController.m */,
 				4D34502B12B7C33E00B15298 /* UserPin.h */,
 				4D34502C12B7C33E00B15298 /* UserPin.m */,
-				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
-				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
 				7F3A6C8615938D250010E72D /* WeatherViewController.h */,
 				7F3A6C8715938D250010E72D /* WeatherViewController.m */,
+				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
+				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -1297,7 +1311,6 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
-				7F614B5C16301DC00044E956 /* TimeControllerView.xib */,
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
 				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
@@ -1334,8 +1347,11 @@
 				7F317D43129BB71200F35097 /* TelemetryView.xib */,
 				7FB1C58812673E7F008A6C94 /* TestTextView.xib */,
 				7FB1C58912673E7F008A6C94 /* ThirdView.xib */,
+				7F614B5C16301DC00044E956 /* TimeControllerView.xib */,
 				7F6FB8981275F11400EF2B8C /* TimeControlView.xib */,
 				7F9354BB12F6EFA000AB1D07 /* TimingHelp.xib */,
+				4D7079E3166D1DD3003627BC /* TimingPage1View.xib */,
+				4D707A3F166DFF6F003627BC /* TimingPage2View.xib */,
 				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
 				7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */,
 				4D34502212B7C17400B15298 /* UserPin.xib */,
@@ -1806,6 +1822,8 @@
 				7F604FDB16070F0600AB5D1E /* LiveButton.png in Resources */,
 				7F604FF3160711CE00AB5D1E /* GoLiveButton.png in Resources */,
 				7F614B5D16301DC00044E956 /* TimeControllerView.xib in Resources */,
+				4D7079E4166D1DD3003627BC /* TimingPage1View.xib in Resources */,
+				4D707A40166DFF6F003627BC /* TimingPage2View.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1922,6 +1940,8 @@
 				7F3A6C8815938D250010E72D /* WeatherViewController.m in Sources */,
 				7F614B55162DACDB0044E956 /* BasePadPopupManager.m in Sources */,
 				7F614B5B162DAE040044E956 /* MidasVoting.m in Sources */,
+				4D7079E0166D1B47003627BC /* TimingPage1Controller.m in Sources */,
+				4D707A36166DFE9F003627BC /* TimingPage2Controller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

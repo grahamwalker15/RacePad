@@ -37,6 +37,8 @@ static RacePadDatabase *instance = nil;
 @synthesize competitorData;
 @synthesize headToHead;
 @synthesize midasVotingTable;
+@synthesize timingPage1;
+@synthesize timingPage2;
 
 @synthesize session;
 
@@ -62,6 +64,8 @@ static RacePadDatabase *instance = nil;
 		competitorData = [[TableData alloc] init];
 		headToHead = [[HeadToHead alloc] init];
 		midasVotingTable = [[TableData alloc] init];
+		timingPage1 = [[TableData alloc] init];
+		timingPage2 = [[TableData alloc] init];
 		
 		[driverInfo fillWithDefaultData];
 	}
@@ -86,6 +90,8 @@ static RacePadDatabase *instance = nil;
 	[racePrediction release];
 	[competitorData release];
 	[headToHead release];
+	[timingPage1 release];
+	[timingPage2 release];
 	
 	[super dealloc];
 }

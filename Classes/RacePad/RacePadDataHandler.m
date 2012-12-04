@@ -77,6 +77,36 @@
 			[[RacePadCoordinator Instance] RequestRedrawType:RPC_DRIVER_LIST_VIEW_];
 			break;
 		}
+		case RPSC_WHOLE_TIMING_PAGE_1_: // FOM Timing Page 1 (whole page)
+		{
+			
+			TableData *timing_page = [[RacePadDatabase Instance] timingPage1];
+			[timing_page loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TIMING_PAGE_1_];
+			break;
+		}
+		case RPSC_UPDATE_TIMING_PAGE_1_: // FOM Timing Page 1 (updates)
+		{
+			TableData *timing_page = [[RacePadDatabase Instance] timingPage1];
+			[timing_page updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TIMING_PAGE_1_];
+			break;
+		}
+		case RPSC_WHOLE_TIMING_PAGE_2_: // FOM Timing Page 2 (whole page)
+		{
+			
+			TableData *timing_page = [[RacePadDatabase Instance] timingPage2];
+			[timing_page loadData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TIMING_PAGE_2_];
+			break;
+		}
+		case RPSC_UPDATE_TIMING_PAGE_2_: // FOM Timing Page 2 (updates)
+		{
+			TableData *timing_page = [[RacePadDatabase Instance] timingPage2];
+			[timing_page updateData:stream];
+			[[RacePadCoordinator Instance] RequestRedrawType:RPC_TIMING_PAGE_2_];
+			break;
+		}
 		case RPSC_WHOLE_STANDINGS_VIEW_: // Midas standings (whole page)
 		{
 			

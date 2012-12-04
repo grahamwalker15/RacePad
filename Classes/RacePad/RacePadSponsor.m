@@ -134,6 +134,10 @@ static RacePadSponsor * instance_ = nil;
 		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
 			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
 		
+		if ( tab == RPS_FOM_PAGE1_TAB_ )
+			return false;
+		if ( tab == RPS_FOM_PAGE2_TAB_ )
+			return false;
 		return true;
 	}
 	else if ( sponsor == RPS_MERCEDES_ )
@@ -148,6 +152,10 @@ static RacePadSponsor * instance_ = nil;
 		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
 			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
 		
+		if ( tab == RPS_FOM_PAGE1_TAB_ )
+			return false;
+		if ( tab == RPS_FOM_PAGE2_TAB_ )
+			return false;
 		return true;
 	}
 	else if ( sponsor == RPS_WILLIAMS_ )
@@ -160,6 +168,10 @@ static RacePadSponsor * instance_ = nil;
 		if ( tab == RPS_HEAD_TOHEAD_TAB_ )
 			return [[RacePadDatabase Instance] session] == RPD_SESSION_RACE_;
 		
+		if ( tab == RPS_FOM_PAGE1_TAB_ )
+			return false;
+		if ( tab == RPS_FOM_PAGE2_TAB_ )
+			return false;
 		return true;
 	}
 	else
@@ -180,7 +192,9 @@ static RacePadSponsor * instance_ = nil;
 			|| tab == RPS_TRACK_MAP_TAB_
 			|| tab == RPS_VIDEO_TAB_
 			|| tab == RPS_DRIVER_TAB_
-			|| tab == RPS_SETTINGS_TAB_ )
+			|| tab == RPS_SETTINGS_TAB_
+			|| tab == RPS_FOM_PAGE1_TAB_
+			|| tab == RPS_FOM_PAGE2_TAB_)
 			return true;
 	}
 	

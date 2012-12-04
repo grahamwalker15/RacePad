@@ -40,6 +40,8 @@ enum ViewTypes
 	RPC_MIDAS_STANDINGS_VIEW_ = 0x2000,
 	RPC_TRACK_STATE_VIEW_ = 0x4000,
 	RPC_DRIVER_VOTING_VIEW_ = 0x8000,
+	RPC_TIMING_PAGE_1_ = 0x10000,
+	RPC_TIMING_PAGE_2_ = 0x20000,
 };
 
 @interface RacePadCoordinator : BasePadCoordinator
