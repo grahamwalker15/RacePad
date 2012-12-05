@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "BasePadPopupViewController.h"
 #import "ShinyButton.h"
 
 @class BallView;
@@ -16,16 +16,9 @@
 
 @class AnimationTimer;
 
-enum H2HDragSource {
-	H2H_VC_LEADERBOARD_,
-	H2H_VC_DRIVER1_,
-	H2H_VC_DRIVER2_
-};
-
-@interface BallViewController : BasePadViewController
+@interface BallViewController : BasePadPopupViewController
 {
 	IBOutlet BackgroundView *backgroundView;
-
 	IBOutlet BallView * ballView;
 	
 	bool animating;
@@ -40,8 +33,5 @@ enum H2HDragSource {
 
 - (void)showOverlays;
 - (void)hideOverlays;
-- (void)addBackgroundFrames;
-
-- (void)RequestRedraw;
 
 @end

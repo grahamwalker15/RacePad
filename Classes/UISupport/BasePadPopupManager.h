@@ -57,6 +57,7 @@ enum PopupViewTypes // Defined by derived class
 @interface BasePadPopupManager : NSObject <UIGestureRecognizerDelegate>
 {
 	BasePadPopupViewController * managedViewController;
+	
 	int managedViewType;
 	int managedExclusionZone;
 	

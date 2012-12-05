@@ -86,20 +86,14 @@
 	[mainMovieView setTitleBackgroundImage:mainMovieViewTitleBackgroundImage];
 	
 	[auxMovieView1 setTitleView:auxMovieView1TitleView];
-	[auxMovieView1 setAudioImage:auxMovieView1AudioImage];
 	[auxMovieView1 setTitleBackgroundImage:auxMovieView1TitleBackgroundImage];
 	
 	[auxMovieView2 setTitleView:auxMovieView2TitleView];
-	[auxMovieView2 setAudioImage:auxMovieView2AudioImage];
 	[auxMovieView2 setTitleBackgroundImage:auxMovieView2TitleBackgroundImage];
 		
-	[mainMovieView setCloseButton:nil];
+	[mainMovieView setCloseButton:mainMovieViewCloseButton];
 	[auxMovieView1 setCloseButton:auxMovieView1CloseButton];
 	[auxMovieView2 setCloseButton:auxMovieView2CloseButton];
-	
-	[mainMovieView setMovieNameButton:mainMovieViewDriverName];
-	[auxMovieView1 setMovieNameButton:auxMovieView1DriverName];
-	[auxMovieView2 setMovieNameButton:auxMovieView2DriverName];
 	
 	[mainMovieView setMovieTypeButton:mainMovieViewMovieType];
 	[auxMovieView1 setMovieTypeButton:auxMovieView1MovieType];
@@ -476,6 +470,9 @@
 	CGRect leftViewRect = CGRectMake(0, 464,308,174);
 	CGRect topViewRect = CGRectMake(716, 54,308,174);
 	
+	CGRect mainFocusRect = CGRectMake(0, (CGRectGetMaxY(superBounds) - 576) * 0.5, 1024,576);
+	CGRect pInPRect = CGRectMake(10, CGRectGetMaxY(superBounds) - 184, 308,174);
+	
 	CGRect auxMovieView1Rect = [auxMovieView1 frame];
 	CGRect auxMovieView2Rect = [auxMovieView2 frame];
 	
@@ -489,7 +486,7 @@
         
         // Then setup the movie view parameters
 		[self showOverlays];
-		[mainMovieView setFrame:superBounds];
+		[mainMovieView setFrame:mainFocusRect];
 		[mainMovieView setShouldShowLabels:false];
 		[auxMovieView1 setShouldShowLabels:false];
 		[auxMovieView2 setShouldShowLabels:false];
@@ -501,20 +498,20 @@
 	else if(movieViewCount == 2)
 	{
 		[self showOverlays];
-		[mainMovieView setFrame:leftViewRect];
+		[mainMovieView setFrame:pInPRect];
 		[mainMovieView setShouldShowLabels:true];
         [mainMovieView setAudioMuted:true];
 		if([auxMovieView1 movieSourceAssociated] && ![auxMovieView1 movieScheduledForRemoval])
 		{
 			priorityAuxMovie = 1;
-			[auxMovieView1 setFrame:centreViewRect];
+			[auxMovieView1 setFrame:mainFocusRect];
 			[auxMovieView1 setShouldShowLabels:true];
 			[auxMovieView2 setShouldShowLabels:false];
  		}
 		else if([auxMovieView2 movieSourceAssociated] && ![auxMovieView2 movieScheduledForRemoval])
 		{
 			priorityAuxMovie = 2;
-			[auxMovieView2 setFrame:centreViewRect];
+			[auxMovieView2 setFrame:mainFocusRect];
 			[auxMovieView2 setShouldShowLabels:true];
 			[auxMovieView1 setShouldShowLabels:false];
 		}
@@ -596,6 +593,12 @@
         timeControllerPending = true;
     }
     
+	// Hide labels before animating
+	[mainMovieView hideMovieLabels];
+	[auxMovieView1 hideMovieLabels];
+	[auxMovieView2 hideMovieLabels];
+	
+	// Put the movies in position and animate
 	if(newView && movieDirection != MV_CURRENT_POSITION)
 		[self prePositionMovieView:newView From:movieDirection];
 	
@@ -642,17 +645,17 @@
 	
 	// Show hide labels
 	if([mainMovieView shouldShowLabels])
-		[mainMovieView showMovieLabels:MV_NO_CLOSE_NO_AUDIO];
+		[mainMovieView showMovieLabels:MV_CLOSE_NO_AUDIO];
 	else
 		[mainMovieView hideMovieLabels];
 	
 	if([auxMovieView1 shouldShowLabels])
-		[auxMovieView1 showMovieLabels:(priorityAuxMovie == 1) ? MV_CLOSE_AND_AUDIO : MV_CLOSE_NO_AUDIO];
+		[auxMovieView1 showMovieLabels:MV_CLOSE_NO_AUDIO];
 	else
 		[auxMovieView1 hideMovieLabels];
 
 	if([auxMovieView2 shouldShowLabels])
-		[auxMovieView2 showMovieLabels:(priorityAuxMovie == 2) ? MV_CLOSE_AND_AUDIO : MV_CLOSE_NO_AUDIO];
+		[auxMovieView2 showMovieLabels:MV_CLOSE_NO_AUDIO];
 	else
 		[auxMovieView2 hideMovieLabels];
     
@@ -914,12 +917,15 @@
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {	
 	// Reach here if either tap was outside any other sensitive area
-	if([BasePadViewController timeControllerDisplayed])
+	if([BasePadViewController timeControllerDisplayed] || !autoHideButtons)
 		[self toggleTimeControllerDisplay];
 	
-	// Either close popup views if there are any or pop menus up or down
-	if(![self dismissPopupViews])
-		[self handleMenuButtonDisplayGestureInView:gestureView AtX:x Y:y];
+	if(autoHideButtons)
+	{
+		// Either close popup views if there are any or pop menus up or down
+		if(![self dismissPopupViews])
+			[self handleMenuButtonDisplayGestureInView:gestureView AtX:x Y:y];
+	}
 }
 
 - (void) OnLongPressGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -1085,7 +1091,17 @@
 {
 	if(!moviesAnimating)
 	{
-		if(sender == auxMovieView1CloseButton)
+		if(sender == mainMovieViewCloseButton)
+		{
+            int movieCount = [self countMovieViews];
+			if(movieCount > 1)
+			{
+				[auxMovieView1 setMovieScheduledForRemoval:true];
+				[auxMovieView2 setMovieScheduledForRemoval:true];
+				[self animateMovieViews:nil From:MV_CURRENT_POSITION];
+			}
+		}
+		else if(sender == auxMovieView1CloseButton)
 		{
 			[auxMovieView1 setMovieScheduledForRemoval:true];
 			[self animateMovieViews:nil From:MV_CURRENT_POSITION];
@@ -1144,7 +1160,6 @@
 			statsButtonOpen = true;
 			
 			[[MatchPadStatsManager Instance] grabExclusion:self];
-			CGRect buttonFrame = [(UIButton *)sender frame];
 			[[MatchPadStatsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(viewBounds) Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}
 	}
@@ -1156,7 +1171,6 @@
 			replaysButtonOpen = true;
 			
 			[[MatchPadReplaysManager Instance] grabExclusion:self];
-			CGRect buttonFrame = [(UIButton *)sender frame];
 			[[MatchPadReplaysManager Instance] displayInViewController:self AtX:CGRectGetMaxX(viewBounds) Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}		
 	}

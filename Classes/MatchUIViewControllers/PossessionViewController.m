@@ -31,17 +31,13 @@
 {
 	[super viewDidLoad];
 	
-	[backgroundView setStyle:BG_STYLE_FULL_SCREEN_GRASS_];
+	[backgroundView setStyle:BG_STYLE_TRANSPARENT_];
 
 	// Add tap, double tap, pan and pinch for graph
 	[self addTapRecognizerToView:possessionView];
 	[self addDoubleTapRecognizerToView:possessionView];
 	[self addPanRecognizerToView:possessionView];
 	[self addPinchRecognizerToView:possessionView];
-
-	// Add tap recognizers to buttons to prevent them bringing up ti;e controls
-	//[self addTapRecognizerToView:allButton];
-	//[self addTapRecognizerToView:seeLapsButton];
 	
 	[[MatchPadCoordinator Instance] AddView:possessionView WithType:MPC_POSSESSION_VIEW_];	
 	[[MatchPadCoordinator Instance] AddView:self WithType:MPC_POSSESSION_VIEW_];
@@ -99,19 +95,7 @@
 
 - (void)positionOverlays
 {
-	/*
-	int bg_inset = [backgroundView inset];
-	CGRect bg_frame = [backgroundView frame];
-	CGRect inset_frame = CGRectInset(bg_frame, bg_inset, bg_inset);
-	*/
-	
-	[self addBackgroundFrames];
 }
-
-- (void)addBackgroundFrames
-{
-}
-
 
 - (void)showOverlays
 {
@@ -119,94 +103,6 @@
 
 - (void)hideOverlays
 {
-}
-
-////////////////////////////////////////////////////////////////////////////
-
-- (void)RequestRedraw
-{
-	Possession * possession = [[MatchPadDatabase Instance] possession];
-	
-	if(possession)
-	{
-		/*
-		// Get image list for the driver images
-		RacePadDatabase *database = [RacePadDatabase Instance];
-		ImageListStore * image_store = [database imageListStore];
-		
-		ImageList *photoImageList = image_store ? [image_store findList:@"DriverPhotos"] : nil;
-
-		NSString * driver0 = [headToHead driver0];
-		NSString * driver1 = [headToHead driver1];
-		if(driver0 && [driver0 length] > 0)
-		{
-			if(photoImageList)
-			{
-				UIImage * image = [photoImageList findItem:driver0];
-				if(image)
-					[driverPhoto1 setImage:image];
-				else
-					[driverPhoto1 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
-			}
-			else
-			{
-				[driverPhoto1 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
-			}
-			
-			NSString * firstName = [headToHead firstName0];
-			NSString * surname = [headToHead surname0];
-			NSString * teamName = [headToHead teamName0];
-					
-			[driverFirstNameLabel1 setText:firstName];
-			[driverSurnameLabel1 setText:surname];
-			[driverTeamLabel1 setText:teamName];	
-		}
-		else 
-		{
-			[driverPhoto1 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
-			if(driver1 && [driver1 length] > 0)
-				[driverSurnameLabel1 setText:@"Leader"];
-			else
-				[driverSurnameLabel1 setText:@""];
-			[driverFirstNameLabel1 setText:@""];
-			[driverTeamLabel1 setText:@""];	
-		}
-
-		if(driver1 && [driver1 length] > 0)
-		{
-			if(photoImageList)
-			{
-				UIImage * image = [photoImageList findItem:driver1];
-				if(image)
-					[driverPhoto2 setImage:image];
-				else
-					[driverPhoto2 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
-			}
-			else
-			{
-				[driverPhoto2 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
-			}
-			
-			NSString * firstName = [headToHead firstName1];
-			NSString * surname = [headToHead surname1];
-			NSString * teamName = [headToHead teamName1];
-			
-			[driverFirstNameLabel2 setText:firstName];
-			[driverSurnameLabel2 setText:surname];
-			[driverTeamLabel2 setText:teamName];	
-		}
-		else 
-		{
-			[driverPhoto2 setImage:[UIImage imageNamed:@"NoPhoto.png"]];
-			if(driver0 && [driver0 length] > 0)
-				[driverSurnameLabel2 setText:@"Leader"];
-			else
-				[driverSurnameLabel2 setText:@""];
-			[driverFirstNameLabel2 setText:@""];
-			[driverTeamLabel2 setText:@""];	
-		}
-		 */
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -220,8 +116,7 @@
 		return;
 	}
 	
-	// Reach here if either tap was outside leaderboard, or no car was found at tap point
-	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
+	[super OnTapGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnPinchGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y Scale:(float)scale Speed:(float)speed
@@ -275,6 +170,31 @@
 - (void) OnDragGestureInView:(UIView *)gestureView ByX:(float)x Y:(float)y SpeedX:(float)speedx SpeedY:(float)speedy State:(int)state Recognizer:(UIDragDropGestureRecognizer *)recognizer
 {
 }
+
+////////////////////////////////////////////////////
+// Popup methods
+
+
+- (void) willDisplay
+{
+	[self positionOverlays];
+	
+	[[MatchPadCoordinator Instance] SetViewDisplayed:possessionView];
+}
+
+- (void) willHide
+{
+}
+
+- (void) didDisplay
+{
+}
+
+- (void) didHide
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:possessionView];
+}
+
 
 @end
 

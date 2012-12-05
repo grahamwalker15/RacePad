@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "BasePadPopupViewController.h"
 
 @class PitchView;
 @class BackgroundView;
 @class TableDataView;
 
-@interface PitchViewController : BasePadViewController
+@interface PitchViewController : BasePadPopupViewController
 {
 	
 	IBOutlet PitchView *pitchView;

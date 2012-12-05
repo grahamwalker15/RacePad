@@ -1417,33 +1417,14 @@ static BasePadCoordinator * instance_ = nil;
 	}
 }
 
--(void)AddView:(id)view WithParameter:(NSString *)parameter AndType:(int)type
-{
-	// First make sure that this view is not already in the list
-	BPCView * existing_view = [self FindView:view];
-	
-	if(existing_view)
-	{
-		// If it is, just set the type
-		[existing_view SetType:type];
-		return;
-	}
-	
-	// Reach here if the view wasn't found - so we'll add a new one
-	BPCView * new_view = [[BPCView alloc] initWithView:view AndType:type];
-	[views addObject:new_view];
-	[new_view release];
-}
-
 -(void)AddView:(id)view WithType:(int)type
 {
 	// First make sure that this view is not already in the list
-	BPCView * existing_view = [self FindView:view];
+	BPCView * existing_view = [self FindView:view WithType:type];
 	
 	if(existing_view)
 	{
-		// If it is, just set the type
-		[existing_view SetType:type];
+		// If it is already there, don't add it
 		return;
 	}
 	
@@ -1455,122 +1436,159 @@ static BasePadCoordinator * instance_ = nil;
 
 -(void)RemoveView:(id)view
 {
-	int index;
-	BPCView * existing_view = [self FindView:view WithIndexReturned:&index];
+	int view_count = [views count];
 	
-	if(existing_view && index >= 0)
+	if(view_count > 0)
 	{
-		[views removeObjectAtIndex:index];
+		for ( int i = view_count - 1 ; i >= 0 ; i++)
+		{
+			BPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view View] == view)
+			{
+				[views removeObjectAtIndex:i];
+			}
+		}
 	}
 }
 
 -(void)SetViewDisplayed:(id)view
 {
-	// First make sure that we have this view in the list
-	BPCView * existing_view = [self FindView:view];
+	int view_count = [views count];
 	
-	if(existing_view)
+	if(view_count > 0)
 	{
-		[existing_view SetDisplayed:true];
-		[existing_view SetRefreshEnabled:true];
-		
-		if(!needsPlayRestart && allowProtectMediaFromRestart)
-			protectMediaFromRestart = true;
-		
-		needsPlayRestart = (needsPlayRestart || playing);
-		
-		if(playing)
-			[self pausePlay];
-		
-		if (connectionType == BPC_ARCHIVE_CONNECTION_)
-			[self AddDataSourceWithType:[existing_view Type] AndParameter:[existing_view Parameter]];
-		
-		if(needsPlayRestart)
+		for ( int i = 0 ; i < view_count ; i++)
 		{
-			[self prepareToPlay];
-			[self startPlay];
-			[[BasePadTimeController Instance] updatePlayButtons];
+			BPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view View] == view && ![existing_view Displayed])
+			{
+				[existing_view SetDisplayed:true];
+				[existing_view SetRefreshEnabled:true];
+				
+				if(!needsPlayRestart && allowProtectMediaFromRestart)
+					protectMediaFromRestart = true;
+				
+				needsPlayRestart = (needsPlayRestart || playing);
+				
+				if(playing)
+					[self pausePlay];
+				
+				if (connectionType == BPC_ARCHIVE_CONNECTION_)
+					[self AddDataSourceWithType:[existing_view Type] AndParameter:[existing_view Parameter]];
+				
+				if(needsPlayRestart)
+				{
+					[self prepareToPlay];
+					[self startPlay];
+					[[BasePadTimeController Instance] updatePlayButtons];
+				}
+				else
+				{
+					[self showSnapshot];
+				}
+				
+				protectMediaFromRestart = false;
+			}
 		}
-		else
-		{
-			[self showSnapshot];
-		}
-		
-		protectMediaFromRestart = false;
-		
 	}
 }
 
 -(void)SetViewHidden:(id)view
 {
-	// First make sure that we have this view in the list
-	BPCView * existing_view = [self FindView:view];
+	int view_count = [views count];
 	
-	if(existing_view && [existing_view Displayed])
+	if(view_count > 0)
 	{
-		[existing_view SetDisplayed:false];
-		
-		// If this was the last displayed view, stop the play timers, but record the fact
-		// that we are playing so that it will restart when the next view is loaded
-		
-		// If it is not the last view, restart all the others
-		if(playing)
+		for ( int i = 0 ; i < view_count ; i++)
 		{
-			if([self DisplayedViewCount] <= 0)
+			BPCView * existing_view = [views objectAtIndex:i];
+			
+			if([existing_view View] == view && [existing_view Displayed])
 			{
-				[self stopPlay]; // This will stop the server streaming
-				needsPlayRestart = true;
-			}
-			else
-			{
-				if(allowProtectMediaFromRestart)
-					protectMediaFromRestart = true;
+				[existing_view SetDisplayed:false];
+					
+				// If this was the last displayed view, stop the play timers, but record the fact
+				// that we are playing so that it will restart when the next view is loaded
+					
+				// If it is not the last view, restart all the others
+				if(playing)
+				{
+					if([self DisplayedViewCount] <= 0)
+					{
+						[self stopPlay]; // This will stop the server streaming
+						needsPlayRestart = true;
+					}
+					else
+					{
+						if(allowProtectMediaFromRestart)
+							protectMediaFromRestart = true;
+						
+						[self pausePlay];
+						[self prepareToPlay];
+						[self startPlay];
+						[[BasePadTimeController Instance] updatePlayButtons];
+						
+						protectMediaFromRestart = false;
+						
+					}
+				}
 				
-				[self pausePlay];
-				[self prepareToPlay];
-				[self startPlay];
-				[[BasePadTimeController Instance] updatePlayButtons];
-				
-				protectMediaFromRestart = false;
-				
+				// Release the data handler
+				if(connectionType == BPC_ARCHIVE_CONNECTION_)
+					[self RemoveDataSourceWithType:[existing_view Type]];
 			}
 		}
-		
-		// Release the data handler
-		if(connectionType == BPC_ARCHIVE_CONNECTION_)
-			[self RemoveDataSourceWithType:[existing_view Type]];
 	}
 }
 
 -(void)EnableViewRefresh:(id)view
 {
-	// First make sure that we have this view in the list
-	BPCView * existing_view = [self FindView:view];
+	int view_count = [views count];
 	
-	if(existing_view)
+	if(view_count > 0)
 	{
-		[existing_view SetRefreshEnabled:true];
+		for ( int i = 0 ; i < view_count ; i++)
+		{
+			BPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view View] == view)
+			{
+				[existing_view SetRefreshEnabled:true];
+			}
+		}
 	}
 }
 
 -(void)DisableViewRefresh:(id)view
 {
-	// First make sure that we have this view in the list
-	BPCView * existing_view = [self FindView:view];
+	int view_count = [views count];
 	
-	if(existing_view)
+	if(view_count > 0)
 	{
-		[existing_view SetRefreshEnabled:false];
+		for ( int i = 0 ; i < view_count ; i++)
+		{
+			BPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view View] == view)
+			{
+				[existing_view SetRefreshEnabled:false];
+			}
+		}
 	}
 }
 
 -(void)SetParameter:(NSString *)parameter ForView:(id)view
 {
-	BPCView * existing_view = [self FindView:view];
+	int view_count = [views count];
 	
-	if(existing_view)
+	if(view_count > 0)
 	{
-		[existing_view SetParameter:parameter];
+		for ( int i = 0 ; i < view_count ; i++)
+		{
+			BPCView * existing_view = [views objectAtIndex:i];
+			if([existing_view View] == view)
+			{
+				[existing_view SetParameter:parameter];
+			}
+		}
 	}
 }
 
@@ -1660,7 +1678,7 @@ static BasePadCoordinator * instance_ = nil;
 		[registeredViewController RequestRedrawForType:type];
 }
 
--(BPCView *)FindView:(id)view
+-(BPCView *)FindView:(id)view WithType:(int)type
 {
 	int view_count = [views count];
 	
@@ -1669,31 +1687,8 @@ static BasePadCoordinator * instance_ = nil;
 		for ( int i = 0 ; i < view_count ; i++)
 		{
 			BPCView * existing_view = [views objectAtIndex:i];
-			if([existing_view View] == view)
+			if([existing_view View] == view && [existing_view Type] == type)
 			{
-				return existing_view;
-			}
-		}
-	}
-	
-	// Reach here if the view wasn't found
-	return nil;
-}
-
--(BPCView *)FindView:(id)view WithIndexReturned:(int *)index
-{
-	*index = -1;
-	
-	int view_count = [views count];
-	
-	if(view_count > 0)
-	{
-		for ( int i = 0 ; i < view_count ; i++)
-		{
-			BPCView * existing_view = [views objectAtIndex:i];
-			if([existing_view View] == view)
-			{
-				*index = i;
 				return existing_view;
 			}
 		}

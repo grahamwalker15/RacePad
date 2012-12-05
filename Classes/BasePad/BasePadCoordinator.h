@@ -289,8 +289,7 @@ enum ConnectionTypes
 -(void)RequestRedraw:(id)view;
 -(void)RequestRedrawType:(int)type;
 
--(BPCView *)FindView:(id)view;
--(BPCView *)FindView:(id)view WithIndexReturned:(int *)index;
+-(BPCView *)FindView:(id)view WithType:(int)type;
 
 -(int)DisplayedViewCount;
 

@@ -36,22 +36,18 @@
 		
 	IBOutlet UIView * mainMovieViewTitleView;
 	IBOutlet UIImageView * mainMovieViewTitleBackgroundImage;
-	IBOutlet UIButton * mainMovieViewDriverName;
 	IBOutlet UIButton * mainMovieViewMovieType;
+	IBOutlet UIButton * mainMovieViewCloseButton;
 		
 	IBOutlet UIImageView * mainMovieViewLoadingScreen;
 		
 	IBOutlet UIView * auxMovieView1TitleView;
 	IBOutlet UIImageView * auxMovieView1TitleBackgroundImage;
-	IBOutlet UIImageView * auxMovieView1AudioImage;
-	IBOutlet UIButton * auxMovieView1DriverName;
 	IBOutlet UIButton * auxMovieView1MovieType;
 	IBOutlet UIButton * auxMovieView1CloseButton;
 	
 	IBOutlet UIView * auxMovieView2TitleView;
 	IBOutlet UIImageView * auxMovieView2TitleBackgroundImage;
-	IBOutlet UIImageView * auxMovieView2AudioImage;
-	IBOutlet UIButton * auxMovieView2DriverName;
 	IBOutlet UIButton * auxMovieView2MovieType;
 	IBOutlet UIButton * auxMovieView2CloseButton;
 	

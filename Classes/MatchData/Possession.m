@@ -244,7 +244,7 @@
 				away++;
 			}
 			
-			[view SetFGColour:[view black_]];
+			[view SetFGColour:[view white_]];
 			NSNumber *n = [NSNumber numberWithInt:home];
 			NSString *s = [n stringValue];
 			n = [NSNumber numberWithInt:away];

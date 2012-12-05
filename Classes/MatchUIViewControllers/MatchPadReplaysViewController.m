@@ -126,6 +126,30 @@
 	if(view != alertView)
 		return false;
 	
+	if(!parentViewController)	// Shouldn't ever happen
+		return false;
+	
+	// Make sure parent has the right video screen displayed
+	BasePadVideoSource * videoSource = [[BasePadMedia Instance] movieSource:1];
+	
+	if(videoSource && ![videoSource movieDisplayed])
+	{
+		if([parentViewController isKindOfClass:[MatchPadVideoViewController class]])
+		{
+			MatchPadVideoViewController * videoViewController = (MatchPadVideoViewController *) parentViewController;
+			
+			MovieView * movieView = [videoViewController findFreeMovieView];
+			if(movieView)
+			{
+				[videoViewController prepareToAnimateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+				[movieView setMovieViewDelegate:self];
+				[movieView displayMovieSource:videoSource]; // Will get notification below when finished
+				[videoViewController animateMovieViews:movieView From:MV_MOVIE_FROM_RIGHT];
+			}
+		}
+	}
+
+	// Then jump to the replay
 	int dataRow = [ alertView filteredRowToDataRow:row];
 	AlertData * alertData = [[MatchPadDatabase Instance] alertData];
 	float time = [[alertData itemAtIndex:dataRow] timeStamp];

@@ -13,6 +13,14 @@
 @interface MatchPadStatsViewController : BasePadPopupViewController
 {
 	IBOutlet UIButton * teamStatsButton;
+	IBOutlet UIButton * ballStatsButton;
+	IBOutlet UIButton * possessionStatsButton;
+	IBOutlet UIButton * pitchStatsButton;
+	
+	IBOutlet UIButton * teamStatsLabel;
+	IBOutlet UIButton * ballStatsLabel;
+	IBOutlet UIButton * possessionStatsLabel;
+	IBOutlet UIButton * pitchStatsLabel;
 }
 
 - (void) hideStatsControllers;

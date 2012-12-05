@@ -16,12 +16,6 @@
 
 @class AnimationTimer;
 
-enum H2HDragSource {
-	H2H_VC_LEADERBOARD_,
-	H2H_VC_DRIVER1_,
-	H2H_VC_DRIVER2_
-};
-
 @interface MoveViewController : BasePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;

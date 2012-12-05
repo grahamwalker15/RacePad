@@ -15,26 +15,8 @@
 {
 	// Set parameters for display
 	[[MatchPadCoordinator Instance] AddView:team_stats_view_ WithType:MPC_TEAM_STATS_VIEW_];	
-	[[MatchPadCoordinator Instance] AddView:self WithType:MPC_TEAM_STATS_VIEW_];
 
 	[super viewDidLoad];
-}
-
-- (void)willDisplay
-{
-	[super willDisplay];
-	
-	[[MatchPadCoordinator Instance] SetViewDisplayed:team_stats_view_];
-	[[MatchPadCoordinator Instance] SetViewDisplayed:self];
-	
-}
-
-- (void)willHide
-{
-	[[MatchPadCoordinator Instance] SetViewHidden:team_stats_view_];
-	[[MatchPadCoordinator Instance] SetViewHidden:self];
-	
-	[[MatchPadCoordinator Instance] ReleaseViewController:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,5 +42,18 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////
+
+- (void)willDisplay
+{
+	[super willDisplay];
+	
+	[[MatchPadCoordinator Instance] SetViewDisplayed:team_stats_view_];
+}
+
+- (void)willHide
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:team_stats_view_];
+}
+
 
 @end

@@ -15,6 +15,8 @@
 
 #import "MatchPadVideoViewController.h"
 
+#import "BasePadMedia.h"
+
 @implementation MatchPadAppDelegate
 
 @synthesize mainViewController;
@@ -40,12 +42,18 @@
 	
 	// Start the coordinator, media handler etc.
 	[self startBaseServices];
+	
+	// Set the media movie policy to have separate live and replay sources
+	[[BasePadMedia Instance] setMoviePolicy:MOVIE_POLICY_LIVE_AND_REPLAY_];
 		
-	// Create the popup controolers
+	// Create the popup controllers
 	[[MatchPadStatsManager Instance] onStartUp];
 	[[MatchPadReplaysManager Instance] onStartUp];
 	
 	[[MatchPadTeamStatsManager Instance] onStartUp];
+	[[MatchPadBallStatsManager Instance] onStartUp];
+	[[MatchPadPossessionStatsManager Instance] onStartUp];
+	[[MatchPadPitchStatsManager Instance] onStartUp];
 	
     // Add the home controller's current view as a subview of the window
     [window addSubview:mainViewController.view];

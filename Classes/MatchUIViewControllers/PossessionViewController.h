@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "BasePadPopupViewController.h"
 #import "ShinyButton.h"
 
 @class PossessionView;
@@ -16,32 +16,21 @@
 
 @class AnimationTimer;
 
-enum H2HDragSource {
-	H2H_VC_LEADERBOARD_,
-	H2H_VC_DRIVER1_,
-	H2H_VC_DRIVER2_
-};
-
-@interface PossessionViewController : BasePadViewController
+@interface PossessionViewController : BasePadPopupViewController
 {
 	IBOutlet BackgroundView *backgroundView;
-
 	IBOutlet PossessionView * possessionView;
 	
 	bool animating;
 	bool showPending;
 	bool hidePending;
-	
 }
 
-- (void)positionOverlays;
+- (void) positionOverlays;
 - (void) prePositionOverlays;
 - (void) postPositionOverlays;
 
-- (void)showOverlays;
-- (void)hideOverlays;
-- (void)addBackgroundFrames;
-
-- (void)RequestRedraw;
+- (void) showOverlays;
+- (void) hideOverlays;
 
 @end

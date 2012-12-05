@@ -363,7 +363,7 @@
 
 - (void) showMovieLabels:(int)requestedTitleStyle;
 {
-	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
+	if(!movieSource || !titleView)
 		return;
 	
     titleStyle = requestedTitleStyle;
@@ -391,45 +391,72 @@
 
 - (void) updateMovieLabels
 {
-	if(!movieSource || !titleView || !titleBackgroundImage || !movieNameButton || !movieTypeButton)
+	if(!movieSource || !titleView)
 		return;
     
 	float xRight = CGRectGetMaxX([titleView bounds]);
 	
 	if(titleStyle == MV_CLOSE_AND_AUDIO)
 	{
-		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayFull.png"]];
-		[movieNameButton setFrame:CGRectMake(xRight - 190, 0, 115, 16)];
-		[movieTypeButton setFrame:CGRectMake(xRight - 190, 16, 115, 16)];
-		[audioImage setHidden:false];
+		if(titleBackgroundImage)
+			[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayFull.png"]];
+		
+		if(movieNameButton)
+			[movieNameButton setFrame:CGRectMake(xRight - 190, 0, 115, 16)];
+		
+		if(movieTypeButton)
+			[movieTypeButton setFrame:CGRectMake(xRight - 190, 16, 115, 16)];
+		
+		if(audioImage)
+			[audioImage setHidden:false];
 	}
 	else if(titleStyle == MV_CLOSE_NO_AUDIO)
 	{
-		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoAudio.png"]];
-		[movieNameButton setFrame:CGRectMake(xRight - 160, 0, 115, 16)];
-		[movieTypeButton setFrame:CGRectMake(xRight - 160, 16, 115, 16)];
-		[audioImage setHidden:true];
+		if(titleBackgroundImage)
+			[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoAudio.png"]];
+		
+		if(movieNameButton)
+			[movieNameButton setFrame:CGRectMake(xRight - 160, 0, 115, 16)];
+		
+		if(movieTypeButton)
+			[movieTypeButton setFrame:CGRectMake(xRight - 160, 16, 115, 16)];
+		
+		if(audioImage)
+			[audioImage setHidden:true];
 	}
 	else if(titleStyle == MV_NO_CLOSE_NO_AUDIO)
 	{
-		[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoClose.png"]];
-		[movieNameButton setFrame:CGRectMake(xRight - 125, 0, 115, 16)];
-		[movieTypeButton setFrame:CGRectMake(xRight - 125, 16, 115, 16)];
-		[audioImage setHidden:true];
+		if(titleBackgroundImage)
+			[titleBackgroundImage setImage:[UIImage imageNamed:@"videoTitleOverlayNoClose.png"]];
+		
+		if(movieNameButton)
+			[movieNameButton setFrame:CGRectMake(xRight - 125, 0, 115, 16)];
+		
+		if(movieTypeButton)
+			[movieTypeButton setFrame:CGRectMake(xRight - 125, 16, 115, 16)];
+		
+		if(audioImage)
+			[audioImage setHidden:true];
 	}
 	
-	[movieNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
+	if(movieNameButton)
+	{
+		[movieNameButton setTitle:[movieSource movieName] forState:UIControlStateNormal];
+		[movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+	}
 	
     live = [movieSource movieForceLive] ? true : [[BasePadCoordinator Instance] liveMode];
 	
-	if(live)
-		[movieTypeButton setTitle:@"LIVE" forState:UIControlStateNormal];
-	else
-		[movieTypeButton setTitle:@"REPLAY" forState:UIControlStateNormal];
+	if(movieTypeButton)
+	{
+		if(live)
+			[movieTypeButton setTitle:@"LIVE" forState:UIControlStateNormal];
+		else
+			[movieTypeButton setTitle:@"REPLAY" forState:UIControlStateNormal];
     
-    [movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    [movieNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-}
+		[movieTypeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+	}
+ }
 
 - (void) showMovieLoading
 {

@@ -11,6 +11,9 @@
 #import "MatchPadStatsViewController.h"
 #import "MatchPadReplaysViewController.h"
 #import "TeamStatsViewController.h"
+#import "BallViewController.h"
+#import "PossessionViewController.h"
+#import "PitchViewController.h"
 //#import "MatchPadHelpViewController.h"
 //#import "MatchPadMasterMenuViewController.h"
 
@@ -185,3 +188,107 @@ static MatchPadTeamStatsManager * teamStatsInstance_ = nil;
 
 
 @end
+
+@implementation MatchPadBallStatsManager
+
+static MatchPadBallStatsManager * ballStatsInstance_ = nil;
+
++(MatchPadBallStatsManager *)Instance
+{
+	if(!ballStatsInstance_)
+		ballStatsInstance_ = [[MatchPadBallStatsManager alloc] init];
+	
+	return ballStatsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		BallViewController * viewController = [[BallViewController alloc] initWithNibName:@"BallStatsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_BALL_STATS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setShowHeadingAtStart:false];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+
+@end
+
+@implementation MatchPadPossessionStatsManager
+
+static MatchPadPossessionStatsManager * possessionStatsInstance_ = nil;
+
++(MatchPadPossessionStatsManager *)Instance
+{
+	if(!possessionStatsInstance_)
+		possessionStatsInstance_ = [[MatchPadPossessionStatsManager alloc] init];
+	
+	return possessionStatsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		PossessionViewController * viewController = [[PossessionViewController alloc] initWithNibName:@"PossessionStatsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_POSSESSION_STATS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setShowHeadingAtStart:false];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MatchPadPitchStatsManager
+
+static MatchPadPitchStatsManager * pitchStatsInstance_ = nil;
+
++(MatchPadPitchStatsManager *)Instance
+{
+	if(!pitchStatsInstance_)
+		pitchStatsInstance_ = [[MatchPadPitchStatsManager alloc] init];
+	
+	return pitchStatsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		PitchViewController * viewController = [[PitchViewController alloc] initWithNibName:@"PitchStatsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_PITCH_STATS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setShowHeadingAtStart:false];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+@end
+

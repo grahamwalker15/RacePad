@@ -30,6 +30,7 @@
 @synthesize currentStatus;
 @synthesize currentError;
 
+@synthesize moviePolicy;
 @synthesize movieType;
 
 @synthesize extendedNotification;
@@ -74,6 +75,7 @@ static BasePadMedia * instance_ = nil;
 		lastResyncTime = 0.0;
 		
 		movieType = MOVIE_TYPE_NONE_;
+		moviePolicy = MOVIE_POLICY_SINGLE_SOURCE_;
 		
 		extendedNotification = false;
 	}
@@ -216,12 +218,29 @@ static BasePadMedia * instance_ = nil;
 			{
 				[self loadVideoList:currentMovieRoot];
 			}
-			else
+			else if(moviePolicy == MOVIE_POLICY_SINGLE_SOURCE_)
 			{
 				[movieSources[0] setMovieType:movieType];
 				[movieSources[0] setShouldAutoDisplay:true];
 				[movieSources[0] loadMovie:url ShouldDisplay:true InMovieView:nil];
 				movieSourceCount = 1;
+			}
+			else // moviePolicy == MOVIE_POLICY_LIVE_AND_REPLAY_
+			{
+				[movieSources[0] setMovieURL:url] ;
+				[movieSources[0] setMovieTag:@"LIVE"];
+				[movieSources[0] setMovieType:movieType];
+				[movieSources[0] setShouldAutoDisplay:true];
+				[movieSources[0] setMovieForceLive:true];
+				[movieSources[0] loadMovie:url ShouldDisplay:true InMovieView:nil];
+
+				[movieSources[1] setMovieURL:url] ;
+				[movieSources[1] setMovieTag:@"REPLAY"];
+				[movieSources[1] setMovieType:movieType];
+				[movieSources[1] setShouldAutoDisplay:false];
+				[movieSources[1] setMovieForceLive:false];
+				
+				movieSourceCount = 2;
 			}
 		}
 	}
@@ -834,9 +853,9 @@ static BasePadMedia * instance_ = nil;
 	}
 	else
 	{
-		// Only load archives and the main view to start
-		// Streamed feeds will be loaded as needed - indicated by movieView being set
-		if(movieView || [movieSource shouldAutoDisplay])// || [movieSource movieType] == MOVIE_TYPE_ARCHIVE_)
+		// Only load the main view to start
+		// Other feeds will be loaded as needed - indicated by movieView being set
+		if(movieView || [movieSource shouldAutoDisplay])
 		{
 			if(movieView)
 			{

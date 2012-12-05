@@ -13,15 +13,15 @@
 
 @interface BasePadPopupViewController : BasePadViewController
 {
-	IBOutlet UIImageView * container;
-	IBOutlet UIImageView * heading;
+	IBOutlet UIView * container;
+	IBOutlet UIView * heading;
 	
 	BasePadPopupManager * associatedManager;
 	UIViewController * parentViewController;
 }
 
-@property (readonly) UIImageView * container;
-@property (readonly) UIImageView * heading;
+@property (readonly) UIView * container;
+@property (readonly) UIView * heading;
 @property (nonatomic,retain) BasePadPopupManager * associatedManager;
 @property (nonatomic,retain) UIViewController * parentViewController;
 

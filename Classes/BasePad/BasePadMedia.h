@@ -34,6 +34,15 @@ enum MovieTypes
 	MOVIE_TYPE_VOD_STREAM_
 } ;
 
+// Movie policies : set at app level - what to do with a movie file.
+// Do we keep a live and a replay movie sources (so we can do picture in picture), or just one for both
+// These are only used for single file sources - not vls files
+enum MoviePolicies
+{
+	MOVIE_POLICY_SINGLE_SOURCE_,
+	MOVIE_POLICY_LIVE_AND_REPLAY_,
+} ;
+
 // Connection status
 enum MovieConnectionTypes
 {
@@ -79,6 +88,7 @@ enum MovieConnectionTypes
 	
 	float activePlaybackRate;
 	
+	int moviePolicy;
 	int movieType;
 	
 	bool extendedNotification;
@@ -104,6 +114,7 @@ enum MovieConnectionTypes
 @property (readonly) int currentStatus;
 @property (readonly) NSString *currentError;
 
+@property (nonatomic) int moviePolicy;
 @property (readonly) int movieType;
 
 @property (nonatomic) bool extendedNotification;

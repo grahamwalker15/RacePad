@@ -82,11 +82,36 @@
 	CGRect superBounds = [parentViewController.view bounds];
 	CGRect viewBounds = [self.view bounds];
 	float xCentre = (CGRectGetWidth(superBounds) - CGRectGetWidth(viewBounds)) * 0.5;
-	if(sender == teamStatsButton)
+
+	if(sender == teamStatsButton || sender == teamStatsLabel)
 	{
 		if(![[MatchPadTeamStatsManager Instance] viewDisplayed])
 		{
 			[[MatchPadTeamStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+		}		
+	}
+	
+	if(sender == ballStatsButton || sender == ballStatsLabel)
+	{
+		if(![[MatchPadBallStatsManager Instance] viewDisplayed])
+		{
+			[[MatchPadBallStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+		}		
+	}
+	
+	if(sender == possessionStatsButton || sender == possessionStatsLabel)
+	{
+		if(![[MatchPadPossessionStatsManager Instance] viewDisplayed])
+		{
+			[[MatchPadPossessionStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+		}		
+	}
+	
+	if(sender == pitchStatsButton || sender == pitchStatsLabel)
+	{
+		if(![[MatchPadPitchStatsManager Instance] viewDisplayed])
+		{
+			[[MatchPadPitchStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
 		}		
 	}
 }
@@ -96,6 +121,21 @@
 	if([[MatchPadTeamStatsManager Instance] viewDisplayed])
 	{
 		[[MatchPadTeamStatsManager Instance] hideAnimated:true Notify:false];
+	}
+	
+	if([[MatchPadBallStatsManager Instance] viewDisplayed])
+	{
+		[[MatchPadBallStatsManager Instance] hideAnimated:true Notify:false];
+	}
+	
+	if([[MatchPadPossessionStatsManager Instance] viewDisplayed])
+	{
+		[[MatchPadPossessionStatsManager Instance] hideAnimated:true Notify:false];
+	}
+	
+	if([[MatchPadPitchStatsManager Instance] viewDisplayed])
+	{
+		[[MatchPadPitchStatsManager Instance] hideAnimated:true Notify:false];
 	}
 }
 

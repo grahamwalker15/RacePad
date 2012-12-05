@@ -28,6 +28,9 @@ enum MatchPadPopupViewTypes
 	MP_HELP_POPUP_,
 	MP_MASTER_MENU_POPUP_,
 	MP_TEAM_STATS_POPUP_,
+	MP_BALL_STATS_POPUP_,
+	MP_POSSESSION_STATS_POPUP_,
+	MP_PITCH_STATS_POPUP_,
 };
 	
 // View alignment
@@ -86,6 +89,30 @@ enum MatchPadPopupMenuZones
 }
 
 +(MatchPadTeamStatsManager *)Instance;
+
+@end
+
+@interface MatchPadBallStatsManager : BasePadPopupManager
+{
+}
+
++(MatchPadBallStatsManager *)Instance;
+
+@end
+
+@interface MatchPadPossessionStatsManager : BasePadPopupManager
+{
+}
+
++(MatchPadPossessionStatsManager *)Instance;
+
+@end
+
+@interface MatchPadPitchStatsManager : BasePadPopupManager
+{
+}
+
++(MatchPadPitchStatsManager *)Instance;
 
 @end
 

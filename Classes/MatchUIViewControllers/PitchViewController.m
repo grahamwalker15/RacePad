@@ -74,8 +74,7 @@
 	[super viewDidLoad];
 	
 	[[MatchPadCoordinator Instance] AddView:pitchView WithType:MPC_PITCH_VIEW_];
-	[[MatchPadCoordinator Instance] AddView:pitchZoomView WithType:MPC_POSITIONS_VIEW_];
-	// FIXME - we have one view with two sources - which doesn't work correctly.
+	[[MatchPadCoordinator Instance] AddView:pitchView WithType:MPC_POSITIONS_VIEW_];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -96,7 +95,6 @@
 	[pitchZoomContainer setHidden:true];
 	
 	[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
-	[[MatchPadCoordinator Instance] SetViewDisplayed:pitchZoomView];
 
 	NSNumber *v = [[BasePadPrefs Instance]getPref:@"playerTrails"];
 	if ( v )
@@ -121,7 +119,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
-	[[MatchPadCoordinator Instance] SetViewHidden:pitchZoomView];
 	[[MatchPadCoordinator Instance] ReleaseViewController:self];
 	
 	// re-enable the screen locking
@@ -257,9 +254,7 @@
 
 - (void) OnTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
 {	
-	// Reach here if either tap was outside leaderboard, or no car was found at tap point
-	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
-
+	[super OnTapGestureInView:gestureView AtX:x Y:y];
 }
 
 - (void) OnDoubleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
@@ -330,5 +325,53 @@
 		[pitchView RequestRedraw];
 	}
 }
+
+
+////////////////////////////////////////////////////
+// Popup methods
+
+
+- (void) willDisplay
+{
+	// Resize overlay views
+	[self positionOverlays];
+	
+	// Force background refresh
+	[backgroundView RequestRedraw];
+	
+	[pitchZoomContainer setHidden:true];
+	
+	[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
+	
+	NSNumber *v = [[BasePadPrefs Instance]getPref:@"playerTrails"];
+	if ( v )
+		pitchView.playerTrails = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"playerPos"];
+	if ( v )
+		pitchView.playerPos = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passes"];
+	if ( v )
+		pitchView.passes = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passNames"];
+	if ( v )
+		pitchView.passNames = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"ballTrail"];
+	if ( v )
+		pitchView.ballTrail = [v boolValue];
+}
+
+- (void) willHide
+{
+}
+
+- (void) didDisplay
+{
+}
+
+- (void) didHide
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
+}
+
 
 @end
