@@ -71,7 +71,6 @@
     popupNotificationPending = false;
 	
 	displayVideo = true;
-	displayPitch = false;
     displayLogos = true;
 	
 	allowBubbleCommentary = false;
@@ -134,6 +133,8 @@
 	[self positionMenuButtons];
 				
 	// Set the types on the pitch view
+	displayPitch = false;
+	[pitchView setHidden:true];
 	[pitchView setIsZoomView:false];
 	
 	[pitchView setIsOverlayView:false];
@@ -214,9 +215,15 @@
 	
 	if(displayPitch)
 	{
+		[pitchView setHidden:false];
 		[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
 		[[MatchPadCoordinator Instance] SetViewDisplayed:backgroundView];
 	}
+	else
+	{
+		[pitchView setHidden:true];
+	}
+
 	
 	NSNumber *v = [[BasePadPrefs Instance]getPref:@"playerTrails"];
 	if ( v )
@@ -470,8 +477,12 @@
 	CGRect leftViewRect = CGRectMake(0, 464,308,174);
 	CGRect topViewRect = CGRectMake(716, 54,308,174);
 	
-	CGRect mainFocusRect = CGRectMake(0, (CGRectGetMaxY(superBounds) - 576) * 0.5, 1024,576);
-	CGRect pInPRect = CGRectMake(10, CGRectGetMaxY(superBounds) - 184, 308,174);
+	CGRect soloViewRect = CGRectMake(0, (CGRectGetMaxY(superBounds) - 576) * 0.5, 1024,576);
+	CGRect mainReplayRect = CGRectMake(0, 0, 1024,576);
+	CGRect pInPRectLeft = CGRectMake(10, CGRectGetMaxY(superBounds) - 184, 308,174);
+	CGRect pInPRectRight = CGRectMake(CGRectGetMaxX(superBounds) - 318, CGRectGetMaxY(superBounds) - 184, 308,174);
+	
+	CGRect pitchRect = CGRectMake(400, CGRectGetMaxY(superBounds) - 172, 600, 162);
 	
 	CGRect auxMovieView1Rect = [auxMovieView1 frame];
 	CGRect auxMovieView2Rect = [auxMovieView2 frame];
@@ -486,7 +497,7 @@
         
         // Then setup the movie view parameters
 		[self showOverlays];
-		[mainMovieView setFrame:mainFocusRect];
+		[mainMovieView setFrame:soloViewRect];
 		[mainMovieView setShouldShowLabels:false];
 		[auxMovieView1 setShouldShowLabels:false];
 		[auxMovieView2 setShouldShowLabels:false];
@@ -498,27 +509,29 @@
 	else if(movieViewCount == 2)
 	{
 		[self showOverlays];
-		[mainMovieView setFrame:pInPRect];
+		[mainMovieView setFrame:pInPRectLeft];
 		[mainMovieView setShouldShowLabels:true];
         [mainMovieView setAudioMuted:true];
 		if([auxMovieView1 movieSourceAssociated] && ![auxMovieView1 movieScheduledForRemoval])
 		{
 			priorityAuxMovie = 1;
-			[auxMovieView1 setFrame:mainFocusRect];
+			[auxMovieView1 setFrame:mainReplayRect];
 			[auxMovieView1 setShouldShowLabels:true];
 			[auxMovieView2 setShouldShowLabels:false];
  		}
 		else if([auxMovieView2 movieSourceAssociated] && ![auxMovieView2 movieScheduledForRemoval])
 		{
 			priorityAuxMovie = 2;
-			[auxMovieView2 setFrame:mainFocusRect];
+			[auxMovieView2 setFrame:mainReplayRect];
 			[auxMovieView2 setShouldShowLabels:true];
 			[auxMovieView1 setShouldShowLabels:false];
 		}
         [auxMovieView1 setAudioMuted:priorityAuxMovie == 2];
         [auxMovieView2 setAudioMuted:priorityAuxMovie == 1];
+		
+		[pitchView setFrame:pitchRect];
 	}
-	else if(movieViewCount == 3)
+	else if(movieViewCount == 3)	// Won't happen at the moment, but leave code in in case we decide to allow it
 	{
 		[self showOverlays];
 		[mainMovieView setFrame:leftViewRect];
@@ -585,7 +598,7 @@
 	
 	moviesAnimating = true;
 	
-    // Remove the time controls if they qre there
+    // Remove the time controls if they are there
     // Switch off time controller if we're returning to a forced live view
     if([BasePadViewController timeControllerDisplayed])
     {
@@ -611,6 +624,19 @@
 	[auxMovieView1 hideMovieLabels];
 	[auxMovieView2 hideMovieLabels];
 	
+	int movieViewCount = [self countMovieViews];
+	
+	if(movieViewCount > 1)
+	{
+		[self setPitchDisplayed:true];
+		[pitchView setAlpha:0.0];
+		[pitchView setHidden:false];
+	}
+	else
+	{
+		[self setPitchDisplayed:false];
+	}
+	
 	[UIView beginAnimations:nil context:nil];
 	
 	[UIView setAnimationDelegate:self];
@@ -619,6 +645,11 @@
 	[UIView setAnimationDuration:1.0];
 	
 	[self positionMovieViews];
+	
+	if(displayPitch)
+		[pitchView setAlpha:1.0];
+	else
+		[pitchView setAlpha:0.0];
 	
 	[UIView commitAnimations];
 }
@@ -659,6 +690,13 @@
 	else
 		[auxMovieView2 hideMovieLabels];
     
+	// Deal with pitch if not displayed
+	if(!displayPitch)
+	{
+		[pitchView setHidden:true];
+		[pitchView setAlpha:1.0];
+	}
+	
     // Restore the time controls if needed
     if(timeControllerPending && ![BasePadViewController timeControllerDisplayed])
     {
@@ -865,6 +903,7 @@
 
 - (void)setVideoDisplayed:(bool)state
 {
+	/*
 	if(state)
 	{
 		if(!displayPitch)
@@ -886,19 +925,18 @@
 			[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
 		}
 	}
+	*/
 }
 
 - (void)setPitchDisplayed:(bool)state
 {
+	// Change state and data streaming. Display of view itself will behandled by animation.
 	if(state)
 	{
 		if(!displayPitch)
 		{
-			displayPitch = true;
-			[pitchView setHidden:false];
-			
-			[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
-			
+			displayPitch = true;			
+			[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];			
 			[pitchView RequestRedraw];
 		}
 	}
@@ -907,7 +945,6 @@
 		if(displayPitch)
 		{
 			displayPitch = false;
-			[pitchView setHidden:true];
 			[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
 		}
 		
@@ -1002,7 +1039,13 @@
 		[(MovieView *)gestureView redisplayMovieSource];
 	}
 	
-	// GG - COMMENT OUT LEADERBOARD : [leaderboardView RequestRedraw];
+	// Otherwise, temporarily display pitch view
+	if(![[MatchPadPitchStatsManager Instance] viewDisplayed])
+	{
+		CGRect viewBounds = [self.view bounds];
+		float xCentre = CGRectGetWidth(viewBounds) * 0.5;
+		[[MatchPadPitchStatsManager Instance] displayInViewController:self AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+	}		
 }
 
 
