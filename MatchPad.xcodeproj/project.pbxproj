@@ -211,6 +211,16 @@
 		7F6F6167166F842B00ED06F3 /* BallStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F6166166F842B00ED06F3 /* BallStatsView.xib */; };
 		7F6F6169166F849E00ED06F3 /* PossessionStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F6168166F849E00ED06F3 /* PossessionStatsView.xib */; };
 		7F6F6366166FAA8900ED06F3 /* PitchStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F6365166FAA8900ED06F3 /* PitchStatsView.xib */; };
+		7F6F642316711A3500ED06F3 /* GradientBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F642216711A3500ED06F3 /* GradientBG.png */; };
+		7F6F642A1671F31300ED06F3 /* MatchPadScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F64281671F31300ED06F3 /* MatchPadScreen.png */; };
+		7F6F642B1671F31300ED06F3 /* MenuPopupBG in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F64291671F31300ED06F3 /* MenuPopupBG */; };
+		7F6F642D1671F38200ED06F3 /* MenuFullScreenBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F642C1671F38200ED06F3 /* MenuFullScreenBG.png */; };
+		7F6F64311671F80800ED06F3 /* MovieViewExpand.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F64301671F80800ED06F3 /* MovieViewExpand.png */; };
+		7F6F645516720D4A00ED06F3 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F645016720D4A00ED06F3 /* Ball.png */; };
+		7F6F645616720D4A00ED06F3 /* PlayerBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F645116720D4A00ED06F3 /* PlayerBlack.png */; };
+		7F6F645716720D4A00ED06F3 /* PlayerLightBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F645216720D4A00ED06F3 /* PlayerLightBlue.png */; };
+		7F6F645816720D4A00ED06F3 /* PlayerOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F645316720D4A00ED06F3 /* PlayerOrange.png */; };
+		7F6F645916720D4A00ED06F3 /* PlayerRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6F645416720D4A00ED06F3 /* PlayerRed.png */; };
 		7F7F8F8F16302CC4001F1229 /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F7F8F8E16302CC4001F1229 /* TimeControllerView.xib */; };
 		7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157D51497A0FA00A013BC /* GreyTextureBG.png */; };
 		7F9B68461667EA5A00B219AF /* MatchPadMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9B68451667EA5A00B219AF /* MatchPadMainWindow.xib */; };
@@ -469,6 +479,16 @@
 		7F6F6166166F842B00ED06F3 /* BallStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = BallStatsView.xib; path = ResourceFiles/MatchXIB/BallStatsView.xib; sourceTree = "<group>"; };
 		7F6F6168166F849E00ED06F3 /* PossessionStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PossessionStatsView.xib; path = ResourceFiles/MatchXIB/PossessionStatsView.xib; sourceTree = "<group>"; };
 		7F6F6365166FAA8900ED06F3 /* PitchStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PitchStatsView.xib; path = ResourceFiles/MatchXIB/PitchStatsView.xib; sourceTree = "<group>"; };
+		7F6F642216711A3500ED06F3 /* GradientBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GradientBG.png; path = Images/GradientBG.png; sourceTree = "<group>"; };
+		7F6F64281671F31300ED06F3 /* MatchPadScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MatchPadScreen.png; sourceTree = "<group>"; };
+		7F6F64291671F31300ED06F3 /* MenuPopupBG */ = {isa = PBXFileReference; lastKnownFileType = file; path = MenuPopupBG; sourceTree = "<group>"; };
+		7F6F642C1671F38200ED06F3 /* MenuFullScreenBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuFullScreenBG.png; sourceTree = "<group>"; };
+		7F6F64301671F80800ED06F3 /* MovieViewExpand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MovieViewExpand.png; path = Images/MovieViewExpand.png; sourceTree = "<group>"; };
+		7F6F645016720D4A00ED06F3 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		7F6F645116720D4A00ED06F3 /* PlayerBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayerBlack.png; sourceTree = "<group>"; };
+		7F6F645216720D4A00ED06F3 /* PlayerLightBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayerLightBlue.png; sourceTree = "<group>"; };
+		7F6F645316720D4A00ED06F3 /* PlayerOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayerOrange.png; sourceTree = "<group>"; };
+		7F6F645416720D4A00ED06F3 /* PlayerRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayerRed.png; sourceTree = "<group>"; };
 		7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LeftArrow.png; path = Images/LeftArrow.png; sourceTree = "<group>"; };
 		7F6FB6BB127577FE00EF2B8C /* RightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RightArrow.png; path = Images/RightArrow.png; sourceTree = "<group>"; };
 		7F767CA612A62EC9009249F7 /* BlueBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBar.png; path = Images/BlueBar.png; sourceTree = "<group>"; };
@@ -679,6 +699,14 @@
 		4D02A5E613B8DD860010E06B /* MatchPad */ = {
 			isa = PBXGroup;
 			children = (
+				7F6F645016720D4A00ED06F3 /* Ball.png */,
+				7F6F645116720D4A00ED06F3 /* PlayerBlack.png */,
+				7F6F645216720D4A00ED06F3 /* PlayerLightBlue.png */,
+				7F6F645316720D4A00ED06F3 /* PlayerOrange.png */,
+				7F6F645416720D4A00ED06F3 /* PlayerRed.png */,
+				7F6F642C1671F38200ED06F3 /* MenuFullScreenBG.png */,
+				7F6F64281671F31300ED06F3 /* MatchPadScreen.png */,
+				7F6F64291671F31300ED06F3 /* MenuPopupBG */,
 				4D02A5E713B8DDAF0010E06B /* Default-Landscape.png */,
 				4D02A5E813B8DDAF0010E06B /* Default-Portrait.png */,
 			);
@@ -1001,6 +1029,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F6F64301671F80800ED06F3 /* MovieViewExpand.png */,
+				7F6F642216711A3500ED06F3 /* GradientBG.png */,
 				7F6F615C166F81F700ED06F3 /* CloseButtonBlack.png */,
 				7FB628DC166F5FDA0082AE75 /* CloseButtonBig.png */,
 				7FB628B6166E524E0082AE75 /* MovieViewClose.png */,
@@ -1277,6 +1307,16 @@
 				7F6F6167166F842B00ED06F3 /* BallStatsView.xib in Resources */,
 				7F6F6169166F849E00ED06F3 /* PossessionStatsView.xib in Resources */,
 				7F6F6366166FAA8900ED06F3 /* PitchStatsView.xib in Resources */,
+				7F6F642316711A3500ED06F3 /* GradientBG.png in Resources */,
+				7F6F642A1671F31300ED06F3 /* MatchPadScreen.png in Resources */,
+				7F6F642B1671F31300ED06F3 /* MenuPopupBG in Resources */,
+				7F6F642D1671F38200ED06F3 /* MenuFullScreenBG.png in Resources */,
+				7F6F64311671F80800ED06F3 /* MovieViewExpand.png in Resources */,
+				7F6F645516720D4A00ED06F3 /* Ball.png in Resources */,
+				7F6F645616720D4A00ED06F3 /* PlayerBlack.png in Resources */,
+				7F6F645716720D4A00ED06F3 /* PlayerLightBlue.png in Resources */,
+				7F6F645816720D4A00ED06F3 /* PlayerOrange.png in Resources */,
+				7F6F645916720D4A00ED06F3 /* PlayerRed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

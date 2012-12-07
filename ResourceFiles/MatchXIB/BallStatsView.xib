@@ -60,7 +60,7 @@
 						<int key="NSvFlags">274</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIImageView" id="111560006">
+							<object class="IBUIImageView" id="727880441">
 								<reference key="NSNextResponder" ref="156621775"/>
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{700, 700}</string>
@@ -75,10 +75,10 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">MenuReplaysBG.png</string>
+									<string key="NSResourceName">MenuFullScreenBG.png</string>
 								</object>
 							</object>
-							<object class="IBUIScrollView" id="871785079">
+							<object class="IBUIScrollView" id="962483128">
 								<reference key="NSNextResponder" ref="156621775"/>
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{700, 700}</string>
@@ -166,7 +166,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">backgroundView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="871785079"/>
+						<reference key="destination" ref="962483128"/>
 					</object>
 					<int key="connectionID">32</int>
 				</object>
@@ -213,8 +213,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="626978768"/>
-							<reference ref="111560006"/>
-							<reference ref="871785079"/>
+							<reference ref="727880441"/>
+							<reference ref="962483128"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 						<string key="objectName">Container View</string>
@@ -232,12 +232,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">30</int>
-						<reference key="object" ref="111560006"/>
+						<reference key="object" ref="727880441"/>
 						<reference key="parent" ref="156621775"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">31</int>
-						<reference key="object" ref="871785079"/>
+						<reference key="object" ref="962483128"/>
 						<reference key="parent" ref="156621775"/>
 					</object>
 				</object>
@@ -650,12 +650,12 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>CloseButtonBlack.png</string>
-				<string>MenuReplaysBG.png</string>
+				<string>MenuFullScreenBG.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{44, 44}</string>
-				<string>{400, 700}</string>
+				<string>{1024, 748}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">141</string>

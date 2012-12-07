@@ -1236,6 +1236,7 @@
 		{
             // If we only have a forced live video view displayed, add another one when the time controller is brought up
             int movieCount = [self countMovieViews];
+			
             if(movieCount <= 1)
             {
                 if(mainMovieView && [mainMovieView movieSourceAssociated] && [mainMovieView movieSource] && [[mainMovieView movieSource] movieForceLive])
@@ -1264,7 +1265,6 @@
                 [self performSelector:@selector(executeTimeControllerDisplay) withObject:nil afterDelay: 1.0];
             else
                 [self executeTimeControllerDisplay];
-            
 		}
 		else
 		{
@@ -1276,11 +1276,12 @@
 - (void) executeTimeControllerDisplay
 {
     id timeControllerInstance = [BasePadViewController timeControllerInstance];
-	CGRect centreViewRect = CGRectMake(324, 244,700,394);
-    
+	CGRect playerRect = priorityAuxMovie == 1 ? [auxMovieView1 frame] : [auxMovieView2 frame];
+	CGRect timerRect = CGRectInset (playerRect, 20, 0);
+
 	if ( timeControllerInstance && [timeControllerInstance conformsToProtocol:@protocol(TimeControllerInstance)] )
 	{
-        [timeControllerInstance displayTimeControllerInViewController:self InRect:centreViewRect Animated:true];
+        [timeControllerInstance displayTimeControllerInViewController:self InRect:timerRect Animated:true];
     }
     
     // Ensure that all displayed popups are in front

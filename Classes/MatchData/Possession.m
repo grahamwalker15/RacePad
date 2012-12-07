@@ -222,6 +222,9 @@
 			x1 += chunkWidth;
 		}
 		
+		[view SaveFont];
+		[view UseControlFont];
+
 		int goal_count = [goals[p] count];
 		[view SetLineWidth:2];
 		for ( int g = 0; g < goal_count; g++ )
@@ -254,6 +257,8 @@
 			[view GetStringBox:s WidthReturn:&w HeightReturn:&h];
 			[view DrawString:s AtX:g1 - w * 0.5 Y:textY - h * 0.5];
 		}
+		
+		[view RestoreFont];
 			 
 		x1 += halfTimeSpace;
 	}

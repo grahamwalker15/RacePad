@@ -31,6 +31,7 @@
 @synthesize animationDirection;
 @synthesize autoRotate;
 @synthesize showWholeMove;
+@synthesize pitchBackground;
 @synthesize playerTrails;
 @synthesize playerPos;
 @synthesize passes;
@@ -101,6 +102,7 @@
 	autoRotate = false;
 	showWholeMove = false;
 	
+	pitchBackground = true;
 	playerTrails = true;
 	playerPos = true;
 	passes = true;
@@ -240,6 +242,7 @@
 	
 	[self SetLineWidth:1.5/lineScale];
 	[self SetFGColour: white_];
+	
 	// Edges
 	[self viewLine:0 * xScale + xOffset Y0:0 * yScale + yOffset X1:0 * xScale + xOffset Y1:1 * yScale + yOffset];
 	[self viewLine:0 * xScale + xOffset Y0:1 * yScale + yOffset X1:1 * xScale + xOffset Y1:1 * yScale + yOffset];
@@ -357,17 +360,20 @@
 		y[i] = y[i] * y_scale + yOffset;
 	}
 	
-	CGMutablePathRef path = CGPathCreateMutable();
-	
-	CGPathMoveToPoint (path, nil, (CGFloat)x[0], (CGFloat)y[0]);
-	
-	for ( int i = 1 ; i < 4 ; i++)
-		CGPathAddLineToPoint (path, nil, (CGFloat)x[i], (CGFloat)y[i]);
-	
-	[self SetBGColour:pitchColour];
-	[self FillPath:path];
-	
-	CGPathRelease(path);
+	if(pitchBackground)
+	{
+		CGMutablePathRef path = CGPathCreateMutable();
+		
+		CGPathMoveToPoint (path, nil, (CGFloat)x[0], (CGFloat)y[0]);
+		
+		for ( int i = 1 ; i < 4 ; i++)
+			CGPathAddLineToPoint (path, nil, (CGFloat)x[i], (CGFloat)y[i]);
+		
+		[self SetBGColour:pitchColour];
+		[self FillPath:path];
+		
+		CGPathRelease(path);
+	}
 	
 	// Draw pitch outline in un-scaled space - because of the circles!
 	// [self drawLines:view XScale:x_scale YScale:y_scale XOffset:xOffset YOffset:yOffset];

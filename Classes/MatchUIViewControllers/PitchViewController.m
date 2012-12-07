@@ -39,6 +39,7 @@
 {
 	// Set the types on the two map views
 	[pitchView setIsZoomView:false];
+	[pitchView setPitchBackground:false];
 	[pitchZoomView setIsZoomView:true];
 	
 	[pitchZoomContainer setStyle:BG_STYLE_TRANSPARENT_];

@@ -38,7 +38,7 @@
 	UIColor *pitchColour;
 	float a13, a23, a11, a21, a31, a12, a22, a32;
 	
-	bool playerTrails, playerPos, passes, passNames, ballTrail;
+	bool pitchBackground, playerTrails, playerPos, passes, passNames, ballTrail;
 }
 
 @property (nonatomic) bool isZoomView;
@@ -63,6 +63,7 @@
 @property (nonatomic) bool autoRotate;
 
 @property (nonatomic) bool showWholeMove;
+@property (nonatomic) bool pitchBackground;
 @property (nonatomic) bool playerTrails;
 @property (nonatomic) bool playerPos;
 @property (nonatomic) bool passes;

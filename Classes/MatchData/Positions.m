@@ -227,6 +227,9 @@
 
 - (void) drawPlayersInView:(PitchView *)view Scale: (float) scale XScale: (float) x_scale YScale:(float) y_scale
 {
+	[view SaveFont];
+	[view UseControlFont];
+	
 	int i;
 	int count = [positions count];
 		
@@ -241,39 +244,57 @@
 		y = y * y_scale + 25;
 		float sWidth, sHeight;
 		NSString *playerName;
+		
 		if ( p.team == 5 )
+		{
 			if ( p.player == 3 )
 				playerName = @"R";
 			else
 				playerName = @"A";
-			else
-				playerName = [NSString stringWithFormat:@"%d", p.player];
-		[view GetStringBox:playerName WidthReturn:&sWidth HeightReturn:&sHeight];
-		[view SetBGColour:teamColour[p.team-1]];
-		[view SetAlpha:0.4];
-		x -= sWidth / 2;
-		y -= sHeight / 2;
-		[view FillRectangleX0:x - 1 Y0:y - 1 X1:x - 1 + sWidth + 2 Y1:y - 1 + sHeight + 2];
-		[view SetAlpha:1.0];
-		[view UseRegularFont];
-		if ( p.team == 5 )
-			[view SetFGColour:[view white_]];
+		}
 		else
+		{
+			playerName = [NSString stringWithFormat:@"%d", p.player];
+		}
+		
+		[view GetStringBox:playerName WidthReturn:&sWidth HeightReturn:&sHeight];
+		
+		if ( p.team == 5 )
+		{
+			[view SetBGColour:teamColour[p.team-1]];
+			[view SetAlpha:0.4];
+			x -= sWidth / 2;
+			y -= sHeight / 2;
+			[view FillRectangleX0:x - sWidth / 2 - 1 Y0:y - sHeight / 2 - 1 X1:x + sWidth / 2 + 1 Y1:y + sHeight / 2 + 1];
+			[view SetAlpha:1.0];
+			[view SetFGColour:[view white_]];
+		}
+		else if ( p.team == 1 )
+		{
+			UIImage * image = [UIImage imageNamed:@"PlayerLightBlue.png"];
+			[image drawAtPoint:CGPointMake(x - 10, y - 10)];
 			[view SetFGColour:[view black_]];
-		[view DrawString:playerName AtX:x Y:y];
+		}
+		else if ( p.team == 2 )
+		{
+			UIImage * image = [UIImage imageNamed:@"PlayerBlack.png"];
+			[image drawAtPoint:CGPointMake(x - 10, y - 10)];
+			[view SetFGColour:[view white_]];
+		}
+	
+		[view DrawString:playerName AtX:x - sWidth / 2 Y:y - sHeight / 2];
 	}
+	
+	[view RestoreFont];
 	
 	float bx = ballX;
 	float by = ballY;
 	[view transformPoint:&bx Y:&by];
 	bx = bx * x_scale + 25;
 	by = by * y_scale + 25;
-	float sWidth, sHeight;
-	[view GetStringBox:@"O" WidthReturn:&sWidth HeightReturn:&sHeight];
-	bx -= sWidth / 2;
-	by -= sHeight / 2;
+	UIImage * image = [UIImage imageNamed:@"Ball.png"];
+	[image drawAtPoint:CGPointMake(bx - 8, by - 8)];
 	[view SetFGColour:[view white_]];
-	[view DrawString:@"O" AtX:bx Y:by];
 }
 
 ////////////////////////////////////////////////////////////////////////
