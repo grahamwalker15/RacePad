@@ -67,8 +67,8 @@ static RacePadSponsor * instance_ = nil;
 
 - (bool) supportsLocation
 {
-	if ( sponsor == RPS_MERCEDES_ )
-		return true;
+	// if ( sponsor == RPS_MERCEDES_ )
+		// return true;
 	
 	return false;
 }
@@ -85,10 +85,10 @@ static RacePadSponsor * instance_ = nil;
 	if ( logo == BPS_LOGO_REGULAR_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
-			if ( location == RPS_GARAGE_ )
+			// if ( location == RPS_GARAGE_ )
 				return [UIImage imageNamed:@"MGPLogo.png"];
-			else
-				return [UIImage imageNamed:@"UBSLogo.png"];
+			// else
+				// return [UIImage imageNamed:@"UBSLogo.png"];
 		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"FIALogo.png"];
 		else if ( sponsor == RPS_WILLIAMS_ )
@@ -99,10 +99,10 @@ static RacePadSponsor * instance_ = nil;
 	else if ( logo == BPS_LOGO_BIG_ )
 	{
 		if ( sponsor == RPS_MERCEDES_ )
-			if ( location == RPS_GARAGE_ )
+			// if ( location == RPS_GARAGE_ )
 				return [UIImage imageNamed:@"MGPLogoBig.png"];
-			else
-				return [UIImage imageNamed:@"UBSLogoBig.png"];
+			// else
+				// return [UIImage imageNamed:@"UBSLogoBig.png"];
 		else if ( sponsor == RPS_FIA_ )
 			return [UIImage imageNamed:@"FIALogoBig.png"];
 		else if ( sponsor == RPS_WILLIAMS_ )
@@ -122,6 +122,9 @@ static RacePadSponsor * instance_ = nil;
 	if(tab == RPS_INFO_TAB_)
 		return false;
 
+	if(tab == RPS_GAME_TAB_)
+		return false;
+	
 	if ( sponsor == RPS_UNKNOWN_ )
 	{
 		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
@@ -187,8 +190,8 @@ static RacePadSponsor * instance_ = nil;
 		if ( tab == RPS_WEATHER_TAB_ )
 			return [[RacePadCoordinator Instance] connectionType] == BPC_SOCKET_CONNECTION_;
 		
-		if ( tab == RPS_HOME_TAB_
-			|| tab == RPS_DRIVER_LIST_TAB_
+		if ( /* tab == RPS_HOME_TAB_
+			|| */ tab == RPS_DRIVER_LIST_TAB_
 			|| tab == RPS_TRACK_MAP_TAB_
 			|| tab == RPS_VIDEO_TAB_
 			|| tab == RPS_DRIVER_TAB_
