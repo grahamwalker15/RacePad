@@ -914,6 +914,7 @@ static UIImage *grassImage = nil;
 		[view SetLineWidth:2 / scale];
 		for ( i = 0; i < count; i++)
 		{
+			[view SetSolidLine];
 			int index = [[segmentStates objectAtIndex:i] index];
 			[view BeginPath];
 			if ( index < [inner segmentCount] )
@@ -922,10 +923,24 @@ static UIImage *grassImage = nil;
 				[view LoadPath:[outer segmentPaths][index]];
 			if ( [(SegmentState *)[segmentStates objectAtIndex:i] state] == TM_TRACK_YELLOW )
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
+			else if ( [(SegmentState *)[segmentStates objectAtIndex:i] state] == TM_TRACK_SEGMENT_SLIPPERY )
+			{
+				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
+				[view LineCurrentPath];
+				[view BeginPath];
+				if ( index < [inner segmentCount] )
+					[view LoadPath:[inner segmentPaths][index]];
+				if ( index < [outer segmentCount] )
+					[view LoadPath:[outer segmentPaths][index]];
+				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
+				[view SetDashedLine:8.0/scale];
+			}
 			else
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
 			[view LineCurrentPath];
 		}
+
+		[view SetSolidLine];
 		
 		// Finally draw the label line
 		[view SetLineWidth:1 / scale];
