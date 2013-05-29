@@ -935,6 +935,19 @@ static UIImage *grassImage = nil;
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
 				[view SetDashedLine:8.0/scale];
 			}
+			else if ( [(SegmentState *)[segmentStates objectAtIndex:i] state] == TM_TRACK_DOUBLE_YELLOW )
+			{
+				[view SetLineWidth:5 / scale];
+				[view SetFGColour:[UIColor colorWithRed:0.8 green:80. blue:0.3 alpha:1.0]];
+				[view LineCurrentPath];
+				[view BeginPath];
+				if ( index < [inner segmentCount] )
+					[view LoadPath:[inner segmentPaths][index]];
+				if ( index < [outer segmentCount] )
+					[view LoadPath:[outer segmentPaths][index]];
+				[view SetFGColour:[UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0]];
+				[view SetDashedLine:8.0/scale];
+			}
 			else
 				[view SetFGColour:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
 			[view LineCurrentPath];
