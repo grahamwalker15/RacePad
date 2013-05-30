@@ -911,9 +911,9 @@ static UIImage *grassImage = nil;
 		
 		// Now overlay any red/yellow segments
 		count = [segmentStates count];
-		[view SetLineWidth:2 / scale];
 		for ( i = 0; i < count; i++)
 		{
+			[view SetLineWidth:2 / scale];
 			[view SetSolidLine];
 			int index = [[segmentStates objectAtIndex:i] index];
 			[view BeginPath];
