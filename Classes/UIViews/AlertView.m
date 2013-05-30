@@ -153,6 +153,8 @@
 		case ALERT_SAFETY_CAR_:
 		case ALERT_CHEQUERED_FLAG_:
 			return filter == AV_EVENT_;
+		case ALERT_MESSAGE_ACCIDENT_:
+			return filter == AV_INCIDENT_ || filter == AV_EVENT_;
 			
 		default:
 			return filter == AV_OTHER_;
@@ -286,6 +288,8 @@
 			return [UIImage imageNamed:@"AlertLC.png"];
 		case ALERT_INFO_:
 			return [UIImage imageNamed:@"AlertInfo.png"];
+		case ALERT_MESSAGE_ACCIDENT_:
+			return [UIImage imageNamed:@"AlertAccident.png"];
 		default:
 			return [UIImage imageNamed:@"AlertPin.png"];
 	}			

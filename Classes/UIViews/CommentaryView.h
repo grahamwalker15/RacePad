@@ -48,6 +48,7 @@
 - (void) initialDraw;
 -(void) drawIfChanged;
 -(void) countRows:(int *)count FirstRow:(int *)fRow;
+-(bool) includesAccident;
 
 - (void) resetTimings;
 

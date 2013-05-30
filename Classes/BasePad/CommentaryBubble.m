@@ -126,7 +126,10 @@ static int fadeOffAfter = 8;
 			popdownTimer = nil;
 		}
 		
-		popdownTimer = [NSTimer scheduledTimerWithTimeInterval:fadeOffAfter target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
+		int showFor = fadeOffAfter;
+		if ([commentaryController.commentaryView includesAccident])
+			showFor *= 2;
+		popdownTimer = [NSTimer scheduledTimerWithTimeInterval:showFor target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
 	}
 }
 
@@ -190,8 +193,10 @@ static int fadeOffAfter = 8;
 		double last_update = commentaryController.commentaryView.lastUpdateTime;
 		double time_now = [ElapsedTime TimeOfDay];
 		int showFor = fadeOffAfter;
+		if ([commentaryController.commentaryView includesAccident])
+			showFor *= 2;
 		if ( commentaryController.commentaryView.timeWindow > 0
-			&& commentaryController.commentaryView.lastRowCount > 5 )
+		  && commentaryController.commentaryView.lastRowCount > 5 )
 			showFor = (int) (showFor * 1.5 + 0.5);
 		if ( time_now - last_update >= showFor )
 		{

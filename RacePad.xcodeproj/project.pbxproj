@@ -57,6 +57,7 @@
 		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
 		4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; };
 		4D782602128989B100BE0329 /* PitWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D782601128989B100BE0329 /* PitWindow.m */; };
+		4D7D28E517566C220024BBAF /* AlertAccident.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D7D28E417566C220024BBAF /* AlertAccident.png */; };
 		4D807C101283061500FDE400 /* GPSGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0E1283061500FDE400 /* GPSGreen.png */; };
 		4D807C111283061500FDE400 /* GPSRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0F1283061500FDE400 /* GPSRed.png */; };
 		4D807CF212832AED00FDE400 /* ServerConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D807CF012832AED00FDE400 /* ServerConnect.m */; };
@@ -472,6 +473,7 @@
 		4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDataHandler.m; sourceTree = "<group>"; };
 		4D782600128989B100BE0329 /* PitWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindow.h; sourceTree = "<group>"; };
 		4D782601128989B100BE0329 /* PitWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindow.m; sourceTree = "<group>"; };
+		4D7D28E417566C220024BBAF /* AlertAccident.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertAccident.png; path = Images/AlertAccident.png; sourceTree = "<group>"; };
 		4D807C0E1283061500FDE400 /* GPSGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GPSGreen.png; path = Images/GPSGreen.png; sourceTree = "<group>"; };
 		4D807C0F1283061500FDE400 /* GPSRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GPSRed.png; path = Images/GPSRed.png; sourceTree = "<group>"; };
 		4D807CEF12832AED00FDE400 /* ServerConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnect.h; sourceTree = "<group>"; };
@@ -1366,12 +1368,9 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7F604FF2160711CE00AB5D1E /* GoLiveButton.png */,
-				7F604FDA16070F0600AB5D1E /* LiveButton.png */,
-				7F3A6C8215938A840010E72D /* weather.png */,
-				7F53D730150A253A00834E52 /* Refresh.png */,
 				7F48F196140FA62E00E293B4 /* 17-bar-chart.png */,
 				7F48F197140FA62E00E293B4 /* 66-microphone.png */,
+				4D7D28E417566C220024BBAF /* AlertAccident.png */,
 				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
 				7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */,
 				7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */,
@@ -1411,6 +1410,7 @@
 				7F83732313770C9900B4B3C1 /* FIALogoBig.png */,
 				7F7683F812AAA06A009249F7 /* FullScreen.png */,
 				7F91FA4012A01D7D00BFDFCC /* GearCog.png */,
+				7F604FF2160711CE00AB5D1E /* GoLiveButton.png */,
 				4D807C0E1283061500FDE400 /* GPSGreen.png */,
 				4D807C0F1283061500FDE400 /* GPSRed.png */,
 				7F767CC112A6300D009249F7 /* GraphPaper.png */,
@@ -1439,6 +1439,7 @@
 				7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */,
 				7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */,
 				7F865A7512880EBF00F13CB6 /* ListIcon.png */,
+				7F604FDA16070F0600AB5D1E /* LiveButton.png */,
 				7F794028138BCBDF008A2CB0 /* LiveIndicator.png */,
 				7F610F3A13030073004DC056 /* LogoAabar.png */,
 				7F610F3B13030073004DC056 /* LogoAllianz.png */,
@@ -1517,11 +1518,13 @@
 				7F0B27C712A58F8D00604392 /* Turquoise.png */,
 				4D8EBB9F15013CBF00DA8303 /* UBSLogo.png */,
 				4D8EBBA015013CBF00DA8303 /* UBSLogoBig.png */,
+				7F3A6C8215938A840010E72D /* weather.png */,
 				7F91F8C8129D58F700BFDFCC /* wheel_icon.png */,
 				4D0557AC15A48C4F0085F064 /* WilliamsLogo.png */,
 				4D0557AD15A48C4F0085F064 /* WilliamsLogoBig.png */,
 				7F068129126DDA6800C9EE5D /* world.png */,
 				7F62476012851255009A9D4F /* YellowFlag.png */,
+				7F53D730150A253A00834E52 /* Refresh.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1824,6 +1827,7 @@
 				7F614B5D16301DC00044E956 /* TimeControllerView.xib in Resources */,
 				4D7079E4166D1DD3003627BC /* TimingPage1View.xib in Resources */,
 				4D707A40166DFF6F003627BC /* TimingPage2View.xib in Resources */,
+				4D7D28E517566C220024BBAF /* AlertAccident.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

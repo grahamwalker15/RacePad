@@ -208,6 +208,29 @@
 	}
 }
 
+- (bool) includesAccident
+{
+	CommentaryData * data;
+	data = [[RacePadDatabase Instance] commentary];
+	
+	float timeNow = [[RacePadCoordinator Instance] playTime] + 0.5;
+	float timeStart = timeNow - 30;
+	
+	for (int i = 0 ; i < [data itemCount] ; i++)
+	{
+		AlertDataItem *item = [data itemAtIndex:i];
+		float itemTime = [item timeStamp];
+		
+		if ( item.type == ALERT_MESSAGE_ACCIDENT_ )
+		{
+			if ( itemTime >= timeStart
+			  && itemTime <= timeNow )
+				return true;
+		}
+	}
+	return false;
+}
+
 - (int) ColumnCount
 {
 	return 3;
@@ -340,6 +363,8 @@
 	{
 		if(type == ALERT_PIT_INSIGHT_)
 			[self SetTextColour:dark_red_];
+		else if(type == ALERT_MESSAGE_ACCIDENT_)
+			[self SetTextColour:red_];
 		else if(latestMessageTime - messageTime < 10.0)
 			[self SetTextColour:black_];
 		else
@@ -436,6 +461,8 @@
 			return [UIImage imageNamed:@"AlertGreenInfo.png"];
 		case ALERT_PERFORMANCE_PURPLE_:
 			return [UIImage imageNamed:@"AlertPurpleInfo.png"];
+		case ALERT_MESSAGE_ACCIDENT_:
+			return [UIImage imageNamed:@"AlertAccident.png"];
 		default:
 			return [UIImage imageNamed:@"AlertPin.png"];
 	}			
