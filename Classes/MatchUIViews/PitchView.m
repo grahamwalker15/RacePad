@@ -294,31 +294,13 @@
 	
 	CGSize viewSize = map_rect.size;
 	
-	// Make the map as big as possible in the rectangle
+	// Make the pitch as big as possible in the rectangle
 	// The pitch is inset 25 pixels all round
 	float x_scale = viewSize.width - 50;
 	float y_scale = viewSize.height - 50;
 	
 	float mapXOffset, mapYOffset;
 	
-	
-	// If it is an overlay view, we move it to the right. Otherwise centre.
-	/*
-	 if([view isOverlayView])
-	 {
-	 x_scale = x_scale * 0.7;
-	 y_scale = y_scale * 0.7;
-	 mapXOffset = viewSize.width - width * 0.5 * x_scale - 55 ;
-	 mapYOffset = viewSize.height * 0.5 + yCentre  ;
-	 }
-	 else
-	 {
-	 x_scale = x_scale * 0.9;
-	 y_scale = y_scale * 0.9;
-	 mapXOffset = viewSize.width * 0.5 - xCentre  ;
-	 mapYOffset = viewSize.height * 0.5 + yCentre ;
-	 }
-	 */
 	mapXOffset = 25;
 	mapYOffset = 25;
 	
@@ -412,7 +394,7 @@
 
 - (void) adjustScale:(float)scale X:(float)x Y:(float)y
 {
-	// If we're following a car, we just set the scale
+	// If we're following the ball, we just set the scale
 	// Otherwise we zoom so that the focus point stays at the same screen location
 	if(isZoomView)
 	{

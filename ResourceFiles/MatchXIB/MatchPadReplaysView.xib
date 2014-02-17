@@ -45,7 +45,7 @@
 					<object class="IBUIImageView" id="530798284">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{-10, 197}, {40, 120}}</string>
+						<string key="NSFrame">{{0, 299}, {40, 120}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<float key="IBUIAlpha">0.5</float>
@@ -73,7 +73,7 @@
 					<object class="IBUIImageView" id="903465069">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">282</int>
-						<string key="NSFrame">{{6, 202}, {34, 100}}</string>
+						<string key="NSFrame">{{6, 304}, {34, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="820130873">
 							<int key="NSColorSpace">3</int>
@@ -475,8 +475,8 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UIImageView</string>
-							<string>UIImageView</string>
+							<string>UIView</string>
+							<string>UIView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -490,11 +490,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">container</string>
-								<string key="candidateClassName">UIImageView</string>
+								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">heading</string>
-								<string key="candidateClassName">UIImageView</string>
+								<string key="candidateClassName">UIView</string>
 							</object>
 						</object>
 					</object>

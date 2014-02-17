@@ -49,8 +49,10 @@
 	// Create the popup controllers
 	[[MatchPadStatsManager Instance] onStartUp];
 	[[MatchPadReplaysManager Instance] onStartUp];
+	[[MatchPadSettingsManager Instance] onStartUp];
 	
 	[[MatchPadTeamStatsManager Instance] onStartUp];
+	[[MatchPadPlayerStatsManager Instance] onStartUp];
 	[[MatchPadBallStatsManager Instance] onStartUp];
 	[[MatchPadPossessionStatsManager Instance] onStartUp];
 	[[MatchPadPitchStatsManager Instance] onStartUp];

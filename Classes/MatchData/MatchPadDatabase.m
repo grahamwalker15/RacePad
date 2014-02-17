@@ -12,6 +12,8 @@
 
 @synthesize homeTeam;
 @synthesize awayTeam;
+@synthesize homeScore;
+@synthesize awayScore;
 
 static MatchPadDatabase *instance = nil;
 
@@ -47,6 +49,9 @@ static MatchPadDatabase *instance = nil;
 	
 	[self setHomeTeam:@"Home"];
 	[self setAwayTeam:@"Away"];
+	
+	[self setHomeScore:0];
+	[self setAwayScore:0];
 	
 	return self;
 }

@@ -8,6 +8,7 @@
 
 #import "MatchPadVideoViewController.h"
 
+#import "MatchPadDatabase.h"
 #import "BasePadMedia.h"
 #import "BasePadTimeController.h"
 #import "ElapsedTime.h"
@@ -30,7 +31,9 @@
 
 @synthesize mainMenuButtonOpen;
 @synthesize helpButtonOpen;
+@synthesize settingsButtonOpen;
 @synthesize statsButtonOpen;
+@synthesize highlightsButtonOpen;	
 @synthesize replaysButtonOpen;	
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -60,7 +63,9 @@
 	mainMenuButtonOpen = false;
 	
 	helpButtonOpen = false;
+	settingsButtonOpen = false;
 	statsButtonOpen = false;
+	highlightsButtonOpen = false;	
 	replaysButtonOpen = false;	
 	
     timeControllerPending = false;
@@ -169,9 +174,10 @@
 	[self addLongPressRecognizerToView:auxMovieView2];
 	
 	// Tell the MatchPadCoordinator that we will be interested in data for this view
+	[[MatchPadCoordinator Instance] AddView:self WithType:MPC_SCORE_VIEW_];
 	[[MatchPadCoordinator Instance] AddView:mainMovieView WithType:MPC_VIDEO_VIEW_];
 	[[MatchPadCoordinator Instance] AddView:pitchView WithType:MPC_PITCH_VIEW_];
-	[[MatchPadCoordinator Instance] AddView:backgroundView WithType:MPC_POSITIONS_VIEW_];
+	[[MatchPadCoordinator Instance] AddView:pitchView WithType:MPC_POSITIONS_VIEW_];
 	// FIXME - we're using the background view here to fool the coordinator
 	// because we have two data sources, but only one view
 	
@@ -217,7 +223,6 @@
 	{
 		[pitchView setHidden:false];
 		[[MatchPadCoordinator Instance] SetViewDisplayed:pitchView];
-		[[MatchPadCoordinator Instance] SetViewDisplayed:backgroundView];
 	}
 	else
 	{
@@ -277,7 +282,6 @@
 	if(displayPitch)
 	{
 		[[MatchPadCoordinator Instance] SetViewHidden:pitchView];
-		[[MatchPadCoordinator Instance] SetViewHidden:backgroundView];
 	}
 		
 	[[MatchPadCoordinator Instance] SetViewHidden:self];
@@ -899,6 +903,12 @@
 
 - (void) RequestRedrawForType:(int)type
 {
+	[self updateScore];
+}
+
+- (void) RequestRedraw
+{
+	[self updateScore];
 }
 
 - (void)setVideoDisplayed:(bool)state
@@ -1164,9 +1174,10 @@
 - (IBAction) menuButtonHit:(id)sender
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMenuButtons) object:nil];
-	
+		
 	CGRect viewBounds = [self.view bounds];
-	
+	float xCentre = CGRectGetWidth(viewBounds) * 0.5;
+
 	if(sender == mainMenuButton)
 	{
 		if(![[MatchPadMasterMenuManager Instance] viewDisplayed])
@@ -1191,8 +1202,18 @@
 			helpButtonOpen = true;
 			
 			[[MatchPadHelpManager Instance] grabExclusion:self];
-			CGRect buttonFrame = [(UIButton *)sender frame];
-			[[MatchPadHelpManager Instance] displayInViewController:self AtX:CGRectGetMinX(buttonFrame) Animated:true Direction:POPUP_DIRECTION_DOWN_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_TOP_];
+			[[MatchPadHelpManager Instance] displayInViewController:self AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_LEFT_ YAlignment:POPUP_ALIGN_TOP_];
+		}
+	}
+	
+	if(sender == settingsButton)
+	{
+		if(![[MatchPadSettingsManager Instance] viewDisplayed])
+		{
+			settingsButtonOpen = true;
+			
+			[[MatchPadSettingsManager Instance] grabExclusion:self];
+			[[MatchPadSettingsManager Instance] displayInViewController:self AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
 		}
 	}
 	
@@ -1207,6 +1228,17 @@
 		}
 	}
 	
+	if(sender == highlightsButton)
+	{
+		if(![[MatchPadHighlightsManager Instance] viewDisplayed])
+		{
+			highlightsButtonOpen = true;
+			
+			[[MatchPadHighlightsManager Instance] grabExclusion:self];
+			[[MatchPadHighlightsManager Instance] displayInViewController:self AtX:CGRectGetMaxX(viewBounds) Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
+		}		
+	}
+	
 	if(sender == replaysButton)
 	{
 		if(![[MatchPadReplaysManager Instance] viewDisplayed])
@@ -1217,6 +1249,7 @@
 			[[MatchPadReplaysManager Instance] displayInViewController:self AtX:CGRectGetMaxX(viewBounds) Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}		
 	}
+	
 }
 
 - (void) notifyHidingTimeControls
@@ -1288,9 +1321,15 @@
     if(statsButtonOpen)
         [[MatchPadStatsManager Instance] bringToFront];
     
+	if(highlightsButtonOpen)
+        [[MatchPadHighlightsManager Instance] bringToFront];
+	
 	if(replaysButtonOpen)
         [[MatchPadReplaysManager Instance] bringToFront];
 	
+	if(settingsButtonOpen)
+        [[MatchPadSettingsManager Instance] bringToFront];
+		
 	if(helpButtonOpen)
         [[MatchPadHelpManager Instance] bringToFront];
 }
@@ -1302,6 +1341,15 @@
 	{
         [timeControllerInstance hideTimeController];
     }
+}
+
+- (void) updateScore
+{
+	[homeTeamLabel setText:[[MatchPadDatabase Instance] homeTeam]];
+	[awayTeamLabel setText:[[MatchPadDatabase Instance] awayTeam]];
+	
+	[homeScoreLabel setText:[NSString stringWithFormat:@"%d", [[MatchPadDatabase Instance] homeScore]]];
+	[awayScoreLabel setText:[NSString stringWithFormat:@"%d", [[MatchPadDatabase Instance] awayScore]]];
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -1367,6 +1415,7 @@
 	
 	[replaysButton setFrame:CGRectOffset([replaysButton frame], CGRectGetWidth([replaysButton frame]), 0)];
 	[statsButton setFrame:CGRectOffset([statsButton frame], CGRectGetWidth([statsButton frame]), 0)];
+	[highlightsButton setFrame:CGRectOffset([highlightsButton frame], CGRectGetWidth([highlightsButton frame]), 0)];
 	
 	[UIView commitAnimations];
 }
@@ -1391,6 +1440,7 @@
 		[mainMenuButton setFrame:CGRectMake(-36,332,91,61)];
 	
 	[replaysButton setFrame:CGRectOffset([replaysButton frame], -CGRectGetWidth([replaysButton frame]), 0)];
+	[highlightsButton setFrame:CGRectOffset([highlightsButton frame], -CGRectGetWidth([highlightsButton frame]), 0)];
 	[statsButton setFrame:CGRectOffset([statsButton frame], -CGRectGetWidth([statsButton frame]), 0)];
 		
 	[UIView commitAnimations];
@@ -1453,25 +1503,43 @@
 	
 	if(excludedPopupType != MP_HELP_POPUP_ &&
 	   [[MatchPadHelpManager Instance] viewDisplayed] &&
-	   (popupZone & MP_ZONE_TOP_) > 0)
+	   (popupZone & MP_ZONE_CENTRE_) > 0)
 	{
 		[[MatchPadHelpManager Instance] hideAnimated:true Notify:true];
 		helpButtonOpen = false;
 		popupDismissed= true;
 	}
 	
+	if(excludedPopupType != MP_SETTINGS_POPUP_ &&
+	   [[MatchPadSettingsManager Instance] viewDisplayed] &&
+	   (popupZone & MP_ZONE_CENTRE_) > 0)
+	{
+		[[MatchPadSettingsManager Instance] hideAnimated:true Notify:true];
+		settingsButtonOpen = false;
+		popupDismissed= true;
+	}
+	
 	if(excludedPopupType != MP_STATS_POPUP_ &&
 	   [[MatchPadStatsManager Instance] viewDisplayed] &&
-	   (popupZone & MP_ZONE_BOTTOM_) > 0)
+	   (popupZone & MP_ZONE_RIGHT_) > 0)
 	{
 		[[MatchPadStatsManager Instance] hideAnimated:true Notify:true];
 		statsButtonOpen = false;
 		popupDismissed= true;
 	}
 	
+	if(excludedPopupType != MP_HIGHLIGHTS_POPUP_ &&
+	   [[MatchPadHighlightsManager Instance] viewDisplayed] &&
+	   (popupZone & MP_ZONE_RIGHT_) > 0)
+	{
+		[[MatchPadHighlightsManager Instance] hideAnimated:true Notify:true];
+		highlightsButtonOpen = false;
+		popupDismissed= true;
+	}
+	
 	if(excludedPopupType != MP_REPLAYS_POPUP_ &&
 	   [[MatchPadReplaysManager Instance] viewDisplayed] &&
-	   (popupZone & MP_ZONE_BOTTOM_) > 0)
+	   (popupZone & MP_ZONE_RIGHT_) > 0)
 	{
 		[[MatchPadReplaysManager Instance] hideAnimated:true Notify:true];
 		replaysButtonOpen = false;
@@ -1521,7 +1589,11 @@
             [statsButton setHidden:true];
             break;
             
-        case MP_REPLAYS_POPUP_:
+		case MP_HIGHLIGHTS_POPUP_:
+            [highlightsButton setHidden:true];
+            break;
+            
+		case MP_REPLAYS_POPUP_:
             [replaysButton setHidden:true];
             break;
             
@@ -1530,6 +1602,7 @@
     }
 	
 	[self.view bringSubviewToFront:statsButton];
+	[self.view bringSubviewToFront:highlightsButton];
 	[self.view bringSubviewToFront:replaysButton];
 	
 	[self positionMenuButtons];
@@ -1560,6 +1633,12 @@
 			[self positionMenuButtons];
 			break;
 			
+		case MP_SETTINGS_POPUP_:
+			settingsButtonOpen = false;
+			[settingsButton setHidden:false];
+			[self positionMenuButtons];
+			break;
+			
 		case MP_HELP_POPUP_:
 			helpButtonOpen = false;
 			[helpButton setHidden:false];
@@ -1569,6 +1648,12 @@
 		case MP_STATS_POPUP_:
 			statsButtonOpen = false;
 			[statsButton setHidden:false];
+			[self positionMenuButtons];
+			break;
+			
+		case MP_HIGHLIGHTS_POPUP_:
+			highlightsButtonOpen = false;
+			[highlightsButton setHidden:false];
 			[self positionMenuButtons];
 			break;
 			

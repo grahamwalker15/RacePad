@@ -35,19 +35,22 @@
 	[player_stats_view_ SetBackgroundAlpha:0.5];
 	[player_stats_view_ setSmallHeadings:true];
 	
+	// Set ourselves as the delegate to respond to gestures in player_stats_view_
+	[player_stats_view_ setGestureDelegate:self];
+	
+	// Add gesture recognizers to player_stats_view_ - these will be sent to view itself and we will be notified as delegate
+ 	[player_stats_view_ addTapRecognizer];
+	[player_stats_view_ addDoubleTapRecognizer];
+	[player_stats_view_ addLongPressRecognizer];
+	
 	home = true;
 	[homeButton setButtonColour:[UIColor redColor]];
-	
-	// Add gesture recognizers
- 	[self addTapRecognizerToView:player_stats_view_];
-	[self addDoubleTapRecognizerToView:player_stats_view_];
-	[self addLongPressRecognizerToView:player_stats_view_];
-	
+		
 	// Tell the RacePadCoordinator that we're interested in data for this view
 	[[MatchPadCoordinator Instance] AddView:player_stats_view_ WithType:MPC_PLAYER_STATS_VIEW_];
 	[[MatchPadCoordinator Instance] setPlayerStatsController: self];
 
-	// Create a view controller for the driver lap times which may be displayed as an overlay
+	// Create a view controller for the player graph which may be displayed as an overlay
 	playerGraphViewController = [[PlayerGraphViewController alloc] initWithNibName:@"PlayerGraphView" bundle:nil];
 	playerGraphViewControllerDisplayed = false;
 	playerGraphViewControllerClosing = false;
@@ -124,31 +127,6 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
-- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
-{
-	// On double tap in lap column, show lap list
-	if(double_click)
-	{
-		TableData * playerStatsData = [[MatchPadDatabase Instance] playerStatsData];
-		TableCell *cell = [playerStatsData cell:row Col:0];
-		int player = [[cell string] intValue];
-		[self ShowPlayerGraph:player];
-		return true;
-	}
-	
-	return false;
-}
-
-- (bool) HandleSelectHeading
-{
-	return false;
-}
-
-- (void) HandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
-{
-	[self handleTimeControllerGestureInView:gestureView AtX:x Y:y];
-}
 	 
 - (IBAction) homePressed:(id)sender
 {
@@ -204,6 +182,77 @@
 		[self dismissModalViewControllerAnimated:animated];
 		playerGraphViewControllerDisplayed = false;
 	}
+}
+
+//////////////////////////////////////////////////////////////////////
+//  SimpleListViewDelegate methods
+
+- (bool) SLVHandleSelectHeadingInView:(SimpleListView *)view
+{
+	return false;
+}
+
+- (bool) SLVHandleSelectRowInView:(SimpleListView *)view Row:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	if(view != player_stats_view_)
+		return false;
+	
+	if(!parentViewController)	// Shouldn't ever happen
+		return false;
+	
+	// On double tap in lap column, show lap list
+	if(double_click)
+	{
+		TableData * playerStatsData = [[MatchPadDatabase Instance] playerStatsData];
+		TableCell *cell = [playerStatsData cell:row Col:0];
+		int player = [[cell string] intValue];
+		[self ShowPlayerGraph:player];
+		return true;
+	}
+	
+	return false;
+}
+
+- (bool) SLVHandleSelectColInView:(SimpleListView *)view Col:(int)col{
+	return false;
+}
+
+- (bool) SLVHandleSelectCellInView:(SimpleListView *)view Row:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	return false;
+}
+
+- (bool) SLVHandleSelectBackgroundInView:(SimpleListView *)view DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	return false;
+}
+
+- (void) SLVHandleTapGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y
+{
+}
+
+////////////////////////////////////////////////////
+// Popup methods
+
+- (void) willDisplay
+{	
+	[[MatchPadCoordinator Instance] SetViewDisplayed:player_stats_view_];
+	
+	[homeButton setTitle:[[MatchPadDatabase Instance]homeTeam] forState:UIControlStateNormal];
+	[awayButton setTitle:[[MatchPadDatabase Instance]awayTeam] forState:UIControlStateNormal];
+}
+
+- (void) willHide
+{
+}
+
+- (void) didDisplay
+{
+}
+
+- (void) didHide
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:player_stats_view_];
 }
 
 @end

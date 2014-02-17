@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SimpleListViewController.h"
+#import "BasePadPopupViewController.h"
 #import "BackgroundView.h"
 #import "TableDataView.h"
 #import "ShinyButton.h"
 
 @class PlayerGraphViewController;
 
-@interface PlayerStatsController : SimpleListViewController
+@interface PlayerStatsController : BasePadPopupViewController <SimpleListViewDelegate>
 {
 	IBOutlet BackgroundView * backgroundView;
 	

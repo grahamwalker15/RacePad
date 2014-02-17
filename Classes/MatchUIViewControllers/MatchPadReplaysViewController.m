@@ -153,8 +153,8 @@
 	int dataRow = [ alertView filteredRowToDataRow:row];
 	AlertData * alertData = [[MatchPadDatabase Instance] alertData];
 	float time = [[alertData itemAtIndex:dataRow] timeStamp];
-	[[MatchPadCoordinator Instance] jumpToTime:time];
-	[[BasePadTimeController Instance] updateClock:time];
+	[[MatchPadCoordinator Instance] jumpToTime:time - 5.0];
+	[[BasePadTimeController Instance] updateClock:time - 5.0];
 	
 	[alertView SelectRow:row];
 	[alertView RequestRedraw];

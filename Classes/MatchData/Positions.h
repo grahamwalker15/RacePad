@@ -56,6 +56,9 @@
 
 }
 
+@property (readonly) float ballX;
+@property (readonly) float ballY;
+
 - (void) loadPositions : (DataStream *) stream;
 
 - (void) drawBallTrailInView:(PitchView *)view Scale: (float) scale XScale: (float) x_scale YScale:(float) y_scale;

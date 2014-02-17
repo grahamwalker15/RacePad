@@ -91,6 +91,15 @@
 		}		
 	}
 	
+	if(sender == playerStatsButton || sender == playerStatsLabel)
+	{
+		if(![[MatchPadPlayerStatsManager Instance] viewDisplayed])
+		{
+			[[MatchPadPlayerStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+		}		
+	}
+	
+	/*
 	if(sender == ballStatsButton || sender == ballStatsLabel)
 	{
 		if(![[MatchPadBallStatsManager Instance] viewDisplayed])
@@ -98,6 +107,7 @@
 			[[MatchPadBallStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
 		}		
 	}
+	*/
 	
 	if(sender == possessionStatsButton || sender == possessionStatsLabel)
 	{
@@ -121,6 +131,11 @@
 	if([[MatchPadTeamStatsManager Instance] viewDisplayed])
 	{
 		[[MatchPadTeamStatsManager Instance] hideAnimated:true Notify:false];
+	}
+	
+	if([[MatchPadPlayerStatsManager Instance] viewDisplayed])
+	{
+		[[MatchPadPlayerStatsManager Instance] hideAnimated:true Notify:false];
 	}
 	
 	if([[MatchPadBallStatsManager Instance] viewDisplayed])

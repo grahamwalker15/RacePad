@@ -85,7 +85,6 @@
 
 - (void)positionOverlays
 {
-	[self addBackgroundFrames];
 }
 
 - (void)addBackgroundFrames

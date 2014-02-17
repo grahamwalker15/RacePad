@@ -195,6 +195,17 @@ static bool bg_images_initialised_ = false;
 			break;
 		}
 			
+		case BG_STYLE_ROUNDED_STRAP_RED_:
+		{
+			CGMutablePathRef rect = [DrawingView CreateRoundedRectPathX0:current_bounds_.origin.x Y0:current_bounds_.origin.x X1:current_bounds_.size.width Y1:current_bounds_.size.height Radius:10.0];
+			
+			[self SetBGColour: [UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:0.8]];
+			[self FillPath:rect];
+			
+			CGPathRelease(rect);
+			break;
+		}
+			
 		case BG_STYLE_ROUNDED_STRAP_BLACK_:
 		{
 			CGMutablePathRef rect = [DrawingView CreateRoundedRectPathX0:current_bounds_.origin.x Y0:current_bounds_.origin.x X1:current_bounds_.size.width Y1:current_bounds_.size.height Radius:10.0];

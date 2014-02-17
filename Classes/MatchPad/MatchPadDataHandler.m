@@ -82,7 +82,9 @@
 		{
 			int home = [stream PopInt];
 			int away = [stream PopInt];
-			[[MatchPadTitleBarController Instance] setScore:home Away:away];
+			[[MatchPadDatabase Instance] setHomeScore:home];
+			[[MatchPadDatabase Instance] setAwayScore:away];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_SCORE_VIEW_];
 			break;
 		}
 			

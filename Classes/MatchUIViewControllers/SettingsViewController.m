@@ -454,5 +454,41 @@
 	[[BasePadPrefs Instance] save];	[[MatchPadCoordinator Instance] updateTabs];
 }
 
+////////////////////////////////////////////////////////////////////////////
+
+- (void)willDisplay
+{
+	[super willDisplay];
+	
+	[[MatchPadCoordinator Instance] SetViewDisplayed:[self view]];
+	[self updateServerState];
+	[self updateConnectionType];
+	[self updateEvents];
+	NSNumber *v = [[BasePadPrefs Instance]getPref:@"supportVideo"];
+	if ( v )
+		supportVideo.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"playerTrails"];
+	if ( v )
+		playerTrails.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"playerPos"];
+	if ( v )
+		playerPos.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passes"];
+	if ( v )
+		passes.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"passNames"];
+	if ( v )
+		passNames.on = [v boolValue];
+	v = [[BasePadPrefs Instance]getPref:@"ballTrail"];
+	if ( v )
+		ballTrail.on = [v boolValue];
+	[self updateSponsor];
+}
+
+- (void)willHide
+{
+	[[MatchPadCoordinator Instance] SetViewHidden:[self view]];
+}
+
 
 @end

@@ -128,7 +128,7 @@ static int fadeOffAfter = 8;
 		
 		int showFor = fadeOffAfter;
 		if ([commentaryController.commentaryView includesAccident])
-			showFor *= 2;
+			showFor *= 3;
 		popdownTimer = [NSTimer scheduledTimerWithTimeInterval:showFor target:self selector:@selector(popdownTimerUpdate:) userInfo:nil repeats:NO];
 	}
 }
@@ -194,7 +194,7 @@ static int fadeOffAfter = 8;
 		double time_now = [ElapsedTime TimeOfDay];
 		int showFor = fadeOffAfter;
 		if ([commentaryController.commentaryView includesAccident])
-			showFor *= 2;
+			showFor *= 3;
 		if ( commentaryController.commentaryView.timeWindow > 0
 		  && commentaryController.commentaryView.lastRowCount > 5 )
 			showFor = (int) (showFor * 1.5 + 0.5);

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "BasePadViewController.h"
+#import "BasePadPopupViewController.h"
 
 
-@interface SettingsViewController : BasePadViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface SettingsViewController : BasePadPopupViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 {
 	IBOutlet UITextField *ip_address_edit_;
 	IBOutlet UITextField *video_ip_address_edit_;

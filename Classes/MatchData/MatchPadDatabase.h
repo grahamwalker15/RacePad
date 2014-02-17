@@ -32,10 +32,15 @@
 	
 	NSString *homeTeam;
 	NSString *awayTeam;
+
+	int homeScore;
+	int awayScore;
 }
 
 @property (retain) NSString *homeTeam;
 @property (retain) NSString *awayTeam;
+@property (assign) int homeScore;
+@property (assign) int awayScore;
 @property (readonly) Pitch *pitch;
 @property (readonly) Positions *positions;
 @property (readonly) Possession *possession;

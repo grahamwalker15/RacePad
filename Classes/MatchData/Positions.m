@@ -90,6 +90,9 @@
 
 @implementation Positions
 
+@synthesize ballX;
+@synthesize ballY;
+
 - (id) init
 {
 	if(self = [super init])

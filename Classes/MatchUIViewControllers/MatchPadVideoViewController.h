@@ -29,6 +29,10 @@
 	IBOutlet UIImageView * copyright;
 
 	IBOutlet UIButton * scoreButton;
+	IBOutlet UILabel * homeTeamLabel;
+	IBOutlet UILabel * awayTeamLabel;
+	IBOutlet UILabel * homeScoreLabel;
+	IBOutlet UILabel * awayScoreLabel;
 
 	IBOutlet MovieView * mainMovieView;
 	IBOutlet MovieView * auxMovieView1;	
@@ -68,8 +72,10 @@
 	IBOutlet UIButton * mainMenuButton;
 	
 	IBOutlet UIButton * statsButton;
+	IBOutlet UIButton * highlightsButton;
 	IBOutlet UIButton * replaysButton;
 	
+	IBOutlet UIButton * settingsButton;
 	IBOutlet UIButton * helpButton;
 			
 	IBOutlet UIView * logoImageBase;
@@ -77,9 +83,11 @@
 	IBOutlet UIImageView * logoImageView1;
 	
 	bool mainMenuButtonOpen;
+	bool settingsButtonOpen;
 	bool helpButtonOpen;
 	bool statsButtonOpen;
 	bool replaysButtonOpen;
+	bool highlightsButtonOpen;
 
 	bool timeControllerPending;
 
@@ -115,8 +123,10 @@
 @property (nonatomic) bool allowBubbleCommentary;
 
 @property (nonatomic) bool mainMenuButtonOpen;
+@property (nonatomic) bool settingsButtonOpen;
 @property (nonatomic) bool helpButtonOpen;
 @property (nonatomic) bool statsButtonOpen;
+@property (nonatomic) bool highlightsButtonOpen;
 @property (nonatomic) bool replaysButtonOpen;
 
 @property (readonly) MovieView * mainMovieView;
@@ -161,6 +171,8 @@
 - (void) executeTimeControllerHide;
 
 - (void) handleMenuButtonDisplayGestureInView:(UIView *)gestureView AtX:(float)x Y:(float)y;
+
+- (void) updateScore;
 
 - (IBAction) movieCloseButtonHit:(id)sender;
 - (IBAction) menuButtonHit:(id)sender;

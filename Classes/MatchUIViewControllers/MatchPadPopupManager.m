@@ -11,6 +11,7 @@
 #import "MatchPadStatsViewController.h"
 #import "MatchPadReplaysViewController.h"
 #import "TeamStatsViewController.h"
+#import "PlayerStatsController.h"
 #import "BallViewController.h"
 #import "PossessionViewController.h"
 #import "PitchViewController.h"
@@ -74,6 +75,37 @@ static MatchPadStatsManager * statsInstance_ = nil;
 		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_STATS_POPUP_];
+		[self setManagedExclusionZone:MP_ZONE_ALL_];
+		[self setShowHeadingAtStart:true];
+		[managedViewController setAssociatedManager:self];
+		[viewController release];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MatchPadHighlightsManager
+
+static MatchPadHighlightsManager * highlightsInstance_ = nil;
+
++(MatchPadHighlightsManager *)Instance
+{
+	if(!highlightsInstance_)
+		highlightsInstance_ = [[MatchPadHighlightsManager alloc] init];
+	
+	return highlightsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		MatchPadReplaysViewController * viewController = [[MatchPadReplaysViewController alloc] initWithNibName:@"MatchPadHighlightsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_HIGHLIGHTS_POPUP_];
 		[self setManagedExclusionZone:MP_ZONE_ALL_];
 		[self setShowHeadingAtStart:true];
 		[managedViewController setAssociatedManager:self];
@@ -150,6 +182,41 @@ static MatchPadHelpManager * helpInstance_ = nil;
 
 @end
 
+@implementation MatchPadSettingsManager
+
+static MatchPadSettingsManager * settingsInstance_ = nil;
+
++(MatchPadSettingsManager *)Instance
+{
+	if(!settingsInstance_)
+		settingsInstance_ = [[MatchPadSettingsManager alloc] init];
+	
+	return settingsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		SettingsViewController * viewController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_SETTINGS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[self setShowHeadingAtStart:false];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+
+@end
+
 
 //////////////////////////////////////////////////////////////////////
 //  Stats popups
@@ -174,6 +241,41 @@ static MatchPadTeamStatsManager * teamStatsInstance_ = nil;
 		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_TEAM_STATS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setShowHeadingAtStart:false];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+
+@end
+
+@implementation MatchPadPlayerStatsManager
+
+static MatchPadPlayerStatsManager * playerStatsInstance_ = nil;
+
++(MatchPadPlayerStatsManager *)Instance
+{
+	if(!playerStatsInstance_)
+		playerStatsInstance_ = [[MatchPadPlayerStatsManager alloc] init];
+	
+	return playerStatsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{			
+		PlayerStatsController * viewController = [[PlayerStatsController alloc] initWithNibName:@"PlayerStatsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_PLAYER_STATS_POPUP_];
 		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
 		[self setShowHeadingAtStart:false];
 		[self setAppearStyle:POPUP_FADE_];
