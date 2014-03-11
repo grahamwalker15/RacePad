@@ -57,8 +57,15 @@
 	[[MatchPadPossessionStatsManager Instance] onStartUp];
 	[[MatchPadPitchStatsManager Instance] onStartUp];
 	
-    // Add the home controller's current view as a subview of the window
-    [window addSubview:mainViewController.view];
+	// Add the home controller's current view as a subview of the window
+	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_4_2) 
+	{
+		[window addSubview:mainViewController.view];
+	} 
+	else 
+	{
+		[window setRootViewController:mainViewController];
+	}
     [window makeKeyAndVisible];
 	
 	// We disable the screen locking - because that seems to close the socket
