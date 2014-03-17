@@ -70,6 +70,7 @@
 		away = nil;
 		homeColour = nil;
 		awayColour = nil;
+        textColour = [[UIColor alloc] initWithRed:(CGFloat)255.0 green:(CGFloat)255.0 blue:(CGFloat)255.0 alpha:(CGFloat)255.0];
 	}
 	
 	return self;
@@ -196,7 +197,7 @@
 	CGRect view_rect = [view bounds];
 	CGSize viewSize = view_rect.size;
 	
-	int x = 50;
+	[view SetFGColour:textColour];
 	int y = 10;
 	for ( int i = 0; i < [stats count]; i++ )
 	{

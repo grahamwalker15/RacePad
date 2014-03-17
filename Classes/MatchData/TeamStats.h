@@ -41,6 +41,7 @@ enum StatType {
 	UIColor *homeColour;
 	NSString *away;
 	UIColor *awayColour;
+	UIColor *textColour;
 }
 
 @property (nonatomic, retain) NSString * home;
