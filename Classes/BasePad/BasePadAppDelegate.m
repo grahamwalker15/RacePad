@@ -32,7 +32,15 @@
 	[self startBaseServices];
 	
     // Add the tab bar controller's current view as a subview of the window
-    [window addSubview:tabBarController.view];
+	// Add the home controller's current view as a subview of the window
+	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_4_2)
+	{
+		[window addSubview:tabBarController.view];
+	}
+	else
+	{
+		[window setRootViewController:tabBarController];
+	}
     [window makeKeyAndVisible];
 	
 	// We disable the screen locking - because that seems to close the socket
