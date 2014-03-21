@@ -57,7 +57,8 @@ enum FontTypes
 	UIColor * dark_magenta_;
 	
 	UIFont * current_font_;
-	NSMutableArray * font_stack_;
+	int current_font_id_;
+	NSMutableArray * font_stack_id_;
 	
 	CGRect current_bounds_;
 	CGSize current_size_;

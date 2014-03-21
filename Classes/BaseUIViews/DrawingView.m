@@ -38,19 +38,6 @@
 @synthesize dark_magenta_;
 
 // Static members
-static UIFont * light_big_font_ = nil;
-static UIFont * light_control_font_ = nil;
-static UIFont * light_larger_control_font_ = nil;
-static UIFont * light_regular_font_ = nil;
-static UIFont * title_font_ = nil;
-static UIFont * big_font_ = nil;
-static UIFont * control_font_ = nil;
-static UIFont * larger_control_font_ = nil;
-static UIFont * bold_font_ = nil;
-static UIFont * medium_bold_font_ = nil;
-static UIFont * italic_regular_font_ = nil;
-static UIFont * italic_larger_control_font_ = nil;
-static UIFont * italic_big_font_ = nil;
 
 static UIColor * shadow_colour_;
 
@@ -70,6 +57,8 @@ static bool statics_initialised_ = false;
 		[self setContentMode:UIViewContentModeRedraw];
 		[self setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 		[self InitialiseDrawingViewMembers];
+        
+        font_stack_id_ = [[NSMutableArray alloc] init];
 	}
 	
     return self;
@@ -83,7 +72,9 @@ static bool statics_initialised_ = false;
 		[self setDelaysContentTouches:false];
 		[self setContentMode:UIViewContentModeRedraw];
 		[self InitialiseDrawingViewMembers];
-    }
+
+        font_stack_id_ = [[NSMutableArray alloc] init];
+  }
     return self;
 }
 
@@ -156,8 +147,8 @@ static bool statics_initialised_ = false;
 	fg_ = [DrawingView CreateColourRed:255 Green:255 Blue:255]; // White
 	bg_ = [DrawingView CreateColourRed:0 Green:0 Blue:0]; // Black
 	
-	current_font_ = bold_font_;
-	
+    [self UseFont:DW_BOLD_FONT_];
+    
 	current_context_ = nil;
 	bitmap_context_ = nil;
 	bitmap_context_data_ = nil;
@@ -201,23 +192,7 @@ static bool statics_initialised_ = false;
 	if(!statics_initialised_)
 	{
 		statics_initialised_ = true;
-		
-		light_big_font_ = [UIFont systemFontOfSize:32.0];
-		light_control_font_ = [UIFont systemFontOfSize:12.0];
-		light_larger_control_font_ = [UIFont systemFontOfSize:13.0];
-		light_regular_font_ = [UIFont systemFontOfSize:20.0];
-		
-		title_font_ = [UIFont boldSystemFontOfSize:36.0];
-		big_font_ = [UIFont boldSystemFontOfSize:32.0];
-		control_font_ = [UIFont boldSystemFontOfSize:12.0];
-		larger_control_font_ = [UIFont boldSystemFontOfSize:13.0];
-		bold_font_ = [UIFont boldSystemFontOfSize:20.0];
-		medium_bold_font_ = [UIFont boldSystemFontOfSize:16.0];
-		
-		italic_regular_font_ = [UIFont italicSystemFontOfSize:20.0];
-		italic_larger_control_font_ = [UIFont italicSystemFontOfSize:13.0];
-		italic_big_font_ = [UIFont italicSystemFontOfSize:32.0];
-		
+ 		
 		shadow_colour_ = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3];
 	}
 }
@@ -919,100 +894,101 @@ static bool statics_initialised_ = false;
 
 - (void)UseFont:(int)font
 {
-	switch(font)
+    current_font_id_ = font;
+	switch(current_font_id_)
 	{			
 		case DW_LIGHT_CONTROL_FONT_:
-			current_font_ = light_control_font_;
+			current_font_ = [UIFont systemFontOfSize:12.0];
 			break;
 			
 		case DW_LIGHT_LARGER_CONTROL_FONT_:
-			current_font_ = light_larger_control_font_;
+			current_font_ = [UIFont systemFontOfSize:13.0];
 			break;
 			
 		case DW_LIGHT_BIG_FONT_:
-			current_font_ = light_big_font_;
+			current_font_ = [UIFont systemFontOfSize:32.0];
 			break;
 			
 		case DW_LIGHT_REGULAR_FONT_:
-			current_font_ = light_regular_font_;
+			current_font_ = [UIFont systemFontOfSize:20.0];
 			break;
 			
 		case DW_TITLE_FONT_:
-			current_font_ = title_font_;
+			current_font_ = [UIFont boldSystemFontOfSize:36.0];
 			break;
 			
 		case DW_CONTROL_FONT_:
-			current_font_ = control_font_;
+			current_font_ = [UIFont boldSystemFontOfSize:12.0];
 			break;
 			
 		case DW_LARGER_CONTROL_FONT_:
-			current_font_ = larger_control_font_;
+			current_font_ = [UIFont boldSystemFontOfSize:13.0];
 			break;
 			
 		case DW_BOLD_FONT_:
-			current_font_ = bold_font_;
-			break;
+			current_font_ = [UIFont boldSystemFontOfSize:20.0];
+ 			break;
 			
 		case DW_MEDIUM_BOLD_FONT_:
-			current_font_ = medium_bold_font_;
-			break;
+			current_font_ = [UIFont boldSystemFontOfSize:16.0];
+ 			break;
 			
 		case DW_BIG_FONT_:
-			current_font_ = big_font_;
+			current_font_ = [UIFont boldSystemFontOfSize:32.0];
 			break;
 			
 		case DW_ITALIC_LARGER_CONTROL_FONT_:
-			current_font_ = italic_larger_control_font_;
+			current_font_ = [UIFont italicSystemFontOfSize:13.0];
 			break;
 			
 		case DW_ITALIC_REGULAR_FONT_:
-			current_font_ = italic_regular_font_;
+			current_font_ = [UIFont italicSystemFontOfSize:20.0];
 			break;
 			
 		case DW_ITALIC_BIG_FONT_:
-			current_font_ = italic_big_font_;
+			current_font_ = [UIFont italicSystemFontOfSize:32.0];
 			break;
 			
 		case DW_REGULAR_FONT_:
 		default:
-			current_font_ = bold_font_;
+			[self UseFont:DW_BOLD_FONT_];
 			break;
 	}
 }
 
 - (void)UseTitleFont
 {
-	current_font_ = title_font_;
+    [self UseFont:DW_TITLE_FONT_];
 }
 
 - (void)UseBigFont
 {
-	current_font_ = big_font_;
+    [self UseFont:DW_BIG_FONT_];
 }
 
 - (void)UseControlFont
 {
-	current_font_ = control_font_;
+    [self UseFont:DW_CONTROL_FONT_];
 }
 
 - (void)UseLargerControlFont
 {
-	current_font_ = larger_control_font_;
+    [self UseFont:DW_LARGER_CONTROL_FONT_];
 }
 
 - (void)UseBoldFont
 {
-	current_font_ = bold_font_;
+    [self UseFont:DW_BOLD_FONT_];
 }
 
 - (void)UseMediumBoldFont
 {
-	current_font_ = medium_bold_font_;
+    [self UseFont:DW_MEDIUM_BOLD_FONT_];
 }
 
 - (void)UseRegularFont
 {
-	current_font_ = bold_font_;
+    [self UseFont:DW_BOLD_FONT_];
 }
 
 - (void)SelectUIFont
@@ -1021,15 +997,16 @@ static bool statics_initialised_ = false;
 
 - (void)SaveFont
 {
-	[font_stack_ addObject:current_font_];
+    [font_stack_id_ addObject:[NSNumber numberWithInteger:current_font_id_]];
 }
 
 - (void)RestoreFont
 {
-	if([font_stack_ count] > 0)
+	if([font_stack_id_ count] > 0)
 	{
-		current_font_ = [font_stack_ lastObject];
-		[font_stack_ removeLastObject];
+        current_font_id_ = [[font_stack_id_ lastObject] integerValue];
+		[self UseFont:current_font_id_];
+		[font_stack_id_ removeLastObject];
 	}
 }
 
