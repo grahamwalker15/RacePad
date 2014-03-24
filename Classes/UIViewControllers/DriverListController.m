@@ -171,7 +171,8 @@
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentModalViewController:driver_lap_list_controller_ animated:true];
+        driver_lap_list_controller_.delegate = self;
+		[self presentViewController:driver_lap_list_controller_ animated:true completion:nil];
 		driver_lap_list_controller_displayed_ = true;
 	}
 }
@@ -187,6 +188,12 @@
 		[self dismissModalViewControllerAnimated:animated];
 		driver_lap_list_controller_displayed_ = false;
 	}
+}
+
+// Implement the delegate methods for ChildViewControllerDelegate
+- (void)driverLapListControllerBackButtonPressed:(DriverLapListController *)viewController
+{
+    [self HideDriverLapListAnimated:true];
 }
 
 @end

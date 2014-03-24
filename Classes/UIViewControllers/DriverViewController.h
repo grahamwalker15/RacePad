@@ -11,10 +11,10 @@
 #import "CarViewController.h"
 #import "ShinyButton.h"
 #import "TableDataView.h"
+#import "DriverLapListController.h"
+#import "CarViewController.h"
 
 @class LeaderboardView;
-@class DriverLapListController;
-@class TelemetryCarViewController;
 
 // Local version of table data view to allow override of ColumnUse
 @interface DriverViewControllerTimingView : TableDataView
@@ -22,7 +22,7 @@
 }
 @end
 
-@interface DriverViewController : CarViewController
+@interface DriverViewController : CarViewController <DriverLapListControllerDelegate,TelemetryCarViewControllerDelegate>
 {
 	IBOutlet UIView * pitBoardContainer;
 	
@@ -77,8 +77,10 @@
 
 - (void)ShowDriverLapList:(NSString *)driver;
 - (void)HideDriverLapListAnimated:(bool)animated;
+- (void)driverLapListControllerBackButtonPressed:(DriverLapListController*)viewController;
 
 - (void)HideTelemetryAnimated:(bool)animated;
+- (void)telemetryCarViewControllerBackButtonPressed:(TelemetryCarViewController*)viewController;
 
 @end
 

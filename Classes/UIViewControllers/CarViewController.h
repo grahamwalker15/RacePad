@@ -19,6 +19,8 @@
 
 @class AnimationTimer;
 
+@protocol TelemetryCarViewControllerDelegate;
+
 @interface CarViewController : BasePadViewController
 {
 	IBOutlet BackgroundView *backgroundView;
@@ -74,6 +76,8 @@
 	IBOutlet UIBarButtonItem * title_;
 }
 
+@property (nonatomic, assign) id<TelemetryCarViewControllerDelegate> delegate;
+
 - (bool) supportsCar: (NSString *)name;
 - (void) chooseCar: (NSString *)name;
 
@@ -81,7 +85,12 @@
 - (IBAction) chooseROS:(id)sender;
 - (IBAction) BackButton:(id)sender;
 
+
 @end
 
+@protocol TelemetryCarViewControllerDelegate <NSObject>
+
+- (void) telemetryCarViewControllerBackButtonPressed:(TelemetryCarViewController*)viewController;
+@end
 
 

@@ -141,7 +141,20 @@
 
 - (IBAction)BackButton:(id)sender
 {
-	[(DriverListController *)[self parentViewController] HideDriverLapListAnimated:true];
+	//[(DriverListController *)[self parentViewController] HideDriverLapListAnimated:true];
+
+    // Xcode will complain if we access a weak property more than
+    // once here, since it could in theory be nilled between accesses
+    // leading to unpredictable results. So we'll start by taking
+    // a local, strong reference to the delegate.
+    id<DriverLapListControllerDelegate> strongDelegate = self.delegate;
+    
+    // Our delegate method is optional, so we should
+    // check that the delegate implements it
+    if ([strongDelegate respondsToSelector:@selector(driverLapListControllerBackButtonPressed:)])
+    {
+        [strongDelegate driverLapListControllerBackButtonPressed:self];
+    }
 }
 
 - (IBAction)PreviousButton:(id)sender

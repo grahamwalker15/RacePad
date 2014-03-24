@@ -10,10 +10,11 @@
 
 #import "SimpleListViewController.h"
 #import "TableDataView.h"
+#import "DriverLapListController.h"
 
 @class DriverLapListController;
 
-@interface DriverListController : SimpleListViewController
+@interface DriverListController : SimpleListViewController <DriverLapListControllerDelegate>
 {
 	IBOutlet TableDataView * driver_list_view_;
 	DriverLapListController * driver_lap_list_controller_;
@@ -24,5 +25,6 @@
 
 - (void)ShowDriverLapList:(NSString *)driver;
 - (void)HideDriverLapListAnimated:(bool)animated;
+- (void)driverLapListControllerBackButtonPressed:(DriverLapListController*)viewController;
 
 @end

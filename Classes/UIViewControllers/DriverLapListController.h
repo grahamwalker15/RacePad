@@ -11,6 +11,8 @@
 #import "SimpleListViewController.h"
 #import "BasePadViewController.h"
 
+@protocol DriverLapListControllerDelegate;
+
 @class TableDataView;
 
 @interface DriverLapListController : BasePadViewController
@@ -27,6 +29,8 @@
 	NSString * driver_;
 }
 
+@property (nonatomic, assign) id<DriverLapListControllerDelegate> delegate;
+
 - (void)SetDriver:(NSString *)driver;
 
 - (IBAction)BackButton:(id)sender;
@@ -34,3 +38,9 @@
 - (IBAction)NextButton:(id)sender;
 
 @end
+
+@protocol DriverLapListControllerDelegate <NSObject>
+
+- (void) driverLapListControllerBackButtonPressed:(DriverLapListController*)viewController;
+@end
+

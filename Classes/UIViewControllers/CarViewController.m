@@ -718,8 +718,21 @@
 
 - (IBAction)BackButton:(id)sender
 {
-	DriverViewController *parent = (DriverViewController *) [self parentViewController];
-	[parent HideTelemetryAnimated:true];
+	//DriverViewController *parent = (DriverViewController *) [self parentViewController];
+	//[parent HideTelemetryAnimated:true];
+    
+    // Xcode will complain if we access a weak property more than
+    // once here, since it could in theory be nilled between accesses
+    // leading to unpredictable results. So we'll start by taking
+    // a local, strong reference to the delegate.
+    id<TelemetryCarViewControllerDelegate> strongDelegate = self.delegate;
+    
+    // Our delegate method is optional, so we should
+    // check that the delegate implements it
+    if ([strongDelegate respondsToSelector:@selector(telemetryCarViewControllerBackButtonPressed:)])
+    {
+        [strongDelegate telemetryCarViewControllerBackButtonPressed:self];
+    }
 }
 
 @end

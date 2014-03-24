@@ -792,7 +792,8 @@
 		[driver_lap_list_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentModalViewController:driver_lap_list_controller_ animated:true];
+        driver_lap_list_controller_.delegate = self;
+		[self presentViewController:driver_lap_list_controller_ animated:true completion:nil];
 		driver_lap_list_controller_displayed_ = true;
 	}
 }
@@ -810,6 +811,11 @@
 	}
 }
 
+// Implement the delegate methods for ChildViewControllerDelegate
+- (void)driverLapListControllerBackButtonPressed:(DriverLapListController *)viewController
+{
+    [self HideDriverLapListAnimated:true];
+}
 
 - (IBAction) telemetryPressed:(id)sender
 {
@@ -827,8 +833,9 @@
 			[telemetry_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
 			
 			// And present it
-			[self presentModalViewController:telemetry_controller_ animated:true];
+			[self presentViewController:telemetry_controller_ animated:true completion:nil];
 			telemetry_controller_displayed_ = true;
+            telemetry_controller_.delegate = self;
 		}
 }
 
@@ -843,6 +850,12 @@
 		[self dismissModalViewControllerAnimated:animated];
 		telemetry_controller_displayed_ = false;
 	}
+}
+
+// Implement the delegate methods for ChildViewControllerDelegate
+- (void)telemetryCarViewControllerBackButtonPressed:(TelemetryCarViewController *)viewController
+{
+    [self HideTelemetryAnimated:true];
 }
 
 @end
