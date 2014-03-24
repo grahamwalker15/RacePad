@@ -507,7 +507,9 @@
 		[driverSurnameLabel setHidden:false];
 		[driverTeamLabel setHidden:false];
 		[seeLapsButton setHidden:false];
-		[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
+        [telemetryButton setHidden:true];
+        // Hidden as not used at the moment.
+		//[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
@@ -686,7 +688,9 @@
 			}
 			else
 			{
-				[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
+                [telemetryButton setHidden:true];
+                // Hidden as not used at the moment.
+				//[telemetryButton setHidden:!([[RacePadSponsor Instance]supportsTab:RPS_TELEMETRY_VIEW_] && [telemetry_controller_ supportsCar:[[RacePadCoordinator Instance] nameToFollow]])];
 			}
 			
 			[trackMapView RequestRedraw];
