@@ -806,7 +806,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:animated];
+		[self dismissViewControllerAnimated:animated completion:nil];
 		driver_lap_list_controller_displayed_ = false;
 	}
 }
@@ -847,7 +847,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:animated];
+		[self dismissViewControllerAnimated:animated completion:nil];
 		telemetry_controller_displayed_ = false;
 	}
 }

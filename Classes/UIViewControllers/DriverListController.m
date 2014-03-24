@@ -43,6 +43,7 @@
 	
 	// Create a view controller for the driver lap times which may be displayed as an overlay
 	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
+
 	driver_lap_list_controller_displayed_ = false;
 	driver_lap_list_controller_closing_ = false;
 	
@@ -185,7 +186,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:animated];
+		[self dismissViewControllerAnimated:animated completion:nil];
 		driver_lap_list_controller_displayed_ = false;
 	}
 }

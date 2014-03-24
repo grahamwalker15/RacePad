@@ -242,7 +242,7 @@
 
 - (IBAction) stopPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:NO];
+	[self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction) controlPressed:(id)sender

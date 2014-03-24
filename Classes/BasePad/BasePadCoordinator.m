@@ -1087,7 +1087,7 @@ static BasePadCoordinator * instance_ = nil;
 		if ( serverConnect == nil )
 			serverConnect = [[ServerConnect alloc] initWithNibName:@"ServerConnect" bundle:nil];
 		showingConnecting = true;
-		[registeredViewController presentModalViewController:serverConnect animated:YES];
+		[registeredViewController presentViewController:serverConnect animated:YES completion:nil];
 	}
 }
 
@@ -1182,7 +1182,7 @@ static BasePadCoordinator * instance_ = nil;
 	if ( workOffline == nil )
 		workOffline = [[WorkOffline alloc] initWithNibName:@"WorkOffline" bundle:nil];
 	
-	[registeredViewController presentModalViewController:workOffline animated:YES];
+	[registeredViewController presentViewController:workOffline animated:YES completion:nil];
 }
 
 - (void) videoServerOnConnectionChange
@@ -1614,7 +1614,7 @@ static BasePadCoordinator * instance_ = nil;
 		[self DestroyDataSources];
 	
 	[downloadProgress setProject:eventName SessionName:sessionName SizeInMB:sizeInMB];
-	[registeredViewController presentModalViewController:downloadProgress animated:YES];
+	[registeredViewController presentViewController:downloadProgress animated:YES completion:nil];
 }
 
 -(void) projectDownloadCancelled
@@ -1622,7 +1622,7 @@ static BasePadCoordinator * instance_ = nil;
 	if(connectionType == BPC_ARCHIVE_CONNECTION_)
 		[self CreateDataSources];
 	
-	[downloadProgress dismissModalViewControllerAnimated:YES];
+	[downloadProgress dismissViewControllerAnimated:YES completion:nil];
 	
 	// Dismissing the view will make the playing restart if required.
 }
@@ -1632,7 +1632,7 @@ static BasePadCoordinator * instance_ = nil;
 	if(connectionType == BPC_ARCHIVE_CONNECTION_)
 		[self CreateDataSources];
 	
-	[downloadProgress dismissModalViewControllerAnimated:YES];
+	[downloadProgress dismissViewControllerAnimated:YES completion:nil];
 	
 	if ( registeredViewControllerTypeMask & BPC_SETTINGS_VIEW_ )
 	{

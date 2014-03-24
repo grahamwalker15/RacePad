@@ -67,7 +67,7 @@
 	timer = nil;
 	if ( shouldBePoppedDown )
 	{
-		[self dismissModalViewControllerAnimated:YES];
+		[self dismissViewControllerAnimated:YES completion:nil];
 	}
 	else
 	{
@@ -88,7 +88,7 @@
 {
 	if ( shouldBePoppedDown )
 	{
-		[self dismissModalViewControllerAnimated:YES];
+		[self dismissViewControllerAnimated:YES completion:nil];
 	}
 	else
 	{
@@ -110,7 +110,7 @@
 - (void) popDown
 {
 	// There's some wierd race condition where if we try to popdown, while we're popping up, then we end up appearing
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 	[[RacePadCoordinator Instance] setShowingConnecting:false];
 	shouldBePoppedDown = true;
 }
@@ -141,7 +141,7 @@
 
 -(void) settingsPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITabBarController *tabControl = [app tabBarController];
 	if ( tabControl )

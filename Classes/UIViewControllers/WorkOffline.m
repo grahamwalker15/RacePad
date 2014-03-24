@@ -258,7 +258,7 @@
 		if ( eventName != nil && [eventName length] > 0
 			&& sessionName != nil && [sessionName length] > 0 )
 		{
-			[self dismissModalViewControllerAnimated:animatedDismissal];
+			[self dismissViewControllerAnimated:animatedDismissal completion:nil];
 			[[RacePadCoordinator Instance] loadSession:eventName Session:sessionName];
 		}
 	}
@@ -266,7 +266,7 @@
 
 - (IBAction)onlinePressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:NO];
+	[self dismissViewControllerAnimated:NO completion:nil];
 	
 	NSString * serverAddress = [[BasePadPrefs Instance] getPref:@"preferredServerAddress"];
 	
@@ -284,7 +284,7 @@
 
 - (IBAction)settingsPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:animatedDismissal];
+	[self dismissViewControllerAnimated:animatedDismissal completion:nil];
 	RacePadAppDelegate *app = (RacePadAppDelegate *)[[UIApplication sharedApplication] delegate];
 	UITabBarController *tabControl = [app tabBarController];
 	if ( tabControl )

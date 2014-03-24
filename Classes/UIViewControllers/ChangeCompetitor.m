@@ -79,12 +79,12 @@
 
 -(void) cancelPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) newUserPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:NO];
+	[self dismissViewControllerAnimated:NO completion:nil];
 	[gameController makeNewUser];
 }
 
@@ -117,14 +117,14 @@
 	RacePrediction *p = [[RacePadDatabase Instance] racePrediction]; 
 	[p setUser:currentUser];
 	[gameController lock];
-	[self dismissModalViewControllerAnimated:NO]; // Not animated, beacuse the pin window is coming
+	[self dismissViewControllerAnimated:NO completion:nil]; // Not animated, beacuse the pin window is coming
 	[[RacePadCoordinator Instance] requestPrediction:currentUser];
 }
 
 - (void) getUser: (GameViewController *)controller
 {
 	gameController = controller;
-	[gameController presentModalViewController:self animated:YES];
+	[gameController presentViewController:self animated:YES completion:nil];
 }
 
 @end

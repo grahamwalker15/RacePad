@@ -83,7 +83,7 @@
 
 -(void) cancelPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 	[gameController pinFailed];
 }
 
@@ -119,7 +119,7 @@
 			text = [text stringByAppendingString:pin4.text];
 			if([text intValue] == userPin )
 			{
-				[self dismissModalViewControllerAnimated:YES];
+				[self dismissViewControllerAnimated:YES completion:nil];
 				[gameController pinCorrect];
 			}
 			else
@@ -173,7 +173,7 @@
 {
 	userPin = inPin;
 	gameController = controller;
-	[gameController presentModalViewController:self animated:YES];
+	[gameController presentViewController:self animated:YES completion:nil];
 }
 
 @end
