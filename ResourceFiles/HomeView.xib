@@ -23,12 +23,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="43" customClass="BackgroundView">
-                    <rect key="frame" x="0.0" y="44.5" width="768" height="999.5"/>
+                    <rect key="frame" x="0.0" y="44" width="768" height="999.5"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <subviews>
                         <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="MGPCar.png" id="56">
-                            <rect key="frame" x="0.0" y="495.5" width="800" height="504"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="50" y="479.5" width="800" height="500"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="37">
@@ -166,6 +166,6 @@
     </objects>
     <resources>
         <image name="HomeTabButtonBG.png" width="200" height="66"/>
-        <image name="MGPCar.png" width="800" height="504"/>
+        <image name="MGPCar.png" width="768" height="504"/>
     </resources>
 </document>
