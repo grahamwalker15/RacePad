@@ -113,6 +113,14 @@
 	[button5 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 	[button6 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 	[button7 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+
+    [button1 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button2 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button3 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button4 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button5 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button6 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button7 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
 }
 
 - (IBAction) buttonPressed:(id)sender
