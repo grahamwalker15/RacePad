@@ -34,6 +34,9 @@
 {
 	[super viewDidLoad];
 	
+    closeButton.tintColor = [UIColor blackColor];
+    typeChooser.tintColor = [UIColor blackColor];
+    
 	[alertView SetHeading:false];
 	
 	// Add gesture recognizers
