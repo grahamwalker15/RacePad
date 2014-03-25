@@ -1,4 +1,4 @@
-    //
+//
 //  TitleBarController.m
 //  RacePad
 //
@@ -28,8 +28,10 @@
  - (void)viewDidLoad
  {
 	 [super viewDidLoad];
-
-	 [timeCounter setShine:1.0];
+     alertButton.tintColor = [UIColor whiteColor];
+     commentaryButton.tintColor = [UIColor whiteColor];
+     helpButton.tintColor = [UIColor whiteColor];
+     [timeCounter setShine:1.0];
 	 
 	 allItems = [[toolbar items] retain];
 	 
