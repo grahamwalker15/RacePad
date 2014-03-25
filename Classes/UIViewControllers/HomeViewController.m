@@ -121,6 +121,16 @@
     [button5 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [button6 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [button7 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
+    // highlight in Petronas colour
+    [button1 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [button2 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [button3 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [button4 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [button5 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [button6 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [button7 setTitleColor:[UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1] forState:UIControlStateHighlighted];
+
 }
 
 - (IBAction) buttonPressed:(id)sender
