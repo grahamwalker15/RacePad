@@ -372,6 +372,8 @@
 		7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A83113812E180095DD10 /* NewsFeed.png */; };
 		7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A9D413817F1D0095DD10 /* SlowMotion.png */; };
 		7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */; };
+		F48183CF18E20425002F5910 /* AlertControlWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CD18E20425002F5910 /* AlertControlWarning.png */; };
+		F48183D018E20425002F5910 /* AlertControlPit.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CE18E20425002F5910 /* AlertControlPit.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -866,6 +868,8 @@
 		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		F48183CD18E20425002F5910 /* AlertControlWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertControlWarning.png; path = Images/AlertControlWarning.png; sourceTree = "<group>"; };
+		F48183CE18E20425002F5910 /* AlertControlPit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertControlPit.png; path = Images/AlertControlPit.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1314,6 +1318,8 @@
 			isa = PBXGroup;
 			children = (
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
+				F48183CD18E20425002F5910 /* AlertControlWarning.png */,
+				F48183CE18E20425002F5910 /* AlertControlPit.png */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
 				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
 				4D56AF6114052EF300DFA0BF /* CommentaryBubbleView.xib */,
@@ -1746,6 +1752,7 @@
 				7F817E25130547AF00AC2444 /* InfoStandox.htm in Resources */,
 				7F817E29130547EE00AC2444 /* InfoAlpine.htm in Resources */,
 				7F817E2D1305488E00AC2444 /* InfoEndless.htm in Resources */,
+				F48183D018E20425002F5910 /* AlertControlPit.png in Resources */,
 				7F817E31130548DC00AC2444 /* InfoLincoln.htm in Resources */,
 				7F817E351305492100AC2444 /* InfoStarTrac.htm in Resources */,
 				7F817E391305496500AC2444 /* InfoSTL.htm in Resources */,
@@ -1809,6 +1816,7 @@
 				4D56AF6214052EF300DFA0BF /* CommentaryBubbleView.xib in Resources */,
 				4D2B79091406B7F7007950AA /* Commentary.png in Resources */,
 				4D94B6D0140D215100EC2EE0 /* HeadToHeadView.xib in Resources */,
+				F48183CF18E20425002F5910 /* AlertControlWarning.png in Resources */,
 				7F48F198140FA62E00E293B4 /* 17-bar-chart.png in Resources */,
 				7F48F199140FA62E00E293B4 /* 66-microphone.png in Resources */,
 				7F48F20F1411060C00E293B4 /* AlertGreenInfo.png in Resources */,

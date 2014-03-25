@@ -35,23 +35,24 @@
                     </items>
                 </toolbar>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="10" customClass="AlertView">
-                    <rect key="frame" x="0.0" y="44.000000437600953" width="320" height="385"/>
+                    <rect key="frame" x="0.0" y="44.00000068039315" width="320" height="385"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                 </scrollView>
-                <segmentedControl autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="14">
+                <segmentedControl autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="14">
                     <rect key="frame" x="0.0" y="431" width="320" height="29"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <segments>
                         <segment title="All"/>
-                        <segment title="" image="AlertPitstop.png"/>
+                        <segment title="" image="AlertControlPit.png"/>
                         <segment title="" image="AlertOvertake.png"/>
-                        <segment title="" image="AlertWarning.png"/>
+                        <segment title="" image="AlertControlWarning.png"/>
                         <segment title="" image="AlertPin.png"/>
                         <segment title="Other"/>
                         <segment title="Driver"/>
                     </segments>
-                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.011764705882352941" green="0.6588235294117647" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="typeChosen:" destination="-1" eventType="valueChanged" id="17"/>
                     </connections>
@@ -61,9 +62,9 @@
         </view>
     </objects>
     <resources>
+        <image name="AlertControlPit.png" width="24" height="20"/>
+        <image name="AlertControlWarning.png" width="24" height="20"/>
         <image name="AlertOvertake.png" width="24" height="20"/>
         <image name="AlertPin.png" width="24" height="20"/>
-        <image name="AlertPitstop.png" width="24" height="20"/>
-        <image name="AlertWarning.png" width="24" height="20"/>
     </resources>
 </document>
