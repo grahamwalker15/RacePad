@@ -45,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[alertView SelectRow:-1];
+    typeChooser.selectedSegmentIndex = 0;
 	[self UpdateList];
 	[super viewWillAppear:animated];
 }
