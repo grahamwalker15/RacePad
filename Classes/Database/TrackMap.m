@@ -650,7 +650,7 @@ static UIImage *grassImage = nil;
 		labels = [[NSMutableArray alloc] init];
 		turns = [[NSMutableArray alloc] init];
 		
-		for ( int i = 0; i < 30; i++ )
+		for ( int i = 0; i < 100; i++ )
 		{
 			TrackCar *car = [[TrackCar alloc]  init];
 			[cars addObject:car];
@@ -659,7 +659,7 @@ static UIImage *grassImage = nil;
 		
 		carCount = 0;
 		
-		segmentStates = [[NSMutableArray arrayWithCapacity:30] retain];
+		segmentStates = [[NSMutableArray arrayWithCapacity:50] retain];
 		
 		xCentre = 0.0;
 		yCentre = 0.0;
