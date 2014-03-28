@@ -11,6 +11,7 @@
 #import "RacePadCoordinator.h"
 #import "BasePadTimeController.h"
 #import "RacePadDatabase.h"
+#import "BasePadSponsor.h"
 
 @implementation AlertViewController
 
@@ -35,7 +36,13 @@
 	[super viewDidLoad];
 	    
 	[alertView SetHeading:false];
-	
+
+	float r,g,b;
+    
+    [[BasePadSponsor Instance]primaryBrandingColor:&r:&g:&b];
+    
+    typeChooser.tintColor = [UIColor colorWithRed:r green:g blue:b alpha:1];
+
 	// Add gesture recognizers
  	[self addTapRecognizerToView:alertView];
 	[self addLongPressRecognizerToView:alertView];

@@ -32,5 +32,6 @@ enum SponsorLogo {
 - (void) setSponsorName: (NSString *)name;
 
 - (int) videoTab;
+- (void) primaryBrandingColor: (float*) red : (float*) green : (float*) blue;
 
 @end

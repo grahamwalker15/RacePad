@@ -13,6 +13,7 @@
 #import "BasePadTimeController.h"
 #import "BasePadTitleBarController.h"
 #import "BasePadPrefs.h"
+#import "BasePadSponsor.h"
 
 @implementation BasePadAppDelegate
 
@@ -43,9 +44,11 @@
 	}
     [window makeKeyAndVisible];
 
-	// Petronas colour
-    tabBarController.view.tintColor = [UIColor colorWithRed:3.0/255.0 green:168.0/255.0 blue:146.0/255.0 alpha:1];
-    
+    float r,g,b;
+    [[BasePadSponsor Instance]primaryBrandingColor:&r:&g:&b];
+
+    tabBarController.view.tintColor = [UIColor colorWithRed:r green:g blue:b alpha:1];
+
 	// We disable the screen locking - because that seems to close the socket
 	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 	

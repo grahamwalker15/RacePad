@@ -204,6 +204,40 @@ static RacePadSponsor * instance_ = nil;
 	return false;
 }
 
+- (void) primaryBrandingColor: (float*) red : (float*) green : (float*) blue;
+{
+
+    if ( sponsor == RPS_UNKNOWN_ )
+    {
+        *red = 0.0;
+        *green = 0.0;
+        *blue = 0.0;
+    }
+    else if ( sponsor == RPS_MERCEDES_ )
+    {
+        *red = 3.0/255.0;
+        *green = 168.0/255.0;
+        *blue = 146.0/255.0;
+    }
+    else if ( sponsor == RPS_WILLIAMS_ )
+    {
+        *red = 3.0/255.0;
+        *green = 39.0/255.0;
+        *blue = 100.0/255.0;
+    }
+    else if ( sponsor == RPS_FIA_ )
+    {
+        *red = 3.0/255.0;
+        *green = 39.0/255.0;
+        *blue = 100.0/255.0;
+    }
+    else //Audi - need to add
+    {
+        *red = 192.0/255.0;
+        *green = 0.0/255.0;
+        *blue = 32.0/255.0;
+    }
+}
 
 @end
 

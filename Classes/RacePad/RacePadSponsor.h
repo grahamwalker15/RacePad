@@ -59,5 +59,6 @@ enum Location {
 
 - (void) setSponsorName: (NSString *)name;
 - (bool) supportsLocation;
+- (void) primaryBrandingColor: (float*) red : (float*) green : (float*) blue;
 
 @end
