@@ -231,7 +231,7 @@ static RacePadSponsor * instance_ = nil;
         *green = 39.0/255.0;
         *blue = 100.0/255.0;
     }
-    else //Audi - need to add
+    else if ( sponsor == RPS_AUDI_ )
     {
         *red = 192.0/255.0;
         *green = 0.0/255.0;
