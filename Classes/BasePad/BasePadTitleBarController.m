@@ -60,8 +60,11 @@ static BasePadTitleBarController * instance_ = nil;
 	CGRect super_bounds = [viewController.view bounds];
 	CGRect title_controller_bounds = [titleBarController.view bounds];
 	
-	[viewController.view addSubview:titleBarController.view];
-	
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_4_2)
+	{
+		[viewController.view addSubview:titleBarController.view];
+	}
+    
 	CGRect frame = CGRectMake(super_bounds.origin.x, super_bounds.origin.y, super_bounds.size.width, title_controller_bounds.size.height);
 	[titleBarController.view setFrame:frame];
 	
