@@ -34,7 +34,8 @@
 @synthesize settingsButtonOpen;
 @synthesize statsButtonOpen;
 @synthesize highlightsButtonOpen;	
-@synthesize replaysButtonOpen;	
+@synthesize replaysButtonOpen;
+@synthesize codingButtonOpen;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -66,7 +67,8 @@
 	settingsButtonOpen = false;
 	statsButtonOpen = false;
 	highlightsButtonOpen = false;	
-	replaysButtonOpen = false;	
+	replaysButtonOpen = false;
+	codingButtonOpen = false;
 	
     timeControllerPending = false;
     
@@ -1249,6 +1251,18 @@
 			[[MatchPadReplaysManager Instance] displayInViewController:self AtX:CGRectGetMaxX(viewBounds) Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
 		}		
 	}
+    
+    if(sender == codingButton)
+	{
+		if(![[MatchPadCodingManager Instance] viewDisplayed])
+		{
+			codingButtonOpen = true;
+			
+			[[MatchPadCodingManager Instance] grabExclusion:self];
+			[[MatchPadCodingManager Instance] displayInViewController:self AtX:CGRectGetMaxX(viewBounds) Animated:true Direction:POPUP_DIRECTION_LEFT_ XAlignment:POPUP_ALIGN_RIGHT_ YAlignment:POPUP_ALIGN_BOTTOM_];
+		}
+	}
+
 	
 }
 
@@ -1326,6 +1340,9 @@
 	
 	if(replaysButtonOpen)
         [[MatchPadReplaysManager Instance] bringToFront];
+	
+	if(codingButtonOpen)
+        [[MatchPadCodingManager Instance] bringToFront];
 	
 	if(settingsButtonOpen)
         [[MatchPadSettingsManager Instance] bringToFront];
@@ -1413,6 +1430,7 @@
 	else
 		[mainMenuButton setFrame:CGRectMake(-91,332,91,61)];
 	
+	[codingButton setFrame:CGRectOffset([codingButton frame], CGRectGetWidth([codingButton frame]), 0)];
 	[replaysButton setFrame:CGRectOffset([replaysButton frame], CGRectGetWidth([replaysButton frame]), 0)];
 	[statsButton setFrame:CGRectOffset([statsButton frame], CGRectGetWidth([statsButton frame]), 0)];
 	[highlightsButton setFrame:CGRectOffset([highlightsButton frame], CGRectGetWidth([highlightsButton frame]), 0)];
@@ -1439,6 +1457,7 @@
 	else
 		[mainMenuButton setFrame:CGRectMake(-36,332,91,61)];
 	
+	[codingButton setFrame:CGRectOffset([codingButton frame], -CGRectGetWidth([codingButton frame]), 0)];
 	[replaysButton setFrame:CGRectOffset([replaysButton frame], -CGRectGetWidth([replaysButton frame]), 0)];
 	[highlightsButton setFrame:CGRectOffset([highlightsButton frame], -CGRectGetWidth([highlightsButton frame]), 0)];
 	[statsButton setFrame:CGRectOffset([statsButton frame], -CGRectGetWidth([statsButton frame]), 0)];
@@ -1546,6 +1565,15 @@
 		popupDismissed= true;
 	}
 	
+	if(excludedPopupType != MP_CODING_POPUP_ &&
+	   [[MatchPadCodingManager Instance] viewDisplayed] &&
+	   (popupZone & MP_ZONE_RIGHT_) > 0)
+	{
+		[[MatchPadCodingManager Instance] hideAnimated:true Notify:true];
+		codingButtonOpen = false;
+		popupDismissed= true;
+	}
+
 	if(animateMenus && popupDismissed)
 		[self animateMenuButton:nil];
 	
@@ -1597,6 +1625,10 @@
             [replaysButton setHidden:true];
             break;
             
+ 		case MP_CODING_POPUP_:
+            [codingButton setHidden:true];
+            break;
+            
         default:
             break;
     }
@@ -1604,6 +1636,7 @@
 	[self.view bringSubviewToFront:statsButton];
 	[self.view bringSubviewToFront:highlightsButton];
 	[self.view bringSubviewToFront:replaysButton];
+	[self.view bringSubviewToFront:codingButton];
 	
 	[self positionMenuButtons];
 
@@ -1663,6 +1696,12 @@
 			[self positionMenuButtons];
 			break;
 			
+		case MP_CODING_POPUP_:
+			codingButtonOpen = false;
+			[codingButton setHidden:false];
+			[self positionMenuButtons];
+			break;
+
 		default:
 			break;
 	}

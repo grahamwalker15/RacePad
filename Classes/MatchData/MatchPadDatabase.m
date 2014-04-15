@@ -33,6 +33,7 @@ static MatchPadDatabase *instance = nil;
 @synthesize playerGraph;
 @synthesize playerStatsData;
 @synthesize alertData;
+@synthesize codingData;
 @synthesize teamStatsData;
 
 - (MatchPadDatabase *)init
@@ -46,6 +47,7 @@ static MatchPadDatabase *instance = nil;
 	playerStatsData = [[TableData alloc] init];
 	teamStatsData = [[TeamStats alloc] init];
 	alertData = [[AlertData alloc] init];
+	codingData = [[AlertData alloc] init];
 	
 	[self setHomeTeam:@"Home"];
 	[self setAwayTeam:@"Away"];
@@ -79,6 +81,8 @@ static MatchPadDatabase *instance = nil;
 	
 	[alertData release];
 	alertData = [[AlertData alloc] init];
+	[codingData release];
+	codingData = [[AlertData alloc] init];
 }
 
 @end

@@ -122,6 +122,12 @@
 			[alertData loadData:stream];
 			break;
 		}
+		case MPSC_CODING_: // Coding
+		{
+			AlertData *codingData = [[MatchPadDatabase Instance] codingData];
+			[codingData loadData:stream];
+			break;
+		}
 		case MPSC_POSSESSION_: // Possession
 		{
 			Possession *possession = [[MatchPadDatabase Instance] possession];

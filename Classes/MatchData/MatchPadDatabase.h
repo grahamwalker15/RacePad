@@ -26,6 +26,7 @@
 	TableData *playerStatsData;
 	TeamStats *teamStatsData;
 	AlertData *alertData;
+	AlertData *codingData;
 	Possession *possession;
 	Moves *moves;
 	Ball *ball;
@@ -50,6 +51,7 @@
 @property (readonly) TableData *playerStatsData;
 @property (readonly) TeamStats *teamStatsData;
 @property (readonly) AlertData *alertData;
+@property (readonly) AlertData *codingData;
 
 + (MatchPadDatabase *)Instance;
 - (void) clearStaticData;

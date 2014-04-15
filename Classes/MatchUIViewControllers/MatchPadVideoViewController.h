@@ -74,6 +74,7 @@
 	IBOutlet UIButton * statsButton;
 	IBOutlet UIButton * highlightsButton;
 	IBOutlet UIButton * replaysButton;
+	IBOutlet UIButton * codingButton;
 	
 	IBOutlet UIButton * settingsButton;
 	IBOutlet UIButton * helpButton;
@@ -87,6 +88,7 @@
 	bool helpButtonOpen;
 	bool statsButtonOpen;
 	bool replaysButtonOpen;
+	bool codingButtonOpen;
 	bool highlightsButtonOpen;
 
 	bool timeControllerPending;
@@ -128,6 +130,7 @@
 @property (nonatomic) bool statsButtonOpen;
 @property (nonatomic) bool highlightsButtonOpen;
 @property (nonatomic) bool replaysButtonOpen;
+@property (nonatomic) bool codingButtonOpen;
 
 @property (readonly) MovieView * mainMovieView;
 @property (readonly) MovieView * auxMovieView1;

@@ -27,6 +27,7 @@ enum MatchPadPopupViewTypes
 	MP_PLAYER_STATS_POPUP_,
 	MP_HELP_POPUP_,
 	MP_SETTINGS_POPUP_,
+	MP_CODING_POPUP_,
 };
 	
 // View alignment
@@ -76,6 +77,14 @@ enum MatchPadPopupMenuZones
 }
 
 +(MatchPadReplaysManager *)Instance;
+
+@end
+
+@interface MatchPadCodingManager : BasePadPopupManager
+{
+}
+
++(MatchPadCodingManager *)Instance;
 
 @end
 

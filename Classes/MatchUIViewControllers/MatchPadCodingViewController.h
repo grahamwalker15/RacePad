@@ -1,0 +1,27 @@
+//
+//  MatchPadCodingViewController.h
+//  MatchPad
+//
+//  Created by Simon Cuff on 14/04/2014.
+//
+//
+
+#import <UIKit/UIKit.h>
+
+#import "BasePadPopupViewController.h"
+#import "MovieView.h"
+#import "SimpleListViewController.h"
+#import "AlertView.h"
+
+@interface MatchPadCodingViewController : BasePadPopupViewController <MovieViewDelegate, SimpleListViewDelegate>
+{
+	IBOutlet AlertView * alertView;
+	IBOutlet UISegmentedControl * typeChooser;
+}
+
+- (void) dismissTimerExpired:(NSTimer *)theTimer;
+
+- (IBAction) replaySelected:(id)sender;
+- (IBAction) typeChosen:(id)sender;
+
+@end

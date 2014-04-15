@@ -243,6 +243,8 @@
 		7FB9587F1678B6960010A877 /* MatchPadHighlightsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9587E1678B6960010A877 /* MatchPadHighlightsView.xib */; };
 		7FB958EA1678C1EA0010A877 /* MatchState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB958E91678C1EA0010A877 /* MatchState.m */; };
 		7FB958FC1678C67D0010A877 /* ScoreBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB958FB1678C67D0010A877 /* ScoreBG.png */; };
+		F497230C18FC465800F97EF5 /* MatchPadCodingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */; };
+		F497230E18FC4EBE00F97EF5 /* MatchPadCodingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -610,6 +612,9 @@
 		7FE5A83113812E180095DD10 /* NewsFeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NewsFeed.png; path = Images/NewsFeed.png; sourceTree = "<group>"; };
 		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
+		F497230A18FC465800F97EF5 /* MatchPadCodingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchPadCodingViewController.h; sourceTree = "<group>"; };
+		F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchPadCodingViewController.m; sourceTree = "<group>"; };
+		F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchPadCodingView.xib; path = ResourceFiles/MatchXIB/MatchPadCodingView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -830,6 +835,8 @@
 		4DBE22D613A0DAF90051C9B3 /* MatchUIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F497230A18FC465800F97EF5 /* MatchPadCodingViewController.h */,
+				F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */,
 				4DA3CF4413CDE13D0097A5FB /* AlertViewController.h */,
 				4DA3CF4513CDE13D0097A5FB /* AlertViewController.m */,
 				4D14605C14BB544A00DADD63 /* BallViewController.h */,
@@ -1015,6 +1022,7 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */,
 				7FB9587E1678B6960010A877 /* MatchPadHighlightsView.xib */,
 				7F6F6166166F842B00ED06F3 /* BallStatsView.xib */,
 				7F6F6168166F849E00ED06F3 /* PossessionStatsView.xib */,
@@ -1183,6 +1191,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MatchPad" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -1295,6 +1305,7 @@
 				7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */,
 				4D8FB71914B611DF000B6B5A /* 17-bar-chart.png in Resources */,
 				4D8FB75014B6E689000B6B5A /* PossessionView.xib in Resources */,
+				F497230E18FC4EBE00F97EF5 /* MatchPadCodingView.xib in Resources */,
 				4D145F9F14B7762500DADD63 /* MoveView.xib in Resources */,
 				4D14607614BB57DE00DADD63 /* BallView.xib in Resources */,
 				4D8245AB14BB657600938349 /* AlertCornerAwarded.png in Resources */,
@@ -1433,6 +1444,7 @@
 				4D14605E14BB544A00DADD63 /* BallViewController.m in Sources */,
 				4D17BE5115DBD65B00EC49DB /* Positions.m in Sources */,
 				7F6D12C81664DF42007672DF /* MatchPadVideoViewController.m in Sources */,
+				F497230C18FC465800F97EF5 /* MatchPadCodingViewController.m in Sources */,
 				7F6D12EB1664ED12007672DF /* MatchPadPopupManager.m in Sources */,
 				7F6D12EC1664ED12007672DF /* MatchPadStatsViewController.m in Sources */,
 				7F6D12F91664F430007672DF /* BasePadPopupManager.m in Sources */,

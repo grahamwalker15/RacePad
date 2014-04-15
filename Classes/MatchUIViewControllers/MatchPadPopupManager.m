@@ -10,6 +10,7 @@
 #import "MatchPadCoordinator.h"
 #import "MatchPadStatsViewController.h"
 #import "MatchPadReplaysViewController.h"
+#import "MatchPadCodingViewController.h"
 #import "TeamStatsViewController.h"
 #import "PlayerStatsController.h"
 #import "BallViewController.h"
@@ -137,6 +138,38 @@ static MatchPadReplaysManager * replaysInstance_ = nil;
 		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_REPLAYS_POPUP_];
+		[self setManagedExclusionZone:MP_ZONE_ALL_];
+		[self setShowHeadingAtStart:true];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+@end
+
+@implementation MatchPadCodingManager
+
+static MatchPadCodingManager * codingInstance_ = nil;
+
++(MatchPadCodingManager *)Instance
+{
+	if(!codingInstance_)
+		codingInstance_ = [[MatchPadCodingManager alloc] init];
+	
+	return codingInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{
+		MatchPadCodingViewController * viewController = [[MatchPadCodingViewController alloc] initWithNibName:@"MatchPadCodingView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_CODING_POPUP_];
 		[self setManagedExclusionZone:MP_ZONE_ALL_];
 		[self setShowHeadingAtStart:true];
 		[managedViewController setAssociatedManager:self];
