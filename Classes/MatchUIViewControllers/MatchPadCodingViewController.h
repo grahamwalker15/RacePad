@@ -11,11 +11,11 @@
 #import "BasePadPopupViewController.h"
 #import "MovieView.h"
 #import "SimpleListViewController.h"
-#import "AlertView.h"
+#import "CodingView.h"
 
 @interface MatchPadCodingViewController : BasePadPopupViewController <MovieViewDelegate, SimpleListViewDelegate>
 {
-	IBOutlet AlertView * alertView;
+	IBOutlet CodingView * codingView;
 	IBOutlet UISegmentedControl * typeChooser;
 }
 

@@ -243,8 +243,10 @@
 		7FB9587F1678B6960010A877 /* MatchPadHighlightsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9587E1678B6960010A877 /* MatchPadHighlightsView.xib */; };
 		7FB958EA1678C1EA0010A877 /* MatchState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB958E91678C1EA0010A877 /* MatchState.m */; };
 		7FB958FC1678C67D0010A877 /* ScoreBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB958FB1678C67D0010A877 /* ScoreBG.png */; };
+		F45C94D818FDE84700491E5E /* PhysicalStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F45C94D718FDE84700491E5E /* PhysicalStatsController.m */; };
 		F497230C18FC465800F97EF5 /* MatchPadCodingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */; };
 		F497230E18FC4EBE00F97EF5 /* MatchPadCodingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */; };
+		F4DC233718FD945900E61C11 /* CodingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DC233618FD945900E61C11 /* CodingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -612,9 +614,13 @@
 		7FE5A83113812E180095DD10 /* NewsFeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NewsFeed.png; path = Images/NewsFeed.png; sourceTree = "<group>"; };
 		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
+		F45C94D618FDE84700491E5E /* PhysicalStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalStatsController.h; sourceTree = "<group>"; };
+		F45C94D718FDE84700491E5E /* PhysicalStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalStatsController.m; sourceTree = "<group>"; };
 		F497230A18FC465800F97EF5 /* MatchPadCodingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchPadCodingViewController.h; sourceTree = "<group>"; };
 		F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchPadCodingViewController.m; sourceTree = "<group>"; };
 		F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchPadCodingView.xib; path = ResourceFiles/MatchXIB/MatchPadCodingView.xib; sourceTree = "<group>"; };
+		F4DC233518FD945900E61C11 /* CodingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodingView.h; sourceTree = "<group>"; };
+		F4DC233618FD945900E61C11 /* CodingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -835,6 +841,8 @@
 		4DBE22D613A0DAF90051C9B3 /* MatchUIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F45C94D618FDE84700491E5E /* PhysicalStatsController.h */,
+				F45C94D718FDE84700491E5E /* PhysicalStatsController.m */,
 				F497230A18FC465800F97EF5 /* MatchPadCodingViewController.h */,
 				F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */,
 				4DA3CF4413CDE13D0097A5FB /* AlertViewController.h */,
@@ -880,6 +888,8 @@
 		4DBE22D713A0DB030051C9B3 /* MatchUIViews */ = {
 			isa = PBXGroup;
 			children = (
+				F4DC233518FD945900E61C11 /* CodingView.h */,
+				F4DC233618FD945900E61C11 /* CodingView.m */,
 				4DA3CF4713CDE1C00097A5FB /* AlertView.h */,
 				4DA3CF4813CDE1C00097A5FB /* AlertView.m */,
 				4D14605214BB537E00DADD63 /* BallView.h */,
@@ -1372,11 +1382,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DBE263813A10B860051C9B3 /* main.m in Sources */,
+				F45C94D818FDE84700491E5E /* PhysicalStatsController.m in Sources */,
 				4DBE269213A10C330051C9B3 /* AnimationTimer.m in Sources */,
 				4DBE269313A10C330051C9B3 /* BufferedDataStream.m in Sources */,
 				4DBE269413A10C330051C9B3 /* DataHandler.m in Sources */,
 				4DBE269513A10C330051C9B3 /* DataStream.m in Sources */,
 				4DBE269613A10C330051C9B3 /* ElapsedTime.m in Sources */,
+				F4DC233718FD945900E61C11 /* CodingView.m in Sources */,
 				4DBE269713A10C330051C9B3 /* FileDataStream.m in Sources */,
 				4DBE269813A10C330051C9B3 /* MathOdds.m in Sources */,
 				4DBE269913A10C330051C9B3 /* Socket.m in Sources */,

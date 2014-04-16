@@ -47,8 +47,8 @@
 	[[BasePadMedia Instance] setMoviePolicy:MOVIE_POLICY_LIVE_AND_REPLAY_];
 		
 	// Create the popup controllers
-	[[MatchPadStatsManager Instance] onStartUp];
 	[[MatchPadReplaysManager Instance] onStartUp];
+	[[MatchPadStatsManager Instance] onStartUp];
 	[[MatchPadCodingManager Instance] onStartUp];
 	[[MatchPadSettingsManager Instance] onStartUp];
 	
