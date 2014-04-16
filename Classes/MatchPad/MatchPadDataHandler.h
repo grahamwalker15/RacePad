@@ -46,6 +46,14 @@ enum ServerCommands {
 	MPSC_BALL_,									// 52
 	MPSC_POSITIONS_,							// 53
 	MPSC_TEAM_STATS_,							// 54
+	MPSC_COMMENTARY_,							// 55
+	MPSC_COMMENTARY_UPDATE_,					// 56
+	MPSC_COMMENTARY_NO_CHANGE_,					// 57
+	MPSC_PLAYER_NAMES_,							// 58
+	MPSC_ALERTS_,                               // 59
+	MPSC_NOTIFY_NEW_CONNECTION_,				// 60
+	MPSC_WHOLE_PHYSICAL_STATS_,					// 61
+	MPSC_UPDATE_PHYSICAL_STATS_,				// 62
 };
 
 @interface MatchPadDataHandler : BasePadDataHandler

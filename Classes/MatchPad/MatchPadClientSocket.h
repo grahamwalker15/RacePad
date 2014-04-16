@@ -40,6 +40,10 @@ enum ClientCommands {
 	MPCS_STREAM_POSITIONS,			// 50
 	MPCS_REQUEST_TEAM_STATS,		// 51
 	MPCS_STREAM_TEAM_STATS,			// 52
+	MPCS_REQUEST_PHYSICAL_STATS,	// 53
+	MPCS_STREAM_PHYSICAL_STATS,		// 54
+	MPCS_REQUEST_CODING,            // 55
+	MPCS_STREAM_CODING,             // 56
 };
 
 @interface MatchPadClientSocket : BasePadClientSocket
@@ -62,8 +66,14 @@ enum ClientCommands {
 - (void) RequestPlayerStats;
 - (void) StreamPlayerStats;
 
+- (void) RequestPhysicalStats;
+- (void) StreamPhysicalStats;
+
 - (void) RequestTeamStats;
 - (void) StreamTeamStats;
+
+- (void) RequestCoding;
+- (void) StreamCoding;
 
 - (void) RequestPlayerGraph:(int)player GraphType:(unsigned char)graphType;
 - (void) StreamPlayerGraph:(int)player GraphType:(unsigned char)graphType;

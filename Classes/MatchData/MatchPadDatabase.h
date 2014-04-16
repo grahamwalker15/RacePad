@@ -24,6 +24,7 @@
 	Positions *positions;
 	PlayerGraph *playerGraph;
 	TableData *playerStatsData;
+	TableData *physicalStatsData;
 	TeamStats *teamStatsData;
 	AlertData *alertData;
 	AlertData *codingData;
@@ -49,6 +50,7 @@
 @property (readonly) Ball *ball;
 @property (readonly) PlayerGraph *playerGraph;
 @property (readonly) TableData *playerStatsData;
+@property (readonly) TableData *physicalStatsData;
 @property (readonly) TeamStats *teamStatsData;
 @property (readonly) AlertData *alertData;
 @property (readonly) AlertData *codingData;

@@ -11,6 +11,7 @@
 #import "MatchPadCoordinator.h"
 #import "MatchPadDatabase.h"
 #import "PlayerStatsController.h"
+#import "PhysicalStatsController.h"
 #import "Pitch.h"
 
 @implementation MatchPadClientSocket
@@ -91,6 +92,37 @@
 	free (buf);
 }
 
+- (void)RequestPhysicalStats
+{
+	int messageLength = 1 + sizeof(uint32_t) * 2;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(MPCS_REQUEST_PHYSICAL_STATS);
+	buf[sizeof(uint32_t) * 2] = [[[MatchPadCoordinator Instance] physicalStatsController] home];
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+- (void)StreamPhysicalStats
+{
+	int messageLength = 1 + sizeof(uint32_t) * 2;
+	unsigned char *buf = malloc(messageLength);
+	int *iData = (int *)buf;
+	
+	iData[0] = htonl(messageLength);
+	iData[1] = htonl(MPCS_STREAM_PHYSICAL_STATS);
+	buf[sizeof(uint32_t) * 2] = [[[MatchPadCoordinator Instance] physicalStatsController] home];
+	CFDataRef data = CFDataCreate (NULL, (const UInt8 *) buf, messageLength);
+	CFSocketSendData (socket_ref_, nil, data, 0);
+	CFRelease(data);
+	free (buf);
+}
+
+
 - (void)RequestTeamStats
 {
 	[self SimpleCommand:MPCS_REQUEST_TEAM_STATS];
@@ -99,6 +131,16 @@
 - (void)StreamTeamStats
 {
 	[self SimpleCommand:MPCS_STREAM_TEAM_STATS];
+}
+
+- (void)RequestCoding
+{
+	[self SimpleCommand:MPCS_REQUEST_CODING];
+}
+
+- (void)StreamCoding
+{
+	[self SimpleCommand:MPCS_STREAM_CODING];
 }
 
 - (void)RequestPlayerGraph:(int) player GraphType:(unsigned char)graphType

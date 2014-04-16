@@ -19,6 +19,7 @@
 @class ServerConnect;
 @class WorkOffline;
 @class PlayerStatsController;
+@class PhysicalStatsController;
 
 // View types
 enum ViewTypes
@@ -35,14 +36,18 @@ enum ViewTypes
 	MPC_BALL_VIEW_ = 0x8000,
 	MPC_POSITIONS_VIEW_ = 0x10000,
 	MPC_TEAM_STATS_VIEW_ = 0x20000,
+	MPC_PHYSICAL_STATS_VIEW_ = 0x40000,
+	MPC_CODING_VIEW_ = 0x80000,
 } ;
 
 @interface MatchPadCoordinator : BasePadCoordinator
 {
 	PlayerStatsController *playerStatsController;
+	PhysicalStatsController *physicalStatsController;
 }
 
 @property (retain) PlayerStatsController *playerStatsController;
+@property (retain) PhysicalStatsController *physicalStatsController;
 
 +(MatchPadCoordinator *)Instance;
 
@@ -55,5 +60,6 @@ enum ViewTypes
 - (void) streamData:(BPCView *)existing_view;
 - (void) requestData:(BPCView *)existing_view;
 - (void) addDataSource:(int)type Parameter:(NSString *)parameter;
+- (void)loadSession:(NSString *)event Session: (NSString *)session;
 
 @end

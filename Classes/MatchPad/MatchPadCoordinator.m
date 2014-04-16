@@ -24,6 +24,7 @@
 #import "BasePadPrefs.h"
 #import "TabletState.h"
 #import "PlayerStatsController.h"
+#import "PhysicalStatsController.h"
 
 #import "UIConstants.h"
 
@@ -35,6 +36,7 @@
 @implementation MatchPadCoordinator
 
 @synthesize playerStatsController;
+@synthesize physicalStatsController;
 
 static MatchPadCoordinator * instance_ = nil;
 
@@ -169,6 +171,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ RequestPlayerStats];
 	}
+	else if([existing_view Type] == MPC_PHYSICAL_STATS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ RequestPhysicalStats];
+	}
 	else if([existing_view Type] == MPC_TEAM_STATS_VIEW_)
 	{
 		[(MatchPadClientSocket *)socket_ RequestTeamStats];
@@ -181,6 +187,10 @@ static MatchPadCoordinator * instance_ = nil;
 	else if([existing_view Type] == MPC_POSSESSION_VIEW_)
 	{
 		[(MatchPadClientSocket*)socket_ RequestPossession];
+	}
+	else if([existing_view Type] == MPC_CODING_VIEW_)
+	{
+		[(MatchPadClientSocket*)socket_ RequestCoding];
 	}
 	else if([existing_view Type] == MPC_MOVE_VIEW_)
 	{
@@ -239,10 +249,49 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[self AddDataSourceWithType:type AndFile: @"Ball"];
 	}
+	else if (type == MPC_PHYSICAL_STATS_VIEW_)
+	{
+		if ( physicalStatsController.home )
+			[self AddDataSourceWithType:type AndFile: @"HomePhysicalStats"];
+		else
+			[self AddDataSourceWithType:type AndFile: @"AwayPhysicalStats"];
+	}
+	else if (type == MPC_CODING_VIEW_)
+	{
+		[self AddDataSourceWithType:type AndFile: @"Coding"];
+	}
+    
 }
 
 ///////////////////////////////////////
 // Overrides for connection callbacks
+
+- (void) loadSession: (NSString *)event Session: (NSString *)session
+{
+	[self goLive:false];
+	
+	[self disconnect];
+	[self clearStaticData];
+	sessionPrefix = [NSString stringWithString:event];
+	sessionPrefix = [sessionPrefix stringByAppendingString:@"-"];
+	sessionPrefix = [sessionPrefix stringByAppendingString:session];
+	sessionPrefix = [sessionPrefix stringByAppendingString:@"-"];
+	[sessionPrefix retain];
+	NSString *archive = [self archiveName];
+	[self loadBPF: archive File:[self baseChunkName] SubIndex:nil];
+	[self loadBPF: archive File:@"event" SubIndex:nil];
+	[self loadBPF: archive File:@"session" SubIndex:nil];
+	[self loadBPF: archive File:@"Coding" SubIndex:nil];
+	
+	[[BasePadPrefs Instance] setPref:@"preferredEvent" Value:event ];
+	[[BasePadPrefs Instance] setPref:@"preferredSession" Value:session];
+	
+	[self setConnectionType:BPC_ARCHIVE_CONNECTION_];
+	
+	[[BasePadMedia Instance] verifyAudioLoaded];
+	
+	[self onSessionLoaded];
+}
 
 -(void)onSessionLoaded
 {
