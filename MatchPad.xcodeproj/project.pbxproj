@@ -244,6 +244,7 @@
 		7FB958EA1678C1EA0010A877 /* MatchState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB958E91678C1EA0010A877 /* MatchState.m */; };
 		7FB958FC1678C67D0010A877 /* ScoreBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB958FB1678C67D0010A877 /* ScoreBG.png */; };
 		F45C94D818FDE84700491E5E /* PhysicalStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F45C94D718FDE84700491E5E /* PhysicalStatsController.m */; };
+		F4926C751900152E002861C4 /* PhysicalStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4926C741900152E002861C4 /* PhysicalStatsView.xib */; };
 		F497230C18FC465800F97EF5 /* MatchPadCodingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */; };
 		F497230E18FC4EBE00F97EF5 /* MatchPadCodingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */; };
 		F4DC233718FD945900E61C11 /* CodingView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DC233618FD945900E61C11 /* CodingView.m */; };
@@ -616,6 +617,7 @@
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
 		F45C94D618FDE84700491E5E /* PhysicalStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalStatsController.h; sourceTree = "<group>"; };
 		F45C94D718FDE84700491E5E /* PhysicalStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalStatsController.m; sourceTree = "<group>"; };
+		F4926C741900152E002861C4 /* PhysicalStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalStatsView.xib; path = ResourceFiles/MatchXIB/PhysicalStatsView.xib; sourceTree = "<group>"; };
 		F497230A18FC465800F97EF5 /* MatchPadCodingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchPadCodingViewController.h; sourceTree = "<group>"; };
 		F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchPadCodingViewController.m; sourceTree = "<group>"; };
 		F497230D18FC4EBE00F97EF5 /* MatchPadCodingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchPadCodingView.xib; path = ResourceFiles/MatchXIB/MatchPadCodingView.xib; sourceTree = "<group>"; };
@@ -1051,6 +1053,7 @@
 				4DBE232A13A0DF780051C9B3 /* PitchView.xib */,
 				4D0EE23D13C374C200797845 /* PlayerGraphView.xib */,
 				4D02A4E313B4E93C0010E06B /* PlayerStatsView.xib */,
+				F4926C741900152E002861C4 /* PhysicalStatsView.xib */,
 				7F6D12BF1664DC96007672DF /* PositionsView.xib */,
 				4D8FB74F14B6E689000B6B5A /* PossessionView.xib */,
 				4DBE231A13A0DE440051C9B3 /* ServerConnect.xib */,
@@ -1311,6 +1314,7 @@
 				7FA862DA13D430DB006CCD74 /* Icon-72MP.png in Resources */,
 				7FA862DB13D430DB006CCD74 /* IconMP.png in Resources */,
 				7F602F38149792BD00BD5FC2 /* AlertFKCorner.png in Resources */,
+				F4926C751900152E002861C4 /* PhysicalStatsView.xib in Resources */,
 				7F602F3D149799F400BD5FC2 /* TackleBG.png in Resources */,
 				7F9157D61497A0FA00A013BC /* GreyTextureBG.png in Resources */,
 				4D8FB71914B611DF000B6B5A /* 17-bar-chart.png in Resources */,

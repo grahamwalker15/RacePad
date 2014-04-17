@@ -28,6 +28,7 @@ enum MatchPadPopupViewTypes
 	MP_HELP_POPUP_,
 	MP_SETTINGS_POPUP_,
 	MP_CODING_POPUP_,
+	MP_PHYSICAL_STATS_POPUP_,
 };
 	
 // View alignment
@@ -120,6 +121,14 @@ enum MatchPadPopupMenuZones
 }
 
 +(MatchPadPlayerStatsManager *)Instance;
+
+@end
+
+@interface MatchPadPhysicalStatsManager : BasePadPopupManager
+{
+}
+
++(MatchPadPhysicalStatsManager *)Instance;
 
 @end
 

@@ -124,6 +124,14 @@
 			[[MatchPadPitchStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
 		}		
 	}
+
+	if(sender == physicalStatsButton || sender == physicalStatsLabel)
+	{
+		if(![[MatchPadPhysicalStatsManager Instance] viewDisplayed])
+		{
+			[[MatchPadPhysicalStatsManager Instance] displayInViewController:parentViewController AtX:xCentre Animated:true Direction:POPUP_DIRECTION_NONE_ XAlignment:POPUP_ALIGN_CENTRE_ YAlignment:POPUP_ALIGN_CENTRE_];
+		}
+	}
 }
 
 - (void) hideStatsControllers
@@ -151,6 +159,11 @@
 	if([[MatchPadPitchStatsManager Instance] viewDisplayed])
 	{
 		[[MatchPadPitchStatsManager Instance] hideAnimated:true Notify:false];
+	}
+    
+    if([[MatchPadPhysicalStatsManager Instance] viewDisplayed])
+	{
+		[[MatchPadPhysicalStatsManager Instance] hideAnimated:true Notify:false];
 	}
 }
 

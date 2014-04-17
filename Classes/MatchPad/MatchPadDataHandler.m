@@ -106,14 +106,14 @@
 		{
 			TableData *physical_stats = [[MatchPadDatabase Instance] physicalStatsData];
 			[physical_stats loadData:stream];
-			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_STATS_VIEW_];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PHYSICAL_STATS_VIEW_];
 			break;
 		}
 		case MPSC_UPDATE_PHYSICAL_STATS_:
 		{
 			TableData *physical_stats = [[MatchPadDatabase Instance] physicalStatsData];
 			[physical_stats updateData:stream];
-			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PLAYER_STATS_VIEW_];
+			[[MatchPadCoordinator Instance] RequestRedrawType:MPC_PHYSICAL_STATS_VIEW_];
 			break;
 		}
 		case MPSC_TEAM_STATS_:

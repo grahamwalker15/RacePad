@@ -47,8 +47,8 @@
 	[homeButton setButtonColour:[UIColor redColor]];
     
 	// Tell the RacePadCoordinator that we're interested in data for this view
-	[[MatchPadCoordinator Instance] AddView:physical_stats_view_ WithType:MPC_PLAYER_STATS_VIEW_];
-	[[MatchPadCoordinator Instance] setPlayerStatsController: self];
+	[[MatchPadCoordinator Instance] AddView:physical_stats_view_ WithType:MPC_PHYSICAL_STATS_VIEW_];
+	[[MatchPadCoordinator Instance] setPhysicalStatsController: self];
     
 	// Create a view controller for the player graph which may be displayed as an overlay
 	playerGraphViewController = [[PlayerGraphViewController alloc] initWithNibName:@"PlayerGraphView" bundle:nil];
@@ -64,7 +64,7 @@
 		[[MatchPadTitleBarController Instance] displayInViewController:self];
 		
 		// Register view
-		[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PLAYER_STATS_VIEW_)];
+		[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PHYSICAL_STATS_VIEW_)];
 		[[MatchPadCoordinator Instance] SetViewDisplayed:physical_stats_view_];
 		
 		[homeButton setTitle:[[MatchPadDatabase Instance]homeTeam] forState:UIControlStateNormal];

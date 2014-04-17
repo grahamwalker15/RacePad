@@ -130,6 +130,10 @@ static MatchPadCoordinator * instance_ = nil;
 	{
 		[(MatchPadClientSocket *)socket_ StreamPlayerStats];
 	}
+	else if([existing_view Type] == MPC_PHYSICAL_STATS_VIEW_)
+	{
+		[(MatchPadClientSocket *)socket_ StreamPhysicalStats];
+	}
 	else if([existing_view Type] == MPC_TEAM_STATS_VIEW_)
 	{
 		[(MatchPadClientSocket *)socket_ StreamTeamStats];

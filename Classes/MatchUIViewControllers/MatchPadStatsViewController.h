@@ -14,12 +14,14 @@
 {
 	IBOutlet UIButton * teamStatsButton;
 	IBOutlet UIButton * playerStatsButton;
+	IBOutlet UIButton * physicalStatsButton;
 	IBOutlet UIButton * ballStatsButton;
 	IBOutlet UIButton * possessionStatsButton;
 	IBOutlet UIButton * pitchStatsButton;
 	
 	IBOutlet UIButton * teamStatsLabel;
 	IBOutlet UIButton * playerStatsLabel;
+	IBOutlet UIButton * physicalStatsLabel;
 	IBOutlet UIButton * ballStatsLabel;
 	IBOutlet UIButton * possessionStatsLabel;
 	IBOutlet UIButton * pitchStatsLabel;

@@ -54,6 +54,7 @@
 	
 	[[MatchPadTeamStatsManager Instance] onStartUp];
 	[[MatchPadPlayerStatsManager Instance] onStartUp];
+	[[MatchPadPhysicalStatsManager Instance] onStartUp];
 	[[MatchPadBallStatsManager Instance] onStartUp];
 	[[MatchPadPossessionStatsManager Instance] onStartUp];
 	[[MatchPadPitchStatsManager Instance] onStartUp];

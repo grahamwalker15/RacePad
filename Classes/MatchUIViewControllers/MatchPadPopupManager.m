@@ -13,6 +13,7 @@
 #import "MatchPadCodingViewController.h"
 #import "TeamStatsViewController.h"
 #import "PlayerStatsController.h"
+#import "PhysicalStatsController.h"
 #import "BallViewController.h"
 #import "PossessionViewController.h"
 #import "PitchViewController.h"
@@ -309,6 +310,41 @@ static MatchPadPlayerStatsManager * playerStatsInstance_ = nil;
 		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_PLAYER_STATS_POPUP_];
+		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
+		[self setShowHeadingAtStart:false];
+		[self setAppearStyle:POPUP_FADE_];
+		[self setDismissStyle:POPUP_FADE_];
+		[managedViewController setAssociatedManager:self];
+		
+		[viewController release];
+	}
+	
+	return self;
+}
+
+
+@end
+
+@implementation MatchPadPhysicalStatsManager
+
+static MatchPadPhysicalStatsManager * physicalStatsInstance_ = nil;
+
++(MatchPadPhysicalStatsManager *)Instance
+{
+	if(!physicalStatsInstance_)
+		physicalStatsInstance_ = [[MatchPadPhysicalStatsManager alloc] init];
+	
+	return physicalStatsInstance_;
+}
+
+-(id)init
+{
+	if(self = [super init])
+	{
+		PhysicalStatsController * viewController = [[PhysicalStatsController alloc] initWithNibName:@"PhysicalStatsView" bundle:nil];
+		
+		[self setManagedViewController:viewController];
+		[self setManagedViewType:MP_PHYSICAL_STATS_POPUP_];
 		[self setManagedExclusionZone:(MP_ZONE_CENTRE_)];
 		[self setShowHeadingAtStart:false];
 		[self setAppearStyle:POPUP_FADE_];
