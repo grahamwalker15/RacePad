@@ -27,8 +27,8 @@
                     <rect key="frame" x="30" y="0.0" width="10" height="700"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView opaque="NO" contentMode="scaleToFill" image="ReplaysTab.png" id="4">
-                    <rect key="frame" x="6" y="404" width="34" height="100.00000130272983"/>
+                <imageView opaque="NO" contentMode="scaleToFill" image="MP_CodingTab.png" id="4">
+                    <rect key="frame" x="6" y="404.0000054369504" width="34" height="100"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
@@ -42,7 +42,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
                         <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="12" customClass="CodingView">
-                            <rect key="frame" x="20" y="20.000000783540195" width="320" height="630"/>
+                            <rect key="frame" x="20" y="20.000001284847343" width="320" height="630"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </scrollView>
@@ -52,7 +52,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="14">
-                            <rect key="frame" x="20" y="650.00000078354026" width="320" height="30"/>
+                            <rect key="frame" x="20" y="650.00000128484749" width="320" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <segments>
@@ -83,9 +83,9 @@
         <image name="AlertGoal.png" width="24" height="20"/>
         <image name="AlertInfo.png" width="24" height="20"/>
         <image name="AlertPlayer.png" width="24" height="20"/>
+        <image name="MP_CodingTab.png" width="34" height="100"/>
         <image name="MenuReplaysBG.png" width="400" height="700"/>
         <image name="MenuShadow.png" width="10" height="700"/>
-        <image name="ReplaysTab.png" width="34" height="100"/>
         <image name="ShadowListBottom.png" width="250" height="40"/>
         <image name="TabShadow.png" width="40" height="120"/>
     </resources>

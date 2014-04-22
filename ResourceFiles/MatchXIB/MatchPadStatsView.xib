@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1072" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MatchPadStatsViewController">
             <connections>
                 <outlet property="container" destination="6" id="9"/>
                 <outlet property="heading" destination="4" id="8"/>
+                <outlet property="physicalStatsButton" destination="16" id="AMP-sB-vzh"/>
+                <outlet property="physicalStatsLabel" destination="35" id="R3z-X7-vKA"/>
                 <outlet property="pitchStatsButton" destination="15" id="24"/>
                 <outlet property="pitchStatsLabel" destination="33" id="39"/>
                 <outlet property="playerStatsButton" destination="14" id="42"/>
@@ -33,7 +35,7 @@
                     <rect key="frame" x="30" y="0.0" width="10" height="700"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView opaque="NO" contentMode="scaleToFill" image="StatsTab.png" id="4">
+                <imageView opaque="NO" contentMode="scaleToFill" image="MP_StatsTab.png" id="4">
                     <rect key="frame" x="6" y="100" width="34" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -112,13 +114,16 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                    <state key="normal" image="StatsTeam.png">
+                    <state key="normal" image="StatsPlayer.png">
                         <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="highlighted">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="buttonSelected:" destination="-1" eventType="touchUpInside" id="7t0-pB-QoM"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="26">
                     <rect key="frame" x="50" y="100" width="140" height="37"/>
@@ -180,11 +185,11 @@
                         <action selector="buttonSelected:" destination="-1" eventType="touchUpInside" id="34"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="35">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="35" userLabel="Button - Physical">
                     <rect key="frame" x="50" y="620" width="140" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                    <state key="normal" title="Spare">
+                    <state key="normal" title="Physical">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -201,12 +206,12 @@
         </view>
     </objects>
     <resources>
+        <image name="MP_StatsTab.png" width="34" height="100"/>
         <image name="MenuShadow.png" width="10" height="700"/>
         <image name="MenuStatsBG.png" width="200" height="700"/>
         <image name="StatsPitch.png" width="100" height="75"/>
         <image name="StatsPlayer.png" width="100" height="75"/>
         <image name="StatsPossession.png" width="100" height="75"/>
-        <image name="StatsTab.png" width="34" height="100"/>
         <image name="StatsTeam.png" width="100" height="75"/>
         <image name="TabShadow.png" width="40" height="120"/>
     </resources>
