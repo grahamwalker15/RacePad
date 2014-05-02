@@ -63,7 +63,6 @@
 		4D807CF212832AED00FDE400 /* ServerConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D807CF012832AED00FDE400 /* ServerConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D807CF512832B3400FDE400 /* ServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D807CF412832B3400FDE400 /* ServerConnect.xib */; };
 		4D82FB401283F80C00F93A2B /* WorkOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D82FB3E1283F80C00F93A2B /* WorkOffline.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D82FB421283F83300F93A2B /* WorkOffline.xib */; };
 		4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
@@ -364,7 +363,6 @@
 		7FC2F765129429B400DAC96E /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F764129429B400DAC96E /* Replay.png */; };
 		7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBBF129AC91700DAC96E /* TelemetryView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5CE713782A8100A82DA7 /* HomeView.xib */; };
 		7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5D2C13783F3C00A82DA7 /* home.png */; };
 		7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5DAE1379403A00A82DA7 /* PitBoard.png */; };
 		7FE5A7B9138016EF0095DD10 /* TimeJumpBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */; };
@@ -372,12 +370,397 @@
 		7FE5A83213812E180095DD10 /* NewsFeed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A83113812E180095DD10 /* NewsFeed.png */; };
 		7FE5A9D513817F1D0095DD10 /* SlowMotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A9D413817F1D0095DD10 /* SlowMotion.png */; };
 		7FE5AAA31382548F0095DD10 /* SlowMotionPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */; };
+		F433675C1913BAC30071A41C /* WorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = F433675B1913BAC30071A41C /* WorkOffline.xib */; };
+		F433675E1913BB160071A41C /* WorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = F433675D1913BB160071A41C /* WorkOffline.xib */; };
+		F43367651913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe4.png in Resources */ = {isa = PBXBuildFile; fileRef = F433675F1913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe4.png */; };
+		F43367661913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe3.png in Resources */ = {isa = PBXBuildFile; fileRef = F43367601913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe3.png */; };
+		F43367671913BEA70071A41C /* audi-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F43367611913BEA70071A41C /* audi-logo.png */; };
+		F43367681913BEA70071A41C /* Icon-76-Audi-DTM.png in Resources */ = {isa = PBXBuildFile; fileRef = F43367621913BEA70071A41C /* Icon-76-Audi-DTM.png */; };
+		F43367691913BEA70071A41C /* Icon-76@2x-Audi-DTM.png in Resources */ = {isa = PBXBuildFile; fileRef = F43367631913BEA70071A41C /* Icon-76@2x-Audi-DTM.png */; };
+		F433676A1913BEA70071A41C /* Audi-RS5-DTM-Logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F43367641913BEA70071A41C /* Audi-RS5-DTM-Logo.jpg */; };
+		F433676D1913C35D0071A41C /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F433676C1913C35D0071A41C /* HomeView.xib */; };
+		F433676F1913C3980071A41C /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F433676E1913C3980071A41C /* HomeView.xib */; };
+		F452B4CA1913AB1F003B4E2E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F452B4C91913AB1F003B4E2E /* Images.xcassets */; };
+		F4558C20190E8D9C00AE752D /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
+		F4558C21190E8D9C00AE752D /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
+		F4558C22190E8D9C00AE752D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
+		F4558C23190E8D9C00AE752D /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58712673E7F008A6C94 /* SecondView.xib */; };
+		F4558C24190E8D9C00AE752D /* TestTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58812673E7F008A6C94 /* TestTextView.xib */; };
+		F4558C25190E8D9C00AE752D /* ThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58912673E7F008A6C94 /* ThirdView.xib */; };
+		F4558C26190E8D9C00AE752D /* TrackMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */; };
+		F4558C27190E8D9C00AE752D /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58B12673E7F008A6C94 /* VideoView.xib */; };
+		F4558C28190E8D9C00AE752D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
+		F4558C29190E8D9C00AE752D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
+		F4558C2A190E8D9C00AE752D /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068125126DDA6800C9EE5D /* clock.png */; };
+		F4558C2B190E8D9C00AE752D /* monitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068126126DDA6800C9EE5D /* monitor.png */; };
+		F4558C2C190E8D9C00AE752D /* newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068127126DDA6800C9EE5D /* newspaper.png */; };
+		F4558C2D190E8D9C00AE752D /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068128126DDA6800C9EE5D /* preferences.png */; };
+		F4558C2E190E8D9C00AE752D /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068129126DDA6800C9EE5D /* world.png */; };
+		F4558C2F190E8D9C00AE752D /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F31CA681270892700F26C7B /* SettingsView.xib */; };
+		F4558C30190E8D9C00AE752D /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
+		F4558C31190E8D9C00AE752D /* LeftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */; };
+		F4558C32190E8D9C00AE752D /* RightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BB127577FE00EF2B8C /* RightArrow.png */; };
+		F4558C33190E8D9C00AE752D /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB8981275F11400EF2B8C /* TimeControlView.xib */; };
+		F4558C34190E8D9C00AE752D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
+		F4558C35190E8D9C00AE752D /* CompositeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6244F21282EFB5009A9D4F /* CompositeView.xib */; };
+		F4558C36190E8D9C00AE752D /* GPSGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0E1283061500FDE400 /* GPSGreen.png */; };
+		F4558C37190E8D9C00AE752D /* GPSRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0F1283061500FDE400 /* GPSRed.png */; };
+		F4558C38190E8D9C00AE752D /* ServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D807CF412832B3400FDE400 /* ServerConnect.xib */; };
+		F4558C3A190E8D9C00AE752D /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246A21284471E009A9D4F /* MGPLogo.png */; };
+		F4558C3B190E8D9C00AE752D /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246DC12844D6F009A9D4F /* TitleBarView.xib */; };
+		F4558C3C190E8D9C00AE752D /* ChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475B12851255009A9D4F /* ChequeredFlag.png */; };
+		F4558C3D190E8D9C00AE752D /* GreenFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475C12851255009A9D4F /* GreenFlag.png */; };
+		F4558C3E190E8D9C00AE752D /* RedFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475D12851255009A9D4F /* RedFlag.png */; };
+		F4558C3F190E8D9C00AE752D /* SCFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475E12851255009A9D4F /* SCFlag.png */; };
+		F4558C40190E8D9C00AE752D /* SCInFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475F12851255009A9D4F /* SCInFlag.png */; };
+		F4558C41190E8D9C00AE752D /* YellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62476012851255009A9D4F /* YellowFlag.png */; };
+		F4558C42190E8D9C00AE752D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A15128776B600F13CB6 /* Icon-72.png */; };
+		F4558C43190E8D9C00AE752D /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A16128776B600F13CB6 /* Icon-Small-50.png */; };
+		F4558C44190E8D9C00AE752D /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A17128776B600F13CB6 /* Icon-Small.png */; };
+		F4558C45190E8D9C00AE752D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A18128776B600F13CB6 /* Icon.png */; };
+		F4558C46190E8D9C00AE752D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A19128776B600F13CB6 /* Icon@2x.png */; };
+		F4558C47190E8D9C00AE752D /* ListIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A7512880EBF00F13CB6 /* ListIcon.png */; };
+		F4558C48190E8D9C00AE752D /* PitWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D15640412898FD1000E959D /* PitWindowView.xib */; };
+		F4558C49190E8D9C00AE752D /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
+		F4558C4A190E8D9C00AE752D /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
+		F4558C4B190E8D9C00AE752D /* AlertControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F866015128ABE7500F13CB6 /* AlertControlView.xib */; };
+		F4558C4C190E8D9C00AE752D /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866017128ABE9700F13CB6 /* Default-Landscape.png */; };
+		F4558C4D190E8D9C00AE752D /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866018128ABE9700F13CB6 /* Default-Portrait.png */; };
+		F4558C4E190E8D9C00AE752D /* PopupImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866019128ABE9700F13CB6 /* PopupImage.png */; };
+		F4558C4F190E8D9C00AE752D /* connections.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602A128AC1D000F13CB6 /* connections.png */; };
+		F4558C50190E8D9C00AE752D /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602B128AC1D000F13CB6 /* pause.png */; };
+		F4558C51190E8D9C00AE752D /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602C128AC1D000F13CB6 /* play.png */; };
+		F4558C52190E8D9C00AE752D /* trend.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602D128AC1D000F13CB6 /* trend.png */; };
+		F4558C53190E8D9C00AE752D /* Kerbs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8664E5128C46CA00F13CB6 /* Kerbs.png */; };
+		F4558C54190E8D9C00AE752D /* AlertChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */; };
+		F4558C55190E8D9C00AE752D /* AlertGreenFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */; };
+		F4558C56190E8D9C00AE752D /* AlertOvertake.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAA128C926B00DAC96E /* AlertOvertake.png */; };
+		F4558C57190E8D9C00AE752D /* AlertPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAB128C926B00DAC96E /* AlertPin.png */; };
+		F4558C58190E8D9C00AE752D /* AlertPitstop.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAC128C926B00DAC96E /* AlertPitstop.png */; };
+		F4558C59190E8D9C00AE752D /* AlertRedFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAD128C926B00DAC96E /* AlertRedFlag.png */; };
+		F4558C5A190E8D9C00AE752D /* AlertSafetyCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAE128C926B00DAC96E /* AlertSafetyCar.png */; };
+		F4558C5B190E8D9C00AE752D /* AlertWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAF128C926B00DAC96E /* AlertWarning.png */; };
+		F4558C5C190E8D9C00AE752D /* AlertYellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB0128C926B00DAC96E /* AlertYellowFlag.png */; };
+		F4558C5D190E8D9C00AE752D /* StateChequered.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB1128C926B00DAC96E /* StateChequered.png */; };
+		F4558C5E190E8D9C00AE752D /* StateGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB2128C926B00DAC96E /* StateGreen.png */; };
+		F4558C5F190E8D9C00AE752D /* StateRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB3128C926B00DAC96E /* StateRed.png */; };
+		F4558C60190E8D9C00AE752D /* StateSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB4128C926B00DAC96E /* StateSC.png */; };
+		F4558C61190E8D9C00AE752D /* StateSCIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB5128C926B00DAC96E /* StateSCIn.png */; };
+		F4558C62190E8D9C00AE752D /* StateYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB6128C926B00DAC96E /* StateYellow.png */; };
+		F4558C63190E8D9C00AE752D /* TitleStateSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */; };
+		F4558C64190E8D9C00AE752D /* Grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F4B61292E20400DAC96E /* Grass.png */; };
+		F4558C65190E8D9C00AE752D /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F764129429B400DAC96E /* Replay.png */; };
+		F4558C66190E8D9C00AE752D /* TelemetryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F317D43129BB71200F35097 /* TelemetryView.xib */; };
+		F4558C67190E8D9C00AE752D /* TelemetryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */; };
+		F4558C68190E8D9C00AE752D /* TelemetrySteeringWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */; };
+		F4558C69190E8D9C00AE752D /* LightMetalSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */; };
+		F4558C6A190E8D9C00AE752D /* TelemetryCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F626129CFF4800BFDFCC /* TelemetryCar.png */; };
+		F4558C6B190E8D9C00AE752D /* TelemetrySteeringWheelSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */; };
+		F4558C6C190E8D9C00AE752D /* Pedal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F6E8129D130400BFDFCC /* Pedal.png */; };
+		F4558C6D190E8D9C00AE752D /* wheel_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F8C8129D58F700BFDFCC /* wheel_icon.png */; };
+		F4558C6E190E8D9C00AE752D /* track-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F8E4129D5CC800BFDFCC /* track-icon.png */; };
+		F4558C6F190E8D9C00AE752D /* RPMGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */; };
+		F4558C70190E8D9C00AE752D /* RPMOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */; };
+		F4558C71190E8D9C00AE752D /* RPMRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0C12A011DE00BFDFCC /* RPMRed.png */; };
+		F4558C72190E8D9C00AE752D /* RPMWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */; };
+		F4558C73190E8D9C00AE752D /* GearCog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA4012A01D7D00BFDFCC /* GearCog.png */; };
+		F4558C74190E8D9C00AE752D /* ShinyGreenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */; };
+		F4558C75190E8D9C00AE752D /* ShinyGreyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */; };
+		F4558C76190E8D9C00AE752D /* BlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB4912A4138F00BFDFCC /* BlackBar.png */; };
+		F4558C77190E8D9C00AE752D /* CarbonFibre2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0B27C612A58F8D00604392 /* CarbonFibre2.png */; };
+		F4558C78190E8D9C00AE752D /* Turquoise.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0B27C712A58F8D00604392 /* Turquoise.png */; };
+		F4558C79190E8D9C00AE752D /* BlueBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA612A62EC9009249F7 /* BlueBar.png */; };
+		F4558C7A190E8D9C00AE752D /* RedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA712A62EC9009249F7 /* RedBar.png */; };
+		F4558C7B190E8D9C00AE752D /* GraphPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CC112A6300D009249F7 /* GraphPaper.png */; };
+		F4558C7C190E8D9C00AE752D /* CarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F767E9012A689F1009249F7 /* CarView.xib */; };
+		F4558C7D190E8D9C00AE752D /* FullScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683F812AAA06A009249F7 /* FullScreen.png */; };
+		F4558C7E190E8D9C00AE752D /* SmallScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683FA12AAA07D009249F7 /* SmallScreen.png */; };
+		F4558C7F190E8D9C00AE752D /* GameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D344E2F12B144FB00B15298 /* GameView.xib */; };
+		F4558C80190E8D9C00AE752D /* NewCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D344F1212B7743200B15298 /* NewCompetitor.xib */; };
+		F4558C81190E8D9C00AE752D /* UserPin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D34502212B7C17400B15298 /* UserPin.xib */; };
+		F4558C82190E8D9C00AE752D /* ChangeCompetitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D3451B312B9175500B15298 /* ChangeCompetitor.xib */; };
+		F4558C83190E8D9C00AE752D /* PredictionBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F71A8DC12BBFCD60052C70C /* PredictionBG.png */; };
+		F4558C84190E8D9C00AE752D /* JogControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F71AF4E12CE43600052C70C /* JogControlView.xib */; };
+		F4558C85190E8D9C00AE752D /* JogControlBase.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F71B01512CF95990052C70C /* JogControlBase.png */; };
+		F4558C86190E8D9C00AE752D /* JogControlInset.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F71B01612CF95990052C70C /* JogControlInset.png */; };
+		F4558C87190E8D9C00AE752D /* PINButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F8C5A12E0394600EA04A6 /* PINButton.png */; };
+		F4558C88190E8D9C00AE752D /* trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F8CE512E0483400EA04A6 /* trophy.png */; };
+		F4558C89190E8D9C00AE752D /* AlertInsight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F95C412E83AB700EA04A6 /* AlertInsight.png */; };
+		F4558C8A190E8D9C00AE752D /* AlertLC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8F95C512E83AB700EA04A6 /* AlertLC.png */; };
+		F4558C8B190E8D9C00AE752D /* DrivingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DE6E12EDCFBB005B7FE7 /* DrivingView.xib */; };
+		F4558C8C190E8D9C00AE752D /* DrivingWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DF1712EDF122005B7FE7 /* DrivingWheel.png */; };
+		F4558C8D190E8D9C00AE752D /* DrivingWheelOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D91DFF512EF3E5D005B7FE7 /* DrivingWheelOutline.png */; };
+		F4558C8E190E8D9C00AE752D /* AlertInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543612F6D7A000AB1D07 /* AlertInfo.png */; };
+		F4558C8F190E8D9C00AE752D /* HelpGame.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543712F6D7A000AB1D07 /* HelpGame.png */; };
+		F4558C90190E8D9C00AE752D /* HelpLapList.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543812F6D7A000AB1D07 /* HelpLapList.png */; };
+		F4558C91190E8D9C00AE752D /* HelpMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543912F6D7A000AB1D07 /* HelpMap.png */; };
+		F4558C92190E8D9C00AE752D /* HelpTelemetry.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543A12F6D7A000AB1D07 /* HelpTelemetry.png */; };
+		F4558C93190E8D9C00AE752D /* HelpTiming.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543B12F6D7A000AB1D07 /* HelpTiming.png */; };
+		F4558C94190E8D9C00AE752D /* HelpVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543C12F6D7A000AB1D07 /* HelpVideo.png */; };
+		F4558C95190E8D9C00AE752D /* TitleChequered.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543D12F6D7A000AB1D07 /* TitleChequered.png */; };
+		F4558C96190E8D9C00AE752D /* TitleSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93543E12F6D7A000AB1D07 /* TitleSC.png */; };
+		F4558C97190E8D9C00AE752D /* DefaultHelpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F93544812F6D7BF00AB1D07 /* DefaultHelpView.xib */; };
+		F4558C98190E8D9C00AE752D /* HelpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93547B12F6E48600AB1D07 /* HelpButton.png */; };
+		F4558C99190E8D9C00AE752D /* HelpButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F93547C12F6E48600AB1D07 /* HelpButtonHighlighted.png */; };
+		F4558C9A190E8D9C00AE752D /* TimingHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354BB12F6EFA000AB1D07 /* TimingHelp.xib */; };
+		F4558C9B190E8D9C00AE752D /* MapHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354BD12F6EFB300AB1D07 /* MapHelp.xib */; };
+		F4558C9C190E8D9C00AE752D /* VideoHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354CB12F6F18200AB1D07 /* VideoHelp.xib */; };
+		F4558C9D190E8D9C00AE752D /* TelemetryHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354CD12F6F1A700AB1D07 /* TelemetryHelp.xib */; };
+		F4558C9E190E8D9C00AE752D /* GameHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354CF12F6F1C300AB1D07 /* GameHelp.xib */; };
+		F4558C9F190E8D9C00AE752D /* LapListHelp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9354D112F6F1E500AB1D07 /* LapListHelp.xib */; };
+		F4558CA0190E8D9C00AE752D /* MGPLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27A7712FC08AC001407FD /* MGPLogoBig.png */; };
+		F4558CA1190E8D9C00AE752D /* BigSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27ABE12FC61B7001407FD /* BigSettings.png */; };
+		F4558CA2190E8D9C00AE752D /* HelpButtonHTML.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27B2512FC674C001407FD /* HelpButtonHTML.png */; };
+		F4558CA3190E8D9C00AE752D /* DriverInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27CB412FEFDCD001407FD /* DriverInfo.xib */; };
+		F4558CA4190E8D9C00AE752D /* CloseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27D3813001BB5001407FD /* CloseButton.png */; };
+		F4558CA5190E8D9C00AE752D /* NoPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27DA513002425001407FD /* NoPhoto.png */; };
+		F4558CA6190E8D9C00AE752D /* NoHelmet.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA27E1813002D5A001407FD /* NoHelmet.png */; };
+		F4558CA7190E8D9C00AE752D /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610C8E13018636004DC056 /* InfoView.xib */; };
+		F4558CA8190E8D9C00AE752D /* MGPCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CE21301B2B0004DC056 /* MGPCar.png */; };
+		F4558CA9190E8D9C00AE752D /* InfoDrivers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610CF31301D470004DC056 /* InfoDrivers.xib */; };
+		F4558CAA190E8D9C00AE752D /* PopupImageHTML.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610EC71302BFDF004DC056 /* PopupImageHTML.png */; };
+		F4558CAB190E8D9C00AE752D /* LogoAabar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3A13030073004DC056 /* LogoAabar.png */; };
+		F4558CAC190E8D9C00AE752D /* LogoAllianz.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3B13030073004DC056 /* LogoAllianz.png */; };
+		F4558CAD190E8D9C00AE752D /* LogoAutonomy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3C13030073004DC056 /* LogoAutonomy.png */; };
+		F4558CAE190E8D9C00AE752D /* LogoDeutschePost.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3D13030073004DC056 /* LogoDeutschePost.png */; };
+		F4558CAF190E8D9C00AE752D /* LogoGraham.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3E13030073004DC056 /* LogoGraham.png */; };
+		F4558CB0190E8D9C00AE752D /* LogoHenriLloyd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F3F13030073004DC056 /* LogoHenriLloyd.png */; };
+		F4558CB1190E8D9C00AE752D /* LogoMIG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4013030073004DC056 /* LogoMIG.png */; };
+		F4558CB2190E8D9C00AE752D /* LogoMonster.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4113030073004DC056 /* LogoMonster.png */; };
+		F4558CB3190E8D9C00AE752D /* LogoPetronas.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4213030073004DC056 /* LogoPetronas.png */; };
+		F4558CB4190E8D9C00AE752D /* LogoPirelli.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4313030073004DC056 /* LogoPirelli.png */; };
+		F4558CB5190E8D9C00AE752D /* LogoStandox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F4413030073004DC056 /* LogoStandox.png */; };
+		F4558CB6190E8D9C00AE752D /* InfoPartners.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F610F521303052C004DC056 /* InfoPartners.xib */; };
+		F4558CB7190E8D9C00AE752D /* InfoPetronas.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817D1313052D8A00AC2444 /* InfoPetronas.htm */; };
+		F4558CB8190E8D9C00AE752D /* InfoDeutschePost.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817DFC1305440B00AC2444 /* InfoDeutschePost.htm */; };
+		F4558CB9190E8D9C00AE752D /* InfoAabar.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E001305446200AC2444 /* InfoAabar.htm */; };
+		F4558CBA190E8D9C00AE752D /* InfoAutonomy.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E04130544EB00AC2444 /* InfoAutonomy.htm */; };
+		F4558CBB190E8D9C00AE752D /* InfoMIG.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E0A1305457B00AC2444 /* InfoMIG.htm */; };
+		F4558CBC190E8D9C00AE752D /* InfoAllianz.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E10130545F300AC2444 /* InfoAllianz.htm */; };
+		F4558CBD190E8D9C00AE752D /* InfoGraham.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E141305465600AC2444 /* InfoGraham.htm */; };
+		F4558CBE190E8D9C00AE752D /* InfoHLloyd.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E18130546AA00AC2444 /* InfoHLloyd.htm */; };
+		F4558CBF190E8D9C00AE752D /* InfoMonster.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E1C1305470500AC2444 /* InfoMonster.htm */; };
+		F4558CC0190E8D9C00AE752D /* InfoPirelli.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E201305475F00AC2444 /* InfoPirelli.htm */; };
+		F4558CC1190E8D9C00AE752D /* InfoStandox.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E24130547AF00AC2444 /* InfoStandox.htm */; };
+		F4558CC2190E8D9C00AE752D /* InfoAlpine.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E28130547EE00AC2444 /* InfoAlpine.htm */; };
+		F4558CC3190E8D9C00AE752D /* InfoEndless.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E2C1305488E00AC2444 /* InfoEndless.htm */; };
+		F4558CC4190E8D9C00AE752D /* AlertControlPit.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CE18E20425002F5910 /* AlertControlPit.png */; };
+		F4558CC5190E8D9C00AE752D /* InfoLincoln.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E30130548DC00AC2444 /* InfoLincoln.htm */; };
+		F4558CC6190E8D9C00AE752D /* InfoStarTrac.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E341305492100AC2444 /* InfoStarTrac.htm */; };
+		F4558CC7190E8D9C00AE752D /* InfoSTL.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E381305496500AC2444 /* InfoSTL.htm */; };
+		F4558CC8190E8D9C00AE752D /* LogoAlpine.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E6D13054CFD00AC2444 /* LogoAlpine.png */; };
+		F4558CC9190E8D9C00AE752D /* LogoEndless.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E6E13054CFD00AC2444 /* LogoEndless.png */; };
+		F4558CCA190E8D9C00AE752D /* LogoLincoln.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E6F13054CFD00AC2444 /* LogoLincoln.png */; };
+		F4558CCB190E8D9C00AE752D /* LogoStarTrac.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E7013054CFD00AC2444 /* LogoStarTrac.png */; };
+		F4558CCC190E8D9C00AE752D /* LogoSTL.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817E7113054CFD00AC2444 /* LogoSTL.png */; };
+		F4558CCD190E8D9C00AE752D /* InfoRules.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F817EFC1305AD0B00AC2444 /* InfoRules.xib */; };
+		F4558CCE190E8D9C00AE752D /* LogoFIA.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F817F3C1305B47200AC2444 /* LogoFIA.png */; };
+		F4558CCF190E8D9C00AE752D /* InfoTeams.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180A11306F8B400AC2444 /* InfoTeams.xib */; };
+		F4558CD0190E8D9C00AE752D /* InfoStandings.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180C61306FB6F00AC2444 /* InfoStandings.xib */; };
+		F4558CD1190E8D9C00AE752D /* InfoDriverStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E31307071100AC2444 /* InfoDriverStandings.htm */; };
+		F4558CD2190E8D9C00AE752D /* InfoTeamStandings.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F8180E51307072500AC2444 /* InfoTeamStandings.htm */; };
+		F4558CD3190E8D9C00AE752D /* InfoTeamRBR.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC7201309153E006AEE61 /* InfoTeamRBR.htm */; };
+		F4558CD4190E8D9C00AE752D /* FER.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74013092FE6006AEE61 /* FER.jpg */; };
+		F4558CD5190E8D9C00AE752D /* MCL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74113092FE6006AEE61 /* MCL.jpg */; };
+		F4558CD6190E8D9C00AE752D /* MGP.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74213092FE6006AEE61 /* MGP.jpg */; };
+		F4558CD7190E8D9C00AE752D /* RBR.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC74313092FE6006AEE61 /* RBR.jpg */; };
+		F4558CD8190E8D9C00AE752D /* MGPBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3CC76E13093514006AEE61 /* MGPBackground.jpg */; };
+		F4558CD9190E8D9C00AE752D /* LightTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A496130979DA00A64373 /* LightTexture.png */; };
+		F4558CDA190E8D9C00AE752D /* InfoTeamMcLaren.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DA1309AA7D00A64373 /* InfoTeamMcLaren.htm */; };
+		F4558CDB190E8D9C00AE752D /* InfoTeamFerrari.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DC1309AA9300A64373 /* InfoTeamFerrari.htm */; };
+		F4558CDC190E8D9C00AE752D /* InfoTeamMGP.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A4DE1309AAA600A64373 /* InfoTeamMGP.htm */; };
+		F4558CDD190E8D9C00AE752D /* HRT.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A52B130A7DC500A64373 /* HRT.jpg */; };
+		F4558CDE190E8D9C00AE752D /* LOT.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A52C130A7DC500A64373 /* LOT.jpg */; };
+		F4558CDF190E8D9C00AE752D /* REN.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A52D130A7DC500A64373 /* REN.jpg */; };
+		F4558CE0190E8D9C00AE752D /* SAU.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A52E130A7DC500A64373 /* SAU.jpg */; };
+		F4558CE1190E8D9C00AE752D /* TOR.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A52F130A7DC500A64373 /* TOR.jpg */; };
+		F4558CE2190E8D9C00AE752D /* VIR.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A530130A7DC500A64373 /* VIR.jpg */; };
+		F4558CE3190E8D9C00AE752D /* WIL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A531130A7DC500A64373 /* WIL.jpg */; };
+		F4558CE4190E8D9C00AE752D /* InfoTeamWilliams.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A539130A7E1A00A64373 /* InfoTeamWilliams.htm */; };
+		F4558CE5190E8D9C00AE752D /* InfoTeamFIndia.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A53F130A7E8D00A64373 /* InfoTeamFIndia.htm */; };
+		F4558CE6190E8D9C00AE752D /* InfoTeamToroRosso.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A541130A7EB000A64373 /* InfoTeamToroRosso.htm */; };
+		F4558CE7190E8D9C00AE752D /* InfoTeamSauber.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A543130A7EBE00A64373 /* InfoTeamSauber.htm */; };
+		F4558CE8190E8D9C00AE752D /* InfoTeamLotus.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A545130A7ECE00A64373 /* InfoTeamLotus.htm */; };
+		F4558CE9190E8D9C00AE752D /* InfoTeamVirgin.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A547130A7EE100A64373 /* InfoTeamVirgin.htm */; };
+		F4558CEA190E8D9C00AE752D /* InfoTeamHRT.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A549130A7EF800A64373 /* InfoTeamHRT.htm */; };
+		F4558CEB190E8D9C00AE752D /* FOR.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A54B130A7FB600A64373 /* FOR.jpg */; };
+		F4558CEC190E8D9C00AE752D /* InfoTeamRenault.htm in Resources */ = {isa = PBXBuildFile; fileRef = 7F83A54F130A812300A64373 /* InfoTeamRenault.htm */; };
+		F4558CED190E8D9C00AE752D /* RacePadLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D423ECC135ECAC400561C92 /* RacePadLogo.png */; };
+		F4558CEE190E8D9C00AE752D /* DriverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D423F8E1368319F00561C92 /* DriverView.xib */; };
+		F4558CEF190E8D9C00AE752D /* FIALogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83732213770C9900B4B3C1 /* FIALogo.png */; };
+		F4558CF0190E8D9C00AE752D /* FIALogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F83732313770C9900B4B3C1 /* FIALogoBig.png */; };
+		F4558CF2190E8D9C00AE752D /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5D2C13783F3C00A82DA7 /* home.png */; };
+		F4558CF3190E8D9C00AE752D /* PitBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FCD5DAE1379403A00A82DA7 /* PitBoard.png */; };
+		F4558CF4190E8D9C00AE752D /* DriverTextBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB75AAA137A854600F7BFA0 /* DriverTextBG.png */; };
+		F4558CF5190E8D9C00AE752D /* TimeJumpBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */; };
+		F4558CF6190E8D9C00AE752D /* HomeTabButtonBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A805138124FE0095DD10 /* HomeTabButtonBG.png */; };
+		F4558CF7190E8D9C00AE752D /* NewsFeed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A83113812E180095DD10 /* NewsFeed.png */; };
+		F4558CF8190E8D9C00AE752D /* SlowMotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5A9D413817F1D0095DD10 /* SlowMotion.png */; };
+		F4558CF9190E8D9C00AE752D /* SlowMotionPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */; };
+		F4558CFA190E8D9C00AE752D /* BigLeftArrowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F793ED21388FD10008A2CB0 /* BigLeftArrowButton.png */; };
+		F4558CFB190E8D9C00AE752D /* BigRightArrowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F793ED31388FD10008A2CB0 /* BigRightArrowButton.png */; };
+		F4558CFC190E8D9C00AE752D /* LiveIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F794028138BCBDF008A2CB0 /* LiveIndicator.png */; };
+		F4558CFD190E8D9C00AE752D /* BigPlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7940E2138BEABF008A2CB0 /* BigPlayButton.png */; };
+		F4558CFE190E8D9C00AE752D /* MSCTelemetry.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F79411B138C0971008A2CB0 /* MSCTelemetry.png */; };
+		F4558CFF190E8D9C00AE752D /* NicoTelemetry.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F79411C138C0971008A2CB0 /* NicoTelemetry.png */; };
+		F4558D00190E8D9C00AE752D /* ReplayIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9FA92313A26F9D008292CE /* ReplayIndicator.png */; };
+		F4558D01190E8D9C00AE752D /* CommentaryBubbleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D56AF6114052EF300DFA0BF /* CommentaryBubbleView.xib */; };
+		F4558D02190E8D9C00AE752D /* Commentary.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2B79081406B7F7007950AA /* Commentary.png */; };
+		F4558D03190E8D9C00AE752D /* HeadToHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D94B6CF140D215100EC2EE0 /* HeadToHeadView.xib */; };
+		F4558D04190E8D9C00AE752D /* AlertControlWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CD18E20425002F5910 /* AlertControlWarning.png */; };
+		F4558D05190E8D9C00AE752D /* 17-bar-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F196140FA62E00E293B4 /* 17-bar-chart.png */; };
+		F4558D06190E8D9C00AE752D /* 66-microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F197140FA62E00E293B4 /* 66-microphone.png */; };
+		F4558D07190E8D9C00AE752D /* AlertGreenInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20A1411060C00E293B4 /* AlertGreenInfo.png */; };
+		F4558D08190E8D9C00AE752D /* AlertPurpleInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20B1411060C00E293B4 /* AlertPurpleInfo.png */; };
+		F4558D09190E8D9C00AE752D /* ArrowDownRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20C1411060C00E293B4 /* ArrowDownRed.png */; };
+		F4558D0A190E8D9C00AE752D /* ArrowUpGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20D1411060C00E293B4 /* ArrowUpGreen.png */; };
+		F4558D0B190E8D9C00AE752D /* TitleYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48F20E1411060C00E293B4 /* TitleYellow.png */; };
+		F4558D0C190E8D9C00AE752D /* GreyTextureBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F9157CC1497A0D100A013BC /* GreyTextureBG.png */; };
+		F4558D0D190E8D9C00AE752D /* UBSLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8EBB9F15013CBF00DA8303 /* UBSLogo.png */; };
+		F4558D0E190E8D9C00AE752D /* UBSLogoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8EBBA015013CBF00DA8303 /* UBSLogoBig.png */; };
+		F4558D0F190E8D9C00AE752D /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F53D730150A253A00834E52 /* Refresh.png */; };
+		F4558D10190E8D9C00AE752D /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A6C8215938A840010E72D /* weather.png */; };
+		F4558D11190E8D9C00AE752D /* WeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A6CBF15938F940010E72D /* WeatherView.xib */; };
+		F4558D12190E8D9C00AE752D /* LiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F604FDA16070F0600AB5D1E /* LiveButton.png */; };
+		F4558D13190E8D9C00AE752D /* GoLiveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F604FF2160711CE00AB5D1E /* GoLiveButton.png */; };
+		F4558D14190E8D9C00AE752D /* TimeControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F614B5C16301DC00044E956 /* TimeControllerView.xib */; };
+		F4558D15190E8D9C00AE752D /* TimingPage1View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D7079E3166D1DD3003627BC /* TimingPage1View.xib */; };
+		F4558D16190E8D9C00AE752D /* TimingPage2View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D707A3F166DFF6F003627BC /* TimingPage2View.xib */; };
+		F4558D17190E8D9C00AE752D /* AlertAccident.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D7D28E417566C220024BBAF /* AlertAccident.png */; };
+		F4558D19190E8D9C00AE752D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D1A190E8D9C00AE752D /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D1B190E8D9C00AE752D /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1695125A176700770746 /* MovieViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D1C190E8D9C00AE752D /* DataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1727125A2BD000770746 /* DataStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D1D190E8D9C00AE752D /* RacePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D1E190E8D9C00AE752D /* RacePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D1F190E8D9C00AE752D /* DriverListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F88203E12632EB40010785D /* DriverListController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D20190E8D9C00AE752D /* RacePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D21190E8D9C00AE752D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D22190E8D9C00AE752D /* RacePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F2126379B000BD1627 /* RacePadDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D23190E8D9C00AE752D /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF8FC12648507009D37FA /* DrawingViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D24190E8D9C00AE752D /* TrackMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDFA851264B822009D37FA /* TrackMapView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D25190E8D9C00AE752D /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D26190E8D9C00AE752D /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C684F12671CD200F2FFEC /* HTMLViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D27190E8D9C00AE752D /* SimpleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D28190E8D9C00AE752D /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D29190E8D9C00AE752D /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D2A190E8D9C00AE752D /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D2B190E8D9C00AE752D /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D2C190E8D9C00AE752D /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D2D190E8D9C00AE752D /* ElapsedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11F64C127197B800C88544 /* ElapsedTime.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D2E190E8D9C00AE752D /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D2F190E8D9C00AE752D /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D30190E8D9C00AE752D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D31190E8D9C00AE752D /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D32190E8D9C00AE752D /* ServerConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D807CF012832AED00FDE400 /* ServerConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D33190E8D9C00AE752D /* WorkOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D82FB3E1283F80C00F93A2B /* WorkOffline.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D34190E8D9C00AE752D /* RacePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D35190E8D9C00AE752D /* TitleBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A812844762009A9D4F /* TitleBarViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D36190E8D9C00AE752D /* PitWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D782601128989B100BE0329 /* PitWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D37190E8D9C00AE752D /* PitWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F212898CD0000E959D /* PitWindowView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D38190E8D9C00AE752D /* PitWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F812898E32000E959D /* PitWindowViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D39190E8D9C00AE752D /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86601E128ABEB900F13CB6 /* AlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D3A190E8D9C00AE752D /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866021128ABEC800F13CB6 /* AlertViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D3B190E8D9C00AE752D /* AlertData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866024128ABEE300F13CB6 /* AlertData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D3C190E8D9C00AE752D /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D3D190E8D9C00AE752D /* LeaderboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86658F128C51DA00F13CB6 /* LeaderboardView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D3E190E8D9C00AE752D /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D3F190E8D9C00AE752D /* TelemetryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBBF129AC91700DAC96E /* TelemetryView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D40190E8D9C00AE752D /* TelemetryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D41190E8D9C00AE752D /* CarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F767E6D12A68525009249F7 /* CarViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D42190E8D9C00AE752D /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D43190E8D9C00AE752D /* RacePrediction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D344E2612B144CC00B15298 /* RacePrediction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D44190E8D9C00AE752D /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D344E2B12B144E300B15298 /* GameViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D45190E8D9C00AE752D /* NewCompetitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D344F1912B7754F00B15298 /* NewCompetitor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D46190E8D9C00AE752D /* UserPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D34502C12B7C33E00B15298 /* UserPin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D47190E8D9C00AE752D /* ChangeCompetitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D3451AD12B9173200B15298 /* ChangeCompetitor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D48190E8D9C00AE752D /* JogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F71AF5812CE44220052C70C /* JogViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D49190E8D9C00AE752D /* MathOdds.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F71B14E12D379E20052C70C /* MathOdds.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D4A190E8D9C00AE752D /* CommentaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F905612E611CB00EA04A6 /* CommentaryView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D4B190E8D9C00AE752D /* CommentaryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8F913112E6D59F00EA04A6 /* CommentaryData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D4C190E8D9C00AE752D /* TabletState.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DDE812ED9778005B7FE7 /* TabletState.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D4D190E8D9C00AE752D /* DrivingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D91DE5312EDC83A005B7FE7 /* DrivingViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D4E190E8D9C00AE752D /* ColouredButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93543112F6D75A00AB1D07 /* ColouredButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D4F190E8D9C00AE752D /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93543312F6D75A00AB1D07 /* HelpViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D50190E8D9C00AE752D /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93576512F9A87F00AB1D07 /* ShinyButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D51190E8D9C00AE752D /* GameHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2764E12F9D13D001407FD /* GameHelpController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D52190E8D9C00AE752D /* LapListHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765012F9D13D001407FD /* LapListHelpController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D53190E8D9C00AE752D /* MapHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765212F9D13D001407FD /* MapHelpController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D54190E8D9C00AE752D /* TelemetryHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765412F9D13D001407FD /* TelemetryHelpController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D55190E8D9C00AE752D /* TimingHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765612F9D13D001407FD /* TimingHelpController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D56190E8D9C00AE752D /* VideoHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2765812F9D13D001407FD /* VideoHelpController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D57190E8D9C00AE752D /* DriverInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA27CEB130017C3001407FD /* DriverInfoViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D58190E8D9C00AE752D /* DriverInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9543EF130097AB00DC7FB6 /* DriverInfo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D59190E8D9C00AE752D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610C9113018778004DC056 /* InfoViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D5A190E8D9C00AE752D /* InfoDriversController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610CF61301D527004DC056 /* InfoDriversController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D5B190E8D9C00AE752D /* InfoChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610CFD1301D609004DC056 /* InfoChildController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D5C190E8D9C00AE752D /* InfoPartnersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F610F55130319BC004DC056 /* InfoPartnersController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D5D190E8D9C00AE752D /* InfoRulesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F817EF91305AA8400AC2444 /* InfoRulesController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D5E190E8D9C00AE752D /* InfoTeamsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8180971306F42B00AC2444 /* InfoTeamsController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D5F190E8D9C00AE752D /* InfoStandingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8180C21306FA8800AC2444 /* InfoStandingsController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D60190E8D9C00AE752D /* RacePadSponsor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D423CEB13584CAA00561C92 /* RacePadSponsor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D61190E8D9C00AE752D /* DriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D423F651368283900561C92 /* DriverViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D62190E8D9C00AE752D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8373B613781FE000B4B3C1 /* HomeViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D63190E8D9C00AE752D /* DriverGapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2874C1379992100A6D6C8 /* DriverGapInfo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D64190E8D9C00AE752D /* TrackProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9117F137BDFC900ACE72F /* TrackProfileView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D65190E8D9C00AE752D /* BasePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35A113A23CCE007C4AA9 /* BasePadAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D66190E8D9C00AE752D /* BasePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35A313A23CCE007C4AA9 /* BasePadClientSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D67190E8D9C00AE752D /* BasePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35A513A23CCE007C4AA9 /* BasePadCoordinator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D68190E8D9C00AE752D /* BasePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35A713A23CCE007C4AA9 /* BasePadDataHandler.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D69190E8D9C00AE752D /* BasePadMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35A913A23CCE007C4AA9 /* BasePadMedia.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D6A190E8D9C00AE752D /* BasePadPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35AB13A23CCE007C4AA9 /* BasePadPrefs.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D6B190E8D9C00AE752D /* BasePadSponsor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35AD13A23CCE007C4AA9 /* BasePadSponsor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D6C190E8D9C00AE752D /* BasePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35AF13A23CCE007C4AA9 /* BasePadTimeController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D6D190E8D9C00AE752D /* BasePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35B113A23CCE007C4AA9 /* BasePadTitleBarController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D6E190E8D9C00AE752D /* BasePadVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35D013A2695F007C4AA9 /* BasePadVideoViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D6F190E8D9C00AE752D /* BasePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A35D213A2695F007C4AA9 /* BasePadViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D70190E8D9C00AE752D /* BasePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A365E13A5F6B4007C4AA9 /* BasePadDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D71190E8D9C00AE752D /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A366013A5F6B4007C4AA9 /* ImageListStore.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D72190E8D9C00AE752D /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5A366213A5F6B4007C4AA9 /* TableData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D73190E8D9C00AE752D /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5813B33BFC0005F15A /* DrawingView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D74190E8D9C00AE752D /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5A13B33BFC0005F15A /* MovieView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D75190E8D9C00AE752D /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5C13B33BFC0005F15A /* SimpleListView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D76190E8D9C00AE752D /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5E13B33BFC0005F15A /* TableDataView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D77190E8D9C00AE752D /* CommentaryBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D56AF5814052EB900DFA0BF /* CommentaryBubble.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D78190E8D9C00AE752D /* CommentaryBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D56AF5D14052ED600DFA0BF /* CommentaryBubbleViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D79190E8D9C00AE752D /* HeadToHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D94B6D7140D241F00EC2EE0 /* HeadToHeadViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D7A190E8D9C00AE752D /* HeadToHead.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D94B6DD140D31E400EC2EE0 /* HeadToHead.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D7B190E8D9C00AE752D /* HeadToHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D94B6EF140D36FC00EC2EE0 /* HeadToHeadView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D7C190E8D9C00AE752D /* BasePadVideoSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9419781497C00D00E14090 /* BasePadVideoSource.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D7D190E8D9C00AE752D /* BasePadAudioSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F94197B1497C03900E14090 /* BasePadAudioSource.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D7E190E8D9C00AE752D /* AnimationTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2332314DAA5D400EBA739 /* AnimationTimer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D7F190E8D9C00AE752D /* MovieSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA2391614E2742B00EBA739 /* MovieSelectorView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D80190E8D9C00AE752D /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3A6C8715938D250010E72D /* WeatherViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D81190E8D9C00AE752D /* BasePadPopupManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614B54162DACDB0044E956 /* BasePadPopupManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D82190E8D9C00AE752D /* MidasVoting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F614B5A162DAE040044E956 /* MidasVoting.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D83190E8D9C00AE752D /* TimingPage1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7079DF166D1B47003627BC /* TimingPage1Controller.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D84190E8D9C00AE752D /* TimingPage2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D707A35166DFE9F003627BC /* TimingPage2Controller.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4558D86190E8D9C00AE752D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		F4558D87190E8D9C00AE752D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		F4558D88190E8D9C00AE752D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		F4558D89190E8D9C00AE752D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CD12560D5700770746 /* QuartzCore.framework */; };
+		F4558D8A190E8D9C00AE752D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CF12560D6600770746 /* OpenGLES.framework */; };
+		F4558D8B190E8D9C00AE752D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1514125759D900770746 /* CoreFoundation.framework */; };
+		F4558D8C190E8D9C00AE752D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1516125759D900770746 /* CoreText.framework */; };
+		F4558D8D190E8D9C00AE752D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C15F51257646700770746 /* MediaPlayer.framework */; };
+		F4558D8E190E8D9C00AE752D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8F89A312DC8EF300EA04A6 /* AVFoundation.framework */; };
+		F4558D8F190E8D9C00AE752D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8F8A3112DCAA3300EA04A6 /* CoreMedia.framework */; };
+		F4558D90190E8D9C00AE752D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0557A415A4524F0085F064 /* CoreLocation.framework */; };
 		F48183CF18E20425002F5910 /* AlertControlWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CD18E20425002F5910 /* AlertControlWarning.png */; };
 		F48183D018E20425002F5910 /* AlertControlPit.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CE18E20425002F5910 /* AlertControlPit.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7F817D3F130530E400AC2444 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4558D91190E8D9C00AE752D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -483,7 +866,6 @@
 		4D807CF412832B3400FDE400 /* ServerConnect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerConnect.xib; path = ResourceFiles/ServerConnect.xib; sourceTree = "<group>"; };
 		4D82FB3D1283F80C00F93A2B /* WorkOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkOffline.h; sourceTree = "<group>"; };
 		4D82FB3E1283F80C00F93A2B /* WorkOffline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkOffline.m; sourceTree = "<group>"; };
-		4D82FB421283F83300F93A2B /* WorkOffline.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WorkOffline.xib; path = ResourceFiles/WorkOffline.xib; sourceTree = "<group>"; };
 		4D86EDD2129A98C000AA49F9 /* Telemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Telemetry.h; sourceTree = "<group>"; };
 		4D86EDD3129A98C000AA49F9 /* Telemetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Telemetry.m; sourceTree = "<group>"; };
 		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
@@ -859,7 +1241,6 @@
 		7FC2FBBF129AC91700DAC96E /* TelemetryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryView.m; sourceTree = "<group>"; };
 		7FC2FBC1129AC94E00DAC96E /* TelemetryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelemetryViewController.h; sourceTree = "<group>"; };
 		7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryViewController.m; sourceTree = "<group>"; };
-		7FCD5CE713782A8100A82DA7 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HomeView.xib; path = ResourceFiles/HomeView.xib; sourceTree = "<group>"; };
 		7FCD5D2C13783F3C00A82DA7 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = Images/home.png; sourceTree = "<group>"; };
 		7FCD5DAE1379403A00A82DA7 /* PitBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PitBoard.png; path = Images/PitBoard.png; sourceTree = "<group>"; };
 		7FE5A7B8138016EF0095DD10 /* TimeJumpBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TimeJumpBG.png; path = Images/TimeJumpBG.png; sourceTree = "<group>"; };
@@ -868,6 +1249,19 @@
 		7FE5A9D413817F1D0095DD10 /* SlowMotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotion.png; path = Images/SlowMotion.png; sourceTree = "<group>"; };
 		7FE5AAA21382548F0095DD10 /* SlowMotionPause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowMotionPause.png; path = Images/SlowMotionPause.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		F433675B1913BAC30071A41C /* WorkOffline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WorkOffline.xib; path = ResourceFiles/WorkOffline.xib; sourceTree = "<group>"; };
+		F433675D1913BB160071A41C /* WorkOffline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WorkOffline.xib; path = "RacePad AudiDTM/WorkOffline.xib"; sourceTree = "<group>"; };
+		F433675F1913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Audi_RS5_DTM_2013_wireframe4.png; path = "RacePad AudiDTM/Audi_RS5_DTM_2013_wireframe4.png"; sourceTree = "<group>"; };
+		F43367601913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Audi_RS5_DTM_2013_wireframe3.png; path = "RacePad AudiDTM/Audi_RS5_DTM_2013_wireframe3.png"; sourceTree = "<group>"; };
+		F43367611913BEA70071A41C /* audi-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "audi-logo.png"; path = "RacePad AudiDTM/audi-logo.png"; sourceTree = "<group>"; };
+		F43367621913BEA70071A41C /* Icon-76-Audi-DTM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76-Audi-DTM.png"; path = "RacePad AudiDTM/Icon-76-Audi-DTM.png"; sourceTree = "<group>"; };
+		F43367631913BEA70071A41C /* Icon-76@2x-Audi-DTM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x-Audi-DTM.png"; path = "RacePad AudiDTM/Icon-76@2x-Audi-DTM.png"; sourceTree = "<group>"; };
+		F43367641913BEA70071A41C /* Audi-RS5-DTM-Logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Audi-RS5-DTM-Logo.jpg"; path = "RacePad AudiDTM/Audi-RS5-DTM-Logo.jpg"; sourceTree = "<group>"; };
+		F433676C1913C35D0071A41C /* HomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeView.xib; path = ResourceFiles/HomeView.xib; sourceTree = "<group>"; };
+		F433676E1913C3980071A41C /* HomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeView.xib; path = "RacePad AudiDTM/HomeView.xib"; sourceTree = "<group>"; };
+		F452B4C91913AB1F003B4E2E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "RacePad AudiDTM/Images.xcassets"; sourceTree = "<group>"; };
+		F4558D95190E8D9C00AE752D /* RacePad DTM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RacePad DTM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4558D96190E8D9D00AE752D /* RacePad AudiDTM-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "RacePad AudiDTM-Info.plist"; path = "/Volumes/HD-PATU3/SBG/dev/svn/RacePad2014/RacePad AudiDTM-Info.plist"; sourceTree = "<absolute>"; };
 		F48183CD18E20425002F5910 /* AlertControlWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertControlWarning.png; path = Images/AlertControlWarning.png; sourceTree = "<group>"; };
 		F48183CE18E20425002F5910 /* AlertControlPit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertControlPit.png; path = Images/AlertControlPit.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -888,6 +1282,24 @@
 				7F8F89A412DC8EF300EA04A6 /* AVFoundation.framework in Frameworks */,
 				7F8F8A3212DCAA3300EA04A6 /* CoreMedia.framework in Frameworks */,
 				4D0557A515A4524F0085F064 /* CoreLocation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4558D85190E8D9C00AE752D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4558D86190E8D9C00AE752D /* Foundation.framework in Frameworks */,
+				F4558D87190E8D9C00AE752D /* UIKit.framework in Frameworks */,
+				F4558D88190E8D9C00AE752D /* CoreGraphics.framework in Frameworks */,
+				F4558D89190E8D9C00AE752D /* QuartzCore.framework in Frameworks */,
+				F4558D8A190E8D9C00AE752D /* OpenGLES.framework in Frameworks */,
+				F4558D8B190E8D9C00AE752D /* CoreFoundation.framework in Frameworks */,
+				F4558D8C190E8D9C00AE752D /* CoreText.framework in Frameworks */,
+				F4558D8D190E8D9C00AE752D /* MediaPlayer.framework in Frameworks */,
+				F4558D8E190E8D9C00AE752D /* AVFoundation.framework in Frameworks */,
+				F4558D8F190E8D9C00AE752D /* CoreMedia.framework in Frameworks */,
+				F4558D90190E8D9C00AE752D /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,6 +1328,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* RacePad.app */,
+				F4558D95190E8D9C00AE752D /* RacePad DTM.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -928,6 +1341,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				F4558D96190E8D9D00AE752D /* RacePad AudiDTM-Info.plist */,
 			);
 			name = RacePad;
 			sourceTree = "<group>";
@@ -944,6 +1358,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F433676B1913BEB70071A41C /* Audi */,
+				F452B4C91913AB1F003B4E2E /* Images.xcassets */,
 				7F817D031305209D00AC2444 /* HTML */,
 				7FC2F8181295911900DAC96E /* Images */,
 				7FC2F8171295910D00DAC96E /* XIB Files */,
@@ -1317,9 +1733,9 @@
 		7FC2F8171295910D00DAC96E /* XIB Files */ = {
 			isa = PBXGroup;
 			children = (
+				F433676C1913C35D0071A41C /* HomeView.xib */,
+				F433675B1913BAC30071A41C /* WorkOffline.xib */,
 				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
-				F48183CD18E20425002F5910 /* AlertControlWarning.png */,
-				F48183CE18E20425002F5910 /* AlertControlPit.png */,
 				7F767E9012A689F1009249F7 /* CarView.xib */,
 				4D3451B312B9175500B15298 /* ChangeCompetitor.xib */,
 				4D56AF6114052EF300DFA0BF /* CommentaryBubbleView.xib */,
@@ -1334,7 +1750,6 @@
 				7F9354CF12F6F1C300AB1D07 /* GameHelp.xib */,
 				4D344E2F12B144FB00B15298 /* GameView.xib */,
 				4D94B6CF140D215100EC2EE0 /* HeadToHeadView.xib */,
-				7FCD5CE713782A8100A82DA7 /* HomeView.xib */,
 				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
 				7F610CF31301D470004DC056 /* InfoDrivers.xib */,
 				7F610F521303052C004DC056 /* InfoPartners.xib */,
@@ -1366,7 +1781,6 @@
 				7F9354CB12F6F18200AB1D07 /* VideoHelp.xib */,
 				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
 				7F3A6CBF15938F940010E72D /* WeatherView.xib */,
-				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
 			);
 			name = "XIB Files";
 			sourceTree = "<group>";
@@ -1374,6 +1788,8 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F48183CD18E20425002F5910 /* AlertControlWarning.png */,
+				F48183CE18E20425002F5910 /* AlertControlPit.png */,
 				7F48F196140FA62E00E293B4 /* 17-bar-chart.png */,
 				7F48F197140FA62E00E293B4 /* 66-microphone.png */,
 				4D7D28E417566C220024BBAF /* AlertAccident.png */,
@@ -1535,6 +1951,21 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		F433676B1913BEB70071A41C /* Audi */ = {
+			isa = PBXGroup;
+			children = (
+				F433676E1913C3980071A41C /* HomeView.xib */,
+				F433675D1913BB160071A41C /* WorkOffline.xib */,
+				F433675F1913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe4.png */,
+				F43367601913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe3.png */,
+				F43367611913BEA70071A41C /* audi-logo.png */,
+				F43367621913BEA70071A41C /* Icon-76-Audi-DTM.png */,
+				F43367631913BEA70071A41C /* Icon-76@2x-Audi-DTM.png */,
+				F43367641913BEA70071A41C /* Audi-RS5-DTM-Logo.jpg */,
+			);
+			name = Audi;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1556,6 +1987,24 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* RacePad.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F4558C1E190E8D9C00AE752D /* RacePad AudiDTM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4558D92190E8D9C00AE752D /* Build configuration list for PBXNativeTarget "RacePad AudiDTM" */;
+			buildPhases = (
+				F4558C1F190E8D9C00AE752D /* Resources */,
+				F4558D18190E8D9C00AE752D /* Sources */,
+				F4558D85190E8D9C00AE752D /* Frameworks */,
+				F4558D91190E8D9C00AE752D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RacePad AudiDTM";
+			productName = RacePad;
+			productReference = F4558D95190E8D9C00AE752D /* RacePad DTM.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1563,6 +2012,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0440;
+				TargetAttributes = {
+					F4558C1E190E8D9C00AE752D = {
+						DevelopmentTeam = YEZ82W46E5;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1579,6 +2033,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* RacePad */,
+				F4558C1E190E8D9C00AE752D /* RacePad AudiDTM */,
 			);
 		};
 /* End PBXProject section */
@@ -1613,7 +2068,6 @@
 				4D807C101283061500FDE400 /* GPSGreen.png in Resources */,
 				4D807C111283061500FDE400 /* GPSRed.png in Resources */,
 				4D807CF512832B3400FDE400 /* ServerConnect.xib in Resources */,
-				4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */,
 				7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */,
 				7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */,
 				7F62476112851255009A9D4F /* ChequeredFlag.png in Resources */,
@@ -1643,6 +2097,7 @@
 				7FC2EAB8128C926C00DAC96E /* AlertChequeredFlag.png in Resources */,
 				7FC2EAB9128C926C00DAC96E /* AlertGreenFlag.png in Resources */,
 				7FC2EABA128C926C00DAC96E /* AlertOvertake.png in Resources */,
+				F433675C1913BAC30071A41C /* WorkOffline.xib in Resources */,
 				7FC2EABB128C926C00DAC96E /* AlertPin.png in Resources */,
 				7FC2EABC128C926C00DAC96E /* AlertPitstop.png in Resources */,
 				7FC2EABD128C926C00DAC96E /* AlertRedFlag.png in Resources */,
@@ -1789,6 +2244,7 @@
 				7F83A542130A7EB000A64373 /* InfoTeamToroRosso.htm in Resources */,
 				7F83A544130A7EBE00A64373 /* InfoTeamSauber.htm in Resources */,
 				7F83A546130A7ECE00A64373 /* InfoTeamLotus.htm in Resources */,
+				F433676D1913C35D0071A41C /* HomeView.xib in Resources */,
 				7F83A548130A7EE100A64373 /* InfoTeamVirgin.htm in Resources */,
 				7F83A54A130A7EF800A64373 /* InfoTeamHRT.htm in Resources */,
 				7F83A54C130A7FB600A64373 /* FOR.jpg in Resources */,
@@ -1797,7 +2253,6 @@
 				4D423F8F1368319F00561C92 /* DriverView.xib in Resources */,
 				7F83732413770C9900B4B3C1 /* FIALogo.png in Resources */,
 				7F83732513770C9900B4B3C1 /* FIALogoBig.png in Resources */,
-				7FCD5CE813782A8100A82DA7 /* HomeView.xib in Resources */,
 				7FCD5D2D13783F3C00A82DA7 /* home.png in Resources */,
 				7FCD5DAF1379403A00A82DA7 /* PitBoard.png in Resources */,
 				7FB75AAB137A854600F7BFA0 /* DriverTextBG.png in Resources */,
@@ -1836,6 +2291,268 @@
 				4D7079E4166D1DD3003627BC /* TimingPage1View.xib in Resources */,
 				4D707A40166DFF6F003627BC /* TimingPage2View.xib in Resources */,
 				4D7D28E517566C220024BBAF /* AlertAccident.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4558C1F190E8D9C00AE752D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4558C20190E8D9C00AE752D /* DriverListView.xib in Resources */,
+				F4558C21190E8D9C00AE752D /* HTMLView.xib in Resources */,
+				F4558C22190E8D9C00AE752D /* MainWindow.xib in Resources */,
+				F4558C23190E8D9C00AE752D /* SecondView.xib in Resources */,
+				F4558C24190E8D9C00AE752D /* TestTextView.xib in Resources */,
+				F4558C25190E8D9C00AE752D /* ThirdView.xib in Resources */,
+				F4558C26190E8D9C00AE752D /* TrackMapView.xib in Resources */,
+				F4558C27190E8D9C00AE752D /* VideoView.xib in Resources */,
+				F4558C28190E8D9C00AE752D /* Metal.png in Resources */,
+				F4558C29190E8D9C00AE752D /* Parchment.png in Resources */,
+				F43367651913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe4.png in Resources */,
+				F4558C2A190E8D9C00AE752D /* clock.png in Resources */,
+				F4558C2B190E8D9C00AE752D /* monitor.png in Resources */,
+				F4558C2C190E8D9C00AE752D /* newspaper.png in Resources */,
+				F4558C2D190E8D9C00AE752D /* preferences.png in Resources */,
+				F4558C2E190E8D9C00AE752D /* world.png in Resources */,
+				F4558C2F190E8D9C00AE752D /* SettingsView.xib in Resources */,
+				F4558C30190E8D9C00AE752D /* DriverLapListView.xib in Resources */,
+				F4558C31190E8D9C00AE752D /* LeftArrow.png in Resources */,
+				F4558C32190E8D9C00AE752D /* RightArrow.png in Resources */,
+				F4558C33190E8D9C00AE752D /* TimeControlView.xib in Resources */,
+				F4558C34190E8D9C00AE752D /* DownloadProgress.xib in Resources */,
+				F4558C35190E8D9C00AE752D /* CompositeView.xib in Resources */,
+				F4558C36190E8D9C00AE752D /* GPSGreen.png in Resources */,
+				F4558C37190E8D9C00AE752D /* GPSRed.png in Resources */,
+				F4558C38190E8D9C00AE752D /* ServerConnect.xib in Resources */,
+				F4558C3A190E8D9C00AE752D /* MGPLogo.png in Resources */,
+				F4558C3B190E8D9C00AE752D /* TitleBarView.xib in Resources */,
+				F4558C3C190E8D9C00AE752D /* ChequeredFlag.png in Resources */,
+				F4558C3D190E8D9C00AE752D /* GreenFlag.png in Resources */,
+				F4558C3E190E8D9C00AE752D /* RedFlag.png in Resources */,
+				F4558C3F190E8D9C00AE752D /* SCFlag.png in Resources */,
+				F4558C40190E8D9C00AE752D /* SCInFlag.png in Resources */,
+				F4558C41190E8D9C00AE752D /* YellowFlag.png in Resources */,
+				F4558C42190E8D9C00AE752D /* Icon-72.png in Resources */,
+				F4558C43190E8D9C00AE752D /* Icon-Small-50.png in Resources */,
+				F4558C44190E8D9C00AE752D /* Icon-Small.png in Resources */,
+				F4558C45190E8D9C00AE752D /* Icon.png in Resources */,
+				F4558C46190E8D9C00AE752D /* Icon@2x.png in Resources */,
+				F4558C47190E8D9C00AE752D /* ListIcon.png in Resources */,
+				F4558C48190E8D9C00AE752D /* PitWindowView.xib in Resources */,
+				F4558C49190E8D9C00AE752D /* ArrowLeader.png in Resources */,
+				F4558C4A190E8D9C00AE752D /* BlueFlag.png in Resources */,
+				F4558C4B190E8D9C00AE752D /* AlertControlView.xib in Resources */,
+				F4558C4C190E8D9C00AE752D /* Default-Landscape.png in Resources */,
+				F4558C4D190E8D9C00AE752D /* Default-Portrait.png in Resources */,
+				F4558C4E190E8D9C00AE752D /* PopupImage.png in Resources */,
+				F4558C4F190E8D9C00AE752D /* connections.png in Resources */,
+				F4558C50190E8D9C00AE752D /* pause.png in Resources */,
+				F4558C51190E8D9C00AE752D /* play.png in Resources */,
+				F4558C52190E8D9C00AE752D /* trend.png in Resources */,
+				F4558C53190E8D9C00AE752D /* Kerbs.png in Resources */,
+				F4558C54190E8D9C00AE752D /* AlertChequeredFlag.png in Resources */,
+				F4558C55190E8D9C00AE752D /* AlertGreenFlag.png in Resources */,
+				F433675E1913BB160071A41C /* WorkOffline.xib in Resources */,
+				F4558C56190E8D9C00AE752D /* AlertOvertake.png in Resources */,
+				F4558C57190E8D9C00AE752D /* AlertPin.png in Resources */,
+				F4558C58190E8D9C00AE752D /* AlertPitstop.png in Resources */,
+				F4558C59190E8D9C00AE752D /* AlertRedFlag.png in Resources */,
+				F4558C5A190E8D9C00AE752D /* AlertSafetyCar.png in Resources */,
+				F4558C5B190E8D9C00AE752D /* AlertWarning.png in Resources */,
+				F4558C5C190E8D9C00AE752D /* AlertYellowFlag.png in Resources */,
+				F4558C5D190E8D9C00AE752D /* StateChequered.png in Resources */,
+				F4558C5E190E8D9C00AE752D /* StateGreen.png in Resources */,
+				F4558C5F190E8D9C00AE752D /* StateRed.png in Resources */,
+				F4558C60190E8D9C00AE752D /* StateSC.png in Resources */,
+				F4558C61190E8D9C00AE752D /* StateSCIn.png in Resources */,
+				F4558C62190E8D9C00AE752D /* StateYellow.png in Resources */,
+				F4558C63190E8D9C00AE752D /* TitleStateSC.png in Resources */,
+				F4558C64190E8D9C00AE752D /* Grass.png in Resources */,
+				F4558C65190E8D9C00AE752D /* Replay.png in Resources */,
+				F4558C66190E8D9C00AE752D /* TelemetryView.xib in Resources */,
+				F4558C67190E8D9C00AE752D /* TelemetryBG.png in Resources */,
+				F4558C68190E8D9C00AE752D /* TelemetrySteeringWheel.png in Resources */,
+				F4558C69190E8D9C00AE752D /* LightMetalSmall.png in Resources */,
+				F4558C6A190E8D9C00AE752D /* TelemetryCar.png in Resources */,
+				F4558C6B190E8D9C00AE752D /* TelemetrySteeringWheelSmall.png in Resources */,
+				F4558C6C190E8D9C00AE752D /* Pedal.png in Resources */,
+				F4558C6D190E8D9C00AE752D /* wheel_icon.png in Resources */,
+				F4558C6E190E8D9C00AE752D /* track-icon.png in Resources */,
+				F4558C6F190E8D9C00AE752D /* RPMGreen.png in Resources */,
+				F4558C70190E8D9C00AE752D /* RPMOrange.png in Resources */,
+				F4558C71190E8D9C00AE752D /* RPMRed.png in Resources */,
+				F4558C72190E8D9C00AE752D /* RPMWhite.png in Resources */,
+				F43367681913BEA70071A41C /* Icon-76-Audi-DTM.png in Resources */,
+				F4558C73190E8D9C00AE752D /* GearCog.png in Resources */,
+				F4558C74190E8D9C00AE752D /* ShinyGreenButton.png in Resources */,
+				F4558C75190E8D9C00AE752D /* ShinyGreyButton.png in Resources */,
+				F4558C76190E8D9C00AE752D /* BlackBar.png in Resources */,
+				F4558C77190E8D9C00AE752D /* CarbonFibre2.png in Resources */,
+				F4558C78190E8D9C00AE752D /* Turquoise.png in Resources */,
+				F4558C79190E8D9C00AE752D /* BlueBar.png in Resources */,
+				F4558C7A190E8D9C00AE752D /* RedBar.png in Resources */,
+				F4558C7B190E8D9C00AE752D /* GraphPaper.png in Resources */,
+				F4558C7C190E8D9C00AE752D /* CarView.xib in Resources */,
+				F4558C7D190E8D9C00AE752D /* FullScreen.png in Resources */,
+				F4558C7E190E8D9C00AE752D /* SmallScreen.png in Resources */,
+				F433676A1913BEA70071A41C /* Audi-RS5-DTM-Logo.jpg in Resources */,
+				F4558C7F190E8D9C00AE752D /* GameView.xib in Resources */,
+				F4558C80190E8D9C00AE752D /* NewCompetitor.xib in Resources */,
+				F4558C81190E8D9C00AE752D /* UserPin.xib in Resources */,
+				F4558C82190E8D9C00AE752D /* ChangeCompetitor.xib in Resources */,
+				F4558C83190E8D9C00AE752D /* PredictionBG.png in Resources */,
+				F4558C84190E8D9C00AE752D /* JogControlView.xib in Resources */,
+				F43367691913BEA70071A41C /* Icon-76@2x-Audi-DTM.png in Resources */,
+				F4558C85190E8D9C00AE752D /* JogControlBase.png in Resources */,
+				F4558C86190E8D9C00AE752D /* JogControlInset.png in Resources */,
+				F4558C87190E8D9C00AE752D /* PINButton.png in Resources */,
+				F4558C88190E8D9C00AE752D /* trophy.png in Resources */,
+				F4558C89190E8D9C00AE752D /* AlertInsight.png in Resources */,
+				F4558C8A190E8D9C00AE752D /* AlertLC.png in Resources */,
+				F4558C8B190E8D9C00AE752D /* DrivingView.xib in Resources */,
+				F4558C8C190E8D9C00AE752D /* DrivingWheel.png in Resources */,
+				F4558C8D190E8D9C00AE752D /* DrivingWheelOutline.png in Resources */,
+				F4558C8E190E8D9C00AE752D /* AlertInfo.png in Resources */,
+				F4558C8F190E8D9C00AE752D /* HelpGame.png in Resources */,
+				F4558C90190E8D9C00AE752D /* HelpLapList.png in Resources */,
+				F4558C91190E8D9C00AE752D /* HelpMap.png in Resources */,
+				F4558C92190E8D9C00AE752D /* HelpTelemetry.png in Resources */,
+				F4558C93190E8D9C00AE752D /* HelpTiming.png in Resources */,
+				F4558C94190E8D9C00AE752D /* HelpVideo.png in Resources */,
+				F4558C95190E8D9C00AE752D /* TitleChequered.png in Resources */,
+				F4558C96190E8D9C00AE752D /* TitleSC.png in Resources */,
+				F4558C97190E8D9C00AE752D /* DefaultHelpView.xib in Resources */,
+				F4558C98190E8D9C00AE752D /* HelpButton.png in Resources */,
+				F4558C99190E8D9C00AE752D /* HelpButtonHighlighted.png in Resources */,
+				F4558C9A190E8D9C00AE752D /* TimingHelp.xib in Resources */,
+				F4558C9B190E8D9C00AE752D /* MapHelp.xib in Resources */,
+				F4558C9C190E8D9C00AE752D /* VideoHelp.xib in Resources */,
+				F4558C9D190E8D9C00AE752D /* TelemetryHelp.xib in Resources */,
+				F4558C9E190E8D9C00AE752D /* GameHelp.xib in Resources */,
+				F4558C9F190E8D9C00AE752D /* LapListHelp.xib in Resources */,
+				F4558CA0190E8D9C00AE752D /* MGPLogoBig.png in Resources */,
+				F4558CA1190E8D9C00AE752D /* BigSettings.png in Resources */,
+				F4558CA2190E8D9C00AE752D /* HelpButtonHTML.png in Resources */,
+				F4558CA3190E8D9C00AE752D /* DriverInfo.xib in Resources */,
+				F4558CA4190E8D9C00AE752D /* CloseButton.png in Resources */,
+				F4558CA5190E8D9C00AE752D /* NoPhoto.png in Resources */,
+				F4558CA6190E8D9C00AE752D /* NoHelmet.png in Resources */,
+				F4558CA7190E8D9C00AE752D /* InfoView.xib in Resources */,
+				F4558CA8190E8D9C00AE752D /* MGPCar.png in Resources */,
+				F4558CA9190E8D9C00AE752D /* InfoDrivers.xib in Resources */,
+				F4558CAA190E8D9C00AE752D /* PopupImageHTML.png in Resources */,
+				F4558CAB190E8D9C00AE752D /* LogoAabar.png in Resources */,
+				F4558CAC190E8D9C00AE752D /* LogoAllianz.png in Resources */,
+				F4558CAD190E8D9C00AE752D /* LogoAutonomy.png in Resources */,
+				F4558CAE190E8D9C00AE752D /* LogoDeutschePost.png in Resources */,
+				F4558CAF190E8D9C00AE752D /* LogoGraham.png in Resources */,
+				F4558CB0190E8D9C00AE752D /* LogoHenriLloyd.png in Resources */,
+				F4558CB1190E8D9C00AE752D /* LogoMIG.png in Resources */,
+				F4558CB2190E8D9C00AE752D /* LogoMonster.png in Resources */,
+				F4558CB3190E8D9C00AE752D /* LogoPetronas.png in Resources */,
+				F4558CB4190E8D9C00AE752D /* LogoPirelli.png in Resources */,
+				F4558CB5190E8D9C00AE752D /* LogoStandox.png in Resources */,
+				F4558CB6190E8D9C00AE752D /* InfoPartners.xib in Resources */,
+				F43367661913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe3.png in Resources */,
+				F4558CB7190E8D9C00AE752D /* InfoPetronas.htm in Resources */,
+				F4558CB8190E8D9C00AE752D /* InfoDeutschePost.htm in Resources */,
+				F4558CB9190E8D9C00AE752D /* InfoAabar.htm in Resources */,
+				F4558CBA190E8D9C00AE752D /* InfoAutonomy.htm in Resources */,
+				F4558CBB190E8D9C00AE752D /* InfoMIG.htm in Resources */,
+				F4558CBC190E8D9C00AE752D /* InfoAllianz.htm in Resources */,
+				F4558CBD190E8D9C00AE752D /* InfoGraham.htm in Resources */,
+				F4558CBE190E8D9C00AE752D /* InfoHLloyd.htm in Resources */,
+				F4558CBF190E8D9C00AE752D /* InfoMonster.htm in Resources */,
+				F4558CC0190E8D9C00AE752D /* InfoPirelli.htm in Resources */,
+				F4558CC1190E8D9C00AE752D /* InfoStandox.htm in Resources */,
+				F4558CC2190E8D9C00AE752D /* InfoAlpine.htm in Resources */,
+				F4558CC3190E8D9C00AE752D /* InfoEndless.htm in Resources */,
+				F4558CC4190E8D9C00AE752D /* AlertControlPit.png in Resources */,
+				F4558CC5190E8D9C00AE752D /* InfoLincoln.htm in Resources */,
+				F4558CC6190E8D9C00AE752D /* InfoStarTrac.htm in Resources */,
+				F4558CC7190E8D9C00AE752D /* InfoSTL.htm in Resources */,
+				F4558CC8190E8D9C00AE752D /* LogoAlpine.png in Resources */,
+				F4558CC9190E8D9C00AE752D /* LogoEndless.png in Resources */,
+				F4558CCA190E8D9C00AE752D /* LogoLincoln.png in Resources */,
+				F4558CCB190E8D9C00AE752D /* LogoStarTrac.png in Resources */,
+				F4558CCC190E8D9C00AE752D /* LogoSTL.png in Resources */,
+				F4558CCD190E8D9C00AE752D /* InfoRules.xib in Resources */,
+				F4558CCE190E8D9C00AE752D /* LogoFIA.png in Resources */,
+				F4558CCF190E8D9C00AE752D /* InfoTeams.xib in Resources */,
+				F4558CD0190E8D9C00AE752D /* InfoStandings.xib in Resources */,
+				F4558CD1190E8D9C00AE752D /* InfoDriverStandings.htm in Resources */,
+				F4558CD2190E8D9C00AE752D /* InfoTeamStandings.htm in Resources */,
+				F4558CD3190E8D9C00AE752D /* InfoTeamRBR.htm in Resources */,
+				F4558CD4190E8D9C00AE752D /* FER.jpg in Resources */,
+				F4558CD5190E8D9C00AE752D /* MCL.jpg in Resources */,
+				F4558CD6190E8D9C00AE752D /* MGP.jpg in Resources */,
+				F452B4CA1913AB1F003B4E2E /* Images.xcassets in Resources */,
+				F4558CD7190E8D9C00AE752D /* RBR.jpg in Resources */,
+				F4558CD8190E8D9C00AE752D /* MGPBackground.jpg in Resources */,
+				F4558CD9190E8D9C00AE752D /* LightTexture.png in Resources */,
+				F4558CDA190E8D9C00AE752D /* InfoTeamMcLaren.htm in Resources */,
+				F4558CDB190E8D9C00AE752D /* InfoTeamFerrari.htm in Resources */,
+				F4558CDC190E8D9C00AE752D /* InfoTeamMGP.htm in Resources */,
+				F4558CDD190E8D9C00AE752D /* HRT.jpg in Resources */,
+				F4558CDE190E8D9C00AE752D /* LOT.jpg in Resources */,
+				F4558CDF190E8D9C00AE752D /* REN.jpg in Resources */,
+				F4558CE0190E8D9C00AE752D /* SAU.jpg in Resources */,
+				F4558CE1190E8D9C00AE752D /* TOR.jpg in Resources */,
+				F4558CE2190E8D9C00AE752D /* VIR.jpg in Resources */,
+				F4558CE3190E8D9C00AE752D /* WIL.jpg in Resources */,
+				F4558CE4190E8D9C00AE752D /* InfoTeamWilliams.htm in Resources */,
+				F4558CE5190E8D9C00AE752D /* InfoTeamFIndia.htm in Resources */,
+				F4558CE6190E8D9C00AE752D /* InfoTeamToroRosso.htm in Resources */,
+				F4558CE7190E8D9C00AE752D /* InfoTeamSauber.htm in Resources */,
+				F4558CE8190E8D9C00AE752D /* InfoTeamLotus.htm in Resources */,
+				F4558CE9190E8D9C00AE752D /* InfoTeamVirgin.htm in Resources */,
+				F4558CEA190E8D9C00AE752D /* InfoTeamHRT.htm in Resources */,
+				F433676F1913C3980071A41C /* HomeView.xib in Resources */,
+				F4558CEB190E8D9C00AE752D /* FOR.jpg in Resources */,
+				F4558CEC190E8D9C00AE752D /* InfoTeamRenault.htm in Resources */,
+				F4558CED190E8D9C00AE752D /* RacePadLogo.png in Resources */,
+				F4558CEE190E8D9C00AE752D /* DriverView.xib in Resources */,
+				F4558CEF190E8D9C00AE752D /* FIALogo.png in Resources */,
+				F4558CF0190E8D9C00AE752D /* FIALogoBig.png in Resources */,
+				F4558CF2190E8D9C00AE752D /* home.png in Resources */,
+				F4558CF3190E8D9C00AE752D /* PitBoard.png in Resources */,
+				F4558CF4190E8D9C00AE752D /* DriverTextBG.png in Resources */,
+				F4558CF5190E8D9C00AE752D /* TimeJumpBG.png in Resources */,
+				F4558CF6190E8D9C00AE752D /* HomeTabButtonBG.png in Resources */,
+				F4558CF7190E8D9C00AE752D /* NewsFeed.png in Resources */,
+				F4558CF8190E8D9C00AE752D /* SlowMotion.png in Resources */,
+				F4558CF9190E8D9C00AE752D /* SlowMotionPause.png in Resources */,
+				F4558CFA190E8D9C00AE752D /* BigLeftArrowButton.png in Resources */,
+				F4558CFB190E8D9C00AE752D /* BigRightArrowButton.png in Resources */,
+				F4558CFC190E8D9C00AE752D /* LiveIndicator.png in Resources */,
+				F4558CFD190E8D9C00AE752D /* BigPlayButton.png in Resources */,
+				F4558CFE190E8D9C00AE752D /* MSCTelemetry.png in Resources */,
+				F4558CFF190E8D9C00AE752D /* NicoTelemetry.png in Resources */,
+				F4558D00190E8D9C00AE752D /* ReplayIndicator.png in Resources */,
+				F4558D01190E8D9C00AE752D /* CommentaryBubbleView.xib in Resources */,
+				F43367671913BEA70071A41C /* audi-logo.png in Resources */,
+				F4558D02190E8D9C00AE752D /* Commentary.png in Resources */,
+				F4558D03190E8D9C00AE752D /* HeadToHeadView.xib in Resources */,
+				F4558D04190E8D9C00AE752D /* AlertControlWarning.png in Resources */,
+				F4558D05190E8D9C00AE752D /* 17-bar-chart.png in Resources */,
+				F4558D06190E8D9C00AE752D /* 66-microphone.png in Resources */,
+				F4558D07190E8D9C00AE752D /* AlertGreenInfo.png in Resources */,
+				F4558D08190E8D9C00AE752D /* AlertPurpleInfo.png in Resources */,
+				F4558D09190E8D9C00AE752D /* ArrowDownRed.png in Resources */,
+				F4558D0A190E8D9C00AE752D /* ArrowUpGreen.png in Resources */,
+				F4558D0B190E8D9C00AE752D /* TitleYellow.png in Resources */,
+				F4558D0C190E8D9C00AE752D /* GreyTextureBG.png in Resources */,
+				F4558D0D190E8D9C00AE752D /* UBSLogo.png in Resources */,
+				F4558D0E190E8D9C00AE752D /* UBSLogoBig.png in Resources */,
+				F4558D0F190E8D9C00AE752D /* Refresh.png in Resources */,
+				F4558D10190E8D9C00AE752D /* weather.png in Resources */,
+				F4558D11190E8D9C00AE752D /* WeatherView.xib in Resources */,
+				F4558D12190E8D9C00AE752D /* LiveButton.png in Resources */,
+				F4558D13190E8D9C00AE752D /* GoLiveButton.png in Resources */,
+				F4558D14190E8D9C00AE752D /* TimeControllerView.xib in Resources */,
+				F4558D15190E8D9C00AE752D /* TimingPage1View.xib in Resources */,
+				F4558D16190E8D9C00AE752D /* TimingPage2View.xib in Resources */,
+				F4558D17190E8D9C00AE752D /* AlertAccident.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1957,6 +2674,121 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4558D18190E8D9C00AE752D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4558D19190E8D9C00AE752D /* main.m in Sources */,
+				F4558D1A190E8D9C00AE752D /* TrackMapViewController.m in Sources */,
+				F4558D1B190E8D9C00AE752D /* MovieViewController.m in Sources */,
+				F4558D1C190E8D9C00AE752D /* DataStream.m in Sources */,
+				F4558D1D190E8D9C00AE752D /* RacePadAppDelegate.m in Sources */,
+				F4558D1E190E8D9C00AE752D /* RacePadClientSocket.m in Sources */,
+				F4558D1F190E8D9C00AE752D /* DriverListController.m in Sources */,
+				F4558D20190E8D9C00AE752D /* RacePadCoordinator.m in Sources */,
+				F4558D21190E8D9C00AE752D /* SettingsViewController.m in Sources */,
+				F4558D22190E8D9C00AE752D /* RacePadDatabase.m in Sources */,
+				F4558D23190E8D9C00AE752D /* DrawingViewController.m in Sources */,
+				F4558D24190E8D9C00AE752D /* TrackMapView.m in Sources */,
+				F4558D25190E8D9C00AE752D /* TrackMap.m in Sources */,
+				F4558D26190E8D9C00AE752D /* HTMLViewController.m in Sources */,
+				F4558D27190E8D9C00AE752D /* SimpleListViewController.m in Sources */,
+				F4558D28190E8D9C00AE752D /* Socket.m in Sources */,
+				F4558D29190E8D9C00AE752D /* BufferedDataStream.m in Sources */,
+				F4558D2A190E8D9C00AE752D /* FileDataStream.m in Sources */,
+				F4558D2B190E8D9C00AE752D /* DataHandler.m in Sources */,
+				F4558D2C190E8D9C00AE752D /* RacePadDataHandler.m in Sources */,
+				F4558D2D190E8D9C00AE752D /* ElapsedTime.m in Sources */,
+				F4558D2E190E8D9C00AE752D /* DriverLapListController.m in Sources */,
+				F4558D2F190E8D9C00AE752D /* TimeViewController.m in Sources */,
+				F4558D30190E8D9C00AE752D /* DownloadProgress.m in Sources */,
+				F4558D31190E8D9C00AE752D /* CompositeViewController.m in Sources */,
+				F4558D32190E8D9C00AE752D /* ServerConnect.m in Sources */,
+				F4558D33190E8D9C00AE752D /* WorkOffline.m in Sources */,
+				F4558D34190E8D9C00AE752D /* RacePadTitleBarController.m in Sources */,
+				F4558D35190E8D9C00AE752D /* TitleBarViewController.m in Sources */,
+				F4558D36190E8D9C00AE752D /* PitWindow.m in Sources */,
+				F4558D37190E8D9C00AE752D /* PitWindowView.m in Sources */,
+				F4558D38190E8D9C00AE752D /* PitWindowViewController.m in Sources */,
+				F4558D39190E8D9C00AE752D /* AlertView.m in Sources */,
+				F4558D3A190E8D9C00AE752D /* AlertViewController.m in Sources */,
+				F4558D3B190E8D9C00AE752D /* AlertData.m in Sources */,
+				F4558D3C190E8D9C00AE752D /* BackgroundView.m in Sources */,
+				F4558D3D190E8D9C00AE752D /* LeaderboardView.m in Sources */,
+				F4558D3E190E8D9C00AE752D /* Telemetry.m in Sources */,
+				F4558D3F190E8D9C00AE752D /* TelemetryView.m in Sources */,
+				F4558D40190E8D9C00AE752D /* TelemetryViewController.m in Sources */,
+				F4558D41190E8D9C00AE752D /* CarViewController.m in Sources */,
+				F4558D42190E8D9C00AE752D /* DriverNames.m in Sources */,
+				F4558D43190E8D9C00AE752D /* RacePrediction.m in Sources */,
+				F4558D44190E8D9C00AE752D /* GameViewController.m in Sources */,
+				F4558D45190E8D9C00AE752D /* NewCompetitor.m in Sources */,
+				F4558D46190E8D9C00AE752D /* UserPin.m in Sources */,
+				F4558D47190E8D9C00AE752D /* ChangeCompetitor.m in Sources */,
+				F4558D48190E8D9C00AE752D /* JogViewController.m in Sources */,
+				F4558D49190E8D9C00AE752D /* MathOdds.m in Sources */,
+				F4558D4A190E8D9C00AE752D /* CommentaryView.m in Sources */,
+				F4558D4B190E8D9C00AE752D /* CommentaryData.m in Sources */,
+				F4558D4C190E8D9C00AE752D /* TabletState.m in Sources */,
+				F4558D4D190E8D9C00AE752D /* DrivingViewController.m in Sources */,
+				F4558D4E190E8D9C00AE752D /* ColouredButton.m in Sources */,
+				F4558D4F190E8D9C00AE752D /* HelpViewController.m in Sources */,
+				F4558D50190E8D9C00AE752D /* ShinyButton.m in Sources */,
+				F4558D51190E8D9C00AE752D /* GameHelpController.m in Sources */,
+				F4558D52190E8D9C00AE752D /* LapListHelpController.m in Sources */,
+				F4558D53190E8D9C00AE752D /* MapHelpController.m in Sources */,
+				F4558D54190E8D9C00AE752D /* TelemetryHelpController.m in Sources */,
+				F4558D55190E8D9C00AE752D /* TimingHelpController.m in Sources */,
+				F4558D56190E8D9C00AE752D /* VideoHelpController.m in Sources */,
+				F4558D57190E8D9C00AE752D /* DriverInfoViewController.m in Sources */,
+				F4558D58190E8D9C00AE752D /* DriverInfo.m in Sources */,
+				F4558D59190E8D9C00AE752D /* InfoViewController.m in Sources */,
+				F4558D5A190E8D9C00AE752D /* InfoDriversController.m in Sources */,
+				F4558D5B190E8D9C00AE752D /* InfoChildController.m in Sources */,
+				F4558D5C190E8D9C00AE752D /* InfoPartnersController.m in Sources */,
+				F4558D5D190E8D9C00AE752D /* InfoRulesController.m in Sources */,
+				F4558D5E190E8D9C00AE752D /* InfoTeamsController.m in Sources */,
+				F4558D5F190E8D9C00AE752D /* InfoStandingsController.m in Sources */,
+				F4558D60190E8D9C00AE752D /* RacePadSponsor.m in Sources */,
+				F4558D61190E8D9C00AE752D /* DriverViewController.m in Sources */,
+				F4558D62190E8D9C00AE752D /* HomeViewController.m in Sources */,
+				F4558D63190E8D9C00AE752D /* DriverGapInfo.m in Sources */,
+				F4558D64190E8D9C00AE752D /* TrackProfileView.m in Sources */,
+				F4558D65190E8D9C00AE752D /* BasePadAppDelegate.m in Sources */,
+				F4558D66190E8D9C00AE752D /* BasePadClientSocket.m in Sources */,
+				F4558D67190E8D9C00AE752D /* BasePadCoordinator.m in Sources */,
+				F4558D68190E8D9C00AE752D /* BasePadDataHandler.m in Sources */,
+				F4558D69190E8D9C00AE752D /* BasePadMedia.m in Sources */,
+				F4558D6A190E8D9C00AE752D /* BasePadPrefs.m in Sources */,
+				F4558D6B190E8D9C00AE752D /* BasePadSponsor.m in Sources */,
+				F4558D6C190E8D9C00AE752D /* BasePadTimeController.m in Sources */,
+				F4558D6D190E8D9C00AE752D /* BasePadTitleBarController.m in Sources */,
+				F4558D6E190E8D9C00AE752D /* BasePadVideoViewController.m in Sources */,
+				F4558D6F190E8D9C00AE752D /* BasePadViewController.m in Sources */,
+				F4558D70190E8D9C00AE752D /* BasePadDatabase.m in Sources */,
+				F4558D71190E8D9C00AE752D /* ImageListStore.m in Sources */,
+				F4558D72190E8D9C00AE752D /* TableData.m in Sources */,
+				F4558D73190E8D9C00AE752D /* DrawingView.m in Sources */,
+				F4558D74190E8D9C00AE752D /* MovieView.m in Sources */,
+				F4558D75190E8D9C00AE752D /* SimpleListView.m in Sources */,
+				F4558D76190E8D9C00AE752D /* TableDataView.m in Sources */,
+				F4558D77190E8D9C00AE752D /* CommentaryBubble.m in Sources */,
+				F4558D78190E8D9C00AE752D /* CommentaryBubbleViewController.m in Sources */,
+				F4558D79190E8D9C00AE752D /* HeadToHeadViewController.m in Sources */,
+				F4558D7A190E8D9C00AE752D /* HeadToHead.m in Sources */,
+				F4558D7B190E8D9C00AE752D /* HeadToHeadView.m in Sources */,
+				F4558D7C190E8D9C00AE752D /* BasePadVideoSource.m in Sources */,
+				F4558D7D190E8D9C00AE752D /* BasePadAudioSource.m in Sources */,
+				F4558D7E190E8D9C00AE752D /* AnimationTimer.m in Sources */,
+				F4558D7F190E8D9C00AE752D /* MovieSelectorView.m in Sources */,
+				F4558D80190E8D9C00AE752D /* WeatherViewController.m in Sources */,
+				F4558D81190E8D9C00AE752D /* BasePadPopupManager.m in Sources */,
+				F4558D82190E8D9C00AE752D /* MidasVoting.m in Sources */,
+				F4558D83190E8D9C00AE752D /* TimingPage1Controller.m in Sources */,
+				F4558D84190E8D9C00AE752D /* TimingPage2Controller.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -2032,6 +2864,45 @@
 			};
 			name = Release;
 		};
+		F4558D93190E8D9C00AE752D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = dist.plist;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "$(SRCROOT)/RacePad AudiDTM-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "RacePad DTM";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Debug;
+		};
+		F4558D94190E8D9C00AE752D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = dist.plist;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "$(SRCROOT)/RacePad AudiDTM-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "RacePad DTM";
+				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2049,6 +2920,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4558D92190E8D9C00AE752D /* Build configuration list for PBXNativeTarget "RacePad AudiDTM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4558D93190E8D9C00AE752D /* Debug */,
+				F4558D94190E8D9C00AE752D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
