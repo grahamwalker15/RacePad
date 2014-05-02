@@ -61,7 +61,7 @@
 	if ( !playerGraphViewControllerClosing )
 	{
 		// Grab the title bar and mark it as displayed
-		[[MatchPadTitleBarController Instance] displayInViewController:self];
+		//[[MatchPadTitleBarController Instance] displayInViewController:self];
 		
 		// Register view
 		[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PLAYER_STATS_VIEW_)];

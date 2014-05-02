@@ -82,7 +82,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Grab the title bar
-	[[MatchPadTitleBarController Instance] displayInViewController:self];
+	//[[MatchPadTitleBarController Instance] displayInViewController:self];
 	
 	// Register the views
 	[[MatchPadCoordinator Instance] RegisterViewController:self WithTypeMask:(MPC_PITCH_VIEW_ | MPC_POSITIONS_VIEW_)];

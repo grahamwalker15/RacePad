@@ -46,7 +46,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	// Grab the title bar
-	[[MatchPadTitleBarController Instance] displayInViewController:self];
+	//[[MatchPadTitleBarController Instance] displayInViewController:self];
 	
 	[super viewWillAppear:animated];
 	
