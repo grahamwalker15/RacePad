@@ -1133,6 +1133,15 @@ static BasePadCoordinator * instance_ = nil;
 	}
 }
 
+- (void) SetVideoServerURL : (NSString *) url
+{
+	if ( url && [url length] )
+	{
+		[[BasePadPrefs Instance] setPref:@"preferredVideoURL" Value:url];
+		[[BasePadPrefs Instance] save];
+	}
+}
+
 - (void) disconnect
 {
 	[self setConnectionType: BPC_NO_CONNECTION_];

@@ -15,8 +15,10 @@
 {
 	IBOutlet UITextField *ip_address_edit_;
 	IBOutlet UITextField *video_ip_address_edit_;
+	IBOutlet UITextField *video_url_edit_;
 	IBOutlet UIButton *connect;
 	IBOutlet UIButton *video_connect;
+	IBOutlet UIButton *url_reset;
 	IBOutlet UIButton *loadArchive;
 	IBOutlet UIButton *restart;
 	IBOutlet UIButton *exit;
@@ -39,7 +41,9 @@
 - (IBAction)IPAddressChanged:(id)sender;
 - (IBAction)connectPressed:(id)sender;
 - (IBAction)videoIPAddressChanged:(id)sender;
+- (IBAction)videoURLChanged:(id)sender;
 - (IBAction)videoConnectPressed:(id)sender;
+- (IBAction)resetURLPressed:(id)sender;
 - (IBAction)loadPressed:(id)sender;
 - (IBAction)restartPressed:(id)sender;
 - (IBAction)exitPressed:(id)sender;

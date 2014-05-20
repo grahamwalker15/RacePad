@@ -343,9 +343,19 @@ static BasePadMedia * instance_ = nil;
 			{
 				NSString * urlString = @"http://";
 				urlString = [urlString stringByAppendingString:serverAddress];
-				//urlString = [urlString stringByAppendingString:@"/iPad_ipad.m3u8"];
-				urlString = [urlString stringByAppendingString:@"/~garethgriffith/httplive/prog_index.m3u8"];
+				
+                NSString * videoURL = [[[BasePadPrefs Instance] getPref:@"preferredVideoURL"] retain];
+                if (videoURL && [videoURL length] > 0)
+                {
+                    urlString = [urlString stringByAppendingString:videoURL];
                 
+                }
+                else
+                {
+                    urlString = [urlString stringByAppendingString:@"/~garethgriffith/httplive/prog_index.m3u8"];
+                    
+                }
+              
 				url = [NSURL URLWithString:urlString];	// auto released
 			}
             

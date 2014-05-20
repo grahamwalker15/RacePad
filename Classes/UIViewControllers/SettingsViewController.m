@@ -22,6 +22,7 @@
 	[[RacePadCoordinator Instance] AddView:[self view] WithType:RPC_SETTINGS_VIEW_];
 	[ip_address_edit_ setText:[[BasePadPrefs Instance] getPref:@"preferredServerAddress"]];
 	[video_ip_address_edit_ setText:[[BasePadPrefs Instance] getPref:@"preferredVideoServerAddress"]];
+	[video_url_edit_ setText:[[BasePadPrefs Instance] getPref:@"preferredVideoURL"]];
 }
 
 
@@ -392,6 +393,12 @@
 	[[RacePadCoordinator Instance] SetVideoServerAddress:text];
 }
 
+-(IBAction)videoURLChanged:(id)sender
+{
+	NSString *text = [sender text];
+	[[RacePadCoordinator Instance] SetVideoServerURL:text];
+}
+
 -(IBAction)videoConnectPressed:(id)sender
 {
 	if ( [[RacePadCoordinator Instance] videoConnectionStatus] == BPC_CONNECTION_SUCCEEDED_ )
@@ -402,11 +409,20 @@
 	{
 		[videoServerTwirl setHidden:false];
 		[videoServerTwirl startAnimating];
-		NSString *text = [video_ip_address_edit_ text];
-		[[RacePadCoordinator Instance] SetVideoServerAddress:text];
+		NSString *ip_text = [video_ip_address_edit_ text];
+		[[RacePadCoordinator Instance] SetVideoServerAddress:ip_text];
+		NSString *url_text = [video_url_edit_ text];
+		[[RacePadCoordinator Instance] SetVideoServerURL:url_text];
 		[[BasePadMedia Instance] connectToVideoServer];
 		[[BasePadMedia Instance] resetConnectionCounts];
 	}
+}
+
+-(IBAction)resetURLPressed:(id)sender
+{
+    NSString *url_text = @"/~garethgriffith/httplive/prog_index.m3u8";
+    [video_url_edit_ setText:url_text];
+    [[RacePadCoordinator Instance] SetVideoServerURL:url_text];
 }
 
 - (IBAction)loadPressed:(id)sender

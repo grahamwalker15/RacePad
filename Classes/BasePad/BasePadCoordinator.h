@@ -227,6 +227,7 @@ enum ConnectionTypes
 - (void) onSuccessfulConnection;
 
 -(void)SetVideoServerAddress:(NSString *)server;
+-(void)SetVideoServerURL:(NSString *)url;
 
 -(void) goOffline;
 -(void) goLive: (bool)newMode;
