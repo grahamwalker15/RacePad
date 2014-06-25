@@ -58,6 +58,10 @@ static RacePadSponsor * instance_ = nil;
 		sponsor = RPS_FIA_;
 	else if ( [name compare:@"Williams"] == NSOrderedSame )
 		sponsor = RPS_WILLIAMS_;
+	else if ( [name compare:@"AudiDTM"] == NSOrderedSame )
+		sponsor = RPS_AUDI_DTM_;
+	else if ( [name compare:@"AudiWEC"] == NSOrderedSame )
+		sponsor = RPS_AUDI_WEC_;
 	else
 		sponsor = RPS_UNKNOWN_;
 	
@@ -231,7 +235,7 @@ static RacePadSponsor * instance_ = nil;
         *green = 39.0/255.0;
         *blue = 100.0/255.0;
     }
-    else if ( sponsor == RPS_AUDI_ )
+    else if ( sponsor == RPS_AUDI_DTM_ || sponsor == RPS_AUDI_WEC_ )
     {
         *red = 192.0/255.0;
         *green = 0.0/255.0;
