@@ -147,7 +147,7 @@ static RacePadSponsor * instance_ = nil;
 			return false;
 		return true;
 	}
-	else if ( sponsor == RPS_MERCEDES_ )
+	else if ( sponsor == RPS_MERCEDES_ || sponsor == RPS_AUDI_DTM_ || sponsor == RPS_AUDI_WEC_ )
 	{
 		if(tab == RPS_TRACK_MAP_TAB_ && videoSupported)
 			return false;
