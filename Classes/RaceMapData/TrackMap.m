@@ -13,6 +13,7 @@
 #import "MathOdds.h"
 // #import "ImageListStore.h"
 #import "RaceMapData.h"
+#import "OutputStream.h"
 
 static UIColor *blueBG = nil;
 static UIColor *blueMargin = nil;
@@ -28,6 +29,7 @@ static UIImage *grassImage = nil;
 @synthesize team;
 @synthesize x;
 @synthesize y;
+@synthesize number;
 @synthesize lapProgress;
 @synthesize moving;
 @synthesize pitted;
@@ -45,6 +47,7 @@ static UIImage *grassImage = nil;
 	
         name = nil;
         team = nil;
+        number = 0;
 	
         row = 0;
 	
@@ -112,6 +115,47 @@ static UIImage *grassImage = nil;
 		name = [[stream PopString] retain];
 		team = [[stream PopString] retain];
 	}
+}
+
+- (void) setup: (unsigned char)type Colours:(UIColor **)colours ColoursCount:(int)coloursCount
+{
+    [pointColour release];
+    [fillColour release];
+    [lineColour release];
+    [textColour release];
+    
+    if ( coloursCount > 1 )
+    {
+        if ( type == 1 ) // Leader
+        {
+            pointColour = [colours[15] retain];
+            fillColour = [colours[5] retain];
+            lineColour = [colours[1] retain];
+            textColour = [colours[1] retain];
+        }
+        else if ( type == 4 || type == 5 ) // Course Car
+        {
+            pointColour = [colours[17] retain];
+            fillColour = [colours[17] retain];
+            lineColour = [colours[0] retain];
+            textColour = [colours[0] retain];
+        }
+        else if ( type == 3 ) // Lapped
+        {
+            pointColour = [colours[16] retain];
+            fillColour = [colours[9] retain];
+            lineColour = [colours[0] retain];
+            textColour = [colours[0] retain];
+        }
+        else  // Normal
+        {
+            pointColour = [colours[16] retain];
+            fillColour = [colours[1] retain];
+            lineColour = [colours[0] retain];
+            textColour = [colours[0] retain];
+        }
+   }
+    dotSize = 3;
 }
 
 - (void) draw:(TrackMapView *)view OnMap:(TrackMap *)trackMap Scale:(float)scale
@@ -320,11 +364,12 @@ static UIImage *grassImage = nil;
 	[super dealloc];
 }
 
--(void) loadShape:(DataStream *)stream
+-(void) loadShape:(DataStream *)stream Save:(OutputStream *)saveFile
 {
 	// Assume we've been cleared
 	
 	count = [stream PopInt];
+    [saveFile saveInt:count];
 	x = malloc(sizeof(float) * count);
 	y = malloc(sizeof(float) * count);
 	
@@ -341,6 +386,8 @@ static UIImage *grassImage = nil;
 	{
 		x[i] = [stream PopFloat];
 		y[i] = -[stream PopFloat];
+        [saveFile saveFloat:x[i]];
+        [saveFile saveFloat:-y[i]];
 		
 		if(x[i] > max_x)
 			max_x = x[i];
@@ -362,12 +409,16 @@ static UIImage *grassImage = nil;
 	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
 	
 	segmentCount = [stream PopInt];
+    [saveFile saveInt:segmentCount];
 	
 	if ( segmentCount )
 	{
 		int *segments = malloc ( segmentCount * sizeof ( int ) );
 		for ( i = 0; i < segmentCount; i++ )
+        {
 			segments[i] = [stream PopInt];
+            [saveFile saveInt:segments[i]];
+        }
 		
 		segmentPaths = malloc ( sizeof (CGMutablePathRef) * segmentCount );
 		for ( i = 0; i < segmentCount; i++ )
@@ -451,7 +502,7 @@ static UIImage *grassImage = nil;
 	[super dealloc];
 }
 
--(void) loadShape:(DataStream *)stream Count:(int)count
+-(void) loadShape:(DataStream *)stream Count:(int)count Save:(OutputStream *)saveFile
 {
 	float *x = malloc(sizeof(float) * count);
 	float *y = malloc(sizeof(float) * count);
@@ -461,6 +512,8 @@ static UIImage *grassImage = nil;
 	{
 		x[i] = [stream PopFloat];
 		y[i] = -[stream PopFloat];
+        [saveFile saveFloat:x[i]];
+        [saveFile saveFloat:y[i]];
 	}
 	
 	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
@@ -470,6 +523,8 @@ static UIImage *grassImage = nil;
 	
 	colour = [[stream PopRGB]retain];
 	lineType = [stream PopUnsignedChar];
+    [saveFile saveRGB:colour];
+    [saveFile saveUnsignedChar:lineType];
 }
 
 @end
@@ -507,7 +562,7 @@ static UIImage *grassImage = nil;
 	[super dealloc];
 }
 
--(void) loadShape:(DataStream *)stream Count:(int)count
+-(void) loadShape:(DataStream *)stream Count:(int)count Save:(OutputStream *)saveFile
 {
 	assert ( count == 2 );
 	
@@ -519,6 +574,8 @@ static UIImage *grassImage = nil;
 	{
 		x[i] = [stream PopFloat];
 		y[i] = -[stream PopFloat];
+        [saveFile saveFloat:x[i]];
+        [saveFile saveFloat:-y[i]];
 	}
 	
 	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
@@ -534,6 +591,9 @@ static UIImage *grassImage = nil;
 	colour = [[stream PopRGB]retain];
 	lineType = [stream PopUnsignedChar];
 	label = [[stream PopString] retain];
+    [saveFile saveRGB:colour];
+    [saveFile saveUnsignedChar:lineType];
+    [saveFile saveString:label];
 }
 
 -(void) getLabelPoint: (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
@@ -617,10 +677,101 @@ static UIImage *grassImage = nil;
 	[super dealloc];
 }
 
--(void) load:(DataStream *)stream
+-(void) load:(DataStream *)stream Save:(OutputStream *)saveFile
 {
 	distance = [stream PopFloat];
 	name = [[stream PopString] retain];
+    
+    [saveFile saveFloat:distance];
+    [saveFile saveString:name];
+}
+
+@end
+
+@implementation DistanceMap
+
+- (id) init
+{
+	if(self = [super init])
+	{
+		x = NULL;
+		y = NULL;
+        length = 0;
+	}
+	
+	return self;
+}
+
+- (void) clear
+{
+	if ( x )
+		free(x);
+	x = NULL;
+	if ( y )
+		free(y);
+	y = NULL;
+    length = 0;
+}
+
+- (void) dealloc
+{
+	[self clear];
+	
+	[super dealloc];
+}
+
+-(void) load:(DataStream *)stream Save:(OutputStream *)saveFile
+{
+	// Assume we've been cleared
+	
+	length = [stream PopInt];
+    [saveFile saveInt:length];
+	x = malloc(sizeof(float) * length);
+	y = malloc(sizeof(float) * length);
+	
+	int i;
+	for ( i = 0; i < length; i++ )
+	{
+		x[i] = [stream PopFloat];
+		y[i] = -[stream PopFloat];
+        [saveFile saveFloat:x[i]];
+        [saveFile saveFloat:-y[i]];
+	}
+}
+
+- (void) distanceToPoint: (int)distance X:(float *)xp Y:(float *)yp
+{
+    *xp = 0;
+    *yp = 0;
+    if ( distance >= 0 && distance < length )
+    {
+        *xp = x[distance];
+        *yp = y[distance];
+    }
+}
+
+@end
+
+@implementation TLA
+
+@synthesize car;
+@synthesize name;
+
+- (id) init
+{
+	if(self = [super init])
+	{
+		name = nil;
+    }
+	
+	return self;
+}
+
+- (void) dealloc
+{
+	[name release];
+	
+	[super dealloc];
 }
 
 @end
@@ -649,6 +800,8 @@ static UIImage *grassImage = nil;
 		lines = [[NSMutableArray alloc] init];
 		labels = [[NSMutableArray alloc] init];
 		turns = [[NSMutableArray alloc] init];
+        distanceMap = [[DistanceMap alloc] init];
+        tlaMap = [[NSMutableArray alloc] init];
 		
 		for ( int i = 0; i < 100; i++ )
 		{
@@ -674,7 +827,7 @@ static UIImage *grassImage = nil;
 			blueSC = [[UIColor alloc] initWithRed:(CGFloat)165/255.0 green:(CGFloat)165/255.0 blue:(CGFloat)200/255.0 alpha:1.0];
 			axisColor = [[UIColor alloc] initWithRed:(CGFloat)50/255.0 green:(CGFloat)50/255.0 blue:(CGFloat)50/255.0 alpha:1.0];
 		}
-	}
+    }
 	
 	return self;
 }
@@ -688,6 +841,8 @@ static UIImage *grassImage = nil;
 	[labels release];
 	[segmentStates removeAllObjects];
 	[segmentStates release];
+    [distanceMap release];
+    [tlaMap release];
 	
 	int c;
 	if ( colours )
@@ -710,7 +865,7 @@ static UIImage *grassImage = nil;
 	return outer;
 }
 
-- (void) loadTrack : (DataStream *) stream
+- (void) loadTrack : (DataStream *) stream Save:(bool)save;
 {
 	[inner clear];
 	[outer clear];
@@ -740,6 +895,18 @@ static UIImage *grassImage = nil;
 	
 	[turns removeAllObjects];
 	
+    OutputStream *saveFile = nil;
+    if ( save )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *docsFolder = [paths objectAtIndex:0];
+        
+        NSString *name = @"circuit.map";
+        NSString *fileName = [docsFolder stringByAppendingPathComponent:name];
+        
+        saveFile = [[OutputStream alloc] initWithPath: fileName];
+    }
+    
 	int c;
 	if ( colours )
 	{
@@ -749,6 +916,8 @@ static UIImage *grassImage = nil;
 	}
 	
 	coloursCount = [stream PopInt];
+    [saveFile saveInt:coloursCount];
+    
 	colours = malloc ( sizeof (UIColor *) * coloursCount );
 	
 	for ( c = 0; c < coloursCount; c++ )
@@ -757,7 +926,11 @@ static UIImage *grassImage = nil;
 	for ( c = 0; c < coloursCount; c++ )
 	{
 		unsigned char index = [stream PopUnsignedChar];
+        [saveFile saveUnsignedChar:index];
+        
 		UIColor *colour = [[stream PopRGBA] retain];
+        [saveFile saveRGBA:colour];
+        
 		if ( index < coloursCount )
 			colours[index] = colour;
 		else
@@ -765,19 +938,21 @@ static UIImage *grassImage = nil;
 	}
 	
 	int count = [stream PopInt];
+    [saveFile saveInt:count];
 	
 	if ( count == 2 )
 	{
-		[inner loadShape:stream];
-		[outer loadShape:stream];
+		[inner loadShape:stream Save:saveFile];
+		[outer loadShape:stream Save:saveFile];
 		
 		while ( true )
 		{
 			int count = [stream PopInt];
+            [saveFile saveInt:count];
 			if ( count < 0 )
 				break;
 			TrackLine *line = [[TrackLine alloc] init];
-			[line loadShape:stream Count:count];
+			[line loadShape:stream Count:count Save:saveFile];
 			[lines addObject:line];
 			[line release];
 		}
@@ -785,10 +960,11 @@ static UIImage *grassImage = nil;
 		while ( true )
 		{
 			int count = [stream PopInt];
+            [saveFile saveInt:count];
 			if ( count < 0 )
 				break;
 			TrackLabel *label = [[TrackLabel alloc] init];
-			[label loadShape:stream Count:count];
+			[label loadShape:stream Count:count Save:saveFile];
 			[labels addObject:label];
 			[label release];
 		}
@@ -798,6 +974,12 @@ static UIImage *grassImage = nil;
 		s2Length = [stream PopFloat];
 		sc1Length = [stream PopFloat];
 		sc2Length = [stream PopFloat];
+        
+        [saveFile saveFloat:trackLength];
+        [saveFile saveFloat:s1Length];
+        [saveFile saveFloat:s2Length];
+        [saveFile saveFloat:sc1Length];
+        [saveFile saveFloat:sc2Length];
 		
 		width = [inner width] > [outer width] ? [inner width] : [outer width];
 		height = [inner height] > [outer height] ? [inner height] : [outer height];
@@ -819,16 +1001,81 @@ static UIImage *grassImage = nil;
 		pitStopLossMargin = [stream PopFloat];
 		pitStopLossSC = [stream PopFloat];
 		
+        [saveFile saveFloat:trackProfileLength];
+        [saveFile saveFloat:s1ProfileLength];
+        [saveFile saveFloat:s2ProfileLength];
+        [saveFile saveFloat:sc1ProfileLength];
+        [saveFile saveFloat:sc2ProfileLength];
+        [saveFile saveFloat:pitStopLoss];
+        [saveFile saveFloat:pitStopLossMargin];
+        [saveFile saveFloat:pitStopLossSC];
+        
 		int count = [stream PopInt];
+        [saveFile saveInt:count];
 		for ( int i = 0; i < count; i++ )
 		{
 			TrackTurn *turn = [[TrackTurn alloc] init];
-			[turn load:stream];
+			[turn load:stream Save:saveFile];
 			[turns addObject:turn];
 			[turn release];
 		}
 		
 	}
+    
+    [saveFile release];
+}
+
+- (void) loadDistanceMap : (DataStream *) stream Save:(bool)save;
+{
+    [distanceMap clear];
+    OutputStream *saveFile = nil;
+    if ( save )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *docsFolder = [paths objectAtIndex:0];
+        
+        NSString *name = @"distance.map";
+        NSString *fileName = [docsFolder stringByAppendingPathComponent:name];
+        
+        saveFile = [[OutputStream alloc] initWithPath: fileName];
+    }
+    
+    [distanceMap load:stream Save:saveFile];
+    
+    [saveFile release];
+}
+
+- (void) loadTLAMap : (DataStream *) stream Save:(bool)save;
+{
+    [tlaMap removeAllObjects];
+    OutputStream *saveFile = nil;
+    if ( save )
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *docsFolder = [paths objectAtIndex:0];
+        
+        NSString *name = @"tla.map";
+        NSString *fileName = [docsFolder stringByAppendingPathComponent:name];
+        
+        saveFile = [[OutputStream alloc] initWithPath: fileName];
+    }
+    
+    int count = [stream PopInt];
+    [saveFile saveInt:count];
+    
+    for ( int i = 0; i < count; i++ )
+    {
+        TLA *car = [[TLA alloc] init];
+        car.car = [stream PopInt];
+        [saveFile saveInt:car.car];
+        car.name = [stream PopString];
+        [saveFile saveString:car.name];
+
+        [tlaMap addObject:car];
+        [car release];
+    }
+    
+    [saveFile release];
 }
 
 - (void) updateCars : (DataStream *) stream
@@ -865,6 +1112,53 @@ static UIImage *grassImage = nil;
 			[segmentState release];
 		}
 	}
+}
+
+- (void) updateCarFromDistance : (int)number S:(int)distance Pit:(bool) pit Type:(unsigned char)type
+{
+    bool matched = false;
+    int i;
+    TrackCar *car = nil;
+    for ( i = 0; i < carCount; i++ )
+    {
+        if ( ((TrackCar *)[cars objectAtIndex:i]).number == number )
+        {
+            matched = true;
+            car = [cars objectAtIndex:i];
+            break;
+        }
+    }
+    if ( !matched && carCount < 100 )
+    {
+        car = [cars objectAtIndex:carCount];
+        car.number = number;
+        bool got_tla = false;
+        for ( i = 0; i < [tlaMap count]; i++ )
+        {
+            TLA *tla = [tlaMap objectAtIndex:i];
+            if ( tla.car == number )
+            {
+                car.name = tla.name;
+                got_tla = true;
+                break;
+            }
+        }
+        if ( !got_tla )
+            car.name = [NSString stringWithFormat:@"C %02d", number];
+        carCount++;
+    }
+    
+    if ( car != nil )
+    {
+        float x, y;
+        [distanceMap distanceToPoint:distance X:&x Y:&y];
+        [car setup:type Colours:colours ColoursCount:coloursCount];
+        car.x = x;
+        car.y = y;
+        car.pitted = pit;
+        car.stopped = false;
+        car.moving = true;
+    }
 }
 
 - (void) drawTrack : (TrackMapView *) view Scale: (float) scale

@@ -72,6 +72,8 @@ enum ServerCommands {
 	RPSC_UPDATE_TIMING_PAGE_1_,	// 56
 	RPSC_WHOLE_TIMING_PAGE_2_,	// 57
 	RPSC_UPDATE_TIMING_PAGE_2_,	// 58
+    RPSC_DISTANCE_MAP_,         // 59
+    RPSC_TLA_MAP_,              // 60
 };
 
 @interface RacePadDataHandler : BasePadDataHandler

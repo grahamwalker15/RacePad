@@ -57,8 +57,20 @@
 		case RPSC_TRACK_MAP_: // Track Map
 		{
 			TrackMap *track_map = [[RaceMapData Instance] trackMap];
-			[track_map loadTrack:stream];
+			[track_map loadTrack:stream Save:true];
 			[[RaceMapCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+			break;
+		}
+		case RPSC_DISTANCE_MAP_: // Track Map
+		{
+			TrackMap *track_map = [[RaceMapData Instance] trackMap];
+			[track_map loadDistanceMap:stream Save:true];
+			break;
+		}
+		case RPSC_TLA_MAP_: // Track Map
+		{
+			TrackMap *track_map = [[RaceMapData Instance] trackMap];
+			[track_map loadTLAMap:stream Save:true];
 			break;
 		}
 		case RPSC_WHOLE_TIMING_PAGE_: // Timing Page 1 (whole page)

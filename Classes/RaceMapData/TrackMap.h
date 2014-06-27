@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class DataStream;
+@class OutputStream;
 @class TrackMapView;
 @class TrackMap;
 @class TrackProfileView;
@@ -45,6 +46,7 @@ enum TrackState {
 	UIColor *lineColour;
 	UIColor *textColour;
 	
+    int number;
 	float x, y, lapProgress;
 	int dotSize;
 	NSString *name;
@@ -56,14 +58,15 @@ enum TrackState {
 	int row;
 }
 
-@property (readonly) NSString * name;
+@property (nonatomic, retain) NSString * name;
 @property (readonly) NSString * team;
-@property (readonly) float x;
-@property (readonly) float y;
+@property (nonatomic) float x;
+@property (nonatomic) float y;
+@property (nonatomic) int number;
 @property (readonly) float lapProgress;
-@property (readonly) bool moving;
-@property (readonly) bool pitted;
-@property (readonly) bool stopped;
+@property (nonatomic) bool moving;
+@property (nonatomic) bool pitted;
+@property (nonatomic) bool stopped;
 
 @property (nonatomic) int row;
 
@@ -72,6 +75,7 @@ enum TrackState {
 - (void) load : (DataStream *) stream Colours: (UIColor **)colours ColoursCount:(int)coloursCount;
 - (void) draw:(TrackMapView *)view OnMap:(TrackMap *)trackMap Scale:(float)scale;
 - (void) drawProfile:(TrackProfileView *)view Offset:(float)offset ImageList:(ImageList *)imageList;
+- (void) setup: (unsigned char)type Colours:(UIColor **)colours ColoursCount:(int)coloursCount;
 
 @end
 
@@ -108,7 +112,7 @@ enum TrackState {
 - (float)width;
 - (float)height;
 
-- (void) loadShape : (DataStream *) stream;
+- (void) loadShape : (DataStream *) stream Save:(OutputStream *)saveFile;
 - (float) directionAtPoint:(float)xp Y:(float)yp;
 
 @end
@@ -125,7 +129,7 @@ enum TrackState {
 @property (readonly) UIColor *colour;
 @property (readonly) unsigned char lineType;
 
-- (void) loadShape : (DataStream *) stream Count: (int) count;
+- (void) loadShape : (DataStream *) stream Count: (int) count Save:(OutputStream *)saveFile;
 
 @end
 
@@ -144,7 +148,7 @@ enum TrackState {
 @property (readonly) unsigned char lineType;
 @property (readonly) NSString * label;
 
-- (void) loadShape : (DataStream *) stream Count: (int) count;
+- (void) loadShape : (DataStream *) stream Count: (int) count Save:(OutputStream *)saveFile;
 - (void) getLabelPoint : (TrackMapView *)view Scale: (float) scale X:(float *)x Y:(float *)y;
 
 @end
@@ -171,7 +175,29 @@ enum TrackState {
 @property (readonly) float distance;
 @property (readonly) NSString * name;
 
-- (void) load : (DataStream *) stream;
+- (void) load : (DataStream *) stream Save:(OutputStream *)saveFile;
+
+@end
+
+@interface DistanceMap : NSObject
+{
+    int length;
+    float *x;
+    float *y;
+}
+
+- (void) load : (DataStream *) stream Save:(OutputStream *)saveFile;
+
+@end
+
+@interface TLA : NSObject
+{
+    int car;
+    NSString *name;
+}
+
+@property (nonatomic) int car;
+@property (nonatomic, retain) NSString * name;
 
 @end
 
@@ -214,6 +240,9 @@ enum TrackState {
 	
 	NSMutableArray *segmentStates;
 	int overallTrackState;
+    
+    DistanceMap *distanceMap;
+    NSMutableArray *tlaMap;
 }
 
 @property (nonatomic) float trackLength;
@@ -228,8 +257,11 @@ enum TrackState {
 @property (nonatomic) float sc1ProfileLength;
 @property (nonatomic) float sc2ProfileLength;
 
-- (void) loadTrack : (DataStream *) stream;
+- (void) loadTrack : (DataStream *) stream Save:(bool)save;
+- (void) loadDistanceMap : (DataStream *) stream Save:(bool)save;
+- (void) loadTLAMap : (DataStream *) stream Save:(bool)save;
 - (void) updateCars : (DataStream *) stream;
+- (void) updateCarFromDistance : (int)number S:(int)distance Pit:(bool) pit Type:(unsigned char)type;
 
 - (bool) carExistsByName:(NSString *)name;
 - (NSString *) nearestCarInView:(UIView *)view ToX:(float)x Y:(float)y;

@@ -23,6 +23,8 @@
 #import "WorkOffline.h"
 #import "BasePadPrefs.h"
 #import "TabletState.h"
+#import "FileDataStream.h"
+#import "MCSocket.h"
 
 #import "UIConstants.h"
 
@@ -50,8 +52,12 @@ static RaceMapCoordinator * instance_ = nil;
 		instance_ = self;
 		
 		lightRestart = false;
+        
+        mcSocket = nil;
 		
 		[[BasePadMedia Instance] setExtendedNotification:true];
+        
+        [self loadLocalTrackMap];
 	}
 	
 	return self;
@@ -59,7 +65,51 @@ static RaceMapCoordinator * instance_ = nil;
 
 - (void)dealloc
 {
+    [mcSocket Disconnect];
     [super dealloc];
+}
+
+-(void) loadLocalTrackMap
+{
+    TrackMap *track_map = [[RaceMapData Instance] trackMap];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsFolder = [paths objectAtIndex:0];
+    
+    NSString *name = @"circuit.map";
+    NSString *fileName = [docsFolder stringByAppendingPathComponent:name];
+
+    NSFileManager *fm = [[NSFileManager alloc]init];
+    BOOL isDir = false;
+    [fm setDelegate:self];
+    
+    if ( [fm fileExistsAtPath:fileName isDirectory:isDir])
+    {
+        FileDataStream *stream = [[FileDataStream alloc] initWithPath:fileName];
+        [track_map loadTrack:stream Save:false];
+        [self RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+        [stream release];
+   }
+
+    name = @"distance.map";
+    fileName = [docsFolder stringByAppendingPathComponent:name];
+    if ( [fm fileExistsAtPath:fileName isDirectory:isDir])
+    {
+        FileDataStream *stream = [[FileDataStream alloc] initWithPath:fileName];
+        [track_map loadDistanceMap:stream Save:false];
+        [stream release];
+    }
+   
+    name = @"tla.map";
+    fileName = [docsFolder stringByAppendingPathComponent:name];
+    if ( [fm fileExistsAtPath:fileName isDirectory:isDir])
+    {
+        FileDataStream *stream = [[FileDataStream alloc] initWithPath:fileName];
+        [track_map loadTLAMap:stream Save:false];
+        [stream release];
+    }
+    
+   [fm release];
+
 }
 
 -(void) clearStaticData
@@ -73,6 +123,8 @@ static RaceMapCoordinator * instance_ = nil;
 	[(RaceMapClientSocket*)socket_ SynchroniseTime];
 	[(RaceMapClientSocket*)socket_ RequestEvent];
 	[(RaceMapClientSocket*)socket_ RequestTrackMap];
+	[(RaceMapClientSocket*)socket_ RequestDistanceMap];
+	[(RaceMapClientSocket*)socket_ RequestTLAMap];
 	[(RaceMapClientSocket*)socket_ RequestPitWindowBase];
 	if ( !lightRestart )
 		[(RaceMapClientSocket*)socket_ RequestUIImages];
@@ -115,6 +167,10 @@ static RaceMapCoordinator * instance_ = nil;
 - (BasePadClientSocket*) createClientSocket
 {
 	return [[RaceMapClientSocket alloc] CreateSocket];
+}
+
+- (void) goOffline
+{
 }
 
 -(void) streamData:(BPCView *)existing_view
@@ -201,5 +257,65 @@ static RaceMapCoordinator * instance_ = nil;
 	}
 }
 
+// MC Socket
+
+-(bool) mcServerConnected
+{
+	return mcSocket != nil;
+}
+
+- (void) mcDisconnect
+{
+	[mcSocket Disconnect];
+	mcSocket = nil;
+}
+
+- (void) connectMCServer
+{
+    NSString *server = [[BasePadPrefs Instance] getPref:@"preferredMCServerAddress"];
+	if ( server && [server length] )
+	{
+		[mcSocket Disconnect];
+		mcSocket = [[MCSocket alloc] CreateSocket];
+		
+		[mcSocket ConnectSocket:[server UTF8String] Port:12009];
+		[[BasePadPrefs Instance] setPref:@"preferredMCServerAddress" Value:server];
+		[[BasePadPrefs Instance] save];
+	}
+}
+
+- (void) MCConnected
+{
+	//Version is automatically sent on connection now...
+	//[socket_ RequestVersion];
+    [self goLive:true];
+}
+
+- (void) MCDisconnected: (bool) atConnect
+{
+	// If failed at connect (because WiFi is switched off say), then the connect window will already be up
+	// So, let timer do it do it's thing
+	if ( !atConnect)
+	{
+		[mcSocket Disconnect];
+		mcSocket = nil;
+		
+		// [self SetMCServerAddress:[[BasePadPrefs Instance] getPref:@"preferredMCServerAddress"]];
+		[settingsViewController updateServerState];
+	}
+    
+    /*
+    int delegate_count = [connectionFeedbackDelegates count];
+    if(delegate_count > 0)
+    {
+        for ( int i = 0 ; i < delegate_count ; i++)
+        {
+            id <ConnectionFeedbackDelegate> delegate = [connectionFeedbackDelegates objectAtIndex:i];
+            [delegate notifyConnectionFailed];
+        }
+    }
+    */
+    [self goLive:false];
+}
 
 @end

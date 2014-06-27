@@ -22,6 +22,7 @@
 - (bool) canPop: (int)size;
 - (bool) PopBool;
 - (unsigned char) PopUnsignedChar;
+- (short) PopShort;
 - (int) PopInt;
 - (float) PopFloat;
 - (NSString *) PopString;

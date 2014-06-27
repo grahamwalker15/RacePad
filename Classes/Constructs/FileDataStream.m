@@ -83,6 +83,19 @@
 	return t;
 }
 
+- (short)PopShort
+{
+	short t = 0;
+	if ( file )
+	{
+		fread(&t, 1, sizeof(short), file);
+		t = ntohs ( t );
+	}
+	index += sizeof ( short );
+	
+	return t;
+}
+
 - (float)PopFloat
 {
 	float t = 0;

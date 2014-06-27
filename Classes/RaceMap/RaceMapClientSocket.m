@@ -39,6 +39,16 @@
 	[self SimpleCommand:RPCS_REQUEST_TRACK_MAP];
 }
 
+- (void)RequestDistanceMap
+{
+	[self SimpleCommand:RPCS_REQUEST_DISTANCE_MAP];
+}
+
+- (void)RequestTLAMap
+{
+	[self SimpleCommand:RPCS_REQUEST_TLA_MAP];
+}
+
 - (void)RequestTimingPage
 {
 	[self SimpleCommand:RPCS_REQUEST_TIMING_PAGE];

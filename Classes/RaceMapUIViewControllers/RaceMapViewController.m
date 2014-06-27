@@ -110,6 +110,7 @@
 	[[RaceMapCoordinator Instance] SetViewDisplayed:trackMapView];
 	[[RaceMapCoordinator Instance] SetViewDisplayed:trackZoomView];
 	[[RaceMapCoordinator Instance] SetViewDisplayed:leaderboardView];
+    [trackMapView RequestRedraw];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

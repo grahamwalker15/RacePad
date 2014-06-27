@@ -17,6 +17,7 @@
 @class ElapsedTime;
 @class RaceMapServerConnect;
 @class RaceMapWorkOffline;
+@class MCSocket;
 
 // View types
 enum ViewTypes
@@ -35,7 +36,7 @@ enum ViewTypes
 
 @interface RaceMapCoordinator : BasePadCoordinator
 {
-
+    MCSocket *mcSocket;
 }
 
 + (RaceMapCoordinator *)Instance;
@@ -53,5 +54,11 @@ enum ViewTypes
 - (void) addDataSource:(int)type Parameter:(NSString *)parameter;
 
 - (void) notifyNewConnection;
+
+- (bool) mcServerConnected;
+- (void) mcDisconnect;
+- (void) connectMCServer;
+- (void) MCConnected;
+- (void) MCDisconnected: (bool) atConnect;
 
 @end

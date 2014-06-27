@@ -55,6 +55,8 @@ enum ClientCommands {
 	RPCS_STREAM_TIMING_PAGE_1,		// 47
 	RPCS_REQUEST_TIMING_PAGE_2,		// 48
 	RPCS_STREAM_TIMING_PAGE_2,		// 49
+	RPCS_REQUEST_DISTANCE_MAP,		// 50
+	RPCS_REQUEST_TLA_MAP,           // 51
 };
 
 @interface RaceMapClientSocket : BasePadClientSocket
@@ -88,5 +90,7 @@ enum ClientCommands {
 - (void) RequestTrackProfile;
 - (void) RequestHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
 - (void) StreamHeadToHead:(NSString *) driver0 Driver1: (NSString *) driver1;
+- (void) RequestDistanceMap;
+- (void) RequestTLAMap;
 
 @end

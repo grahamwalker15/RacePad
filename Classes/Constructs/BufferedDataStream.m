@@ -61,6 +61,16 @@
 	return t;
 }
 
+- (short)PopShort
+{
+	short t;
+	memcpy( &t, [data mutableBytes] + index, sizeof ( short ) );
+	t = ntohs ( t );
+	index += sizeof ( short );
+	
+	return t;
+}
+
 - (float)PopFloat
 {
 	unsigned int *ip = (unsigned int *)([data mutableBytes] + index);

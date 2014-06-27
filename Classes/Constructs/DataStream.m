@@ -48,6 +48,10 @@
 	return 0;
 }
 
+- (short) PopShort {
+    return 0;
+}
+
 - (int) PopInt {
 	return 0;
 }
