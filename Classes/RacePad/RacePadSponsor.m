@@ -97,6 +97,8 @@ static RacePadSponsor * instance_ = nil;
 			return [UIImage imageNamed:@"FIALogo.png"];
 		else if ( sponsor == RPS_WILLIAMS_ )
 			return [UIImage imageNamed:@"WilliamsLogo.png"];
+		else if ( sponsor == RPS_AUDI_DTM_ )
+			return [UIImage imageNamed:@"AudiDTMRacePadLogo.png"];
 		else
 			return [UIImage imageNamed:@"RacePadLogo.png"];
 	}
