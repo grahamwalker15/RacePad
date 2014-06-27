@@ -748,6 +748,7 @@
 		F4558D90190E8D9C00AE752D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0557A415A4524F0085F064 /* CoreLocation.framework */; };
 		F48183CF18E20425002F5910 /* AlertControlWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CD18E20425002F5910 /* AlertControlWarning.png */; };
 		F48183D018E20425002F5910 /* AlertControlPit.png in Resources */ = {isa = PBXBuildFile; fileRef = F48183CE18E20425002F5910 /* AlertControlPit.png */; };
+		F4D7982E195C4FD0004AFFBC /* AudiDTMRacePadLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D7982D195C4FD0004AFFBC /* AudiDTMRacePadLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1264,6 +1265,7 @@
 		F4558D96190E8D9D00AE752D /* RacePad AudiDTM-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "RacePad AudiDTM-Info.plist"; path = "/Volumes/HD-PATU3/SBG/dev/svn/RacePad2014/RacePad AudiDTM-Info.plist"; sourceTree = "<absolute>"; };
 		F48183CD18E20425002F5910 /* AlertControlWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertControlWarning.png; path = Images/AlertControlWarning.png; sourceTree = "<group>"; };
 		F48183CE18E20425002F5910 /* AlertControlPit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertControlPit.png; path = Images/AlertControlPit.png; sourceTree = "<group>"; };
+		F4D7982D195C4FD0004AFFBC /* AudiDTMRacePadLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AudiDTMRacePadLogo.png; path = "RacePad AudiDTM/AudiDTMRacePadLogo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1954,6 +1956,7 @@
 		F433676B1913BEB70071A41C /* Audi */ = {
 			isa = PBXGroup;
 			children = (
+				F4D7982D195C4FD0004AFFBC /* AudiDTMRacePadLogo.png */,
 				F433676E1913C3980071A41C /* HomeView.xib */,
 				F433675D1913BB160071A41C /* WorkOffline.xib */,
 				F433675F1913BEA70071A41C /* Audi_RS5_DTM_2013_wireframe4.png */,
@@ -2316,6 +2319,7 @@
 				F4558C2E190E8D9C00AE752D /* world.png in Resources */,
 				F4558C2F190E8D9C00AE752D /* SettingsView.xib in Resources */,
 				F4558C30190E8D9C00AE752D /* DriverLapListView.xib in Resources */,
+				F4D7982E195C4FD0004AFFBC /* AudiDTMRacePadLogo.png in Resources */,
 				F4558C31190E8D9C00AE752D /* LeftArrow.png in Resources */,
 				F4558C32190E8D9C00AE752D /* RightArrow.png in Resources */,
 				F4558C33190E8D9C00AE752D /* TimeControlView.xib in Resources */,
