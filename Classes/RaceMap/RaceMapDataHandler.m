@@ -144,21 +144,18 @@
 		case RPSC_LAP_COUNT_:
 		{
 			int count = [stream PopInt];
-			[[RaceMapTitleBarController Instance] setLapCount:count];
 			[[RaceMapCoordinator Instance] RequestRedrawType:RPC_LAP_COUNT_VIEW_];
 			break;
 		}
 		case RPSC_LAP_COUNTER_:
 		{
 			int lap = [stream PopInt];
-			[[RaceMapTitleBarController Instance] setCurrentLap:lap];
 			[[RaceMapCoordinator Instance] RequestRedrawType:RPC_LAP_COUNT_VIEW_];
 			break;
 		}
 		case RPSC_TRACK_STATE_:
 		{
 			int state = [stream PopInt];
-			[[RaceMapTitleBarController Instance] setTrackState:state];
 			[[RaceMapCoordinator Instance] RequestRedrawType:RPC_TRACK_STATE_VIEW_];
 			break;
 		}

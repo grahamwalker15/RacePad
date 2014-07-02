@@ -513,7 +513,7 @@ static UIImage *grassImage = nil;
 		x[i] = [stream PopFloat];
 		y[i] = -[stream PopFloat];
         [saveFile saveFloat:x[i]];
-        [saveFile saveFloat:y[i]];
+        [saveFile saveFloat:-y[i]];
 	}
 	
 	path = [DrawingView CreatePathPoints:count XCoords:x YCoords:y];
@@ -1159,6 +1159,11 @@ static UIImage *grassImage = nil;
         car.stopped = false;
         car.moving = true;
     }
+}
+
+- (void) clearCars
+{
+    carCount = 0;
 }
 
 - (void) drawTrack : (TrackMapView *) view Scale: (float) scale

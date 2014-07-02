@@ -49,6 +49,7 @@
 		4DA5FA6113B33BFC0005F15A /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5C13B33BFC0005F15A /* SimpleListView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DA5FA6213B33BFC0005F15A /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA5FA5E13B33BFC0005F15A /* TableDataView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DD3EFE01964522D0014411E /* DisconnectedIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3EFDF1964522D0014411E /* DisconnectedIndicator.png */; };
 		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
 		7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
 		7F06812A126DDA6800C9EE5D /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068125126DDA6800C9EE5D /* clock.png */; };
@@ -388,6 +389,7 @@
 		4DA5FA5E13B33BFC0005F15A /* TableDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableDataView.m; sourceTree = "<group>"; };
 		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
 		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
+		4DD3EFDF1964522D0014411E /* DisconnectedIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DisconnectedIndicator.png; path = Images/DisconnectedIndicator.png; sourceTree = "<group>"; };
 		7F067F4B126DAE1700C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
 		7F067F4C126DAE1700C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
 		7F068125126DDA6800C9EE5D /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clock.png; path = Images/clock.png; sourceTree = "<group>"; };
@@ -978,6 +980,7 @@
 		7FC2F8181295911900DAC96E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4DD3EFDF1964522D0014411E /* DisconnectedIndicator.png */,
 				4DA13BA9195DA6F900DF9C0C /* OfflineIndicator.png */,
 				F48183CD18E20425002F5910 /* AlertControlWarning.png */,
 				F48183CE18E20425002F5910 /* AlertControlPit.png */,
@@ -1448,6 +1451,7 @@
 				7F817E7313054CFD00AC2444 /* LogoEndless.png in Resources */,
 				F44D14B91951DA6E0020DE18 /* TitleBarView.xib in Resources */,
 				7F817E7413054CFD00AC2444 /* LogoLincoln.png in Resources */,
+				4DD3EFE01964522D0014411E /* DisconnectedIndicator.png in Resources */,
 				7F817E7513054CFD00AC2444 /* LogoStarTrac.png in Resources */,
 				7F817E7613054CFD00AC2444 /* LogoSTL.png in Resources */,
 				7F817F3D1305B47200AC2444 /* LogoFIA.png in Resources */,
