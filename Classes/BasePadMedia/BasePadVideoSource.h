@@ -159,6 +159,7 @@
 - (void) setStartTime:(float)time;
 - (void) getStartTime;
 - (void) updateStartTime;
+- (float) getLength;
 
 - (void) moviePrepareToPlayLive;
 - (void) moviePlayAtRate:(float)playbackRate;

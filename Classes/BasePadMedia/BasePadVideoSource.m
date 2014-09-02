@@ -308,7 +308,8 @@
 		 
 	 }
 	 ];
-}
+    
+ }
 
 - (void) unloadMovie
 {
@@ -680,6 +681,12 @@
 			[moviePlayer replaceCurrentItemWithPlayerItem:moviePlayerItem];
 		}
 	}
+}
+
+- (float) getLength
+{
+    Float64 durationSeconds = CMTimeGetSeconds([moviePlayerAsset duration]);
+    return durationSeconds;
 }
 
 ////////////////////////////////////////////////////////////////////////////

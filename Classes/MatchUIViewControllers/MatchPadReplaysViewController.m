@@ -129,9 +129,17 @@
 	if(!parentViewController)	// Shouldn't ever happen
 		return false;
 	
+	AlertData * alertData = [[MatchPadDatabase Instance] alertData];
+	int dataRow = [ alertView filteredRowToDataRow:row];
+    float time = [[alertData itemAtIndex:dataRow] timeStamp];
+
 	// Make sure parent has the right video screen displayed
 	BasePadVideoSource * videoSource = [[BasePadMedia Instance] movieSource:1];
 	
+    float length = 2960;//[videoSource getLength];
+    float start_time = videoSource.movieStartTime;
+    if (time > start_time + length)
+        videoSource = [[BasePadMedia Instance] movieSource:3];
 	if(videoSource && ![videoSource movieDisplayed])
 	{
 		if([parentViewController isKindOfClass:[MatchPadVideoViewController class]])
@@ -150,9 +158,6 @@
 	}
 
 	// Then jump to the replay
-	int dataRow = [ alertView filteredRowToDataRow:row];
-	AlertData * alertData = [[MatchPadDatabase Instance] alertData];
-	float time = [[alertData itemAtIndex:dataRow] timeStamp];
 	[[MatchPadCoordinator Instance] jumpToTime:time - 5.0];
 	[[BasePadTimeController Instance] updateClock:time - 5.0];
 	

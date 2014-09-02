@@ -217,6 +217,10 @@ static BasePadMedia * instance_ = nil;
 			if([currentMovieRoot hasSuffix:@".vls"])
 			{
 				[self loadVideoList:currentMovieRoot];
+                if (moviePolicy == MOVIE_POLICY_LIVE_AND_REPLAY_)
+                {
+                  movieSourceCount = 2;
+                }
 			}
 			else if(moviePolicy == MOVIE_POLICY_SINGLE_SOURCE_)
 			{
