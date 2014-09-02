@@ -115,7 +115,6 @@ static RaceMapCoordinator * instance_ = nil;
 -(void) clearStaticData
 {
 	[super clearStaticData];
-	[[RaceMapTitleBarController Instance] setLapCount:0]; // To put it back into time mode
 }
 
 - (void) requestInitialData

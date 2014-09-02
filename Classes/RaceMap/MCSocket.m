@@ -37,6 +37,7 @@
 - (void) Connected
 {
 	[[RaceMapCoordinator Instance] MCConnected];
+    [[[RaceMapData Instance] trackMap] clearCars];
 }
 
 - (void) Disconnected:(bool) atConnect
@@ -46,11 +47,15 @@
 
 - (void)processPacket
 {
+    TrackMap *track_map = [[RaceMapData Instance] trackMap];
+
     // MCData should hold a correctly sized packet
     unsigned char mapID = [MCData PopUnsignedChar];
     unsigned char fragmentIndex = [MCData PopUnsignedChar];
     if ( fragmentIndex < lastFragmentIndex )
+    {
         [[RaceMapCoordinator Instance] RequestRedrawType:RPC_TRACK_MAP_VIEW_];
+    }
     lastFragmentIndex = fragmentIndex;
     
     for ( int i = 0; i < 4; i++ )
@@ -63,7 +68,6 @@
         
         if ( type != 0 )
         {
-            TrackMap *track_map = [[RaceMapData Instance] trackMap];
             [track_map updateCarFromDistance:car S:distance Pit:pits Type:type];
         }
     }

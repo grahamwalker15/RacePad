@@ -262,6 +262,7 @@ enum TrackState {
 - (void) loadTLAMap : (DataStream *) stream Save:(bool)save;
 - (void) updateCars : (DataStream *) stream;
 - (void) updateCarFromDistance : (int)number S:(int)distance Pit:(bool) pit Type:(unsigned char)type;
+- (void) clearCars;
 
 - (bool) carExistsByName:(NSString *)name;
 - (NSString *) nearestCarInView:(UIView *)view ToX:(float)x Y:(float)y;
