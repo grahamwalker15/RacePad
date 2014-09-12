@@ -11,7 +11,7 @@
 #import "TrackMapView.h"
 #import "TrackProfileView.h"
 #import "MathOdds.h"
-// #import "ImageListStore.h"
+#import "RacePadSponsor.h"
 #import "RacePadDatabase.h"
 
 static UIColor *blueBG = nil;
@@ -205,7 +205,11 @@ static UIImage *grassImage = nil;
 	float imageH = 0.0;
 	if(imageList)
 	{
-		UIImage *image = [imageList findItem:team];
+        UIImage *image = NULL;
+        if ( [RacePadSponsor Instance].sponsor == RPS_AUDI_DTM_)
+            image = [imageList findItem:name];
+        else
+            image = [imageList findItem:team];
 		
 		CGSize imageSize = [image size];
 		imageW = imageSize.width;
