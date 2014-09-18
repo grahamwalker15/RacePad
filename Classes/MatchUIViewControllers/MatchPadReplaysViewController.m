@@ -136,10 +136,14 @@
 	// Make sure parent has the right video screen displayed
 	BasePadVideoSource * videoSource = [[BasePadMedia Instance] movieSource:1];
 	
-    float length = 2960;//[videoSource getLength];
-    float start_time = videoSource.movieStartTime;
-    if (time > start_time + length)
-        videoSource = [[BasePadMedia Instance] movieSource:3];
+    if ([[BasePadMedia Instance] hasVLSarchive] == true)
+    {
+        float length = 2960;//[videoSource getLength];
+        float start_time = videoSource.movieStartTime;
+        if (time > start_time + length)
+            videoSource = [[BasePadMedia Instance] movieSource:3];
+        
+    }
 	if(videoSource && ![videoSource movieDisplayed])
 	{
 		if([parentViewController isKindOfClass:[MatchPadVideoViewController class]])

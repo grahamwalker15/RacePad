@@ -15,7 +15,7 @@
 
 - (void) Connected 
 {
-	const char *deviceID = [[[UIDevice currentDevice]uniqueIdentifier] UTF8String];
+ 	const char *deviceID = [[[[UIDevice currentDevice] identifierForVendor] UUIDString] UTF8String];
 	const char *deviceName = [[[UIDevice currentDevice]name] UTF8String];
 	int messageLength = 4 * sizeof(uint32_t) + strlen (deviceID) + strlen (deviceName);
 	char *buf = malloc(messageLength);
