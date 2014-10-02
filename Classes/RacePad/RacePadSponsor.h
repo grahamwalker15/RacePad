@@ -19,6 +19,7 @@ enum Sponsors
 	RPS_WILLIAMS_,
 	RPS_AUDI_DTM_,
     RPS_AUDI_WEC_,
+    RPS_VIRGIN_FE_,
 };
 
 enum AllTabs {
