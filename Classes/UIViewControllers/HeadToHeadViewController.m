@@ -542,8 +542,8 @@
 		[driver_lap_list_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentViewController:driver_lap_list_controller_ animated:true completion:nil];
-		driver_lap_list_controller_displayed_ = true;
+        [self presentViewController:driver_lap_list_controller_ animated:true completion:^{driver_lap_list_controller_displayed_ = true;}];
+		
 	}
 }
 
