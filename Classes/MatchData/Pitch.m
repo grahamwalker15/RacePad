@@ -224,7 +224,7 @@
 		
 	int i;
 	// Now draw the other lines
-	int count = [lines count];
+	long count = [lines count];
 	for ( i = 0; i < count; i++)
 	{
 		PitchLine *line = [lines objectAtIndex:i];
@@ -258,7 +258,7 @@
 	if ( allNames )
 	{
 		int i;
-		int count = [lines count];
+		long count = [lines count];
 		NSString *lastName = NULL;
 		int lastType = 0;
 		for ( i = 0; i < count; i++)

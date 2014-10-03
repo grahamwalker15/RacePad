@@ -96,8 +96,8 @@
 	
 	// Get the new positions
 	CGRect superBounds = [viewController.view bounds];
-	CGRect ourBounds = [managedViewController.view bounds];
-	CGRect ourContainerBounds = [managedViewController.container bounds];
+    CGRect ourBounds = managedViewController.view.bounds;
+	CGRect ourContainerBounds = managedViewController.container.bounds;
 
 	xAlignment = xAlign;
 	yAlignment = yAlign;

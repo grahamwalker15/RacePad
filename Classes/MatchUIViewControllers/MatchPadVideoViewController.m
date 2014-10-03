@@ -486,7 +486,7 @@
 	CGRect soloViewRect = CGRectMake(0, (CGRectGetMaxY(superBounds) - 576) * 0.5, 1024,576);
 	CGRect mainReplayRect = CGRectMake(0, 0, 1024,576);
 	CGRect pInPRectLeft = CGRectMake(10, CGRectGetMaxY(superBounds) - 184, 308,174);
-	CGRect pInPRectRight = CGRectMake(CGRectGetMaxX(superBounds) - 318, CGRectGetMaxY(superBounds) - 184, 308,174);
+	//CGRect pInPRectRight = CGRectMake(CGRectGetMaxX(superBounds) - 318, CGRectGetMaxY(superBounds) - 184, 308,174);
 	
 	CGRect pitchRect = CGRectMake(400, CGRectGetMaxY(superBounds) - 172, 600, 162);
 	
@@ -1382,7 +1382,7 @@
 		[mainMenuButton setFrame:CGRectMake(-36,332,91,61)];
 	
 	// Get the bounds of the view controller
-	CGRect viewBounds = [[self view] bounds];
+	//CGRect viewBounds = [[self view] bounds];
 	
 	// Menu buttons positioned in Nib now
 	/*

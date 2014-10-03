@@ -241,7 +241,7 @@
 		}
 		
 		
-		int count = [moves[p] count];
+		long count = [moves[p] count];
 		for(int i = 0 ; i < count ; i++)
 		{
 			MoveChunk *chunk = [moves[p] objectAtIndex:i];
@@ -272,7 +272,7 @@
 			x1 = x2;
 		}
 		
-		int goal_count = [goals[p] count];
+		long goal_count = [goals[p] count];
 		[view SetLineWidth:2];
 		for ( int g = 0; g < goal_count; g++ )
 		{

@@ -42,7 +42,7 @@
 	NSString *docsFolder = [paths objectAtIndex:0];
 	
 	NSArray *contents = [fm contentsOfDirectoryAtPath:docsFolder error:NULL];
-	int count = [contents count];
+	long count = [contents count];
 	int preferredIndex = -1;
 	NSString *preferredSession = [[BasePadPrefs Instance] getPref:@"preferredSession"];
 	NSString *eventName = [events objectAtIndex:row];
@@ -292,7 +292,7 @@
 		
 		if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_ERROR_ )
 		{
-			NSString * reportString = [NSString  stringWithString:@"Connection error :"];
+			NSString * reportString = @"Connection error :";
 			if([[BasePadMedia Instance] currentError])
 				reportString = [reportString stringByAppendingString:[[BasePadMedia Instance] currentError]];
 			else
@@ -304,7 +304,7 @@
 		}
 		else if( [[BasePadMedia Instance] currentStatus] == BPM_CONNECTION_FAILED_ )
 		{
-			NSString * reportString = [NSString stringWithString:@"Connection failed :"];
+			NSString * reportString = @"Connection failed :";
 			
 			if([[BasePadMedia Instance] currentError])
 				reportString = [reportString stringByAppendingString:[[BasePadMedia Instance] currentError]];

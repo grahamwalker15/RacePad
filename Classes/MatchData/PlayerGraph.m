@@ -197,7 +197,7 @@
 		
 	int i;
 	// Now draw the other lines
-	int count = [lines count];
+	long count = [lines count];
 	for ( i = 0; i < count; i++)
 	{
 		[view BeginPath];

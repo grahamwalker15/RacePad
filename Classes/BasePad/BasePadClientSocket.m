@@ -17,7 +17,7 @@
 {
  	const char *deviceID = [[[[UIDevice currentDevice] identifierForVendor] UUIDString] UTF8String];
 	const char *deviceName = [[[UIDevice currentDevice]name] UTF8String];
-	int messageLength = 4 * sizeof(uint32_t) + strlen (deviceID) + strlen (deviceName);
+	long messageLength = 4 * sizeof(uint32_t) + strlen (deviceID) + strlen (deviceName);
 	char *buf = malloc(messageLength);
 	char *b = buf;
 	

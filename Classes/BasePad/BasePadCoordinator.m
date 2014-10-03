@@ -1062,7 +1062,7 @@ static BasePadCoordinator * instance_ = nil;
 	
 	[settingsViewController updateServerState];
     
-    int delegate_count = [connectionFeedbackDelegates count];
+    long delegate_count = [connectionFeedbackDelegates count];
     if(delegate_count > 0)
     {
         for ( int i = 0 ; i < delegate_count ; i++)
@@ -1175,7 +1175,7 @@ static BasePadCoordinator * instance_ = nil;
 		[settingsViewController updateServerState];
 	}
     
-    int delegate_count = [connectionFeedbackDelegates count];
+    long delegate_count = [connectionFeedbackDelegates count];
     if(delegate_count > 0)
     {
         for ( int i = 0 ; i < delegate_count ; i++)
@@ -1323,7 +1323,7 @@ static BasePadCoordinator * instance_ = nil;
         [socket_ SetPlaybackRate:playbackRate];
         [socket_ SetReferenceTime:currentTime];
         
-        int view_count = [views count];
+        long view_count = [views count];
         
         if(view_count > 0)
         {

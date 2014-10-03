@@ -93,7 +93,7 @@
 
 - (IBAction) typeChosen:(id)sender
 {
-	int v = typeChooser.selectedSegmentIndex;
+	long v = typeChooser.selectedSegmentIndex;
 	[codingView setFilter:v Player:[[BasePadCoordinator Instance]nameToFollow]];
 	[codingView ResetScroll];
 	[codingView RequestRedraw];

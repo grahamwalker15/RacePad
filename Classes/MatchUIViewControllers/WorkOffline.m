@@ -240,8 +240,8 @@
 
 - (IBAction)okPressed:(id)sender
 {
-	int eventIndex = [event selectedRowInComponent:0];
-	int sessionIndex = [event selectedRowInComponent:1];
+	long eventIndex = [event selectedRowInComponent:0];
+	long sessionIndex = [event selectedRowInComponent:1];
 	if ( [events count] > eventIndex
 	  && [sessions count] > sessionIndex )
 	{

@@ -1110,7 +1110,7 @@
 		if([keyPath isEqualToString:@"tracks"] || [keyPath isEqualToString:@"playbackBufferEmpty"] || [keyPath isEqualToString:@"playbackBufferFull"] || [keyPath isEqualToString:@"playbackLikelyToKeepUp"])
 		{
 			NSArray * tracks = [object tracks];
-			int tracksCount = [tracks count];
+			long tracksCount = [tracks count];
 			int tracksEnabled = 0;
 			
 			if(tracksCount > 0)
@@ -1118,7 +1118,7 @@
 				for (int i = 0 ; i < tracksCount ; i++)
 				{
 					AVPlayerItemTrack * track = (AVPlayerItemTrack * )[tracks objectAtIndex:i];
-					AVAssetTrack * assetTrack = [track assetTrack];
+					//AVAssetTrack * assetTrack = [track assetTrack];
 					
 					if([track isEnabled]/* && [assetTrack isPlayable]*/)
 						tracksEnabled++;

@@ -150,7 +150,6 @@
 		4DBE267B13A10C1C0051C9B3 /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE231C13A0DE440051C9B3 /* TimeControlView.xib */; };
 		4DBE267C13A10C1D0051C9B3 /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE231D13A0DE440051C9B3 /* TitleBarView.xib */; };
 		4DBE267D13A10C1E0051C9B3 /* WorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE231E13A0DE440051C9B3 /* WorkOffline.xib */; };
-		4DBE267E13A10C220051C9B3 /* MatchPad-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE244B13A109EC0051C9B3 /* MatchPad-Info.plist */; };
 		4DBE267F13A10C250051C9B3 /* dist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F913DBC134689FD002701DA /* dist.plist */; };
 		4DBE269213A10C330051C9B3 /* AnimationTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE268113A10C330051C9B3 /* AnimationTimer.m */; };
 		4DBE269313A10C330051C9B3 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE268313A10C330051C9B3 /* BufferedDataStream.m */; };
@@ -250,6 +249,7 @@
 		F44814851906E05B000D9BE6 /* MP_ReplaysTab.png in Resources */ = {isa = PBXBuildFile; fileRef = F448147F1906E05B000D9BE6 /* MP_ReplaysTab.png */; };
 		F44814861906E05B000D9BE6 /* MP_SequencesTab.png in Resources */ = {isa = PBXBuildFile; fileRef = F44814801906E05B000D9BE6 /* MP_SequencesTab.png */; };
 		F44814871906E05B000D9BE6 /* MP_StatsTab.png in Resources */ = {isa = PBXBuildFile; fileRef = F44814811906E05B000D9BE6 /* MP_StatsTab.png */; };
+		F45809F619DF028D00E96318 /* MatchPadHighlightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F45809F519DF028D00E96318 /* MatchPadHighlightsViewController.m */; };
 		F45C94D818FDE84700491E5E /* PhysicalStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F45C94D718FDE84700491E5E /* PhysicalStatsController.m */; };
 		F4926C751900152E002861C4 /* PhysicalStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4926C741900152E002861C4 /* PhysicalStatsView.xib */; };
 		F497230C18FC465800F97EF5 /* MatchPadCodingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497230B18FC465800F97EF5 /* MatchPadCodingViewController.m */; };
@@ -629,6 +629,8 @@
 		F448147F1906E05B000D9BE6 /* MP_ReplaysTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MP_ReplaysTab.png; sourceTree = "<group>"; };
 		F44814801906E05B000D9BE6 /* MP_SequencesTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MP_SequencesTab.png; sourceTree = "<group>"; };
 		F44814811906E05B000D9BE6 /* MP_StatsTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MP_StatsTab.png; sourceTree = "<group>"; };
+		F45809F419DF028500E96318 /* MatchPadHighlightsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchPadHighlightsViewController.h; sourceTree = "<group>"; };
+		F45809F519DF028D00E96318 /* MatchPadHighlightsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchPadHighlightsViewController.m; sourceTree = "<group>"; };
 		F45C94D618FDE84700491E5E /* PhysicalStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalStatsController.h; sourceTree = "<group>"; };
 		F45C94D718FDE84700491E5E /* PhysicalStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalStatsController.m; sourceTree = "<group>"; };
 		F4926C741900152E002861C4 /* PhysicalStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhysicalStatsView.xib; path = ResourceFiles/MatchXIB/PhysicalStatsView.xib; sourceTree = "<group>"; };
@@ -864,6 +866,8 @@
 		4DBE22D613A0DAF90051C9B3 /* MatchUIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F45809F519DF028D00E96318 /* MatchPadHighlightsViewController.m */,
+				F45809F419DF028500E96318 /* MatchPadHighlightsViewController.h */,
 				F45C94D618FDE84700491E5E /* PhysicalStatsController.h */,
 				F45C94D718FDE84700491E5E /* PhysicalStatsController.m */,
 				F497230A18FC465800F97EF5 /* MatchPadCodingViewController.h */,
@@ -1226,6 +1230,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MatchPad" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1323,7 +1328,6 @@
 				4DBE267B13A10C1C0051C9B3 /* TimeControlView.xib in Resources */,
 				4DBE267C13A10C1D0051C9B3 /* TitleBarView.xib in Resources */,
 				4DBE267D13A10C1E0051C9B3 /* WorkOffline.xib in Resources */,
-				4DBE267E13A10C220051C9B3 /* MatchPad-Info.plist in Resources */,
 				4DBE267F13A10C250051C9B3 /* dist.plist in Resources */,
 				4D5A344713A207E5007C4AA9 /* Grass.png in Resources */,
 				4D02A4E413B4E93C0010E06B /* PlayerStatsView.xib in Resources */,
@@ -1428,6 +1432,7 @@
 				4DBE26AA13A10C820051C9B3 /* MatchPadDatabase.m in Sources */,
 				4DBE26AB13A10C820051C9B3 /* Pitch.m in Sources */,
 				4DBE26BF13A10C940051C9B3 /* MatchPadAppDelegate.m in Sources */,
+				F45809F619DF028D00E96318 /* MatchPadHighlightsViewController.m in Sources */,
 				4DBE26C013A10C940051C9B3 /* MatchPadClientSocket.m in Sources */,
 				4DBE26C113A10C940051C9B3 /* MatchPadCoordinator.m in Sources */,
 				4DBE26C213A10C940051C9B3 /* MatchPadDataHandler.m in Sources */,
@@ -1556,13 +1561,13 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1573,7 +1578,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;

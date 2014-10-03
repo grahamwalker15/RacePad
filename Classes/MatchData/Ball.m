@@ -242,7 +242,7 @@
 		}
 		
 		// Draw the trace
-		int count = [kicks[p] count];
+		long count = [kicks[p] count];
 		[view SetLineWidth:1.5];
 		float lastX, lastY;
 		for(int i = 0 ; i < count ; i++)
@@ -296,7 +296,7 @@
 			
 		}
 		
-		int goal_count = [goals[p] count];
+		long goal_count = [goals[p] count];
 		[view SetLineWidth:2];
 		for ( int g = 0; g < goal_count; g++ )
 		{

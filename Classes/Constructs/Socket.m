@@ -167,7 +167,7 @@
 		if ( new_transfer_ )
 		{
 			int sizeBytesRequired = sizeof(int) - sizeBytesReceived;
-			int sizeBytesToCopy = data_size;
+			long sizeBytesToCopy = data_size;
 			if ( sizeBytesToCopy > sizeBytesRequired )
 				sizeBytesToCopy = sizeBytesRequired;
 			memcpy(sizeBytes + sizeBytesReceived, byte_ptr, sizeBytesToCopy);

@@ -166,8 +166,8 @@
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentModalViewController:playerGraphViewController animated:true];
-		playerGraphViewControllerDisplayed = true;
+        [self presentViewController:playerGraphViewController animated:YES completion:^{playerGraphViewControllerDisplayed = true;}];
+		
 	}
 }
 
