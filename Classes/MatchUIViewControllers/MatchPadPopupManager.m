@@ -9,6 +9,7 @@
 
 #import "MatchPadCoordinator.h"
 #import "MatchPadStatsViewController.h"
+#import "MatchPadHighlightsViewController.h"
 #import "MatchPadReplaysViewController.h"
 #import "MatchPadCodingViewController.h"
 #import "TeamStatsViewController.h"
@@ -104,7 +105,7 @@ static MatchPadHighlightsManager * highlightsInstance_ = nil;
 {
 	if(self = [super init])
 	{			
-		MatchPadReplaysViewController * viewController = [[MatchPadReplaysViewController alloc] initWithNibName:@"MatchPadHighlightsView" bundle:nil];
+		MatchPadHighlightsViewController * viewController = [[MatchPadHighlightsViewController alloc] initWithNibName:@"MatchPadHighlightsView" bundle:nil];
 		
 		[self setManagedViewController:viewController];
 		[self setManagedViewType:MP_HIGHLIGHTS_POPUP_];
