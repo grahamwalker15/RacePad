@@ -136,7 +136,7 @@
 	// Make sure parent has the right video screen displayed
 	BasePadVideoSource * videoSource = [[BasePadMedia Instance] movieSource:1];
 	
-    //if ([[BasePadMedia Instance] hasVLSarchive] == true)
+    if ([[BasePadMedia Instance] hasVLSarchive] == true)
     {
         float length = 2960;//[videoSource getLength];
         float start_time = videoSource.movieStartTime;

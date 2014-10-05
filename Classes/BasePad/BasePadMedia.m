@@ -34,6 +34,7 @@
 @synthesize movieType;
 
 @synthesize extendedNotification;
+@synthesize hasVLSarchive;
 
 static BasePadMedia * instance_ = nil;
 
@@ -77,7 +78,8 @@ static BasePadMedia * instance_ = nil;
 		movieType = MOVIE_TYPE_NONE_;
 		moviePolicy = MOVIE_POLICY_SINGLE_SOURCE_;
 		
-		extendedNotification = false;
+        extendedNotification = false;
+        hasVLSarchive = false;
 	}
 	
 	return self;
@@ -221,6 +223,7 @@ static BasePadMedia * instance_ = nil;
                 {
                   movieSourceCount = 2;
                 }
+                [[BasePadMedia Instance] setHasVLSarchive : true];
 			}
 			else if(moviePolicy == MOVIE_POLICY_SINGLE_SOURCE_)
 			{

@@ -91,7 +91,8 @@ enum MovieConnectionTypes
 	int moviePolicy;
 	int movieType;
 	
-	bool extendedNotification;
+    bool extendedNotification;
+    bool hasVLSarchive;
 	
 	BasePadVideoViewController * registeredViewController;
 	
@@ -118,6 +119,7 @@ enum MovieConnectionTypes
 @property (readonly) int movieType;
 
 @property (nonatomic) bool extendedNotification;
+@property (nonatomic) bool hasVLSarchive;
 
 - (void)onStartUp;
 

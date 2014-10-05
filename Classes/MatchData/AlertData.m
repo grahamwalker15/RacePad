@@ -69,7 +69,7 @@
 	int count = [stream PopInt];
 	for ( int i = 0; i < count; i++ )
 	{
-		long index = [stream PopInt];
+		[stream PopInt]; // index
 		AlertDataItem *item = [[AlertDataItem alloc] initWithStream:stream];
 		[alerts addObject:item];
 	}
