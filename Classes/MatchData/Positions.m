@@ -274,13 +274,13 @@
 		}
 		else if ( p.team == 1 )
 		{
-			UIImage * image = [UIImage imageNamed:@"PlayerLightBlue.png"];
+			UIImage * image = [UIImage imageNamed:@"PlayerRed.png"];
 			[image drawAtPoint:CGPointMake(x - 10, y - 10)];
 			[view SetFGColour:[view black_]];
 		}
 		else if ( p.team == 2 )
 		{
-			UIImage * image = [UIImage imageNamed:@"PlayerBlack.png"];
+			UIImage * image = [UIImage imageNamed:@"PlayerLightBlue.png"];
 			[image drawAtPoint:CGPointMake(x - 10, y - 10)];
 			[view SetFGColour:[view white_]];
 		}
