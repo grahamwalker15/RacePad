@@ -1,0 +1,176 @@
+    //
+//  DriverListController.m
+//  RacePad
+//
+//  Created by Gareth Griffith on 10/11/10.
+//  Copyright 2010 SBG Racing Services Ltd. All rights reserved.
+//
+
+#import "DriverListController.h"
+#import "DriverLapListController.h"
+
+#import "RacePadCoordinator.h"
+#import "RacePadTimeController.h"
+#import "RacePadDatabase.h"
+#import "TableData.h"
+
+
+@implementation DriverListController
+
+/*
+ // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        // Custom initialization
+    }
+    return self;
+}
+*/
+
+/*
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView
+{
+}
+*/
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+	// Get a pointer to the associated view
+	driver_list_view_ = (TableDataView *)[self view];
+	
+	// Set up the table data for SimpleListView
+	[driver_list_view_ SetTableDataClass:[[RacePadDatabase Instance] driverListData]];
+	
+	[driver_list_view_ SetRowHeight:28];
+	[driver_list_view_ SetHeading:true];
+	
+    [super viewDidLoad];
+	
+	// Tell the RacePadCoordinator that we're interested in data for this view
+	[[RacePadCoordinator Instance] AddView:driver_list_view_ WithType:RPC_DRIVER_LIST_VIEW_];
+	
+	// Create a view controller for the driver lap times which may be displayed as an overlay
+	driver_lap_list_controller_ = [[DriverLapListController alloc] initWithNibName:@"DriverLapListView" bundle:nil];
+	driver_lap_list_controller_displayed_ = false;
+
+}
+
+- (void)viewWillAppear:(BOOL)animated;    // Called when the view is about to made visible. Default does nothing
+{
+	[[RacePadCoordinator Instance] RegisterViewController:self WithTypeMask:RPC_DRIVER_LIST_VIEW_];
+	[[RacePadCoordinator Instance] SetViewDisplayed:driver_list_view_];
+}
+
+- (void)viewWillDisappear:(BOOL)animated; // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
+{
+	[self HideDriverLapList];
+	[[RacePadCoordinator Instance] SetViewHidden:driver_list_view_];
+	[[RacePadCoordinator Instance] ReleaseViewController:self];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Overriden to allow any orientation.
+    return YES;
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+
+	[[RacePadCoordinator Instance] RemoveView:self];
+}
+
+
+- (void)dealloc
+{
+    [super dealloc];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (bool) HandleSelectCellRow:(int)row Col:(int)col DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	// On long tap,or selection in name area or lap column, show lap list
+	if(double_click || long_press || col < 4 || col == 15)
+	{
+		TableData * driverListData = [[RacePadDatabase Instance] driverListData];
+		TableCell *cell = [driverListData cell:row Col:0];
+		NSString *driver = [cell string];
+		[self ShowDriverLapList:driver];
+		return true;
+	}
+	
+	return false;
+}
+
+- (bool) HandleSelectRow:(int)row DoubleClick:(bool)double_click LongPress:(bool)long_press
+{
+	// On single tap, invoke or remove the time controller
+	if(!double_click && !long_press)
+	{
+		RacePadTimeController * time_controller = [RacePadTimeController Instance];
+		
+		if(![time_controller displayed])
+			[time_controller displayInViewController:self Animated:true];
+		else
+			[time_controller hide];
+		
+		return true;
+	}
+	
+	return true;
+}
+
+- (bool) HandleSelectHeading
+{
+	return false;
+}
+
+- (void)ShowDriverLapList:(NSString *)driver
+{
+	if(driver_lap_list_controller_)
+	{
+		// Set the driver we want displayed
+		[driver_lap_list_controller_ SetDriver:driver];
+		
+		// Set the style for its presentation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+		
+		// And present it
+		[self presentModalViewController:driver_lap_list_controller_ animated:true];
+		driver_lap_list_controller_displayed_ = true;
+	}
+}
+
+- (void)HideDriverLapList
+{
+	if(driver_lap_list_controller_displayed_)
+	{
+		// Set the style for its animation
+		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+		
+		// And dismiss it
+		[self dismissModalViewControllerAnimated:true];
+		driver_lap_list_controller_displayed_ = false;
+	}
+}
+
+@end
+

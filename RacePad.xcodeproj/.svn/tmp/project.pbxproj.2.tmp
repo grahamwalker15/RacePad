@@ -1,0 +1,635 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
+		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
+		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
+		4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; };
+		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
+		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
+		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
+		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
+		7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
+		7F06812A126DDA6800C9EE5D /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068125126DDA6800C9EE5D /* clock.png */; };
+		7F06812B126DDA6800C9EE5D /* monitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068126126DDA6800C9EE5D /* monitor.png */; };
+		7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068127126DDA6800C9EE5D /* newspaper.png */; };
+		7F06812D126DDA6800C9EE5D /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068128126DDA6800C9EE5D /* preferences.png */; };
+		7F06812E126DDA6800C9EE5D /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068129126DDA6800C9EE5D /* world.png */; };
+		7F11F64D127197B800C88544 /* ElapsedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11F64C127197B800C88544 /* ElapsedTime.m */; };
+		7F31CA691270892700F26C7B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F31CA681270892700F26C7B /* SettingsView.xib */; };
+		7F31CC1D12709CA300F26C7B /* SimpleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */; };
+		7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */; };
+		7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; };
+		7F3276F3126379B000BD1627 /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F0126379B000BD1627 /* TableData.m */; };
+		7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F2126379B000BD1627 /* RacePadDatabase.m */; };
+		7F62357C127B2018009A9D4F /* RacePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F62357B127B2018009A9D4F /* RacePadViewController.m */; };
+		7F6239D7127E089F009A9D4F /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6239D6127E089F009A9D4F /* MovieView.m */; };
+		7F62442C128255A8009A9D4F /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F62442B128255A8009A9D4F /* CompositeViewController.m */; };
+		7F624441128258F9009A9D4F /* CompositeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F624440128258F9009A9D4F /* CompositeView.xib */; };
+		7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; };
+		7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; };
+		7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
+		7F6FB6BC127577FE00EF2B8C /* LeftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */; };
+		7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BB127577FE00EF2B8C /* RightArrow.png */; };
+		7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB8981275F11400EF2B8C /* TimeControlView.xib */; };
+		7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */; };
+		7F88203F12632EB40010785D /* DriverListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F88203E12632EB40010785D /* DriverListController.m */; };
+		7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10D91255E68B00770746 /* FirstViewController.m */; };
+		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
+		7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10FB1255EE1500770746 /* ThirdViewController.m */; };
+		7F9C12C212560D0300770746 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C12BC12560D0300770746 /* EAGLView.m */; };
+		7F9C12C312560D0300770746 /* ESRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C12BE12560D0300770746 /* ESRenderer.m */; };
+		7F9C12CE12560D5700770746 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CD12560D5700770746 /* QuartzCore.framework */; };
+		7F9C12D012560D6600770746 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CF12560D6600770746 /* OpenGLES.framework */; };
+		7F9C1515125759D900770746 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1514125759D900770746 /* CoreFoundation.framework */; };
+		7F9C1517125759D900770746 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1516125759D900770746 /* CoreText.framework */; };
+		7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C15F51257646700770746 /* MediaPlayer.framework */; };
+		7F9C1696125A176700770746 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1695125A176700770746 /* MovieViewController.m */; };
+		7F9C169E125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */; };
+		7F9C1728125A2BD000770746 /* DataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1727125A2BD000770746 /* DataStream.m */; };
+		7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */; };
+		7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */; };
+		7F9C1B56125B82CA00770746 /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1B55125B82CA00770746 /* DrawingView.m */; };
+		7F9C1C8E125E1C3400770746 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1C8D125E1C3400770746 /* TextViewController.m */; };
+		7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1F15125F18A000770746 /* SimpleListView.m */; };
+		7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */; };
+		7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C684F12671CD200F2FFEC /* HTMLViewController.m */; };
+		7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
+		7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
+		7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
+		7FB1C58F12673E7F008A6C94 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58712673E7F008A6C94 /* SecondView.xib */; };
+		7FB1C59012673E7F008A6C94 /* TestTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58812673E7F008A6C94 /* TestTextView.xib */; };
+		7FB1C59112673E7F008A6C94 /* ThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58912673E7F008A6C94 /* ThirdView.xib */; };
+		7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */; };
+		7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58B12673E7F008A6C94 /* VideoView.xib */; };
+		7FB1C59A12673E9F008A6C94 /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB1C59912673E9F008A6C94 /* ImageListStore.m */; };
+		7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF8FC12648507009D37FA /* DrawingViewController.m */; };
+		7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF98012649EBE009D37FA /* TableDataView.m */; };
+		7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDFA851264B822009D37FA /* TrackMapView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* RacePad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RacePad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
+		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
+		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
+		4D757B7C126F01B700E32C41 /* FileDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDataStream.m; sourceTree = "<group>"; };
+		4D757B7F126F028900E32C41 /* DataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
+		4D757B80126F028900E32C41 /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
+		4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDataHandler.h; sourceTree = "<group>"; };
+		4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDataHandler.m; sourceTree = "<group>"; };
+		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
+		4D8A66831282635500E9E19D /* DownloadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgress.m; sourceTree = "<group>"; };
+		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
+		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
+		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
+		7F067F4B126DAE1700C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
+		7F067F4C126DAE1700C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
+		7F068125126DDA6800C9EE5D /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clock.png; path = Images/clock.png; sourceTree = "<group>"; };
+		7F068126126DDA6800C9EE5D /* monitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = monitor.png; path = Images/monitor.png; sourceTree = "<group>"; };
+		7F068127126DDA6800C9EE5D /* newspaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newspaper.png; path = Images/newspaper.png; sourceTree = "<group>"; };
+		7F068128126DDA6800C9EE5D /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = preferences.png; path = Images/preferences.png; sourceTree = "<group>"; };
+		7F068129126DDA6800C9EE5D /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world.png; path = Images/world.png; sourceTree = "<group>"; };
+		7F11F64B127197B800C88544 /* ElapsedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElapsedTime.h; sourceTree = "<group>"; };
+		7F11F64C127197B800C88544 /* ElapsedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElapsedTime.m; sourceTree = "<group>"; };
+		7F31CA681270892700F26C7B /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsView.xib; path = ResourceFiles/SettingsView.xib; sourceTree = "<group>"; };
+		7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListViewController.h; sourceTree = "<group>"; };
+		7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListViewController.m; sourceTree = "<group>"; };
+		7F32763012634AB000BD1627 /* RacePadCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadCoordinator.h; sourceTree = "<group>"; };
+		7F32763112634AB000BD1627 /* RacePadCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadCoordinator.m; sourceTree = "<group>"; };
+		7F3276E1126375F400BD1627 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		7F3276E2126375F400BD1627 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		7F3276EF126379B000BD1627 /* TableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableData.h; sourceTree = "<group>"; };
+		7F3276F0126379B000BD1627 /* TableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableData.m; sourceTree = "<group>"; };
+		7F3276F1126379B000BD1627 /* RacePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDatabase.h; sourceTree = "<group>"; };
+		7F3276F2126379B000BD1627 /* RacePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDatabase.m; sourceTree = "<group>"; };
+		7F62357A127B2018009A9D4F /* RacePadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadViewController.h; sourceTree = "<group>"; };
+		7F62357B127B2018009A9D4F /* RacePadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadViewController.m; sourceTree = "<group>"; };
+		7F6239D5127E089F009A9D4F /* MovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieView.h; sourceTree = "<group>"; };
+		7F6239D6127E089F009A9D4F /* MovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieView.m; sourceTree = "<group>"; };
+		7F62442A128255A8009A9D4F /* CompositeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeViewController.h; sourceTree = "<group>"; };
+		7F62442B128255A8009A9D4F /* CompositeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeViewController.m; sourceTree = "<group>"; };
+		7F624440128258F9009A9D4F /* CompositeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CompositeView.xib; path = ResourceFiles/CompositeView.xib; sourceTree = "<group>"; };
+		7F6E7D941276ED540073A644 /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
+		7F6E7D951276ED540073A644 /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
+		7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverLapListController.h; sourceTree = "<group>"; };
+		7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverLapListController.m; sourceTree = "<group>"; };
+		7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverLapListView.xib; path = ResourceFiles/DriverLapListView.xib; sourceTree = "<group>"; };
+		7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LeftArrow.png; path = Images/LeftArrow.png; sourceTree = "<group>"; };
+		7F6FB6BB127577FE00EF2B8C /* RightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RightArrow.png; path = Images/RightArrow.png; sourceTree = "<group>"; };
+		7F6FB8981275F11400EF2B8C /* TimeControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
+		7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadTimeController.h; sourceTree = "<group>"; };
+		7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTimeController.m; sourceTree = "<group>"; };
+		7F88203D12632EB40010785D /* DriverListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverListController.h; sourceTree = "<group>"; };
+		7F88203E12632EB40010785D /* DriverListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverListController.m; sourceTree = "<group>"; };
+		7F9C10D81255E68B00770746 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		7F9C10D91255E68B00770746 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
+		7F9C10DB1255E68B00770746 /* TrackMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMapViewController.m; sourceTree = "<group>"; };
+		7F9C10FA1255EE1500770746 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		7F9C10FB1255EE1500770746 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		7F9C12BB12560D0300770746 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		7F9C12BC12560D0300770746 /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		7F9C12BD12560D0300770746 /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
+		7F9C12BE12560D0300770746 /* ESRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRenderer.m; sourceTree = "<group>"; };
+		7F9C12CD12560D5700770746 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7F9C12CF12560D6600770746 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		7F9C1514125759D900770746 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7F9C1516125759D900770746 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		7F9C15F51257646700770746 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		7F9C1694125A176700770746 /* MovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieViewController.h; path = ../UIViews/MovieViewController.h; sourceTree = "<group>"; };
+		7F9C1695125A176700770746 /* MovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieViewController.m; path = ../UIViews/MovieViewController.m; sourceTree = "<group>"; };
+		7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Movie on 2010-10-04 at 16.26.mov"; sourceTree = "<group>"; };
+		7F9C1726125A2BD000770746 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
+		7F9C1727125A2BD000770746 /* DataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStream.m; sourceTree = "<group>"; };
+		7F9C1ADE125B7BD000770746 /* RacePadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadAppDelegate.h; sourceTree = "<group>"; };
+		7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadAppDelegate.m; sourceTree = "<group>"; };
+		7F9C1AF2125B7D5900770746 /* RacePadClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadClientSocket.h; sourceTree = "<group>"; };
+		7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadClientSocket.m; sourceTree = "<group>"; };
+		7F9C1B54125B82CA00770746 /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
+		7F9C1B55125B82CA00770746 /* DrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
+		7F9C1C8C125E1C3400770746 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		7F9C1C8D125E1C3400770746 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		7F9C1F14125F18A000770746 /* SimpleListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListView.h; sourceTree = "<group>"; };
+		7F9C1F15125F18A000770746 /* SimpleListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListView.m; sourceTree = "<group>"; };
+		7F9C67381265F50000F2FFEC /* TrackMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMap.h; sourceTree = "<group>"; };
+		7F9C67391265F50000F2FFEC /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
+		7F9C684E12671CD200F2FFEC /* HTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLViewController.h; sourceTree = "<group>"; };
+		7F9C684F12671CD200F2FFEC /* HTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLViewController.m; sourceTree = "<group>"; };
+		7FB1C58412673E7F008A6C94 /* DriverListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverListView.xib; path = ResourceFiles/DriverListView.xib; sourceTree = "<group>"; };
+		7FB1C58512673E7F008A6C94 /* HTMLView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HTMLView.xib; path = ResourceFiles/HTMLView.xib; sourceTree = "<group>"; };
+		7FB1C58612673E7F008A6C94 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ResourceFiles/MainWindow.xib; sourceTree = "<group>"; };
+		7FB1C58712673E7F008A6C94 /* SecondView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SecondView.xib; path = ResourceFiles/SecondView.xib; sourceTree = "<group>"; };
+		7FB1C58812673E7F008A6C94 /* TestTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestTextView.xib; path = ResourceFiles/TestTextView.xib; sourceTree = "<group>"; };
+		7FB1C58912673E7F008A6C94 /* ThirdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ThirdView.xib; path = ResourceFiles/ThirdView.xib; sourceTree = "<group>"; };
+		7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TrackMapView.xib; path = ResourceFiles/TrackMapView.xib; sourceTree = "<group>"; };
+		7FB1C58B12673E7F008A6C94 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VideoView.xib; path = ResourceFiles/VideoView.xib; sourceTree = "<group>"; };
+		7FB1C59812673E9F008A6C94 /* ImageListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListStore.h; sourceTree = "<group>"; };
+		7FB1C59912673E9F008A6C94 /* ImageListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListStore.m; sourceTree = "<group>"; };
+		7FBDF8FB12648507009D37FA /* DrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingViewController.h; sourceTree = "<group>"; };
+		7FBDF8FC12648507009D37FA /* DrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
+		7FBDF97F12649EBE009D37FA /* TableDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDataView.h; sourceTree = "<group>"; };
+		7FBDF98012649EBE009D37FA /* TableDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableDataView.m; sourceTree = "<group>"; };
+		7FBDFA841264B822009D37FA /* TrackMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapView.h; sourceTree = "<group>"; };
+		7FBDFA851264B822009D37FA /* TrackMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMapView.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				7F9C12CE12560D5700770746 /* QuartzCore.framework in Frameworks */,
+				7F9C12D012560D6600770746 /* OpenGLES.framework in Frameworks */,
+				7F9C1515125759D900770746 /* CoreFoundation.framework in Frameworks */,
+				7F9C1517125759D900770746 /* CoreText.framework in Frameworks */,
+				7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7F9C1725125A2B9000770746 /* Constructs */,
+				7F3276EE126379B000BD1627 /* Database */,
+				7F9C1AD4125B7B6B00770746 /* RacePad */,
+				7F9C1B75125CA10A00770746 /* UISupport */,
+				7F9C10D71255E68B00770746 /* UIViewControllers */,
+				7F9C10DF1255E6A900770746 /* UIViews */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* RacePad.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* RacePad */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+			);
+			name = RacePad;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+<<<<<<< .mine
+				7F624440128258F9009A9D4F /* CompositeView.xib */,
+=======
+				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
+				7F068125126DDA6800C9EE5D /* clock.png */,
+				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
+				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
+				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
+>>>>>>> .r49
+				7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */,
+				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
+				7F067F4B126DAE1700C9EE5D /* Metal.png */,
+				7F068126126DDA6800C9EE5D /* monitor.png */,
+				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
+				7F068127126DDA6800C9EE5D /* newspaper.png */,
+				7F067F4C126DAE1700C9EE5D /* Parchment.png */,
+				7F068128126DDA6800C9EE5D /* preferences.png */,
+				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+				7F6FB6BB127577FE00EF2B8C /* RightArrow.png */,
+				7FB1C58712673E7F008A6C94 /* SecondView.xib */,
+				7F31CA681270892700F26C7B /* SettingsView.xib */,
+				7FB1C58812673E7F008A6C94 /* TestTextView.xib */,
+				7FB1C58912673E7F008A6C94 /* ThirdView.xib */,
+				7F6FB8981275F11400EF2B8C /* TimeControlView.xib */,
+				7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */,
+				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
+				7F068129126DDA6800C9EE5D /* world.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F9C12CD12560D5700770746 /* QuartzCore.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				7F9C12CF12560D6600770746 /* OpenGLES.framework */,
+				7F9C1514125759D900770746 /* CoreFoundation.framework */,
+				7F9C1516125759D900770746 /* CoreText.framework */,
+				7F9C15F51257646700770746 /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F3276EE126379B000BD1627 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				7FB1C59812673E9F008A6C94 /* ImageListStore.h */,
+				7FB1C59912673E9F008A6C94 /* ImageListStore.m */,
+				7F3276F1126379B000BD1627 /* RacePadDatabase.h */,
+				7F3276F2126379B000BD1627 /* RacePadDatabase.m */,
+				7F3276EF126379B000BD1627 /* TableData.h */,
+				7F3276F0126379B000BD1627 /* TableData.m */,
+				7F9C67381265F50000F2FFEC /* TrackMap.h */,
+				7F9C67391265F50000F2FFEC /* TrackMap.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		7F9C10D71255E68B00770746 /* UIViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D8A66821282635500E9E19D /* DownloadProgress.h */,
+				4D8A66831282635500E9E19D /* DownloadProgress.m */,
+				7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */,
+				7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */,
+				7F88203D12632EB40010785D /* DriverListController.h */,
+				7F88203E12632EB40010785D /* DriverListController.m */,
+				7F9C10D81255E68B00770746 /* FirstViewController.h */,
+				7F9C10D91255E68B00770746 /* FirstViewController.m */,
+				7F9C684E12671CD200F2FFEC /* HTMLViewController.h */,
+				7F9C684F12671CD200F2FFEC /* HTMLViewController.m */,
+				7F9C1694125A176700770746 /* MovieViewController.h */,
+				7F9C1695125A176700770746 /* MovieViewController.m */,
+				7F3276E1126375F400BD1627 /* SettingsViewController.h */,
+				7F3276E2126375F400BD1627 /* SettingsViewController.m */,
+				7F9C1C8C125E1C3400770746 /* TextViewController.h */,
+				7F9C1C8D125E1C3400770746 /* TextViewController.m */,
+				7F9C10FA1255EE1500770746 /* ThirdViewController.h */,
+				7F9C10FB1255EE1500770746 /* ThirdViewController.m */,
+				7F9C10DA1255E68B00770746 /* TrackMapViewController.h */,
+				7F9C10DB1255E68B00770746 /* TrackMapViewController.m */,
+				7F62442A128255A8009A9D4F /* CompositeViewController.h */,
+				7F62442B128255A8009A9D4F /* CompositeViewController.m */,
+			);
+			path = UIViewControllers;
+			sourceTree = "<group>";
+		};
+		7F9C10DF1255E6A900770746 /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				7F9C12BB12560D0300770746 /* EAGLView.h */,
+				7F9C12BC12560D0300770746 /* EAGLView.m */,
+				7F9C12BD12560D0300770746 /* ESRenderer.h */,
+				7F9C12BE12560D0300770746 /* ESRenderer.m */,
+				7F9C1B54125B82CA00770746 /* DrawingView.h */,
+				7F9C1B55125B82CA00770746 /* DrawingView.m */,
+				7F9C1F14125F18A000770746 /* SimpleListView.h */,
+				7F9C1F15125F18A000770746 /* SimpleListView.m */,
+				7FBDF97F12649EBE009D37FA /* TableDataView.h */,
+				7FBDF98012649EBE009D37FA /* TableDataView.m */,
+				7FBDFA841264B822009D37FA /* TrackMapView.h */,
+				7FBDFA851264B822009D37FA /* TrackMapView.m */,
+				7F6239D5127E089F009A9D4F /* MovieView.h */,
+				7F6239D6127E089F009A9D4F /* MovieView.m */,
+			);
+			path = UIViews;
+			sourceTree = "<group>";
+		};
+		7F9C1725125A2B9000770746 /* Constructs */ = {
+			isa = PBXGroup;
+			children = (
+				7F11F64B127197B800C88544 /* ElapsedTime.h */,
+				7F11F64C127197B800C88544 /* ElapsedTime.m */,
+				4D757B79126F01B700E32C41 /* BufferedDataStream.h */,
+				4D757B7A126F01B700E32C41 /* BufferedDataStream.m */,
+				4D757B7F126F028900E32C41 /* DataHandler.h */,
+				4D757B80126F028900E32C41 /* DataHandler.m */,
+				4DB39052126DFEF6009DA232 /* DataStream.h */,
+				7F9C1727125A2BD000770746 /* DataStream.m */,
+				4D757B7B126F01B700E32C41 /* FileDataStream.h */,
+				4D757B7C126F01B700E32C41 /* FileDataStream.m */,
+				7F9C1726125A2BD000770746 /* Socket.h */,
+				4DB3904D126DFEB0009DA232 /* Socket.m */,
+			);
+			path = Constructs;
+			sourceTree = "<group>";
+		};
+		7F9C1AD4125B7B6B00770746 /* RacePad */ = {
+			isa = PBXGroup;
+			children = (
+				4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */,
+				4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */,
+				7F9C1ADE125B7BD000770746 /* RacePadAppDelegate.h */,
+				7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */,
+				7F9C1AF2125B7D5900770746 /* RacePadClientSocket.h */,
+				7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */,
+				7F32763012634AB000BD1627 /* RacePadCoordinator.h */,
+				7F32763112634AB000BD1627 /* RacePadCoordinator.m */,
+				7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */,
+				7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */,
+			);
+			path = RacePad;
+			sourceTree = "<group>";
+		};
+		7F9C1B75125CA10A00770746 /* UISupport */ = {
+			isa = PBXGroup;
+			children = (
+				7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */,
+				7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */,
+				7FBDF8FB12648507009D37FA /* DrawingViewController.h */,
+				7FBDF8FC12648507009D37FA /* DrawingViewController.m */,
+				7F6E7D941276ED540073A644 /* TimeViewController.h */,
+				7F6E7D951276ED540073A644 /* TimeViewController.m */,
+				7F62357A127B2018009A9D4F /* RacePadViewController.h */,
+				7F62357B127B2018009A9D4F /* RacePadViewController.m */,
+			);
+			path = UISupport;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* RacePad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RacePad" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RacePad;
+			productName = RacePad;
+			productReference = 1D6058910D05DD3D006BFB54 /* RacePad.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* RacePad */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* RacePad */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F9C169E125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov in Resources */,
+				7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */,
+				7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */,
+				7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */,
+				7FB1C58F12673E7F008A6C94 /* SecondView.xib in Resources */,
+				7FB1C59012673E7F008A6C94 /* TestTextView.xib in Resources */,
+				7FB1C59112673E7F008A6C94 /* ThirdView.xib in Resources */,
+				7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */,
+				7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */,
+				7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */,
+				7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */,
+				7F06812A126DDA6800C9EE5D /* clock.png in Resources */,
+				7F06812B126DDA6800C9EE5D /* monitor.png in Resources */,
+				7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */,
+				7F06812D126DDA6800C9EE5D /* preferences.png in Resources */,
+				7F06812E126DDA6800C9EE5D /* world.png in Resources */,
+				7F31CA691270892700F26C7B /* SettingsView.xib in Resources */,
+				7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */,
+				7F6FB6BC127577FE00EF2B8C /* LeftArrow.png in Resources */,
+				7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */,
+				7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */,
+<<<<<<< .mine
+				7F624441128258F9009A9D4F /* CompositeView.xib in Resources */,
+=======
+				4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */,
+>>>>>>> .r49
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */,
+				7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */,
+				7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */,
+				7F9C12C212560D0300770746 /* EAGLView.m in Sources */,
+				7F9C12C312560D0300770746 /* ESRenderer.m in Sources */,
+				7F9C1696125A176700770746 /* MovieViewController.m in Sources */,
+				7F9C1728125A2BD000770746 /* DataStream.m in Sources */,
+				7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */,
+				7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */,
+				7F9C1B56125B82CA00770746 /* DrawingView.m in Sources */,
+				7F9C1C8E125E1C3400770746 /* TextViewController.m in Sources */,
+				7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */,
+				7F88203F12632EB40010785D /* DriverListController.m in Sources */,
+				7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */,
+				7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */,
+				7F3276F3126379B000BD1627 /* TableData.m in Sources */,
+				7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */,
+				7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */,
+				7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */,
+				7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */,
+				7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */,
+				7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */,
+				7FB1C59A12673E9F008A6C94 /* ImageListStore.m in Sources */,
+				7F31CC1D12709CA300F26C7B /* SimpleListViewController.m in Sources */,
+				4DB3904E126DFEB0009DA232 /* Socket.m in Sources */,
+				4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */,
+				4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */,
+				4D757B81126F028900E32C41 /* DataHandler.m in Sources */,
+				4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */,
+				7F11F64D127197B800C88544 /* ElapsedTime.m in Sources */,
+				7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */,
+				7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */,
+				7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */,
+				7F62357C127B2018009A9D4F /* RacePadViewController.m in Sources */,
+				7F6239D7127E089F009A9D4F /* MovieView.m in Sources */,
+<<<<<<< .mine
+				7F62442C128255A8009A9D4F /* CompositeViewController.m in Sources */,
+=======
+				4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */,
+>>>>>>> .r49
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "RacePad-Info.plist";
+				PRODUCT_NAME = RacePad;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "RacePad-Info.plist";
+				PRODUCT_NAME = RacePad;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RacePad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

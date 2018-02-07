@@ -1,0 +1,1053 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C7128A939800A6E375 /* ArrowLeader.png */; };
+		4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D1349C8128A939800A6E375 /* BlueFlag.png */; };
+		4D1563F312898CD0000E959D /* PitWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F212898CD0000E959D /* PitWindowView.m */; };
+		4D1563F912898E32000E959D /* PitWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1563F812898E32000E959D /* PitWindowViewController.m */; };
+		4D15640512898FD1000E959D /* PitWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D15640412898FD1000E959D /* PitWindowView.xib */; };
+		4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7A126F01B700E32C41 /* BufferedDataStream.m */; };
+		4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B7C126F01B700E32C41 /* FileDataStream.m */; };
+		4D757B81126F028900E32C41 /* DataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757B80126F028900E32C41 /* DataHandler.m */; };
+		4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */; };
+		4D782602128989B100BE0329 /* PitWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D782601128989B100BE0329 /* PitWindow.m */; };
+		4D807C101283061500FDE400 /* GPSGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0E1283061500FDE400 /* GPSGreen.png */; };
+		4D807C111283061500FDE400 /* GPSRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D807C0F1283061500FDE400 /* GPSRed.png */; };
+		4D807C6212831A8100FDE400 /* RacePadPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D807C6112831A8100FDE400 /* RacePadPrefs.m */; };
+		4D807CF212832AED00FDE400 /* ServerConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D807CF012832AED00FDE400 /* ServerConnect.m */; };
+		4D807CF512832B3400FDE400 /* ServerConnect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D807CF412832B3400FDE400 /* ServerConnect.xib */; };
+		4D82FB401283F80C00F93A2B /* WorkOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D82FB3E1283F80C00F93A2B /* WorkOffline.m */; };
+		4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D82FB421283F83300F93A2B /* WorkOffline.xib */; };
+		4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86EDD3129A98C000AA49F9 /* Telemetry.m */; };
+		4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A66831282635500E9E19D /* DownloadProgress.m */; };
+		4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D8A66871282639D00E9E19D /* DownloadProgress.xib */; };
+		4DB3904E126DFEB0009DA232 /* Socket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3904D126DFEB0009DA232 /* Socket.m */; };
+		4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8989612ACFA79000FEE9C /* DriverNames.m */; };
+		7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4B126DAE1700C9EE5D /* Metal.png */; };
+		7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F067F4C126DAE1700C9EE5D /* Parchment.png */; };
+		7F06812A126DDA6800C9EE5D /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068125126DDA6800C9EE5D /* clock.png */; };
+		7F06812B126DDA6800C9EE5D /* monitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068126126DDA6800C9EE5D /* monitor.png */; };
+		7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068127126DDA6800C9EE5D /* newspaper.png */; };
+		7F06812D126DDA6800C9EE5D /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068128126DDA6800C9EE5D /* preferences.png */; };
+		7F06812E126DDA6800C9EE5D /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F068129126DDA6800C9EE5D /* world.png */; };
+		7F0B27C812A58F8D00604392 /* CarbonFibre2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0B27C612A58F8D00604392 /* CarbonFibre2.png */; };
+		7F0B27C912A58F8D00604392 /* Turquoise.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0B27C712A58F8D00604392 /* Turquoise.png */; };
+		7F11F64D127197B800C88544 /* ElapsedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11F64C127197B800C88544 /* ElapsedTime.m */; };
+		7F317D44129BB71200F35097 /* TelemetryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F317D43129BB71200F35097 /* TelemetryView.xib */; };
+		7F31CA691270892700F26C7B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F31CA681270892700F26C7B /* SettingsView.xib */; };
+		7F31CC1D12709CA300F26C7B /* SimpleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */; };
+		7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F32763112634AB000BD1627 /* RacePadCoordinator.m */; };
+		7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276E2126375F400BD1627 /* SettingsViewController.m */; };
+		7F3276F3126379B000BD1627 /* TableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F0126379B000BD1627 /* TableData.m */; };
+		7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3276F2126379B000BD1627 /* RacePadDatabase.m */; };
+		7F62357C127B2018009A9D4F /* RacePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F62357B127B2018009A9D4F /* RacePadViewController.m */; };
+		7F6239D7127E089F009A9D4F /* MovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6239D6127E089F009A9D4F /* MovieView.m */; };
+		7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6244F01282EF9E009A9D4F /* CompositeViewController.m */; };
+		7F6244F31282EFB5009A9D4F /* CompositeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6244F21282EFB5009A9D4F /* CompositeView.xib */; };
+		7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246A21284471E009A9D4F /* MGPLogo.png */; };
+		7F6246A612844742009A9D4F /* RacePadTitleBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A512844742009A9D4F /* RacePadTitleBarController.m */; };
+		7F6246A912844762009A9D4F /* TitleBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6246A812844762009A9D4F /* TitleBarViewController.m */; };
+		7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6246DC12844D6F009A9D4F /* TitleBarView.xib */; };
+		7F62476112851255009A9D4F /* ChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475B12851255009A9D4F /* ChequeredFlag.png */; };
+		7F62476212851255009A9D4F /* GreenFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475C12851255009A9D4F /* GreenFlag.png */; };
+		7F62476312851255009A9D4F /* RedFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475D12851255009A9D4F /* RedFlag.png */; };
+		7F62476412851255009A9D4F /* SCFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475E12851255009A9D4F /* SCFlag.png */; };
+		7F62476512851255009A9D4F /* SCInFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62475F12851255009A9D4F /* SCInFlag.png */; };
+		7F62476612851255009A9D4F /* YellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F62476012851255009A9D4F /* YellowFlag.png */; };
+		7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E7D951276ED540073A644 /* TimeViewController.m */; };
+		7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */; };
+		7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */; };
+		7F6FB6BC127577FE00EF2B8C /* LeftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */; };
+		7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB6BB127577FE00EF2B8C /* RightArrow.png */; };
+		7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F6FB8981275F11400EF2B8C /* TimeControlView.xib */; };
+		7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */; };
+		7F767CA812A62EC9009249F7 /* BlueBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA612A62EC9009249F7 /* BlueBar.png */; };
+		7F767CA912A62EC9009249F7 /* RedBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CA712A62EC9009249F7 /* RedBar.png */; };
+		7F767CC212A6300D009249F7 /* GraphPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F767CC112A6300D009249F7 /* GraphPaper.png */; };
+		7F767E6E12A68525009249F7 /* CarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F767E6D12A68525009249F7 /* CarViewController.m */; };
+		7F767E9112A689F1009249F7 /* CarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F767E9012A689F1009249F7 /* CarView.xib */; };
+		7F7683F912AAA06A009249F7 /* FullScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683F812AAA06A009249F7 /* FullScreen.png */; };
+		7F7683FB12AAA07D009249F7 /* SmallScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7683FA12AAA07D009249F7 /* SmallScreen.png */; };
+		7F76866C12AE304F009249F7 /* AnimationTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F76866B12AE304F009249F7 /* AnimationTimer.m */; };
+		7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A15128776B600F13CB6 /* Icon-72.png */; };
+		7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A16128776B600F13CB6 /* Icon-Small-50.png */; };
+		7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A17128776B600F13CB6 /* Icon-Small.png */; };
+		7F865A1D128776B600F13CB6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A18128776B600F13CB6 /* Icon.png */; };
+		7F865A1E128776B600F13CB6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A19128776B600F13CB6 /* Icon@2x.png */; };
+		7F865A7612880EBF00F13CB6 /* ListIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F865A7512880EBF00F13CB6 /* ListIcon.png */; };
+		7F866016128ABE7500F13CB6 /* AlertControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F866015128ABE7500F13CB6 /* AlertControlView.xib */; };
+		7F86601A128ABE9700F13CB6 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866017128ABE9700F13CB6 /* Default-Landscape.png */; };
+		7F86601B128ABE9700F13CB6 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866018128ABE9700F13CB6 /* Default-Portrait.png */; };
+		7F86601C128ABE9700F13CB6 /* PopupImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F866019128ABE9700F13CB6 /* PopupImage.png */; };
+		7F86601F128ABEB900F13CB6 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86601E128ABEB900F13CB6 /* AlertView.m */; };
+		7F866022128ABEC800F13CB6 /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866021128ABEC800F13CB6 /* AlertViewController.m */; };
+		7F866025128ABEE300F13CB6 /* AlertData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866024128ABEE300F13CB6 /* AlertData.m */; };
+		7F86602E128AC1D000F13CB6 /* connections.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602A128AC1D000F13CB6 /* connections.png */; };
+		7F86602F128AC1D000F13CB6 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602B128AC1D000F13CB6 /* pause.png */; };
+		7F866030128AC1D000F13CB6 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602C128AC1D000F13CB6 /* play.png */; };
+		7F866031128AC1D000F13CB6 /* trend.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86602D128AC1D000F13CB6 /* trend.png */; };
+		7F866454128C3D4900F13CB6 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F866453128C3D4900F13CB6 /* BackgroundView.m */; };
+		7F8664E6128C46CA00F13CB6 /* Kerbs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8664E5128C46CA00F13CB6 /* Kerbs.png */; };
+		7F866590128C51DA00F13CB6 /* LeaderboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86658F128C51DA00F13CB6 /* LeaderboardView.m */; };
+		7F88203F12632EB40010785D /* DriverListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F88203E12632EB40010785D /* DriverListController.m */; };
+		7F91F470129BD3C300BFDFCC /* TelemetryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */; };
+		7F91F471129BD3C300BFDFCC /* TelemetrySteeringWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */; };
+		7F91F625129CFF3100BFDFCC /* LightMetalSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */; };
+		7F91F628129CFF4800BFDFCC /* TelemetryCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F626129CFF4800BFDFCC /* TelemetryCar.png */; };
+		7F91F629129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */; };
+		7F91F6E9129D130400BFDFCC /* Pedal.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F6E8129D130400BFDFCC /* Pedal.png */; };
+		7F91F8C9129D58F700BFDFCC /* wheel_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F8C8129D58F700BFDFCC /* wheel_icon.png */; };
+		7F91F8E5129D5CC800BFDFCC /* track-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91F8E4129D5CC800BFDFCC /* track-icon.png */; };
+		7F91FA0E12A011DE00BFDFCC /* RPMGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */; };
+		7F91FA0F12A011DE00BFDFCC /* RPMOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */; };
+		7F91FA1012A011DE00BFDFCC /* RPMRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0C12A011DE00BFDFCC /* RPMRed.png */; };
+		7F91FA1112A011DE00BFDFCC /* RPMWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */; };
+		7F91FA4112A01D7D00BFDFCC /* GearCog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FA4012A01D7D00BFDFCC /* GearCog.png */; };
+		7F91FB3512A4059C00BFDFCC /* ShinyGreenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */; };
+		7F91FB3612A4059C00BFDFCC /* ShinyGreyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */; };
+		7F91FB4A12A4138F00BFDFCC /* BlackBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F91FB4912A4138F00BFDFCC /* BlackBar.png */; };
+		7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10D91255E68B00770746 /* FirstViewController.m */; };
+		7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10DB1255E68B00770746 /* TrackMapViewController.m */; };
+		7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C10FB1255EE1500770746 /* ThirdViewController.m */; };
+		7F9C12C212560D0300770746 /* EAGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C12BC12560D0300770746 /* EAGLView.m */; };
+		7F9C12C312560D0300770746 /* ESRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C12BE12560D0300770746 /* ESRenderer.m */; };
+		7F9C12CE12560D5700770746 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CD12560D5700770746 /* QuartzCore.framework */; };
+		7F9C12D012560D6600770746 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C12CF12560D6600770746 /* OpenGLES.framework */; };
+		7F9C1515125759D900770746 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1514125759D900770746 /* CoreFoundation.framework */; };
+		7F9C1517125759D900770746 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C1516125759D900770746 /* CoreText.framework */; };
+		7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9C15F51257646700770746 /* MediaPlayer.framework */; };
+		7F9C1696125A176700770746 /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1695125A176700770746 /* MovieViewController.m */; };
+		7F9C169E125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */; };
+		7F9C1728125A2BD000770746 /* DataStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1727125A2BD000770746 /* DataStream.m */; };
+		7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */; };
+		7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */; };
+		7F9C1B56125B82CA00770746 /* DrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1B55125B82CA00770746 /* DrawingView.m */; };
+		7F9C1C8E125E1C3400770746 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1C8D125E1C3400770746 /* TextViewController.m */; };
+		7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C1F15125F18A000770746 /* SimpleListView.m */; };
+		7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C67391265F50000F2FFEC /* TrackMap.m */; };
+		7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9C684F12671CD200F2FFEC /* HTMLViewController.m */; };
+		7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58412673E7F008A6C94 /* DriverListView.xib */; };
+		7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58512673E7F008A6C94 /* HTMLView.xib */; };
+		7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58612673E7F008A6C94 /* MainWindow.xib */; };
+		7FB1C58F12673E7F008A6C94 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58712673E7F008A6C94 /* SecondView.xib */; };
+		7FB1C59012673E7F008A6C94 /* TestTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58812673E7F008A6C94 /* TestTextView.xib */; };
+		7FB1C59112673E7F008A6C94 /* ThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58912673E7F008A6C94 /* ThirdView.xib */; };
+		7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */; };
+		7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FB1C58B12673E7F008A6C94 /* VideoView.xib */; };
+		7FB1C59A12673E9F008A6C94 /* ImageListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB1C59912673E9F008A6C94 /* ImageListStore.m */; };
+		7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF8FC12648507009D37FA /* DrawingViewController.m */; };
+		7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDF98012649EBE009D37FA /* TableDataView.m */; };
+		7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDFA851264B822009D37FA /* TrackMapView.m */; };
+		7FC2EAB8128C926C00DAC96E /* AlertChequeredFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */; };
+		7FC2EAB9128C926C00DAC96E /* AlertGreenFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */; };
+		7FC2EABA128C926C00DAC96E /* AlertOvertake.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAA128C926B00DAC96E /* AlertOvertake.png */; };
+		7FC2EABB128C926C00DAC96E /* AlertPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAB128C926B00DAC96E /* AlertPin.png */; };
+		7FC2EABC128C926C00DAC96E /* AlertPitstop.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAC128C926B00DAC96E /* AlertPitstop.png */; };
+		7FC2EABD128C926C00DAC96E /* AlertRedFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAD128C926B00DAC96E /* AlertRedFlag.png */; };
+		7FC2EABE128C926C00DAC96E /* AlertSafetyCar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAE128C926B00DAC96E /* AlertSafetyCar.png */; };
+		7FC2EABF128C926C00DAC96E /* AlertWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAAF128C926B00DAC96E /* AlertWarning.png */; };
+		7FC2EAC0128C926C00DAC96E /* AlertYellowFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB0128C926B00DAC96E /* AlertYellowFlag.png */; };
+		7FC2EAC1128C926C00DAC96E /* StateChequered.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB1128C926B00DAC96E /* StateChequered.png */; };
+		7FC2EAC2128C926C00DAC96E /* StateGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB2128C926B00DAC96E /* StateGreen.png */; };
+		7FC2EAC3128C926C00DAC96E /* StateRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB3128C926B00DAC96E /* StateRed.png */; };
+		7FC2EAC4128C926C00DAC96E /* StateSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB4128C926B00DAC96E /* StateSC.png */; };
+		7FC2EAC5128C926C00DAC96E /* StateSCIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB5128C926B00DAC96E /* StateSCIn.png */; };
+		7FC2EAC6128C926C00DAC96E /* StateYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB6128C926B00DAC96E /* StateYellow.png */; };
+		7FC2EAC7128C926C00DAC96E /* TitleStateSC.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */; };
+		7FC2F4B71292E20400DAC96E /* Grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F4B61292E20400DAC96E /* Grass.png */; };
+		7FC2F765129429B400DAC96E /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC2F764129429B400DAC96E /* Replay.png */; };
+		7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBBF129AC91700DAC96E /* TelemetryView.m */; };
+		7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* RacePad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RacePad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePad_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D1349C7128A939800A6E375 /* ArrowLeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ArrowLeader.png; path = ResourceFiles/ArrowLeader.png; sourceTree = "<group>"; };
+		4D1349C8128A939800A6E375 /* BlueFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueFlag.png; path = ResourceFiles/BlueFlag.png; sourceTree = "<group>"; };
+		4D1563F112898CD0000E959D /* PitWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindowView.h; sourceTree = "<group>"; };
+		4D1563F212898CD0000E959D /* PitWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindowView.m; sourceTree = "<group>"; };
+		4D1563F712898E32000E959D /* PitWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindowViewController.h; sourceTree = "<group>"; };
+		4D1563F812898E32000E959D /* PitWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindowViewController.m; sourceTree = "<group>"; };
+		4D15640412898FD1000E959D /* PitWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PitWindowView.xib; path = ResourceFiles/PitWindowView.xib; sourceTree = "<group>"; };
+		4D757B79126F01B700E32C41 /* BufferedDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedDataStream.h; sourceTree = "<group>"; };
+		4D757B7A126F01B700E32C41 /* BufferedDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BufferedDataStream.m; sourceTree = "<group>"; };
+		4D757B7B126F01B700E32C41 /* FileDataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataStream.h; sourceTree = "<group>"; };
+		4D757B7C126F01B700E32C41 /* FileDataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDataStream.m; sourceTree = "<group>"; };
+		4D757B7F126F028900E32C41 /* DataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHandler.h; sourceTree = "<group>"; };
+		4D757B80126F028900E32C41 /* DataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHandler.m; sourceTree = "<group>"; };
+		4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDataHandler.h; sourceTree = "<group>"; };
+		4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDataHandler.m; sourceTree = "<group>"; };
+		4D782600128989B100BE0329 /* PitWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitWindow.h; sourceTree = "<group>"; };
+		4D782601128989B100BE0329 /* PitWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PitWindow.m; sourceTree = "<group>"; };
+		4D807C0E1283061500FDE400 /* GPSGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GPSGreen.png; path = Images/GPSGreen.png; sourceTree = "<group>"; };
+		4D807C0F1283061500FDE400 /* GPSRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GPSRed.png; path = Images/GPSRed.png; sourceTree = "<group>"; };
+		4D807C6012831A8100FDE400 /* RacePadPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadPrefs.h; sourceTree = "<group>"; };
+		4D807C6112831A8100FDE400 /* RacePadPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadPrefs.m; sourceTree = "<group>"; };
+		4D807CEF12832AED00FDE400 /* ServerConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConnect.h; sourceTree = "<group>"; };
+		4D807CF012832AED00FDE400 /* ServerConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConnect.m; sourceTree = "<group>"; };
+		4D807CF412832B3400FDE400 /* ServerConnect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerConnect.xib; path = ResourceFiles/ServerConnect.xib; sourceTree = "<group>"; };
+		4D82FB3D1283F80C00F93A2B /* WorkOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkOffline.h; sourceTree = "<group>"; };
+		4D82FB3E1283F80C00F93A2B /* WorkOffline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkOffline.m; sourceTree = "<group>"; };
+		4D82FB421283F83300F93A2B /* WorkOffline.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WorkOffline.xib; path = ResourceFiles/WorkOffline.xib; sourceTree = "<group>"; };
+		4D86EDD2129A98C000AA49F9 /* Telemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Telemetry.h; sourceTree = "<group>"; };
+		4D86EDD3129A98C000AA49F9 /* Telemetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Telemetry.m; sourceTree = "<group>"; };
+		4D8A66821282635500E9E19D /* DownloadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgress.h; sourceTree = "<group>"; };
+		4D8A66831282635500E9E19D /* DownloadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgress.m; sourceTree = "<group>"; };
+		4D8A66871282639D00E9E19D /* DownloadProgress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DownloadProgress.xib; path = ResourceFiles/DownloadProgress.xib; sourceTree = "<group>"; };
+		4DB3904D126DFEB0009DA232 /* Socket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket.m; sourceTree = "<group>"; };
+		4DB39052126DFEF6009DA232 /* DataStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStream.h; sourceTree = "<group>"; };
+		4DE8989512ACFA79000FEE9C /* DriverNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverNames.h; sourceTree = "<group>"; };
+		4DE8989612ACFA79000FEE9C /* DriverNames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverNames.m; sourceTree = "<group>"; };
+		7F067F4B126DAE1700C9EE5D /* Metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Metal.png; path = Images/Metal.png; sourceTree = "<group>"; };
+		7F067F4C126DAE1700C9EE5D /* Parchment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Parchment.png; path = Images/Parchment.png; sourceTree = "<group>"; };
+		7F068125126DDA6800C9EE5D /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clock.png; path = Images/clock.png; sourceTree = "<group>"; };
+		7F068126126DDA6800C9EE5D /* monitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = monitor.png; path = Images/monitor.png; sourceTree = "<group>"; };
+		7F068127126DDA6800C9EE5D /* newspaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newspaper.png; path = Images/newspaper.png; sourceTree = "<group>"; };
+		7F068128126DDA6800C9EE5D /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = preferences.png; path = Images/preferences.png; sourceTree = "<group>"; };
+		7F068129126DDA6800C9EE5D /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world.png; path = Images/world.png; sourceTree = "<group>"; };
+		7F0B27C612A58F8D00604392 /* CarbonFibre2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CarbonFibre2.png; path = Images/CarbonFibre2.png; sourceTree = "<group>"; };
+		7F0B27C712A58F8D00604392 /* Turquoise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Turquoise.png; path = Images/Turquoise.png; sourceTree = "<group>"; };
+		7F11F64B127197B800C88544 /* ElapsedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElapsedTime.h; sourceTree = "<group>"; };
+		7F11F64C127197B800C88544 /* ElapsedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElapsedTime.m; sourceTree = "<group>"; };
+		7F317D43129BB71200F35097 /* TelemetryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TelemetryView.xib; path = ResourceFiles/TelemetryView.xib; sourceTree = "<group>"; };
+		7F31CA681270892700F26C7B /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsView.xib; path = ResourceFiles/SettingsView.xib; sourceTree = "<group>"; };
+		7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListViewController.h; sourceTree = "<group>"; };
+		7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListViewController.m; sourceTree = "<group>"; };
+		7F32763012634AB000BD1627 /* RacePadCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadCoordinator.h; sourceTree = "<group>"; };
+		7F32763112634AB000BD1627 /* RacePadCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadCoordinator.m; sourceTree = "<group>"; };
+		7F3276E1126375F400BD1627 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		7F3276E2126375F400BD1627 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		7F3276EF126379B000BD1627 /* TableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableData.h; sourceTree = "<group>"; };
+		7F3276F0126379B000BD1627 /* TableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableData.m; sourceTree = "<group>"; };
+		7F3276F1126379B000BD1627 /* RacePadDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadDatabase.h; sourceTree = "<group>"; };
+		7F3276F2126379B000BD1627 /* RacePadDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadDatabase.m; sourceTree = "<group>"; };
+		7F62357A127B2018009A9D4F /* RacePadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadViewController.h; sourceTree = "<group>"; };
+		7F62357B127B2018009A9D4F /* RacePadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadViewController.m; sourceTree = "<group>"; };
+		7F6239D5127E089F009A9D4F /* MovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieView.h; sourceTree = "<group>"; };
+		7F6239D6127E089F009A9D4F /* MovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieView.m; sourceTree = "<group>"; };
+		7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeViewController.h; sourceTree = "<group>"; };
+		7F6244F01282EF9E009A9D4F /* CompositeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompositeViewController.m; sourceTree = "<group>"; };
+		7F6244F21282EFB5009A9D4F /* CompositeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CompositeView.xib; path = ResourceFiles/CompositeView.xib; sourceTree = "<group>"; };
+		7F6246A21284471E009A9D4F /* MGPLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MGPLogo.png; path = Images/MGPLogo.png; sourceTree = "<group>"; };
+		7F6246A412844742009A9D4F /* RacePadTitleBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadTitleBarController.h; sourceTree = "<group>"; };
+		7F6246A512844742009A9D4F /* RacePadTitleBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTitleBarController.m; sourceTree = "<group>"; };
+		7F6246A712844762009A9D4F /* TitleBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleBarViewController.h; sourceTree = "<group>"; };
+		7F6246A812844762009A9D4F /* TitleBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleBarViewController.m; sourceTree = "<group>"; };
+		7F6246DC12844D6F009A9D4F /* TitleBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TitleBarView.xib; path = ResourceFiles/TitleBarView.xib; sourceTree = "<group>"; };
+		7F62475B12851255009A9D4F /* ChequeredFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ChequeredFlag.png; path = Images/ChequeredFlag.png; sourceTree = "<group>"; };
+		7F62475C12851255009A9D4F /* GreenFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenFlag.png; path = Images/GreenFlag.png; sourceTree = "<group>"; };
+		7F62475D12851255009A9D4F /* RedFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedFlag.png; path = Images/RedFlag.png; sourceTree = "<group>"; };
+		7F62475E12851255009A9D4F /* SCFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCFlag.png; path = Images/SCFlag.png; sourceTree = "<group>"; };
+		7F62475F12851255009A9D4F /* SCInFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SCInFlag.png; path = Images/SCInFlag.png; sourceTree = "<group>"; };
+		7F62476012851255009A9D4F /* YellowFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = YellowFlag.png; path = Images/YellowFlag.png; sourceTree = "<group>"; };
+		7F6E7D941276ED540073A644 /* TimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
+		7F6E7D951276ED540073A644 /* TimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
+		7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverLapListController.h; sourceTree = "<group>"; };
+		7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverLapListController.m; sourceTree = "<group>"; };
+		7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverLapListView.xib; path = ResourceFiles/DriverLapListView.xib; sourceTree = "<group>"; };
+		7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LeftArrow.png; path = Images/LeftArrow.png; sourceTree = "<group>"; };
+		7F6FB6BB127577FE00EF2B8C /* RightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RightArrow.png; path = Images/RightArrow.png; sourceTree = "<group>"; };
+		7F6FB8981275F11400EF2B8C /* TimeControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeControlView.xib; path = ResourceFiles/TimeControlView.xib; sourceTree = "<group>"; };
+		7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadTimeController.h; sourceTree = "<group>"; };
+		7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadTimeController.m; sourceTree = "<group>"; };
+		7F767CA612A62EC9009249F7 /* BlueBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueBar.png; path = Images/BlueBar.png; sourceTree = "<group>"; };
+		7F767CA712A62EC9009249F7 /* RedBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedBar.png; path = Images/RedBar.png; sourceTree = "<group>"; };
+		7F767CC112A6300D009249F7 /* GraphPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GraphPaper.png; path = Images/GraphPaper.png; sourceTree = "<group>"; };
+		7F767D9E12A67559009249F7 /* UIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIConstants.h; sourceTree = "<group>"; };
+		7F767E6C12A68525009249F7 /* CarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarViewController.h; sourceTree = "<group>"; };
+		7F767E6D12A68525009249F7 /* CarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarViewController.m; sourceTree = "<group>"; };
+		7F767E9012A689F1009249F7 /* CarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarView.xib; path = ResourceFiles/CarView.xib; sourceTree = "<group>"; };
+		7F7683F812AAA06A009249F7 /* FullScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FullScreen.png; path = Images/FullScreen.png; sourceTree = "<group>"; };
+		7F7683FA12AAA07D009249F7 /* SmallScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SmallScreen.png; path = Images/SmallScreen.png; sourceTree = "<group>"; };
+		7F76866A12AE304F009249F7 /* AnimationTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationTimer.h; sourceTree = "<group>"; };
+		7F76866B12AE304F009249F7 /* AnimationTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationTimer.m; sourceTree = "<group>"; };
+		7F865A15128776B600F13CB6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
+		7F865A16128776B600F13CB6 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Images/Icon-Small-50.png"; sourceTree = "<group>"; };
+		7F865A17128776B600F13CB6 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Images/Icon-Small.png"; sourceTree = "<group>"; };
+		7F865A18128776B600F13CB6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
+		7F865A19128776B600F13CB6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Images/Icon@2x.png"; sourceTree = "<group>"; };
+		7F865A7512880EBF00F13CB6 /* ListIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ListIcon.png; path = Images/ListIcon.png; sourceTree = "<group>"; };
+		7F866015128ABE7500F13CB6 /* AlertControlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AlertControlView.xib; path = ResourceFiles/AlertControlView.xib; sourceTree = "<group>"; };
+		7F866017128ABE9700F13CB6 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape.png"; path = "Images/Default-Landscape.png"; sourceTree = "<group>"; };
+		7F866018128ABE9700F13CB6 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait.png"; path = "Images/Default-Portrait.png"; sourceTree = "<group>"; };
+		7F866019128ABE9700F13CB6 /* PopupImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupImage.png; path = Images/PopupImage.png; sourceTree = "<group>"; };
+		7F86601D128ABEB900F13CB6 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
+		7F86601E128ABEB900F13CB6 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
+		7F866020128ABEC800F13CB6 /* AlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
+		7F866021128ABEC800F13CB6 /* AlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
+		7F866023128ABEE300F13CB6 /* AlertData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertData.h; sourceTree = "<group>"; };
+		7F866024128ABEE300F13CB6 /* AlertData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertData.m; sourceTree = "<group>"; };
+		7F86602A128AC1D000F13CB6 /* connections.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = connections.png; path = Images/connections.png; sourceTree = "<group>"; };
+		7F86602B128AC1D000F13CB6 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/pause.png; sourceTree = "<group>"; };
+		7F86602C128AC1D000F13CB6 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = Images/play.png; sourceTree = "<group>"; };
+		7F86602D128AC1D000F13CB6 /* trend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trend.png; path = Images/trend.png; sourceTree = "<group>"; };
+		7F866452128C3D4900F13CB6 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
+		7F866453128C3D4900F13CB6 /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
+		7F8664E5128C46CA00F13CB6 /* Kerbs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Kerbs.png; path = Images/Kerbs.png; sourceTree = "<group>"; };
+		7F86658E128C51DA00F13CB6 /* LeaderboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardView.h; sourceTree = "<group>"; };
+		7F86658F128C51DA00F13CB6 /* LeaderboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardView.m; sourceTree = "<group>"; };
+		7F88203D12632EB40010785D /* DriverListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverListController.h; sourceTree = "<group>"; };
+		7F88203E12632EB40010785D /* DriverListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverListController.m; sourceTree = "<group>"; };
+		7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryBG.png; path = Images/TelemetryBG.png; sourceTree = "<group>"; };
+		7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheel.png; path = Images/TelemetrySteeringWheel.png; sourceTree = "<group>"; };
+		7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LightMetalSmall.png; path = Images/LightMetalSmall.png; sourceTree = "<group>"; };
+		7F91F626129CFF4800BFDFCC /* TelemetryCar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetryCar.png; path = Images/TelemetryCar.png; sourceTree = "<group>"; };
+		7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TelemetrySteeringWheelSmall.png; path = Images/TelemetrySteeringWheelSmall.png; sourceTree = "<group>"; };
+		7F91F6E8129D130400BFDFCC /* Pedal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pedal.png; path = Images/Pedal.png; sourceTree = "<group>"; };
+		7F91F8C8129D58F700BFDFCC /* wheel_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wheel_icon.png; path = Images/wheel_icon.png; sourceTree = "<group>"; };
+		7F91F8E4129D5CC800BFDFCC /* track-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "track-icon.png"; path = "Images/track-icon.png"; sourceTree = "<group>"; };
+		7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMGreen.png; path = Images/RPMGreen.png; sourceTree = "<group>"; };
+		7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMOrange.png; path = Images/RPMOrange.png; sourceTree = "<group>"; };
+		7F91FA0C12A011DE00BFDFCC /* RPMRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMRed.png; path = Images/RPMRed.png; sourceTree = "<group>"; };
+		7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RPMWhite.png; path = Images/RPMWhite.png; sourceTree = "<group>"; };
+		7F91FA4012A01D7D00BFDFCC /* GearCog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GearCog.png; path = Images/GearCog.png; sourceTree = "<group>"; };
+		7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShinyGreenButton.png; path = Images/ShinyGreenButton.png; sourceTree = "<group>"; };
+		7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShinyGreyButton.png; path = Images/ShinyGreyButton.png; sourceTree = "<group>"; };
+		7F91FB4912A4138F00BFDFCC /* BlackBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlackBar.png; path = Images/BlackBar.png; sourceTree = "<group>"; };
+		7F9C10D81255E68B00770746 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		7F9C10D91255E68B00770746 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		7F9C10DA1255E68B00770746 /* TrackMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapViewController.h; sourceTree = "<group>"; };
+		7F9C10DB1255E68B00770746 /* TrackMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMapViewController.m; sourceTree = "<group>"; };
+		7F9C10FA1255EE1500770746 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		7F9C10FB1255EE1500770746 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		7F9C12BB12560D0300770746 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		7F9C12BC12560D0300770746 /* EAGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAGLView.m; sourceTree = "<group>"; };
+		7F9C12BD12560D0300770746 /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
+		7F9C12BE12560D0300770746 /* ESRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRenderer.m; sourceTree = "<group>"; };
+		7F9C12CD12560D5700770746 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7F9C12CF12560D6600770746 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		7F9C1514125759D900770746 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7F9C1516125759D900770746 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		7F9C15F51257646700770746 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		7F9C1694125A176700770746 /* MovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieViewController.h; path = ../UIViews/MovieViewController.h; sourceTree = "<group>"; };
+		7F9C1695125A176700770746 /* MovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieViewController.m; path = ../UIViews/MovieViewController.m; sourceTree = "<group>"; };
+		7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "Movie on 2010-10-04 at 16.26.mov"; sourceTree = "<group>"; };
+		7F9C1726125A2BD000770746 /* Socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket.h; sourceTree = "<group>"; };
+		7F9C1727125A2BD000770746 /* DataStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStream.m; sourceTree = "<group>"; };
+		7F9C1ADE125B7BD000770746 /* RacePadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadAppDelegate.h; sourceTree = "<group>"; };
+		7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadAppDelegate.m; sourceTree = "<group>"; };
+		7F9C1AF2125B7D5900770746 /* RacePadClientSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RacePadClientSocket.h; sourceTree = "<group>"; };
+		7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacePadClientSocket.m; sourceTree = "<group>"; };
+		7F9C1B54125B82CA00770746 /* DrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingView.h; sourceTree = "<group>"; };
+		7F9C1B55125B82CA00770746 /* DrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingView.m; sourceTree = "<group>"; };
+		7F9C1C8C125E1C3400770746 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		7F9C1C8D125E1C3400770746 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		7F9C1F14125F18A000770746 /* SimpleListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleListView.h; sourceTree = "<group>"; };
+		7F9C1F15125F18A000770746 /* SimpleListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleListView.m; sourceTree = "<group>"; };
+		7F9C67381265F50000F2FFEC /* TrackMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMap.h; sourceTree = "<group>"; };
+		7F9C67391265F50000F2FFEC /* TrackMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMap.m; sourceTree = "<group>"; };
+		7F9C684E12671CD200F2FFEC /* HTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLViewController.h; sourceTree = "<group>"; };
+		7F9C684F12671CD200F2FFEC /* HTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLViewController.m; sourceTree = "<group>"; };
+		7FB1C58412673E7F008A6C94 /* DriverListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DriverListView.xib; path = ResourceFiles/DriverListView.xib; sourceTree = "<group>"; };
+		7FB1C58512673E7F008A6C94 /* HTMLView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HTMLView.xib; path = ResourceFiles/HTMLView.xib; sourceTree = "<group>"; };
+		7FB1C58612673E7F008A6C94 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ResourceFiles/MainWindow.xib; sourceTree = "<group>"; };
+		7FB1C58712673E7F008A6C94 /* SecondView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SecondView.xib; path = ResourceFiles/SecondView.xib; sourceTree = "<group>"; };
+		7FB1C58812673E7F008A6C94 /* TestTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestTextView.xib; path = ResourceFiles/TestTextView.xib; sourceTree = "<group>"; };
+		7FB1C58912673E7F008A6C94 /* ThirdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ThirdView.xib; path = ResourceFiles/ThirdView.xib; sourceTree = "<group>"; };
+		7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TrackMapView.xib; path = ResourceFiles/TrackMapView.xib; sourceTree = "<group>"; };
+		7FB1C58B12673E7F008A6C94 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VideoView.xib; path = ResourceFiles/VideoView.xib; sourceTree = "<group>"; };
+		7FB1C59812673E9F008A6C94 /* ImageListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListStore.h; sourceTree = "<group>"; };
+		7FB1C59912673E9F008A6C94 /* ImageListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListStore.m; sourceTree = "<group>"; };
+		7FBDF8FB12648507009D37FA /* DrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingViewController.h; sourceTree = "<group>"; };
+		7FBDF8FC12648507009D37FA /* DrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
+		7FBDF97F12649EBE009D37FA /* TableDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableDataView.h; sourceTree = "<group>"; };
+		7FBDF98012649EBE009D37FA /* TableDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableDataView.m; sourceTree = "<group>"; };
+		7FBDFA841264B822009D37FA /* TrackMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMapView.h; sourceTree = "<group>"; };
+		7FBDFA851264B822009D37FA /* TrackMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMapView.m; sourceTree = "<group>"; };
+		7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertChequeredFlag.png; path = Images/AlertChequeredFlag.png; sourceTree = "<group>"; };
+		7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertGreenFlag.png; path = Images/AlertGreenFlag.png; sourceTree = "<group>"; };
+		7FC2EAAA128C926B00DAC96E /* AlertOvertake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertOvertake.png; path = Images/AlertOvertake.png; sourceTree = "<group>"; };
+		7FC2EAAB128C926B00DAC96E /* AlertPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertPin.png; path = Images/AlertPin.png; sourceTree = "<group>"; };
+		7FC2EAAC128C926B00DAC96E /* AlertPitstop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertPitstop.png; path = Images/AlertPitstop.png; sourceTree = "<group>"; };
+		7FC2EAAD128C926B00DAC96E /* AlertRedFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertRedFlag.png; path = Images/AlertRedFlag.png; sourceTree = "<group>"; };
+		7FC2EAAE128C926B00DAC96E /* AlertSafetyCar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertSafetyCar.png; path = Images/AlertSafetyCar.png; sourceTree = "<group>"; };
+		7FC2EAAF128C926B00DAC96E /* AlertWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertWarning.png; path = Images/AlertWarning.png; sourceTree = "<group>"; };
+		7FC2EAB0128C926B00DAC96E /* AlertYellowFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AlertYellowFlag.png; path = Images/AlertYellowFlag.png; sourceTree = "<group>"; };
+		7FC2EAB1128C926B00DAC96E /* StateChequered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateChequered.png; path = Images/StateChequered.png; sourceTree = "<group>"; };
+		7FC2EAB2128C926B00DAC96E /* StateGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateGreen.png; path = Images/StateGreen.png; sourceTree = "<group>"; };
+		7FC2EAB3128C926B00DAC96E /* StateRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateRed.png; path = Images/StateRed.png; sourceTree = "<group>"; };
+		7FC2EAB4128C926B00DAC96E /* StateSC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateSC.png; path = Images/StateSC.png; sourceTree = "<group>"; };
+		7FC2EAB5128C926B00DAC96E /* StateSCIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateSCIn.png; path = Images/StateSCIn.png; sourceTree = "<group>"; };
+		7FC2EAB6128C926B00DAC96E /* StateYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StateYellow.png; path = Images/StateYellow.png; sourceTree = "<group>"; };
+		7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TitleStateSC.png; path = Images/TitleStateSC.png; sourceTree = "<group>"; };
+		7FC2F4B61292E20400DAC96E /* Grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Grass.png; path = Images/Grass.png; sourceTree = "<group>"; };
+		7FC2F764129429B400DAC96E /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Replay.png; path = Images/Replay.png; sourceTree = "<group>"; };
+		7FC2FBBE129AC91700DAC96E /* TelemetryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelemetryView.h; sourceTree = "<group>"; };
+		7FC2FBBF129AC91700DAC96E /* TelemetryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryView.m; sourceTree = "<group>"; };
+		7FC2FBC1129AC94E00DAC96E /* TelemetryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelemetryViewController.h; sourceTree = "<group>"; };
+		7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelemetryViewController.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* RacePad-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RacePad-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				7F9C12CE12560D5700770746 /* QuartzCore.framework in Frameworks */,
+				7F9C12D012560D6600770746 /* OpenGLES.framework in Frameworks */,
+				7F9C1515125759D900770746 /* CoreFoundation.framework in Frameworks */,
+				7F9C1517125759D900770746 /* CoreText.framework in Frameworks */,
+				7F9C15F61257646700770746 /* MediaPlayer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7F9C1725125A2B9000770746 /* Constructs */,
+				7F3276EE126379B000BD1627 /* Database */,
+				7F9C1AD4125B7B6B00770746 /* RacePad */,
+				7F9C1B75125CA10A00770746 /* UISupport */,
+				7F9C10D71255E68B00770746 /* UIViewControllers */,
+				7F9C10DF1255E6A900770746 /* UIViews */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* RacePad.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* RacePad */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+			);
+			name = RacePad;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				28A0AB4B0D9B1048005BE974 /* RacePad_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7FC2F8181295911900DAC96E /* Images */,
+				7FC2F8171295910D00DAC96E /* XIB Files */,
+				7F9C169D125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov */,
+				8D1107310486CEB800E47090 /* RacePad-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F9C12CD12560D5700770746 /* QuartzCore.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				7F9C12CF12560D6600770746 /* OpenGLES.framework */,
+				7F9C1514125759D900770746 /* CoreFoundation.framework */,
+				7F9C1516125759D900770746 /* CoreText.framework */,
+				7F9C15F51257646700770746 /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F3276EE126379B000BD1627 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				7F866023128ABEE300F13CB6 /* AlertData.h */,
+				7F866024128ABEE300F13CB6 /* AlertData.m */,
+				4DE8989512ACFA79000FEE9C /* DriverNames.h */,
+				4DE8989612ACFA79000FEE9C /* DriverNames.m */,
+				7FB1C59812673E9F008A6C94 /* ImageListStore.h */,
+				7FB1C59912673E9F008A6C94 /* ImageListStore.m */,
+				4D782600128989B100BE0329 /* PitWindow.h */,
+				4D782601128989B100BE0329 /* PitWindow.m */,
+				7F3276F1126379B000BD1627 /* RacePadDatabase.h */,
+				7F3276F2126379B000BD1627 /* RacePadDatabase.m */,
+				7F3276EF126379B000BD1627 /* TableData.h */,
+				7F3276F0126379B000BD1627 /* TableData.m */,
+				4D86EDD2129A98C000AA49F9 /* Telemetry.h */,
+				4D86EDD3129A98C000AA49F9 /* Telemetry.m */,
+				7F9C67381265F50000F2FFEC /* TrackMap.h */,
+				7F9C67391265F50000F2FFEC /* TrackMap.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		7F9C10D71255E68B00770746 /* UIViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7F866020128ABEC800F13CB6 /* AlertViewController.h */,
+				7F866021128ABEC800F13CB6 /* AlertViewController.m */,
+				4D1563F712898E32000E959D /* PitWindowViewController.h */,
+				4D1563F812898E32000E959D /* PitWindowViewController.m */,
+				7F6244EF1282EF9E009A9D4F /* CompositeViewController.h */,
+				7F6244F01282EF9E009A9D4F /* CompositeViewController.m */,
+				4D8A66821282635500E9E19D /* DownloadProgress.h */,
+				4D8A66831282635500E9E19D /* DownloadProgress.m */,
+				7F6FB5CA1274A7EC00EF2B8C /* DriverLapListController.h */,
+				7F6FB5CB1274A7EC00EF2B8C /* DriverLapListController.m */,
+				7F88203D12632EB40010785D /* DriverListController.h */,
+				7F88203E12632EB40010785D /* DriverListController.m */,
+				7F9C10D81255E68B00770746 /* FirstViewController.h */,
+				7F9C10D91255E68B00770746 /* FirstViewController.m */,
+				7F9C684E12671CD200F2FFEC /* HTMLViewController.h */,
+				7F9C684F12671CD200F2FFEC /* HTMLViewController.m */,
+				7F9C1694125A176700770746 /* MovieViewController.h */,
+				7F9C1695125A176700770746 /* MovieViewController.m */,
+				4D807CEF12832AED00FDE400 /* ServerConnect.h */,
+				4D807CF012832AED00FDE400 /* ServerConnect.m */,
+				7F3276E1126375F400BD1627 /* SettingsViewController.h */,
+				7F3276E2126375F400BD1627 /* SettingsViewController.m */,
+				7F9C1C8C125E1C3400770746 /* TextViewController.h */,
+				7F9C1C8D125E1C3400770746 /* TextViewController.m */,
+				7F9C10FA1255EE1500770746 /* ThirdViewController.h */,
+				7F9C10FB1255EE1500770746 /* ThirdViewController.m */,
+				7F9C10DA1255E68B00770746 /* TrackMapViewController.h */,
+				7F9C10DB1255E68B00770746 /* TrackMapViewController.m */,
+				4D82FB3D1283F80C00F93A2B /* WorkOffline.h */,
+				4D82FB3E1283F80C00F93A2B /* WorkOffline.m */,
+				7FC2FBC1129AC94E00DAC96E /* TelemetryViewController.h */,
+				7FC2FBC2129AC94E00DAC96E /* TelemetryViewController.m */,
+				7F767E6C12A68525009249F7 /* CarViewController.h */,
+				7F767E6D12A68525009249F7 /* CarViewController.m */,
+			);
+			path = UIViewControllers;
+			sourceTree = "<group>";
+		};
+		7F9C10DF1255E6A900770746 /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				7F86601D128ABEB900F13CB6 /* AlertView.h */,
+				7F86601E128ABEB900F13CB6 /* AlertView.m */,
+				7F9C1B54125B82CA00770746 /* DrawingView.h */,
+				7F9C1B55125B82CA00770746 /* DrawingView.m */,
+				7F9C12BB12560D0300770746 /* EAGLView.h */,
+				7F9C12BC12560D0300770746 /* EAGLView.m */,
+				7F9C12BD12560D0300770746 /* ESRenderer.h */,
+				7F9C12BE12560D0300770746 /* ESRenderer.m */,
+				7F6239D5127E089F009A9D4F /* MovieView.h */,
+				7F6239D6127E089F009A9D4F /* MovieView.m */,
+				4D1563F112898CD0000E959D /* PitWindowView.h */,
+				4D1563F212898CD0000E959D /* PitWindowView.m */,
+				7F9C1F14125F18A000770746 /* SimpleListView.h */,
+				7F9C1F15125F18A000770746 /* SimpleListView.m */,
+				7FBDF97F12649EBE009D37FA /* TableDataView.h */,
+				7FBDF98012649EBE009D37FA /* TableDataView.m */,
+				7FBDFA841264B822009D37FA /* TrackMapView.h */,
+				7FBDFA851264B822009D37FA /* TrackMapView.m */,
+				7F86658E128C51DA00F13CB6 /* LeaderboardView.h */,
+				7F86658F128C51DA00F13CB6 /* LeaderboardView.m */,
+				7FC2FBBE129AC91700DAC96E /* TelemetryView.h */,
+				7FC2FBBF129AC91700DAC96E /* TelemetryView.m */,
+			);
+			path = UIViews;
+			sourceTree = "<group>";
+		};
+		7F9C1725125A2B9000770746 /* Constructs */ = {
+			isa = PBXGroup;
+			children = (
+				7F11F64B127197B800C88544 /* ElapsedTime.h */,
+				7F11F64C127197B800C88544 /* ElapsedTime.m */,
+				4D757B79126F01B700E32C41 /* BufferedDataStream.h */,
+				4D757B7A126F01B700E32C41 /* BufferedDataStream.m */,
+				4D757B7F126F028900E32C41 /* DataHandler.h */,
+				4D757B80126F028900E32C41 /* DataHandler.m */,
+				4DB39052126DFEF6009DA232 /* DataStream.h */,
+				7F9C1727125A2BD000770746 /* DataStream.m */,
+				4D757B7B126F01B700E32C41 /* FileDataStream.h */,
+				4D757B7C126F01B700E32C41 /* FileDataStream.m */,
+				7F9C1726125A2BD000770746 /* Socket.h */,
+				4DB3904D126DFEB0009DA232 /* Socket.m */,
+				7F76866A12AE304F009249F7 /* AnimationTimer.h */,
+				7F76866B12AE304F009249F7 /* AnimationTimer.m */,
+			);
+			path = Constructs;
+			sourceTree = "<group>";
+		};
+		7F9C1AD4125B7B6B00770746 /* RacePad */ = {
+			isa = PBXGroup;
+			children = (
+				7F9C1ADE125B7BD000770746 /* RacePadAppDelegate.h */,
+				7F9C1ADF125B7BD000770746 /* RacePadAppDelegate.m */,
+				7F9C1AF2125B7D5900770746 /* RacePadClientSocket.h */,
+				7F9C1AF3125B7D5900770746 /* RacePadClientSocket.m */,
+				7F32763012634AB000BD1627 /* RacePadCoordinator.h */,
+				7F32763112634AB000BD1627 /* RacePadCoordinator.m */,
+				4D757BA5126F08BE00E32C41 /* RacePadDataHandler.h */,
+				4D757BA6126F08BE00E32C41 /* RacePadDataHandler.m */,
+				4D807C6012831A8100FDE400 /* RacePadPrefs.h */,
+				4D807C6112831A8100FDE400 /* RacePadPrefs.m */,
+				7F6FB96E1275FDB200EF2B8C /* RacePadTimeController.h */,
+				7F6FB96F1275FDB200EF2B8C /* RacePadTimeController.m */,
+				7F6246A412844742009A9D4F /* RacePadTitleBarController.h */,
+				7F6246A512844742009A9D4F /* RacePadTitleBarController.m */,
+			);
+			path = RacePad;
+			sourceTree = "<group>";
+		};
+		7F9C1B75125CA10A00770746 /* UISupport */ = {
+			isa = PBXGroup;
+			children = (
+				7FBDF8FB12648507009D37FA /* DrawingViewController.h */,
+				7FBDF8FC12648507009D37FA /* DrawingViewController.m */,
+				7F62357A127B2018009A9D4F /* RacePadViewController.h */,
+				7F62357B127B2018009A9D4F /* RacePadViewController.m */,
+				7F31CC1B12709CA300F26C7B /* SimpleListViewController.h */,
+				7F31CC1C12709CA300F26C7B /* SimpleListViewController.m */,
+				7F6E7D941276ED540073A644 /* TimeViewController.h */,
+				7F6E7D951276ED540073A644 /* TimeViewController.m */,
+				7F6246A712844762009A9D4F /* TitleBarViewController.h */,
+				7F6246A812844762009A9D4F /* TitleBarViewController.m */,
+				7F866452128C3D4900F13CB6 /* BackgroundView.h */,
+				7F866453128C3D4900F13CB6 /* BackgroundView.m */,
+				7F767D9E12A67559009249F7 /* UIConstants.h */,
+			);
+			path = UISupport;
+			sourceTree = "<group>";
+		};
+		7FC2F8171295910D00DAC96E /* XIB Files */ = {
+			isa = PBXGroup;
+			children = (
+				7F767E9012A689F1009249F7 /* CarView.xib */,
+				7F317D43129BB71200F35097 /* TelemetryView.xib */,
+				7FB1C58712673E7F008A6C94 /* SecondView.xib */,
+				4D807CF412832B3400FDE400 /* ServerConnect.xib */,
+				7F31CA681270892700F26C7B /* SettingsView.xib */,
+				7FB1C58812673E7F008A6C94 /* TestTextView.xib */,
+				7FB1C58912673E7F008A6C94 /* ThirdView.xib */,
+				7F6FB8981275F11400EF2B8C /* TimeControlView.xib */,
+				7F6246DC12844D6F009A9D4F /* TitleBarView.xib */,
+				7FB1C58A12673E7F008A6C94 /* TrackMapView.xib */,
+				7FB1C58B12673E7F008A6C94 /* VideoView.xib */,
+				4D82FB421283F83300F93A2B /* WorkOffline.xib */,
+				4D15640412898FD1000E959D /* PitWindowView.xib */,
+				7FB1C58512673E7F008A6C94 /* HTMLView.xib */,
+				7FB1C58612673E7F008A6C94 /* MainWindow.xib */,
+				7F866015128ABE7500F13CB6 /* AlertControlView.xib */,
+				7F6244F21282EFB5009A9D4F /* CompositeView.xib */,
+				4D8A66871282639D00E9E19D /* DownloadProgress.xib */,
+				7F6FB5F51274AC4E00EF2B8C /* DriverLapListView.xib */,
+				7FB1C58412673E7F008A6C94 /* DriverListView.xib */,
+			);
+			name = "XIB Files";
+			sourceTree = "<group>";
+		};
+		7FC2F8181295911900DAC96E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				7F7683FA12AAA07D009249F7 /* SmallScreen.png */,
+				7F7683F812AAA06A009249F7 /* FullScreen.png */,
+				7F767CC112A6300D009249F7 /* GraphPaper.png */,
+				7F767CA612A62EC9009249F7 /* BlueBar.png */,
+				7F767CA712A62EC9009249F7 /* RedBar.png */,
+				7F0B27C612A58F8D00604392 /* CarbonFibre2.png */,
+				7F0B27C712A58F8D00604392 /* Turquoise.png */,
+				7F91FB4912A4138F00BFDFCC /* BlackBar.png */,
+				7F91FB3312A4059C00BFDFCC /* ShinyGreenButton.png */,
+				7F91FB3412A4059C00BFDFCC /* ShinyGreyButton.png */,
+				7F91FA4012A01D7D00BFDFCC /* GearCog.png */,
+				7F91FA0A12A011DE00BFDFCC /* RPMGreen.png */,
+				7F91FA0B12A011DE00BFDFCC /* RPMOrange.png */,
+				7F91FA0C12A011DE00BFDFCC /* RPMRed.png */,
+				7F91FA0D12A011DE00BFDFCC /* RPMWhite.png */,
+				7F91F8E4129D5CC800BFDFCC /* track-icon.png */,
+				7F91F8C8129D58F700BFDFCC /* wheel_icon.png */,
+				7F91F6E8129D130400BFDFCC /* Pedal.png */,
+				7F91F626129CFF4800BFDFCC /* TelemetryCar.png */,
+				7F91F627129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png */,
+				7F91F624129CFF3100BFDFCC /* LightMetalSmall.png */,
+				7F91F46E129BD3C300BFDFCC /* TelemetryBG.png */,
+				7F91F46F129BD3C300BFDFCC /* TelemetrySteeringWheel.png */,
+				7F068129126DDA6800C9EE5D /* world.png */,
+				7F62476012851255009A9D4F /* YellowFlag.png */,
+				7F62475D12851255009A9D4F /* RedFlag.png */,
+				7F6FB6BB127577FE00EF2B8C /* RightArrow.png */,
+				7F62475E12851255009A9D4F /* SCFlag.png */,
+				7F62475F12851255009A9D4F /* SCInFlag.png */,
+				7F068128126DDA6800C9EE5D /* preferences.png */,
+				7F068127126DDA6800C9EE5D /* newspaper.png */,
+				7F067F4C126DAE1700C9EE5D /* Parchment.png */,
+				7F067F4B126DAE1700C9EE5D /* Metal.png */,
+				7F6246A21284471E009A9D4F /* MGPLogo.png */,
+				7F068126126DDA6800C9EE5D /* monitor.png */,
+				7F865A15128776B600F13CB6 /* Icon-72.png */,
+				7F865A16128776B600F13CB6 /* Icon-Small-50.png */,
+				7F865A17128776B600F13CB6 /* Icon-Small.png */,
+				7F865A18128776B600F13CB6 /* Icon.png */,
+				7F865A19128776B600F13CB6 /* Icon@2x.png */,
+				7F6FB6BA127577FE00EF2B8C /* LeftArrow.png */,
+				7F865A7512880EBF00F13CB6 /* ListIcon.png */,
+				4D807C0E1283061500FDE400 /* GPSGreen.png */,
+				4D807C0F1283061500FDE400 /* GPSRed.png */,
+				7F62475C12851255009A9D4F /* GreenFlag.png */,
+				4D1349C7128A939800A6E375 /* ArrowLeader.png */,
+				4D1349C8128A939800A6E375 /* BlueFlag.png */,
+				7F62475B12851255009A9D4F /* ChequeredFlag.png */,
+				7F068125126DDA6800C9EE5D /* clock.png */,
+				7FC2F764129429B400DAC96E /* Replay.png */,
+				7FC2F4B61292E20400DAC96E /* Grass.png */,
+				7FC2EAA8128C926B00DAC96E /* AlertChequeredFlag.png */,
+				7FC2EAA9128C926B00DAC96E /* AlertGreenFlag.png */,
+				7FC2EAAA128C926B00DAC96E /* AlertOvertake.png */,
+				7FC2EAAB128C926B00DAC96E /* AlertPin.png */,
+				7FC2EAAC128C926B00DAC96E /* AlertPitstop.png */,
+				7FC2EAAD128C926B00DAC96E /* AlertRedFlag.png */,
+				7FC2EAAE128C926B00DAC96E /* AlertSafetyCar.png */,
+				7FC2EAAF128C926B00DAC96E /* AlertWarning.png */,
+				7FC2EAB0128C926B00DAC96E /* AlertYellowFlag.png */,
+				7FC2EAB1128C926B00DAC96E /* StateChequered.png */,
+				7FC2EAB2128C926B00DAC96E /* StateGreen.png */,
+				7FC2EAB3128C926B00DAC96E /* StateRed.png */,
+				7FC2EAB4128C926B00DAC96E /* StateSC.png */,
+				7FC2EAB5128C926B00DAC96E /* StateSCIn.png */,
+				7FC2EAB6128C926B00DAC96E /* StateYellow.png */,
+				7FC2EAB7128C926B00DAC96E /* TitleStateSC.png */,
+				7F8664E5128C46CA00F13CB6 /* Kerbs.png */,
+				7F86602A128AC1D000F13CB6 /* connections.png */,
+				7F86602B128AC1D000F13CB6 /* pause.png */,
+				7F86602C128AC1D000F13CB6 /* play.png */,
+				7F86602D128AC1D000F13CB6 /* trend.png */,
+				7F866017128ABE9700F13CB6 /* Default-Landscape.png */,
+				7F866018128ABE9700F13CB6 /* Default-Portrait.png */,
+				7F866019128ABE9700F13CB6 /* PopupImage.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* RacePad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RacePad" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RacePad;
+			productName = RacePad;
+			productReference = 1D6058910D05DD3D006BFB54 /* RacePad.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* RacePad */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* RacePad */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F9C169E125A1BBB00770746 /* Movie on 2010-10-04 at 16.26.mov in Resources */,
+				7FB1C58C12673E7F008A6C94 /* DriverListView.xib in Resources */,
+				7FB1C58D12673E7F008A6C94 /* HTMLView.xib in Resources */,
+				7FB1C58E12673E7F008A6C94 /* MainWindow.xib in Resources */,
+				7FB1C58F12673E7F008A6C94 /* SecondView.xib in Resources */,
+				7FB1C59012673E7F008A6C94 /* TestTextView.xib in Resources */,
+				7FB1C59112673E7F008A6C94 /* ThirdView.xib in Resources */,
+				7FB1C59212673E7F008A6C94 /* TrackMapView.xib in Resources */,
+				7FB1C59312673E7F008A6C94 /* VideoView.xib in Resources */,
+				7F067F4D126DAE1700C9EE5D /* Metal.png in Resources */,
+				7F067F4E126DAE1700C9EE5D /* Parchment.png in Resources */,
+				7F06812A126DDA6800C9EE5D /* clock.png in Resources */,
+				7F06812B126DDA6800C9EE5D /* monitor.png in Resources */,
+				7F06812C126DDA6800C9EE5D /* newspaper.png in Resources */,
+				7F06812D126DDA6800C9EE5D /* preferences.png in Resources */,
+				7F06812E126DDA6800C9EE5D /* world.png in Resources */,
+				7F31CA691270892700F26C7B /* SettingsView.xib in Resources */,
+				7F6FB5F61274AC4E00EF2B8C /* DriverLapListView.xib in Resources */,
+				7F6FB6BC127577FE00EF2B8C /* LeftArrow.png in Resources */,
+				7F6FB6BD127577FE00EF2B8C /* RightArrow.png in Resources */,
+				7F6FB8991275F11400EF2B8C /* TimeControlView.xib in Resources */,
+				4D8A66881282639D00E9E19D /* DownloadProgress.xib in Resources */,
+				7F6244F31282EFB5009A9D4F /* CompositeView.xib in Resources */,
+				4D807C101283061500FDE400 /* GPSGreen.png in Resources */,
+				4D807C111283061500FDE400 /* GPSRed.png in Resources */,
+				4D807CF512832B3400FDE400 /* ServerConnect.xib in Resources */,
+				4D82FB431283F83300F93A2B /* WorkOffline.xib in Resources */,
+				7F6246A31284471E009A9D4F /* MGPLogo.png in Resources */,
+				7F6246DD12844D6F009A9D4F /* TitleBarView.xib in Resources */,
+				7F62476112851255009A9D4F /* ChequeredFlag.png in Resources */,
+				7F62476212851255009A9D4F /* GreenFlag.png in Resources */,
+				7F62476312851255009A9D4F /* RedFlag.png in Resources */,
+				7F62476412851255009A9D4F /* SCFlag.png in Resources */,
+				7F62476512851255009A9D4F /* SCInFlag.png in Resources */,
+				7F62476612851255009A9D4F /* YellowFlag.png in Resources */,
+				7F865A1A128776B600F13CB6 /* Icon-72.png in Resources */,
+				7F865A1B128776B600F13CB6 /* Icon-Small-50.png in Resources */,
+				7F865A1C128776B600F13CB6 /* Icon-Small.png in Resources */,
+				7F865A1D128776B600F13CB6 /* Icon.png in Resources */,
+				7F865A1E128776B600F13CB6 /* Icon@2x.png in Resources */,
+				7F865A7612880EBF00F13CB6 /* ListIcon.png in Resources */,
+				4D15640512898FD1000E959D /* PitWindowView.xib in Resources */,
+				4D1349C9128A939800A6E375 /* ArrowLeader.png in Resources */,
+				4D1349CA128A939800A6E375 /* BlueFlag.png in Resources */,
+				7F866016128ABE7500F13CB6 /* AlertControlView.xib in Resources */,
+				7F86601A128ABE9700F13CB6 /* Default-Landscape.png in Resources */,
+				7F86601B128ABE9700F13CB6 /* Default-Portrait.png in Resources */,
+				7F86601C128ABE9700F13CB6 /* PopupImage.png in Resources */,
+				7F86602E128AC1D000F13CB6 /* connections.png in Resources */,
+				7F86602F128AC1D000F13CB6 /* pause.png in Resources */,
+				7F866030128AC1D000F13CB6 /* play.png in Resources */,
+				7F866031128AC1D000F13CB6 /* trend.png in Resources */,
+				7F8664E6128C46CA00F13CB6 /* Kerbs.png in Resources */,
+				7FC2EAB8128C926C00DAC96E /* AlertChequeredFlag.png in Resources */,
+				7FC2EAB9128C926C00DAC96E /* AlertGreenFlag.png in Resources */,
+				7FC2EABA128C926C00DAC96E /* AlertOvertake.png in Resources */,
+				7FC2EABB128C926C00DAC96E /* AlertPin.png in Resources */,
+				7FC2EABC128C926C00DAC96E /* AlertPitstop.png in Resources */,
+				7FC2EABD128C926C00DAC96E /* AlertRedFlag.png in Resources */,
+				7FC2EABE128C926C00DAC96E /* AlertSafetyCar.png in Resources */,
+				7FC2EABF128C926C00DAC96E /* AlertWarning.png in Resources */,
+				7FC2EAC0128C926C00DAC96E /* AlertYellowFlag.png in Resources */,
+				7FC2EAC1128C926C00DAC96E /* StateChequered.png in Resources */,
+				7FC2EAC2128C926C00DAC96E /* StateGreen.png in Resources */,
+				7FC2EAC3128C926C00DAC96E /* StateRed.png in Resources */,
+				7FC2EAC4128C926C00DAC96E /* StateSC.png in Resources */,
+				7FC2EAC5128C926C00DAC96E /* StateSCIn.png in Resources */,
+				7FC2EAC6128C926C00DAC96E /* StateYellow.png in Resources */,
+				7FC2EAC7128C926C00DAC96E /* TitleStateSC.png in Resources */,
+				7FC2F4B71292E20400DAC96E /* Grass.png in Resources */,
+				7FC2F765129429B400DAC96E /* Replay.png in Resources */,
+				7F317D44129BB71200F35097 /* TelemetryView.xib in Resources */,
+				7F91F470129BD3C300BFDFCC /* TelemetryBG.png in Resources */,
+				7F91F471129BD3C300BFDFCC /* TelemetrySteeringWheel.png in Resources */,
+				7F91F625129CFF3100BFDFCC /* LightMetalSmall.png in Resources */,
+				7F91F628129CFF4800BFDFCC /* TelemetryCar.png in Resources */,
+				7F91F629129CFF4800BFDFCC /* TelemetrySteeringWheelSmall.png in Resources */,
+				7F91F6E9129D130400BFDFCC /* Pedal.png in Resources */,
+				7F91F8C9129D58F700BFDFCC /* wheel_icon.png in Resources */,
+				7F91F8E5129D5CC800BFDFCC /* track-icon.png in Resources */,
+				7F91FA0E12A011DE00BFDFCC /* RPMGreen.png in Resources */,
+				7F91FA0F12A011DE00BFDFCC /* RPMOrange.png in Resources */,
+				7F91FA1012A011DE00BFDFCC /* RPMRed.png in Resources */,
+				7F91FA1112A011DE00BFDFCC /* RPMWhite.png in Resources */,
+				7F91FA4112A01D7D00BFDFCC /* GearCog.png in Resources */,
+				7F91FB3512A4059C00BFDFCC /* ShinyGreenButton.png in Resources */,
+				7F91FB3612A4059C00BFDFCC /* ShinyGreyButton.png in Resources */,
+				7F91FB4A12A4138F00BFDFCC /* BlackBar.png in Resources */,
+				7F0B27C812A58F8D00604392 /* CarbonFibre2.png in Resources */,
+				7F0B27C912A58F8D00604392 /* Turquoise.png in Resources */,
+				7F767CA812A62EC9009249F7 /* BlueBar.png in Resources */,
+				7F767CA912A62EC9009249F7 /* RedBar.png in Resources */,
+				7F767CC212A6300D009249F7 /* GraphPaper.png in Resources */,
+				7F767E9112A689F1009249F7 /* CarView.xib in Resources */,
+				7F7683F912AAA06A009249F7 /* FullScreen.png in Resources */,
+				7F7683FB12AAA07D009249F7 /* SmallScreen.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				7F9C10DC1255E68B00770746 /* FirstViewController.m in Sources */,
+				7F9C10DD1255E68B00770746 /* TrackMapViewController.m in Sources */,
+				7F9C10FC1255EE1500770746 /* ThirdViewController.m in Sources */,
+				7F9C12C212560D0300770746 /* EAGLView.m in Sources */,
+				7F9C12C312560D0300770746 /* ESRenderer.m in Sources */,
+				7F9C1696125A176700770746 /* MovieViewController.m in Sources */,
+				7F9C1728125A2BD000770746 /* DataStream.m in Sources */,
+				7F9C1AE0125B7BD000770746 /* RacePadAppDelegate.m in Sources */,
+				7F9C1AF4125B7D5900770746 /* RacePadClientSocket.m in Sources */,
+				7F9C1B56125B82CA00770746 /* DrawingView.m in Sources */,
+				7F9C1C8E125E1C3400770746 /* TextViewController.m in Sources */,
+				7F9C1F16125F18A000770746 /* SimpleListView.m in Sources */,
+				7F88203F12632EB40010785D /* DriverListController.m in Sources */,
+				7F32763212634AB000BD1627 /* RacePadCoordinator.m in Sources */,
+				7F3276E3126375F400BD1627 /* SettingsViewController.m in Sources */,
+				7F3276F3126379B000BD1627 /* TableData.m in Sources */,
+				7F3276F4126379B000BD1627 /* RacePadDatabase.m in Sources */,
+				7FBDF8FD12648507009D37FA /* DrawingViewController.m in Sources */,
+				7FBDF98112649EBE009D37FA /* TableDataView.m in Sources */,
+				7FBDFA861264B822009D37FA /* TrackMapView.m in Sources */,
+				7F9C673A1265F50000F2FFEC /* TrackMap.m in Sources */,
+				7F9C685012671CD200F2FFEC /* HTMLViewController.m in Sources */,
+				7FB1C59A12673E9F008A6C94 /* ImageListStore.m in Sources */,
+				7F31CC1D12709CA300F26C7B /* SimpleListViewController.m in Sources */,
+				4DB3904E126DFEB0009DA232 /* Socket.m in Sources */,
+				4D757B7D126F01B700E32C41 /* BufferedDataStream.m in Sources */,
+				4D757B7E126F01B700E32C41 /* FileDataStream.m in Sources */,
+				4D757B81126F028900E32C41 /* DataHandler.m in Sources */,
+				4D757BA7126F08BE00E32C41 /* RacePadDataHandler.m in Sources */,
+				7F11F64D127197B800C88544 /* ElapsedTime.m in Sources */,
+				7F6FB5CC1274A7EC00EF2B8C /* DriverLapListController.m in Sources */,
+				7F6FB9701275FDB200EF2B8C /* RacePadTimeController.m in Sources */,
+				7F6E7D961276ED540073A644 /* TimeViewController.m in Sources */,
+				7F62357C127B2018009A9D4F /* RacePadViewController.m in Sources */,
+				7F6239D7127E089F009A9D4F /* MovieView.m in Sources */,
+				4D8A66851282635500E9E19D /* DownloadProgress.m in Sources */,
+				7F6244F11282EF9E009A9D4F /* CompositeViewController.m in Sources */,
+				4D807C6212831A8100FDE400 /* RacePadPrefs.m in Sources */,
+				4D807CF212832AED00FDE400 /* ServerConnect.m in Sources */,
+				4D82FB401283F80C00F93A2B /* WorkOffline.m in Sources */,
+				7F6246A612844742009A9D4F /* RacePadTitleBarController.m in Sources */,
+				7F6246A912844762009A9D4F /* TitleBarViewController.m in Sources */,
+				4D782602128989B100BE0329 /* PitWindow.m in Sources */,
+				4D1563F312898CD0000E959D /* PitWindowView.m in Sources */,
+				4D1563F912898E32000E959D /* PitWindowViewController.m in Sources */,
+				7F86601F128ABEB900F13CB6 /* AlertView.m in Sources */,
+				7F866022128ABEC800F13CB6 /* AlertViewController.m in Sources */,
+				7F866025128ABEE300F13CB6 /* AlertData.m in Sources */,
+				7F866454128C3D4900F13CB6 /* BackgroundView.m in Sources */,
+				7F866590128C51DA00F13CB6 /* LeaderboardView.m in Sources */,
+				4D86EDD4129A98C000AA49F9 /* Telemetry.m in Sources */,
+				7FC2FBC0129AC91700DAC96E /* TelemetryView.m in Sources */,
+				7FC2FBC3129AC94E00DAC96E /* TelemetryViewController.m in Sources */,
+				7F767E6E12A68525009249F7 /* CarViewController.m in Sources */,
+<<<<<<< .mine
+				7F76866C12AE304F009249F7 /* AnimationTimer.m in Sources */,
+=======
+				4DE8989712ACFA79000FEE9C /* DriverNames.m in Sources */,
+>>>>>>> .r99
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "RacePad-Info.plist";
+				PRODUCT_NAME = RacePad;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = RacePad_Prefix.pch;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "RacePad-Info.plist";
+				PRODUCT_NAME = RacePad;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RacePad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RacePad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

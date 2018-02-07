@@ -1,0 +1,379 @@
+    //
+//  HelpViewController.m
+//  RacePad
+//
+//  Created by Gareth Griffith on 1/25/11.
+//  Copyright 2011 SBG Racing Services Ltd. All rights reserved.
+//
+
+#import "HelpViewController.h"
+#import "BasePadCoordinator.h"
+
+
+@implementation HelpViewController
+
+@synthesize parentPopover;
+
+static id helpMaster = nil;
+
++ (void) specifyHelpMaster:(id) master
+{
+	helpMaster = master;
+}
+
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+	{
+        // Custom initialization
+		parentPopover = nil;
+		
+		helpButtonCurrent = nil;
+		helpTextCurrent = nil;
+		helpTextPrevious = nil;
+		
+		animatingViews = false;
+		loadCount = 0;
+		loadTarget = 0;
+		loadComplete = false;
+		loadTimer = nil;
+		needsRestartAfterLoad = false;
+
+    }
+    return self;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Overriden to allow any orientation.
+    return YES;
+}
+
+- (void)viewDidLoad
+{
+	
+	[super viewDidLoad];
+
+	[self positionViews];
+
+	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"PredictionBG.png"]];
+	[backgroundView setBackgroundColor:background];
+	[background release];
+
+	[helpTextDefault setDelegate:self];
+	[helpText1 setDelegate:self];
+	[helpText2 setDelegate:self];
+	[helpText3 setDelegate:self];
+	[helpText4 setDelegate:self];
+	[helpText5 setDelegate:self];
+	[helpText6 setDelegate:self];
+	[helpText7 setDelegate:self];
+	[helpText8 setDelegate:self];
+	[helpText9 setDelegate:self];
+	[helpText10 setDelegate:self];
+	
+	if ( helpMaster
+	  && [helpMaster conformsToProtocol:@protocol(HelpViewMaster)]
+	  && [helpMaster helpMasterPlaying])
+	{
+		[helpMaster helpMasterPausePlay];
+		needsRestartAfterLoad = true;
+	}
+	else
+	{
+		needsRestartAfterLoad = false;
+	}
+
+	loadCount = 0;
+	loadTarget = 11;
+	loadComplete = false;
+	
+	[self setLoadTimer];
+
+	[self getHTMLForView:helpTextDefault WithIndex:0];
+	[self getHTMLForView:helpText1 WithIndex:1];
+	[self getHTMLForView:helpText2 WithIndex:2];
+	[self getHTMLForView:helpText3 WithIndex:3];
+	[self getHTMLForView:helpText4 WithIndex:4];
+	[self getHTMLForView:helpText5 WithIndex:5];
+	[self getHTMLForView:helpText6 WithIndex:6];
+	[self getHTMLForView:helpText7 WithIndex:7];
+	[self getHTMLForView:helpText8 WithIndex:8];
+	[self getHTMLForView:helpText9 WithIndex:9];
+	[self getHTMLForView:helpText10 WithIndex:10];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	if(helpButtonCurrent)
+		[helpButtonCurrent setSelected:false];
+	
+	[helpTextDefault setHidden:false];
+	[helpText1 setHidden:true];
+	[helpText2 setHidden:true];
+	[helpText3 setHidden:true];
+	[helpText4 setHidden:true];
+	[helpText5 setHidden:true];
+	[helpText6 setHidden:true];
+	[helpText7 setHidden:true];
+	[helpText8 setHidden:true];
+	[helpText9 setHidden:true];
+	[helpText10 setHidden:true];
+	
+	helpTextCurrent = helpTextDefault;
+	helpButtonCurrent = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+
+- (void)viewDidUnload
+{
+	if(helpButtonCurrent)
+		[helpButtonCurrent setSelected:false];
+	
+	if(helpTextCurrent)
+		[helpTextCurrent setHidden:true];
+	
+	helpButtonCurrent = nil;
+	helpTextCurrent = nil;
+
+	[super viewDidUnload];
+ }
+
+
+- (void)dealloc
+{
+    [super dealloc];
+}
+
+- (void) positionViews
+{
+	[[self view] setFrame:CGRectMake(0, 0, 600, 650)];
+	[backgroundView setFrame:CGRectMake(0, 44, 600, 606)];
+	[imageView setFrame:CGRectMake(44, 14, 512, 384)];
+	
+	// N.B. The NIB file must have the imageView at this position so that the
+	// help buttons will line up correctly.
+	
+	[helpTextDefault setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText1 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText2 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText3 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText4 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText5 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText6 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText7 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText8 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText9 setFrame:CGRectMake(44, 405, 512, 187)];
+	[helpText10 setFrame:CGRectMake(44, 405, 512, 187)];
+}
+
+- (IBAction) helpButtonPressed:(id)sender
+{	
+	// Do nothing if we're already animating a change
+	if(animatingViews)
+		return;
+	
+	helpTextPrevious = helpTextCurrent;
+	
+	if(sender == helpButton1)
+		helpTextCurrent = helpText1;
+	else if(sender == helpButton2)
+		helpTextCurrent = helpText2;
+	else if(sender == helpButton3)
+		helpTextCurrent = helpText3;
+	else if(sender == helpButton4)
+		helpTextCurrent = helpText4;
+	else if(sender == helpButton5)
+		helpTextCurrent = helpText5;
+	else if(sender == helpButton6)
+		helpTextCurrent = helpText6;
+	else if(sender == helpButton7)
+		helpTextCurrent = helpText7;
+	else if(sender == helpButton8)
+		helpTextCurrent = helpText8;
+	else if(sender == helpButton9)
+		helpTextCurrent = helpText9;
+	else if(sender == helpButton10)
+		helpTextCurrent = helpText10;
+	
+	// Do nothing if there's no change
+	if(helpTextCurrent == helpTextPrevious)
+		return;
+	
+	// Otherwise, update the button and animate swap of text views
+	
+	animatingViews = true;
+	
+	if(helpButtonCurrent)
+		[helpButtonCurrent setSelected:false];
+	
+	helpButtonCurrent = (UIButton *)sender;
+	
+	if(helpButtonCurrent)
+		[helpButtonCurrent setSelected:true];
+	
+	[[helpTextPrevious superview] bringSubviewToFront:helpTextPrevious];
+	[helpTextCurrent setHidden:false];
+	
+	[UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+	[helpTextPrevious setAlpha:0.0];
+	[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:helpTextPrevious cache:false];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(textSwapAnimationDidStop:finished:context:)];
+	[UIView commitAnimations];
+}
+
+- (void) textSwapAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void*)context
+{
+	if([finished intValue] == 1)
+	{
+		[helpTextPrevious setHidden:true];
+		[helpTextPrevious setAlpha:1.0];
+		
+		animatingViews = false;
+	}
+}
+
+- (IBAction) closePressed:(id)sender
+{
+	if(parentPopover)
+	{
+		[parentPopover dismissPopoverAnimated:true];
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Virtual method for loading text into web views
+
+- (void) getHTMLForView:(UIWebView *)webView WithIndex:(int)index
+{
+	if(!webView)
+		return;
+	
+	NSMutableString * html = [[NSMutableString alloc] init];
+	[html appendString:@"<html><head><meta name=""RacePad Help"" content=""width=300""/></head><body>"];
+	
+	switch(index)
+	{
+		case 0:
+			[html appendString:@"Welcome to RacePad Help."];
+			[html appendString:@"<p>Tap on any red question mark buttons to get specific information about that area of the screen."];
+			break;
+			
+		case 1:
+			[html appendString:@"<h3>Page 1</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 2:
+			[html appendString:@"<h3>Page 2</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 3:
+			[html appendString:@"<h3>Page 3</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 4:
+			[html appendString:@"<h3>Page 4</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 5:
+			[html appendString:@"<h3>Page 5</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 6:
+			[html appendString:@"<h3>Page 6</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 7:
+			[html appendString:@"<h3>Page 7</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+						
+		case 8:
+			[html appendString:@"<h3>Page 8</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 9:
+			[html appendString:@"<h3>Page 9</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+			
+		case 10:
+			[html appendString:@"<h3>Page 10</h3>"];
+			[html appendString:@"<p>Racepad Help"];
+			break;
+	}
+	
+	[html appendString:@"</body</html>"];
+	
+	[webView loadHTMLString:html baseURL:[[NSBundle mainBundle] bundleURL]];
+	
+	[html release];	
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  UIWebViewDelegate routines
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+	[webView setNeedsDisplay];
+	
+	loadCount++;
+	
+	if(loadCount == loadTarget)
+	{
+		loadComplete = true;
+		if(needsRestartAfterLoad)
+		{
+			needsRestartAfterLoad = false;
+			if ( helpMaster
+			  && [helpMaster conformsToProtocol:@protocol(HelpViewMaster)] )
+				[helpMaster helpMasterStartPlay];
+		}
+	}
+}
+
+- (void) setLoadTimer
+{
+	// Timer to restart play if loading is not finished after 2 seconds
+	if(loadTimer)
+		[loadTimer invalidate];
+	
+	loadTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadTimerExpired:) userInfo:nil repeats:NO];	
+}
+
+- (void) loadTimerExpired:(NSTimer *)theTimer
+{
+	loadTimer = nil;
+	
+	if(needsRestartAfterLoad)
+	{
+		needsRestartAfterLoad = false;
+		if ( helpMaster
+		  && [helpMaster conformsToProtocol:@protocol(HelpViewMaster)] )
+			[helpMaster helpMasterStartPlay];
+	}
+}
+
+@end
