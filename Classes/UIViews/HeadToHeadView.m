@@ -123,7 +123,7 @@
 	// Do nothing for the moment
 	return;
 	
-	if(current_size_.width < 1 || current_size_.height < 1)
+	/*if(current_size_.width < 1 || current_size_.height < 1)
 		return;
 	
 	float currentUserPan = userOffsetY;
@@ -150,7 +150,7 @@
 	if(userOffsetY > (0.5 - 0.5 / userScaleY))
 		userOffsetY = (0.5 - 0.5 / userScaleY);
 	else if(userOffsetY < (0.5 / userScaleY - 0.5))
-		userOffsetY = (0.5 / userScaleY - 0.5);
+		userOffsetY = (0.5 / userScaleY - 0.5);*/
 	
 }
 

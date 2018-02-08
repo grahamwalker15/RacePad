@@ -83,8 +83,6 @@ static BasePadTitleBarController * instance_ = nil;
 
 - (void) updateLiveIndicator
 {
-	UIButton * liveIndicator = [titleBarController playStateButton];
-	
 	if([[BasePadCoordinator Instance] liveMode])
 		[self showLiveIndicator];
 	else

@@ -792,7 +792,7 @@
 		[driver_lap_list_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentModalViewController:driver_lap_list_controller_ animated:true];
+		[self presentViewController:driver_lap_list_controller_ animated:true completion:nil];
 		driver_lap_list_controller_displayed_ = true;
 	}
 }
@@ -805,7 +805,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:animated];
+		[self dismissViewControllerAnimated:animated completion:nil];
 		driver_lap_list_controller_displayed_ = false;
 	}
 }
@@ -827,7 +827,7 @@
 			[telemetry_controller_ setModalPresentationStyle:UIModalPresentationCurrentContext];
 			
 			// And present it
-			[self presentModalViewController:telemetry_controller_ animated:true];
+			[self presentViewController:telemetry_controller_ animated:true completion:nil];
 			telemetry_controller_displayed_ = true;
 		}
 }
@@ -840,7 +840,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:animated];
+		[self dismissViewControllerAnimated:animated completion:nil];
 		telemetry_controller_displayed_ = false;
 	}
 }

@@ -116,7 +116,7 @@ static UIImage *grassImage = nil;
 	// The positioning of cars is different depending on whether we're in simplified mode
 	if(simplified)
 	{
-		if(fabsf(x - 0.5) < 0.0001) // The reference car - FIXME - should have exlicit ID of reference
+        if(fabs(x - 0.5) < 0.0001) // The reference car - FIXME - should have exlicit ID of reference
 		{
 			row = 0;
 			shouldDraw = true;

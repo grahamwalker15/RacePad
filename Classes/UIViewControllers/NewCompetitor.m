@@ -101,7 +101,7 @@
 
 -(void) cancelPressed:(id)sender
 {
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 	[gameController cancelledRegister];
 }
 
@@ -115,7 +115,7 @@
 {
 	alreadyBad = b;
 	gameController = controller;
-	[gameController presentModalViewController:self animated:YES];
+	[gameController presentViewController:self animated:YES completion:nil];
 }
 
 @end

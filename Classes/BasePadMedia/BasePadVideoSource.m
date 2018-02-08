@@ -1111,7 +1111,6 @@
 				for (int i = 0 ; i < tracksCount ; i++)
 				{
 					AVPlayerItemTrack * track = (AVPlayerItemTrack * )[tracks objectAtIndex:i];
-					AVAssetTrack * assetTrack = [track assetTrack];
 					
 					if([track isEnabled]/* && [assetTrack isPlayable]*/)
 						tracksEnabled++;

@@ -93,7 +93,7 @@
 		[[RacePadCoordinator Instance] cancelDownload];
 		
 		// We will get a cancel later - but we'll dismiss now - just to be certain
-		[self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
 	}
 }
 

@@ -37,7 +37,7 @@ static BasePadPrefs *instance = nil;
 														   format:&format
 														   errorDescription:&errorDesc] retain];
 		if (!prefs) {
-			NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+			NSLog(@"Error reading plist: %@, format: %d", errorDesc, (int)format);
 			prefs = [[NSMutableDictionary alloc] init];
 		}
 	}

@@ -157,7 +157,7 @@ static UIImage *grassImage = nil;
 		lineColour = [[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0] retain];
 		textColour = [[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0] retain];
 
-		name = [[NSString stringWithString:@"SC"] retain];
+		name = @"SC";
 	}
 	else if(type == 5)	// Medical car
 	{
@@ -166,7 +166,7 @@ static UIImage *grassImage = nil;
 		lineColour = [[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0] retain];
 		textColour = [[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0] retain];
 		
-		name = [[NSString stringWithString:@"MC"] retain];
+		name = @"MC";
 	}
 	else if(pit)
 	{
@@ -1706,7 +1706,6 @@ static UIImage *grassImage = nil;
 	bool haveRecentUpdate = false;
 	for ( i = 0; i < carCount; i++ )
 	{
-		TrackCar *car = [cars objectAtIndex:i];
 		if([[cars objectAtIndex:i] lastUpdate] > currentTime - 5.0)
 		{
 			haveRecentUpdate = true;

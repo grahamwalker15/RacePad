@@ -171,7 +171,7 @@
 		[self setModalPresentationStyle:UIModalPresentationCurrentContext];
 		
 		// And present it
-		[self presentModalViewController:controller animated:true];
+		[self presentViewController:controller animated:true completion:nil];
 		childControllerDisplayed = true;
 		childController = controller;
 	}
@@ -185,7 +185,7 @@
 		[self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 		
 		// And dismiss it
-		[self dismissModalViewControllerAnimated:animated];
+		[self dismissViewControllerAnimated:animated completion:nil];
 		childControllerDisplayed = false;
 		childController = nil;
 	}

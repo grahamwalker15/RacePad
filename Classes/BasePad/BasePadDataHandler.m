@@ -294,7 +294,7 @@
 			{
 				fclose(saveFile);
 				NSFileManager *fm = [[NSFileManager alloc]init];
-				[fm setDelegate:self];
+				//[fm setDelegate:self];
 				[fm removeItemAtPath:saveFileName error:NULL];
 				[fm release];
 				[saveFileName release];
@@ -327,7 +327,7 @@
 			NSString *fileName = [folder stringByAppendingPathComponent:name];
 
 			NSFileManager *fm = [[NSFileManager alloc]init];
-			[fm setDelegate:self];
+			//[fm setDelegate:self];
 			[fm createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:NULL];
 			
 			int size = [stream PopInt];

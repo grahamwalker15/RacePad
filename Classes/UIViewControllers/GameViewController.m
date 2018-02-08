@@ -411,7 +411,7 @@
 		drivingGame = [[DrivingViewController alloc] initWithNibName:@"DrivingView" bundle:nil];
 	drivingGame.car = RPD_BLUE_CAR_;
 	inDrivingGame = true;
-	[self presentModalViewController:drivingGame animated:YES];
+	[self presentViewController:drivingGame animated:YES completion:nil];
 }
 
 -(IBAction)raceROSPressed:(id)sender
@@ -420,7 +420,7 @@
 		drivingGame = [[DrivingViewController alloc] initWithNibName:@"DrivingView" bundle:nil];
 	drivingGame.car = RPD_RED_CAR_;
 	inDrivingGame = true;
-	[self presentModalViewController:drivingGame animated:YES];
+	[self presentViewController:drivingGame animated:YES completion:nil];
 }
 
 -(IBAction)signOutPressed:(id)sender
@@ -623,7 +623,7 @@
 -(void)registeredUser
 {
 	if ( showingBadUser )
-		[newCompetitor dismissModalViewControllerAnimated:NO];
+		[newCompetitor dismissViewControllerAnimated:NO completion:nil];
 	
 	showingBadUser = false;
 	needPin = false;

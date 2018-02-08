@@ -132,9 +132,6 @@
 				description = [description stringByAppendingString:@" - "];
 				description = [description stringByAppendingString:[error localizedFailureReason]];
 			}
-			
-			int x = 0;
-			
 		}
 		
 	}
